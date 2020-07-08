@@ -2,19 +2,19 @@ Meeting notes 2020-06-24
 
 Census Opportunity Project (COP) PAFAG
 
-\#\# Precision Ag
+## Precision Ag
 
 Industry is fragmented
 
 Workflow -
 
-\* Farmer has a tractor with location info, GPS + sensors
+* Farmer has a tractor with location info, GPS + sensors
 
-\* John Deere -- market leader
+* John Deere -- market leader
 
-\* CNH (Case -- New Holland
+* CNH (Case -- New Holland
 
-\* Bayer / Monsanto
+* Bayer / Monsanto
 
 Low or no cost -- value add by reselling data
 
@@ -40,8 +40,8 @@ HDF of historic status of fields
 
 Nitrogen application has the most interest
 
-\
-\#\#\# Limit to Corn and Nitrogen needs
+
+### Limit to Corn and Nitrogen needs
 
 use the plant as a sensor
 
@@ -49,17 +49,17 @@ use the plant as a sensor
 
 use Sentinel, WorldView2, NAIP, ASTER, ALI, EOS
 
-\#\#\# Nitrogen savings plan
+### Nitrogen savings plan
 
-\#\#\# use historic data
+### use historic data
 
-\#\#\#
+###
 
-\#\#\# SurGo datsets
+### SurGo datsets
 
 paper by Jim Schepers
 
-\-\-\-\--
+-----
 
 preplanting
 
