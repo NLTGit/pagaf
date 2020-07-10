@@ -1,6 +1,6 @@
 # Precision Ag for the American Farmer
 
-By "New Light Technologies":https://newlighttechnologies.com/ for the "Census Opportunity Project":https://newlighttechnologies.com/
+By [New Light Technologies](https://newlighttechnologies.com/) for the [Census Opportunity Project](https://newlighttechnologies.com/)
 
 
 ## One-time dev setup
