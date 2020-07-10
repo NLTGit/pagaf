@@ -1,0 +1,12 @@
+Resources:
+  PagafSiteBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      AccessControl: PublicRead
+      WebsiteConfiguration:
+        IndexDocument: index.html
+Outputs:
+  PagafSiteBucket:
+    Value: !Ref PagafSiteBucket
+  PagafSiteUrl:
+    Value: !GetAtt PagafSiteBucket.WebsiteURL

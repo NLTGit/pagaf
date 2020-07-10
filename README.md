@@ -1,18 +1,37 @@
 # Precision Ag for the American Farmer
 
-Tasks
+By "New Light Technologies":https://newlighttechnologies.com/ for the "Census Opportunity Project":https://newlighttechnologies.com/
 
-- Integrate aws lambda with auth0
-  - File upload & access limited to account
-  - Keep in mind future requirements for organizations
 
-- Render fields on map
-  - Background map from mapbox
-  - Field boundary (& more?) from uploaded shapefiles
+## One-time dev setup
 
-- Render naip on map
+You should already have Python 3 and the AWS command-line tool.
 
-- Ag models integration
+It's a good idea to use virtualenv, this assumes you'll install the virtualenv somewhere outside your git working directory:
+
+```
+git clone git@github.com:NLTGit/pagaf.git
+python -m venv venv-pagaf
+.\venv-pagaf\Scripts\activate
+pip install -r pagaf/requirements.txt
+```
+
+
+## Deploy
+
+
+To create an instance of the app, use the `stack.py` script, replacing `my-pagaf` with a name that is meaningful to you:
+
+```
+python stack.py --stack-name my-pagaf create
+```
+
+After making changes, update thus:
+
+```
+python stack.py --stack-name my-pagaf update
+```
+
 
 ## Legal
 
