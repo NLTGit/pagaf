@@ -8,8 +8,8 @@ let config = await (await fetch('/config.json')).json()
 
 home.config.credentials = auth.awsCredentials
 
-home.listObjects({Prefix: userId}, dir => {
-    console.log(dir)
-})
+// todo: create farmer home if it doesn't exist
+
+home.listObjects({Prefix: userId+'/'}, console.log)
 
 })()
