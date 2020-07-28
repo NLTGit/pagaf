@@ -5,31 +5,13 @@ By [New Light Technologies](https://newlighttechnologies.com/) for the [Census O
 
 ## One-time dev setup
 
-You should already have Python 3 and the AWS command-line tool.
+[Create yourself an Auth0 tenant and some AWS resources](https://github.com/NLTGit/pagaf/wiki/Auth0-and-Amazon-setup). Make a `site/config.json` that includes the parameters pointing to those resources.
 
-It's a good idea to use virtualenv, this assumes you'll install the virtualenv somewhere outside your git working directory:
-
-```
-git clone git@github.com:NLTGit/pagaf.git
-python -m venv venv-pagaf
-.\venv-pagaf\Scripts\activate
-pip install -r pagaf/requirements.txt
-```
-
-
-## Deploy
-
-
-To create an instance of the app, use the `stack.py` script, replacing `my-pagaf` with a name that is meaningful to you:
+Then you should be able to host a dev instance on localhost with any old Web Server, for example:
 
 ```
-python stack.py --stack-name my-pagaf create
-```
-
-After making changes, update thus:
-
-```
-python stack.py --stack-name my-pagaf update
+cd site
+python -m http.server
 ```
 
 
