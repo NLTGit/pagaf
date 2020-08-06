@@ -1,18 +1,19 @@
 # Precision Ag for the American Farmer
 
-Tasks
+By [New Light Technologies](https://newlighttechnologies.com/) for the [Census Opportunity Project](https://newlighttechnologies.com/)
 
-- Integrate aws lambda with auth0
-  - File upload & access limited to account
-  - Keep in mind future requirements for organizations
 
-- Render fields on map
-  - Background map from mapbox
-  - Field boundary (& more?) from uploaded shapefiles
+## One-time dev setup
 
-- Render naip on map
+[Create yourself an Auth0 tenant and some AWS resources](https://github.com/NLTGit/pagaf/wiki/Auth0-and-Amazon-setup). Make a `site/config.json` that includes the parameters pointing to those resources.
 
-- Ag models integration
+Then you should be able to host a dev instance on localhost with any old Web Server, for example:
+
+```
+cd site
+python -m http.server
+```
+
 
 ## Legal
 
