@@ -3,10 +3,10 @@ locals {
 }
 
 resource "aws_iam_openid_connect_provider" "default" {
-  url = "https://pagaf-dev.us.auth0.com"
+  url = "https://${var.Auth0ConnectProvider}/"
 
   client_id_list = [
-    "https://${var.StaticWebResourcesBucketName}",
+    "${var.Auth0ClientID}"
   ]
 
   thumbprint_list = [
@@ -39,13 +39,40 @@ resource "aws_s3_bucket" "WebsiteBucket" {
   }
 }
 
+resource "aws_s3_bucket" "PrivateBucket" {
+  bucket = "${var.StaticWebResourcesBucketName}-db"
+  acl    = "private"
+  force_destroy = true
+  server_side_encryption_configuration {
+    rule {
+      apply_server_side_encryption_by_default {
+        sse_algorithm     = "AES256"
+      }
+    }
+  }
+
+  tags          = {
+    ProjectAndOwner = "${var.ProjectAndOwner}"
+    Environment = "${var.env}"
+  }
+}
+
 resource "aws_s3_bucket_metric" "Entire-bucket" {
   bucket = aws_s3_bucket.WebsiteBucket.id
   name   = var.StaticWebResourcesBucketName
 }
 
-resource "aws_s3_bucket_public_access_block" "example" {
+resource "aws_s3_bucket_public_access_block" "website" {
   bucket = aws_s3_bucket.WebsiteBucket.id
+
+  block_public_acls       = true
+  block_public_policy     = true
+  ignore_public_acls      = true
+  restrict_public_buckets = true
+}
+
+resource "aws_s3_bucket_public_access_block" "db" {
+  bucket = aws_s3_bucket.PrivateBucket.id
 
   block_public_acls       = true
   block_public_policy     = true
@@ -161,6 +188,74 @@ resource "aws_route53_record" "alias_route53_record" {
     zone_id                = aws_cloudfront_distribution.Distribution.hosted_zone_id
     evaluate_target_health = true
   }
+}
+
+#---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+#*********************************************************************************************************************
+# Auth0 private access role and policy
+#**********************************************************************************************************************
+
+resource "aws_iam_role" "private_s3_access_role" {
+  name               = "private-s3-role"
+  assume_role_policy = <<POLICY
+{
+    "Version": "2012-10-17",
+    "Statement": {
+        "Effect": "Allow",
+        "Principal": {"Federated": "${aws_iam_openid_connect_provider.default.arn}"},
+        "Action": "sts:AssumeRoleWithWebIdentity",
+        "Condition": {
+            "StringEquals": {"${var.Auth0ConnectProvider}:aud": "${var.Auth0ClientID}"}
+        }
+    }
+}
+POLICY
+}
+
+resource "aws_iam_policy" "policy" {
+  name        = "private_bucket_access"
+  description = "policy for auth0 access to private bucket"
+  policy      = <<POLICY
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": [
+                "s3:ListBucket*"
+            ],
+            "Resource": [
+                "arn:aws:s3:::${var.StaticWebResourcesBucketName}-db"
+            ],
+            "Condition": {
+                "StringLike": {
+                    "s3:prefix": [
+                        "${var.Auth0ConnectProvider}/:sub/*"
+                    ]
+                }
+            }
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "s3:GetObject",
+                "s3:PutObject",
+                "s3:DeleteObject"
+            ],
+            "Resource": [
+                "arn:aws:s3:::${var.StaticWebResourcesBucketName}-db/${var.Auth0ConnectProvider}/:sub/",
+                "arn:aws:s3:::${var.StaticWebResourcesBucketName}-db/${var.Auth0ConnectProvider}/:sub/*"
+            ]
+        }
+    ]
+}
+POLICY
+}
+
+resource "aws_iam_policy_attachment" "attach" {
+  name       = "attachment"
+  roles      = ["${aws_iam_role.private_s3_access_role.name}"]
+  policy_arn = aws_iam_policy.policy.arn
 }
 
 #---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
