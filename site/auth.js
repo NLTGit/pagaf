@@ -27,7 +27,7 @@ document.querySelector('.username').innerText = (await auth.auth0.getUser()).nam
 document.querySelector('a.logout').onclick = async click => {
   click.preventDefault()  // auth0.logout() redirects when complete
   document.body.setAttribute('aria-busy', true)
-  auth.auth0.logout()
+  auth.auth0.logout({returnTo: window.location.origin})
 }
 
 document.body.removeAttribute('aria-busy')
@@ -44,13 +44,13 @@ async function login() {
   }
 
   let config = await (await fetch('/config.json')).json()
+    , redirectUri = window.location.origin + '/home.html'
     , auth0 = await createAuth0Client(
-        // The key parts of this config are:
-        //
-        //  domain: auth0 tenant
-        //  client_id: auth0 application client id
-        //
-        config.auth0)
+        { domain:    config.auth0.domain
+        , client_id: config.auth0.client_id
+        , audience:  config.auth0.audience
+        , redirect_uri: redirectUri
+        })
 
   if ( ! await auth0.isAuthenticated()) {
     let q = window.location.search
@@ -62,7 +62,7 @@ async function login() {
       await auth0.loginWithRedirect(
         // In a real application, we'd redirect to different urls depending
         // on the context. For now, it's ok to home home on every refresh.
-        {redirect_uri: config.redirect_uri})
+        {redirect_uri: redirectUri})
   }
 
   return { auth0: auth0
