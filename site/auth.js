@@ -55,8 +55,8 @@ async function login() {
   if ( ! await auth0.isAuthenticated()) {
     let q = window.location.search
     if (/\bcode=/.test(q) && /\bstate=/.test(q)) {
-      await auth0.handleRedirectCallback()
-      window.history.replaceState(null, '', window.location.pathname)
+      try { await auth0.handleRedirectCallback() }
+      finally { window.history.replaceState(null, '', window.location.pathname) }
     }
     else
       await auth0.loginWithRedirect(
