@@ -12,4 +12,10 @@ home.config.credentials = auth.awsCredentials
 
 home.listObjects({Prefix: userId+'/'}, console.log)
 
+
+let cornSi = new AWS.S3({params: {Bucket: 'pagaf.nltgis.com'} })
+cornSi.config.credentials = auth.awsCredentials
+
+cornSi.listObjects({Prefix: 'r/corn/si/current'}, console.log)
+
 })()
