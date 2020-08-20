@@ -18,7 +18,7 @@
   <link href="css/style.css" rel="stylesheet">
 </head>
 
-<body aria-busy=true>
+<body aria-busy="true">
     <div id="spinnerContainer" class="spinContainer">
         <div class="loading-spinner"></div>
     </div>
@@ -28,11 +28,11 @@
             <button id="logout" class="organization">Log Out</button>
             <button id="organization" class="organization"></button>
         </div><div id="bar2" class="bar2"></div>
+        <div id="selectedFields" class="fieldBox">
+        </div>
         <div id="mapContainer" class="mapContainer">
-            <div id="selectedFields" class="fieldBox">
-                <p class='instructions'>Click a field on the map to select it</p>
-            </div>
             <div id="map" class="map">
+                <p class='instructions'>Click a field on the map to select it. When done, <button class="continue">continue</button> to model selection.</p>
                 <div id='tiles' class='tiles'></div>
                 <button class='layerButton stepClassed' onclick='toggleLayer(this)'>Layer visibility</button>
             </div>
@@ -140,6 +140,7 @@ function pageState() {
     ],
     this.mouseoverField = null;
     this.iLoad = 1;
+    this.map = null;
 }
 
 var layers = [
@@ -148,14 +149,32 @@ var layers = [
     'polys'
 ]
 
+async function checkExists(folder) {
+    let config = await (await fetch('/config.json')).json();
+    let auth = await authentication;
+    let home = new AWS.S3({params: {Bucket: config.aws.homeBucket} });
+    let userId = (await auth.auth0.getIdTokenClaims()).sub;
+    console.log(userId);
+
+    home.config.credentials = auth.awsCredentials;
+    //home.listObjects({Prefix: userId+'/'}, console.log)
+    home.headObject({Key:userId+"/"+folder}, function(err, data) {
+        if (err && err.code === "NotFound" ) {
+            console.log("code", err.code);
+        };
+    })
+}
+
+//checkExists("fields");
+
 function toggleLayer(el) {
     for (let i=0; i<layers.length;i++) {
-        var visibility = map.getLayoutProperty(layers[i], 'visibility');
+        var visibility = page.map.getLayoutProperty(layers[i], 'visibility');
         if (visibility === 'visible') {
-        map.setLayoutProperty(layers[i], 'visibility', 'none');
+        page.map.setLayoutProperty(layers[i], 'visibility', 'none');
         d3.select(el).classed('stepClassed',false);
         } else {
-        map.setLayoutProperty(layers[i], 'visibility', 'visible');
+        page.map.setLayoutProperty(layers[i], 'visibility', 'visible');
         d3.select(el).classed('stepClassed',true);
         }
     }
@@ -214,45 +233,6 @@ function Slider(id, field, domain) {
 eonrslider = new Slider("eonrSlider","eonr",[0,250]);
 mslider = new Slider("mSlider", "m", [0,50]);
 sithreshslider = new Slider("sithreshSlider","sithresh",[0,1]);
-
-// //create sliders
-// var margin = {right:25,left:25};
-
-// function hue(h) {
-//     //console.log(h);
-//   modelvars.eonr = h;
-//   eonrHandle.attr("cx", xeonr(h));
-//   //svgeonr.style("background-color", d3.hsl(h, 0.8, 0.8));
-//   render(document.getElementById('clipCanvas'));
-// }
-
-// var svgeonr = d3.select("#eonrSlider");
-// var xeonr = d3.scaleLinear()
-//     .domain([0,250])
-//     .range([0, +svgeonr.attr("width")-margin.right - margin.left])
-//     .clamp(true);
-
-// var eonrslider = svgeonr.append("g")
-// .attr("class","slider")
-// .attr("transform", "translate(" + margin.left + "," + svgeonr.attr("height") / 2 + ")");
-
-// eonrslider.append("line")
-// .attr("class", "track")
-//     .attr("x1", xeonr.range()[0])
-//     .attr("x2", xeonr.range()[1])
-//   .select(function() { return this.parentNode.appendChild(this.cloneNode(true)); })
-//     .attr("class", "track-inset")
-//   .select(function() { return this.parentNode.appendChild(this.cloneNode(true)); })
-//     .attr("class", "track-overlay")
-//     .call(d3.drag()
-//         .on("start.interrupt", function() { eonrslider.interrupt(); })
-//         .on("start drag", function() { hue(xeonr.invert(d3.event.x)); }));
-// //eonrslider.insert("g",".track-overlay")
-// var eonrHandle = eonrslider.insert("circle", ".track-overlay")
-// .attr("class","handle")
-// .attr("r",9)
-// .attr("cx", modelvars.eonr);
-
 
 var colorCanvas = document.getElementById("colorCanvas");
 colorCanvas.width = 200;
@@ -317,6 +297,74 @@ function loadDataSelection() {
         })
     datasets.exit().remove();
 }
+
+//function to return blank geojson, which is helpful to initialize 
+//layers that will be updated with user input
+function blank() {
+    return {
+        type:"FeatureCollection",
+        features:[]
+    };
+};
+
+function getUniqueFeatures(array) {
+    var existingFeatureKeys = {};
+    // Because features come from tiled vector data, feature geometries may be split
+    // or duplicated across tile boundaries and, as a result, features may appear
+    // multiple times in query results.
+    var uniqueFeatures = array.filter(function(el) {
+    if (existingFeatureKeys[el.id]) {
+    return false;
+    } else {
+    existingFeatureKeys[el.id] = true;
+    return true;
+    }
+    });
+    
+    return uniqueFeatures;
+}
+
+function setColor() {
+    if (loaded == 1) {
+      
+        var features = page.map.queryRenderedFeatures({ layers: ['polys'] });
+        //console.log(features);
+        for (let i = 0; i<features.length; i++) {
+            page.map.setFeatureState({
+                source:'ia',
+                sourceLayer:'ia',
+                id: features[i]['id']
+                }, {
+                'color':'#fff'
+                }
+            )
+        }
+    }
+   
+}
+
+function range(start, stop, step) {
+    if (typeof stop == 'undefined') {
+        // one param defined
+        stop = start;
+        start = 0;
+    }
+
+    if (typeof step == 'undefined') {
+        step = 1;
+    }
+
+    if ((step > 0 && start >= stop) || (step < 0 && start <= stop)) {
+        return [];
+    }
+
+    var result = [];
+    for (var i = start; step > 0 ? i < stop : i > stop; i += step) {
+        result.push(i);
+    }
+
+    return result;
+};
 
 function loadModelSelection() {
     hideAll();
@@ -531,133 +579,291 @@ function render(canvas) {
 
 }
 
+function canvasWork(imageArray, numx, numy, testField, pixelTL) {
+    console.log("inside canvas work");
+    console.log(testField);
+    const res = 256;
+    let imgHeight = res*numy;
+    let imgWidth = res*numx;
+    
+    let canvas = document.getElementById('testCanvas');
+    canvas.width = imgWidth;
+    canvas.height = imgHeight;
+    let ctx = canvas.getContext('2d');
+    let clipCanvas = document.getElementById('clipCanvas');
+    clipCanvas.width = imgWidth;
+    clipCanvas.height = imgHeight;
+    //let ctx = canvas.getContext('2d');
+    let ctxclip = clipCanvas.getContext('2d');
+    for (let i=0; i<imageArray.length; i++) {
+        console.log(i,(i%numx)*res,Math.floor(i/numx)*res);
+        ctx.drawImage(imageArray[i], (i%numx)*res, Math.floor(i/numx)*res, res, res);
+    }
+    
+    let imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+    
+    let fieldCoords; 
+    ctx.strokeStyle = "#31eefd";
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctxclip.strokeStyle = "#ff0000";
+    ctxclip.lineWidth = 2;
+    ctxclip.beginPath();
+    fieldCoordsArray = testField.geometry.coordinates;
+    if (testField.geometry.type=="Polygon" && fieldCoordsArray[0].length == 2) {
+        console.log("first");
+        //fieldCoords = testField.geometry.coordinates[0];
+        fieldCoords = fieldCoordsArray;
+        for (let i = 0; i < fieldCoords.length; i++) {
+        let thisPixel = pixel(fieldCoords[i][0],fieldCoords[i][1]);
+        
+        if (i==0) {
+            ctx.moveTo(thisPixel[0]-pixelTL[0], thisPixel[1]-pixelTL[1]);
+            ctxclip.moveTo(thisPixel[0]-pixelTL[0], thisPixel[1]-pixelTL[1]);
+            //ctx.moveTo(thisPixel[1]-pixelTL[1], thisPixel[0]-pixelTL[0]);
+        }
+        else {
+            ctx.lineTo(thisPixel[0]-pixelTL[0], thisPixel[1]-pixelTL[1]);
+            ctxclip.lineTo(thisPixel[0]-pixelTL[0], thisPixel[1]-pixelTL[1]);
+            //ctx.lineTo(thisPixel[1]-pixelTL[1], thisPixel[0]-pixelTL[0]);
+        } 
+        }
+        ctx.stroke();
+    }
+    else if (testField.geometry.type=="Polygon" && fieldCoordsArray[0].length > 2) {
+        console.log("third");
+        for (let j=0; j<fieldCoordsArray.length; j++) {
+        fieldCoords = fieldCoordsArray[j]; 
+        for (let i = 0; i < fieldCoords.length; i++) {
+        let thisPixel = pixel(fieldCoords[i][0],fieldCoords[i][1]);
+        
+        if (i==0) {
+            ctx.moveTo(thisPixel[0]-pixelTL[0], thisPixel[1]-pixelTL[1]);
+            ctxclip.moveTo(thisPixel[0]-pixelTL[0], thisPixel[1]-pixelTL[1]);
+            //ctx.moveTo(thisPixel[1]-pixelTL[1], thisPixel[0]-pixelTL[0]);
+        }
+        else {
+            ctx.lineTo(thisPixel[0]-pixelTL[0], thisPixel[1]-pixelTL[1]);
+            ctxclip.lineTo(thisPixel[0]-pixelTL[0], thisPixel[1]-pixelTL[1]);
+            //ctx.lineTo(thisPixel[1]-pixelTL[1], thisPixel[0]-pixelTL[0]);
+        } 
+        }
+        ctx.stroke();
+        }
+    }
+   else {
+        console.log("second");
+        for (let j=0; j<fieldCoordsArray[0].length; j++) {
+        fieldCoords = fieldCoordsArray[0][j]; 
+        for (let i = 0; i < fieldCoords.length; i++) {
+        let thisPixel = pixel(fieldCoords[i][0],fieldCoords[i][1]);
+        
+        if (i==0) {
+            ctx.moveTo(thisPixel[0]-pixelTL[0], thisPixel[1]-pixelTL[1]);
+            ctxclip.moveTo(thisPixel[0]-pixelTL[0], thisPixel[1]-pixelTL[1]);
+            //ctx.moveTo(thisPixel[1]-pixelTL[1], thisPixel[0]-pixelTL[0]);
+        }
+        else {
+            ctx.lineTo(thisPixel[0]-pixelTL[0], thisPixel[1]-pixelTL[1]);
+            ctxclip.lineTo(thisPixel[0]-pixelTL[0], thisPixel[1]-pixelTL[1]);
+            //ctx.lineTo(thisPixel[1]-pixelTL[1], thisPixel[0]-pixelTL[0]);
+        } 
+        }
+        ctx.stroke();
+        }
+    }
+
+    
+    
+    // //ctxclip.stroke();
+    // fieldCoords = testField.geometry.coordinates[0][1];
+    // for (let i = 0; i < fieldCoords.length; i++) {
+    //     let thisPixel = pixel(fieldCoords[i][0],fieldCoords[i][1]);
+        
+    //     if (i==0) {
+    //         ctx.moveTo(thisPixel[0]-pixelTL[0], thisPixel[1]-pixelTL[1]);
+    //         ctxclip.moveTo(thisPixel[0]-pixelTL[0], thisPixel[1]-pixelTL[1]);
+    //         //ctx.moveTo(thisPixel[1]-pixelTL[1], thisPixel[0]-pixelTL[0]);
+    //     }
+    //     else {
+    //         ctx.lineTo(thisPixel[0]-pixelTL[0], thisPixel[1]-pixelTL[1]);
+    //         ctxclip.lineTo(thisPixel[0]-pixelTL[0], thisPixel[1]-pixelTL[1]);
+    //         //ctx.lineTo(thisPixel[1]-pixelTL[1], thisPixel[0]-pixelTL[0]);
+    //     } 
+    // }
+
+    // ctx.stroke();
+    //ctxclip.stroke();
+    ctxclip.clip("evenodd");
+    //ctxclip.drawImage(img,0,0);
+    for (let i=0; i<imageArray.length; i++) {
+        ctxclip.drawImage(imageArray[i], (i%numx)*res, Math.floor(i/numx)*res, res, res);
+    }
+    let clipimageData = ctxclip.getImageData(0, 0, clipCanvas.width, clipCanvas.height);
+    
+    
+    webglCanvas.width = imgWidth;
+    webglCanvas.height = imgHeight;
+    
+    render(clipCanvas);
+}
+
+
+async function loadFieldData(testField) {
+    let  auth = await authentication;
+    //let testField = data.features[data.features.length - 1];
+    let testBbox = turf.bbox(testField);
+    
+    let cornerTiles = returnTiles(testBbox);
+    
+    console.log("corner tiles", cornerTiles);
+    
+    let minx = Math.floor(cornerTiles[0][0]);
+    let maxx = Math.floor(cornerTiles[1][0]);
+    let miny = Math.floor(cornerTiles[1][1]);
+    let maxy = Math.floor(cornerTiles[0][1]);
+
+    let rangex = range(0, maxx-minx+1, 1);
+    let rangey = range(0, maxy-miny+1, 1);
+
+    console.log(rangex, rangey);
+
+    let tilex = Math.floor(cornerTiles[0][0]);
+    let tiley = Math.floor(cornerTiles[1][1]);
+    let top = tiley;
+    let left = tilex;
+    let topLeft = lonlat(left,top);
+    
+    let pixelTL = pixel(topLeft[0], topLeft[1]);
+    
+    let tileBucket = new AWS.S3({params: {Bucket: "pagaf.nltgis.com"} });
+    tileBucket.config.credentials = auth.awsCredentials;
+
+    let imageUrls = [];
+    for (let j=0; j<rangey.length; j++) {
+        for (let i=0; i<rangex.length; i++) {
+            console.log('r/corn/si/current/14/'+(minx+rangex[i])+'/'+(miny+rangey[j])+'.png');
+            imageUrls.push('r/corn/si/current/14/'+(minx+rangex[i])+'/'+(miny+rangey[j])+'.png');
+        }
+    }
+
+    let imagesLoaded = 0;
+    let totalImages = imageUrls.length;
+    let imageArray = new Array(totalImages);
+    for (let i=0; i<imageUrls.length; i++) {
+        tileBucket.getObject({Key:imageUrls[i]}, function (err, data) {
+            
+            let encoded = encode(data.Body);
+            let thisImage = document.createElement('img');
+            thisImage.id = "image"
+            imageArray[i]=thisImage;
+            imageArray[i].onload=function() {
+                console.log("i",i);
+                console.log(imageUrls[i])
+                console.log(this.width, this.height);
+            imagesLoaded += 1;
+            console.log(imagesLoaded);
+            if (imagesLoaded == totalImages) {
+                console.log("all loaded");
+                canvasWork(imageArray, rangex.length, rangey.length, testField, pixelTL);
+            }
+            }
+            console.log(i,imageUrls[i]);
+            imageArray[i].src = 'data:image/png;base64,' + encoded;
+        })
+        
+    }
+}
+
 async function loadFieldManagement() {
+    hideAll();
+    d3.select("#mapContainer").style('display', 'inline-block');
     let config = await (await fetch('/config.json')).json();
     let  auth = await authentication;
     let home = new AWS.S3({params: {Bucket: config.aws.homeBucket} });
     let userId = (await auth.auth0.getIdTokenClaims()).sub;
     d3.json('data/userFields.geojson', function(error, data){
         if (error) console.log(error);
-        hideAll();
-        d3.select("#mapContainer").style('display', 'inline-block');
-        map.getSource('userFields').setData(data);
+       
+        page.map.getSource('userFields').setData(data);
         let bbox = turf.bbox(data);
        
         page.box = [[bbox[0],bbox[1]],[bbox[2],bbox[3]]];
 
-        //only zoom to field bounds on page load
-        if (page.iLoad == 1) {
-            map.fitBounds(page.box);
-            page.iLoad = 0;
-        } 
+        
         
         user.fields = data;
-        var fieldDivs = d3.select('#selectedFields').selectAll('div').data(user.fields.features);
+        // var fieldDivs = d3.select('#selectedFields').selectAll('div').data(user.fields.features);
         
-                //fieldDivs.data(fields);
-                //fieldDivs.exit().remove();
-                fieldDivs.enter().append('div')
-                    .attr('class', 'fieldDiv')
-                    .text(function(d) {
-                        return d.properties.T_INDEX;
-                    })
+        //         fieldDivs.enter().append('div')
+        //             .attr('class', 'fieldDiv')
+        //             .text(function(d) {
+        //                 return d.properties.T_INDEX;
+        //             })
 
-                    fieldDivs.exit().remove();
+        //             fieldDivs.exit().remove();
 
-        let testField = data.features[data.features.length - 1];
-        let testBbox = turf.bbox(testField);
-        
-        let cornerTiles = returnTiles(testBbox);
-        
-        console.log(cornerTiles);
-        
-        let tilex = Math.floor(cornerTiles[0][0]);
-        let tiley = Math.floor(cornerTiles[0][1]);
-        let top = tiley;
-        let left = tilex;
-        let topLeft = lonlat(left,top);
-       
-        let pixelTL = pixel(topLeft[0], topLeft[1]);
-      
-        let tileBucket = new AWS.S3({params: {Bucket: "pagaf.nltgis.com"} });
-        tileBucket.config.credentials = auth.awsCredentials;
-        
-        tileBucket.getObject({Key:'r/corn/si/current/14/'+tilex+'/'+tiley+'.png'}, function (err, data) {
-            if (err) console.log(err, err.stack);
-            else console.log(data);
-            let encoded = encode(data.Body);
-            let img = document.getElementById("testImage")
-            img.src = 'data:image/png;base64,' + encoded;
-            img.onload = function() {
-                let imgHeight = img.height;
-                let imgWidth = img.width;
-               
-                let canvas = document.getElementById('testCanvas');
-                canvas.width = imgWidth;
-                canvas.height = imgHeight;
-                let ctx = canvas.getContext('2d');
-                let clipCanvas = document.getElementById('clipCanvas');
-                clipCanvas.width = imgWidth;
-                clipCanvas.height = imgHeight;
-                //let ctx = canvas.getContext('2d');
-                let ctxclip = clipCanvas.getContext('2d');
-                ctx.drawImage(img, 0, 0, imgWidth, imgHeight);
-                let imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-               
-                let fieldCoords = testField.geometry.coordinates[0][0];
-                ctx.strokeStyle = "#ff0000";
-                ctx.lineWidth = 2;
-                ctx.beginPath();
-                ctxclip.strokeStyle = "#ff0000";
-                ctxclip.lineWidth = 2;
-                ctxclip.beginPath();
-
-                for (let i = 0; i < fieldCoords.length; i++) {
-                    let thisPixel = pixel(fieldCoords[i][0],fieldCoords[i][1]);
-                    
-                    if (i==0) {
-                        ctx.moveTo(thisPixel[0]-pixelTL[0], thisPixel[1]-pixelTL[1]);
-                        ctxclip.moveTo(thisPixel[0]-pixelTL[0], thisPixel[1]-pixelTL[1]);
-                        //ctx.moveTo(thisPixel[1]-pixelTL[1], thisPixel[0]-pixelTL[0]);
-                    }
-                    else {
-                        ctx.lineTo(thisPixel[0]-pixelTL[0], thisPixel[1]-pixelTL[1]);
-                        ctxclip.lineTo(thisPixel[0]-pixelTL[0], thisPixel[1]-pixelTL[1]);
-                        //ctx.lineTo(thisPixel[1]-pixelTL[1], thisPixel[0]-pixelTL[0]);
-                    } 
+        var fieldDivs = d3.select('#selectedFields').selectAll("svg").data(user.fields.features);
+        var fieldSvgs = fieldDivs.enter().append("svg")
+            .attr("class","fieldSvg")
+            .attr("id", function(d) {
+                console.log(d);
+                return "id"+d.properties.T_INDEX;
+            })
+            .on("click", function(d) {
+                console.log(d);
+                if (page.tab=="ModelSelection") {
+                    d3.select("#selectedFields").selectAll("svg").classed("svgSelected",false);
+                    d3.select(this).classed("svgSelected",true);
+                    loadFieldData(d);
                 }
-                ctx.stroke();
-                //ctxclip.stroke();
-                fieldCoords = testField.geometry.coordinates[0][1];
-                for (let i = 0; i < fieldCoords.length; i++) {
-                    let thisPixel = pixel(fieldCoords[i][0],fieldCoords[i][1]);
-                   
-                    if (i==0) {
-                        ctx.moveTo(thisPixel[0]-pixelTL[0], thisPixel[1]-pixelTL[1]);
-                        ctxclip.moveTo(thisPixel[0]-pixelTL[0], thisPixel[1]-pixelTL[1]);
-                        //ctx.moveTo(thisPixel[1]-pixelTL[1], thisPixel[0]-pixelTL[0]);
-                    }
-                    else {
-                        ctx.lineTo(thisPixel[0]-pixelTL[0], thisPixel[1]-pixelTL[1]);
-                        ctxclip.lineTo(thisPixel[0]-pixelTL[0], thisPixel[1]-pixelTL[1]);
-                        //ctx.lineTo(thisPixel[1]-pixelTL[1], thisPixel[0]-pixelTL[0]);
-                    } 
+                else {
+                    d3.select("#selectedFields").selectAll("svg").classed("svgSelected",false);
                 }
+                
+            });
+        var fieldGs = fieldSvgs
+            .append("g");
 
-                ctx.stroke();
-                //ctxclip.stroke();
-                ctxclip.clip("evenodd");
-                ctxclip.drawImage(img,0,0);
-                let clipimageData = ctxclip.getImageData(0, 0, clipCanvas.width, clipCanvas.height);
-               
-               
-                webglCanvas.width = imgWidth;
-                webglCanvas.height = imgHeight;
-               
-                render(clipCanvas);
-            }
+        fieldSvgs.each(function(d) {
+            let el = d3.select(this);
+            let rect=el.node().getBoundingClientRect();
+            let width = rect.width;
+            let height = rect.height;
+            let geojson = blank();
+            geojson.features.push(d);
+            let projection = d3.geoMercator().fitExtent([[5,5],[width-5, height-5]], geojson);
+            let path = d3.geoPath().projection(projection);
+            el.select("g").selectAll("path")
+                .data(geojson.features)
+                .enter()
+                .append("path")
+                .attr("d",path)
+                .style("fill","none")
+                .style("stroke-width",3);
+        })
+        
+        //only zoom to field bounds on page load
+        if (page.iLoad == 1) {
+            page.map.fitBounds(page.box);
+            page.iLoad = 0;
+            var objDiv = document.getElementById("selectedFields");
+            objDiv.scrollTop = objDiv.scrollHeight;
+        } 
+
+        
+        
+        //tileBucket.getObject({Key:'r/corn/si/current/14/'+tilex+'/'+tiley+'.png'}, function (err, data) {
+            //if (err) console.log(err, err.stack);
+            //else console.log(data);
+            //let encoded = encode(data.Body);
+            //let img = document.getElementById("testImage")
+            //img.src = 'data:image/png;base64,' + encoded;
+            //img.onload = function() {
+                
+            //}
             
-        });
+        //});
         //tileBucket.listObjects({Prefix:'r/corn/si/current/'}, console.log);
     })
 }
@@ -689,67 +895,26 @@ bar2Divs.each(function(d) {
     }
 });
 
+var fields = [];
+var loaded = 0;
+
 mapboxgl.accessToken = 'pk.eyJ1IjoiY2Vuc3VzcGFnYWYiLCJhIjoiY2tid2FjZmxxMDZoczJycGtxNmthamNrYyJ9.g9IGWfD-Nz9waQzHT5klkg'
  //initialize map
 console.log('initializing map');
-var map = new mapboxgl.Map({
+async function initializeMap() {
+    await authentication;
+    var map = new mapboxgl.Map({
             container: 'tiles', // container id
             style: 'mapbox://styles/censuspagaf/ckbwcdt9h0k3e1iplxvtr36vx',
             center: [-93.5, 37.5], // starting position
             zoom: 3, // starting zoom
             maxZoom:15
         });
-
-var fields = [];
-var loaded = 0;
-
-//function to return blank geojson, which is helpful to initialize 
-        //layers that will be updated with user input
-        function blank() {
-           return {
-                type:"FeatureCollection",
-                features:[]
-            };
-        };
-
-function getUniqueFeatures(array) {
-    var existingFeatureKeys = {};
-    // Because features come from tiled vector data, feature geometries may be split
-    // or duplicated across tile boundaries and, as a result, features may appear
-    // multiple times in query results.
-    var uniqueFeatures = array.filter(function(el) {
-    if (existingFeatureKeys[el.id]) {
-    return false;
-    } else {
-    existingFeatureKeys[el.id] = true;
-    return true;
-    }
-    });
+    page.map = map;
     
-    return uniqueFeatures;
-}
-
-function setColor() {
-    if (loaded == 1) {
-      
-        var features = map.queryRenderedFeatures({ layers: ['polys'] });
-        //console.log(features);
-        for (let i = 0; i<features.length; i++) {
-            map.setFeatureState({
-                source:'ia',
-                sourceLayer:'ia',
-                id: features[i]['id']
-                }, {
-                'color':'#fff'
-                }
-            )
-        }
-    }
+    map.on('load', function() {
+    //wait til last moment to resize map
    
-}
-
-map.on('load', function() {
-    map.resize();
     map.addSource('ia', {
             id:'fields',
             type:'vector',
@@ -757,7 +922,8 @@ map.on('load', function() {
             "mapbox:autocomposite": true
             },
             'maxzoom':11,
-            tiles:["https://s3.amazonaws.com/pagaf.nltgis.com/clutiles/{z}/{x}/{y}.pbf"]
+            //tiles:['http://localhost:3000/{z}/{x}/{y}.pbf']
+            tiles:["http://localhost:8080/data/ia/{z}/{x}/{y}.pbf"]
         });
 
     map.addSource('outlineSource', {
@@ -804,7 +970,7 @@ map.on('load', function() {
             'visibility':'visible'
         },
         'paint':{
-            'fill-color':'#a80000',
+            'fill-color':'#31eefd',
             'fill-opacity':0.8,
             'fill-outline-color':'#000'
         }
@@ -823,7 +989,8 @@ map.on('load', function() {
     },'aerialway')
     
     loadView('FieldManagement');
-
+    document.body.removeAttribute('aria-busy')
+    map.resize();
     function sourceCallback() {
                     
         if (map.getSource('ia') && map.isSourceLoaded('ia')) {
@@ -946,20 +1113,85 @@ map.on('load', function() {
                 // }
 
 
-                var fieldDivs = d3.select('#selectedFields').selectAll('div').data(user.fields.features);
-                //fieldDivs.data(fields);
+
+
+            
+
+
+                var fieldDivs = d3.select('#selectedFields').selectAll('svg').data(user.fields.features);
                 fieldDivs.exit().remove();
-                fieldDivs
-                    .text(
-                        function(d) {
-                        return d.properties.T_INDEX;
-                    }
-                    );
-                fieldDivs.enter().append('div')
-                    .attr('class', 'fieldDiv')
-                    .text(function(d) {
-                        return d.properties.T_INDEX;
-                    })
+                fieldDivs.each(function(d,i) {
+                    //console.log(i,d.properties.T_INDEX);
+                    let el = d3.select(this);
+                    let rect=el.node().getBoundingClientRect();
+                    let width = rect.width;
+                    let height = rect.height;
+                    let geojson = blank();
+                    geojson.features.push(d);
+                    let projection = d3.geoMercator().fitExtent([[5,5],[width-5, height-5]], geojson);
+                    let path = d3.geoPath().projection(projection);
+                    //no need to enter on existing
+                    el.select("g").selectAll("path")
+                        .data(geojson.features)
+                        .attr("d",path)
+                        .style("fill","none")
+                        .style("stroke-width",3);
+                })
+                
+                var fieldSvgs = fieldDivs.enter().append("svg")
+                .attr("class","fieldSvg")
+                .attr("id", function(d) {
+                    return "id"+d.properties.T_INDEX;
+                })
+                .on("click", function(d) {
+                console.log(d);
+                if (page.tab=="ModelSelection") {
+                    d3.select("#selectedFields").selectAll("svg").classed("svgSelected",false);
+                    d3.select(this).classed("svgSelected",true);
+                    loadFieldData(d);
+                }
+                else {
+                    d3.select("#selectedFields").selectAll("svg").classed("svgSelected",false);
+                }
+                
+            });
+                var fieldGs = fieldSvgs
+                    .append("g");
+                    //on new elements, need to append "path"
+                    fieldSvgs.each(function(d) {
+                    let el = d3.select(this);
+                    let rect=el.node().getBoundingClientRect();
+                    let width = rect.width;
+                    let height = rect.height;
+                    let geojson = blank();
+                    geojson.features.push(d);
+                    let projection = d3.geoMercator().fitExtent([[5,5],[width-5, height-5]], geojson);
+                    let path = d3.geoPath().projection(projection);
+                    el.select("g").selectAll("path")
+                        .data(geojson.features)
+                        .enter()
+                        .append("path")
+                        .attr("d",path)
+                        .style("fill","none")
+                        .style("stroke-width",3);
+                })
+
+                
+                var objDiv = document.getElementById("selectedFields");
+                objDiv.scrollTop = objDiv.scrollHeight;
+                
+
+                
+
+               
+
+                
+                
+                // fieldDivs.enter().append('div')
+                //     .attr('class', 'fieldDiv')
+                //     .text(function(d) {
+                //         return d.properties.T_INDEX;
+                //     })
                 var updated = blank();
                 updated.features = user.fields.features;
                 map.getSource('userFields').setData(updated);
@@ -984,4 +1216,9 @@ map.on('load', function() {
     //);
     
 })
+
+}
+
+initializeMap();
+
 </script>
