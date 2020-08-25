@@ -315,7 +315,10 @@ textarea, input { outline: none; }
     width:100%;
     top:40%;
     left:50%;
-    transform:translate(-50%, -50%);
+    transform:
+        /* Consider flexbox for vertical centering. All browsers that understand
+           translate also understand flexbox. */
+        translate(-50%, -50%);
     display:block;
     text-align: center;
 }
@@ -323,6 +326,7 @@ textarea, input { outline: none; }
     display:block;
 }
 .loginButton {
+    display: inline-block;
     cursor:pointer;
     -webkit-appearance: none;
     border:none;
@@ -330,7 +334,8 @@ textarea, input { outline: none; }
     font-size: 16px;
     font-weight: bolder;
     width:250px;
-    height:50px;
+         height: 50px;
+    line-height: 50px;
     border-radius: 5px;
     background-color: #333232;
     box-shadow: 0px 3px 15px rgba(0,0,0,0.2);
