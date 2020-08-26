@@ -22,9 +22,8 @@ How to view your jwt in the browser's JavaScript console:
 window.authentication = login()
 let auth = await authentication
 
-document.querySelector('.username').innerText = (await auth.auth0.getUser()).name
-
-document.querySelector('a.logout').onclick = async click => {
+document.getElementById('organization').innerText = (await auth.auth0.getUser()).name
+document.getElementById('logout').onclick = async click => {
   click.preventDefault()  // auth0.logout() redirects when complete
   document.body.setAttribute('aria-busy', true)
   auth.auth0.logout({returnTo: window.location.origin})
