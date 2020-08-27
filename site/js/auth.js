@@ -29,7 +29,7 @@ document.getElementById('logout').onclick = async click => {
   auth.auth0.logout({returnTo: window.location.origin})
 }
 
-document.body.removeAttribute('aria-busy')
+
 
 
 async function login() {
@@ -63,7 +63,7 @@ async function login() {
         // on the context. For now, it's ok to home home on every refresh.
         {redirect_uri: redirectUri})
   }
-
+  
   return { auth0: auth0
          , awsCredentials: new AWS.WebIdentityCredentials(
             { RoleArn: config.aws.farmerRoleArn
