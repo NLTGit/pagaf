@@ -295,7 +295,8 @@ textarea, input { outline: none; }
     width:100%;
     height:100%;
 }
-.saveButton {
+.saveButton,
+.editButton {
     -webkit-appearance: none;
     font-size: 16px;
     border:none;

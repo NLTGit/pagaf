@@ -101,6 +101,8 @@ function savePolygons() {
         updateFieldDivs();
     });
 }
+document.querySelector('.saveButton').onclick = savePolygons
+
 
 //make saved polygons editable again
 function editPolygons() {
@@ -113,6 +115,8 @@ function editPolygons() {
     page.map.getSource('userFields').setData(user.fields);
     updateFieldDivs();
 }
+document.querySelector('.editButton').onclick = editPolygons
+
 
 //***************************************
 //End functions that contact bucket
@@ -131,6 +135,7 @@ function toggleLayer(el) {
         }
     }
 }
+document.querySelector('.layerButton').onclick = toggleLayer
 
 
 //To generate sliders
