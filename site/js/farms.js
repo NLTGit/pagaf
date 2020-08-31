@@ -82,7 +82,7 @@ async function getJSON(key) {
 }
 
 //save polygons drawn on map to bucket
-function savePolygons() {
+async function savePolygons() {
     var data = page.draw.getAll();
     user.fields.features = user.fields.features.concat(data.features);
     page.draw.deleteAll();
@@ -788,32 +788,30 @@ async function loadFieldManagement() {
     let userId = (await auth.auth0.getIdTokenClaims()).sub;
 
     try {
-        var d = await getJSON("fields/fields.json")
+        let d = await getJSON("fields/fields.json")
+        user.fields = JSON.parse(d.Body.toString('utf-8'));
     }
     catch (e) {
         if (e.code == 'NoSuchKey') {
-            await putJSON('fields/fields.json', {
-                "type": "FeatureCollection",
-                "name": "userFields",
-                "crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
-                "features": [
-                    { "type": "Feature", "properties": { "T_INDEX": "18538", "CALCACRES": 142.2, "PIXVAL1": 1, "PIXVAL1PRC": 93.3, "PIXVAL2": 5, "PIXVAL2PRC": 94.41, "MINPRC": 93.3 }, "geometry": { "type": "MultiPolygon", "coordinates": [ [ [ [ -94.58573657, 41.43463228 ], [ -94.58573283, 41.43549874 ], [ -94.58574007, 41.43704781 ], [ -94.58574931, 41.43902312 ], [ -94.58139472, 41.43903183 ], [ -94.5813886, 41.43537782 ], [ -94.57952814, 41.43538126 ], [ -94.57653595, 41.43538673 ], [ -94.57429235, 41.43539078 ], [ -94.57417167, 41.43539099 ], [ -94.57177011, 41.43539527 ], [ -94.57175897, 41.43432606 ], [ -94.5717332, 41.43184967 ], [ -94.58052347, 41.43179785 ], [ -94.58383581, 41.43182167 ], [ -94.58390327, 41.43277172 ], [ -94.58403282, 41.43309938 ], [ -94.58425786, 41.43335251 ], [ -94.5845081, 41.43364191 ], [ -94.58492897, 41.43394725 ], [ -94.58538587, 41.4342338 ], [ -94.58558549, 41.43444152 ], [ -94.58573657, 41.43463228 ] ] ] ] } }
-                ]
-            })
-            var d = await getJSON("fields/fields.json")
+            console.log('fields.json not found. Saving empty fields list.')
+            user.fields = blank()
+            await savePolygons()
         }
         else
             throw e
     }
 
-    let data = JSON.parse(d.Body.toString('utf-8'));
-    page.map.getSource('userFields').setData(data);
-    let bbox = turf.bbox(data);
-   
+    if (user.fields.features.length) {
+        page.map.getSource('userFields').setData(user.fields);
+        updateFieldDivs();
+        fitUserFieldsBounds()
+    }
+}
+
+function fitUserFieldsBounds() {
+    let bbox = turf.bbox(user.fields);
     page.box = [[bbox[0],bbox[1]],[bbox[2],bbox[3]]];
 
-    user.fields = data;
-    updateFieldDivs();
     //only zoom to field bounds on page load
     if (page.iLoad == 1) {
         page.map.fitBounds(page.box);
