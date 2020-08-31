@@ -792,7 +792,7 @@ async function loadFieldManagement() {
     }
     catch (e) {
         if (e.code == 'NoSuchKey') {
-            let x = await putJSON('fields/fields.json', {
+            await putJSON('fields/fields.json', {
                 "type": "FeatureCollection",
                 "name": "userFields",
                 "crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
