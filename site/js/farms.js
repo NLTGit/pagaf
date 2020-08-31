@@ -61,12 +61,10 @@ async function putJSON(key,object) {
     let userId = (await auth.auth0.getIdTokenClaims()).sub;
     
     home.config.credentials = auth.awsCredentials;
-    var promise = home.putObject({
+    return await home.putObject({
         Key:userId+"/"+key,
         Body:JSON.stringify(object),
         ContentType: "application/json"}).promise();
-
-    return promise;
 }
 
 //load json object from bucket
@@ -78,13 +76,9 @@ async function getJSON(key) {
     let userId = (await auth.auth0.getIdTokenClaims()).sub;
    
     home.config.credentials = auth.awsCredentials;
-    var objReturn = home.getObject({
+    return await home.getObject({
         Key:userId+"/"+key,
-    });
-
-    var promise = objReturn.promise();
-   
-    return promise;
+    }).promise();
 }
 
 //save polygons drawn on map to bucket
@@ -793,27 +787,40 @@ async function loadFieldManagement() {
     let home = new AWS.S3({params: {Bucket: config.aws.homeBucket} });
     let userId = (await auth.auth0.getIdTokenClaims()).sub;
 
-    getJSON("fields/fields.json").then(function(d) {
-        let data = JSON.parse(d.Body.toString('utf-8'));
-        page.map.getSource('userFields').setData(data);
-        let bbox = turf.bbox(data);
-       
-        page.box = [[bbox[0],bbox[1]],[bbox[2],bbox[3]]];
+    try {
+        var d = await getJSON("fields/fields.json")
+    }
+    catch (e) {
+        if (e.code == 'NoSuchKey') {
+            let x = await putJSON('fields/fields.json', {
+                "type": "FeatureCollection",
+                "name": "userFields",
+                "crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+                "features": [
+                    { "type": "Feature", "properties": { "T_INDEX": "18538", "CALCACRES": 142.2, "PIXVAL1": 1, "PIXVAL1PRC": 93.3, "PIXVAL2": 5, "PIXVAL2PRC": 94.41, "MINPRC": 93.3 }, "geometry": { "type": "MultiPolygon", "coordinates": [ [ [ [ -94.58573657, 41.43463228 ], [ -94.58573283, 41.43549874 ], [ -94.58574007, 41.43704781 ], [ -94.58574931, 41.43902312 ], [ -94.58139472, 41.43903183 ], [ -94.5813886, 41.43537782 ], [ -94.57952814, 41.43538126 ], [ -94.57653595, 41.43538673 ], [ -94.57429235, 41.43539078 ], [ -94.57417167, 41.43539099 ], [ -94.57177011, 41.43539527 ], [ -94.57175897, 41.43432606 ], [ -94.5717332, 41.43184967 ], [ -94.58052347, 41.43179785 ], [ -94.58383581, 41.43182167 ], [ -94.58390327, 41.43277172 ], [ -94.58403282, 41.43309938 ], [ -94.58425786, 41.43335251 ], [ -94.5845081, 41.43364191 ], [ -94.58492897, 41.43394725 ], [ -94.58538587, 41.4342338 ], [ -94.58558549, 41.43444152 ], [ -94.58573657, 41.43463228 ] ] ] ] } }
+                ]
+            })
+            var d = await getJSON("fields/fields.json")
+        }
+        else
+            throw e
+    }
 
-        user.fields = data;
-        updateFieldDivs();
-        //only zoom to field bounds on page load
-        if (page.iLoad == 1) {
-            page.map.fitBounds(page.box);
-            page.iLoad = 0;
-            var objDiv = document.getElementById("selectedFields");
-            objDiv.scrollTop = objDiv.scrollHeight;
-        } 
-    })
-    .catch(function(d) {
-        console.log("error",d);
-        user.fields = blank();
-    });
+    let data = JSON.parse(d.Body.toString('utf-8'));
+    page.map.getSource('userFields').setData(data);
+    let bbox = turf.bbox(data);
+   
+    page.box = [[bbox[0],bbox[1]],[bbox[2],bbox[3]]];
+
+    user.fields = data;
+    updateFieldDivs();
+    //only zoom to field bounds on page load
+    if (page.iLoad == 1) {
+        page.map.fitBounds(page.box);
+        page.iLoad = 0;
+        var objDiv = document.getElementById("selectedFields");
+        objDiv.scrollTop = objDiv.scrollHeight;
+    } 
 }
 
 function updateFields() {
