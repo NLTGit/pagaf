@@ -385,8 +385,50 @@ if (!gl) {
 
 //Much of the webgl related code is from webglfundamentals, created by
 //Gregg Tavares
-var vertexShaderSource = document.getElementById('vertex-shader').text;
-var fragmentShaderSource = document.getElementById('fragment-shader').text;
+var vertexShaderSource = `
+    attribute vec2 a_position;
+    attribute vec2 a_texCoord;
+    uniform vec2 u_resolution;
+    varying vec2 v_texCoord;
+
+    void main() {
+        //convert from pixels to 0.0 to 1.0
+        vec2 zeroToOne = a_position / u_resolution;
+
+        //convert from 0->1 to 0->2
+        vec2 zeroToTwo = zeroToOne *2.0;
+
+        //convert from 0->2 to -1->1 (clipspace)
+        vec2 clipSpace = zeroToTwo - 1.0;
+
+        //pass texCoord to fragment
+        v_texCoord = a_texCoord;
+
+        gl_Position = vec4(clipSpace * vec2(1, -1), 0, 1);
+    }
+`;
+var fragmentShaderSource = `
+    precision mediump float;
+
+    //texture
+    uniform sampler2D u_image0;
+    uniform sampler2D u_image1;
+
+    //passed from vertex
+    varying vec2 v_texCoord;
+
+    uniform float eonr;
+    uniform float m;
+    uniform float sithresh;
+
+    void main() {
+        //look up color from texture
+        vec4 color = texture2D(u_image0, v_texCoord);
+        float napp = eonr * sqrt((1.0-color.x)/((1.0-sithresh)*(1.0+0.1*exp(m*(sithresh-color.x)))));
+        vec4 outcolor = texture2D(u_image1, vec2(min(1.0,napp/250.0),0.0));
+        gl_FragColor = vec4(outcolor.x, outcolor.y, outcolor.z, color.w);
+    }
+`;
 
 //create shaders
 var vertexShader = createShader(gl, gl.VERTEX_SHADER, vertexShaderSource);
