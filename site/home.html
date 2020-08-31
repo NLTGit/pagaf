@@ -13,7 +13,7 @@
              child-src 'self' blob: https://*.auth0.com ;
              connect-src 'self' blob: data:
                 https://*.auth0.com/
-                https://sts.amazonaws.com https://*.s3.amazonaws.com
+                https://sts.amazonaws.com https://*.s3.amazonaws.com https://s3.amazonaws.com
                 https://api.mapbox.com https://events.mapbox.com https://*.tiles.mapbox.com ;
              frame-src 'self' https://*.auth0.com/ ;
              script-src 'self' 'unsafe-eval' blob:
@@ -28,9 +28,15 @@
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <script src="https://cdn.auth0.com/js/auth0-spa-js/1.9/auth0-spa-js.production.js"></script>
-  <script src="https://sdk.amazonaws.com/js/aws-sdk-2.1.12.min.js"></script>
+  <script src="https://sdk.amazonaws.com/js/aws-sdk-2.739.0.min.js"></script>
   <script src="https://api.mapbox.com/mapbox-gl-js/v1.9.0/mapbox-gl.js"></script>
   <link href="https://api.mapbox.com/mapbox-gl-js/v1.9.0/mapbox-gl.css" rel="stylesheet" />
+  <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-draw/v1.2.0/mapbox-gl-draw.js"></script>
+  <link
+    rel="stylesheet"
+    href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-draw/v1.2.0/mapbox-gl-draw.css"
+    type="text/css"
+    />
   
   <script src="js/d3.min.js"></script>
   <script src="js/turf.min.js"></script>
@@ -52,24 +58,24 @@
         </div>
         <div id="mapContainer" class="mapContainer">
             <div id="map" class="map">
-                <p class='instructions'>Click a field on the map to select it. When done, <button class="continue">continue</button> to model selection.</p>
+                <div id="drawing" class="drawingContainer">
+                    <p class='instructions'>Draw fields on the map with drawing tools. When done, <button class="continue">continue</button> to model selection.</p>
+                    <button class='saveButton' onclick='savePolygons(this)'>Save Polygons</button>
+                    <button class='saveButton' onclick='editPolygons(this)'>Edit Polygons</button>
+                </div>
+                
                 <div id='tiles' class='tiles'></div>
                 <button class='layerButton stepClassed' onclick='toggleLayer(this)'>Layer visibility</button>
             </div>
         </div>
-        <div id="dataContainer" class="dataContainer">
-            <p>Choose datasets to use</p>
-            <div id="leftMenu" class="dataMenu"></div>
-            <div id="rightMenu" class="infoMenu">
-                <p class='infoP'></p>
-            </div>
-        </div>
         <div id="modelContainer" class="modelContainer">
+            <p class='instructionsRel'>Click a field outline to adjust model for that field.</p>
             <img id="testImage">
-            <canvas id="testCanvas"></canvas>
-            <canvas id="clipCanvas"></canvas>
-            <div id="webglContainer" class="webglContainer">
-                <canvas id="webglCanvas" style="display:block;"></canvas>
+            <canvas class="hidden" id="testCanvas"></canvas>
+            <canvas class="hidden" id="clipCanvas"></canvas>
+            <div id="webglContainer" class="webglContainer hidden">
+                
+                <canvas id="webglCanvas" style="display:inline-block;"></canvas>
                 <p class="barTitle">Napp ranges from 0 to 250 kg/ha</p>
                 <canvas id="colorCanvas"></canvas>
                 <svg id="eonrSlider" class="slider" width="250" height="40"></svg>
@@ -82,49 +88,49 @@
     </div>
 
     <script id="vertex-shader" type="x-shader/x-vertex">
-        attribute vec2 a_position;
-        attribute vec2 a_texCoord;
-        uniform vec2 u_resolution;
-        varying vec2 v_texCoord;
+    attribute vec2 a_position;
+    attribute vec2 a_texCoord;
+    uniform vec2 u_resolution;
+    varying vec2 v_texCoord;
 
-        void main() {
-            //convert from pixels to 0.0 to 1.0
-            vec2 zeroToOne = a_position / u_resolution;
+    void main() {
+        //convert from pixels to 0.0 to 1.0
+        vec2 zeroToOne = a_position / u_resolution;
 
-            //convert from 0->1 to 0->2
-            vec2 zeroToTwo = zeroToOne *2.0;
+        //convert from 0->1 to 0->2
+        vec2 zeroToTwo = zeroToOne *2.0;
 
-            //convert from 0->2 to -1->1 (clipspace)
-            vec2 clipSpace = zeroToTwo - 1.0;
+        //convert from 0->2 to -1->1 (clipspace)
+        vec2 clipSpace = zeroToTwo - 1.0;
 
-            //pass texCoord to fragment
-            v_texCoord = a_texCoord;
+        //pass texCoord to fragment
+        v_texCoord = a_texCoord;
 
-            gl_Position = vec4(clipSpace * vec2(1, -1), 0, 1);
-        }
+        gl_Position = vec4(clipSpace * vec2(1, -1), 0, 1);
+    }
     </script>
 
     <script id="fragment-shader" type="x-shader/x-fragment">
-        precision mediump float;
+    precision mediump float;
 
-        //texture
-        uniform sampler2D u_image0;
-        uniform sampler2D u_image1;
+    //texture
+    uniform sampler2D u_image0;
+    uniform sampler2D u_image1;
 
-        //passed from vertex
-        varying vec2 v_texCoord;
+    //passed from vertex
+    varying vec2 v_texCoord;
 
-        uniform float eonr;
-        uniform float m;
-        uniform float sithresh;
+    uniform float eonr;
+    uniform float m;
+    uniform float sithresh;
 
-        void main() {
-            //look up color from texture
-            vec4 color = texture2D(u_image0, v_texCoord);
-            float napp = eonr * sqrt((1.0-color.x)/((1.0-sithresh)*(1.0+0.1*exp(m*(sithresh-color.x)))));
-            vec4 outcolor = texture2D(u_image1, vec2(min(1.0,napp/250.0),0.0));
-            gl_FragColor = vec4(outcolor.x, outcolor.y, outcolor.z, color.w);
-        }
+    void main() {
+        //look up color from texture
+        vec4 color = texture2D(u_image0, v_texCoord);
+        float napp = eonr * sqrt((1.0-color.x)/((1.0-sithresh)*(1.0+0.1*exp(m*(sithresh-color.x)))));
+        vec4 outcolor = texture2D(u_image1, vec2(min(1.0,napp/250.0),0.0));
+        gl_FragColor = vec4(outcolor.x, outcolor.y, outcolor.z, color.w);
+    }
     </script>
 
     <script src="js/auth.js"></script>

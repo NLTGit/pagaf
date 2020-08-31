@@ -7,56 +7,117 @@ function User() {
     this.fields = [];
 }
 
+//variables for shader program
 function modelVars() {
     this.eonr = 130.0;
     this.m = 0;
     this.sithresh = 0.7;
 }
 
+//maintain "global" values
 function pageState() {
-    this.tab = 'FieldManagement'
-    this.datasets = [
-        {'dataset':'NAIP',
-        'selected':0,
-        'infoText':'Information about NAIP'},
-        {'dataset':'SENTINEL',
-        'selected':0,
-        'infoText':'Information about SENTINEL'},
-        {'dataset':'OTHER1',
-        'selected':0,
-        'infoText':'Information about OTHER1'},
-        {'dataset':'OTHER2',
-        'selected':0,
-        'infoText':'Information about OTHER2'}
-    ],
+    this.tab = 'FieldManagement',
     this.mouseoverField = null;
     this.iLoad = 1;
     this.map = null;
+    this.editing = [];
 }
 
+//map layer names
 var layers = [
     'userFields',
     'outline',
-    'polys'
+    'county'
+    //'polys'
 ]
 
-async function checkExists(folder) {
+var  user = new User();
+var page = new pageState();
+var modelvars = new modelVars();
+
+//***************************************
+//Functions that contact bucket
+//***************************************
+
+//check if object in bucket
+async function checkExists(folder, file) {
     let config = await (await fetch('/config.json')).json();
     let auth = await authentication;
     let home = new AWS.S3({params: {Bucket: config.aws.homeBucket} });
     let userId = (await auth.auth0.getIdTokenClaims()).sub;
-    console.log(userId);
-
+    
     home.config.credentials = auth.awsCredentials;
-    //home.listObjects({Prefix: userId+'/'}, console.log)
-    home.headObject({Key:userId+"/"+folder}, function(err, data) {
-        if (err && err.code === "NotFound" ) {
-            console.log("code", err.code);
-        };
+    let fileExists = await home.headObject({Key:userId+"/"+folder+"/"+file}, function(err, data) {
+        console.log(JSON.stringify(err)+" "+JSON.stringify(data));
     })
+    return fileExists;
 }
 
-//checkExists("fields");
+//save object to bucket
+async function putJSON(key,object) {
+    let config = await (await fetch('/config.json')).json();
+    let auth = await authentication;
+    let home = new AWS.S3({params: {Bucket: config.aws.homeBucket} });
+    let userId = (await auth.auth0.getIdTokenClaims()).sub;
+    
+    home.config.credentials = auth.awsCredentials;
+    var promise = home.putObject({
+        Key:userId+"/"+key,
+        Body:JSON.stringify(object),
+        ContentType: "application/json"}).promise();
+
+    return promise;
+}
+
+//load json object from bucket
+async function getJSON(key) {
+    let config = await (await fetch('/config.json')).json();
+    let auth = await authentication;
+    var home = new AWS.S3({params: {Bucket: config.aws.homeBucket} });
+
+    let userId = (await auth.auth0.getIdTokenClaims()).sub;
+   
+    home.config.credentials = auth.awsCredentials;
+    var objReturn = home.getObject({
+        Key:userId+"/"+key,
+    });
+
+    var promise = objReturn.promise();
+   
+    return promise;
+}
+
+//save polygons drawn on map to bucket
+function savePolygons() {
+    var data = page.draw.getAll();
+    user.fields.features = user.fields.features.concat(data.features);
+    page.draw.deleteAll();
+    putJSON("fields/fields.json", user.fields).then(function(d) {
+        var objDiv = document.getElementById("selectedFields");
+        objDiv.scrollTop = objDiv.scrollHeight;
+        var updated = blank();
+        updated.features = user.fields.features;
+        page.map.getSource('userFields').setData(updated);
+        updateFieldDivs();
+    });
+}
+
+//make saved polygons editable again
+function editPolygons() {
+    var saved = user.fields.features;
+    var editing = blank();
+    editing.features = page.draw.getAll().features.concat(saved);
+    page.editing = editing;
+    page.draw.add(page.editing);
+    user.fields.features = [];
+    page.map.getSource('userFields').setData(user.fields);
+    updateFieldDivs();
+}
+
+//***************************************
+//End functions that contact bucket
+//***************************************
+
 
 function toggleLayer(el) {
     for (let i=0; i<layers.length;i++) {
@@ -71,10 +132,8 @@ function toggleLayer(el) {
     }
 }
 
-let user = new User();
-let page = new pageState();
-let modelvars = new modelVars();
 
+//To generate sliders
 function Slider(id, field, domain) {
     var self=this;
     this.margin = {right:25, left:25};
@@ -121,10 +180,13 @@ function Slider(id, field, domain) {
     .attr("cx", self.x(modelvars[field]));
 }
 
-let eonrslider = new Slider("eonrSlider","eonr",[0,250]);
-let mslider = new Slider("mSlider", "m", [0,50]);
-let sithreshslider = new Slider("sithreshSlider","sithresh",[0,1]);
+//generate 3 sliders
+var eonrslider = new Slider("eonrSlider","eonr",[0,250]);
+var mslider = new Slider("mSlider", "m", [0,50]);
+var sithreshslider = new Slider("sithreshSlider","sithresh",[0,1]);
 
+
+//create colorbar
 var colorCanvas = document.getElementById("colorCanvas");
 colorCanvas.width = 200;
 colorCanvas.height=25;
@@ -139,8 +201,8 @@ for (let i = 0; i<stops.length; i++) {
 colorctx.fillStyle = grdt;
 colorctx.fillRect(0,0,200,25);
 
+//function to show or hide "views"
 function loadView(view) {
-    console.log(view);
     d3.select('#'+page.tab).classed('stepClassed', false);
     d3.select('#'+view).classed('stepClassed', true);
     page.tab = view;
@@ -148,45 +210,52 @@ function loadView(view) {
     if (view == 'FieldManagement') {
         loadFieldManagement();
     }
-    if (view == 'DataSelection') {
-        loadDataSelection();
-    }
-
     if (view == 'ModelSelection') {
         loadModelSelection();
     }
-
 }
 
+//set up menu bar
+var steps = [
+    {'title':'Field Management',
+    'id': 'FieldManagement'},
+    {'title':'Model Selection',
+    'id':'ModelSelection'}
+]
+
+var bar2Divs = d3.select('#bar2').selectAll('button').data(steps).enter().append('button').attr('class', 'step').text(function(d){
+    return d['title'];
+})
+.attr('id', function(d) { return d['id'];})
+.on('click', function(d) {
+    loadView(d['id']);
+});
+
+bar2Divs.each(function(d) {
+   
+    if (d['id']==page.tab) {
+        d3.select(this).classed('stepClassed',true);
+    } else {
+        d3.select(this).classed('stepClassed',false);
+    }
+});
+
+//model (webgl) view
+function loadModelSelection() {
+    hideAll();
+    page.draw.deleteAll();
+    d3.select("#modelContainer").style('display','inline-block');
+}
+
+//function to change view on continue button click
+d3.select(".continue")
+    .on("click", function(d) {loadView("ModelSelection");});
+
+
+//hide all views
 function hideAll() {
     d3.select("#mapContainer").style('display','none');
-    d3.select("#dataContainer").style('display','none');
     d3.select("#modelContainer").style('display','none');
-}
-
-function loadDataSelection() {
-    hideAll();
-    d3.select("#dataContainer").style('display','inline-block');
-    var datasets = d3.select('#leftMenu').selectAll('div').data(page.datasets);
-    
-    datasets.enter().append('div')
-        .attr('class','dataOption')
-        .text(function(d) {
-            return d['dataset'];
-        })
-        .on('click', function(d) {
-            if (d['selected']==0) {
-                //transition: background-color 0.25s;
-                d['selected']=1;
-                d3.select(this).classed('selected',true);
-            } else {
-                d['selected']=0;
-                d3.select(this).classed('selected',false);
-            }
-           
-            d3.select('.infoP').text(d['infoText']);
-        })
-    datasets.exit().remove();
 }
 
 //function to return blank geojson, which is helpful to initialize 
@@ -198,42 +267,7 @@ function blank() {
     };
 };
 
-function getUniqueFeatures(array) {
-    var existingFeatureKeys = {};
-    // Because features come from tiled vector data, feature geometries may be split
-    // or duplicated across tile boundaries and, as a result, features may appear
-    // multiple times in query results.
-    var uniqueFeatures = array.filter(function(el) {
-    if (existingFeatureKeys[el.id]) {
-    return false;
-    } else {
-    existingFeatureKeys[el.id] = true;
-    return true;
-    }
-    });
-    
-    return uniqueFeatures;
-}
-
-function setColor() {
-    if (loaded == 1) {
-      
-        var features = page.map.queryRenderedFeatures({ layers: ['polys'] });
-        //console.log(features);
-        for (let i = 0; i<features.length; i++) {
-            page.map.setFeatureState({
-                source:'ia',
-                sourceLayer:'ia',
-                id: features[i]['id']
-                }, {
-                'color':'#fff'
-                }
-            )
-        }
-    }
-   
-}
-
+//function like python's range
 function range(start, stop, step) {
     if (typeof stop == 'undefined') {
         // one param defined
@@ -257,11 +291,11 @@ function range(start, stop, step) {
     return result;
 };
 
-function loadModelSelection() {
-    hideAll();
-    d3.select("#modelContainer").style('display','inline-block');
-}
+//*********************************
+//Functions to get appropriate data tiles
+//*********************************
 
+//given latitude and longitude, return tile space
 function tile(lon, lat, n) {
     const convRad = Math.PI/180.0;
     let xtile = n * ((lon + 180) / 360);
@@ -270,6 +304,7 @@ function tile(lon, lat, n) {
     return [xtile, ytile];
 }
 
+//given latitude and longitude return pixel space
 function pixel(lon, lat) {
     const zoom = 14;
     const n = Math.pow(2,zoom);
@@ -281,6 +316,7 @@ function pixel(lon, lat) {
     return [xpixel, ypixel];
 }
 
+//bounding box for field in tile space
 function returnTiles(bbox) {
     const zoom = 14;
     const n = Math.pow(2,zoom);
@@ -291,6 +327,7 @@ function returnTiles(bbox) {
     return [tilesw, tilene];
 }
 
+//return latitude and longitude given tile space
 function lonlat(xtile, ytile) {
     const zoom = 14;
     const n = Math.pow(2,zoom);
@@ -300,11 +337,17 @@ function lonlat(xtile, ytile) {
     return [lon_deg, lat_deg];
 }
 
+//AWS returns data in a format that needs to be converted to PNG image
 function encode(data)
 {
     var str = data.reduce(function(a,b){ return a+String.fromCharCode(b) },'');
     return btoa(str).replace(/.{76}(?=.)/g,'$&\n');
 }
+
+
+//*****************************
+//webgl part
+//*****************************
 
 function createShader(gl, type, source) {
     let shader = gl.createShader(type);
@@ -315,7 +358,7 @@ function createShader(gl, type, source) {
         return shader;
     }
 
-    console.log(gl.getShaderInfoLog(shader));
+  
     gl.deleteShader(shader);
 }
 
@@ -329,7 +372,7 @@ function createProgram(gl, vertexShader, fragmentShader) {
         return program;
     }
 
-    console.log(gl.getProgramInfoLog(program));
+    
     gl.deleteProgram(program);
 }
 
@@ -366,6 +409,7 @@ function setRectangle(gl, x, y, width, height) {
   ]), gl.STATIC_DRAW);
 }
 
+//function that renders to webgl canvas
 function render(canvas) {
     var positionLocation = gl.getAttribLocation(program, "a_position");
     var texcoordLocation = gl.getAttribLocation(program, "a_texCoord");
@@ -406,11 +450,7 @@ function render(canvas) {
     var resolutionLocation = gl.getUniformLocation(program, "u_resolution");
     let width = gl.canvas.clientWidth;
     let height = gl.canvas.clientHeight;
-    //console.log("client", width, height);
-    //if (gl.canvas.width != width || gl.canvas.height != height) {
-    //    gl.canvas.width = width;
-    //    gl.canvas.height = height;
-    //}
+    
     gl.viewport(0, 0, gl.canvas.width, gl.canvas.height);
     gl.clearColor(0,0,0,0);
     gl.clear(gl.COLOR_BUFFER_BIT);
@@ -470,9 +510,9 @@ function render(canvas) {
 
 }
 
+//set up canvases to render
 function canvasWork(imageArray, numx, numy, testField, pixelTL) {
-    console.log("inside canvas work");
-    console.log(testField);
+   
     const res = 256;
     let imgHeight = res*numy;
     let imgWidth = res*numx;
@@ -484,10 +524,10 @@ function canvasWork(imageArray, numx, numy, testField, pixelTL) {
     let clipCanvas = document.getElementById('clipCanvas');
     clipCanvas.width = imgWidth;
     clipCanvas.height = imgHeight;
-    //let ctx = canvas.getContext('2d');
+   
     let ctxclip = clipCanvas.getContext('2d');
     for (let i=0; i<imageArray.length; i++) {
-        console.log(i,(i%numx)*res,Math.floor(i/numx)*res);
+       
         ctx.drawImage(imageArray[i], (i%numx)*res, Math.floor(i/numx)*res, res, res);
     }
     
@@ -502,8 +542,7 @@ function canvasWork(imageArray, numx, numy, testField, pixelTL) {
     ctxclip.beginPath();
     fieldCoordsArray = testField.geometry.coordinates;
     if (testField.geometry.type=="Polygon" && fieldCoordsArray[0].length == 2) {
-        console.log("first");
-        //fieldCoords = testField.geometry.coordinates[0];
+        
         fieldCoords = fieldCoordsArray;
         for (let i = 0; i < fieldCoords.length; i++) {
         let thisPixel = pixel(fieldCoords[i][0],fieldCoords[i][1]);
@@ -511,18 +550,16 @@ function canvasWork(imageArray, numx, numy, testField, pixelTL) {
         if (i==0) {
             ctx.moveTo(thisPixel[0]-pixelTL[0], thisPixel[1]-pixelTL[1]);
             ctxclip.moveTo(thisPixel[0]-pixelTL[0], thisPixel[1]-pixelTL[1]);
-            //ctx.moveTo(thisPixel[1]-pixelTL[1], thisPixel[0]-pixelTL[0]);
         }
         else {
             ctx.lineTo(thisPixel[0]-pixelTL[0], thisPixel[1]-pixelTL[1]);
             ctxclip.lineTo(thisPixel[0]-pixelTL[0], thisPixel[1]-pixelTL[1]);
-            //ctx.lineTo(thisPixel[1]-pixelTL[1], thisPixel[0]-pixelTL[0]);
         } 
         }
         ctx.stroke();
     }
     else if (testField.geometry.type=="Polygon" && fieldCoordsArray[0].length > 2) {
-        console.log("third");
+       
         for (let j=0; j<fieldCoordsArray.length; j++) {
         fieldCoords = fieldCoordsArray[j]; 
         for (let i = 0; i < fieldCoords.length; i++) {
@@ -531,19 +568,17 @@ function canvasWork(imageArray, numx, numy, testField, pixelTL) {
         if (i==0) {
             ctx.moveTo(thisPixel[0]-pixelTL[0], thisPixel[1]-pixelTL[1]);
             ctxclip.moveTo(thisPixel[0]-pixelTL[0], thisPixel[1]-pixelTL[1]);
-            //ctx.moveTo(thisPixel[1]-pixelTL[1], thisPixel[0]-pixelTL[0]);
         }
         else {
             ctx.lineTo(thisPixel[0]-pixelTL[0], thisPixel[1]-pixelTL[1]);
             ctxclip.lineTo(thisPixel[0]-pixelTL[0], thisPixel[1]-pixelTL[1]);
-            //ctx.lineTo(thisPixel[1]-pixelTL[1], thisPixel[0]-pixelTL[0]);
         } 
         }
         ctx.stroke();
         }
     }
    else {
-        console.log("second");
+       
         for (let j=0; j<fieldCoordsArray[0].length; j++) {
         fieldCoords = fieldCoordsArray[0][j]; 
         for (let i = 0; i < fieldCoords.length; i++) {
@@ -552,41 +587,18 @@ function canvasWork(imageArray, numx, numy, testField, pixelTL) {
         if (i==0) {
             ctx.moveTo(thisPixel[0]-pixelTL[0], thisPixel[1]-pixelTL[1]);
             ctxclip.moveTo(thisPixel[0]-pixelTL[0], thisPixel[1]-pixelTL[1]);
-            //ctx.moveTo(thisPixel[1]-pixelTL[1], thisPixel[0]-pixelTL[0]);
         }
         else {
             ctx.lineTo(thisPixel[0]-pixelTL[0], thisPixel[1]-pixelTL[1]);
             ctxclip.lineTo(thisPixel[0]-pixelTL[0], thisPixel[1]-pixelTL[1]);
-            //ctx.lineTo(thisPixel[1]-pixelTL[1], thisPixel[0]-pixelTL[0]);
         } 
         }
         ctx.stroke();
         }
     }
 
-    
-    
-    // //ctxclip.stroke();
-    // fieldCoords = testField.geometry.coordinates[0][1];
-    // for (let i = 0; i < fieldCoords.length; i++) {
-    //     let thisPixel = pixel(fieldCoords[i][0],fieldCoords[i][1]);
-        
-    //     if (i==0) {
-    //         ctx.moveTo(thisPixel[0]-pixelTL[0], thisPixel[1]-pixelTL[1]);
-    //         ctxclip.moveTo(thisPixel[0]-pixelTL[0], thisPixel[1]-pixelTL[1]);
-    //         //ctx.moveTo(thisPixel[1]-pixelTL[1], thisPixel[0]-pixelTL[0]);
-    //     }
-    //     else {
-    //         ctx.lineTo(thisPixel[0]-pixelTL[0], thisPixel[1]-pixelTL[1]);
-    //         ctxclip.lineTo(thisPixel[0]-pixelTL[0], thisPixel[1]-pixelTL[1]);
-    //         //ctx.lineTo(thisPixel[1]-pixelTL[1], thisPixel[0]-pixelTL[0]);
-    //     } 
-    // }
-
-    // ctx.stroke();
-    //ctxclip.stroke();
     ctxclip.clip("evenodd");
-    //ctxclip.drawImage(img,0,0);
+   
     for (let i=0; i<imageArray.length; i++) {
         ctxclip.drawImage(imageArray[i], (i%numx)*res, Math.floor(i/numx)*res, res, res);
     }
@@ -599,15 +611,13 @@ function canvasWork(imageArray, numx, numy, testField, pixelTL) {
     render(clipCanvas);
 }
 
-
+//given field data, load the png data for SI
 async function loadFieldData(testField) {
     let  auth = await authentication;
-    //let testField = data.features[data.features.length - 1];
+   
     let testBbox = turf.bbox(testField);
     
     let cornerTiles = returnTiles(testBbox);
-    
-    console.log("corner tiles", cornerTiles);
     
     let minx = Math.floor(cornerTiles[0][0]);
     let maxx = Math.floor(cornerTiles[1][0]);
@@ -617,7 +627,7 @@ async function loadFieldData(testField) {
     let rangex = range(0, maxx-minx+1, 1);
     let rangey = range(0, maxy-miny+1, 1);
 
-    console.log(rangex, rangey);
+   
 
     let tilex = Math.floor(cornerTiles[0][0]);
     let tiley = Math.floor(cornerTiles[1][1]);
@@ -633,7 +643,6 @@ async function loadFieldData(testField) {
     let imageUrls = [];
     for (let j=0; j<rangey.length; j++) {
         for (let i=0; i<rangex.length; i++) {
-            console.log('r/corn/si/current/14/'+(minx+rangex[i])+'/'+(miny+rangey[j])+'.png');
             imageUrls.push('r/corn/si/current/14/'+(minx+rangex[i])+'/'+(miny+rangey[j])+'.png');
         }
     }
@@ -649,63 +658,54 @@ async function loadFieldData(testField) {
             thisImage.id = "image"
             imageArray[i]=thisImage;
             imageArray[i].onload=function() {
-                console.log("i",i);
-                console.log(imageUrls[i])
-                console.log(this.width, this.height);
+               
             imagesLoaded += 1;
-            console.log(imagesLoaded);
+           
             if (imagesLoaded == totalImages) {
-                console.log("all loaded");
+               
                 canvasWork(imageArray, rangex.length, rangey.length, testField, pixelTL);
             }
             }
-            console.log(i,imageUrls[i]);
             imageArray[i].src = 'data:image/png;base64,' + encoded;
         })
         
     }
 }
 
-async function loadFieldManagement() {
-    hideAll();
-    d3.select("#mapContainer").style('display', 'inline-block');
-    let config = await (await fetch('/config.json')).json();
-    let  auth = await authentication;
-    let home = new AWS.S3({params: {Bucket: config.aws.homeBucket} });
-    let userId = (await auth.auth0.getIdTokenClaims()).sub;
-    d3.json('data/userFields.geojson', function(error, data){
-        if (error) console.log(error);
-       
-        page.map.getSource('userFields').setData(data);
-        let bbox = turf.bbox(data);
-       
-        page.box = [[bbox[0],bbox[1]],[bbox[2],bbox[3]]];
+//update blue field outlines in side menu
+function updateFieldDivs() {
+    
+    var fieldDivs = d3.select('#selectedFields').selectAll("svg").data(user.fields.features);
+        fieldDivs.exit().remove();
+        fieldDivs.each(function(d,i) {
+                    
+                    let el = d3.select(this);
+                    let rect=el.node().getBoundingClientRect();
+                    let width = rect.width;
+                    let height = rect.height;
+                    let geojson = blank();
+                    geojson.features.push(d);
+                    let projection = d3.geoMercator().fitExtent([[5,5],[width-5, height-5]], geojson);
+                    let path = d3.geoPath().projection(projection);
+                    //no need to enter on existing
+                    el.select("g").selectAll("path")
+                        .data(geojson.features)
+                        .attr("d",path)
+                        .style("fill","none")
+                        .style("stroke-width",3);
+        })
 
-        
-        
-        user.fields = data;
-        // var fieldDivs = d3.select('#selectedFields').selectAll('div').data(user.fields.features);
-        
-        //         fieldDivs.enter().append('div')
-        //             .attr('class', 'fieldDiv')
-        //             .text(function(d) {
-        //                 return d.properties.T_INDEX;
-        //             })
-
-        //             fieldDivs.exit().remove();
-
-        var fieldDivs = d3.select('#selectedFields').selectAll("svg").data(user.fields.features);
         var fieldSvgs = fieldDivs.enter().append("svg")
             .attr("class","fieldSvg")
             .attr("id", function(d) {
-                console.log(d);
+               
                 return "id"+d.properties.T_INDEX;
             })
             .on("click", function(d) {
-                console.log(d);
                 if (page.tab=="ModelSelection") {
                     d3.select("#selectedFields").selectAll("svg").classed("svgSelected",false);
                     d3.select(this).classed("svgSelected",true);
+                    d3.select("#webglContainer").classed("hidden", false);
                     loadFieldData(d);
                 }
                 else {
@@ -733,7 +733,28 @@ async function loadFieldManagement() {
                 .style("fill","none")
                 .style("stroke-width",3);
         })
-        
+}
+
+//load field from AWS
+async function loadFieldManagement() {
+    hideAll();
+    d3.select("#webglContainer").classed("hidden",true);
+    d3.select("#selectedFields").selectAll("svg").classed("svgSelected",false);
+    d3.select("#mapContainer").style('display', 'inline-block');
+    let config = await (await fetch('/config.json')).json();
+    let  auth = await authentication;
+    let home = new AWS.S3({params: {Bucket: config.aws.homeBucket} });
+    let userId = (await auth.auth0.getIdTokenClaims()).sub;
+
+    getJSON("fields/fields.json").then(function(d) {
+        let data = JSON.parse(d.Body.toString('utf-8'));
+        page.map.getSource('userFields').setData(data);
+        let bbox = turf.bbox(data);
+       
+        page.box = [[bbox[0],bbox[1]],[bbox[2],bbox[3]]];
+
+        user.fields = data;
+        updateFieldDivs();
         //only zoom to field bounds on page load
         if (page.iLoad == 1) {
             page.map.fitBounds(page.box);
@@ -741,57 +762,22 @@ async function loadFieldManagement() {
             var objDiv = document.getElementById("selectedFields");
             objDiv.scrollTop = objDiv.scrollHeight;
         } 
-
-        
-        
-        //tileBucket.getObject({Key:'r/corn/si/current/14/'+tilex+'/'+tiley+'.png'}, function (err, data) {
-            //if (err) console.log(err, err.stack);
-            //else console.log(data);
-            //let encoded = encode(data.Body);
-            //let img = document.getElementById("testImage")
-            //img.src = 'data:image/png;base64,' + encoded;
-            //img.onload = function() {
-                
-            //}
-            
-        //});
-        //tileBucket.listObjects({Prefix:'r/corn/si/current/'}, console.log);
     })
+    .catch(function(d) {
+        console.log("error",d);
+        user.fields = blank();
+    });
 }
 
-var steps = [
-    {'title':'Field Management',
-    'id': 'FieldManagement'},
-    //{'title':'Data Selection',
-    //'id':'DataSelection'},
-    {'title':'Model Selection',
-    'id':'ModelSelection'}
-]
-
-var bar2Divs = d3.select('#bar2').selectAll('button').data(steps).enter().append('button').attr('class', 'step').text(function(d){
-    return d['title'];
-})
-.attr('id', function(d) { return d['id'];})
-.on('click', function(d) {
-    loadView(d['id']);
-});
-
-bar2Divs.each(function(d) {
-   
-    if (d['id']==page.tab) {
-        console.log('yes',this)
-        d3.select(this).classed('stepClassed',true);
-    } else {
-        d3.select(this).classed('stepClassed',false);
-    }
-});
+function updateFields() {
+    var data = page.draw.getAll();
+}
 
 var fields = [];
 var loaded = 0;
 
 mapboxgl.accessToken = 'pk.eyJ1IjoiY2Vuc3VzcGFnYWYiLCJhIjoiY2tid2FjZmxxMDZoczJycGtxNmthamNrYyJ9.g9IGWfD-Nz9waQzHT5klkg'
  //initialize map
-console.log('initializing map');
 async function initializeMap() {
     await authentication;
     var map = new mapboxgl.Map({
@@ -801,20 +787,64 @@ async function initializeMap() {
             zoom: 3, // starting zoom
             maxZoom:15
         });
+
     page.map = map;
-    
+     
+
+    var draw = new MapboxDraw({
+    displayControlsDefault: false,
+    controls: {
+    polygon: true,
+    trash: true
+    }
+    });
+    page.draw = draw;
+    map.addControl(draw, 'bottom-left');
+    //pattern to do things on drawing actions. Not used
+    map.on('draw.create', updateFields);
+    map.on('draw.delete', updateFields);
+    map.on('draw.update', updateFields);
+
+    //a lot of things wait until map loads to happen
     map.on('load', function() {
-    //wait til last moment to resize map
-   
-    map.addSource('ia', {
-            id:'fields',
-            type:'vector',
-            "metadata": {
-            "mapbox:autocomposite": true
+   ////was clu tiles
+   // map.addSource('ia', {
+   //         id:'fields',
+   //         type:'vector',
+   //         "metadata": {
+   //         "mapbox:autocomposite": true
+   //         },
+   //         'maxzoom':11,
+   //         tiles:["http://localhost:8080/data/ia/{z}/{x}/{y}.pbf"]
+   //     });
+    d3.json('data/adair.geojsonl.json', function(error, data) {
+        if (error){
+            console.log(error);
+        }
+        else {
+            map.addSource('countySource', {
+                    'type':'geojson',
+                    'data':data
+                })
+
+            map.addLayer({
+                'id':'county',
+                'type':'fill',
+                'source':'countySource',
+                'layout': {
+            'visibility':'visible'
             },
-            'maxzoom':11,
-            tiles:[window.location.origin + "/data/ia/{z}/{x}/{y}.pbf"]
-        });
+            'paint':{
+            'fill-outline-color':'#fff',
+            'fill-color':'rgba(0,0,0,0)'
+        }
+            })
+            let bbox = turf.bbox(data);
+       
+            page.box = [[bbox[0],bbox[1]],[bbox[2],bbox[3]]];
+            map.fitBounds(page.box);
+        }
+    })
 
     map.addSource('outlineSource', {
                     'type':'geojson',
@@ -824,32 +854,33 @@ async function initializeMap() {
         'type':'geojson',
         'data':blank()
     })
-    map.addLayer({
-        'id':'polys',
-        'maxzoom': 16,
-        'type':'fill',
-        'source':'ia',
-        'source-layer':'ia',
-        'layout': {
-            'visibility':'visible'
-        },
-        //  'paint': {
-        //      'fill-color': [
-        //          'interpolate',
-        //          ['linear'],
-        //          ['get','CALCACRES'],
-        //          0,
-        //          '#9EFFA0',
-        //          500,
-        //          '#00610F'
-        //      ],
-        //      'fill-opacity':0.8
-        //  }
-        'paint':{
-            'fill-outline-color':'#fff',
-            'fill-color':'rgba(0,0,0,0)'
-        }
-    },"aerialway")
+
+    // map.addLayer({
+    //     'id':'polys',
+    //     'maxzoom': 16,
+    //     'type':'fill',
+    //     'source':'ia',
+    //     'source-layer':'ia',
+    //     'layout': {
+    //         'visibility':'visible'
+    //     },
+    //     //  'paint': {
+    //     //      'fill-color': [
+    //     //          'interpolate',
+    //     //          ['linear'],
+    //     //          ['get','CALCACRES'],
+    //     //          0,
+    //     //          '#9EFFA0',
+    //     //          500,
+    //     //          '#00610F'
+    //     //      ],
+    //     //      'fill-opacity':0.8
+    //     //  }
+    //     'paint':{
+    //         'fill-outline-color':'#fff',
+    //         'fill-color':'rgba(0,0,0,0)'
+    //     }
+    // },"aerialway")
     
 
     map.addLayer({
@@ -890,7 +921,6 @@ async function initializeMap() {
         }
     }
     map.on('mousemove', 'polys', function(e) {
-        //console.log(e.features);
         //var geom = blank();
         //geom['features'] = [e.features[0].geometry];
         //map.getSource('outlineSource').setData(e.features[0].geometry);
@@ -908,9 +938,6 @@ async function initializeMap() {
             lat+0.005
         ]
             
-        
-        //console.log(e.point.x, e.point.y);
-        //console.log(map.project(sw), map.project(ne));
         var swProject = map.project(sw);
         var neProject = map.project(ne);
         var features = map.queryRenderedFeatures([swProject,neProject], {
@@ -952,22 +979,6 @@ async function initializeMap() {
     map.on('click', function(e) {
                 
                 var layers = map.queryRenderedFeatures(e.point);
-                
-                //only fire event for top layer
-                // for (var i = 0; i<layers.length; i++) {
-                //     if (layers[i]['layer']['id'] == 'polys') {
-                //         user.fields.features.push(
-                //             {
-                //             type:'Feature',
-                //             properties:{
-                //                 T_INDEX:layers[i]['properties']['T_INDEX']
-                //             },
-                //             geometry:layers[i].geometry
-                //             }
-                //             )
-                //         console.log(fields);
-                //     }
-                // }
 
                 for (var i = 0; i<layers.length; i++) {
                      if (layers[i]['layer']['id'] == 'polys' && page.mouseoverField != null) {
@@ -985,33 +996,11 @@ async function initializeMap() {
                             user.fields.features.push(page.mouseoverField.features[0]);
                          }  
                      }
-                }
-
-                // var features = map.queryRenderedFeatures({ layers: ['polys'] });
-                
-                // //console.log(features);
-                // var lastAdded = user.fields.features[user.fields.features.length-1].properties['T_INDEX'];
-                // toDissolve = blank();
-                // for (let i=0; i<features.length; i++) {
-                    
-                //     if (features[i]['properties']['T_INDEX'] == lastAdded) {
-                //         toDissolve.features.push({
-                //             type:'Feature',
-                //             geometry:features[i].geometry
-                //         })
-                //     }
-                // }
-
-
-
-
-            
-
+                    }
 
                 var fieldDivs = d3.select('#selectedFields').selectAll('svg').data(user.fields.features);
                 fieldDivs.exit().remove();
                 fieldDivs.each(function(d,i) {
-                    //console.log(i,d.properties.T_INDEX);
                     let el = d3.select(this);
                     let rect=el.node().getBoundingClientRect();
                     let width = rect.width;
@@ -1034,10 +1023,10 @@ async function initializeMap() {
                     return "id"+d.properties.T_INDEX;
                 })
                 .on("click", function(d) {
-                console.log(d);
                 if (page.tab=="ModelSelection") {
                     d3.select("#selectedFields").selectAll("svg").classed("svgSelected",false);
                     d3.select(this).classed("svgSelected",true);
+                    d3.select("#webglContainer").classed("hidden", false);
                     loadFieldData(d);
                 }
                 else {
@@ -1069,41 +1058,11 @@ async function initializeMap() {
                 
                 var objDiv = document.getElementById("selectedFields");
                 objDiv.scrollTop = objDiv.scrollHeight;
-                
-
-                
-
-               
-
-                
-                
-                // fieldDivs.enter().append('div')
-                //     .attr('class', 'fieldDiv')
-                //     .text(function(d) {
-                //         return d.properties.T_INDEX;
-                //     })
+        
                 var updated = blank();
                 updated.features = user.fields.features;
                 map.getSource('userFields').setData(updated);
             })
-    //map.on('zoomend', function() {
-    //    setColor();
-        
-         //if (features) {
-         //var uniqueFeatures = getUniqueFeatures(features);
-         //fields = uniqueFeatures;
-         //console.log(uniqueFeatures);
-        // // Populate features for the listing overlay.
-        // renderListings(uniqueFeatures);
-        
-        // // Clear the input container
-        // filterEl.value = '';
-        
-        // // Store the current features in sn `airports` variable to
-        // // later use for filtering on `keyup`.
-        // airports = uniqueFeatures;
-        // }
-    //);
     
 })
 
