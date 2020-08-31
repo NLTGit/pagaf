@@ -29,9 +29,6 @@ document.getElementById('logout').onclick = async click => {
   auth.auth0.logout({returnTo: window.location.origin})
 }
 
-
-
-
 async function login() {
   // Auth0 api docs are a bit hard to find https://auth0.github.io/auth0-spa-js/
   if (/\berror/.test(window.location.search)) {
