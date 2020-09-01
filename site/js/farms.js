@@ -3,7 +3,6 @@
 
 //define user data
 function User() {
-    this.organization = null;
     this.fields = [];
 }
 
@@ -22,8 +21,6 @@ function pageState() {
     this.map = null;
     this.editing = [];
     this.cornerTiles = null;
-    this.height = null;
-    this.width = null;
 }
 
 //map layer names
@@ -34,7 +31,7 @@ var layers = [
     //'polys'
 ]
 
-var  user = new User();
+var user = new User();
 var page = new pageState();
 var modelvars = new modelVars();
 
@@ -347,10 +344,19 @@ function encode(data)
     return btoa(str).replace(/.{76}(?=.)/g,'$&\n');
 }
 
-d3.select("#test").on("click", function(d) {
+//bind click handler to button
+d3.select("#download").on("click", function(d) {
+    let el = document.getElementById("webglContainer");
+    let hidden = el.classList.contains("hidden");
+    //if container is hidden, don't allow data processing
+    //User must click field first
+    if (hidden) {
+        return;
+    }
     decode(glEncoded);
 })
 
+//function do download javascript object as json
 function exportToJson(object) {
     let filename = "export.json";
     let contentType = "application/json;charset=utf-8;";
@@ -368,21 +374,26 @@ function exportToJson(object) {
     }
   }
 
-
+//back out values encoded in rgb channels of webgl canvas
 function decode(gl) {
+
+    //readPixels doesn't work unless we render again inside this function
     render(document.getElementById('clipCanvas'), glEncoded, programEncoded);
+
     let width = gl.drawingBufferWidth;
     let height = gl.drawingBufferHeight;
     var pixels = new Uint8Array(width * height * 4);
     gl.readPixels(0, 0, width, height, gl.RGBA, gl.UNSIGNED_BYTE, pixels);
-    //console.log(pixels);
-    //console.log(pixels.length);
+   
     let outJSON = blank();
-    let pixelCount = 0;
+    
     let tileWidth = Math.ceil(page.cornerTiles[1][0]) - Math.floor(page.cornerTiles[0][0]);
     let tileHeight = Math.ceil(page.cornerTiles[0][1]) - Math.floor(page.cornerTiles[1][1]);
     let tileMinX = Math.floor(page.cornerTiles[0][0]);
     let tileMaxY = Math.ceil(page.cornerTiles[0][1]);
+
+    let pixelCount = 0;
+
     for (let i=0; i<pixels.length; i+=4) {
         let x = pixelCount % width;
         let y = Math.floor(pixelCount/width);
@@ -391,17 +402,17 @@ function decode(gl) {
         let tileX = tileMinX + xPos*tileWidth;
         let tileY = tileMaxY - yPos*tileHeight;
         let latLon = lonlat(tileX, tileY);
-        //console.log(latLon);
+        
         let r = pixels[i]/255.0;
         let g = pixels[i+1]/255.0;
         let b = pixels[i+2]/255.0;
         let a = pixels[i+3]/255.0;
         let decoded;
-        //console.log(a);
+
+        //alhpa equal to zero is part of tile we don't care about
         if (a>0) {
-            //console.log(r,g,b);
+            //10000 the same as in fragment shader. Could be an attribute instead of hard coded
             decoded = (r*1.0 + g*(1/255.0) + b*(1/65025.0))*10000;
-            //console.log(decoded);
             let feature = {
                 "type":"Feature",
                 "geometry": {
@@ -411,7 +422,7 @@ function decode(gl) {
                 "properties": {
                     "value":Math.round(decoded)
                 }
-            }
+            };
             outJSON.features.push(feature);
         }
         pixelCount = pixelCount + 1;
@@ -533,6 +544,7 @@ var fragmentShaderSourceEncoded = `
     uniform float m;
     uniform float sithresh;
 
+    //encode value in png
     void encode(in float v, out vec4 enc) {
         enc = vec4(1.0, 255.0, 65025.0, 16581375.0) * v;
         enc = fract(enc);
@@ -543,8 +555,9 @@ var fragmentShaderSourceEncoded = `
         //look up color from texture
         vec4 color = texture2D(u_image0, v_texCoord);
         float napp = eonr * sqrt((1.0-color.x)/((1.0-sithresh)*(1.0+0.1*exp(m*(sithresh-color.x)))));
-        vec4 outcolor = texture2D(u_image1, vec2(min(1.0,napp/250.0),0.0));
         vec4 outt;
+        //in order to encode, need to scale value 0-1. Chose 10000, which should be larger than any reasonable
+        //maximum nitrogen application value
         encode(napp/10000., outt);
         gl_FragColor = vec4(outt.x, outt.y, outt.z, color.w);
     }
@@ -578,7 +591,7 @@ function setRectangle(gl, x, y, width, height) {
 
 //function that renders to webgl canvas
 function render(canvas, gl, program) {
-    
+
     var positionLocation = gl.getAttribLocation(program, "a_position");
     var texcoordLocation = gl.getAttribLocation(program, "a_texCoord");
 
@@ -684,8 +697,6 @@ function canvasWork(imageArray, numx, numy, testField, pixelTL) {
     const res = 256;
     let imgHeight = res*numy;
     let imgWidth = res*numx;
-    page.height = imgHeight;
-    page.width = imgWidth;
     let canvas = document.getElementById('testCanvas');
     canvas.width = imgWidth;
     canvas.height = imgHeight;
@@ -780,6 +791,7 @@ function canvasWork(imageArray, numx, numy, testField, pixelTL) {
     webglCanvasEncoded.height = imgHeight;
     
     render(clipCanvas, gl, program);
+    render(clipCanvas, glEncoded, programEncoded);
 }
 
 //given field data, load the png data for SI
@@ -802,7 +814,7 @@ async function loadFieldData(testField) {
 
     let tilex = Math.floor(cornerTiles[0][0]);
     let tiley = Math.floor(cornerTiles[1][1]);
-    console.log(cornerTiles);
+    
     let top = tiley;
     let left = tilex;
     let topLeft = lonlat(left,top);
@@ -915,6 +927,7 @@ async function loadFieldManagement() {
     d3.select("#webglContainer").classed("hidden",true);
     d3.select("#selectedFields").selectAll("svg").classed("svgSelected",false);
     d3.select("#mapContainer").style('display', 'inline-block');
+    page.map.resize();
     let config = await (await fetch('/config.json')).json();
     let  auth = await authentication;
     let home = new AWS.S3({params: {Bucket: config.aws.homeBucket} });
