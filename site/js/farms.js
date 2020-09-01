@@ -61,12 +61,10 @@ async function putJSON(key,object) {
     let userId = (await auth.auth0.getIdTokenClaims()).sub;
     
     home.config.credentials = auth.awsCredentials;
-    var promise = home.putObject({
+    return await home.putObject({
         Key:userId+"/"+key,
         Body:JSON.stringify(object),
         ContentType: "application/json"}).promise();
-
-    return promise;
 }
 
 //load json object from bucket
@@ -78,17 +76,13 @@ async function getJSON(key) {
     let userId = (await auth.auth0.getIdTokenClaims()).sub;
    
     home.config.credentials = auth.awsCredentials;
-    var objReturn = home.getObject({
+    return await home.getObject({
         Key:userId+"/"+key,
-    });
-
-    var promise = objReturn.promise();
-   
-    return promise;
+    }).promise();
 }
 
 //save polygons drawn on map to bucket
-function savePolygons() {
+async function savePolygons() {
     var data = page.draw.getAll();
     user.fields.features = user.fields.features.concat(data.features);
     page.draw.deleteAll();
@@ -793,27 +787,38 @@ async function loadFieldManagement() {
     let home = new AWS.S3({params: {Bucket: config.aws.homeBucket} });
     let userId = (await auth.auth0.getIdTokenClaims()).sub;
 
-    getJSON("fields/fields.json").then(function(d) {
-        let data = JSON.parse(d.Body.toString('utf-8'));
-        page.map.getSource('userFields').setData(data);
-        let bbox = turf.bbox(data);
-       
-        page.box = [[bbox[0],bbox[1]],[bbox[2],bbox[3]]];
+    try {
+        let d = await getJSON("fields/fields.json")
+        user.fields = JSON.parse(d.Body.toString('utf-8'));
+    }
+    catch (e) {
+        if (e.code == 'NoSuchKey') {
+            console.log('fields.json not found. Saving empty fields list.')
+            user.fields = blank()
+            await savePolygons()
+        }
+        else
+            throw e
+    }
 
-        user.fields = data;
+    if (user.fields.features.length) {
+        page.map.getSource('userFields').setData(user.fields);
         updateFieldDivs();
-        //only zoom to field bounds on page load
-        if (page.iLoad == 1) {
-            page.map.fitBounds(page.box);
-            page.iLoad = 0;
-            var objDiv = document.getElementById("selectedFields");
-            objDiv.scrollTop = objDiv.scrollHeight;
-        } 
-    })
-    .catch(function(d) {
-        console.log("error",d);
-        user.fields = blank();
-    });
+        fitUserFieldsBounds()
+    }
+}
+
+function fitUserFieldsBounds() {
+    let bbox = turf.bbox(user.fields);
+    page.box = [[bbox[0],bbox[1]],[bbox[2],bbox[3]]];
+
+    //only zoom to field bounds on page load
+    if (page.iLoad == 1) {
+        page.map.fitBounds(page.box);
+        page.iLoad = 0;
+        var objDiv = document.getElementById("selectedFields");
+        objDiv.scrollTop = objDiv.scrollHeight;
+    } 
 }
 
 function updateFields() {
