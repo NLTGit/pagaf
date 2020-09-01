@@ -69,18 +69,18 @@
             </div>
         </div>
         <div id="modelContainer" class="modelContainer">
-            <p class='instructionsRel'>Click a field outline to adjust model for that field.</p>
+            <p class='instructionsRel'>Click a field outline to adjust model for that field. When done, <button class="download" id="download">download</button> data.</p>
             <img id="testImage">
             <canvas class="hidden" id="testCanvas"></canvas>
             <canvas class="hidden" id="clipCanvas"></canvas>
             <div id="webglContainer" class="webglContainer hidden">
-                
                 <canvas id="webglCanvas" style="display:inline-block;"></canvas>
                 <p class="barTitle">Napp ranges from 0 to 250 kg/ha</p>
                 <canvas id="colorCanvas"></canvas>
                 <svg id="eonrSlider" class="slider" width="250" height="40"></svg>
                 <svg id="mSlider" class="slider" width="250" height="40"></svg>
                 <svg id="sithreshSlider" class="slider" width="250" height="40"></svg>
+                <canvas id="webglCanvasEncoded" style="display:inline-block;" class="hidden"></canvas>
             </div>
             
         </div>
