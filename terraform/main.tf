@@ -51,6 +51,13 @@ resource "aws_s3_bucket" "PrivateBucket" {
     }
   }
 
+  cors_rule {
+    allowed_headers = ["*"]
+    allowed_methods = ["GET", "DELETE", "PUT", "POST"]
+    allowed_origins = ["https://${var.StaticWebResourcesBucketName}"]
+    max_age_seconds = 3000
+  }
+
   tags          = {
     ProjectAndOwner = "${var.ProjectAndOwner}"
     Environment = "${var.env}"
@@ -205,7 +212,7 @@ resource "aws_iam_role" "private_s3_access_role" {
         "Principal": {"Federated": "${aws_iam_openid_connect_provider.default.arn}"},
         "Action": "sts:AssumeRoleWithWebIdentity",
         "Condition": {
-            "StringEquals": {"${var.Auth0ConnectProvider}:aud": "${var.Auth0ClientID}"}
+            "StringEquals": {"${var.Auth0ConnectProvider}/:aud": "${var.Auth0ClientID}"}
         }
     }
 }
@@ -230,7 +237,7 @@ resource "aws_iam_policy" "policy" {
             "Condition": {
                 "StringLike": {
                     "s3:prefix": [
-                        "${var.Auth0ConnectProvider}/:sub/*"
+                        "\${${var.Auth0ConnectProvider}\}/:sub/*"
                     ]
                 }
             }
@@ -243,8 +250,26 @@ resource "aws_iam_policy" "policy" {
                 "s3:DeleteObject"
             ],
             "Resource": [
-                "arn:aws:s3:::${var.StaticWebResourcesBucketName}-db/${var.Auth0ConnectProvider}/:sub/",
-                "arn:aws:s3:::${var.StaticWebResourcesBucketName}-db/${var.Auth0ConnectProvider}/:sub/*"
+                "arn:aws:s3:::${var.StaticWebResourcesBucketName}-db/\${${var.Auth0ConnectProvider}\}/:sub/",
+                "arn:aws:s3:::${var.StaticWebResourcesBucketName}-db/\${${var.Auth0ConnectProvider}\}/:sub/*"
+            ]
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "s3:GetObject"
+            ],
+            "Resource": [
+                "arn:aws:s3:::pagaf.nltgis.com/*"
+            ]
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "s3:ListBucket"
+            ],
+            "Resource": [
+                "arn:aws:s3:::pagaf.nltgis.com"
             ]
         }
     ]

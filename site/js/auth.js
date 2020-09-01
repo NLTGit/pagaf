@@ -22,16 +22,12 @@ How to view your jwt in the browser's JavaScript console:
 window.authentication = login()
 let auth = await authentication
 
-document.querySelector('.username').innerText = (await auth.auth0.getUser()).name
-
-document.querySelector('a.logout').onclick = async click => {
+document.getElementById('organization').innerText = (await auth.auth0.getUser()).name
+document.getElementById('logout').onclick = async click => {
   click.preventDefault()  // auth0.logout() redirects when complete
   document.body.setAttribute('aria-busy', true)
-  auth.auth0.logout()
+  auth.auth0.logout({returnTo: window.location.origin})
 }
-
-document.body.removeAttribute('aria-busy')
-
 
 async function login() {
   // Auth0 api docs are a bit hard to find https://auth0.github.io/auth0-spa-js/
@@ -44,27 +40,27 @@ async function login() {
   }
 
   let config = await (await fetch('/config.json')).json()
+    , redirectUri = window.location.origin + '/home.html'
     , auth0 = await createAuth0Client(
-        // The key parts of this config are:
-        //
-        //  domain: auth0 tenant
-        //  client_id: auth0 application client id
-        //
-        config.auth0)
+        { domain:    config.auth0.domain
+        , client_id: config.auth0.client_id
+        , audience:  config.auth0.audience
+        , redirect_uri: redirectUri
+        })
 
   if ( ! await auth0.isAuthenticated()) {
     let q = window.location.search
     if (/\bcode=/.test(q) && /\bstate=/.test(q)) {
-      await auth0.handleRedirectCallback()
-      window.history.replaceState(null, '', window.location.pathname)
+      try { await auth0.handleRedirectCallback() }
+      finally { window.history.replaceState(null, '', window.location.pathname) }
     }
     else
       await auth0.loginWithRedirect(
         // In a real application, we'd redirect to different urls depending
         // on the context. For now, it's ok to home home on every refresh.
-        {redirect_uri: config.redirect_uri})
+        {redirect_uri: redirectUri})
   }
-
+  
   return { auth0: auth0
          , awsCredentials: new AWS.WebIdentityCredentials(
             { RoleArn: config.aws.farmerRoleArn

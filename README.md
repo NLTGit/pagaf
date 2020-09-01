@@ -15,6 +15,15 @@ python -m http.server
 ```
 
 
+## Deploying code changes
+
+We'll later do this with Terraform, but for now, after creating the appropriate [config.json](https://github.com/NLTGit/pagaf/wiki/Auth0-and-Amazon-setup) in the site directory:
+
+```
+aws s3 sync site s3://pagaf.nltmso.com
+```
+
+
 ## Legal
 
 Copyright (C) 2020 New Light Technologies
