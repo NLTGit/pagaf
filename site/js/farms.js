@@ -21,6 +21,9 @@ function pageState() {
     this.iLoad = 1;
     this.map = null;
     this.editing = [];
+    this.cornerTiles = null;
+    this.height = null;
+    this.width = null;
 }
 
 //map layer names
@@ -61,12 +64,10 @@ async function putJSON(key,object) {
     let userId = (await auth.auth0.getIdTokenClaims()).sub;
     
     home.config.credentials = auth.awsCredentials;
-    var promise = home.putObject({
+    return await home.putObject({
         Key:userId+"/"+key,
         Body:JSON.stringify(object),
         ContentType: "application/json"}).promise();
-
-    return promise;
 }
 
 //load json object from bucket
@@ -78,17 +79,13 @@ async function getJSON(key) {
     let userId = (await auth.auth0.getIdTokenClaims()).sub;
    
     home.config.credentials = auth.awsCredentials;
-    var objReturn = home.getObject({
+    return await home.getObject({
         Key:userId+"/"+key,
-    });
-
-    var promise = objReturn.promise();
-   
-    return promise;
+    }).promise();
 }
 
 //save polygons drawn on map to bucket
-function savePolygons() {
+async function savePolygons() {
     var data = page.draw.getAll();
     user.fields.features = user.fields.features.concat(data.features);
     page.draw.deleteAll();
@@ -150,7 +147,8 @@ function Slider(id, field, domain) {
     this.hue = function(h) {
         modelvars[field] = h;
         self.handle.attr("cx", self.x(h));
-        render(document.getElementById('clipCanvas'));
+        render(document.getElementById('clipCanvas'), gl, program);
+        render(document.getElementById('clipCanvas'), glEncoded, programEncoded);
     };
     this.x = d3.scaleLinear()
         .domain(domain)
@@ -349,6 +347,80 @@ function encode(data)
     return btoa(str).replace(/.{76}(?=.)/g,'$&\n');
 }
 
+d3.select("#test").on("click", function(d) {
+    decode(glEncoded);
+})
+
+function exportToJson(object) {
+    let filename = "export.json";
+    let contentType = "application/json;charset=utf-8;";
+    if (window.navigator && window.navigator.msSaveOrOpenBlob) {
+      var blob = new Blob([decodeURIComponent(encodeURI(JSON.stringify(object)))], { type: contentType });
+      navigator.msSaveOrOpenBlob(blob, filename);
+    } else {
+      var a = document.createElement('a');
+      a.download = filename;
+      a.href = 'data:' + contentType + ',' + encodeURIComponent(JSON.stringify(object));
+      a.target = '_blank';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+    }
+  }
+
+
+function decode(gl) {
+    render(document.getElementById('clipCanvas'), glEncoded, programEncoded);
+    let width = gl.drawingBufferWidth;
+    let height = gl.drawingBufferHeight;
+    var pixels = new Uint8Array(width * height * 4);
+    gl.readPixels(0, 0, width, height, gl.RGBA, gl.UNSIGNED_BYTE, pixels);
+    //console.log(pixels);
+    //console.log(pixels.length);
+    let outJSON = blank();
+    let pixelCount = 0;
+    let tileWidth = Math.ceil(page.cornerTiles[1][0]) - Math.floor(page.cornerTiles[0][0]);
+    let tileHeight = Math.ceil(page.cornerTiles[0][1]) - Math.floor(page.cornerTiles[1][1]);
+    let tileMinX = Math.floor(page.cornerTiles[0][0]);
+    let tileMaxY = Math.ceil(page.cornerTiles[0][1]);
+    for (let i=0; i<pixels.length; i+=4) {
+        let x = pixelCount % width;
+        let y = Math.floor(pixelCount/width);
+        let xPos = x/width;
+        let yPos = y/height;
+        let tileX = tileMinX + xPos*tileWidth;
+        let tileY = tileMaxY - yPos*tileHeight;
+        let latLon = lonlat(tileX, tileY);
+        //console.log(latLon);
+        let r = pixels[i]/255.0;
+        let g = pixels[i+1]/255.0;
+        let b = pixels[i+2]/255.0;
+        let a = pixels[i+3]/255.0;
+        let decoded;
+        //console.log(a);
+        if (a>0) {
+            //console.log(r,g,b);
+            decoded = (r*1.0 + g*(1/255.0) + b*(1/65025.0))*10000;
+            //console.log(decoded);
+            let feature = {
+                "type":"Feature",
+                "geometry": {
+                    "type":"Point",
+                    "coordinates":latLon
+                },
+                "properties": {
+                    "value":Math.round(decoded)
+                }
+            }
+            outJSON.features.push(feature);
+        }
+        pixelCount = pixelCount + 1;
+        
+    }
+
+    //download json
+    exportToJson(outJSON);
+};
 
 //*****************************
 //webgl part
@@ -361,6 +433,9 @@ function createShader(gl, type, source) {
     let success = gl.getShaderParameter(shader, gl.COMPILE_STATUS);
     if (success) {
         return shader;
+    }
+    else {
+        console.log(gl.getShaderInfoLog(shader));
     }
 
   
@@ -376,6 +451,9 @@ function createProgram(gl, vertexShader, fragmentShader) {
     if (success) {
         return program;
     }
+    else {
+        console.log(gl.getProgramInfoLog(program));
+    }
 
     
     gl.deleteProgram(program);
@@ -384,6 +462,12 @@ function createProgram(gl, vertexShader, fragmentShader) {
 let webglCanvas = document.getElementById('webglCanvas');
 let gl = webglCanvas.getContext("webgl");
 if (!gl) {
+    console.log("initialization of webgl was bad");
+}
+
+let webglCanvasEncoded = document.getElementById('webglCanvasEncoded');
+let glEncoded = webglCanvasEncoded.getContext("webgl");
+if (!glEncoded) {
     console.log("initialization of webgl was bad");
 }
 
@@ -435,11 +519,47 @@ var fragmentShaderSource = `
     }
 `;
 
+var fragmentShaderSourceEncoded = `
+    precision mediump float;
+
+    //texture
+    uniform sampler2D u_image0;
+    uniform sampler2D u_image1;
+
+    //passed from vertex
+    varying vec2 v_texCoord;
+
+    uniform float eonr;
+    uniform float m;
+    uniform float sithresh;
+
+    void encode(in float v, out vec4 enc) {
+        enc = vec4(1.0, 255.0, 65025.0, 16581375.0) * v;
+        enc = fract(enc);
+        enc -= enc.yzww * vec4(1.0/255.0,1.0/255.0,1.0/255.0,0.0);
+    }
+
+    void main() {
+        //look up color from texture
+        vec4 color = texture2D(u_image0, v_texCoord);
+        float napp = eonr * sqrt((1.0-color.x)/((1.0-sithresh)*(1.0+0.1*exp(m*(sithresh-color.x)))));
+        vec4 outcolor = texture2D(u_image1, vec2(min(1.0,napp/250.0),0.0));
+        vec4 outt;
+        encode(napp/10000., outt);
+        gl_FragColor = vec4(outt.x, outt.y, outt.z, color.w);
+    }
+`;
+
 //create shaders
 var vertexShader = createShader(gl, gl.VERTEX_SHADER, vertexShaderSource);
 var fragmentShader = createShader(gl, gl.FRAGMENT_SHADER, fragmentShaderSource);
 
+//shader that encodes floats in channels of PNG
+var vertexShaderEncoded = createShader(glEncoded, glEncoded.VERTEX_SHADER, vertexShaderSource);
+var fragmentShaderEncoded = createShader(glEncoded, glEncoded.FRAGMENT_SHADER, fragmentShaderSourceEncoded);
+
 var program = createProgram(gl, vertexShader, fragmentShader);
+var programEncoded = createProgram(glEncoded, vertexShaderEncoded, fragmentShaderEncoded);
 
 function setRectangle(gl, x, y, width, height) {
   var x1 = x;
@@ -457,7 +577,8 @@ function setRectangle(gl, x, y, width, height) {
 }
 
 //function that renders to webgl canvas
-function render(canvas) {
+function render(canvas, gl, program) {
+    
     var positionLocation = gl.getAttribLocation(program, "a_position");
     var texcoordLocation = gl.getAttribLocation(program, "a_texCoord");
 
@@ -563,7 +684,8 @@ function canvasWork(imageArray, numx, numy, testField, pixelTL) {
     const res = 256;
     let imgHeight = res*numy;
     let imgWidth = res*numx;
-    
+    page.height = imgHeight;
+    page.width = imgWidth;
     let canvas = document.getElementById('testCanvas');
     canvas.width = imgWidth;
     canvas.height = imgHeight;
@@ -654,8 +776,10 @@ function canvasWork(imageArray, numx, numy, testField, pixelTL) {
     
     webglCanvas.width = imgWidth;
     webglCanvas.height = imgHeight;
+    webglCanvasEncoded.width = imgWidth;
+    webglCanvasEncoded.height = imgHeight;
     
-    render(clipCanvas);
+    render(clipCanvas, gl, program);
 }
 
 //given field data, load the png data for SI
@@ -678,11 +802,14 @@ async function loadFieldData(testField) {
 
     let tilex = Math.floor(cornerTiles[0][0]);
     let tiley = Math.floor(cornerTiles[1][1]);
+    console.log(cornerTiles);
     let top = tiley;
     let left = tilex;
     let topLeft = lonlat(left,top);
     
     let pixelTL = pixel(topLeft[0], topLeft[1]);
+
+    page.cornerTiles = cornerTiles;
     
     let tileBucket = new AWS.S3({params: {Bucket: "pagaf.nltgis.com"} });
     tileBucket.config.credentials = auth.awsCredentials;
@@ -793,27 +920,38 @@ async function loadFieldManagement() {
     let home = new AWS.S3({params: {Bucket: config.aws.homeBucket} });
     let userId = (await auth.auth0.getIdTokenClaims()).sub;
 
-    getJSON("fields/fields.json").then(function(d) {
-        let data = JSON.parse(d.Body.toString('utf-8'));
-        page.map.getSource('userFields').setData(data);
-        let bbox = turf.bbox(data);
-       
-        page.box = [[bbox[0],bbox[1]],[bbox[2],bbox[3]]];
+    try {
+        let d = await getJSON("fields/fields.json")
+        user.fields = JSON.parse(d.Body.toString('utf-8'));
+    }
+    catch (e) {
+        if (e.code == 'NoSuchKey') {
+            console.log('fields.json not found. Saving empty fields list.')
+            user.fields = blank()
+            await savePolygons()
+        }
+        else
+            throw e
+    }
 
-        user.fields = data;
+    if (user.fields.features.length) {
+        page.map.getSource('userFields').setData(user.fields);
         updateFieldDivs();
-        //only zoom to field bounds on page load
-        if (page.iLoad == 1) {
-            page.map.fitBounds(page.box);
-            page.iLoad = 0;
-            var objDiv = document.getElementById("selectedFields");
-            objDiv.scrollTop = objDiv.scrollHeight;
-        } 
-    })
-    .catch(function(d) {
-        console.log("error",d);
-        user.fields = blank();
-    });
+        fitUserFieldsBounds()
+    }
+}
+
+function fitUserFieldsBounds() {
+    let bbox = turf.bbox(user.fields);
+    page.box = [[bbox[0],bbox[1]],[bbox[2],bbox[3]]];
+
+    //only zoom to field bounds on page load
+    if (page.iLoad == 1) {
+        page.map.fitBounds(page.box);
+        page.iLoad = 0;
+        var objDiv = document.getElementById("selectedFields");
+        objDiv.scrollTop = objDiv.scrollHeight;
+    } 
 }
 
 function updateFields() {
