@@ -1330,6 +1330,20 @@ td.x-frame-mc {
     -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
     opacity: 0;
 }
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/src/window/Window.scss:1 */
+.x-window {
+    outline: none;
+    overflow: hidden;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/src/window/Window.scss:5 */
+.x-window .x-window-wrap {
+    position: relative;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/src/window/Window.scss:10 */
+.x-window-body {
+    position: relative;
+    overflow: hidden;
+}
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/src/form/Labelable.scss:1 */
 .x-form-item {
     display: table;
@@ -6597,6 +6611,1248 @@ td.x-frame-mc {
     border-color: #f5f5f5 !important;
     border-width: 1px !important;
 }
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/src/window/Window.scss:1 */
+.x-window-ghost {
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+    opacity: 0.5;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/window/Window.scss:545 */
+.x-window-default {
+    border-color: #f5f5f5;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    -ms-border-radius: 4px;
+    -o-border-radius: 4px;
+    border-radius: 4px;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:187 */
+.x-window-default {
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    -ms-border-radius: 4px;
+    -o-border-radius: 4px;
+    border-radius: 4px;
+    padding: 0 0 0 0;
+    border-width: 1px;
+    border-style: solid;
+    background-color: #fff;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:237 */
+.x-window-default-mc {
+    background-color: #fff;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:264 */
+.x-nbr .x-window-default {
+    padding: 0 !important;
+    border-width: 0 !important;
+    -webkit-border-radius: 0px;
+    -moz-border-radius: 0px;
+    -ms-border-radius: 0px;
+    -o-border-radius: 0px;
+    border-radius: 0px;
+    background-color: transparent !important;
+    box-shadow: none !important;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:281 */
+.x-window-default-frameInfo {
+    font-family: dh-4-4-4-4-1-1-1-1-3px-3px-3px-3px;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:347 */
+.x-window-default-tl {
+    background-position: 0 -8px;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:351 */
+.x-window-default-tr {
+    background-position: right -12px;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:355 */
+.x-window-default-bl {
+    background-position: 0 -16px;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:359 */
+.x-window-default-br {
+    background-position: right -20px;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:363 */
+.x-window-default-ml {
+    background-position: 0 top;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:371 */
+.x-window-default-mr {
+    background-position: right top;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:379 */
+.x-window-default-tc {
+    background-position: 0 0;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:383 */
+.x-window-default-bc {
+    background-position: 0 -4px;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:388 */
+.x-window-default-tr,
+.x-window-default-br,
+.x-window-default-mr {
+    padding-right: 4px;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:394 */
+.x-window-default-tl,
+.x-window-default-bl,
+.x-window-default-ml {
+    padding-left: 4px;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:400 */
+.x-window-default-tc {
+    height: 4px;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:403 */
+.x-window-default-bc {
+    height: 4px;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:407 */
+.x-window-default-tl,
+.x-window-default-bl,
+.x-window-default-tr,
+.x-window-default-br,
+.x-window-default-tc,
+.x-window-default-bc,
+.x-window-default-ml,
+.x-window-default-mr {
+    background-image: url(images/window/window-default-corners.gif);
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:453 */
+.x-window-default-ml,
+.x-window-default-mr {
+    background-image: url(images/window/window-default-sides.gif);
+    background-repeat: repeat-y;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:464 */
+.x-window-default-mc {
+    padding: 0 0 0 0;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/window/Window.scss:567 */
+.x-window-body-default {
+    border-color: #f5f5f5;
+    border-width: 1px;
+    border-style: solid;
+    background: #fff;
+    color: #000;
+    font-size: 13px;
+    font-weight: 300;
+    font-family: helvetica, arial, verdana, sans-serif;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/window/Window.scss:581 */
+.x-window-header-default {
+    font-size: 15px;
+    border-color: #f5f5f5;
+    background-color: #f5f5f5;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/window/Window.scss:586 */
+.x-window-header-default .x-tool-img {
+    background-color: #f5f5f5;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/window/Window.scss:599 */
+.x-window-header-default-horizontal .x-window-header-default-tab-bar {
+    margin-top: -9px;
+    margin-bottom: -9px;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/window/Window.scss:606 */
+.x-window-header-default-vertical .x-window-header-default-tab-bar {
+    margin-right: -9px;
+    margin-left: -9px;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/window/Window.scss:622 */
+.x-window-header-title-default {
+    color: #006546;
+    font-size: 15px;
+    font-weight: 300;
+    font-family: helvetica, arial, verdana, sans-serif;
+    line-height: 16px;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/window/Window.scss:631 */
+.x-window-header-title-default > .x-title-text-default {
+    padding: 0;
+    text-transform: none;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/window/Window.scss:678 */
+.x-window-header-title-default > .x-title-icon-wrap-default.x-title-icon-top {
+    height: 22px;
+    padding-bottom: 6px;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/window/Window.scss:683 */
+.x-window-header-title-default > .x-title-icon-wrap-default.x-title-icon-right {
+    width: 22px;
+    padding-left: 6px;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/window/Window.scss:695 */
+.x-window-header-title-default > .x-title-icon-wrap-default.x-title-icon-bottom {
+    height: 22px;
+    padding-top: 6px;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/window/Window.scss:700 */
+.x-window-header-title-default > .x-title-icon-wrap-default.x-title-icon-left {
+    width: 22px;
+    padding-right: 6px;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/window/Window.scss:712 */
+.x-window-header-title-default > .x-title-icon-wrap-default > .x-title-icon-default {
+    width: 16px;
+    height: 16px;
+    font-size: 16px;
+    color: #006546;
+    background-position: center center;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/window/Window.scss:719 */
+.x-window-header-title-default > .x-title-icon-wrap-default > .x-title-icon-default.x-title-glyph {
+    opacity: 0.5;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/window/Window.scss:732 */
+.x-ie8 .x-window-header-title-default > .x-title-icon-wrap-default > .x-title-icon-default.x-title-glyph {
+    color: #7bad9e;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:187 */
+.x-window-header-default-top {
+    -moz-border-radius-topleft: 4px;
+    -webkit-border-top-left-radius: 4px;
+    border-top-left-radius: 4px;
+    -moz-border-radius-topright: 4px;
+    -webkit-border-top-right-radius: 4px;
+    border-top-right-radius: 4px;
+    -moz-border-radius-bottomright: 0;
+    -webkit-border-bottom-right-radius: 0;
+    border-bottom-right-radius: 0;
+    -moz-border-radius-bottomleft: 0;
+    -webkit-border-bottom-left-radius: 0;
+    border-bottom-left-radius: 0;
+    padding: 9px 9px 9px 9px;
+    border-width: 1px 1px 1px 1px;
+    border-style: solid;
+    background-color: #f5f5f5;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:237 */
+.x-window-header-default-top-mc {
+    background-color: #f5f5f5;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:264 */
+.x-nbr .x-window-header-default-top {
+    padding: 0 !important;
+    border-width: 0 !important;
+    -webkit-border-radius: 0px;
+    -moz-border-radius: 0px;
+    -ms-border-radius: 0px;
+    -o-border-radius: 0px;
+    border-radius: 0px;
+    background-color: transparent !important;
+    box-shadow: none !important;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:281 */
+.x-window-header-default-top-frameInfo {
+    font-family: dh-4-4-4-4-1-1-1-1-9-9-9-9;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:347 */
+.x-window-header-default-top-tl {
+    background-position: 0 -8px;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:351 */
+.x-window-header-default-top-tr {
+    background-position: right -12px;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:355 */
+.x-window-header-default-top-bl {
+    background-position: 0 -16px;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:359 */
+.x-window-header-default-top-br {
+    background-position: right -20px;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:363 */
+.x-window-header-default-top-ml {
+    background-position: 0 top;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:371 */
+.x-window-header-default-top-mr {
+    background-position: right top;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:379 */
+.x-window-header-default-top-tc {
+    background-position: 0 0;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:383 */
+.x-window-header-default-top-bc {
+    background-position: 0 -4px;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:388 */
+.x-window-header-default-top-tr,
+.x-window-header-default-top-br,
+.x-window-header-default-top-mr {
+    padding-right: 4px;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:394 */
+.x-window-header-default-top-tl,
+.x-window-header-default-top-bl,
+.x-window-header-default-top-ml {
+    padding-left: 4px;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:400 */
+.x-window-header-default-top-tc {
+    height: 4px;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:403 */
+.x-window-header-default-top-bc {
+    height: 4px;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:407 */
+.x-window-header-default-top-tl,
+.x-window-header-default-top-bl,
+.x-window-header-default-top-tr,
+.x-window-header-default-top-br,
+.x-window-header-default-top-tc,
+.x-window-header-default-top-bc,
+.x-window-header-default-top-ml,
+.x-window-header-default-top-mr {
+    background-image: url(images/window-header/window-header-default-top-corners.gif);
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:453 */
+.x-window-header-default-top-ml,
+.x-window-header-default-top-mr {
+    background-image: url(images/window-header/window-header-default-top-sides.gif);
+    background-repeat: repeat-y;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:464 */
+.x-window-header-default-top-mc {
+    padding: 6px 6px 6px 6px;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:187 */
+.x-window-header-default-right {
+    -moz-border-radius-topleft: 0;
+    -webkit-border-top-left-radius: 0;
+    border-top-left-radius: 0;
+    -moz-border-radius-topright: 4px;
+    -webkit-border-top-right-radius: 4px;
+    border-top-right-radius: 4px;
+    -moz-border-radius-bottomright: 4px;
+    -webkit-border-bottom-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+    -moz-border-radius-bottomleft: 0;
+    -webkit-border-bottom-left-radius: 0;
+    border-bottom-left-radius: 0;
+    padding: 9px 9px 9px 9px;
+    border-width: 1px 1px 1px 1px;
+    border-style: solid;
+    background-color: #f5f5f5;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:237 */
+.x-window-header-default-right-mc {
+    background-color: #f5f5f5;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:264 */
+.x-nbr .x-window-header-default-right {
+    padding: 0 !important;
+    border-width: 0 !important;
+    -webkit-border-radius: 0px;
+    -moz-border-radius: 0px;
+    -ms-border-radius: 0px;
+    -o-border-radius: 0px;
+    border-radius: 0px;
+    background-color: transparent !important;
+    box-shadow: none !important;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:281 */
+.x-window-header-default-right-frameInfo {
+    font-family: dh-4-4-4-4-1-1-1-1-9-9-9-9;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:347 */
+.x-window-header-default-right-tl {
+    background-position: 0 -8px;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:351 */
+.x-window-header-default-right-tr {
+    background-position: right -12px;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:355 */
+.x-window-header-default-right-bl {
+    background-position: 0 -16px;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:359 */
+.x-window-header-default-right-br {
+    background-position: right -20px;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:363 */
+.x-window-header-default-right-ml {
+    background-position: 0 top;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:371 */
+.x-window-header-default-right-mr {
+    background-position: right top;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:379 */
+.x-window-header-default-right-tc {
+    background-position: 0 0;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:383 */
+.x-window-header-default-right-bc {
+    background-position: 0 -4px;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:388 */
+.x-window-header-default-right-tr,
+.x-window-header-default-right-br,
+.x-window-header-default-right-mr {
+    padding-right: 4px;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:394 */
+.x-window-header-default-right-tl,
+.x-window-header-default-right-bl,
+.x-window-header-default-right-ml {
+    padding-left: 4px;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:400 */
+.x-window-header-default-right-tc {
+    height: 4px;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:403 */
+.x-window-header-default-right-bc {
+    height: 4px;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:407 */
+.x-window-header-default-right-tl,
+.x-window-header-default-right-bl,
+.x-window-header-default-right-tr,
+.x-window-header-default-right-br,
+.x-window-header-default-right-tc,
+.x-window-header-default-right-bc,
+.x-window-header-default-right-ml,
+.x-window-header-default-right-mr {
+    background-image: url(images/window-header/window-header-default-right-corners.gif);
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:453 */
+.x-window-header-default-right-ml,
+.x-window-header-default-right-mr {
+    background-image: url(images/window-header/window-header-default-right-sides.gif);
+    background-repeat: repeat-y;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:464 */
+.x-window-header-default-right-mc {
+    padding: 6px 6px 6px 6px;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:187 */
+.x-window-header-default-bottom {
+    -moz-border-radius-topleft: 0;
+    -webkit-border-top-left-radius: 0;
+    border-top-left-radius: 0;
+    -moz-border-radius-topright: 0;
+    -webkit-border-top-right-radius: 0;
+    border-top-right-radius: 0;
+    -moz-border-radius-bottomright: 4px;
+    -webkit-border-bottom-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+    -moz-border-radius-bottomleft: 4px;
+    -webkit-border-bottom-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+    padding: 9px 9px 9px 9px;
+    border-width: 1px 1px 1px 1px;
+    border-style: solid;
+    background-color: #f5f5f5;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:237 */
+.x-window-header-default-bottom-mc {
+    background-color: #f5f5f5;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:264 */
+.x-nbr .x-window-header-default-bottom {
+    padding: 0 !important;
+    border-width: 0 !important;
+    -webkit-border-radius: 0px;
+    -moz-border-radius: 0px;
+    -ms-border-radius: 0px;
+    -o-border-radius: 0px;
+    border-radius: 0px;
+    background-color: transparent !important;
+    box-shadow: none !important;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:281 */
+.x-window-header-default-bottom-frameInfo {
+    font-family: dh-4-4-4-4-1-1-1-1-9-9-9-9;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:347 */
+.x-window-header-default-bottom-tl {
+    background-position: 0 -8px;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:351 */
+.x-window-header-default-bottom-tr {
+    background-position: right -12px;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:355 */
+.x-window-header-default-bottom-bl {
+    background-position: 0 -16px;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:359 */
+.x-window-header-default-bottom-br {
+    background-position: right -20px;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:363 */
+.x-window-header-default-bottom-ml {
+    background-position: 0 top;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:371 */
+.x-window-header-default-bottom-mr {
+    background-position: right top;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:379 */
+.x-window-header-default-bottom-tc {
+    background-position: 0 0;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:383 */
+.x-window-header-default-bottom-bc {
+    background-position: 0 -4px;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:388 */
+.x-window-header-default-bottom-tr,
+.x-window-header-default-bottom-br,
+.x-window-header-default-bottom-mr {
+    padding-right: 4px;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:394 */
+.x-window-header-default-bottom-tl,
+.x-window-header-default-bottom-bl,
+.x-window-header-default-bottom-ml {
+    padding-left: 4px;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:400 */
+.x-window-header-default-bottom-tc {
+    height: 4px;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:403 */
+.x-window-header-default-bottom-bc {
+    height: 4px;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:407 */
+.x-window-header-default-bottom-tl,
+.x-window-header-default-bottom-bl,
+.x-window-header-default-bottom-tr,
+.x-window-header-default-bottom-br,
+.x-window-header-default-bottom-tc,
+.x-window-header-default-bottom-bc,
+.x-window-header-default-bottom-ml,
+.x-window-header-default-bottom-mr {
+    background-image: url(images/window-header/window-header-default-bottom-corners.gif);
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:453 */
+.x-window-header-default-bottom-ml,
+.x-window-header-default-bottom-mr {
+    background-image: url(images/window-header/window-header-default-bottom-sides.gif);
+    background-repeat: repeat-y;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:464 */
+.x-window-header-default-bottom-mc {
+    padding: 6px 6px 6px 6px;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:187 */
+.x-window-header-default-left {
+    -moz-border-radius-topleft: 4px;
+    -webkit-border-top-left-radius: 4px;
+    border-top-left-radius: 4px;
+    -moz-border-radius-topright: 0;
+    -webkit-border-top-right-radius: 0;
+    border-top-right-radius: 0;
+    -moz-border-radius-bottomright: 0;
+    -webkit-border-bottom-right-radius: 0;
+    border-bottom-right-radius: 0;
+    -moz-border-radius-bottomleft: 4px;
+    -webkit-border-bottom-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+    padding: 9px 9px 9px 9px;
+    border-width: 1px 1px 1px 1px;
+    border-style: solid;
+    background-color: #f5f5f5;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:237 */
+.x-window-header-default-left-mc {
+    background-color: #f5f5f5;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:264 */
+.x-nbr .x-window-header-default-left {
+    padding: 0 !important;
+    border-width: 0 !important;
+    -webkit-border-radius: 0px;
+    -moz-border-radius: 0px;
+    -ms-border-radius: 0px;
+    -o-border-radius: 0px;
+    border-radius: 0px;
+    background-color: transparent !important;
+    box-shadow: none !important;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:281 */
+.x-window-header-default-left-frameInfo {
+    font-family: dh-4-4-4-4-1-1-1-1-9-9-9-9;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:347 */
+.x-window-header-default-left-tl {
+    background-position: 0 -8px;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:351 */
+.x-window-header-default-left-tr {
+    background-position: right -12px;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:355 */
+.x-window-header-default-left-bl {
+    background-position: 0 -16px;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:359 */
+.x-window-header-default-left-br {
+    background-position: right -20px;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:363 */
+.x-window-header-default-left-ml {
+    background-position: 0 top;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:371 */
+.x-window-header-default-left-mr {
+    background-position: right top;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:379 */
+.x-window-header-default-left-tc {
+    background-position: 0 0;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:383 */
+.x-window-header-default-left-bc {
+    background-position: 0 -4px;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:388 */
+.x-window-header-default-left-tr,
+.x-window-header-default-left-br,
+.x-window-header-default-left-mr {
+    padding-right: 4px;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:394 */
+.x-window-header-default-left-tl,
+.x-window-header-default-left-bl,
+.x-window-header-default-left-ml {
+    padding-left: 4px;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:400 */
+.x-window-header-default-left-tc {
+    height: 4px;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:403 */
+.x-window-header-default-left-bc {
+    height: 4px;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:407 */
+.x-window-header-default-left-tl,
+.x-window-header-default-left-bl,
+.x-window-header-default-left-tr,
+.x-window-header-default-left-br,
+.x-window-header-default-left-tc,
+.x-window-header-default-left-bc,
+.x-window-header-default-left-ml,
+.x-window-header-default-left-mr {
+    background-image: url(images/window-header/window-header-default-left-corners.gif);
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:453 */
+.x-window-header-default-left-ml,
+.x-window-header-default-left-mr {
+    background-image: url(images/window-header/window-header-default-left-sides.gif);
+    background-repeat: repeat-y;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:464 */
+.x-window-header-default-left-mc {
+    padding: 6px 6px 6px 6px;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:187 */
+.x-window-header-default-collapsed-top {
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    -ms-border-radius: 4px;
+    -o-border-radius: 4px;
+    border-radius: 4px;
+    padding: 9px 9px 9px 9px;
+    border-width: 1px;
+    border-style: solid;
+    background-color: #f5f5f5;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:237 */
+.x-window-header-default-collapsed-top-mc {
+    background-color: #f5f5f5;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:264 */
+.x-nbr .x-window-header-default-collapsed-top {
+    padding: 0 !important;
+    border-width: 0 !important;
+    -webkit-border-radius: 0px;
+    -moz-border-radius: 0px;
+    -ms-border-radius: 0px;
+    -o-border-radius: 0px;
+    border-radius: 0px;
+    background-color: transparent !important;
+    box-shadow: none !important;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:281 */
+.x-window-header-default-collapsed-top-frameInfo {
+    font-family: dh-4-4-4-4-1-1-1-1-9-9-9-9;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:347 */
+.x-window-header-default-collapsed-top-tl {
+    background-position: 0 -8px;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:351 */
+.x-window-header-default-collapsed-top-tr {
+    background-position: right -12px;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:355 */
+.x-window-header-default-collapsed-top-bl {
+    background-position: 0 -16px;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:359 */
+.x-window-header-default-collapsed-top-br {
+    background-position: right -20px;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:363 */
+.x-window-header-default-collapsed-top-ml {
+    background-position: 0 top;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:371 */
+.x-window-header-default-collapsed-top-mr {
+    background-position: right top;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:379 */
+.x-window-header-default-collapsed-top-tc {
+    background-position: 0 0;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:383 */
+.x-window-header-default-collapsed-top-bc {
+    background-position: 0 -4px;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:388 */
+.x-window-header-default-collapsed-top-tr,
+.x-window-header-default-collapsed-top-br,
+.x-window-header-default-collapsed-top-mr {
+    padding-right: 4px;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:394 */
+.x-window-header-default-collapsed-top-tl,
+.x-window-header-default-collapsed-top-bl,
+.x-window-header-default-collapsed-top-ml {
+    padding-left: 4px;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:400 */
+.x-window-header-default-collapsed-top-tc {
+    height: 4px;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:403 */
+.x-window-header-default-collapsed-top-bc {
+    height: 4px;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:407 */
+.x-window-header-default-collapsed-top-tl,
+.x-window-header-default-collapsed-top-bl,
+.x-window-header-default-collapsed-top-tr,
+.x-window-header-default-collapsed-top-br,
+.x-window-header-default-collapsed-top-tc,
+.x-window-header-default-collapsed-top-bc,
+.x-window-header-default-collapsed-top-ml,
+.x-window-header-default-collapsed-top-mr {
+    background-image: url(images/window-header/window-header-default-collapsed-top-corners.gif);
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:453 */
+.x-window-header-default-collapsed-top-ml,
+.x-window-header-default-collapsed-top-mr {
+    background-image: url(images/window-header/window-header-default-collapsed-top-sides.gif);
+    background-repeat: repeat-y;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:464 */
+.x-window-header-default-collapsed-top-mc {
+    padding: 6px 6px 6px 6px;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:187 */
+.x-window-header-default-collapsed-right {
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    -ms-border-radius: 4px;
+    -o-border-radius: 4px;
+    border-radius: 4px;
+    padding: 9px 9px 9px 9px;
+    border-width: 1px;
+    border-style: solid;
+    background-color: #f5f5f5;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:237 */
+.x-window-header-default-collapsed-right-mc {
+    background-color: #f5f5f5;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:264 */
+.x-nbr .x-window-header-default-collapsed-right {
+    padding: 0 !important;
+    border-width: 0 !important;
+    -webkit-border-radius: 0px;
+    -moz-border-radius: 0px;
+    -ms-border-radius: 0px;
+    -o-border-radius: 0px;
+    border-radius: 0px;
+    background-color: transparent !important;
+    box-shadow: none !important;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:281 */
+.x-window-header-default-collapsed-right-frameInfo {
+    font-family: dh-4-4-4-4-1-1-1-1-9-9-9-9;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:347 */
+.x-window-header-default-collapsed-right-tl {
+    background-position: 0 -8px;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:351 */
+.x-window-header-default-collapsed-right-tr {
+    background-position: right -12px;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:355 */
+.x-window-header-default-collapsed-right-bl {
+    background-position: 0 -16px;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:359 */
+.x-window-header-default-collapsed-right-br {
+    background-position: right -20px;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:363 */
+.x-window-header-default-collapsed-right-ml {
+    background-position: 0 top;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:371 */
+.x-window-header-default-collapsed-right-mr {
+    background-position: right top;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:379 */
+.x-window-header-default-collapsed-right-tc {
+    background-position: 0 0;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:383 */
+.x-window-header-default-collapsed-right-bc {
+    background-position: 0 -4px;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:388 */
+.x-window-header-default-collapsed-right-tr,
+.x-window-header-default-collapsed-right-br,
+.x-window-header-default-collapsed-right-mr {
+    padding-right: 4px;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:394 */
+.x-window-header-default-collapsed-right-tl,
+.x-window-header-default-collapsed-right-bl,
+.x-window-header-default-collapsed-right-ml {
+    padding-left: 4px;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:400 */
+.x-window-header-default-collapsed-right-tc {
+    height: 4px;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:403 */
+.x-window-header-default-collapsed-right-bc {
+    height: 4px;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:407 */
+.x-window-header-default-collapsed-right-tl,
+.x-window-header-default-collapsed-right-bl,
+.x-window-header-default-collapsed-right-tr,
+.x-window-header-default-collapsed-right-br,
+.x-window-header-default-collapsed-right-tc,
+.x-window-header-default-collapsed-right-bc,
+.x-window-header-default-collapsed-right-ml,
+.x-window-header-default-collapsed-right-mr {
+    background-image: url(images/window-header/window-header-default-collapsed-right-corners.gif);
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:453 */
+.x-window-header-default-collapsed-right-ml,
+.x-window-header-default-collapsed-right-mr {
+    background-image: url(images/window-header/window-header-default-collapsed-right-sides.gif);
+    background-repeat: repeat-y;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:464 */
+.x-window-header-default-collapsed-right-mc {
+    padding: 6px 6px 6px 6px;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:187 */
+.x-window-header-default-collapsed-bottom {
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    -ms-border-radius: 4px;
+    -o-border-radius: 4px;
+    border-radius: 4px;
+    padding: 9px 9px 9px 9px;
+    border-width: 1px;
+    border-style: solid;
+    background-color: #f5f5f5;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:237 */
+.x-window-header-default-collapsed-bottom-mc {
+    background-color: #f5f5f5;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:264 */
+.x-nbr .x-window-header-default-collapsed-bottom {
+    padding: 0 !important;
+    border-width: 0 !important;
+    -webkit-border-radius: 0px;
+    -moz-border-radius: 0px;
+    -ms-border-radius: 0px;
+    -o-border-radius: 0px;
+    border-radius: 0px;
+    background-color: transparent !important;
+    box-shadow: none !important;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:281 */
+.x-window-header-default-collapsed-bottom-frameInfo {
+    font-family: dh-4-4-4-4-1-1-1-1-9-9-9-9;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:347 */
+.x-window-header-default-collapsed-bottom-tl {
+    background-position: 0 -8px;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:351 */
+.x-window-header-default-collapsed-bottom-tr {
+    background-position: right -12px;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:355 */
+.x-window-header-default-collapsed-bottom-bl {
+    background-position: 0 -16px;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:359 */
+.x-window-header-default-collapsed-bottom-br {
+    background-position: right -20px;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:363 */
+.x-window-header-default-collapsed-bottom-ml {
+    background-position: 0 top;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:371 */
+.x-window-header-default-collapsed-bottom-mr {
+    background-position: right top;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:379 */
+.x-window-header-default-collapsed-bottom-tc {
+    background-position: 0 0;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:383 */
+.x-window-header-default-collapsed-bottom-bc {
+    background-position: 0 -4px;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:388 */
+.x-window-header-default-collapsed-bottom-tr,
+.x-window-header-default-collapsed-bottom-br,
+.x-window-header-default-collapsed-bottom-mr {
+    padding-right: 4px;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:394 */
+.x-window-header-default-collapsed-bottom-tl,
+.x-window-header-default-collapsed-bottom-bl,
+.x-window-header-default-collapsed-bottom-ml {
+    padding-left: 4px;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:400 */
+.x-window-header-default-collapsed-bottom-tc {
+    height: 4px;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:403 */
+.x-window-header-default-collapsed-bottom-bc {
+    height: 4px;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:407 */
+.x-window-header-default-collapsed-bottom-tl,
+.x-window-header-default-collapsed-bottom-bl,
+.x-window-header-default-collapsed-bottom-tr,
+.x-window-header-default-collapsed-bottom-br,
+.x-window-header-default-collapsed-bottom-tc,
+.x-window-header-default-collapsed-bottom-bc,
+.x-window-header-default-collapsed-bottom-ml,
+.x-window-header-default-collapsed-bottom-mr {
+    background-image: url(images/window-header/window-header-default-collapsed-bottom-corners.gif);
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:453 */
+.x-window-header-default-collapsed-bottom-ml,
+.x-window-header-default-collapsed-bottom-mr {
+    background-image: url(images/window-header/window-header-default-collapsed-bottom-sides.gif);
+    background-repeat: repeat-y;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:464 */
+.x-window-header-default-collapsed-bottom-mc {
+    padding: 6px 6px 6px 6px;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:187 */
+.x-window-header-default-collapsed-left {
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    -ms-border-radius: 4px;
+    -o-border-radius: 4px;
+    border-radius: 4px;
+    padding: 9px 9px 9px 9px;
+    border-width: 1px;
+    border-style: solid;
+    background-color: #f5f5f5;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:237 */
+.x-window-header-default-collapsed-left-mc {
+    background-color: #f5f5f5;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:264 */
+.x-nbr .x-window-header-default-collapsed-left {
+    padding: 0 !important;
+    border-width: 0 !important;
+    -webkit-border-radius: 0px;
+    -moz-border-radius: 0px;
+    -ms-border-radius: 0px;
+    -o-border-radius: 0px;
+    border-radius: 0px;
+    background-color: transparent !important;
+    box-shadow: none !important;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:281 */
+.x-window-header-default-collapsed-left-frameInfo {
+    font-family: dh-4-4-4-4-1-1-1-1-9-9-9-9;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:347 */
+.x-window-header-default-collapsed-left-tl {
+    background-position: 0 -8px;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:351 */
+.x-window-header-default-collapsed-left-tr {
+    background-position: right -12px;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:355 */
+.x-window-header-default-collapsed-left-bl {
+    background-position: 0 -16px;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:359 */
+.x-window-header-default-collapsed-left-br {
+    background-position: right -20px;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:363 */
+.x-window-header-default-collapsed-left-ml {
+    background-position: 0 top;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:371 */
+.x-window-header-default-collapsed-left-mr {
+    background-position: right top;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:379 */
+.x-window-header-default-collapsed-left-tc {
+    background-position: 0 0;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:383 */
+.x-window-header-default-collapsed-left-bc {
+    background-position: 0 -4px;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:388 */
+.x-window-header-default-collapsed-left-tr,
+.x-window-header-default-collapsed-left-br,
+.x-window-header-default-collapsed-left-mr {
+    padding-right: 4px;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:394 */
+.x-window-header-default-collapsed-left-tl,
+.x-window-header-default-collapsed-left-bl,
+.x-window-header-default-collapsed-left-ml {
+    padding-left: 4px;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:400 */
+.x-window-header-default-collapsed-left-tc {
+    height: 4px;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:403 */
+.x-window-header-default-collapsed-left-bc {
+    height: 4px;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:407 */
+.x-window-header-default-collapsed-left-tl,
+.x-window-header-default-collapsed-left-bl,
+.x-window-header-default-collapsed-left-tr,
+.x-window-header-default-collapsed-left-br,
+.x-window-header-default-collapsed-left-tc,
+.x-window-header-default-collapsed-left-bc,
+.x-window-header-default-collapsed-left-ml,
+.x-window-header-default-collapsed-left-mr {
+    background-image: url(images/window-header/window-header-default-collapsed-left-corners.gif);
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:453 */
+.x-window-header-default-collapsed-left-ml,
+.x-window-header-default-collapsed-left-mr {
+    background-image: url(images/window-header/window-header-default-collapsed-left-sides.gif);
+    background-repeat: repeat-y;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:464 */
+.x-window-header-default-collapsed-left-mc {
+    padding: 6px 6px 6px 6px;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/window/Window.scss:857 */
+.x-window-header-default .x-window-header-icon {
+    width: 16px;
+    height: 16px;
+    color: #006546;
+    font-size: 16px;
+    line-height: 16px;
+    background-position: center center;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/window/Window.scss:866 */
+.x-window-header-default .x-window-header-glyph {
+    color: #006546;
+    font-size: 16px;
+    line-height: 16px;
+    opacity: 0.5;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/window/Window.scss:883 */
+.x-ie8 .x-window-header-default .x-window-header-glyph {
+    color: #7bad9e;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/window/Window.scss:892 */
+.x-window-header-default-horizontal .x-tool-after-title {
+    margin: 0 0 0 6px;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/window/Window.scss:902 */
+.x-window-header-default-horizontal .x-tool-before-title {
+    margin: 0 6px 0 0;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/window/Window.scss:914 */
+.x-window-header-default-vertical .x-tool-after-title {
+    margin: 6px 0 0 0;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/window/Window.scss:924 */
+.x-window-header-default-vertical .x-tool-before-title {
+    margin: 0 0 6px 0;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/window/Window.scss:937 */
+.x-keyboard-mode .x-window-header-default .x-tool-focus {
+    outline: 1px solid #006546;
+    outline-offset: 2px;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/css-outline.scss:63 */
+.x-ie .x-keyboard-mode .x-window-header-default .x-tool-focus,
+.x-ie10p .x-keyboard-mode .x-window-header-default .x-tool-focus,
+.x-edge .x-keyboard-mode .x-window-header-default .x-tool-focus {
+    outline: none;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/css-outline.scss:39 */
+.x-ie .x-keyboard-mode .x-window-header-default .x-tool-focus:after,
+.x-ie10p .x-keyboard-mode .x-window-header-default .x-tool-focus:after,
+.x-edge .x-keyboard-mode .x-window-header-default .x-tool-focus:after {
+    position: absolute;
+    content: ' ';
+    top: -3px;
+    right: -3px;
+    bottom: -3px;
+    left: -3px;
+    border: 1px solid #006546;
+    pointer-events: none;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/window/Window.scss:951 */
+.x-window-header-default {
+    border-width: 1px !important;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/window/Window.scss:961 */
+.x-nbr .x-window-default-collapsed .x-window-header {
+    border-width: 0 !important;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/border-management.scss:2 */
+.x-window-default-outer-border-l {
+    border-left-color: #f5f5f5 !important;
+    border-left-width: 1px !important;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/border-management.scss:6 */
+.x-window-default-outer-border-b {
+    border-bottom-color: #f5f5f5 !important;
+    border-bottom-width: 1px !important;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/border-management.scss:10 */
+.x-window-default-outer-border-bl {
+    border-bottom-color: #f5f5f5 !important;
+    border-bottom-width: 1px !important;
+    border-left-color: #f5f5f5 !important;
+    border-left-width: 1px !important;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/border-management.scss:16 */
+.x-window-default-outer-border-r {
+    border-right-color: #f5f5f5 !important;
+    border-right-width: 1px !important;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/border-management.scss:20 */
+.x-window-default-outer-border-rl {
+    border-right-color: #f5f5f5 !important;
+    border-right-width: 1px !important;
+    border-left-color: #f5f5f5 !important;
+    border-left-width: 1px !important;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/border-management.scss:26 */
+.x-window-default-outer-border-rb {
+    border-right-color: #f5f5f5 !important;
+    border-right-width: 1px !important;
+    border-bottom-color: #f5f5f5 !important;
+    border-bottom-width: 1px !important;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/border-management.scss:32 */
+.x-window-default-outer-border-rbl {
+    border-right-color: #f5f5f5 !important;
+    border-right-width: 1px !important;
+    border-bottom-color: #f5f5f5 !important;
+    border-bottom-width: 1px !important;
+    border-left-color: #f5f5f5 !important;
+    border-left-width: 1px !important;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/border-management.scss:40 */
+.x-window-default-outer-border-t {
+    border-top-color: #f5f5f5 !important;
+    border-top-width: 1px !important;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/border-management.scss:44 */
+.x-window-default-outer-border-tl {
+    border-top-color: #f5f5f5 !important;
+    border-top-width: 1px !important;
+    border-left-color: #f5f5f5 !important;
+    border-left-width: 1px !important;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/border-management.scss:50 */
+.x-window-default-outer-border-tb {
+    border-top-color: #f5f5f5 !important;
+    border-top-width: 1px !important;
+    border-bottom-color: #f5f5f5 !important;
+    border-bottom-width: 1px !important;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/border-management.scss:56 */
+.x-window-default-outer-border-tbl {
+    border-top-color: #f5f5f5 !important;
+    border-top-width: 1px !important;
+    border-bottom-color: #f5f5f5 !important;
+    border-bottom-width: 1px !important;
+    border-left-color: #f5f5f5 !important;
+    border-left-width: 1px !important;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/border-management.scss:64 */
+.x-window-default-outer-border-tr {
+    border-top-color: #f5f5f5 !important;
+    border-top-width: 1px !important;
+    border-right-color: #f5f5f5 !important;
+    border-right-width: 1px !important;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/border-management.scss:70 */
+.x-window-default-outer-border-trl {
+    border-top-color: #f5f5f5 !important;
+    border-top-width: 1px !important;
+    border-right-color: #f5f5f5 !important;
+    border-right-width: 1px !important;
+    border-left-color: #f5f5f5 !important;
+    border-left-width: 1px !important;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/border-management.scss:78 */
+.x-window-default-outer-border-trb {
+    border-top-color: #f5f5f5 !important;
+    border-top-width: 1px !important;
+    border-right-color: #f5f5f5 !important;
+    border-right-width: 1px !important;
+    border-bottom-color: #f5f5f5 !important;
+    border-bottom-width: 1px !important;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/border-management.scss:86 */
+.x-window-default-outer-border-trbl {
+    border-color: #f5f5f5 !important;
+    border-width: 1px !important;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/src/window/Window.scss:11 */
+.x-window-body-plain {
+    background-color: transparent;
+}
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/form/Labelable.scss:97 */
 .x-form-item-label-default {
     color: #666;
@@ -8164,6 +9420,15 @@ a.x-monthpicker-yearnav-button:hover {
 .x-tablet .x-resizable-handle-southeast {
     width: 10px;
     height: 10px;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/src/resizer/Resizer.scss:163 */
+.x-window .x-window-handle {
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+    opacity: 0;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/src/resizer/Resizer.scss:167 */
+.x-window-collapsed .x-window-handle {
+    display: none;
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/src/resizer/Resizer.scss:172 */
 .x-resizable-proxy {
@@ -13717,1188 +14982,4 @@ a.x-monthpicker-yearnav-button:hover {
 /* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:258 */
 .fa-suitcase:before {
     content: "\f0f2" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:259 */
-.fa-bell-o:before {
-    content: "\f0a2" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:260 */
-.fa-coffee:before {
-    content: "\f0f4" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:261 */
-.fa-cutlery:before {
-    content: "\f0f5" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:262 */
-.fa-file-text-o:before {
-    content: "\f0f6" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:263 */
-.fa-building-o:before {
-    content: "\f0f7" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:264 */
-.fa-hospital-o:before {
-    content: "\f0f8" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:265 */
-.fa-ambulance:before {
-    content: "\f0f9" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:266 */
-.fa-medkit:before {
-    content: "\f0fa" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:267 */
-.fa-fighter-jet:before {
-    content: "\f0fb" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:268 */
-.fa-beer:before {
-    content: "\f0fc" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:269 */
-.fa-h-square:before {
-    content: "\f0fd" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:270 */
-.fa-plus-square:before {
-    content: "\f0fe" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:271 */
-.fa-angle-double-left:before {
-    content: "\f100" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:272 */
-.fa-angle-double-right:before {
-    content: "\f101" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:273 */
-.fa-angle-double-up:before {
-    content: "\f102" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:274 */
-.fa-angle-double-down:before {
-    content: "\f103" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:275 */
-.fa-angle-left:before {
-    content: "\f104" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:276 */
-.fa-angle-right:before {
-    content: "\f105" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:277 */
-.fa-angle-up:before {
-    content: "\f106" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:278 */
-.fa-angle-down:before {
-    content: "\f107" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:279 */
-.fa-desktop:before {
-    content: "\f108" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:280 */
-.fa-laptop:before {
-    content: "\f109" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:281 */
-.fa-tablet:before {
-    content: "\f10a" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:282 */
-.fa-mobile-phone:before,
-.fa-mobile:before {
-    content: "\f10b" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:284 */
-.fa-circle-o:before {
-    content: "\f10c" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:285 */
-.fa-quote-left:before {
-    content: "\f10d" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:286 */
-.fa-quote-right:before {
-    content: "\f10e" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:287 */
-.fa-spinner:before {
-    content: "\f110" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:288 */
-.fa-circle:before {
-    content: "\f111" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:289 */
-.fa-mail-reply:before,
-.fa-reply:before {
-    content: "\f112" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:291 */
-.fa-github-alt:before {
-    content: "\f113" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:292 */
-.fa-folder-o:before {
-    content: "\f114" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:293 */
-.fa-folder-open-o:before {
-    content: "\f115" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:294 */
-.fa-smile-o:before {
-    content: "\f118" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:295 */
-.fa-frown-o:before {
-    content: "\f119" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:296 */
-.fa-meh-o:before {
-    content: "\f11a" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:297 */
-.fa-gamepad:before {
-    content: "\f11b" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:298 */
-.fa-keyboard-o:before {
-    content: "\f11c" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:299 */
-.fa-flag-o:before {
-    content: "\f11d" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:300 */
-.fa-flag-checkered:before {
-    content: "\f11e" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:301 */
-.fa-terminal:before {
-    content: "\f120" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:302 */
-.fa-code:before {
-    content: "\f121" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:303 */
-.fa-mail-reply-all:before,
-.fa-reply-all:before {
-    content: "\f122" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:305 */
-.fa-star-half-empty:before,
-.fa-star-half-full:before,
-.fa-star-half-o:before {
-    content: "\f123" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:308 */
-.fa-location-arrow:before {
-    content: "\f124" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:309 */
-.fa-crop:before {
-    content: "\f125" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:310 */
-.fa-code-fork:before {
-    content: "\f126" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:311 */
-.fa-unlink:before,
-.fa-chain-broken:before {
-    content: "\f127" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:313 */
-.fa-question:before {
-    content: "\f128" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:314 */
-.fa-info:before {
-    content: "\f129" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:315 */
-.fa-exclamation:before {
-    content: "\f12a" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:316 */
-.fa-superscript:before {
-    content: "\f12b" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:317 */
-.fa-subscript:before {
-    content: "\f12c" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:318 */
-.fa-eraser:before {
-    content: "\f12d" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:319 */
-.fa-puzzle-piece:before {
-    content: "\f12e" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:320 */
-.fa-microphone:before {
-    content: "\f130" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:321 */
-.fa-microphone-slash:before {
-    content: "\f131" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:322 */
-.fa-shield:before {
-    content: "\f132" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:323 */
-.fa-calendar-o:before {
-    content: "\f133" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:324 */
-.fa-fire-extinguisher:before {
-    content: "\f134" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:325 */
-.fa-rocket:before {
-    content: "\f135" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:326 */
-.fa-maxcdn:before {
-    content: "\f136" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:327 */
-.fa-chevron-circle-left:before {
-    content: "\f137" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:328 */
-.fa-chevron-circle-right:before {
-    content: "\f138" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:329 */
-.fa-chevron-circle-up:before {
-    content: "\f139" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:330 */
-.fa-chevron-circle-down:before {
-    content: "\f13a" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:331 */
-.fa-html5:before {
-    content: "\f13b" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:332 */
-.fa-css3:before {
-    content: "\f13c" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:333 */
-.fa-anchor:before {
-    content: "\f13d" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:334 */
-.fa-unlock-alt:before {
-    content: "\f13e" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:335 */
-.fa-bullseye:before {
-    content: "\f140" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:336 */
-.fa-ellipsis-h:before {
-    content: "\f141" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:337 */
-.fa-ellipsis-v:before {
-    content: "\f142" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:338 */
-.fa-rss-square:before {
-    content: "\f143" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:339 */
-.fa-play-circle:before {
-    content: "\f144" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:340 */
-.fa-ticket:before {
-    content: "\f145" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:341 */
-.fa-minus-square:before {
-    content: "\f146" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:342 */
-.fa-minus-square-o:before {
-    content: "\f147" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:343 */
-.fa-level-up:before {
-    content: "\f148" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:344 */
-.fa-level-down:before {
-    content: "\f149" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:345 */
-.fa-check-square:before {
-    content: "\f14a" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:346 */
-.fa-pencil-square:before {
-    content: "\f14b" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:347 */
-.fa-external-link-square:before {
-    content: "\f14c" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:348 */
-.fa-share-square:before {
-    content: "\f14d" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:349 */
-.fa-compass:before {
-    content: "\f14e" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:350 */
-.fa-toggle-down:before,
-.fa-caret-square-o-down:before {
-    content: "\f150" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:352 */
-.fa-toggle-up:before,
-.fa-caret-square-o-up:before {
-    content: "\f151" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:354 */
-.fa-toggle-right:before,
-.fa-caret-square-o-right:before {
-    content: "\f152" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:356 */
-.fa-euro:before,
-.fa-eur:before {
-    content: "\f153" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:358 */
-.fa-gbp:before {
-    content: "\f154" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:359 */
-.fa-dollar:before,
-.fa-usd:before {
-    content: "\f155" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:361 */
-.fa-rupee:before,
-.fa-inr:before {
-    content: "\f156" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:363 */
-.fa-cny:before,
-.fa-rmb:before,
-.fa-yen:before,
-.fa-jpy:before {
-    content: "\f157" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:367 */
-.fa-ruble:before,
-.fa-rouble:before,
-.fa-rub:before {
-    content: "\f158" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:370 */
-.fa-won:before,
-.fa-krw:before {
-    content: "\f159" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:372 */
-.fa-bitcoin:before,
-.fa-btc:before {
-    content: "\f15a" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:374 */
-.fa-file:before {
-    content: "\f15b" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:375 */
-.fa-file-text:before {
-    content: "\f15c" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:376 */
-.fa-sort-alpha-asc:before {
-    content: "\f15d" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:377 */
-.fa-sort-alpha-desc:before {
-    content: "\f15e" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:378 */
-.fa-sort-amount-asc:before {
-    content: "\f160" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:379 */
-.fa-sort-amount-desc:before {
-    content: "\f161" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:380 */
-.fa-sort-numeric-asc:before {
-    content: "\f162" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:381 */
-.fa-sort-numeric-desc:before {
-    content: "\f163" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:382 */
-.fa-thumbs-up:before {
-    content: "\f164" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:383 */
-.fa-thumbs-down:before {
-    content: "\f165" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:384 */
-.fa-youtube-square:before {
-    content: "\f166" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:385 */
-.fa-youtube:before {
-    content: "\f167" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:386 */
-.fa-xing:before {
-    content: "\f168" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:387 */
-.fa-xing-square:before {
-    content: "\f169" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:388 */
-.fa-youtube-play:before {
-    content: "\f16a" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:389 */
-.fa-dropbox:before {
-    content: "\f16b" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:390 */
-.fa-stack-overflow:before {
-    content: "\f16c" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:391 */
-.fa-instagram:before {
-    content: "\f16d" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:392 */
-.fa-flickr:before {
-    content: "\f16e" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:393 */
-.fa-adn:before {
-    content: "\f170" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:394 */
-.fa-bitbucket:before {
-    content: "\f171" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:395 */
-.fa-bitbucket-square:before {
-    content: "\f172" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:396 */
-.fa-tumblr:before {
-    content: "\f173" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:397 */
-.fa-tumblr-square:before {
-    content: "\f174" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:398 */
-.fa-long-arrow-down:before {
-    content: "\f175" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:399 */
-.fa-long-arrow-up:before {
-    content: "\f176" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:400 */
-.fa-long-arrow-left:before {
-    content: "\f177" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:401 */
-.fa-long-arrow-right:before {
-    content: "\f178" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:402 */
-.fa-apple:before {
-    content: "\f179" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:403 */
-.fa-windows:before {
-    content: "\f17a" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:404 */
-.fa-android:before {
-    content: "\f17b" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:405 */
-.fa-linux:before {
-    content: "\f17c" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:406 */
-.fa-dribbble:before {
-    content: "\f17d" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:407 */
-.fa-skype:before {
-    content: "\f17e" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:408 */
-.fa-foursquare:before {
-    content: "\f180" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:409 */
-.fa-trello:before {
-    content: "\f181" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:410 */
-.fa-female:before {
-    content: "\f182" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:411 */
-.fa-male:before {
-    content: "\f183" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:412 */
-.fa-gittip:before,
-.fa-gratipay:before {
-    content: "\f184" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:414 */
-.fa-sun-o:before {
-    content: "\f185" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:415 */
-.fa-moon-o:before {
-    content: "\f186" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:416 */
-.fa-archive:before {
-    content: "\f187" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:417 */
-.fa-bug:before {
-    content: "\f188" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:418 */
-.fa-vk:before {
-    content: "\f189" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:419 */
-.fa-weibo:before {
-    content: "\f18a" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:420 */
-.fa-renren:before {
-    content: "\f18b" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:421 */
-.fa-pagelines:before {
-    content: "\f18c" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:422 */
-.fa-stack-exchange:before {
-    content: "\f18d" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:423 */
-.fa-arrow-circle-o-right:before {
-    content: "\f18e" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:424 */
-.fa-arrow-circle-o-left:before {
-    content: "\f190" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:425 */
-.fa-toggle-left:before,
-.fa-caret-square-o-left:before {
-    content: "\f191" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:427 */
-.fa-dot-circle-o:before {
-    content: "\f192" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:428 */
-.fa-wheelchair:before {
-    content: "\f193" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:429 */
-.fa-vimeo-square:before {
-    content: "\f194" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:430 */
-.fa-turkish-lira:before,
-.fa-try:before {
-    content: "\f195" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:432 */
-.fa-plus-square-o:before {
-    content: "\f196" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:433 */
-.fa-space-shuttle:before {
-    content: "\f197" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:434 */
-.fa-slack:before {
-    content: "\f198" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:435 */
-.fa-envelope-square:before {
-    content: "\f199" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:436 */
-.fa-wordpress:before {
-    content: "\f19a" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:437 */
-.fa-openid:before {
-    content: "\f19b" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:438 */
-.fa-institution:before,
-.fa-bank:before,
-.fa-university:before {
-    content: "\f19c" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:441 */
-.fa-mortar-board:before,
-.fa-graduation-cap:before {
-    content: "\f19d" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:443 */
-.fa-yahoo:before {
-    content: "\f19e" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:444 */
-.fa-google:before {
-    content: "\f1a0" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:445 */
-.fa-reddit:before {
-    content: "\f1a1" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:446 */
-.fa-reddit-square:before {
-    content: "\f1a2" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:447 */
-.fa-stumbleupon-circle:before {
-    content: "\f1a3" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:448 */
-.fa-stumbleupon:before {
-    content: "\f1a4" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:449 */
-.fa-delicious:before {
-    content: "\f1a5" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:450 */
-.fa-digg:before {
-    content: "\f1a6" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:451 */
-.fa-pied-piper-pp:before {
-    content: "\f1a7" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:452 */
-.fa-pied-piper-alt:before {
-    content: "\f1a8" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:453 */
-.fa-drupal:before {
-    content: "\f1a9" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:454 */
-.fa-joomla:before {
-    content: "\f1aa" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:455 */
-.fa-language:before {
-    content: "\f1ab" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:456 */
-.fa-fax:before {
-    content: "\f1ac" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:457 */
-.fa-building:before {
-    content: "\f1ad" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:458 */
-.fa-child:before {
-    content: "\f1ae" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:459 */
-.fa-paw:before {
-    content: "\f1b0" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:460 */
-.fa-spoon:before {
-    content: "\f1b1" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:461 */
-.fa-cube:before {
-    content: "\f1b2" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:462 */
-.fa-cubes:before {
-    content: "\f1b3" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:463 */
-.fa-behance:before {
-    content: "\f1b4" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:464 */
-.fa-behance-square:before {
-    content: "\f1b5" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:465 */
-.fa-steam:before {
-    content: "\f1b6" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:466 */
-.fa-steam-square:before {
-    content: "\f1b7" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:467 */
-.fa-recycle:before {
-    content: "\f1b8" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:468 */
-.fa-automobile:before,
-.fa-car:before {
-    content: "\f1b9" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:470 */
-.fa-cab:before,
-.fa-taxi:before {
-    content: "\f1ba" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:472 */
-.fa-tree:before {
-    content: "\f1bb" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:473 */
-.fa-spotify:before {
-    content: "\f1bc" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:474 */
-.fa-deviantart:before {
-    content: "\f1bd" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:475 */
-.fa-soundcloud:before {
-    content: "\f1be" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:476 */
-.fa-database:before {
-    content: "\f1c0" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:477 */
-.fa-file-pdf-o:before {
-    content: "\f1c1" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:478 */
-.fa-file-word-o:before {
-    content: "\f1c2" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:479 */
-.fa-file-excel-o:before {
-    content: "\f1c3" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:480 */
-.fa-file-powerpoint-o:before {
-    content: "\f1c4" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:481 */
-.fa-file-photo-o:before,
-.fa-file-picture-o:before,
-.fa-file-image-o:before {
-    content: "\f1c5" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:484 */
-.fa-file-zip-o:before,
-.fa-file-archive-o:before {
-    content: "\f1c6" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:486 */
-.fa-file-sound-o:before,
-.fa-file-audio-o:before {
-    content: "\f1c7" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:488 */
-.fa-file-movie-o:before,
-.fa-file-video-o:before {
-    content: "\f1c8" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:490 */
-.fa-file-code-o:before {
-    content: "\f1c9" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:491 */
-.fa-vine:before {
-    content: "\f1ca" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:492 */
-.fa-codepen:before {
-    content: "\f1cb" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:493 */
-.fa-jsfiddle:before {
-    content: "\f1cc" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:494 */
-.fa-life-bouy:before,
-.fa-life-buoy:before,
-.fa-life-saver:before,
-.fa-support:before,
-.fa-life-ring:before {
-    content: "\f1cd" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:499 */
-.fa-circle-o-notch:before {
-    content: "\f1ce" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:500 */
-.fa-ra:before,
-.fa-resistance:before,
-.fa-rebel:before {
-    content: "\f1d0" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:503 */
-.fa-ge:before,
-.fa-empire:before {
-    content: "\f1d1" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:505 */
-.fa-git-square:before {
-    content: "\f1d2" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:506 */
-.fa-git:before {
-    content: "\f1d3" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:507 */
-.fa-y-combinator-square:before,
-.fa-yc-square:before,
-.fa-hacker-news:before {
-    content: "\f1d4" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:510 */
-.fa-tencent-weibo:before {
-    content: "\f1d5" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:511 */
-.fa-qq:before {
-    content: "\f1d6" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:512 */
-.fa-wechat:before,
-.fa-weixin:before {
-    content: "\f1d7" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:514 */
-.fa-send:before,
-.fa-paper-plane:before {
-    content: "\f1d8" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:516 */
-.fa-send-o:before,
-.fa-paper-plane-o:before {
-    content: "\f1d9" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:518 */
-.fa-history:before {
-    content: "\f1da" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:519 */
-.fa-circle-thin:before {
-    content: "\f1db" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:520 */
-.fa-header:before {
-    content: "\f1dc" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:521 */
-.fa-paragraph:before {
-    content: "\f1dd" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:522 */
-.fa-sliders:before {
-    content: "\f1de" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:523 */
-.fa-share-alt:before {
-    content: "\f1e0" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:524 */
-.fa-share-alt-square:before {
-    content: "\f1e1" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:525 */
-.fa-bomb:before {
-    content: "\f1e2" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:526 */
-.fa-soccer-ball-o:before,
-.fa-futbol-o:before {
-    content: "\f1e3" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:528 */
-.fa-tty:before {
-    content: "\f1e4" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:529 */
-.fa-binoculars:before {
-    content: "\f1e5" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:530 */
-.fa-plug:before {
-    content: "\f1e6" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:531 */
-.fa-slideshare:before {
-    content: "\f1e7" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:532 */
-.fa-twitch:before {
-    content: "\f1e8" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:533 */
-.fa-yelp:before {
-    content: "\f1e9" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:534 */
-.fa-newspaper-o:before {
-    content: "\f1ea" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:535 */
-.fa-wifi:before {
-    content: "\f1eb" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:536 */
-.fa-calculator:before {
-    content: "\f1ec" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:537 */
-.fa-paypal:before {
-    content: "\f1ed" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:538 */
-.fa-google-wallet:before {
-    content: "\f1ee" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:539 */
-.fa-cc-visa:before {
-    content: "\f1f0" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:540 */
-.fa-cc-mastercard:before {
-    content: "\f1f1" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:541 */
-.fa-cc-discover:before {
-    content: "\f1f2" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:542 */
-.fa-cc-amex:before {
-    content: "\f1f3" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:543 */
-.fa-cc-paypal:before {
-    content: "\f1f4" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:544 */
-.fa-cc-stripe:before {
-    content: "\f1f5" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:545 */
-.fa-bell-slash:before {
-    content: "\f1f6" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:546 */
-.fa-bell-slash-o:before {
-    content: "\f1f7" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:547 */
-.fa-trash:before {
-    content: "\f1f8" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:548 */
-.fa-copyright:before {
-    content: "\f1f9" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:549 */
-.fa-at:before {
-    content: "\f1fa" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:550 */
-.fa-eyedropper:before {
-    content: "\f1fb" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:551 */
-.fa-paint-brush:before {
-    content: "\f1fc" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:552 */
-.fa-birthday-cake:before {
-    content: "\f1fd" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:553 */
-.fa-area-chart:before {
-    content: "\f1fe" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:554 */
-.fa-pie-chart:before {
-    content: "\f200" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:555 */
-.fa-line-chart:before {
-    content: "\f201" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:556 */
-.fa-lastfm:before {
-    content: "\f202" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:557 */
-.fa-lastfm-square:before {
-    content: "\f203" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:558 */
-.fa-toggle-off:before {
-    content: "\f204" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:559 */
-.fa-toggle-on:before {
-    content: "\f205" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:560 */
-.fa-bicycle:before {
-    content: "\f206" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:561 */
-.fa-bus:before {
-    content: "\f207" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:562 */
-.fa-ioxhost:before {
-    content: "\f208" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:563 */
-.fa-angellist:before {
-    content: "\f209" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:564 */
-.fa-cc:before {
-    content: "\f20a" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:565 */
-.fa-shekel:before,
-.fa-sheqel:before,
-.fa-ils:before {
-    content: "\f20b" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:568 */
-.fa-meanpath:before {
-    content: "\f20c" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:569 */
-.fa-buysellads:before {
-    content: "\f20d" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:570 */
-.fa-connectdevelop:before {
-    content: "\f20e" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:571 */
-.fa-dashcube:before {
-    content: "\f210" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:572 */
-.fa-forumbee:before {
-    content: "\f211" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:573 */
-.fa-leanpub:before {
-    content: "\f212" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:574 */
-.fa-sellsy:before {
-    content: "\f213" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:575 */
-.fa-shirtsinbulk:before {
-    content: "\f214" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:576 */
-.fa-simplybuilt:before {
-    content: "\f215" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:577 */
-.fa-skyatlas:before {
-    content: "\f216" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:578 */
-.fa-cart-plus:before {
-    content: "\f217" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:579 */
-.fa-cart-arrow-down:before {
-    content: "\f218" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:580 */
-.fa-diamond:before {
-    content: "\f219" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:581 */
-.fa-ship:before {
-    content: "\f21a" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:582 */
-.fa-user-secret:before {
-    content: "\f21b" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:583 */
-.fa-motorcycle:before {
-    content: "\f21c" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:584 */
-.fa-street-view:before {
-    content: "\f21d" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:585 */
-.fa-heartbeat:before {
-    content: "\f21e" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:586 */
-.fa-venus:before {
-    content: "\f221" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:587 */
-.fa-mars:before {
-    content: "\f222" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:588 */
-.fa-mercury:before {
-    content: "\f223" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:589 */
-.fa-intersex:before,
-.fa-transgender:before {
-    content: "\f224" !important;
 }

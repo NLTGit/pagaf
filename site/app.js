@@ -57475,6 +57475,385 @@ Ext.define('Ext.util.ComponentDragger', {extend:Ext.dd.DragTracker, autoStart:50
   }
   Ext.dom.Element.unmaskIframes();
 }});
+Ext.define('Ext.window.Window', {extend:Ext.panel.Panel, alternateClassName:'Ext.Window', alias:'widget.window', baseCls:Ext.baseCSSPrefix + 'window', resizable:true, draggable:true, constrain:false, constrainHeader:false, plain:false, minimizable:false, maximizable:false, minHeight:50, minWidth:50, expandOnShow:true, collapsible:false, closable:true, hidden:true, autoRender:true, hideMode:'offsets', floating:true, alignOnScroll:false, itemCls:Ext.baseCSSPrefix + 'window-item', overlapHeader:true, 
+ignoreHeaderBorderManagement:true, alwaysFramed:true, isRootCfg:{isRoot:true}, isWindow:true, ariaRole:'dialog', focusable:true, tabGuard:true, closeToolText:'Close dialog', keyMap:{scope:'this', ESC:'onEsc'}, maskClickAction:'focus', disableCloseToolFocus:true, initComponent:function() {
+  var me = this;
+  me.frame = false;
+  me.callParent();
+  if (me.plain) {
+    me.addClsWithUI('plain');
+  }
+  me.addStateEvents(['maximize', 'restore', 'resize', 'dragend']);
+}, getElConfig:function() {
+  var me = this, elConfig;
+  elConfig = me.callParent();
+  elConfig.tabIndex = -1;
+  return elConfig;
+}, getFocusEl:function() {
+  return this.getDefaultFocus() || this.el;
+}, getState:function() {
+  var me = this, state = me.callParent() || {}, maximized = !!me.maximized, ghostBox = me.ghostBox, pos;
+  state.maximized = maximized;
+  if (maximized) {
+    pos = me.restorePos;
+  } else {
+    if (ghostBox) {
+      pos = [ghostBox.x, ghostBox.y];
+    } else {
+      pos = me.getPosition(true);
+    }
+  }
+  Ext.apply(state, {size:maximized ? me.restoreSize : me.getSize(), pos:pos});
+  return state;
+}, applyState:function(state) {
+  var me = this;
+  if (state) {
+    me.maximized = state.maximized;
+    if (me.maximized) {
+      me.hasSavedRestore = true;
+      me.restoreSize = state.size;
+      me.restorePos = state.pos;
+    } else {
+      Ext.apply(me, {width:state.size.width, height:state.size.height, x:state.pos[0], y:state.pos[1]});
+    }
+  }
+}, onRender:function(ct, position) {
+  var me = this;
+  me.callParent(arguments);
+  if (me.header) {
+    me.header.on({scope:me, click:me.onHeaderClick});
+  }
+  if (me.maximizable) {
+    me.header.on({scope:me, dblclick:me.toggleMaximize});
+  }
+}, afterRender:function() {
+  var me = this, header = me.header;
+  if (me.maximized) {
+    me.maximized = false;
+    me.maximize(null, true);
+    if (header) {
+      header.removeCls(header.indicateDragCls);
+    }
+  }
+  me.callParent();
+  me.initTabGuards();
+}, onEsc:function(e) {
+  if (this.closable) {
+    e.stopEvent();
+    this.close();
+    return false;
+  }
+}, doDestroy:function() {
+  var me = this;
+  if (me.rendered) {
+    Ext.un('resize', me.onWindowResize, me);
+    delete me.animateTarget;
+    me.hide();
+  }
+  me.callParent();
+}, addTools:function() {
+  var me = this, tools = [];
+  me.callParent();
+  if (me.minimizable) {
+    tools.push({type:'minimize', handler:'minimize', scope:me});
+  }
+  if (me.maximizable) {
+    tools.push({type:'maximize', handler:'toggleMaximize', scope:me});
+  }
+  if (tools.length) {
+    me.addTool(tools);
+  }
+}, addTool:function(tools) {
+  var me = this;
+  me.callParent([tools]);
+  if (me.rendered && me.tabGuard) {
+    me.initTabGuards();
+  }
+}, add:function() {
+  var me = this, ret;
+  ret = me.callParent(arguments);
+  if (me.rendered && me.tabGuard) {
+    me.initTabGuards();
+  }
+  return ret;
+}, remove:function() {
+  var me = this, ret;
+  ret = me.callParent(arguments);
+  if (me.rendered && me.tabGuard) {
+    me.initTabGuards();
+  }
+  return ret;
+}, addDocked:function() {
+  var me = this, ret;
+  ret = me.callParent(arguments);
+  if (me.rendered && me.tabGuard) {
+    me.initTabGuards();
+  }
+  return ret;
+}, removeDocked:function() {
+  var me = this, ret;
+  ret = me.callParent(arguments);
+  if (me.rendered && me.tabGuard) {
+    me.initTabGuards();
+  }
+  return ret;
+}, onShow:function() {
+  var me = this;
+  me.callParent(arguments);
+  if (me.expandOnShow) {
+    me.expand(false);
+  }
+  me.syncMonitorWindowResize();
+  if (me.rendered && me.tabGuard) {
+    me.initTabGuards();
+  }
+}, doClose:function() {
+  var me = this;
+  if (me.hidden) {
+    me.fireEvent('close', me);
+    if (me.closeAction === 'destroy' && !me.destroying && !me.destroyed) {
+      me.destroy();
+    }
+  } else {
+    me.hide(me.animateTarget, me.doClose, me);
+  }
+}, afterHide:function() {
+  var me = this;
+  me.syncMonitorWindowResize();
+  me.callParent(arguments);
+  if (!me.destroyed && me.rendered && me.tabGuard) {
+    me.initTabGuards();
+  }
+}, onWindowResize:function() {
+  var me = this, sizeModel;
+  if (!me.destroyed) {
+    if (me.maximized) {
+      me.fitContainer();
+    } else {
+      sizeModel = me.getSizeModel();
+      if (sizeModel.width.natural || sizeModel.height.natural) {
+        me.updateLayout();
+      }
+      me.doConstrain();
+    }
+  }
+}, minimize:function() {
+  this.fireEvent('minimize', this);
+  return this;
+}, resumeHeaderLayout:function(changed) {
+  this.header.resumeLayouts(changed ? this.isRootCfg : null);
+}, afterCollapse:function() {
+  var me = this, header = me.header, tools = me.tools;
+  if (header && me.maximizable) {
+    header.suspendLayouts();
+    tools.maximize.hide();
+    this.resumeHeaderLayout(true);
+  }
+  if (me.resizer) {
+    me.resizer.disable();
+  }
+  me.callParent(arguments);
+}, afterExpand:function() {
+  var me = this, header = me.header, tools = me.tools, changed;
+  if (header) {
+    header.suspendLayouts();
+    if (me.maximizable) {
+      tools.maximize.show();
+      changed = true;
+    }
+    this.resumeHeaderLayout(changed);
+  }
+  if (me.resizer) {
+    me.resizer.enable();
+  }
+  me.callParent(arguments);
+}, maximize:function(animate, initial) {
+  var me = this, header = me.header, tools = me.tools, width = me.width, height = me.height, restore, changed;
+  if (!me.maximized && !me.maximizing) {
+    me.maximizing = true;
+    me.expand(false);
+    if (!me.hasSavedRestore) {
+      restore = me.restoreSize = {width:width ? width : null, height:height ? height : null};
+      if (initial) {
+        me.restorePos = [me.x || 0, me.y || 0];
+      } else {
+        me.restorePos = me.getPosition();
+      }
+    }
+    if (header) {
+      header.suspendLayouts();
+      if (tools.maximize) {
+        tools.maximize.setType('restore');
+      }
+      if (me.collapseTool) {
+        me.collapseTool.hide();
+        changed = true;
+      }
+      me.resumeHeaderLayout(changed);
+    }
+    me.el.disableShadow();
+    if (me.dd) {
+      me.dd.disable();
+      if (header) {
+        header.removeCls(header.indicateDragCls);
+      }
+    }
+    if (me.resizer) {
+      me.resizer.disable();
+    }
+    me.el.addCls(Ext.baseCSSPrefix + 'window-maximized');
+    me.container.addCls(Ext.baseCSSPrefix + 'window-maximized-ct');
+    me.syncMonitorWindowResize();
+    me.fitContainer(animate = animate || !!me.animateTarget ? {callback:function() {
+      me.maximizing = false;
+      me.maximized = true;
+      if (!initial) {
+        me.fireEvent('maximize', me);
+      }
+    }} : null);
+    if (!animate) {
+      me.maximizing = false;
+      me.maximized = true;
+      if (!initial) {
+        me.fireEvent('maximize', me);
+      }
+    }
+  }
+  return me;
+}, restore:function(animate) {
+  var me = this, tools = me.tools, header = me.header, newBox = me.restoreSize, changed;
+  if (me.maximized) {
+    me.hasSavedRestore = null;
+    me.removeCls(Ext.baseCSSPrefix + 'window-maximized');
+    if (header) {
+      header.suspendLayouts();
+      if (tools.maximize) {
+        tools.maximize.setType('maximize');
+      }
+      if (me.collapseTool) {
+        me.collapseTool.show();
+        changed = true;
+      }
+      me.resumeHeaderLayout(changed);
+    }
+    newBox.x = me.restorePos[0];
+    newBox.y = me.restorePos[1];
+    me.setBox(newBox, animate = animate || !!me.animateTarget ? {callback:function() {
+      me.el.enableShadow(null, true);
+      me.maximized = false;
+      me.fireEvent('restore', me);
+    }} : null);
+    me.restorePos = me.restoreSize = null;
+    if (me.dd) {
+      me.dd.enable();
+      if (header) {
+        header.addCls(header.indicateDragCls);
+      }
+    }
+    if (me.resizer) {
+      me.resizer.enable();
+    }
+    me.container.removeCls(Ext.baseCSSPrefix + 'window-maximized-ct');
+    me.syncMonitorWindowResize();
+    if (!animate) {
+      me.el.enableShadow(null, true);
+      me.maximized = false;
+      me.fireEvent('restore', me);
+    }
+  }
+  return me;
+}, syncMonitorWindowResize:function() {
+  var me = this, currentlyMonitoring = me._monitoringResize, yes = me.monitorResize || me.constrain || me.constrainHeader || me.maximized, veto = me.hidden || me.destroying || me.destroyed;
+  if (yes && !veto) {
+    if (!currentlyMonitoring) {
+      Ext.on('resize', me.onWindowResize, me, {buffer:1});
+      me._monitoringResize = true;
+    }
+  } else {
+    if (currentlyMonitoring) {
+      Ext.un('resize', me.onWindowResize, me);
+      me._monitoringResize = false;
+    }
+  }
+}, toggleMaximize:function() {
+  return this[this.maximized ? 'restore' : 'maximize']();
+}, createGhost:function() {
+  var ghost = this.callParent(arguments);
+  ghost.xtype = 'window';
+  ghost.focusOnToFront = false;
+  return ghost;
+}, getDefaultFocus:function() {
+  var me = this, result, defaultComp = me.defaultFocus, selector;
+  if (defaultComp !== undefined) {
+    if (Ext.isNumber(defaultComp)) {
+      result = me.query('button')[defaultComp];
+    } else {
+      if (Ext.isString(defaultComp)) {
+        selector = defaultComp;
+        if (Ext.validIdRe.test(selector)) {
+          result = me.down(Ext.makeIdSelector(selector));
+        }
+        if (!result) {
+          result = me.down(selector);
+        }
+      } else {
+        if (defaultComp.focus) {
+          result = defaultComp;
+        }
+      }
+    }
+  }
+  return result;
+}, privates:{initDraggable:function() {
+  this.initSimpleDraggable();
+}, onHeaderClick:function(header, e) {
+  var delegate;
+  if (header.el.contains(e.getTarget())) {
+    delegate = this.getDefaultFocus();
+    if (delegate) {
+      delegate.focus();
+    }
+  }
+}, initResizable:function(resizable) {
+  var me = this;
+  me.callParent([resizable]);
+  if (me.maximized || me.maximizing) {
+    me.resizer.disable();
+  }
+}, initSimpleDraggable:function() {
+  var me = this, dd;
+  me.callParent();
+  dd = me.dd;
+  if (dd && me.maximized || me.maximizing) {
+    dd.disable();
+  }
+}, onTabGuardFocusEnter:function(e, target) {
+  var me = this, el = me.el, beforeGuard = me.tabGuardBeforeEl, afterGuard = me.tabGuardAfterEl, from = e.relatedTarget, nodes, forward, nextFocus;
+  nodes = el.findTabbableElements({skipSelf:true});
+  if (nodes[0] === beforeGuard.dom) {
+    nodes.shift();
+  }
+  if (nodes[nodes.length - 1] === afterGuard.dom) {
+    nodes.pop();
+  }
+  if (nodes.length === 0) {
+    nextFocus = el;
+  } else {
+    if (from === el.dom) {
+      forward = target === beforeGuard.dom;
+    } else {
+      if (el.contains(from)) {
+        forward = !!e.forwardTab;
+      } else {
+        forward = target === beforeGuard.dom;
+      }
+    }
+  }
+  nextFocus = nextFocus || (forward ? nodes[0] : nodes[nodes.length - 1]);
+  if (nextFocus) {
+    Ext.fly(nextFocus).focus(nodes.length === 1 ? 1 : 0);
+  }
+}}});
 Ext.define('Ext.form.Labelable', {extend:Ext.Mixin, isLabelable:true, mixinConfig:{id:'labelable', on:{beforeRender:'beforeLabelRender', onRender:'onLabelRender'}}, config:{childEls:['labelEl', 'bodyEl', 'errorEl', 'errorWrapEl', 'ariaErrorEl', 'ariaStatusEl', 'ariaHelpEl', 'labelTextEl']}, labelableRenderTpl:['{beforeLabelTpl}', '\x3clabel id\x3d"{id}-labelEl" data-ref\x3d"labelEl" class\x3d"{labelCls} {labelCls}-{ui} {labelClsExtra} ', '{childElCls} {unselectableCls}" style\x3d"{labelStyle}"', 
 '\x3ctpl if\x3d"inputId \x26\x26 !skipLabelForAttribute"\x3e for\x3d"{inputId}"\x3c/tpl\x3e', ' {labelAttrTpl}\x3e', '\x3cspan class\x3d"{labelInnerCls} {labelInnerCls}-{ui}" style\x3d"{labelInnerStyle}"\x3e', '{beforeLabelTextTpl}', '\x3cspan id\x3d"{id}-labelTextEl" data-ref\x3d"labelTextEl" class\x3d"{labelTextCls}"\x3e', '\x3ctpl if\x3d"fieldLabel"\x3e{fieldLabel}', '\x3ctpl if\x3d"labelSeparator"\x3e{labelSeparator}\x3c/tpl\x3e', '\x3c/tpl\x3e', '\x3c/span\x3e', '{afterLabelTextTpl}', '\x3c/span\x3e', 
 '\x3c/label\x3e', '{afterLabelTpl}', '\x3cdiv id\x3d"{id}-bodyEl" data-ref\x3d"bodyEl" role\x3d"presentation"', ' class\x3d"{baseBodyCls} {baseBodyCls}-{ui}\x3ctpl if\x3d"fieldBodyCls"\x3e', ' {fieldBodyCls} {fieldBodyCls}-{ui}\x3c/tpl\x3e {growCls} {extraFieldBodyCls}"', '\x3ctpl if\x3d"bodyStyle"\x3e style\x3d"{bodyStyle}"\x3c/tpl\x3e\x3e', '{beforeBodyEl}', '{beforeSubTpl}', '{[values.$comp.getSubTplMarkup(values)]}', '{afterSubTpl}', '{afterBodyEl}', '\x3ctpl if\x3d"renderAriaElements"\x3e', 
@@ -64984,17 +65363,18 @@ Ext.define('pagaf.controller.General', {extend:Ext.app.Controller, alternateClas
   window['GV'] = this;
 }});
 Ext.define('pagaf.view.InSeason.N.ManagementViewModel1', {extend:Ext.app.ViewModel, alias:'viewmodel.inseason.n.credits'});
-Ext.define('pagaf.view.InSeason.N.Credits', {extend:Ext.panel.Panel, alias:'widget.inseason.n.credits', viewModel:{type:'inseason.n.credits'}, id:'isnm_credits', defaultListenerScope:true, items:[{xtype:'button', scale:'large', text:'Next', listeners:{click:'onButtonClick1'}}], onButtonClick1:function(button, e, eOpts) {
-  var t = Ext.getCmp('isnm_economics');
-  t.expand();
-  t.setDisabled(false);
-  t.setVisible(true);
+Ext.define('pagaf.view.InSeason.N.Credits', {extend:Ext.panel.Panel, alias:'widget.inseason.n.credits', viewModel:{type:'inseason.n.credits'}, id:'isnm_credits', layout:'vbox', defaultListenerScope:true, items:[{xtype:'button', scale:'large', text:'Next', listeners:{click:'onButtonClick1'}}], onButtonClick1:function(button, e, eOpts) {
   var t = Ext.getCmp('isnm_credits');
   t.setDisabled(true);
   t.setVisible(false);
+  var t = Ext.getCmp('isnm_selection');
+  t.setTitle('4. Select treatment solution');
+  t.expand();
+  t.setDisabled(false);
+  t.setVisible(true);
 }});
 Ext.define('pagaf.view.InSeason.N.ManagementViewModel2', {extend:Ext.app.ViewModel, alias:'viewmodel.inseason.n.economics'});
-Ext.define('pagaf.view.InSeason.N.Economics', {extend:Ext.panel.Panel, alias:'widget.inseason.n.economics', viewModel:{type:'inseason.n.economics'}, id:'isnm_economics', defaultListenerScope:true, layout:{type:'vbox', align:'stretch'}, items:[{xtype:'button', scale:'large', text:'Next', listeners:{click:'onButtonClick11'}}], onButtonClick11:function(button, e, eOpts) {
+Ext.define('pagaf.view.InSeason.N.Economics', {extend:Ext.panel.Panel, alias:'widget.inseason.n.economics', viewModel:{type:'inseason.n.economics'}, id:'isnm_economics', layout:'vbox', defaultListenerScope:true, items:[{xtype:'button', scale:'large', text:'Next', listeners:{click:'onButtonClick11'}}], onButtonClick11:function(button, e, eOpts) {
   var t = Ext.getCmp('isnm_review');
   t.expand();
   t.setDisabled(false);
@@ -65004,7 +65384,7 @@ Ext.define('pagaf.view.InSeason.N.Economics', {extend:Ext.panel.Panel, alias:'wi
   t.setVisible(false);
 }});
 Ext.define('pagaf.view.InSeason.N.ManagementViewModel4', {extend:Ext.app.ViewModel, alias:'viewmodel.inseason.n.finish'});
-Ext.define('pagaf.view.InSeason.N.Finish', {extend:Ext.panel.Panel, alias:'widget.inseason.n.finish', viewModel:{type:'inseason.n.finish'}, id:'isnm_download', defaultListenerScope:true, items:[{xtype:'button', scale:'large', text:'Next', listeners:{click:'onButtonClick1111'}}], onButtonClick1111:function(button, e, eOpts) {
+Ext.define('pagaf.view.InSeason.N.Finish', {extend:Ext.panel.Panel, alias:'widget.inseason.n.finish', viewModel:{type:'inseason.n.finish'}, id:'isnm_download', layout:'vbox', defaultListenerScope:true, items:[{xtype:'button', scale:'large', text:'Next', listeners:{click:'onButtonClick1111'}}], onButtonClick1111:function(button, e, eOpts) {
   var t = Ext.getCmp('isnm_selection');
   t.expand();
   t.setDisabled(false);
@@ -65015,7 +65395,7 @@ Ext.define('pagaf.view.InSeason.N.Finish', {extend:Ext.panel.Panel, alias:'widge
   Ext.getCmp('mainCardPanel').getLayout().setActiveItem('home');
 }});
 Ext.define('pagaf.view.InSeason.N.ManagementViewModel', {extend:Ext.app.ViewModel, alias:'viewmodel.inseason.n.management'});
-Ext.define('pagaf.view.InSeason.N.Management', {extend:Ext.panel.Panel, alias:'widget.inseason.n.management', viewModel:{type:'inseason.n.management'}, id:'isnm_management', margin:'auto 0', width:'80%', defaultListenerScope:true, items:[{xtype:'datefield', cls:'mediumTxt', flex:1, height:50, width:600, fieldLabel:'When did you plant?', labelWidth:400, matchFieldWidth:false}, {xtype:'numberfield', height:50, width:600, fieldLabel:'How much N have you already applied?', labelWidth:400}, {xtype:'button', 
+Ext.define('pagaf.view.InSeason.N.Management', {extend:Ext.panel.Panel, alias:'widget.inseason.n.management', viewModel:{type:'inseason.n.management'}, id:'isnm_management', margin:'auto 0', width:'80%', layout:'vbox', defaultListenerScope:true, items:[{xtype:'datefield', cls:'mediumTxt', height:50, width:600, fieldLabel:'When did you plant?', labelWidth:400, matchFieldWidth:false}, {xtype:'numberfield', height:50, width:600, fieldLabel:'How much N have you already applied?', labelWidth:400}, {xtype:'button', 
 scale:'large', text:'Next', listeners:{click:'onButtonClick'}}], onButtonClick:function(button, e, eOpts) {
   var t = Ext.getCmp('isnm_credits');
   t.expand();
@@ -65027,7 +65407,7 @@ scale:'large', text:'Next', listeners:{click:'onButtonClick'}}], onButtonClick:f
 }});
 Ext.define('pagaf.view.InSeason.N.ManagementViewModel3', {extend:Ext.app.ViewModel, alias:'viewmodel.inseason.n.review'});
 Ext.define('pagaf.view.InSeason.N.ManagementViewModel5', {extend:Ext.app.ViewModel, alias:'viewmodel.inseason.n.selection'});
-Ext.define('pagaf.view.InSeason.N.Review', {extend:Ext.panel.Panel, alias:'widget.inseason.n.review', viewModel:{type:'inseason.n.review'}, id:'isnm_review', defaultListenerScope:true, items:[{xtype:'button', scale:'large', text:'Next', listeners:{click:'onButtonClick111'}}], onButtonClick111:function(button, e, eOpts) {
+Ext.define('pagaf.view.InSeason.N.Review', {extend:Ext.panel.Panel, alias:'widget.inseason.n.review', viewModel:{type:'inseason.n.review'}, id:'isnm_review', layout:'vbox', defaultListenerScope:true, items:[{xtype:'button', scale:'large', text:'Next', listeners:{click:'onButtonClick111'}}], onButtonClick111:function(button, e, eOpts) {
   var t = Ext.getCmp('isnm_download');
   t.expand();
   t.setDisabled(false);
@@ -65036,18 +65416,23 @@ Ext.define('pagaf.view.InSeason.N.Review', {extend:Ext.panel.Panel, alias:'widge
   t.setDisabled(true);
   t.setVisible(false);
 }});
-Ext.define('pagaf.view.InSeason.N.Selection', {extend:Ext.panel.Panel, alias:'widget.inseason.n.selection', viewModel:{type:'inseason.n.selection'}, id:'isnm_selection', margin:'auto 0', width:'80%', defaultListenerScope:true, layout:{type:'vbox', align:'stretch'}, items:[{xtype:'panel', flex:1, height:'100%', id:'pagaf', width:'100%', listeners:{afterrender:'onPagafAfterRender'}}, {xtype:'button', scale:'large', text:'Next', listeners:{click:'onButtonClick'}}], onPagafAfterRender:function(component, 
-eOpts) {
+Ext.define('pagaf.view.pagafAppWindowViewModel1', {extend:Ext.app.ViewModel, alias:'viewmodel.pagafapppanel'});
+Ext.define('pagaf.view.pagafAppPanel', {extend:Ext.panel.Panel, alias:'widget.pagafapppanel', viewModel:{type:'pagafapppanel'}, flex:1, height:'100%', id:'pagafapppanel', width:'100%', defaultListenerScope:true, listeners:{afterrender:'onPagafAfterRender'}, onPagafAfterRender:function(component, eOpts) {
   component.setHtml('\x3ciframe src\x3d"home2.html" width\x3d"100%" height\x3d"100%" /\x3e');
-}, onButtonClick:function(button, e, eOpts) {
-  var t = Ext.getCmp('isnm_management');
-  window.t = t;
-  t.expand();
-  t.setDisabled(false);
-  t.setVisible(true);
+}});
+Ext.define('pagaf.view.InSeason.N.Selection', {extend:Ext.panel.Panel, alias:'widget.inseason.n.selection', viewModel:{type:'inseason.n.selection'}, id:'isnm_selection', margin:'auto 0', width:'80%', layout:'vbox', defaultListenerScope:true, items:[{xtype:'pagafapppanel', flex:1}, {xtype:'button', scale:'large', text:'Next', listeners:{click:'onButtonClick'}}], onButtonClick:function(button, e, eOpts) {
   var t = Ext.getCmp('isnm_selection');
   t.setDisabled(true);
   t.setVisible(false);
+  if (t.getTitle().search('4.') > -1) {
+    t.setTitle('1. Select field');
+    t = Ext.getCmp('isnm_review');
+  } else {
+    t = Ext.getCmp('isnm_management');
+  }
+  t.expand();
+  t.setDisabled(false);
+  t.setVisible(true);
 }});
 Ext.define('pagaf.view.appmainViewModel', {extend:Ext.app.ViewModel, alias:'viewmodel.appmain'});
 Ext.define('pagaf.view.home.topmenuViewModel', {extend:Ext.app.ViewModel, alias:'viewmodel.home.topmenu'});
@@ -65068,7 +65453,11 @@ title:'1. Managment', layout:{type:'vbox', align:'center'}, tabConfig:{xtype:'ta
 }, onTabClick111:function(button, e, eOpts) {
 }, onTabClick1111:function(button, e, eOpts) {
 }});
+Ext.define('pagaf.view.pagafAppWindowViewModel', {extend:Ext.app.ViewModel, alias:'viewmodel.pagafappwindow'});
+Ext.define('pagaf.view.pagafAppWindow', {extend:Ext.window.Window, alias:'widget.pagafappwindow', viewModel:{type:'pagafappwindow'}, flex:1, height:'100%', id:'pagafwindow', width:'100%', closable:false, defaultListenerScope:true, listeners:{afterrender:'onPagafAfterRender'}, onPagafAfterRender:function(component, eOpts) {
+  component.setHtml('\x3ciframe src\x3d"home2.html" width\x3d"100%" height\x3d"100%" /\x3e');
+}});
 Ext.Loader.setConfig({});
-Ext.application({views:['appmain', 'home.topmenu', 'home.bottommenu', 'InSeason.N.Management', 'InSeason.N.Credits', 'InSeason.N.Economics', 'InSeason.N.Review', 'InSeason.N.Finish', 'InSeason.N.Selection'], controllers:['General'], name:'pagaf', launch:function() {
+Ext.application({views:['appmain', 'home.topmenu', 'home.bottommenu', 'InSeason.N.Management', 'InSeason.N.Credits', 'InSeason.N.Economics', 'InSeason.N.Review', 'InSeason.N.Finish', 'InSeason.N.Selection', 'pagafAppPanel', 'pagafAppWindow'], controllers:['General'], name:'pagaf', launch:function() {
   Ext.create('pagaf.view.appmain');
 }});
