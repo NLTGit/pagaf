@@ -1,0 +1,259 @@
+{
+    "type": "Ext.panel.Panel",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "container|align": "stretch",
+        "designer|userAlias": "home.bottommenu",
+        "designer|userClassName": "home.bottommenu",
+        "flex": 1,
+        "id": "homeBtmMenu",
+        "layout": "vbox",
+        "width": ""
+    },
+    "configAlternates": {
+        "designer|userAlias": "string",
+        "designer|userClassName": "string",
+        "height": "auto",
+        "id": "string",
+        "title": "string",
+        "width": "auto",
+        "container|align": "string",
+        "flex": "number",
+        "layout": "string"
+    },
+    "name": "home.topmenu1",
+    "designerId": "e656d28a-c362-4344-a978-458a771b0b1d",
+    "viewControllerInstanceId": "89cc263d-a045-4482-bfcf-d8bc1ed82d5c",
+    "viewModelInstanceId": "184e6d09-46a9-418a-a28f-fcb4d5a99c9b",
+    "cn": [
+        {
+            "type": "Ext.container.Container",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "cls": [
+                    "XLText"
+                ],
+                "designer|createAlias": "",
+                "designer|displayName": "top",
+                "height": 150,
+                "html": "<center><h1>Management Tools</h2></center>"
+            },
+            "configAlternates": {
+                "cls": "typedarray",
+                "designer|createAlias": "string",
+                "designer|displayName": "string",
+                "height": "auto",
+                "html": "string"
+            },
+            "name": "MyContainer",
+            "designerId": "022d95b8-7a02-41a1-a351-c834658c4de3"
+        },
+        {
+            "type": "Ext.container.Container",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "container|align": "stretch",
+                "designer|displayName": "first row",
+                "height": 200,
+                "layout": "hbox",
+                "layout|flex": 1
+            },
+            "configAlternates": {
+                "container|align": "string",
+                "designer|displayName": "string",
+                "height": "auto",
+                "layout": "string",
+                "layout|flex": "number"
+            },
+            "name": "MyContainer1",
+            "designerId": "9c046364-a2d2-4f62-a822-38467ae1ca85",
+            "cn": [
+                {
+                    "type": "Ext.button.Button",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "cls": "largeTxt",
+                        "componentCls": "",
+                        "height": 150,
+                        "layout|flex": 1,
+                        "layout|margins": "20",
+                        "margin": 20,
+                        "padding": "",
+                        "text": "In-Season N Mgmt",
+                        "width": 150
+                    },
+                    "configAlternates": {
+                        "cls": "string",
+                        "componentCls": "string",
+                        "height": "auto",
+                        "layout|flex": "number",
+                        "layout|margins": "string",
+                        "margin": "auto",
+                        "padding": "auto",
+                        "text": "string",
+                        "width": "auto"
+                    },
+                    "name": "MyButton4",
+                    "designerId": "11d8fa06-9954-4473-85ed-94cd572c173e",
+                    "cn": [
+                        {
+                            "type": "basiceventbinding",
+                            "reference": {
+                                "name": "listeners",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "fn": "onButtonClick",
+                                "implHandler": [
+                                    "Ext.getCmp(\"mainCardPanel\").getLayout().setActiveItem('inSeasonNMgmt');"
+                                ],
+                                "name": "click",
+                                "scope": "me"
+                            },
+                            "configAlternates": {
+                                "fn": "string",
+                                "implHandler": "code",
+                                "name": "string",
+                                "scope": "string"
+                            },
+                            "name": "onButtonClick",
+                            "designerId": "b0f7ffb1-c68e-4ea4-99e8-cd74093854de"
+                        }
+                    ]
+                },
+                {
+                    "type": "Ext.button.Button",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "cls": "largeTxt",
+                        "height": 150,
+                        "layout|flex": 1,
+                        "layout|margins": "20",
+                        "margin": 20,
+                        "padding": "",
+                        "text": "Seeding Rate Rx",
+                        "width": 150
+                    },
+                    "configAlternates": {
+                        "height": "auto",
+                        "layout|flex": "number",
+                        "text": "string",
+                        "width": "auto",
+                        "cls": "string",
+                        "layout|margins": "string",
+                        "margin": "auto",
+                        "padding": "auto"
+                    },
+                    "name": "MyButton5",
+                    "designerId": "c5a30adf-f00b-49b5-9d7d-f0e2e1c97a77"
+                }
+            ]
+        },
+        {
+            "type": "Ext.container.Container",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "container|align": "stretch",
+                "designer|displayName": "2nd row",
+                "height": 200,
+                "layout": "hbox",
+                "layout|flex": 1
+            },
+            "configAlternates": {
+                "container|align": "string",
+                "designer|displayName": "string",
+                "height": "auto",
+                "layout": "string",
+                "layout|flex": "number"
+            },
+            "name": "MyContainer2",
+            "designerId": "51dcb896-fcde-49cc-be04-078a4dee7512",
+            "cn": [
+                {
+                    "type": "Ext.button.Button",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "cls": "largeTxt",
+                        "height": 150,
+                        "layout|flex": 1,
+                        "layout|margins": "20",
+                        "margin": 20,
+                        "text": "Planting Date <br /> Decision Making",
+                        "width": 150
+                    },
+                    "configAlternates": {
+                        "height": "auto",
+                        "layout|flex": "number",
+                        "padding": "auto",
+                        "text": "string",
+                        "width": "auto",
+                        "cls": "string",
+                        "layout|margins": "string",
+                        "margin": "auto"
+                    },
+                    "name": "MyButton4",
+                    "designerId": "87e74039-35db-464f-ae17-82d88a65ffa4"
+                },
+                {
+                    "type": "Ext.button.Button",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "cls": "largeTxt",
+                        "height": 150,
+                        "layout|flex": 1,
+                        "layout|margins": "20",
+                        "margin": 20,
+                        "padding": "",
+                        "text": "Fungicide Wheat",
+                        "width": 150
+                    },
+                    "configAlternates": {
+                        "height": "auto",
+                        "layout|flex": "number",
+                        "text": "string",
+                        "width": "auto",
+                        "padding": "auto",
+                        "cls": "string",
+                        "layout|margins": "string",
+                        "margin": "auto"
+                    },
+                    "name": "MyButton5",
+                    "designerId": "65c824da-4922-43d8-a567-f398c8cd24f7"
+                }
+            ]
+        }
+    ]
+}

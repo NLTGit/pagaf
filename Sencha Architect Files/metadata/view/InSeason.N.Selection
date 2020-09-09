@@ -1,0 +1,103 @@
+{
+    "type": "Ext.panel.Panel",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userAlias": "inseason.n.selection",
+        "designer|userClassName": "InSeason.N.Selection",
+        "id": "isnm_selection",
+        "layout": "vbox",
+        "margin": "auto 0",
+        "width": "80%"
+    },
+    "configAlternates": {
+        "designer|userAlias": "string",
+        "designer|userClassName": "string",
+        "margin": "auto",
+        "width": "auto",
+        "id": "string",
+        "layout": "string"
+    },
+    "name": "InSeason.N.Management3",
+    "designerId": "b3dbc628-a0d9-422c-af72-6ff4c7ba314b",
+    "viewControllerInstanceId": "db53c9e2-3233-4220-bdd7-86cb19bc7fe1",
+    "viewModelInstanceId": "409fb732-3143-4fae-ab15-b2f80d364ee0",
+    "cn": [
+        {
+            "type": "linkedinstance",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "layout|flex": 1
+            },
+            "configAlternates": {
+                "layout|flex": "number"
+            },
+            "name": "pagafAppPanel",
+            "designerId": "74ccdd64-240e-4ac8-8e49-7d07861b0aed",
+            "masterInstanceId": "c16e4bf5-b2e7-46e1-86f0-a7a0e2db0362"
+        },
+        {
+            "type": "Ext.button.Button",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "scale": "large",
+                "text": "Next"
+            },
+            "configAlternates": {
+                "scale": "string",
+                "text": "string"
+            },
+            "name": "MyButton7",
+            "designerId": "31469c64-e461-411a-96d9-81dee972f9a8",
+            "cn": [
+                {
+                    "type": "basiceventbinding",
+                    "reference": {
+                        "name": "listeners",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "fn": "onButtonClick",
+                        "implHandler": [
+                            "var t = Ext.getCmp('isnm_selection');",
+                            "t.setDisabled(true);",
+                            "t.setVisible(false);",
+                            "",
+                            "if(t.getTitle().search('4.') > -1){",
+                            "    t.setTitle('1. Select field');",
+                            "    t = Ext.getCmp('isnm_review');",
+                            "} else {",
+                            "    t = Ext.getCmp('isnm_management');",
+                            "}",
+                            "t.expand();",
+                            "t.setDisabled(false);",
+                            "t.setVisible(true);"
+                        ],
+                        "name": "click",
+                        "scope": "me"
+                    },
+                    "configAlternates": {
+                        "fn": "string",
+                        "implHandler": "code",
+                        "name": "string",
+                        "scope": "string"
+                    },
+                    "name": "onButtonClick",
+                    "designerId": "d79d4196-0143-42d9-86ef-4ba04c9790e9"
+                }
+            ]
+        }
+    ]
+}

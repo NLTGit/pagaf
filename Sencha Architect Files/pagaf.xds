@@ -1,0 +1,88 @@
+{
+    "name": "pagaf",
+    "settings": {
+        "cmd": {
+            "license": "commercial",
+            "cmdVersion": "6.6.0.13",
+            "frameworkVersion": "6.5.3.57"
+        },
+        "urlPrefixTemplate": "http://localhost:{port}/{path}",
+        "urlPrefix": "http://localhost:32779/",
+        "canvasControls": {
+            "viewportSize": {
+                "name": "Auto Expand",
+                "builtIn": true,
+                "height": null,
+                "width": null
+            }
+        },
+        "exportPath": "",
+        "spacesToIndent": 4,
+        "sdkPath": "",
+        "lineEnding": "CRLF",
+        "genTimestamps": false,
+        "cacheBust": false,
+        "buildShouldOverwriteIndex": false,
+        "generateArchitectVersion": true,
+        "lastBuildSelection": {
+            "value": "webBuild",
+            "display": "Build web app",
+            "buildPlatform": false
+        },
+        "installStatus": "Not Installed"
+    },
+    "xdsVersion": "4.2.1",
+    "xdsBuild": 224,
+    "schemaVersion": 1,
+    "upgradeVersion": 310000000001,
+    "framework": "ext65",
+    "viewOrderMap": {
+        "view": [
+            "0715fce6-ed71-4f41-aec8-149b99552f2a",
+            "afcedc2d-98bd-4402-b064-a55a987b511a",
+            "72735961-0636-438a-aafe-e855d21f155f",
+            "63edfbea-0bbd-449b-8302-715eb7301189",
+            "e656d28a-c362-4344-a978-458a771b0b1d",
+            "b73cdaf3-2f7c-4bf8-9ff5-5b30c280ad87",
+            "184e6d09-46a9-418a-a28f-fcb4d5a99c9b",
+            "7f90af45-bb39-4e04-ba13-274605093ff1",
+            "89cc263d-a045-4482-bfcf-d8bc1ed82d5c",
+            "7ed2856c-6f83-4653-af2c-3080e7c54e42",
+            "b3dbc628-a0d9-422c-af72-6ff4c7ba314b",
+            "32deb652-b5c7-4486-9eed-a2aa8a1ac37c",
+            "33b979d1-415c-48cd-a19f-d75f9c698e56",
+            "b93102c7-6c62-4514-96ab-0445d4a41c8e",
+            "4d5a5364-6085-4eae-a333-71620d25000c",
+            "213ed994-e570-409c-b67e-01240384ccba",
+            "409fb732-3143-4fae-ab15-b2f80d364ee0",
+            "3fb60967-2424-4f32-96a9-ca00738c827f",
+            "56b98f76-8934-4b31-9e1a-f6f0967dd746",
+            "333156f0-323d-461d-90eb-d92faec26f89",
+            "dcec02ed-aa05-4ca4-baca-485c99b80d4d",
+            "4b8b7a6a-a7af-4405-98a5-a2fefafb00c3",
+            "db53c9e2-3233-4220-bdd7-86cb19bc7fe1",
+            "bd3c0379-ffca-4f91-a3c0-364536b13a19",
+            "35906515-6f92-4730-9679-aa2ce048539f",
+            "b1ab7407-98f9-4dc0-b835-594f70f2ea79",
+            "9e0f06e9-7f33-4919-8d34-f9bb4855f766",
+            "d1a7b528-a682-4cb4-8070-3c2ef0639858",
+            "c16e4bf5-b2e7-46e1-86f0-a7a0e2db0362",
+            "c716cc4c-3933-4309-9cef-f03d641b0528",
+            "fa3f8342-c42c-494b-a78b-652f13509186",
+            "8a898734-1507-457e-98a3-9eea1e42f4a1",
+            "7291637e-a605-4a6b-aaa6-2f0bb1ad65a2"
+        ],
+        "store": [],
+        "controller": [
+            "150124de-b41f-4f0f-8d6d-5c5fdfcde741"
+        ],
+        "model": [],
+        "resource": [
+            "bdb582db-cbd5-4209-87f2-5b05490b060f",
+            "44f713e0-e552-41e9-b6fc-72663b56192a"
+        ],
+        "app": [
+            "application"
+        ]
+    }
+}

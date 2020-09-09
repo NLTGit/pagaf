@@ -1,0 +1,18 @@
+{
+    "type": "Ext.app.ViewController",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userAlias": "inseason.n.economics",
+        "designer|userClassName": "InSeason.N.ManagementViewController2"
+    },
+    "configAlternates": {
+        "designer|userAlias": "string",
+        "designer|userClassName": "string"
+    },
+    "name": "InSeason.N.ManagementViewController2",
+    "designerId": "bd3c0379-ffca-4f91-a3c0-364536b13a19"
+}

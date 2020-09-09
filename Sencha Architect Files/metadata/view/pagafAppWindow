@@ -1,0 +1,56 @@
+{
+    "type": "Ext.window.Window",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "closable": false,
+        "designer|userAlias": "pagafappwindow",
+        "designer|userClassName": "pagafAppWindow",
+        "flex": 1,
+        "height": "100%",
+        "id": "pagafwindow",
+        "width": "100%"
+    },
+    "configAlternates": {
+        "designer|userAlias": "string",
+        "designer|userClassName": "string",
+        "flex": "number",
+        "height": "auto",
+        "id": "string",
+        "width": "auto",
+        "closable": "boolean"
+    },
+    "name": "MyWindow",
+    "designerId": "d1a7b528-a682-4cb4-8070-3c2ef0639858",
+    "viewControllerInstanceId": "8a898734-1507-457e-98a3-9eea1e42f4a1",
+    "viewModelInstanceId": "c716cc4c-3933-4309-9cef-f03d641b0528",
+    "cn": [
+        {
+            "type": "basiceventbinding",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "onPagafAfterRender",
+                "implHandler": [
+                    "component.setHtml('<iframe src=\"home2.html\" width=\"100%\" height=\"100%\" />');"
+                ],
+                "name": "afterrender",
+                "scope": "me"
+            },
+            "configAlternates": {
+                "fn": "string",
+                "implHandler": "code",
+                "name": "string",
+                "scope": "string"
+            },
+            "name": "onPagafAfterRender",
+            "designerId": "72b3e877-1885-4d77-b5d7-244d2fd7d947"
+        }
+    ]
+}

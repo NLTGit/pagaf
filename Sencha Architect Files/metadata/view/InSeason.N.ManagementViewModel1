@@ -1,0 +1,18 @@
+{
+    "type": "Ext.app.ViewModel",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userAlias": "inseason.n.credits",
+        "designer|userClassName": "InSeason.N.ManagementViewModel1"
+    },
+    "configAlternates": {
+        "designer|userAlias": "string",
+        "designer|userClassName": "string"
+    },
+    "name": "InSeason.N.ManagementViewModel1",
+    "designerId": "dcec02ed-aa05-4ca4-baca-485c99b80d4d"
+}

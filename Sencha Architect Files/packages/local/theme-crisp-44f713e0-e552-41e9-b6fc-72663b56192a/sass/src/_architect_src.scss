@@ -1,0 +1,69 @@
+$base-color: #006546;
+$mediumFont: 24px;
+$largeFont: 36px;
+$xlFont:48px;
+
+.largeTxt .x-btn-inner-default-small,
+.largeTxt .x-btn-icon-el-default-small {
+    font-size: $mediumFont !important;
+    line-height: $largeFont !important;
+}
+
+.XLText {
+    font-size: $xlFont !important;
+}
+
+.mediumText {
+    font-size: $mediumFont;
+}
+#inSeasonNMgmt .x-panel-header-title-default {
+    font-size: $mediumFont !important;
+}
+#inSeasonNMgmt .x-accordion-item .x-accordion-hd {
+    padding: 20px 30px !important;
+}
+.x-title-text {
+    overflow:visible !important;
+}
+#logo {
+    background: transparent url(FinalPAGAF2020-01.png) no-repeat fixed 159px 11px;
+    position: absolute;
+    display: block;
+    width: 637px;
+    height: 123px;
+    top: 10px;
+    left: 120px;
+    background-size: 31%;
+}
+#header {
+    background: transparent url(headerShort.jpeg) no-repeat fixed top left;
+    display: block;
+    float: left;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background-size: 100%;
+}
+#footer {
+    display:block;
+    float:left;
+    position:relative;
+    height:100%;
+    width:100%;
+}
+
+#footerimg {
+    background: transparent url(footer.jpeg) no-repeat top left;
+    display: block;
+    float: left;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background-size: 100%;
+}
+#tag {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}

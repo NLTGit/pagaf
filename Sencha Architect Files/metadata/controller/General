@@ -1,0 +1,51 @@
+{
+    "type": "Ext.app.Controller",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "alternateClassName": [
+            "GV"
+        ],
+        "designer|userClassName": "General"
+    },
+    "configAlternates": {
+        "alternateClassName": "typedarray",
+        "designer|userClassName": "string"
+    },
+    "name": "MyController",
+    "designerId": "150124de-b41f-4f0f-8d6d-5c5fdfcde741",
+    "cn": [
+        {
+            "type": "fixedfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|params": [
+                    "application"
+                ],
+                "fn": "init",
+                "implHandler": [
+                    "window['GV'] = this;",
+                    "//window.tPagafWindow = '';",
+                    "//window.tPagafWindow = Ext.widget('pagafappwindow');",
+                    "",
+                    "//window.tPagafWindow.show();",
+                    "//window.tPagafWindow.center();"
+                ]
+            },
+            "configAlternates": {
+                "designer|params": "typedarray",
+                "fn": "string",
+                "implHandler": "code"
+            },
+            "name": "init",
+            "designerId": "7887f8b7-cbcb-4d44-a606-05dc6b8cef0b"
+        }
+    ]
+}

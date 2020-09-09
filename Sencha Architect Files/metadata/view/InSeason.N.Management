@@ -1,0 +1,130 @@
+{
+    "type": "Ext.panel.Panel",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userAlias": "inseason.n.management",
+        "designer|userClassName": "InSeason.N.Management",
+        "id": "isnm_management",
+        "layout": "vbox",
+        "margin": "auto 0",
+        "width": "80%"
+    },
+    "configAlternates": {
+        "designer|userAlias": "string",
+        "designer|userClassName": "string",
+        "id": "string",
+        "layout": "string",
+        "margin": "auto",
+        "width": "auto"
+    },
+    "name": "MyPanel10",
+    "designerId": "7ed2856c-6f83-4653-af2c-3080e7c54e42",
+    "viewControllerInstanceId": "4b8b7a6a-a7af-4405-98a5-a2fefafb00c3",
+    "viewModelInstanceId": "213ed994-e570-409c-b67e-01240384ccba",
+    "cn": [
+        {
+            "type": "Ext.form.field.Date",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "cls": [
+                    "mediumTxt"
+                ],
+                "fieldLabel": "When did you plant?",
+                "height": 50,
+                "labelWidth": 400,
+                "matchFieldWidth": false,
+                "width": 600
+            },
+            "configAlternates": {
+                "cls": "typedarray",
+                "fieldLabel": "string",
+                "height": "auto",
+                "labelWidth": "number",
+                "matchFieldWidth": "boolean",
+                "width": "auto"
+            },
+            "name": "MyDateField",
+            "designerId": "c5c5be1c-ebfb-4613-8eb7-77b44452fa21"
+        },
+        {
+            "type": "Ext.form.field.Number",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fieldLabel": "How much N have you already applied?",
+                "height": 50,
+                "labelWidth": 400,
+                "width": 600
+            },
+            "configAlternates": {
+                "fieldLabel": "string",
+                "height": "auto",
+                "labelWidth": "number",
+                "width": "auto"
+            },
+            "name": "MyNumberField",
+            "designerId": "0d913cd5-7063-4365-a822-a9987c0d5257"
+        },
+        {
+            "type": "Ext.button.Button",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "scale": "large",
+                "text": "Next"
+            },
+            "configAlternates": {
+                "scale": "string",
+                "text": "string"
+            },
+            "name": "MyButton6",
+            "designerId": "7bc4c31a-57b3-44d5-ba86-aa3e7f5c54ca",
+            "cn": [
+                {
+                    "type": "basiceventbinding",
+                    "reference": {
+                        "name": "listeners",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "fn": "onButtonClick",
+                        "implHandler": [
+                            "var t = Ext.getCmp('isnm_credits');",
+                            "t.expand();",
+                            "t.setDisabled(false);",
+                            "t.setVisible(true);",
+                            "var t = Ext.getCmp('isnm_management');",
+                            "t.setDisabled(true);",
+                            "t.setVisible(false);"
+                        ],
+                        "name": "click",
+                        "scope": "me"
+                    },
+                    "configAlternates": {
+                        "fn": "string",
+                        "implHandler": "code",
+                        "name": "string",
+                        "scope": "string"
+                    },
+                    "name": "onButtonClick",
+                    "designerId": "0014f15b-3fe0-40bd-b225-f82bd76cfe23"
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,98 @@
+{
+    "type": "Ext.panel.Panel",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userAlias": "pagafapppanel",
+        "designer|userClassName": "pagafAppPanel",
+        "flex": 1,
+        "height": "100%",
+        "id": "pagafapppanel",
+        "width": "100%"
+    },
+    "configAlternates": {
+        "designer|userAlias": "string",
+        "designer|userClassName": "string",
+        "flex": "number",
+        "height": "auto",
+        "id": "string",
+        "width": "auto",
+        "closable": "boolean"
+    },
+    "designerId": "c16e4bf5-b2e7-46e1-86f0-a7a0e2db0362",
+    "viewControllerInstanceId": "7291637e-a605-4a6b-aaa6-2f0bb1ad65a2",
+    "viewModelInstanceId": "fa3f8342-c42c-494b-a78b-652f13509186",
+    "cn": [
+        {
+            "type": "basiceventbinding",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "onPagafAfterRender",
+                "implHandler": [
+                    "component.setHtml(",
+                    "'<div id=\"spinnerContainer\" class=\"spinContainer\" aria-busy=\"true\">' +",
+                    "'        <div class=\"loading-spinner\"></div>' +",
+                    "'    </div>' +",
+                    "'    ' +",
+                    "'    <div class=\"container\">' +",
+                    "'        <div id=\"topBar\" class=\"topBar\">' +",
+                    "'            <button id=\"logout\" class=\"organization\">Log Out</button>' +",
+                    "'            <button id=\"organization\" class=\"organization\"></button>' +",
+                    "'        </div><div id=\"bar2\" class=\"bar2\"></div>' +",
+                    "'        <div id=\"selectedFields\" class=\"fieldBox\">' +",
+                    "'        </div>' +",
+                    "'        <div id=\"mapContainer\" class=\"mapContainer\">' +",
+                    "'            <div id=\"map\" class=\"map\">' +",
+                    "'                <div id=\"drawing\" class=\"drawingContainer\">' +",
+                    "'                    <p class=\"instructions\">Draw fields on the map with drawing tools. When done, <button class=\"continue\">continue</button> to model selection.</p>' +",
+                    "'                    <button class=\"saveButton\">Save Polygons</button>' +",
+                    "'                    <button class=\"editButton\">Edit Polygons</button>' +",
+                    "'                </div>' +",
+                    "'                ' +",
+                    "'                <div id=\"tiles\" class=\"tiles\"></div>' +",
+                    "'                <button class=\"layerButton stepClassed\">Layer visibility</button>' +",
+                    "'            </div>' +",
+                    "'        </div>' +",
+                    "'        <div id=\"modelContainer\" class=\"modelContainer\">' +",
+                    "'            <p class=\"instructionsRel\">Click a field outline to adjust model for that field.</p>' +",
+                    "'            <img id=\"testImage\">' +",
+                    "'            <canvas class=\"hidden\" id=\"testCanvas\"></canvas>' +",
+                    "'            <canvas class=\"hidden\" id=\"clipCanvas\"></canvas>' +",
+                    "'            <div id=\"webglContainer\" class=\"webglContainer hidden\">' +",
+                    "'                ' +",
+                    "'                <canvas id=\"webglCanvas\" style=\"display:inline-block;\"></canvas>' +",
+                    "'                <p class=\"barTitle\">Napp ranges from 0 to 250 kg/ha</p>' +",
+                    "'                <canvas id=\"colorCanvas\"></canvas>' +",
+                    "'                <svg id=\"eonrSlider\" class=\"slider\" width=\"250\" height=\"40\"></svg>' +",
+                    "'                <svg id=\"mSlider\" class=\"slider\" width=\"250\" height=\"40\"></svg>' +",
+                    "'                <svg id=\"sithreshSlider\" class=\"slider\" width=\"250\" height=\"40\"></svg>' +",
+                    "'            </div>' +",
+                    "'            ' +",
+                    "'        </div>' +",
+                    "'        ' +",
+                    "'    </div>' +",
+                    "'' +",
+                    "'    <script src=\"js/auth.js\"></script>' +",
+                    "'    <script src=\"js/farms.js\"></script>');"
+                ],
+                "name": "afterrender",
+                "scope": "me"
+            },
+            "configAlternates": {
+                "fn": "string",
+                "implHandler": "code",
+                "name": "string",
+                "scope": "string"
+            },
+            "name": "onPagafAfterRender",
+            "designerId": "ced8c027-3ab7-4c31-9bd4-542ac75a35f3"
+        }
+    ]
+}

@@ -1,0 +1,79 @@
+{
+    "type": "Ext.panel.Panel",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userAlias": "inseason.n.credits",
+        "designer|userClassName": "InSeason.N.Credits",
+        "id": "isnm_credits",
+        "layout": "vbox"
+    },
+    "configAlternates": {
+        "designer|userAlias": "string",
+        "designer|userClassName": "string",
+        "id": "string",
+        "layout": "string"
+    },
+    "name": "InSeason.N.Management1",
+    "designerId": "4d5a5364-6085-4eae-a333-71620d25000c",
+    "viewControllerInstanceId": "9e0f06e9-7f33-4919-8d34-f9bb4855f766",
+    "viewModelInstanceId": "dcec02ed-aa05-4ca4-baca-485c99b80d4d",
+    "cn": [
+        {
+            "type": "Ext.button.Button",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "scale": "large",
+                "text": "Next"
+            },
+            "configAlternates": {
+                "text": "string",
+                "scale": "string"
+            },
+            "name": "MyButton6",
+            "designerId": "f4f7d434-9144-46b3-8ec7-21a019f400ec",
+            "cn": [
+                {
+                    "type": "basiceventbinding",
+                    "reference": {
+                        "name": "listeners",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "fn": "onButtonClick1",
+                        "implHandler": [
+                            "",
+                            "var t = Ext.getCmp('isnm_credits');",
+                            "t.setDisabled(true);",
+                            "t.setVisible(false);",
+                            "",
+                            "var t = Ext.getCmp('isnm_selection');",
+                            "t.setTitle('4. Select treatment solution');",
+                            "t.expand();",
+                            "t.setDisabled(false);",
+                            "t.setVisible(true);"
+                        ],
+                        "name": "click",
+                        "scope": "me"
+                    },
+                    "configAlternates": {
+                        "fn": "string",
+                        "implHandler": "code",
+                        "name": "string",
+                        "scope": "string"
+                    },
+                    "name": "onButtonClick1",
+                    "designerId": "c41598b3-98bd-443a-9cd5-540962f3ac97"
+                }
+            ]
+        }
+    ]
+}

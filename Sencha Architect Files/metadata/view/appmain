@@ -1,0 +1,692 @@
+{
+    "type": "Ext.container.Viewport",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "defaultListenerScope": true,
+        "designer|initialView": true,
+        "designer|userAlias": "appmain",
+        "designer|userClassName": "appmain",
+        "layout": "fit",
+        "scrollable": true
+    },
+    "configAlternates": {
+        "defaultListenerScope": "boolean",
+        "designer|initialView": "boolean",
+        "designer|userAlias": "string",
+        "designer|userClassName": "string",
+        "layout": "string",
+        "scrollable": "auto"
+    },
+    "name": "MyViewport",
+    "designerId": "72735961-0636-438a-aafe-e855d21f155f",
+    "viewControllerInstanceId": "afcedc2d-98bd-4402-b064-a55a987b511a",
+    "viewModelInstanceId": "0715fce6-ed71-4f41-aec8-149b99552f2a",
+    "cn": [
+        {
+            "type": "Ext.panel.Panel",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "layout": "fit",
+                "scrollable": true
+            },
+            "configAlternates": {
+                "layout": "string",
+                "scrollable": "auto"
+            },
+            "name": "MyPanel12",
+            "designerId": "1dbd5bcc-c177-4f06-a5ea-6c3f6afa188f",
+            "cn": [
+                {
+                    "type": "Ext.container.Container",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "height": "200px",
+                        "html": "<div id=\"header\"><span id=\"logo\"></span></div>",
+                        "maxHeight": 200,
+                        "minHeight": 200,
+                        "width": "100%"
+                    },
+                    "configAlternates": {
+                        "height": "auto",
+                        "html": "string",
+                        "maxHeight": "number",
+                        "minHeight": "number",
+                        "width": "auto"
+                    },
+                    "name": "MyContainer3",
+                    "designerId": "5e48e835-a3c3-4a4b-8bc9-ebbcbc5ffbbb"
+                },
+                {
+                    "type": "Ext.panel.Panel",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "flex": 1,
+                        "id": "mainCardPanel",
+                        "layout": "card",
+                        "title": ""
+                    },
+                    "configAlternates": {
+                        "flex": "number",
+                        "id": "string",
+                        "layout": "string",
+                        "title": "string"
+                    },
+                    "name": "MyPanel",
+                    "designerId": "9095fb2d-8b49-4bcd-a8fb-b61ed5b96217",
+                    "cn": [
+                        {
+                            "type": "Ext.panel.Panel",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "container|align": "stretch",
+                                "id": "home",
+                                "layout": "vbox",
+                                "title": ""
+                            },
+                            "configAlternates": {
+                                "container|align": "string",
+                                "id": "string",
+                                "layout": "string",
+                                "title": "string"
+                            },
+                            "name": "MyPanel2",
+                            "designerId": "c26395f9-8c29-4abc-b118-c719e5e81a24",
+                            "cn": [
+                                {
+                                    "type": "linkedinstance",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "name": "home.topmenu2",
+                                    "designerId": "844e61a6-84d8-4b32-82e0-1449da9599a1",
+                                    "masterInstanceId": "63edfbea-0bbd-449b-8302-715eb7301189"
+                                },
+                                {
+                                    "type": "linkedinstance",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "name": "home.bottommenu1",
+                                    "designerId": "188ab114-73d9-47b2-a679-e376384319b9",
+                                    "masterInstanceId": "e656d28a-c362-4344-a978-458a771b0b1d"
+                                }
+                            ]
+                        },
+                        {
+                            "type": "Ext.panel.Panel",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "id": "Tools",
+                                "layout": "accordion",
+                                "title": "My Panel"
+                            },
+                            "configAlternates": {
+                                "id": "string",
+                                "layout": "string",
+                                "title": "string"
+                            },
+                            "name": "MyPanel3",
+                            "designerId": "59cb57a5-4856-44f4-b383-0edc4f8ceb7c"
+                        },
+                        {
+                            "type": "Ext.panel.Panel",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "id": "Report",
+                                "layout": "accordion",
+                                "title": "My Panel"
+                            },
+                            "configAlternates": {
+                                "id": "string",
+                                "layout": "string",
+                                "title": "string"
+                            },
+                            "name": "MyPanel4",
+                            "designerId": "b8192013-9a45-4942-8fd2-a4c7d5514649"
+                        },
+                        {
+                            "type": "Ext.panel.Panel",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "id": "Data",
+                                "layout": "accordion",
+                                "title": "My Panel"
+                            },
+                            "configAlternates": {
+                                "id": "string",
+                                "layout": "string",
+                                "title": "string"
+                            },
+                            "name": "MyPanel5",
+                            "designerId": "6ca05726-79dc-4dd7-b9c1-80386cb0c256"
+                        },
+                        {
+                            "type": "Ext.panel.Panel",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "id": "inSeasonNMgmt",
+                                "layout": "accordion",
+                                "title": "In Season N Management"
+                            },
+                            "configAlternates": {
+                                "id": "string",
+                                "layout": "string",
+                                "title": "string"
+                            },
+                            "name": "MyPanel10",
+                            "designerId": "5f1467ba-98f3-49ab-b979-38a8ed6766d1",
+                            "cn": [
+                                {
+                                    "type": "linkedinstance",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "title": "1. Field Selection"
+                                    },
+                                    "configAlternates": {
+                                        "title": "string"
+                                    },
+                                    "name": "inseason.n.selection",
+                                    "designerId": "6355aece-35ed-4586-af65-7fc9c760fa75",
+                                    "masterInstanceId": "b3dbc628-a0d9-422c-af72-6ff4c7ba314b"
+                                },
+                                {
+                                    "type": "linkedinstance",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "disabled": true,
+                                        "hidden": true,
+                                        "title": "2. Management"
+                                    },
+                                    "configAlternates": {
+                                        "disabled": "boolean",
+                                        "hidden": "boolean",
+                                        "title": "string"
+                                    },
+                                    "name": "inseason.n.management",
+                                    "designerId": "ca56b6c0-434a-450d-9563-b6cd2a86c5f1",
+                                    "masterInstanceId": "7ed2856c-6f83-4653-af2c-3080e7c54e42"
+                                },
+                                {
+                                    "type": "linkedinstance",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "disabled": true,
+                                        "hidden": true,
+                                        "title": "3. Credits"
+                                    },
+                                    "configAlternates": {
+                                        "disabled": "boolean",
+                                        "hidden": "boolean",
+                                        "title": "string"
+                                    },
+                                    "name": "inseason.n.credits",
+                                    "designerId": "57af081c-9293-44a7-b435-fbaa3159ea67",
+                                    "masterInstanceId": "4d5a5364-6085-4eae-a333-71620d25000c"
+                                },
+                                {
+                                    "type": "linkedinstance",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "disabled": true,
+                                        "hidden": true,
+                                        "title": "4. Economics"
+                                    },
+                                    "configAlternates": {
+                                        "disabled": "boolean",
+                                        "hidden": "boolean",
+                                        "title": "string"
+                                    },
+                                    "name": "inseason.n.economics",
+                                    "designerId": "c1bb6e7a-f491-4c27-ae52-2a72006d5c21",
+                                    "masterInstanceId": "32deb652-b5c7-4486-9eed-a2aa8a1ac37c"
+                                },
+                                {
+                                    "type": "linkedinstance",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "disabled": true,
+                                        "hidden": true,
+                                        "title": "5. Review"
+                                    },
+                                    "configAlternates": {
+                                        "disabled": "boolean",
+                                        "hidden": "boolean",
+                                        "title": "string"
+                                    },
+                                    "name": "inseason.n.review",
+                                    "designerId": "9c37dfc1-5eab-4e1b-a3d5-eaa43381916d",
+                                    "masterInstanceId": "33b979d1-415c-48cd-a19f-d75f9c698e56"
+                                },
+                                {
+                                    "type": "linkedinstance",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "disabled": true,
+                                        "hidden": true,
+                                        "title": "6. Download"
+                                    },
+                                    "configAlternates": {
+                                        "disabled": "boolean",
+                                        "hidden": "boolean",
+                                        "title": "string"
+                                    },
+                                    "name": "inseason.n.finish",
+                                    "designerId": "88098ba5-b06f-4d2c-a096-ef76a6d23e66",
+                                    "masterInstanceId": "b93102c7-6c62-4514-96ab-0445d4a41c8e"
+                                }
+                            ]
+                        },
+                        {
+                            "type": "Ext.tab.Panel",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "activeTab": 0,
+                                "height": 250,
+                                "id": "inSeasonMainTab",
+                                "title": "In Season N Management",
+                                "width": 400
+                            },
+                            "configAlternates": {
+                                "designer|userAlias": "string",
+                                "designer|userClassName": "string",
+                                "height": "auto",
+                                "title": "string",
+                                "width": "auto",
+                                "activeTab": "auto",
+                                "id": "string"
+                            },
+                            "name": "MyTabPanel",
+                            "designerId": "2db1b54c-95b0-4dd0-bfe8-c35fbb147ebc",
+                            "cn": [
+                                {
+                                    "type": "Ext.panel.Panel",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "container|align": "center",
+                                        "id": "inSeasonTab1",
+                                        "layout": "vbox",
+                                        "title": "1. Managment"
+                                    },
+                                    "configAlternates": {
+                                        "container|align": "string",
+                                        "id": "string",
+                                        "layout": "string",
+                                        "title": "string"
+                                    },
+                                    "name": "MyPanel1",
+                                    "designerId": "1331181f-74b3-4d97-bde8-4e3967bc6ecd",
+                                    "cn": [
+                                        {
+                                            "type": "Ext.tab.Tab",
+                                            "reference": {
+                                                "name": "tabConfig",
+                                                "type": "object"
+                                            },
+                                            "codeClass": null,
+                                            "name": "TabConfig",
+                                            "designerId": "1654cf2b-7df2-490e-9a4a-eb87730d99e0",
+                                            "cn": [
+                                                {
+                                                    "type": "basiceventbinding",
+                                                    "reference": {
+                                                        "name": "listeners",
+                                                        "type": "array"
+                                                    },
+                                                    "codeClass": null,
+                                                    "userConfig": {
+                                                        "fn": "onTabClick",
+                                                        "implHandler": [
+                                                            ""
+                                                        ],
+                                                        "name": "click",
+                                                        "scope": "me"
+                                                    },
+                                                    "configAlternates": {
+                                                        "fn": "string",
+                                                        "implHandler": "code",
+                                                        "name": "string",
+                                                        "scope": "string"
+                                                    },
+                                                    "name": "onTabClick",
+                                                    "designerId": "c74a3f1f-4b2b-419a-ba2e-96666d677cf3"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "Ext.panel.Panel",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "disabled": true,
+                                        "id": "inSeasonTab2",
+                                        "title": "2. Credits"
+                                    },
+                                    "configAlternates": {
+                                        "id": "string",
+                                        "title": "string",
+                                        "disabled": "boolean"
+                                    },
+                                    "name": "MyPanel6",
+                                    "designerId": "03a65f75-57d5-4b13-b7d2-ab3828507b26",
+                                    "cn": [
+                                        {
+                                            "type": "Ext.tab.Tab",
+                                            "reference": {
+                                                "name": "tabConfig",
+                                                "type": "object"
+                                            },
+                                            "codeClass": null,
+                                            "name": "TabConfig",
+                                            "designerId": "52c03412-edf4-4f87-a304-49da88d34362",
+                                            "cn": [
+                                                {
+                                                    "type": "basiceventbinding",
+                                                    "reference": {
+                                                        "name": "listeners",
+                                                        "type": "array"
+                                                    },
+                                                    "codeClass": null,
+                                                    "userConfig": {
+                                                        "fn": "onTabClick1",
+                                                        "implHandler": [
+                                                            ""
+                                                        ],
+                                                        "name": "click",
+                                                        "scope": "me"
+                                                    },
+                                                    "configAlternates": {
+                                                        "fn": "string",
+                                                        "implHandler": "code",
+                                                        "name": "string",
+                                                        "scope": "string"
+                                                    },
+                                                    "name": "onTabClick1",
+                                                    "designerId": "079a3a13-1bb6-453d-be55-f8e51bc5ed30"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "Ext.panel.Panel",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "disabled": true,
+                                        "id": "inSeasonTab3",
+                                        "title": "3. Economics"
+                                    },
+                                    "configAlternates": {
+                                        "id": "string",
+                                        "title": "string",
+                                        "disabled": "boolean"
+                                    },
+                                    "name": "MyPanel7",
+                                    "designerId": "f4d4bfea-f518-4704-b87b-5baf69e2f720",
+                                    "cn": [
+                                        {
+                                            "type": "Ext.tab.Tab",
+                                            "reference": {
+                                                "name": "tabConfig",
+                                                "type": "object"
+                                            },
+                                            "codeClass": null,
+                                            "name": "TabConfig",
+                                            "designerId": "9ffa1f32-f45e-434c-8896-4e8580504e1d",
+                                            "cn": [
+                                                {
+                                                    "type": "basiceventbinding",
+                                                    "reference": {
+                                                        "name": "listeners",
+                                                        "type": "array"
+                                                    },
+                                                    "codeClass": null,
+                                                    "userConfig": {
+                                                        "fn": "onTabClick11",
+                                                        "implHandler": [
+                                                            ""
+                                                        ],
+                                                        "name": "click",
+                                                        "scope": "me"
+                                                    },
+                                                    "configAlternates": {
+                                                        "fn": "string",
+                                                        "implHandler": "code",
+                                                        "name": "string",
+                                                        "scope": "string"
+                                                    },
+                                                    "name": "onTabClick11",
+                                                    "designerId": "12a3fe7a-d619-40e7-83ed-ca13ea5b83e5"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "Ext.panel.Panel",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "disabled": true,
+                                        "id": "inSeasonTab4",
+                                        "title": "4. Review"
+                                    },
+                                    "configAlternates": {
+                                        "id": "string",
+                                        "title": "string",
+                                        "disabled": "boolean"
+                                    },
+                                    "name": "MyPanel8",
+                                    "designerId": "9d3c7ea8-050e-4883-b585-94af77ff8bf2",
+                                    "cn": [
+                                        {
+                                            "type": "Ext.tab.Tab",
+                                            "reference": {
+                                                "name": "tabConfig",
+                                                "type": "object"
+                                            },
+                                            "codeClass": null,
+                                            "name": "TabConfig",
+                                            "designerId": "fb48f283-cdc3-4dc3-ae4c-e62e126845a7",
+                                            "cn": [
+                                                {
+                                                    "type": "basiceventbinding",
+                                                    "reference": {
+                                                        "name": "listeners",
+                                                        "type": "array"
+                                                    },
+                                                    "codeClass": null,
+                                                    "userConfig": {
+                                                        "fn": "onTabClick111",
+                                                        "implHandler": [
+                                                            ""
+                                                        ],
+                                                        "name": "click",
+                                                        "scope": "me"
+                                                    },
+                                                    "configAlternates": {
+                                                        "fn": "string",
+                                                        "implHandler": "code",
+                                                        "name": "string",
+                                                        "scope": "string"
+                                                    },
+                                                    "name": "onTabClick111",
+                                                    "designerId": "62a84335-4237-4569-ad99-16fe09504639"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "Ext.panel.Panel",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "disabled": true,
+                                        "id": "inSeasonTab5",
+                                        "title": "5. Finish"
+                                    },
+                                    "configAlternates": {
+                                        "id": "string",
+                                        "title": "string",
+                                        "disabled": "boolean"
+                                    },
+                                    "name": "MyPanel9",
+                                    "designerId": "75f8793b-551a-49bf-94d9-6c4615050d66",
+                                    "cn": [
+                                        {
+                                            "type": "Ext.tab.Tab",
+                                            "reference": {
+                                                "name": "tabConfig",
+                                                "type": "object"
+                                            },
+                                            "codeClass": null,
+                                            "name": "TabConfig",
+                                            "designerId": "dc4bce28-0aee-44f5-88bc-89ed52688a7e",
+                                            "cn": [
+                                                {
+                                                    "type": "basiceventbinding",
+                                                    "reference": {
+                                                        "name": "listeners",
+                                                        "type": "array"
+                                                    },
+                                                    "codeClass": null,
+                                                    "userConfig": {
+                                                        "fn": "onTabClick1111",
+                                                        "implHandler": [
+                                                            ""
+                                                        ],
+                                                        "name": "click",
+                                                        "scope": "me"
+                                                    },
+                                                    "configAlternates": {
+                                                        "fn": "string",
+                                                        "implHandler": "code",
+                                                        "name": "string",
+                                                        "scope": "string"
+                                                    },
+                                                    "name": "onTabClick1111",
+                                                    "designerId": "ed320a71-1dbb-4928-8853-db975dde47ac"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "type": "Ext.container.Container",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "height": "200px",
+                        "html": "<div id=\"footer\"><div id=\"footerimg\"></div><div id=\"social\" /></div><div id=\"tag\">PAGAF: Precision Agriculture for all American Farmers</div></div>",
+                        "maxHeight": 200,
+                        "minHeight": 200,
+                        "width": "100%"
+                    },
+                    "configAlternates": {
+                        "height": "auto",
+                        "html": "string",
+                        "maxHeight": "number",
+                        "minHeight": "number",
+                        "width": "auto"
+                    },
+                    "name": "MyContainer4",
+                    "designerId": "189c4a76-1d14-4678-abe3-b3da07cae2c2"
+                }
+            ]
+        }
+    ]
+}

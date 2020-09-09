@@ -1,0 +1,18 @@
+{
+    "type": "Ext.app.ViewController",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userAlias": "pagafapppanel",
+        "designer|userClassName": "pagafAppWindowViewController1"
+    },
+    "configAlternates": {
+        "designer|userAlias": "string",
+        "designer|userClassName": "string"
+    },
+    "name": "pagafAppWindowViewController1",
+    "designerId": "7291637e-a605-4a6b-aaa6-2f0bb1ad65a2"
+}

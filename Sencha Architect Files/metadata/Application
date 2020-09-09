@@ -1,0 +1,34 @@
+{
+    "type": "Ext.app.Application",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "controllers": [
+            "General"
+        ],
+        "name": "pagaf",
+        "views": [
+            "appmain",
+            "home.topmenu",
+            "home.bottommenu",
+            "InSeason.N.Management",
+            "InSeason.N.Credits",
+            "InSeason.N.Economics",
+            "InSeason.N.Review",
+            "InSeason.N.Finish",
+            "InSeason.N.Selection",
+            "pagafAppPanel",
+            "pagafAppWindow"
+        ]
+    },
+    "configAlternates": {
+        "controllers": "typedarray",
+        "name": "string",
+        "views": "typedarray"
+    },
+    "name": "Application",
+    "designerId": "application"
+}

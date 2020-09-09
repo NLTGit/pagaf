@@ -1,0 +1,76 @@
+{
+    "type": "Ext.panel.Panel",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userAlias": "inseason.n.economics",
+        "designer|userClassName": "InSeason.N.Economics",
+        "id": "isnm_economics",
+        "layout": "vbox"
+    },
+    "configAlternates": {
+        "designer|userAlias": "string",
+        "designer|userClassName": "string",
+        "id": "string",
+        "layout": "string"
+    },
+    "name": "InSeason.N.Management2",
+    "designerId": "32deb652-b5c7-4486-9eed-a2aa8a1ac37c",
+    "viewControllerInstanceId": "bd3c0379-ffca-4f91-a3c0-364536b13a19",
+    "viewModelInstanceId": "3fb60967-2424-4f32-96a9-ca00738c827f",
+    "cn": [
+        {
+            "type": "Ext.button.Button",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "scale": "large",
+                "text": "Next"
+            },
+            "configAlternates": {
+                "text": "string",
+                "scale": "string"
+            },
+            "name": "MyButton6",
+            "designerId": "1de6818f-c112-43ad-9373-b1449763999c",
+            "cn": [
+                {
+                    "type": "basiceventbinding",
+                    "reference": {
+                        "name": "listeners",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "fn": "onButtonClick11",
+                        "implHandler": [
+                            "var t = Ext.getCmp('isnm_review');",
+                            "t.expand();",
+                            "t.setDisabled(false);",
+                            "t.setVisible(true);",
+                            "var t = Ext.getCmp('isnm_economics');",
+                            "t.setDisabled(true);",
+                            "t.setVisible(false);"
+                        ],
+                        "name": "click",
+                        "scope": "me"
+                    },
+                    "configAlternates": {
+                        "fn": "string",
+                        "implHandler": "code",
+                        "name": "string",
+                        "scope": "string"
+                    },
+                    "name": "onButtonClick11",
+                    "designerId": "036f721c-44f5-4006-b0ff-1a5aee10da2a"
+                }
+            ]
+        }
+    ]
+}

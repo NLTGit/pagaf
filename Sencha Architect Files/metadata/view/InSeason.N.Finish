@@ -1,0 +1,77 @@
+{
+    "type": "Ext.panel.Panel",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userAlias": "inseason.n.finish",
+        "designer|userClassName": "InSeason.N.Finish",
+        "id": "isnm_download",
+        "layout": "vbox"
+    },
+    "configAlternates": {
+        "designer|userAlias": "string",
+        "designer|userClassName": "string",
+        "id": "string",
+        "layout": "string"
+    },
+    "name": "InSeason.N.Review1",
+    "designerId": "b93102c7-6c62-4514-96ab-0445d4a41c8e",
+    "viewControllerInstanceId": "b1ab7407-98f9-4dc0-b835-594f70f2ea79",
+    "viewModelInstanceId": "333156f0-323d-461d-90eb-d92faec26f89",
+    "cn": [
+        {
+            "type": "Ext.button.Button",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "scale": "large",
+                "text": "Next"
+            },
+            "configAlternates": {
+                "text": "string",
+                "scale": "string"
+            },
+            "name": "MyButton6",
+            "designerId": "4a2abb59-0411-4ae3-8420-0a36cfb7b9a8",
+            "cn": [
+                {
+                    "type": "basiceventbinding",
+                    "reference": {
+                        "name": "listeners",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "fn": "onButtonClick1111",
+                        "implHandler": [
+                            "var t = Ext.getCmp('isnm_selection');",
+                            "t.expand();",
+                            "t.setDisabled(false);",
+                            "t.setVisible(true);",
+                            "var t = Ext.getCmp('isnm_download');",
+                            "t.setDisabled(true);",
+                            "t.setVisible(false);",
+                            "Ext.getCmp(\"mainCardPanel\").getLayout().setActiveItem('home');"
+                        ],
+                        "name": "click",
+                        "scope": "me"
+                    },
+                    "configAlternates": {
+                        "fn": "string",
+                        "implHandler": "code",
+                        "name": "string",
+                        "scope": "string"
+                    },
+                    "name": "onButtonClick1111",
+                    "designerId": "aad1d7cb-196b-421a-bf87-4d906b3da5a4"
+                }
+            ]
+        }
+    ]
+}

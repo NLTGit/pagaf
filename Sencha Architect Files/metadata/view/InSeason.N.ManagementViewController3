@@ -1,0 +1,18 @@
+{
+    "type": "Ext.app.ViewController",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userAlias": "inseason.n.review",
+        "designer|userClassName": "InSeason.N.ManagementViewController3"
+    },
+    "configAlternates": {
+        "designer|userAlias": "string",
+        "designer|userClassName": "string"
+    },
+    "name": "InSeason.N.ManagementViewController3",
+    "designerId": "35906515-6f92-4730-9679-aa2ce048539f"
+}
