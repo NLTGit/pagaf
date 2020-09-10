@@ -19,8 +19,10 @@ function pageState() {
     this.mouseoverField = null;
     this.iLoad = 1;
     this.map = null;
+    this.mapOutput = null;
     this.editing = [];
     this.cornerTiles = null;
+    this.coords = null;
 }
 
 //map layer names
@@ -146,6 +148,7 @@ function Slider(id, field, domain) {
         self.handle.attr("cx", self.x(h));
         render(document.getElementById('clipCanvas'), gl, program);
         render(document.getElementById('clipCanvas'), glEncoded, programEncoded);
+        mapRender();
     };
     this.x = d3.scaleLinear()
         .domain(domain)
@@ -244,7 +247,11 @@ bar2Divs.each(function(d) {
 function loadModelSelection() {
     hideAll();
     page.draw.deleteAll();
+    let canvas2 = document.getElementById('testCanvas');
+    let ctx2 = canvas2.getContext('2d');
+    ctx2.clearRect(0,0,canvas2.width,canvas2.height);
     d3.select("#modelContainer").style('display','inline-block');
+    page.mapOutput.resize();
 }
 
 //function to change view on continue button click
@@ -589,6 +596,25 @@ function setRectangle(gl, x, y, width, height) {
   ]), gl.STATIC_DRAW);
 }
 
+//copy data from webgl canvas to 2d canvas
+function mapRender() {
+    render(document.getElementById('webglCanvas'), gl, program);
+    let canvas = document.createElement('canvas');
+    let ctx = canvas.getContext('2d');
+   
+    let width = gl.drawingBufferWidth;
+    let height = gl.drawingBufferHeight;
+    
+    var pixels = new Uint8Array(width * height * 4);
+    gl.readPixels(0, 0, width, height, gl.RGBA, gl.UNSIGNED_BYTE, pixels);
+   
+    let canvas2 = document.getElementById('testCanvas');
+  
+    let ctx2 = canvas2.getContext('2d');
+    ctx2.clearRect(0,0,canvas2.width,canvas2.height);
+    ctx2.drawImage(gl.canvas,0,0);
+}
+
 //function that renders to webgl canvas
 function render(canvas, gl, program) {
 
@@ -687,8 +713,6 @@ function render(canvas, gl, program) {
     var count = 6;
     gl.drawArrays(primitiveType, offset, count);
 
-
-
 }
 
 //set up canvases to render
@@ -711,6 +735,21 @@ function canvasWork(imageArray, numx, numy, testField, pixelTL) {
         ctx.drawImage(imageArray[i], (i%numx)*res, Math.floor(i/numx)*res, res, res);
     }
     
+    //update coordinates for overlay
+    let mySource = page.mapOutput.getSource('canvas-source');
+    mySource.setCoordinates(page.coords);
+
+    //only add layer if it isn't yet added
+    let myLayer = page.mapOutput.getLayer('canvas-layer');
+    if (typeof myLayer === 'undefined') {
+        page.mapOutput.addLayer({
+            id:'canvas-layer',
+            type:'raster',
+            source:'canvas-source'
+         })
+    }
+    
+
     let imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
     
     let fieldCoords; 
@@ -792,6 +831,7 @@ function canvasWork(imageArray, numx, numy, testField, pixelTL) {
     
     render(clipCanvas, gl, program);
     render(clipCanvas, glEncoded, programEncoded);
+    mapRender();
 }
 
 //given field data, load the png data for SI
@@ -799,7 +839,7 @@ async function loadFieldData(testField) {
     let  auth = await authentication;
    
     let testBbox = turf.bbox(testField);
-    
+    page.mapOutput.fitBounds(testBbox);
     let cornerTiles = returnTiles(testBbox);
     
     let minx = Math.floor(cornerTiles[0][0]);
@@ -807,10 +847,13 @@ async function loadFieldData(testField) {
     let miny = Math.floor(cornerTiles[1][1]);
     let maxy = Math.floor(cornerTiles[0][1]);
 
+    let minxAbs = Math.floor(cornerTiles[0][0]);
+    let maxxAbs = Math.ceil(cornerTiles[1][0]);
+    let minyAbs = Math.floor(cornerTiles[1][1]);
+    let maxyAbs = Math.ceil(cornerTiles[0][1]);
+
     let rangex = range(0, maxx-minx+1, 1);
     let rangey = range(0, maxy-miny+1, 1);
-
-   
 
     let tilex = Math.floor(cornerTiles[0][0]);
     let tiley = Math.floor(cornerTiles[1][1]);
@@ -846,9 +889,15 @@ async function loadFieldData(testField) {
             imageArray[i].onload=function() {
                
             imagesLoaded += 1;
-           
+            
             if (imagesLoaded == totalImages) {
-               
+                page.coords = [
+                    lonlat(minxAbs,minyAbs),
+                    lonlat(maxxAbs,minyAbs),
+                    lonlat(maxxAbs,maxyAbs),
+                    lonlat(minxAbs,maxyAbs)
+                ];
+                
                 canvasWork(imageArray, rangex.length, rangey.length, testField, pixelTL);
             }
             }
@@ -987,6 +1036,35 @@ async function initializeMap() {
         });
 
     page.map = map;
+
+    var mapOutput = new mapboxgl.Map({
+        container: 'mapOutput', // container id
+        style: 'mapbox://styles/censuspagaf/ckbwcdt9h0k3e1iplxvtr36vx',
+        center: [-93.5, 37.5], // starting position
+        zoom: 3, // starting zoom
+        maxZoom:15
+    });
+
+    page.mapOutput = mapOutput;
+
+    mapOutput.on("load", function() {
+        document.body.removeAttribute('aria-busy')
+        mapOutput.resize();
+
+        //canvas overlay for field
+        page.mapOutput.addSource('canvas-source', {
+            type:'canvas',
+            canvas:'testCanvas',
+            coordinates:[
+                [0,0],
+                [0,0],
+                [0,0],
+                [0,0]
+            ],
+            animate:true
+        })
+        
+    })
      
 
     var draw = new MapboxDraw({
