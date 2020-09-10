@@ -42,7 +42,7 @@ async function login() {
   let config = await (await fetch('/config.json')).json()
     , redirectUri = window.location.origin + '/home.html'
     , auth0 = await createAuth0Client(
-        { domain:    config.auth0.domain
+      { domain:    config.auth0.domain
         , client_id: config.auth0.client_id
         , audience:  config.auth0.audience
         , redirect_uri: redirectUri
