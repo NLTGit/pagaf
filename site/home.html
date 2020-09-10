@@ -29,8 +29,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <script src="https://cdn.auth0.com/js/auth0-spa-js/1.9/auth0-spa-js.production.js"></script>
   <script src="https://sdk.amazonaws.com/js/aws-sdk-2.739.0.min.js"></script>
-  <script src="https://api.mapbox.com/mapbox-gl-js/v1.9.0/mapbox-gl.js"></script>
-  <link href="https://api.mapbox.com/mapbox-gl-js/v1.9.0/mapbox-gl.css" rel="stylesheet" />
+  
+  <script src='https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.js'></script>
+  <link href='https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.css' rel='stylesheet' />
+
   <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-draw/v1.2.0/mapbox-gl-draw.js"></script>
   <link
     rel="stylesheet"
@@ -73,10 +75,10 @@
             <div class="sliderContainer"></div>
             <div id="mapOutput" class="mapOutput"></div>
             <img id="testImage">
-            <canvas class="hidden" id="testCanvas"></canvas>
+            <canvas class="behind" id="testCanvas"></canvas>
             <canvas class="hidden" id="clipCanvas"></canvas>
             <div id="webglContainer" class="webglContainer hidden">
-                <canvas id="webglCanvas" style="display:inline-block;"></canvas>
+                <canvas id="webglCanvas" style="display:none;"></canvas>
                 <p class="barTitle">Napp ranges from 0 to 250 kg/ha</p>
                 <canvas id="colorCanvas"></canvas>
                 <svg id="eonrSlider" class="slider" width="250" height="40"></svg>
