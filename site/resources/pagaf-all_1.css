@@ -13809,10 +13809,7 @@ a.x-monthpicker-yearnav-button:hover {
     right: 20px;
 }
 /* C:/Users/burton.rosenberger/pagaf/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/Component.scss:83 */
-#bar2 {
-    visibility: hidden !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/Component.scss:86 */
+#bar2,
 #webglContainer {
     visibility: hidden !important;
 }
@@ -13897,10 +13894,7 @@ a.x-monthpicker-yearnav-button:hover {
     right: 20px;
 }
 /* C:/Users/burton.rosenberger/pagaf/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/_architect_src.scss:83 */
-#bar2 {
-    visibility: hidden !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/_architect_src.scss:86 */
+#bar2,
 #webglContainer {
     visibility: hidden !important;
 }

@@ -142,7 +142,8 @@ function Slider(id, field, domain) {
     this.selection.append("text")
     .attr("x",2)
     .attr("y",12)
-    .text(field);
+    .text(field)
+    .style("fill","white");
     this.hue = function(h) {
         modelvars[field] = h;
         self.handle.attr("cx", self.x(h));
@@ -174,6 +175,7 @@ function Slider(id, field, domain) {
     .selectAll("text")
     .data(self.x.ticks(5))
     .enter().append("text")
+    .style("fill","white")
     .attr("x", self.x)
     .attr("text-anchor", "middle")
     .text(function(d) { return Math.round(d*100)/100; });
@@ -217,8 +219,6 @@ function loadView(view) {
         loadModelSelection();
     }
 }
-//for sencha wrapper
-window.loadView = loadView;
 
 //set up menu bar
 var steps = [
@@ -354,7 +354,7 @@ function encode(data)
 }
 
 //bind click handler to button
-/*d3.select("#download").on("click", function(d) {
+d3.select("#download").on("click", function(d) {
     let el = document.getElementById("webglContainer");
     let hidden = el.classList.contains("hidden");
     //if container is hidden, don't allow data processing
@@ -363,20 +363,7 @@ function encode(data)
         return;
     }
     decode(glEncoded);
-})*/
-
-function download(d) {
-    let el = document.getElementById("webglContainer");
-    let hidden = el.classList.contains("hidden");
-	console.log('hidden',hidden);
-    //if container is hidden, don't allow data processing
-    //User must click field first
-    if (hidden) {
-        return;
-    }
-    decode(glEncoded);
-}
-window.download = download;
+})
 
 //function do download javascript object as json
 function exportToJson(object) {
@@ -546,6 +533,7 @@ var fragmentShaderSource = `
     void main() {
         //look up color from texture
         vec4 color = texture2D(u_image0, v_texCoord);
+        color.w = floor(color.w);
         float napp = eonr * sqrt((1.0-color.x)/((1.0-sithresh)*(1.0+0.1*exp(m*(sithresh-color.x)))));
         vec4 outcolor = texture2D(u_image1, vec2(min(1.0,napp/250.0),0.0));
         gl_FragColor = vec4(outcolor.x, outcolor.y, outcolor.z, color.w);
@@ -576,6 +564,7 @@ var fragmentShaderSourceEncoded = `
     void main() {
         //look up color from texture
         vec4 color = texture2D(u_image0, v_texCoord);
+        color.w = floor(color.w);
         float napp = eonr * sqrt((1.0-color.x)/((1.0-sithresh)*(1.0+0.1*exp(m*(sithresh-color.x)))));
         vec4 outt;
         //in order to encode, need to scale value 0-1. Chose 10000, which should be larger than any reasonable
@@ -614,20 +603,10 @@ function setRectangle(gl, x, y, width, height) {
 //copy data from webgl canvas to 2d canvas
 function mapRender() {
     render(document.getElementById('webglCanvas'), gl, program);
-    let canvas = document.createElement('canvas');
-    let ctx = canvas.getContext('2d');
-   
-    let width = gl.drawingBufferWidth;
-    let height = gl.drawingBufferHeight;
-    
-    var pixels = new Uint8Array(width * height * 4);
-    gl.readPixels(0, 0, width, height, gl.RGBA, gl.UNSIGNED_BYTE, pixels);
-   
     let canvas2 = document.getElementById('testCanvas');
-  
     let ctx2 = canvas2.getContext('2d');
     ctx2.clearRect(0,0,canvas2.width,canvas2.height);
-    ctx2.drawImage(gl.canvas,0,0);
+    ctx2.drawImage(gl.canvas,0,0);   
 }
 
 //function that renders to webgl canvas
@@ -750,23 +729,6 @@ function canvasWork(imageArray, numx, numy, testField, pixelTL) {
         ctx.drawImage(imageArray[i], (i%numx)*res, Math.floor(i/numx)*res, res, res);
     }
     
-    //update coordinates for overlay
-    let mySource = page.mapOutput.getSource('canvas-source');
-    mySource.setCoordinates(page.coords);
-
-    //only add layer if it isn't yet added
-    let myLayer = page.mapOutput.getLayer('canvas-layer');
-    if (typeof myLayer === 'undefined') {
-        page.mapOutput.addLayer({
-            id:'canvas-layer',
-            type:'raster',
-            source:'canvas-source'
-         })
-    }
-    
-
-    let imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-    
     let fieldCoords; 
     ctx.strokeStyle = "#31eefd";
     ctx.lineWidth = 2;
@@ -836,8 +798,6 @@ function canvasWork(imageArray, numx, numy, testField, pixelTL) {
     for (let i=0; i<imageArray.length; i++) {
         ctxclip.drawImage(imageArray[i], (i%numx)*res, Math.floor(i/numx)*res, res, res);
     }
-    let clipimageData = ctxclip.getImageData(0, 0, clipCanvas.width, clipCanvas.height);
-    
     
     webglCanvas.width = imgWidth;
     webglCanvas.height = imgHeight;
@@ -846,6 +806,11 @@ function canvasWork(imageArray, numx, numy, testField, pixelTL) {
     
     render(clipCanvas, gl, program);
     render(clipCanvas, glEncoded, programEncoded);
+
+     //update coordinates for overlay
+     let mySource = page.mapOutput.getSource('canvas-source');
+     mySource.setCoordinates(page.coords);
+
     mapRender();
 }
 
@@ -1066,18 +1031,30 @@ async function initializeMap() {
         document.body.removeAttribute('aria-busy')
         mapOutput.resize();
 
-        //canvas overlay for field
-        page.mapOutput.addSource('canvas-source', {
-            type:'canvas',
-            canvas:'testCanvas',
-            coordinates:[
-                [0,0],
-                [0,0],
-                [0,0],
-                [0,0]
-            ],
-            animate:true
-        })
+        //only add layer if it isn't yet added
+        let myLayer = page.mapOutput.getLayer('canvas-layer');
+        if (typeof myLayer === 'undefined') {
+           
+            //canvas overlay for field
+            page.mapOutput.addSource('canvas-source', {
+                type:'canvas',
+                canvas:'testCanvas',
+                //values from mapbox example. Have to have some coordinates to add layer successfully
+                coordinates:[
+                    [91.4461, 21.5006],
+                    [100.3541, 21.5006],
+                    [100.3541, 13.9706],
+                    [91.4461, 13.9706]
+                    ],
+                animate:true
+            })
+            
+            page.mapOutput.addLayer({
+                id:'canvas-layer',
+                type:'raster',
+                source:'canvas-source'
+            })
+        }
         
     })
      
@@ -1359,6 +1336,21 @@ async function initializeMap() {
 
 }
 
+function download(d) {
+    let el = document.getElementById("webglContainer");
+    let hidden = el.classList.contains("hidden");
+	console.log('hidden',hidden);
+    //if container is hidden, don't allow data processing
+    //User must click field first
+    if (hidden) {
+        return;
+    }
+    decode(glEncoded);
+}
+
+//for sencha wrapper
+window.loadView = loadView;
+window.download = download;
 initializeMap();
 
 })()
