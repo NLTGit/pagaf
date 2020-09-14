@@ -217,6 +217,8 @@ function loadView(view) {
         loadModelSelection();
     }
 }
+//for sencha wrapper
+window.loadView = loadView;
 
 //set up menu bar
 var steps = [
@@ -352,7 +354,7 @@ function encode(data)
 }
 
 //bind click handler to button
-d3.select("#download").on("click", function(d) {
+/*d3.select("#download").on("click", function(d) {
     let el = document.getElementById("webglContainer");
     let hidden = el.classList.contains("hidden");
     //if container is hidden, don't allow data processing
@@ -361,7 +363,20 @@ d3.select("#download").on("click", function(d) {
         return;
     }
     decode(glEncoded);
-})
+})*/
+
+function download(d) {
+    let el = document.getElementById("webglContainer");
+    let hidden = el.classList.contains("hidden");
+	console.log('hidden',hidden);
+    //if container is hidden, don't allow data processing
+    //User must click field first
+    if (hidden) {
+        return;
+    }
+    decode(glEncoded);
+}
+window.download = download;
 
 //function do download javascript object as json
 function exportToJson(object) {

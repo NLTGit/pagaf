@@ -132,6 +132,8 @@ $jscomp.iteratorFromArray = function(array, transform) {
     };
     return iter.next();
   }};
+  $jscomp.initSymbol();
+  $jscomp.initSymbolIterator();
   iter[Symbol.iterator] = function() {
     return iter;
   };
@@ -212,6 +214,8 @@ $jscomp.polyfill('Array.from', function(orig) {
       return x;
     };
     var result = [];
+    $jscomp.initSymbol();
+    $jscomp.initSymbolIterator();
     var iteratorFunction = arrayLike[Symbol.iterator];
     if (typeof iteratorFunction == 'function') {
       arrayLike = iteratorFunction.call(arrayLike);
@@ -293,6 +297,8 @@ $jscomp.polyfill('Array.prototype.values', function(orig) {
   return polyfill;
 }, 'es6', 'es3');
 $jscomp.makeIterator = function(iterable) {
+  $jscomp.initSymbolIterator();
+  $jscomp.initSymbol();
   $jscomp.initSymbolIterator();
   var iteratorFunction = iterable[Symbol.iterator];
   return iteratorFunction ? iteratorFunction.call(iterable) : $jscomp.arrayIterator(iterable);
@@ -761,6 +767,8 @@ $jscomp.polyfill('Map', function(NativeMap) {
       callback.call(opt_thisArg, entry[1], entry[0], this);
     }
   };
+  $jscomp.initSymbol();
+  $jscomp.initSymbolIterator();
   PolyfillMap.prototype[Symbol.iterator] = PolyfillMap.prototype.entries;
   var maybeGetEntry = function(map, key) {
     var id = getId(key);
@@ -1500,6 +1508,8 @@ $jscomp.polyfill('Set', function(NativeSet) {
     return this.map_.values();
   };
   PolyfillSet.prototype.keys = PolyfillSet.prototype.values;
+  $jscomp.initSymbol();
+  $jscomp.initSymbolIterator();
   PolyfillSet.prototype[Symbol.iterator] = PolyfillSet.prototype.values;
   PolyfillSet.prototype.forEach = function(callback, opt_thisArg) {
     var set = this;
@@ -65361,6 +65371,14 @@ Ext.namespace('Ext.theme.is')['theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a'
 Ext.theme.name = 'theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a';
 Ext.define('pagaf.controller.General', {extend:Ext.app.Controller, alternateClassName:['GV'], init:function(application) {
   window['GV'] = this;
+}, loadModelSel:function() {
+  hideAll();
+  page.draw.deleteAll();
+  var canvas2 = document.getElementById('testCanvas');
+  var ctx2 = canvas2.getContext('2d');
+  ctx2.clearRect(0, 0, canvas2.width, canvas2.height);
+  d3.select('#modelContainer').style('display', 'inline-block');
+  page.mapOutput.resize();
 }});
 Ext.define('pagaf.view.InSeason.N.ManagementViewModel1', {extend:Ext.app.ViewModel, alias:'viewmodel.inseason.n.credits'});
 Ext.define('pagaf.view.InSeason.N.Credits', {extend:Ext.panel.Panel, alias:'widget.inseason.n.credits', viewModel:{type:'inseason.n.credits'}, id:'isnm_credits', layout:'vbox', defaultListenerScope:true, items:[{xtype:'button', scale:'large', text:'Next', listeners:{click:'onButtonClick1'}}], onButtonClick1:function(button, e, eOpts) {
@@ -65397,18 +65415,21 @@ Ext.define('pagaf.view.InSeason.N.Finish', {extend:Ext.panel.Panel, alias:'widge
 Ext.define('pagaf.view.InSeason.N.ManagementViewModel', {extend:Ext.app.ViewModel, alias:'viewmodel.inseason.n.management'});
 Ext.define('pagaf.view.InSeason.N.Management', {extend:Ext.panel.Panel, alias:'widget.inseason.n.management', viewModel:{type:'inseason.n.management'}, id:'isnm_management', margin:'auto 0', width:'80%', layout:'vbox', defaultListenerScope:true, items:[{xtype:'datefield', cls:'mediumTxt', height:50, width:600, fieldLabel:'When did you plant?', labelWidth:400, matchFieldWidth:false}, {xtype:'numberfield', height:50, width:600, fieldLabel:'How much N have you already applied?', labelWidth:400}, {xtype:'button', 
 scale:'large', text:'Next', listeners:{click:'onButtonClick'}}], onButtonClick:function(button, e, eOpts) {
-  var t = Ext.getCmp('isnm_credits');
-  t.expand();
-  t.setDisabled(false);
-  t.setVisible(true);
+  Ext.getCmp('selectbtn').setText('Download');
   var t = Ext.getCmp('isnm_management');
   t.setDisabled(true);
   t.setVisible(false);
+  var t = Ext.getCmp('isnm_selection');
+  t.setTitle('4. Select field to download solution.');
+  t.expand();
+  t.setDisabled(false);
+  t.setVisible(true);
+  window.loadView('ModelSelection');
 }});
 Ext.define('pagaf.view.InSeason.N.ManagementViewModel3', {extend:Ext.app.ViewModel, alias:'viewmodel.inseason.n.review'});
 Ext.define('pagaf.view.InSeason.N.ManagementViewModel5', {extend:Ext.app.ViewModel, alias:'viewmodel.inseason.n.selection'});
-Ext.define('pagaf.view.InSeason.N.Review', {extend:Ext.panel.Panel, alias:'widget.inseason.n.review', viewModel:{type:'inseason.n.review'}, id:'isnm_review', layout:'vbox', defaultListenerScope:true, items:[{xtype:'button', scale:'large', text:'Next', listeners:{click:'onButtonClick111'}}], onButtonClick111:function(button, e, eOpts) {
-  var t = Ext.getCmp('isnm_download');
+Ext.define('pagaf.view.InSeason.N.Review', {extend:Ext.panel.Panel, alias:'widget.inseason.n.review', viewModel:{type:'inseason.n.review'}, id:'isnm_review', layout:'vbox', defaultListenerScope:true, items:[{xtype:'button', scale:'large', text:'Download', listeners:{click:'onButtonClick111'}}], onButtonClick111:function(button, e, eOpts) {
+  var t = Ext.getCmp('isnm_selection');
   t.expand();
   t.setDisabled(false);
   t.setVisible(true);
@@ -65417,29 +65438,31 @@ Ext.define('pagaf.view.InSeason.N.Review', {extend:Ext.panel.Panel, alias:'widge
   t.setVisible(false);
 }});
 Ext.define('pagaf.view.pagafAppWindowViewModel1', {extend:Ext.app.ViewModel, alias:'viewmodel.pagafapppanel'});
-Ext.define('pagaf.view.pagafAppPanel', {extend:Ext.panel.Panel, alias:'widget.pagafapppanel', viewModel:{type:'pagafapppanel'}, flex:1, height:'100%', id:'pagafapppanel', width:'100%', defaultListenerScope:true, listeners:{afterrender:'onPagafAfterRender', beforerender:'onPagafapppanelBeforeRender', beforeexpand:'onPagafapppanelBeforeExpand'}, onPagafAfterRender:function(component, eOpts) {
-}, onPagafapppanelBeforeRender:function(component, eOpts) {
-  component.setHtml('\t \x3cdiv id\x3d"spinnerContainer" class\x3d"spinContainer"  aria-busy\x3d"true"\x3e' + '        \x3cdiv class\x3d"loading-spinner"\x3e\x3c/div\x3e' + '    \x3c/div\x3e' + '    ' + '    \x3cdiv class\x3d"container"\x3e' + '        \x3cdiv id\x3d"topBar" class\x3d"topBar"\x3e' + '            \x3cbutton id\x3d"logout" class\x3d"organization"\x3eLog Out\x3c/button\x3e' + '            \x3cbutton id\x3d"organization" class\x3d"organization"\x3e\x3c/button\x3e' + '        \x3c/div\x3e\x3cdiv id\x3d"bar2" class\x3d"bar2"\x3e\x3c/div\x3e' + 
-  '        \x3cdiv id\x3d"selectedFields" class\x3d"fieldBox"\x3e' + '        \x3c/div\x3e' + '        \x3cdiv id\x3d"mapContainer" class\x3d"mapContainer"\x3e' + '            \x3cdiv id\x3d"map" class\x3d"map"\x3e' + '                \x3cdiv id\x3d"drawing" class\x3d"drawingContainer"\x3e' + '                    \x3cp class\x3d"instructions"\x3eDraw fields on the map with drawing tools. When done, \x3cbutton class\x3d"continue"\x3econtinue\x3c/button\x3e to model selection.\x3c/p\x3e' + '                    \x3cbutton class\x3d"saveButton"\x3eSave Polygons\x3c/button\x3e' + 
-  '                    \x3cbutton class\x3d"editButton"\x3eEdit Polygons\x3c/button\x3e' + '                \x3c/div\x3e' + '                ' + '                \x3cdiv id\x3d"tiles" class\x3d"tiles"\x3e\x3c/div\x3e' + '                \x3cbutton class\x3d"layerButton stepClassed"\x3eLayer visibility\x3c/button\x3e' + '            \x3c/div\x3e' + '        \x3c/div\x3e' + '        \x3cdiv id\x3d"modelContainer" class\x3d"modelContainer"\x3e' + '            \x3cp class\x3d"instructionsRel"\x3eClick a field outline to adjust model for that field. When done, \x3cbutton class\x3d"download" id\x3d"download"\x3edownload\x3c/button\x3e data.\x3c/p\x3e' + 
+Ext.define('pagaf.view.pagafAppPanel', {extend:Ext.panel.Panel, alias:'widget.pagafapppanel', viewModel:{type:'pagafapppanel'}, flex:1, height:'100%', id:'pagafapppanel', width:'100%', defaultListenerScope:true, listeners:{beforerender:'onPagafapppanelBeforeRender', beforeexpand:'onPagafapppanelBeforeExpand'}, onPagafapppanelBeforeRender:function(component, eOpts) {
+  component.setHtml('\t \x3cdiv id\x3d"spinnerContainer" class\x3d"spinContainer"  aria-busy\x3d"true"\x3e' + '        \x3cdiv class\x3d"loading-spinner"\x3e\x3c/div\x3e' + '    \x3c/div\x3e' + '    ' + '    \x3cdiv class\x3d"container"\x3e' + '        \x3c!--\x3cdiv id\x3d"topBar" class\x3d"topBar"\x3e' + '            \x3cbutton id\x3d"logout" class\x3d"organization"\x3eLog Out\x3c/button\x3e' + '            \x3cbutton id\x3d"organization" class\x3d"organization"\x3e\x3c/button\x3e' + '        \x3c/div\x3e--\x3e' + 
+  '        \x3cdiv id\x3d"bar2" class\x3d"bar2"\x3e\x3c/div\x3e' + '        \x3cdiv id\x3d"selectedFields" class\x3d"fieldBox"\x3e' + '        \x3c/div\x3e' + '        \x3cdiv id\x3d"mapContainer" class\x3d"mapContainer"\x3e' + '            \x3cdiv id\x3d"map" class\x3d"map"\x3e' + '                \x3cdiv id\x3d"drawing" class\x3d"drawingContainer"\x3e' + '                    \x3cp class\x3d"instructions"\x3eDraw fields on the map with drawing tools. When done, click next.\x3c/p\x3e' + '                    \x3cbutton class\x3d"saveButton"\x3eSave Polygons\x3c/button\x3e' + 
+  '                    \x3cbutton class\x3d"editButton"\x3eEdit Polygons\x3c/button\x3e' + '                \x3c/div\x3e' + '                ' + '                \x3cdiv id\x3d"tiles" class\x3d"tiles"\x3e\x3c/div\x3e' + '                \x3cbutton class\x3d"layerButton stepClassed"\x3eLayer visibility\x3c/button\x3e' + '            \x3c/div\x3e' + '        \x3c/div\x3e' + '        \x3cdiv id\x3d"modelContainer" class\x3d"modelContainer"\x3e' + '            \x3cp class\x3d"instructionsRel"\x3eClick a field outline to adjust model for that field. When done, click download.\x3c/p\x3e' + 
   '            \x3cdiv class\x3d"sliderContainer"\x3e\x3c/div\x3e' + '            \x3cdiv id\x3d"mapOutput" class\x3d"mapOutput"\x3e\x3c/div\x3e' + '            \x3cimg id\x3d"testImage"\x3e' + '            \x3ccanvas class\x3d"hidden" id\x3d"testCanvas"\x3e\x3c/canvas\x3e' + '            \x3ccanvas class\x3d"hidden" id\x3d"clipCanvas"\x3e\x3c/canvas\x3e' + '            \x3cdiv id\x3d"webglContainer" class\x3d"webglContainer hidden"\x3e' + '                \x3ccanvas id\x3d"webglCanvas" style\x3d"display:inline-block;"\x3e\x3c/canvas\x3e' + 
   '                \x3cp class\x3d"barTitle"\x3eNapp ranges from 0 to 250 kg/ha\x3c/p\x3e' + '                \x3ccanvas id\x3d"colorCanvas"\x3e\x3c/canvas\x3e' + '                \x3csvg id\x3d"eonrSlider" class\x3d"slider" width\x3d"250" height\x3d"40"\x3e\x3c/svg\x3e' + '                \x3csvg id\x3d"mSlider" class\x3d"slider" width\x3d"250" height\x3d"40"\x3e\x3c/svg\x3e' + '                \x3csvg id\x3d"sithreshSlider" class\x3d"slider" width\x3d"250" height\x3d"40"\x3e\x3c/svg\x3e' + '                \x3ccanvas id\x3d"webglCanvasEncoded" style\x3d"display:inline-block;" class\x3d"hidden"\x3e\x3c/canvas\x3e' + 
-  '            \x3c/div\x3e' + '            ' + '        \x3c/div\x3e' + '    \x3c/div\x3e' + '    \x3cscript src\x3d"js/auth.js"\x3e\x3c/script\x3e' + '\t \x3cscript src\x3d"js/farms.js"\x3e\x3c/script\x3e');
+  '            \x3c/div\x3e' + '            ' + '        \x3c/div\x3e' + '    \x3c/div\x3e');
 }, onPagafapppanelBeforeExpand:function(p, animate, eOpts) {
 }});
-Ext.define('pagaf.view.InSeason.N.Selection', {extend:Ext.panel.Panel, alias:'widget.inseason.n.selection', viewModel:{type:'inseason.n.selection'}, id:'isnm_selection', margin:'auto 0', width:'80%', layout:'vbox', defaultListenerScope:true, items:[{xtype:'pagafapppanel', flex:1}, {xtype:'button', scale:'large', text:'Next', listeners:{click:'onButtonClick'}}], onButtonClick:function(button, e, eOpts) {
+Ext.define('pagaf.view.InSeason.N.Selection', {extend:Ext.panel.Panel, alias:'widget.inseason.n.selection', viewModel:{type:'inseason.n.selection'}, id:'isnm_selection', margin:'auto 0', width:'80%', layout:'vbox', defaultListenerScope:true, items:[{xtype:'pagafapppanel', flex:1}, {xtype:'button', id:'selectbtn', scale:'large', text:'Next', listeners:{click:'onButtonClick'}}], onButtonClick:function(button, e, eOpts) {
   var t = Ext.getCmp('isnm_selection');
-  t.setDisabled(true);
-  t.setVisible(false);
   if (t.getTitle().search('4.') > -1) {
     t.setTitle('1. Select field');
-    t = Ext.getCmp('isnm_review');
+    Ext.getCmp('mainCardPanel').getLayout().setActiveItem('home');
+    window.download();
+    Ext.getCmp('selectbtn').setText('Next');
+    window.loadView('FieldManagement');
   } else {
+    t.setDisabled(true);
+    t.setVisible(false);
     t = Ext.getCmp('isnm_management');
+    t.expand();
+    t.setDisabled(false);
+    t.setVisible(true);
   }
-  t.expand();
-  t.setDisabled(false);
-  t.setVisible(true);
 }});
 Ext.define('pagaf.view.appmainViewModel', {extend:Ext.app.ViewModel, alias:'viewmodel.appmain'});
 Ext.define('pagaf.view.home.topmenuViewModel', {extend:Ext.app.ViewModel, alias:'viewmodel.home.topmenu'});
@@ -65452,11 +65475,11 @@ margins:'20', cls:'largeTxt', height:150, margin:20, padding:'', width:150, text
   Ext.Loader.loadScript('js/farms.js');
   Ext.getCmp('mainCardPanel').getLayout().setActiveItem('inSeasonNMgmt');
 }});
-Ext.define('pagaf.view.appmain', {extend:Ext.container.Viewport, alias:'widget.appmain', viewModel:{type:'appmain'}, defaultListenerScope:true, scrollable:true, layout:'fit', items:[{xtype:'panel', scrollable:true, layout:'fit', items:[{xtype:'container', height:'200px', html:'\x3cdiv id\x3d"header"\x3e\x3cspan id\x3d"logo"\x3e\x3c/span\x3e\x3c/div\x3e', maxHeight:200, minHeight:200, width:'100%'}, {xtype:'panel', flex:1, id:'mainCardPanel', layout:'card', title:'', items:[{xtype:'panel', id:'home', 
-title:'', layout:{type:'vbox', align:'stretch'}, items:[{xtype:'home.topmenu'}, {xtype:'home.bottommenu'}]}, {xtype:'panel', id:'Tools', layout:'accordion', title:'My Panel'}, {xtype:'panel', id:'Report', layout:'accordion', title:'My Panel'}, {xtype:'panel', id:'Data', layout:'accordion', title:'My Panel'}, {xtype:'panel', id:'inSeasonNMgmt', layout:'accordion', title:'In Season N Management', items:[{xtype:'inseason.n.selection', title:'1. Field Selection'}, {xtype:'inseason.n.management', disabled:true, 
-hidden:true, title:'2. Management'}, {xtype:'inseason.n.credits', disabled:true, hidden:true, title:'3. Credits'}, {xtype:'inseason.n.economics', disabled:true, hidden:true, title:'4. Economics'}, {xtype:'inseason.n.review', disabled:true, hidden:true, title:'5. Review'}, {xtype:'inseason.n.finish', disabled:true, hidden:true, title:'6. Download'}]}, {xtype:'tabpanel', height:250, id:'inSeasonMainTab', width:400, title:'In Season N Management', activeTab:0, items:[{xtype:'panel', id:'inSeasonTab1', 
-title:'1. Managment', layout:{type:'vbox', align:'center'}, tabConfig:{xtype:'tab', listeners:{click:'onTabClick'}}}, {xtype:'panel', disabled:true, id:'inSeasonTab2', title:'2. Credits', tabConfig:{xtype:'tab', listeners:{click:'onTabClick1'}}}, {xtype:'panel', disabled:true, id:'inSeasonTab3', title:'3. Economics', tabConfig:{xtype:'tab', listeners:{click:'onTabClick11'}}}, {xtype:'panel', disabled:true, id:'inSeasonTab4', title:'4. Review', tabConfig:{xtype:'tab', listeners:{click:'onTabClick111'}}}, 
-{xtype:'panel', disabled:true, id:'inSeasonTab5', title:'5. Finish', tabConfig:{xtype:'tab', listeners:{click:'onTabClick1111'}}}]}]}, {xtype:'container', height:'200px', html:'\x3cdiv id\x3d"footer"\x3e\x3cdiv id\x3d"footerimg"\x3e\x3c/div\x3e\x3cdiv id\x3d"social" /\x3e\x3c/div\x3e\x3cdiv id\x3d"tag"\x3ePAGAF: Precision Agriculture for all American Farmers\x3c/div\x3e\x3c/div\x3e', maxHeight:200, minHeight:200, width:'100%'}]}], onTabClick:function(button, e, eOpts) {
+Ext.define('pagaf.view.appmain', {extend:Ext.container.Viewport, alias:'widget.appmain', viewModel:{type:'appmain'}, defaultListenerScope:true, scrollable:true, layout:'fit', items:[{xtype:'panel', scrollable:true, layout:'fit', items:[{xtype:'container', height:'200px', html:'\x3cdiv id\x3d"header"\x3e \t\x3cspan id\x3d"logo"\x3e\x3c/span\x3e \t\x3cdiv id\x3d"topright"\x3e \t\t\x3cbutton id\x3d"logout" class\x3d"organization"\x3eLog Out\x3c/button\x3e \t\t\x3cbutton id\x3d"organization" class\x3d"organization"\x3e\x3c/button\x3e \t\x3c/div\x3e \x3c/div\x3e', 
+maxHeight:200, minHeight:200, width:'100%'}, {xtype:'panel', flex:1, id:'mainCardPanel', layout:'card', title:'', items:[{xtype:'panel', id:'home', title:'', layout:{type:'vbox', align:'stretch'}, items:[{xtype:'home.topmenu'}, {xtype:'home.bottommenu'}]}, {xtype:'panel', id:'Tools', layout:'accordion', title:'My Panel'}, {xtype:'panel', id:'Report', layout:'accordion', title:'My Panel'}, {xtype:'panel', id:'Data', layout:'accordion', title:'My Panel'}, {xtype:'panel', id:'inSeasonNMgmt', layout:'accordion', 
+title:'In Season N Management', items:[{xtype:'inseason.n.selection', title:'1. Field Selection'}, {xtype:'inseason.n.management', disabled:true, hidden:true, title:'2. Management'}]}, {xtype:'tabpanel', height:250, id:'inSeasonMainTab', width:400, title:'In Season N Management', activeTab:0, items:[{xtype:'panel', id:'inSeasonTab1', title:'1. Managment', layout:{type:'vbox', align:'center'}, tabConfig:{xtype:'tab', listeners:{click:'onTabClick'}}}, {xtype:'panel', disabled:true, id:'inSeasonTab2', 
+title:'2. Credits', tabConfig:{xtype:'tab', listeners:{click:'onTabClick1'}}}, {xtype:'panel', disabled:true, id:'inSeasonTab3', title:'3. Economics', tabConfig:{xtype:'tab', listeners:{click:'onTabClick11'}}}, {xtype:'panel', disabled:true, id:'inSeasonTab4', title:'4. Review', tabConfig:{xtype:'tab', listeners:{click:'onTabClick111'}}}, {xtype:'panel', disabled:true, id:'inSeasonTab5', title:'5. Finish', tabConfig:{xtype:'tab', listeners:{click:'onTabClick1111'}}}]}]}, {xtype:'container', height:'200px', 
+html:'\x3cdiv id\x3d"footer"\x3e\x3cdiv id\x3d"footerimg"\x3e\x3c/div\x3e\x3cdiv id\x3d"social" /\x3e\x3c/div\x3e\x3cdiv id\x3d"tag"\x3ePAGAF: Precision Agriculture for all American Farmers\x3c/div\x3e\x3c/div\x3e', maxHeight:200, minHeight:200, width:'100%'}]}], onTabClick:function(button, e, eOpts) {
 }, onTabClick1:function(button, e, eOpts) {
 }, onTabClick11:function(button, e, eOpts) {
 }, onTabClick111:function(button, e, eOpts) {

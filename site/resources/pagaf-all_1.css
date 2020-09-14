@@ -13800,6 +13800,22 @@ a.x-monthpicker-yearnav-button:hover {
     margin-right: auto;
     text-align: center;
 }
+/* C:/Users/burton.rosenberger/pagaf/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/Component.scss:70 */
+#topright {
+    display: block;
+    position: relative;
+    float: right;
+    top: 20px;
+    right: 20px;
+}
+/* C:/Users/burton.rosenberger/pagaf/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/Component.scss:83 */
+#bar2 {
+    visibility: hidden !important;
+}
+/* C:/Users/burton.rosenberger/pagaf/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/Component.scss:86 */
+#webglContainer {
+    visibility: hidden !important;
+}
 /* C:/Users/burton.rosenberger/pagaf/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/_architect_src.scss:6 */
 .largeTxt .x-btn-inner-default-small,
 .largeTxt .x-btn-icon-el-default-small {
@@ -13871,6 +13887,22 @@ a.x-monthpicker-yearnav-button:hover {
     margin-left: auto;
     margin-right: auto;
     text-align: center;
+}
+/* C:/Users/burton.rosenberger/pagaf/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/_architect_src.scss:70 */
+#topright {
+    display: block;
+    position: relative;
+    float: right;
+    top: 20px;
+    right: 20px;
+}
+/* C:/Users/burton.rosenberger/pagaf/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/_architect_src.scss:83 */
+#bar2 {
+    visibility: hidden !important;
+}
+/* C:/Users/burton.rosenberger/pagaf/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/_architect_src.scss:86 */
+#webglContainer {
+    visibility: hidden !important;
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_path.scss:5 */
 @font-face {
@@ -14958,28 +14990,4 @@ a.x-monthpicker-yearnav-button:hover {
 /* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:252 */
 .fa-lightbulb-o:before {
     content: "\f0eb" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:253 */
-.fa-exchange:before {
-    content: "\f0ec" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:254 */
-.fa-cloud-download:before {
-    content: "\f0ed" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:255 */
-.fa-cloud-upload:before {
-    content: "\f0ee" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:256 */
-.fa-user-md:before {
-    content: "\f0f0" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:257 */
-.fa-stethoscope:before {
-    content: "\f0f1" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:258 */
-.fa-suitcase:before {
-    content: "\f0f2" !important;
 }
