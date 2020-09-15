@@ -602,7 +602,7 @@ function setRectangle(gl, x, y, width, height) {
 
 //copy data from webgl canvas to 2d canvas
 function mapRender() {
-    render(document.getElementById('webglCanvas'), gl, program);
+    render(document.getElementById('clipCanvas'), gl, program);
     let canvas2 = document.getElementById('testCanvas');
     let ctx2 = canvas2.getContext('2d');
     ctx2.clearRect(0,0,canvas2.width,canvas2.height);
