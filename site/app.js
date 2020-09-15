@@ -65471,7 +65471,6 @@ Ext.define('pagaf.view.home.topmenuViewModel1', {extend:Ext.app.ViewModel, alias
 Ext.define('pagaf.view.home.bottommenu', {extend:Ext.panel.Panel, alias:'widget.home.bottommenu', viewModel:{type:'home.bottommenu'}, flex:1, id:'homeBtmMenu', width:'', defaultListenerScope:true, layout:{type:'vbox', align:'stretch'}, items:[{xtype:'container', cls:'XLText', height:150, html:'\x3ccenter\x3e\x3ch1\x3eManagement Tools\x3c/h2\x3e\x3c/center\x3e'}, {xtype:'container', flex:1, height:200, layout:{type:'hbox', align:'stretch'}, items:[{xtype:'button', flex:1, margins:'20', cls:'largeTxt', 
 componentCls:'', height:150, margin:20, padding:'', width:150, text:'In-Season N Mgmt', listeners:{click:'onButtonClick'}}, {xtype:'button', flex:1, margins:'20', cls:'largeTxt', height:150, margin:20, padding:'', width:150, text:'Seeding Rate Rx'}]}, {xtype:'container', flex:1, height:200, layout:{type:'hbox', align:'stretch'}, items:[{xtype:'button', flex:1, margins:'20', cls:'largeTxt', height:150, margin:20, width:150, text:'Planting Date \x3cbr /\x3e Decision Making'}, {xtype:'button', flex:1, 
 margins:'20', cls:'largeTxt', height:150, margin:20, padding:'', width:150, text:'Fungicide Wheat'}]}], onButtonClick:function(button, e, eOpts) {
-  Ext.Loader.loadScript('js/auth.js');
   Ext.Loader.loadScript('js/farms.js');
   Ext.getCmp('mainCardPanel').getLayout().setActiveItem('inSeasonNMgmt');
 }});
