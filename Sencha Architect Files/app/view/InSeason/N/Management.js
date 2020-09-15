@@ -21,8 +21,13 @@ Ext.define('pagaf.view.InSeason.N.Management', {
         'pagaf.view.InSeason.N.ManagementViewModel',
         'Ext.form.field.Date',
         'Ext.form.field.Number',
+        'Ext.container.Container',
         'Ext.button.Button'
     ],
+
+    config: {
+        buttonAlign: 'right'
+    },
 
     viewModel: {
         type: 'inseason.n.management'
@@ -51,23 +56,45 @@ Ext.define('pagaf.view.InSeason.N.Management', {
             labelWidth: 400
         },
         {
-            xtype: 'button',
-            scale: 'large',
-            text: 'Next',
-            listeners: {
-                click: 'onButtonClick'
-            }
+            xtype: 'container',
+            flex: 1,
+            width: '100%',
+            layout: {
+                type: 'hbox',
+                align: 'stretch'
+            },
+            items: [
+                {
+                    xtype: 'container',
+                    flex: 1,
+                    flex: 1
+                },
+                {
+                    xtype: 'button',
+                    scale: 'large',
+                    text: 'Next',
+                    listeners: {
+                        click: 'onButtonClick'
+                    }
+                }
+            ]
         }
     ],
 
     onButtonClick: function(button, e, eOpts) {
-        var t = Ext.getCmp('isnm_credits');
-        t.expand();
-        t.setDisabled(false);
-        t.setVisible(true);
+        Ext.getCmp('selectbtn').setText('Download');
+
         var t = Ext.getCmp('isnm_management');
         t.setDisabled(true);
         t.setVisible(false);
+
+        var t = Ext.getCmp('isnm_selection');
+        t.setTitle('4. Select field to download solution.');
+        t.expand();
+        t.setDisabled(false);
+        t.setVisible(true);
+        window.loadView("ModelSelection");
+
     }
 
 });

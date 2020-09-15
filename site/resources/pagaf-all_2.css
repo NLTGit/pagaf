@@ -1,3 +1,12 @@
+/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:250 */
+.fa-paste:before,
+.fa-clipboard:before {
+    content: "\f0ea" !important;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:252 */
+.fa-lightbulb-o:before {
+    content: "\f0eb" !important;
+}
 /* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:253 */
 .fa-exchange:before {
     content: "\f0ec" !important;

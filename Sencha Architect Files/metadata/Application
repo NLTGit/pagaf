@@ -30,5 +30,27 @@
         "views": "typedarray"
     },
     "name": "Application",
-    "designerId": "application"
+    "designerId": "application",
+    "cn": [
+        {
+            "type": "fixedfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "launch",
+                "implHandler": [
+                    ""
+                ]
+            },
+            "configAlternates": {
+                "fn": "string",
+                "implHandler": "code"
+            },
+            "name": "launch",
+            "designerId": "671dd4e4-7630-4755-86bc-05f6b0363ca5"
+        }
+    ]
 }

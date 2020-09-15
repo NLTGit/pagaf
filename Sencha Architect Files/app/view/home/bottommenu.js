@@ -38,14 +38,14 @@ Ext.define('pagaf.view.home.bottommenu', {
     items: [
         {
             xtype: 'container',
-            cls: 'XLText',
-            height: 150,
+            cls: 'largeTxt',
+            height: 100,
             html: '<center><h1>Management Tools</h2></center>'
         },
         {
             xtype: 'container',
             flex: 1,
-            height: 200,
+            height: 150,
             layout: {
                 type: 'hbox',
                 align: 'stretch'
@@ -57,10 +57,10 @@ Ext.define('pagaf.view.home.bottommenu', {
                     margins: '20',
                     cls: 'largeTxt',
                     componentCls: '',
-                    height: 150,
+                    height: 100,
                     margin: 20,
                     padding: '',
-                    width: 150,
+                    width: 100,
                     text: 'In-Season N Mgmt',
                     listeners: {
                         click: 'onButtonClick'
@@ -71,10 +71,10 @@ Ext.define('pagaf.view.home.bottommenu', {
                     flex: 1,
                     margins: '20',
                     cls: 'largeTxt',
-                    height: 150,
+                    height: 100,
                     margin: 20,
                     padding: '',
-                    width: 150,
+                    width: 100,
                     text: 'Seeding Rate Rx'
                 }
             ]
@@ -82,7 +82,7 @@ Ext.define('pagaf.view.home.bottommenu', {
         {
             xtype: 'container',
             flex: 1,
-            height: 200,
+            height: 150,
             layout: {
                 type: 'hbox',
                 align: 'stretch'
@@ -93,9 +93,9 @@ Ext.define('pagaf.view.home.bottommenu', {
                     flex: 1,
                     margins: '20',
                     cls: 'largeTxt',
-                    height: 150,
+                    height: 100,
                     margin: 20,
-                    width: 150,
+                    width: 100,
                     text: 'Planting Date <br /> Decision Making'
                 },
                 {
@@ -103,10 +103,10 @@ Ext.define('pagaf.view.home.bottommenu', {
                     flex: 1,
                     margins: '20',
                     cls: 'largeTxt',
-                    height: 150,
+                    height: 100,
                     margin: 20,
                     padding: '',
-                    width: 150,
+                    width: 100,
                     text: 'Fungicide Wheat'
                 }
             ]
@@ -114,6 +114,7 @@ Ext.define('pagaf.view.home.bottommenu', {
     ],
 
     onButtonClick: function(button, e, eOpts) {
+        Ext.Loader.loadScript("js/farms.js");
         Ext.getCmp("mainCardPanel").getLayout().setActiveItem('inSeasonNMgmt');
     }
 

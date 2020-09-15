@@ -39,29 +39,51 @@ Ext.define('pagaf.view.InSeason.N.Selection', {
             flex: 1
         },
         {
-            xtype: 'button',
-            scale: 'large',
-            text: 'Next',
-            listeners: {
-                click: 'onButtonClick'
-            }
+            xtype: 'container',
+            flex: 1,
+            width: '100%',
+            layout: {
+                type: 'hbox',
+                align: 'stretch'
+            },
+            items: [
+                {
+                    xtype: 'container',
+                    flex: 1
+                },
+                {
+                    xtype: 'button',
+                    id: 'selectbtn',
+                    scale: 'large',
+                    text: 'Next',
+                    listeners: {
+                        click: 'onButtonClick'
+                    }
+                }
+            ]
         }
     ],
 
     onButtonClick: function(button, e, eOpts) {
         var t = Ext.getCmp('isnm_selection');
-        t.setDisabled(true);
-        t.setVisible(false);
 
         if(t.getTitle().search('4.') > -1){
             t.setTitle('1. Select field');
-            t = Ext.getCmp('isnm_review');
+
+            Ext.getCmp("mainCardPanel").getLayout().setActiveItem('home');
+            window.download();
+            Ext.getCmp('selectbtn').setText('Next');
+            window.loadView("FieldManagement");
         } else {
+            t.setDisabled(true);
+            t.setVisible(false);
             t = Ext.getCmp('isnm_management');
+            t.expand();
+            t.setDisabled(false);
+            t.setVisible(true);
         }
-        t.expand();
-        t.setDisabled(false);
-        t.setVisible(true);
+
+
     }
 
 });

@@ -1,12 +1,15 @@
 $base-color: #006546;
 $mediumFont: 24px;
 $largeFont: 36px;
-$xlFont:48px;
+$xlFont:40px;
 
 .largeTxt .x-btn-inner-default-small,
 .largeTxt .x-btn-icon-el-default-small {
     font-size: $mediumFont !important;
     line-height: $largeFont !important;
+}
+.largeTxt {
+    font-size: $largeFont !important;
 }
 
 .XLText {
@@ -66,4 +69,20 @@ $xlFont:48px;
     margin-left: auto;
     margin-right: auto;
     text-align: center;
+}
+#topright {
+    display:block;
+    position:relative;
+    float:right;
+    top:20px;
+    right:20px;
+}
+#login {
+
+}
+#organization {
+
+}
+#bar2, #webglContainer {
+    visibility: hidden !important;
 }

@@ -39,63 +39,111 @@
             "configAlternates": {
                 "layout|flex": "number"
             },
-            "name": "pagafAppPanel",
+            "name": "pagafapppanel",
             "designerId": "74ccdd64-240e-4ac8-8e49-7d07861b0aed",
             "masterInstanceId": "c16e4bf5-b2e7-46e1-86f0-a7a0e2db0362"
         },
         {
-            "type": "Ext.button.Button",
+            "type": "Ext.container.Container",
             "reference": {
                 "name": "items",
                 "type": "array"
             },
             "codeClass": null,
             "userConfig": {
-                "scale": "large",
-                "text": "Next"
+                "container|align": "stretch",
+                "layout": "hbox",
+                "layout|flex": 1,
+                "width": "100%"
             },
             "configAlternates": {
-                "scale": "string",
-                "text": "string"
+                "container|align": "string",
+                "layout": "string",
+                "layout|flex": "number",
+                "width": "auto"
             },
-            "name": "MyButton7",
-            "designerId": "31469c64-e461-411a-96d9-81dee972f9a8",
+            "name": "MyContainer7",
+            "designerId": "97a1a6d9-8e31-4b7e-8afb-c7195ee23c94",
             "cn": [
                 {
-                    "type": "basiceventbinding",
+                    "type": "Ext.container.Container",
                     "reference": {
-                        "name": "listeners",
+                        "name": "items",
                         "type": "array"
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "fn": "onButtonClick",
-                        "implHandler": [
-                            "var t = Ext.getCmp('isnm_selection');",
-                            "t.setDisabled(true);",
-                            "t.setVisible(false);",
-                            "",
-                            "if(t.getTitle().search('4.') > -1){",
-                            "    t.setTitle('1. Select field');",
-                            "    t = Ext.getCmp('isnm_review');",
-                            "} else {",
-                            "    t = Ext.getCmp('isnm_management');",
-                            "}",
-                            "t.expand();",
-                            "t.setDisabled(false);",
-                            "t.setVisible(true);"
-                        ],
-                        "name": "click",
-                        "scope": "me"
+                        "flex": 1
                     },
                     "configAlternates": {
-                        "fn": "string",
-                        "implHandler": "code",
-                        "name": "string",
-                        "scope": "string"
+                        "flex": "number"
                     },
-                    "name": "onButtonClick",
-                    "designerId": "d79d4196-0143-42d9-86ef-4ba04c9790e9"
+                    "name": "MyContainer8",
+                    "designerId": "ee9e4ed2-8d0d-4bff-9f76-1566d18c3a1c"
+                },
+                {
+                    "type": "Ext.button.Button",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "id": "selectbtn",
+                        "scale": "large",
+                        "text": "Next"
+                    },
+                    "configAlternates": {
+                        "scale": "string",
+                        "text": "string",
+                        "id": "string"
+                    },
+                    "name": "MyButton7",
+                    "designerId": "31469c64-e461-411a-96d9-81dee972f9a8",
+                    "cn": [
+                        {
+                            "type": "basiceventbinding",
+                            "reference": {
+                                "name": "listeners",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "fn": "onButtonClick",
+                                "implHandler": [
+                                    "var t = Ext.getCmp('isnm_selection');",
+                                    "",
+                                    "if(t.getTitle().search('4.') > -1){",
+                                    "    t.setTitle('1. Select field');",
+                                    "",
+                                    "    Ext.getCmp(\"mainCardPanel\").getLayout().setActiveItem('home');",
+                                    "    window.download();",
+                                    "    Ext.getCmp('selectbtn').setText('Next');",
+                                    "    window.loadView(\"FieldManagement\");",
+                                    "} else {",
+                                    "    t.setDisabled(true);",
+                                    "    t.setVisible(false);",
+                                    "    t = Ext.getCmp('isnm_management');",
+                                    "    t.expand();",
+                                    "    t.setDisabled(false);",
+                                    "    t.setVisible(true);",
+                                    "}",
+                                    "",
+                                    ""
+                                ],
+                                "name": "click",
+                                "scope": "me"
+                            },
+                            "configAlternates": {
+                                "fn": "string",
+                                "implHandler": "code",
+                                "name": "string",
+                                "scope": "string"
+                            },
+                            "name": "onButtonClick",
+                            "designerId": "d79d4196-0143-42d9-86ef-4ba04c9790e9"
+                        }
+                    ]
                 }
             ]
         }

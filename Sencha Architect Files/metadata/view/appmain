@@ -53,7 +53,7 @@
                     "codeClass": null,
                     "userConfig": {
                         "height": "200px",
-                        "html": "<div id=\"header\"><span id=\"logo\"></span></div>",
+                        "html": "<div id=\"header\"> \t<span id=\"logo\"></span> \t<div id=\"topright\"> \t\t<button id=\"logout\" class=\"organization\">Log Out</button> \t\t<button id=\"organization\" class=\"organization\"></button> \t</div> </div>",
                         "maxHeight": 200,
                         "minHeight": 200,
                         "width": "100%"
@@ -224,10 +224,12 @@
                                     },
                                     "codeClass": null,
                                     "userConfig": {
-                                        "title": "1. Field Selection"
+                                        "title": "1. Field Selection",
+                                        "titleAlign": "center"
                                     },
                                     "configAlternates": {
-                                        "title": "string"
+                                        "title": "string",
+                                        "titleAlign": "string"
                                     },
                                     "name": "inseason.n.selection",
                                     "designerId": "6355aece-35ed-4586-af65-7fc9c760fa75",
@@ -243,100 +245,18 @@
                                     "userConfig": {
                                         "disabled": true,
                                         "hidden": true,
-                                        "title": "2. Management"
+                                        "title": "2. Management",
+                                        "titleAlign": "center"
                                     },
                                     "configAlternates": {
                                         "disabled": "boolean",
                                         "hidden": "boolean",
-                                        "title": "string"
+                                        "title": "string",
+                                        "titleAlign": "string"
                                     },
                                     "name": "inseason.n.management",
                                     "designerId": "ca56b6c0-434a-450d-9563-b6cd2a86c5f1",
                                     "masterInstanceId": "7ed2856c-6f83-4653-af2c-3080e7c54e42"
-                                },
-                                {
-                                    "type": "linkedinstance",
-                                    "reference": {
-                                        "name": "items",
-                                        "type": "array"
-                                    },
-                                    "codeClass": null,
-                                    "userConfig": {
-                                        "disabled": true,
-                                        "hidden": true,
-                                        "title": "3. Credits"
-                                    },
-                                    "configAlternates": {
-                                        "disabled": "boolean",
-                                        "hidden": "boolean",
-                                        "title": "string"
-                                    },
-                                    "name": "inseason.n.credits",
-                                    "designerId": "57af081c-9293-44a7-b435-fbaa3159ea67",
-                                    "masterInstanceId": "4d5a5364-6085-4eae-a333-71620d25000c"
-                                },
-                                {
-                                    "type": "linkedinstance",
-                                    "reference": {
-                                        "name": "items",
-                                        "type": "array"
-                                    },
-                                    "codeClass": null,
-                                    "userConfig": {
-                                        "disabled": true,
-                                        "hidden": true,
-                                        "title": "4. Economics"
-                                    },
-                                    "configAlternates": {
-                                        "disabled": "boolean",
-                                        "hidden": "boolean",
-                                        "title": "string"
-                                    },
-                                    "name": "inseason.n.economics",
-                                    "designerId": "c1bb6e7a-f491-4c27-ae52-2a72006d5c21",
-                                    "masterInstanceId": "32deb652-b5c7-4486-9eed-a2aa8a1ac37c"
-                                },
-                                {
-                                    "type": "linkedinstance",
-                                    "reference": {
-                                        "name": "items",
-                                        "type": "array"
-                                    },
-                                    "codeClass": null,
-                                    "userConfig": {
-                                        "disabled": true,
-                                        "hidden": true,
-                                        "title": "5. Review"
-                                    },
-                                    "configAlternates": {
-                                        "disabled": "boolean",
-                                        "hidden": "boolean",
-                                        "title": "string"
-                                    },
-                                    "name": "inseason.n.review",
-                                    "designerId": "9c37dfc1-5eab-4e1b-a3d5-eaa43381916d",
-                                    "masterInstanceId": "33b979d1-415c-48cd-a19f-d75f9c698e56"
-                                },
-                                {
-                                    "type": "linkedinstance",
-                                    "reference": {
-                                        "name": "items",
-                                        "type": "array"
-                                    },
-                                    "codeClass": null,
-                                    "userConfig": {
-                                        "disabled": true,
-                                        "hidden": true,
-                                        "title": "6. Download"
-                                    },
-                                    "configAlternates": {
-                                        "disabled": "boolean",
-                                        "hidden": "boolean",
-                                        "title": "string"
-                                    },
-                                    "name": "inseason.n.finish",
-                                    "designerId": "88098ba5-b06f-4d2c-a096-ef76a6d23e66",
-                                    "masterInstanceId": "b93102c7-6c62-4514-96ab-0445d4a41c8e"
                                 }
                             ]
                         },

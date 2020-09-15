@@ -6,6 +6,7 @@
     },
     "codeClass": null,
     "userConfig": {
+        "buttonAlign": "right",
         "designer|userAlias": "inseason.n.management",
         "designer|userClassName": "InSeason.N.Management",
         "id": "isnm_management",
@@ -19,10 +20,18 @@
         "id": "string",
         "layout": "string",
         "margin": "auto",
-        "width": "auto"
+        "width": "auto",
+        "buttonAlign": "string"
     },
     "name": "MyPanel10",
     "designerId": "7ed2856c-6f83-4653-af2c-3080e7c54e42",
+    "customConfigs": [
+        {
+            "group": "(Custom Properties)",
+            "name": "buttonAlign",
+            "type": "string"
+        }
+    ],
     "viewControllerInstanceId": "4b8b7a6a-a7af-4405-98a5-a2fefafb00c3",
     "viewModelInstanceId": "213ed994-e570-409c-b67e-01240384ccba",
     "cn": [
@@ -77,52 +86,100 @@
             "designerId": "0d913cd5-7063-4365-a822-a9987c0d5257"
         },
         {
-            "type": "Ext.button.Button",
+            "type": "Ext.container.Container",
             "reference": {
                 "name": "items",
                 "type": "array"
             },
             "codeClass": null,
             "userConfig": {
-                "scale": "large",
-                "text": "Next"
+                "container|align": "stretch",
+                "layout": "hbox",
+                "layout|flex": 1,
+                "width": "100%"
             },
             "configAlternates": {
-                "scale": "string",
-                "text": "string"
+                "container|align": "string",
+                "layout": "string",
+                "layout|flex": "number",
+                "width": "auto"
             },
-            "name": "MyButton6",
-            "designerId": "7bc4c31a-57b3-44d5-ba86-aa3e7f5c54ca",
+            "name": "MyContainer5",
+            "designerId": "90a61304-94f0-4c91-b759-6c1372d3a3e5",
             "cn": [
                 {
-                    "type": "basiceventbinding",
+                    "type": "Ext.container.Container",
                     "reference": {
-                        "name": "listeners",
+                        "name": "items",
                         "type": "array"
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "fn": "onButtonClick",
-                        "implHandler": [
-                            "var t = Ext.getCmp('isnm_credits');",
-                            "t.expand();",
-                            "t.setDisabled(false);",
-                            "t.setVisible(true);",
-                            "var t = Ext.getCmp('isnm_management');",
-                            "t.setDisabled(true);",
-                            "t.setVisible(false);"
-                        ],
-                        "name": "click",
-                        "scope": "me"
+                        "flex": 1,
+                        "layout|flex": 1
                     },
                     "configAlternates": {
-                        "fn": "string",
-                        "implHandler": "code",
-                        "name": "string",
-                        "scope": "string"
+                        "flex": "number",
+                        "layout|flex": "number"
                     },
-                    "name": "onButtonClick",
-                    "designerId": "0014f15b-3fe0-40bd-b225-f82bd76cfe23"
+                    "name": "MyContainer6",
+                    "designerId": "236a2aec-6d52-4164-9618-244aa1b0768d"
+                },
+                {
+                    "type": "Ext.button.Button",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "scale": "large",
+                        "text": "Next"
+                    },
+                    "configAlternates": {
+                        "scale": "string",
+                        "text": "string"
+                    },
+                    "name": "MyButton6",
+                    "designerId": "7bc4c31a-57b3-44d5-ba86-aa3e7f5c54ca",
+                    "cn": [
+                        {
+                            "type": "basiceventbinding",
+                            "reference": {
+                                "name": "listeners",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "fn": "onButtonClick",
+                                "implHandler": [
+                                    "Ext.getCmp('selectbtn').setText('Download');",
+                                    "",
+                                    "var t = Ext.getCmp('isnm_management');",
+                                    "t.setDisabled(true);",
+                                    "t.setVisible(false);",
+                                    "",
+                                    "var t = Ext.getCmp('isnm_selection');",
+                                    "t.setTitle('4. Select field to download solution.');",
+                                    "t.expand();",
+                                    "t.setDisabled(false);",
+                                    "t.setVisible(true);",
+                                    "window.loadView(\"ModelSelection\");",
+                                    ""
+                                ],
+                                "name": "click",
+                                "scope": "me"
+                            },
+                            "configAlternates": {
+                                "fn": "string",
+                                "implHandler": "code",
+                                "name": "string",
+                                "scope": "string"
+                            },
+                            "name": "onButtonClick",
+                            "designerId": "0014f15b-3fe0-40bd-b225-f82bd76cfe23"
+                        }
+                    ]
                 }
             ]
         }

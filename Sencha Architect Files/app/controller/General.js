@@ -27,6 +27,16 @@ Ext.define('pagaf.controller.General', {
 
         //window.tPagafWindow.show();
         //window.tPagafWindow.center();
+    },
+
+    loadModelSel: function() {
+        hideAll();
+        page.draw.deleteAll();
+        let canvas2 = document.getElementById('testCanvas');
+        let ctx2 = canvas2.getContext('2d');
+        ctx2.clearRect(0,0,canvas2.width,canvas2.height);
+        d3.select("#modelContainer").style('display','inline-block');
+        page.mapOutput.resize();
     }
 
 });
