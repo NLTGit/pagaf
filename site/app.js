@@ -65413,8 +65413,9 @@ Ext.define('pagaf.view.InSeason.N.Finish', {extend:Ext.panel.Panel, alias:'widge
   Ext.getCmp('mainCardPanel').getLayout().setActiveItem('home');
 }});
 Ext.define('pagaf.view.InSeason.N.ManagementViewModel', {extend:Ext.app.ViewModel, alias:'viewmodel.inseason.n.management'});
-Ext.define('pagaf.view.InSeason.N.Management', {extend:Ext.panel.Panel, alias:'widget.inseason.n.management', config:{buttonAlign:'right'}, viewModel:{type:'inseason.n.management'}, id:'isnm_management', margin:'auto 0', width:'80%', layout:'vbox', defaultListenerScope:true, items:[{xtype:'datefield', cls:'mediumTxt', height:50, width:600, fieldLabel:'When did you plant?', labelWidth:400, matchFieldWidth:false}, {xtype:'numberfield', height:50, width:600, fieldLabel:'How much N have you already applied?', 
-labelWidth:400}, {xtype:'container', flex:1, width:'100%', layout:{type:'hbox', align:'stretch'}, items:[{xtype:'container', flex:1, flex:1}, {xtype:'button', scale:'large', text:'Next', listeners:{click:'onButtonClick'}}]}], onButtonClick:function(button, e, eOpts) {
+Ext.define('pagaf.view.InSeason.N.Management', {extend:Ext.panel.Panel, alias:'widget.inseason.n.management', config:{buttonAlign:'right'}, viewModel:{type:'inseason.n.management'}, id:'isnm_management', margin:'auto 0', width:'100%', defaultListenerScope:true, layout:{type:'hbox', align:'stretch', pack:'center'}, items:[{xtype:'container', flex:1, height:'150px', maxHeight:150, minHeight:150, width:'100%', layout:{type:'vbox', align:'center', pack:'center'}, items:[{xtype:'datefield', cls:'mediumTxt', 
+height:50, maxWidth:600, minWidth:600, width:600, fieldLabel:'When did you plant?', labelWidth:400, matchFieldWidth:false}, {xtype:'numberfield', height:50, maxWidth:600, minWidth:600, width:600, fieldLabel:'How much N have you already applied?', labelWidth:400}, {xtype:'container', height:40, maxWidth:600, minWidth:600, width:'600px', layout:{type:'hbox', align:'middle'}, items:[{xtype:'container', flex:1, flex:1}, {xtype:'button', scale:'large', text:'Next', listeners:{click:'onButtonClick'}}]}]}], 
+onButtonClick:function(button, e, eOpts) {
   Ext.getCmp('selectbtn').setText('Download');
   var t = Ext.getCmp('isnm_management');
   t.setDisabled(true);
@@ -65447,8 +65448,8 @@ Ext.define('pagaf.view.pagafAppPanel', {extend:Ext.panel.Panel, alias:'widget.pa
   '\t\x3c/div\x3e' + '\x3c/div\x3e');
 }, onPagafapppanelBeforeExpand:function(p, animate, eOpts) {
 }});
-Ext.define('pagaf.view.InSeason.N.Selection', {extend:Ext.panel.Panel, alias:'widget.inseason.n.selection', viewModel:{type:'inseason.n.selection'}, id:'isnm_selection', margin:'auto 0', width:'80%', layout:'vbox', defaultListenerScope:true, items:[{xtype:'pagafapppanel', flex:1}, {xtype:'container', flex:1, width:'100%', layout:{type:'hbox', align:'stretch'}, items:[{xtype:'container', flex:1}, {xtype:'button', id:'selectbtn', scale:'large', text:'Next', listeners:{click:'onButtonClick'}}]}], onButtonClick:function(button, 
-e, eOpts) {
+Ext.define('pagaf.view.InSeason.N.Selection', {extend:Ext.panel.Panel, alias:'widget.inseason.n.selection', viewModel:{type:'inseason.n.selection'}, id:'isnm_selection', width:'100%', defaultListenerScope:true, layout:{type:'vbox', pack:'center'}, items:[{xtype:'pagafapppanel', height:'700px', maxHeight:700, minHeight:700, width:'100%', margins:'0 auto'}, {xtype:'container', height:40, margin:'-30px 0 30px 0', width:'95%', layout:{type:'hbox', align:'stretch'}, items:[{xtype:'container', flex:1}, 
+{xtype:'button', id:'selectbtn', scale:'large', text:'Next', listeners:{click:'onButtonClick'}}]}], onButtonClick:function(button, e, eOpts) {
   var t = Ext.getCmp('isnm_selection');
   if (t.getTitle().search('4.') > -1) {
     t.setTitle('1. Select field');
@@ -65467,12 +65468,12 @@ e, eOpts) {
 }});
 Ext.define('pagaf.view.appmainViewModel', {extend:Ext.app.ViewModel, alias:'viewmodel.appmain'});
 Ext.define('pagaf.view.home.topmenuViewModel', {extend:Ext.app.ViewModel, alias:'viewmodel.home.topmenu'});
-Ext.define('pagaf.view.home.topmenu', {extend:Ext.panel.Panel, alias:'widget.home.topmenu', viewModel:{type:'home.topmenu'}, height:40, id:'homeTopMenu', margin:0, padding:0, width:'', layout:{type:'hbox', align:'stretch'}, items:[{xtype:'button', flex:1, margin:'0 5 0 5', padding:0, scale:'medium', text:'Home'}, {xtype:'button', flex:1, margin:'0 5 0 5', scale:'medium', text:'Tools'}, {xtype:'button', flex:1, margin:'0 5 0 5', scale:'medium', text:'Report'}, {xtype:'button', flex:1, margin:'', scale:'medium', 
-text:'Data'}]});
+Ext.define('pagaf.view.home.topmenu', {extend:Ext.panel.Panel, alias:'widget.home.topmenu', viewModel:{type:'home.topmenu'}, height:40, id:'homeTopMenu', margin:0, padding:0, width:'', layout:{type:'hbox', align:'stretch'}, items:[{xtype:'button', flex:1, margin:'5 5 0 0', padding:0, scale:'medium', text:'Home'}, {xtype:'button', flex:1, margin:'5 5 0 5', scale:'medium', text:'Tools'}, {xtype:'button', flex:1, margin:'5 5 0 5', scale:'medium', text:'Report'}, {xtype:'button', flex:1, margin:'5 0 0 5', 
+scale:'medium', text:'Data'}]});
 Ext.define('pagaf.view.home.topmenuViewModel1', {extend:Ext.app.ViewModel, alias:'viewmodel.home.bottommenu'});
-Ext.define('pagaf.view.home.bottommenu', {extend:Ext.panel.Panel, alias:'widget.home.bottommenu', viewModel:{type:'home.bottommenu'}, flex:1, id:'homeBtmMenu', width:'', defaultListenerScope:true, layout:{type:'vbox', align:'stretch'}, items:[{xtype:'container', cls:'largeTxt', height:100, html:'\x3ccenter\x3e\x3ch1\x3eManagement Tools\x3c/h2\x3e\x3c/center\x3e'}, {xtype:'container', flex:1, height:150, layout:{type:'hbox', align:'stretch'}, items:[{xtype:'button', flex:1, margins:'20', cls:'largeTxt', 
-componentCls:'', height:100, margin:20, padding:'', width:100, text:'In-Season N Mgmt', listeners:{click:'onButtonClick'}}, {xtype:'button', flex:1, margins:'20', cls:'largeTxt', height:100, margin:20, padding:'', width:100, text:'Seeding Rate Rx'}]}, {xtype:'container', flex:1, height:150, layout:{type:'hbox', align:'stretch'}, items:[{xtype:'button', flex:1, margins:'20', cls:'largeTxt', height:100, margin:20, width:100, text:'Planting Date \x3cbr /\x3e Decision Making'}, {xtype:'button', flex:1, 
-margins:'20', cls:'largeTxt', height:100, margin:20, padding:'', width:100, text:'Fungicide Wheat'}]}], onButtonClick:function(button, e, eOpts) {
+Ext.define('pagaf.view.home.bottommenu', {extend:Ext.panel.Panel, alias:'widget.home.bottommenu', viewModel:{type:'home.bottommenu'}, flex:1, id:'homeBtmMenu', width:'', defaultListenerScope:true, layout:{type:'vbox', align:'stretch'}, items:[{xtype:'container', cls:'largeTxt', height:'100px', html:'\x3ccenter\x3e\x3ch1\x3eManagement Tools\x3c/h2\x3e\x3c/center\x3e', maxHeight:100, minHeight:100}, {xtype:'container', flex:1, height:'150px', maxHeight:150, minHeight:150, layout:{type:'hbox', align:'middle', 
+pack:'center'}, items:[{xtype:'button', flex:1, margins:'20', cls:'largeTxt', componentCls:'', height:100, margin:20, maxWidth:300, minWidth:300, padding:'', width:'300px', text:'In-Season N Mgmt', listeners:{click:'onButtonClick'}}, {xtype:'button', flex:1, margins:'20', cls:'largeTxt', height:100, margin:20, maxWidth:300, minWidth:300, padding:'', width:'300px', text:'Seeding Rate Rx'}]}, {xtype:'container', flex:1, height:'150px', maxHeight:150, minHeight:150, layout:{type:'hbox', align:'middle', 
+pack:'center'}, items:[{xtype:'button', flex:1, margins:'20', cls:'largeTxt', height:100, margin:20, maxWidth:300, minWidth:300, width:'300px', text:'Planting Date \x3cbr /\x3e Decision Making'}, {xtype:'button', flex:1, margins:'20', cls:'largeTxt', height:100, margin:20, maxWidth:300, minWidth:300, padding:'', width:'300px', text:'Fungicide Wheat'}]}], onButtonClick:function(button, e, eOpts) {
   Ext.Loader.loadScript('js/farms.js');
   Ext.getCmp('mainCardPanel').getLayout().setActiveItem('inSeasonNMgmt');
 }});
