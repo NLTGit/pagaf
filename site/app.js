@@ -65414,8 +65414,8 @@ Ext.define('pagaf.view.InSeason.N.Finish', {extend:Ext.panel.Panel, alias:'widge
 }});
 Ext.define('pagaf.view.InSeason.N.ManagementViewModel', {extend:Ext.app.ViewModel, alias:'viewmodel.inseason.n.management'});
 Ext.define('pagaf.view.InSeason.N.Management', {extend:Ext.panel.Panel, alias:'widget.inseason.n.management', config:{buttonAlign:'right'}, viewModel:{type:'inseason.n.management'}, id:'isnm_management', margin:'auto 0', width:'100%', defaultListenerScope:true, layout:{type:'hbox', align:'stretch', pack:'center'}, items:[{xtype:'container', flex:1, height:'150px', maxHeight:150, minHeight:150, width:'100%', layout:{type:'vbox', align:'center', pack:'center'}, items:[{xtype:'datefield', cls:'mediumTxt', 
-height:50, maxWidth:600, minWidth:600, width:600, fieldLabel:'When did you plant?', labelWidth:400, matchFieldWidth:false}, {xtype:'numberfield', height:50, maxWidth:600, minWidth:600, width:600, fieldLabel:'How much N have you already applied?', labelWidth:400}, {xtype:'container', height:40, maxWidth:600, minWidth:600, width:'600px', layout:{type:'hbox', align:'middle'}, items:[{xtype:'container', flex:1, flex:1}, {xtype:'button', scale:'large', text:'Next', listeners:{click:'onButtonClick'}}]}]}], 
-onButtonClick:function(button, e, eOpts) {
+height:50, maxWidth:600, minWidth:600, width:600, fieldLabel:'When did you plant?', labelWidth:400, matchFieldWidth:false}, {xtype:'numberfield', height:50, id:'setPreInput', maxWidth:600, minWidth:600, width:600, fieldLabel:'How many kg/ha of nitrogen have you already applied?', labelWidth:400, minValue:0}, {xtype:'container', height:40, maxWidth:600, minWidth:600, width:'600px', layout:{type:'hbox', align:'middle'}, items:[{xtype:'container', flex:1, flex:1}, {xtype:'button', scale:'large', text:'Next', 
+listeners:{click:'onButtonClick'}}]}]}], onButtonClick:function(button, e, eOpts) {
   Ext.getCmp('selectbtn').setText('Download');
   var t = Ext.getCmp('isnm_management');
   t.setDisabled(true);
@@ -65426,6 +65426,7 @@ onButtonClick:function(button, e, eOpts) {
   t.setDisabled(false);
   t.setVisible(true);
   window.loadView('ModelSelection');
+  window.setPre(Ext.getCmp('setPreInput').getValue());
 }});
 Ext.define('pagaf.view.InSeason.N.ManagementViewModel3', {extend:Ext.app.ViewModel, alias:'viewmodel.inseason.n.review'});
 Ext.define('pagaf.view.InSeason.N.ManagementViewModel5', {extend:Ext.app.ViewModel, alias:'viewmodel.inseason.n.selection'});
@@ -65458,6 +65459,8 @@ Ext.define('pagaf.view.InSeason.N.Selection', {extend:Ext.panel.Panel, alias:'wi
     Ext.getCmp('selectbtn').setText('Next');
     window.loadView('FieldManagement');
   } else {
+    window.setPre(0);
+    Ext.getCmp('setPreInput').setValue(0);
     t.setDisabled(true);
     t.setVisible(false);
     t = Ext.getCmp('isnm_management');
