@@ -65452,7 +65452,7 @@ Ext.define('pagaf.view.pagafAppPanel', {extend:Ext.panel.Panel, alias:'widget.pa
 Ext.define('pagaf.view.InSeason.N.Selection', {extend:Ext.panel.Panel, alias:'widget.inseason.n.selection', viewModel:{type:'inseason.n.selection'}, id:'isnm_selection', width:'100%', defaultListenerScope:true, layout:{type:'vbox', pack:'center'}, items:[{xtype:'pagafapppanel', height:'700px', maxHeight:700, minHeight:700, width:'100%', margins:'0 auto'}, {xtype:'container', height:40, margin:'-30px 0 30px 0', width:'95%', layout:{type:'hbox', align:'stretch'}, items:[{xtype:'container', flex:1}, 
 {xtype:'button', id:'selectbtn', scale:'large', text:'Next', listeners:{click:'onButtonClick'}}]}], onButtonClick:function(button, e, eOpts) {
   var t = Ext.getCmp('isnm_selection');
-  if (t.getTitle().search('4.') > -1) {
+  if (t.getTitle().search('3.') > -1) {
     t.setTitle('1. Select field');
     Ext.getCmp('mainCardPanel').getLayout().setActiveItem('home');
     window.download();
