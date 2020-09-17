@@ -65421,7 +65421,7 @@ listeners:{click:'onButtonClick'}}]}]}], onButtonClick:function(button, e, eOpts
   t.setDisabled(true);
   t.setVisible(false);
   var t = Ext.getCmp('isnm_selection');
-  t.setTitle('4. Select field to download solution.');
+  t.setTitle('3. Select field to download solution.');
   t.expand();
   t.setDisabled(false);
   t.setVisible(true);
