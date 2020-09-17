@@ -21,17 +21,26 @@ How to view your jwt in the browser's JavaScript console:
 */
 window.authentication = login()
 let auth = await authentication
+let cnt = 0
 
-setTimeout(async function(){
-	document.getElementById('logout').onclick = async click => {
-	  click.preventDefault()  // auth0.logout() redirects when complete
-	  document.body.setAttribute('aria-busy', true)
-	  auth.auth0.logout({returnTo: window.location.origin})
+async function setBtns(){
+	if(cnt < 5){
+		cnt++
+		try { document.getElementById('logout').onclick = async click => {
+			  click.preventDefault()  // auth0.logout() redirects when complete
+			  document.body.setAttribute('aria-busy', true)
+			  auth.auth0.logout({returnTo: window.location.origin})
+			}
+			let temp = await auth.auth0.getUser()
+			temp = temp.name
+			document.getElementById('organization').innerText = temp 
+		} catch(err){
+			setTimeout(function() { setBtns() },1000)
+		}
 	}
-	let temp = await auth.auth0.getUser();
-	temp = temp.name;
-	document.getElementById('organization').innerText = temp;
-},1000);
+}
+
+setBtns()
 
 async function login() {
   // Auth0 api docs are a bit hard to find https://auth0.github.io/auth0-spa-js/
