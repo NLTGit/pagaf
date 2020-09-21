@@ -20,28 +20,27 @@ Ext.define('pagaf.view.InSeason.N.Selection', {
     requires: [
         'pagaf.view.InSeason.N.ManagementViewModel5',
         'pagaf.view.pagafAppPanel',
-        'Ext.panel.Panel',
-        'Ext.button.Button'
+        'Ext.button.Button',
+        'Ext.panel.Panel'
     ],
 
     viewModel: {
         type: 'inseason.n.selection'
     },
     id: 'isnm_selection',
-    margin: 'auto 0',
-    width: '80%',
-    layout: 'vbox',
+    width: '100%',
     defaultListenerScope: true,
 
+    layout: {
+        type: 'vbox',
+        pack: 'center'
+    },
     items: [
         {
-            xtype: 'pagafapppanel',
-            flex: 1
-        },
-        {
             xtype: 'container',
-            flex: 1,
-            width: '100%',
+            height: 40,
+            margin: '',
+            width: '95%',
             layout: {
                 type: 'hbox',
                 align: 'stretch'
@@ -61,13 +60,21 @@ Ext.define('pagaf.view.InSeason.N.Selection', {
                     }
                 }
             ]
+        },
+        {
+            xtype: 'pagafapppanel',
+            height: '700px',
+            maxHeight: 700,
+            minHeight: 700,
+            width: '100%',
+            margins: '0 auto'
         }
     ],
 
     onButtonClick: function(button, e, eOpts) {
         var t = Ext.getCmp('isnm_selection');
 
-        if(t.getTitle().search('4.') > -1){
+        if(t.getTitle().search('3.') > -1){
             t.setTitle('1. Select field');
 
             Ext.getCmp("mainCardPanel").getLayout().setActiveItem('home');
@@ -75,6 +82,8 @@ Ext.define('pagaf.view.InSeason.N.Selection', {
             Ext.getCmp('selectbtn').setText('Next');
             window.loadView("FieldManagement");
         } else {
+            window.setPre(0);
+            Ext.getCmp('setPreInput').setValue(0);
             t.setDisabled(true);
             t.setVisible(false);
             t = Ext.getCmp('isnm_management');

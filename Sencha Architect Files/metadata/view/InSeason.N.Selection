@@ -6,12 +6,12 @@
     },
     "codeClass": null,
     "userConfig": {
+        "container|pack": "center",
         "designer|userAlias": "inseason.n.selection",
         "designer|userClassName": "InSeason.N.Selection",
         "id": "isnm_selection",
         "layout": "vbox",
-        "margin": "auto 0",
-        "width": "80%"
+        "width": "100%"
     },
     "configAlternates": {
         "designer|userAlias": "string",
@@ -19,30 +19,14 @@
         "margin": "auto",
         "width": "auto",
         "id": "string",
-        "layout": "string"
+        "layout": "string",
+        "container|pack": "string"
     },
     "name": "InSeason.N.Management3",
     "designerId": "b3dbc628-a0d9-422c-af72-6ff4c7ba314b",
     "viewControllerInstanceId": "db53c9e2-3233-4220-bdd7-86cb19bc7fe1",
     "viewModelInstanceId": "409fb732-3143-4fae-ab15-b2f80d364ee0",
     "cn": [
-        {
-            "type": "linkedinstance",
-            "reference": {
-                "name": "items",
-                "type": "array"
-            },
-            "codeClass": null,
-            "userConfig": {
-                "layout|flex": 1
-            },
-            "configAlternates": {
-                "layout|flex": "number"
-            },
-            "name": "pagafapppanel",
-            "designerId": "74ccdd64-240e-4ac8-8e49-7d07861b0aed",
-            "masterInstanceId": "c16e4bf5-b2e7-46e1-86f0-a7a0e2db0362"
-        },
         {
             "type": "Ext.container.Container",
             "reference": {
@@ -52,14 +36,20 @@
             "codeClass": null,
             "userConfig": {
                 "container|align": "stretch",
+                "height": 40,
                 "layout": "hbox",
-                "layout|flex": 1,
-                "width": "100%"
+                "margin": "",
+                "maxWidth": null,
+                "minWidth": null,
+                "width": "95%"
             },
             "configAlternates": {
                 "container|align": "string",
+                "height": "auto",
                 "layout": "string",
-                "layout|flex": "number",
+                "margin": "auto",
+                "maxWidth": "number",
+                "minWidth": "number",
                 "width": "auto"
             },
             "name": "MyContainer7",
@@ -113,7 +103,7 @@
                                 "implHandler": [
                                     "var t = Ext.getCmp('isnm_selection');",
                                     "",
-                                    "if(t.getTitle().search('4.') > -1){",
+                                    "if(t.getTitle().search('3.') > -1){",
                                     "    t.setTitle('1. Select field');",
                                     "",
                                     "    Ext.getCmp(\"mainCardPanel\").getLayout().setActiveItem('home');",
@@ -121,6 +111,8 @@
                                     "    Ext.getCmp('selectbtn').setText('Next');",
                                     "    window.loadView(\"FieldManagement\");",
                                     "} else {",
+                                    "    window.setPre(0);",
+                                    "    Ext.getCmp('setPreInput').setValue(0);",
                                     "    t.setDisabled(true);",
                                     "    t.setVisible(false);",
                                     "    t = Ext.getCmp('isnm_management');",
@@ -146,6 +138,36 @@
                     ]
                 }
             ]
+        },
+        {
+            "type": "linkedinstance",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "height": "700px",
+                "layout|margins": "0 auto",
+                "maxHeight": 700,
+                "maxWidth": null,
+                "minHeight": 700,
+                "minWidth": null,
+                "width": "100%"
+            },
+            "configAlternates": {
+                "layout|flex": "number",
+                "height": "auto",
+                "layout|margins": "string",
+                "maxHeight": "number",
+                "maxWidth": "number",
+                "minHeight": "number",
+                "minWidth": "number",
+                "width": "auto"
+            },
+            "name": "pagafapppanel",
+            "designerId": "74ccdd64-240e-4ac8-8e49-7d07861b0aed",
+            "masterInstanceId": "c16e4bf5-b2e7-46e1-86f0-a7a0e2db0362"
         }
     ]
 }

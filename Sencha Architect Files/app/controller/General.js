@@ -22,6 +22,7 @@ Ext.define('pagaf.controller.General', {
 
     init: function(application) {
         window['GV'] = this;
+
         //window.tPagafWindow = '';
         //window.tPagafWindow = Ext.widget('pagafappwindow');
 

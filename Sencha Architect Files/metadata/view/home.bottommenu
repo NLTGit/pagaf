@@ -43,15 +43,19 @@
                 ],
                 "designer|createAlias": "",
                 "designer|displayName": "top",
-                "height": 100,
-                "html": "<center><h1>Management Tools</h2></center>"
+                "height": "100px",
+                "html": "<center><h1>Management Tools</h2></center>",
+                "maxHeight": 100,
+                "minHeight": 100
             },
             "configAlternates": {
                 "cls": "typedarray",
                 "designer|createAlias": "string",
                 "designer|displayName": "string",
                 "height": "auto",
-                "html": "string"
+                "html": "string",
+                "maxHeight": "number",
+                "minHeight": "number"
             },
             "name": "MyContainer",
             "designerId": "022d95b8-7a02-41a1-a351-c834658c4de3"
@@ -64,18 +68,24 @@
             },
             "codeClass": null,
             "userConfig": {
-                "container|align": "stretch",
+                "container|align": "middle",
+                "container|pack": "center",
                 "designer|displayName": "first row",
-                "height": 150,
+                "height": "150px",
                 "layout": "hbox",
-                "layout|flex": 1
+                "layout|flex": 1,
+                "maxHeight": 150,
+                "minHeight": 150
             },
             "configAlternates": {
                 "container|align": "string",
                 "designer|displayName": "string",
                 "height": "auto",
                 "layout": "string",
-                "layout|flex": "number"
+                "layout|flex": "number",
+                "container|pack": "string",
+                "maxHeight": "number",
+                "minHeight": "number"
             },
             "name": "MyContainer1",
             "designerId": "9c046364-a2d2-4f62-a822-38467ae1ca85",
@@ -94,9 +104,11 @@
                         "layout|flex": 1,
                         "layout|margins": "20",
                         "margin": 20,
+                        "maxWidth": 300,
+                        "minWidth": 300,
                         "padding": "",
                         "text": "In-Season N Mgmt",
-                        "width": 100
+                        "width": "300px"
                     },
                     "configAlternates": {
                         "cls": "string",
@@ -107,7 +119,9 @@
                         "margin": "auto",
                         "padding": "auto",
                         "text": "string",
-                        "width": "auto"
+                        "width": "auto",
+                        "maxWidth": "number",
+                        "minWidth": "number"
                     },
                     "name": "MyButton4",
                     "designerId": "11d8fa06-9954-4473-85ed-94cd572c173e",
@@ -152,9 +166,11 @@
                         "layout|flex": 1,
                         "layout|margins": "20",
                         "margin": 20,
+                        "maxWidth": 300,
+                        "minWidth": 300,
                         "padding": "",
                         "text": "Seeding Rate Rx",
-                        "width": 100
+                        "width": "300px"
                     },
                     "configAlternates": {
                         "height": "auto",
@@ -164,7 +180,9 @@
                         "cls": "string",
                         "layout|margins": "string",
                         "margin": "auto",
-                        "padding": "auto"
+                        "padding": "auto",
+                        "maxWidth": "number",
+                        "minWidth": "number"
                     },
                     "name": "MyButton5",
                     "designerId": "c5a30adf-f00b-49b5-9d7d-f0e2e1c97a77"
@@ -179,18 +197,24 @@
             },
             "codeClass": null,
             "userConfig": {
-                "container|align": "stretch",
+                "container|align": "middle",
+                "container|pack": "center",
                 "designer|displayName": "2nd row",
-                "height": 150,
+                "height": "150px",
                 "layout": "hbox",
-                "layout|flex": 1
+                "layout|flex": 1,
+                "maxHeight": 150,
+                "minHeight": 150
             },
             "configAlternates": {
                 "container|align": "string",
                 "designer|displayName": "string",
                 "height": "auto",
                 "layout": "string",
-                "layout|flex": "number"
+                "layout|flex": "number",
+                "container|pack": "string",
+                "maxHeight": "number",
+                "minHeight": "number"
             },
             "name": "MyContainer2",
             "designerId": "51dcb896-fcde-49cc-be04-078a4dee7512",
@@ -208,8 +232,10 @@
                         "layout|flex": 1,
                         "layout|margins": "20",
                         "margin": 20,
+                        "maxWidth": 300,
+                        "minWidth": 300,
                         "text": "Planting Date <br /> Decision Making",
-                        "width": 100
+                        "width": "300px"
                     },
                     "configAlternates": {
                         "height": "auto",
@@ -219,7 +245,9 @@
                         "width": "auto",
                         "cls": "string",
                         "layout|margins": "string",
-                        "margin": "auto"
+                        "margin": "auto",
+                        "maxWidth": "number",
+                        "minWidth": "number"
                     },
                     "name": "MyButton4",
                     "designerId": "87e74039-35db-464f-ae17-82d88a65ffa4"
@@ -237,9 +265,11 @@
                         "layout|flex": 1,
                         "layout|margins": "20",
                         "margin": 20,
+                        "maxWidth": 300,
+                        "minWidth": 300,
                         "padding": "",
                         "text": "Fungicide Wheat",
-                        "width": 100
+                        "width": "300px"
                     },
                     "configAlternates": {
                         "height": "auto",
@@ -249,7 +279,9 @@
                         "padding": "auto",
                         "cls": "string",
                         "layout|margins": "string",
-                        "margin": "auto"
+                        "margin": "auto",
+                        "maxWidth": "number",
+                        "minWidth": "number"
                     },
                     "name": "MyButton5",
                     "designerId": "65c824da-4922-43d8-a567-f398c8cd24f7"
