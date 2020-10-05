@@ -7,11 +7,7 @@
             "frameworkVersion": "6.5.3.57"
         },
         "urlPrefixTemplate": "http://localhost:{port}/{path}",
-<<<<<<< HEAD
-        "urlPrefix": "http://localhost:1707/",
-=======
-        "urlPrefix": "http://localhost:1393/",
->>>>>>> parent of c4178e4... updating sencha build files
+        "urlPrefix": "http://localhost:56799/",
         "canvasControls": {
             "viewportSize": {
                 "name": "Auto Expand",

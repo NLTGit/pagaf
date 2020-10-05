@@ -42,10 +42,10 @@ Ext.define('pagaf.view.appmain', {
             items: [
                 {
                     xtype: 'container',
-                    height: '200px',
-                    html: '<div id="header"> 	<span id="logo"></span> 	<div id="topright"> 		<button id="logout" class="organization">Log Out</button> 		<button id="organization" class="organization"></button> 	</div> </div>',
-                    maxHeight: 200,
-                    minHeight: 200,
+                    height: '220px',
+                    html: '<div id="header"> <span id="logo">   <span class="precision">Precision</span>   <span class="ag">AG</span>   <span class="for-farmers">for American Farmers</span>   <sub class="demo">Demo <a href="https://github.com/NLTGit/pagaf/wiki">About</a></sub> </span> <div id="topright"> <button id="logout" class="organization">Log Out</button> <button id="organization" class="organization"></button> </div></div>',
+                    maxHeight: 220,
+                    minHeight: 220,
                     width: '100%'
                 },
                 {
@@ -188,7 +188,7 @@ Ext.define('pagaf.view.appmain', {
                 {
                     xtype: 'container',
                     height: '200px',
-                    html: '<div id="footer"><div id="footerimg"></div><div id="social" /></div><div id="tag">PAGAF: Precision Agriculture for all American Farmers</div></div>',
+                    html: '<div id="footer"><div id="footerimg"></div><div id="social" /></div><div id="tag">PAGAF: Precision Agriculture for all American Farmers. Copyright (C) 2020, New Light Technologies. <a href="https://github.com/NLTGit/pagaf/wiki#legal">Legal</a></div></div>',
                     maxHeight: 200,
                     minHeight: 200,
                     width: '100%'

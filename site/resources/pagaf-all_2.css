@@ -1,881 +1,976 @@
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:250 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:221 */
+.fa-pinterest-square:before {
+    content: "\f0d3" !important;
+}
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:222 */
+.fa-google-plus-square:before {
+    content: "\f0d4" !important;
+}
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:223 */
+.fa-google-plus:before {
+    content: "\f0d5" !important;
+}
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:224 */
+.fa-money:before {
+    content: "\f0d6" !important;
+}
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:225 */
+.fa-caret-down:before {
+    content: "\f0d7" !important;
+}
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:226 */
+.fa-caret-up:before {
+    content: "\f0d8" !important;
+}
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:227 */
+.fa-caret-left:before {
+    content: "\f0d9" !important;
+}
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:228 */
+.fa-caret-right:before {
+    content: "\f0da" !important;
+}
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:229 */
+.fa-columns:before {
+    content: "\f0db" !important;
+}
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:230 */
+.fa-unsorted:before,
+.fa-sort:before {
+    content: "\f0dc" !important;
+}
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:232 */
+.fa-sort-down:before,
+.fa-sort-desc:before {
+    content: "\f0dd" !important;
+}
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:234 */
+.fa-sort-up:before,
+.fa-sort-asc:before {
+    content: "\f0de" !important;
+}
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:236 */
+.fa-envelope:before {
+    content: "\f0e0" !important;
+}
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:237 */
+.fa-linkedin:before {
+    content: "\f0e1" !important;
+}
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:238 */
+.fa-rotate-left:before,
+.fa-undo:before {
+    content: "\f0e2" !important;
+}
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:240 */
+.fa-legal:before,
+.fa-gavel:before {
+    content: "\f0e3" !important;
+}
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:242 */
+.fa-dashboard:before,
+.fa-tachometer:before {
+    content: "\f0e4" !important;
+}
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:244 */
+.fa-comment-o:before {
+    content: "\f0e5" !important;
+}
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:245 */
+.fa-comments-o:before {
+    content: "\f0e6" !important;
+}
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:246 */
+.fa-flash:before,
+.fa-bolt:before {
+    content: "\f0e7" !important;
+}
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:248 */
+.fa-sitemap:before {
+    content: "\f0e8" !important;
+}
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:249 */
+.fa-umbrella:before {
+    content: "\f0e9" !important;
+}
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:250 */
 .fa-paste:before,
 .fa-clipboard:before {
     content: "\f0ea" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:252 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:252 */
 .fa-lightbulb-o:before {
     content: "\f0eb" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:253 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:253 */
 .fa-exchange:before {
     content: "\f0ec" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:254 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:254 */
 .fa-cloud-download:before {
     content: "\f0ed" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:255 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:255 */
 .fa-cloud-upload:before {
     content: "\f0ee" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:256 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:256 */
 .fa-user-md:before {
     content: "\f0f0" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:257 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:257 */
 .fa-stethoscope:before {
     content: "\f0f1" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:258 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:258 */
 .fa-suitcase:before {
     content: "\f0f2" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:259 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:259 */
 .fa-bell-o:before {
     content: "\f0a2" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:260 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:260 */
 .fa-coffee:before {
     content: "\f0f4" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:261 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:261 */
 .fa-cutlery:before {
     content: "\f0f5" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:262 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:262 */
 .fa-file-text-o:before {
     content: "\f0f6" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:263 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:263 */
 .fa-building-o:before {
     content: "\f0f7" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:264 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:264 */
 .fa-hospital-o:before {
     content: "\f0f8" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:265 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:265 */
 .fa-ambulance:before {
     content: "\f0f9" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:266 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:266 */
 .fa-medkit:before {
     content: "\f0fa" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:267 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:267 */
 .fa-fighter-jet:before {
     content: "\f0fb" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:268 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:268 */
 .fa-beer:before {
     content: "\f0fc" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:269 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:269 */
 .fa-h-square:before {
     content: "\f0fd" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:270 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:270 */
 .fa-plus-square:before {
     content: "\f0fe" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:271 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:271 */
 .fa-angle-double-left:before {
     content: "\f100" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:272 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:272 */
 .fa-angle-double-right:before {
     content: "\f101" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:273 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:273 */
 .fa-angle-double-up:before {
     content: "\f102" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:274 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:274 */
 .fa-angle-double-down:before {
     content: "\f103" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:275 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:275 */
 .fa-angle-left:before {
     content: "\f104" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:276 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:276 */
 .fa-angle-right:before {
     content: "\f105" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:277 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:277 */
 .fa-angle-up:before {
     content: "\f106" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:278 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:278 */
 .fa-angle-down:before {
     content: "\f107" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:279 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:279 */
 .fa-desktop:before {
     content: "\f108" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:280 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:280 */
 .fa-laptop:before {
     content: "\f109" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:281 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:281 */
 .fa-tablet:before {
     content: "\f10a" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:282 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:282 */
 .fa-mobile-phone:before,
 .fa-mobile:before {
     content: "\f10b" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:284 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:284 */
 .fa-circle-o:before {
     content: "\f10c" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:285 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:285 */
 .fa-quote-left:before {
     content: "\f10d" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:286 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:286 */
 .fa-quote-right:before {
     content: "\f10e" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:287 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:287 */
 .fa-spinner:before {
     content: "\f110" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:288 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:288 */
 .fa-circle:before {
     content: "\f111" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:289 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:289 */
 .fa-mail-reply:before,
 .fa-reply:before {
     content: "\f112" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:291 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:291 */
 .fa-github-alt:before {
     content: "\f113" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:292 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:292 */
 .fa-folder-o:before {
     content: "\f114" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:293 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:293 */
 .fa-folder-open-o:before {
     content: "\f115" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:294 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:294 */
 .fa-smile-o:before {
     content: "\f118" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:295 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:295 */
 .fa-frown-o:before {
     content: "\f119" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:296 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:296 */
 .fa-meh-o:before {
     content: "\f11a" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:297 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:297 */
 .fa-gamepad:before {
     content: "\f11b" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:298 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:298 */
 .fa-keyboard-o:before {
     content: "\f11c" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:299 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:299 */
 .fa-flag-o:before {
     content: "\f11d" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:300 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:300 */
 .fa-flag-checkered:before {
     content: "\f11e" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:301 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:301 */
 .fa-terminal:before {
     content: "\f120" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:302 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:302 */
 .fa-code:before {
     content: "\f121" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:303 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:303 */
 .fa-mail-reply-all:before,
 .fa-reply-all:before {
     content: "\f122" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:305 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:305 */
 .fa-star-half-empty:before,
 .fa-star-half-full:before,
 .fa-star-half-o:before {
     content: "\f123" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:308 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:308 */
 .fa-location-arrow:before {
     content: "\f124" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:309 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:309 */
 .fa-crop:before {
     content: "\f125" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:310 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:310 */
 .fa-code-fork:before {
     content: "\f126" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:311 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:311 */
 .fa-unlink:before,
 .fa-chain-broken:before {
     content: "\f127" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:313 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:313 */
 .fa-question:before {
     content: "\f128" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:314 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:314 */
 .fa-info:before {
     content: "\f129" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:315 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:315 */
 .fa-exclamation:before {
     content: "\f12a" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:316 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:316 */
 .fa-superscript:before {
     content: "\f12b" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:317 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:317 */
 .fa-subscript:before {
     content: "\f12c" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:318 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:318 */
 .fa-eraser:before {
     content: "\f12d" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:319 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:319 */
 .fa-puzzle-piece:before {
     content: "\f12e" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:320 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:320 */
 .fa-microphone:before {
     content: "\f130" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:321 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:321 */
 .fa-microphone-slash:before {
     content: "\f131" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:322 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:322 */
 .fa-shield:before {
     content: "\f132" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:323 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:323 */
 .fa-calendar-o:before {
     content: "\f133" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:324 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:324 */
 .fa-fire-extinguisher:before {
     content: "\f134" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:325 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:325 */
 .fa-rocket:before {
     content: "\f135" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:326 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:326 */
 .fa-maxcdn:before {
     content: "\f136" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:327 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:327 */
 .fa-chevron-circle-left:before {
     content: "\f137" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:328 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:328 */
 .fa-chevron-circle-right:before {
     content: "\f138" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:329 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:329 */
 .fa-chevron-circle-up:before {
     content: "\f139" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:330 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:330 */
 .fa-chevron-circle-down:before {
     content: "\f13a" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:331 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:331 */
 .fa-html5:before {
     content: "\f13b" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:332 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:332 */
 .fa-css3:before {
     content: "\f13c" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:333 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:333 */
 .fa-anchor:before {
     content: "\f13d" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:334 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:334 */
 .fa-unlock-alt:before {
     content: "\f13e" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:335 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:335 */
 .fa-bullseye:before {
     content: "\f140" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:336 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:336 */
 .fa-ellipsis-h:before {
     content: "\f141" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:337 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:337 */
 .fa-ellipsis-v:before {
     content: "\f142" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:338 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:338 */
 .fa-rss-square:before {
     content: "\f143" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:339 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:339 */
 .fa-play-circle:before {
     content: "\f144" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:340 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:340 */
 .fa-ticket:before {
     content: "\f145" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:341 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:341 */
 .fa-minus-square:before {
     content: "\f146" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:342 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:342 */
 .fa-minus-square-o:before {
     content: "\f147" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:343 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:343 */
 .fa-level-up:before {
     content: "\f148" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:344 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:344 */
 .fa-level-down:before {
     content: "\f149" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:345 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:345 */
 .fa-check-square:before {
     content: "\f14a" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:346 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:346 */
 .fa-pencil-square:before {
     content: "\f14b" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:347 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:347 */
 .fa-external-link-square:before {
     content: "\f14c" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:348 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:348 */
 .fa-share-square:before {
     content: "\f14d" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:349 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:349 */
 .fa-compass:before {
     content: "\f14e" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:350 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:350 */
 .fa-toggle-down:before,
 .fa-caret-square-o-down:before {
     content: "\f150" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:352 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:352 */
 .fa-toggle-up:before,
 .fa-caret-square-o-up:before {
     content: "\f151" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:354 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:354 */
 .fa-toggle-right:before,
 .fa-caret-square-o-right:before {
     content: "\f152" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:356 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:356 */
 .fa-euro:before,
 .fa-eur:before {
     content: "\f153" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:358 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:358 */
 .fa-gbp:before {
     content: "\f154" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:359 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:359 */
 .fa-dollar:before,
 .fa-usd:before {
     content: "\f155" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:361 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:361 */
 .fa-rupee:before,
 .fa-inr:before {
     content: "\f156" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:363 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:363 */
 .fa-cny:before,
 .fa-rmb:before,
 .fa-yen:before,
 .fa-jpy:before {
     content: "\f157" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:367 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:367 */
 .fa-ruble:before,
 .fa-rouble:before,
 .fa-rub:before {
     content: "\f158" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:370 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:370 */
 .fa-won:before,
 .fa-krw:before {
     content: "\f159" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:372 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:372 */
 .fa-bitcoin:before,
 .fa-btc:before {
     content: "\f15a" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:374 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:374 */
 .fa-file:before {
     content: "\f15b" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:375 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:375 */
 .fa-file-text:before {
     content: "\f15c" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:376 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:376 */
 .fa-sort-alpha-asc:before {
     content: "\f15d" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:377 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:377 */
 .fa-sort-alpha-desc:before {
     content: "\f15e" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:378 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:378 */
 .fa-sort-amount-asc:before {
     content: "\f160" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:379 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:379 */
 .fa-sort-amount-desc:before {
     content: "\f161" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:380 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:380 */
 .fa-sort-numeric-asc:before {
     content: "\f162" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:381 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:381 */
 .fa-sort-numeric-desc:before {
     content: "\f163" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:382 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:382 */
 .fa-thumbs-up:before {
     content: "\f164" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:383 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:383 */
 .fa-thumbs-down:before {
     content: "\f165" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:384 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:384 */
 .fa-youtube-square:before {
     content: "\f166" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:385 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:385 */
 .fa-youtube:before {
     content: "\f167" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:386 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:386 */
 .fa-xing:before {
     content: "\f168" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:387 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:387 */
 .fa-xing-square:before {
     content: "\f169" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:388 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:388 */
 .fa-youtube-play:before {
     content: "\f16a" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:389 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:389 */
 .fa-dropbox:before {
     content: "\f16b" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:390 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:390 */
 .fa-stack-overflow:before {
     content: "\f16c" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:391 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:391 */
 .fa-instagram:before {
     content: "\f16d" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:392 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:392 */
 .fa-flickr:before {
     content: "\f16e" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:393 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:393 */
 .fa-adn:before {
     content: "\f170" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:394 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:394 */
 .fa-bitbucket:before {
     content: "\f171" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:395 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:395 */
 .fa-bitbucket-square:before {
     content: "\f172" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:396 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:396 */
 .fa-tumblr:before {
     content: "\f173" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:397 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:397 */
 .fa-tumblr-square:before {
     content: "\f174" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:398 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:398 */
 .fa-long-arrow-down:before {
     content: "\f175" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:399 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:399 */
 .fa-long-arrow-up:before {
     content: "\f176" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:400 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:400 */
 .fa-long-arrow-left:before {
     content: "\f177" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:401 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:401 */
 .fa-long-arrow-right:before {
     content: "\f178" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:402 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:402 */
 .fa-apple:before {
     content: "\f179" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:403 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:403 */
 .fa-windows:before {
     content: "\f17a" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:404 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:404 */
 .fa-android:before {
     content: "\f17b" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:405 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:405 */
 .fa-linux:before {
     content: "\f17c" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:406 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:406 */
 .fa-dribbble:before {
     content: "\f17d" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:407 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:407 */
 .fa-skype:before {
     content: "\f17e" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:408 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:408 */
 .fa-foursquare:before {
     content: "\f180" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:409 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:409 */
 .fa-trello:before {
     content: "\f181" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:410 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:410 */
 .fa-female:before {
     content: "\f182" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:411 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:411 */
 .fa-male:before {
     content: "\f183" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:412 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:412 */
 .fa-gittip:before,
 .fa-gratipay:before {
     content: "\f184" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:414 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:414 */
 .fa-sun-o:before {
     content: "\f185" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:415 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:415 */
 .fa-moon-o:before {
     content: "\f186" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:416 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:416 */
 .fa-archive:before {
     content: "\f187" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:417 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:417 */
 .fa-bug:before {
     content: "\f188" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:418 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:418 */
 .fa-vk:before {
     content: "\f189" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:419 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:419 */
 .fa-weibo:before {
     content: "\f18a" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:420 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:420 */
 .fa-renren:before {
     content: "\f18b" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:421 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:421 */
 .fa-pagelines:before {
     content: "\f18c" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:422 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:422 */
 .fa-stack-exchange:before {
     content: "\f18d" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:423 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:423 */
 .fa-arrow-circle-o-right:before {
     content: "\f18e" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:424 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:424 */
 .fa-arrow-circle-o-left:before {
     content: "\f190" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:425 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:425 */
 .fa-toggle-left:before,
 .fa-caret-square-o-left:before {
     content: "\f191" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:427 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:427 */
 .fa-dot-circle-o:before {
     content: "\f192" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:428 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:428 */
 .fa-wheelchair:before {
     content: "\f193" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:429 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:429 */
 .fa-vimeo-square:before {
     content: "\f194" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:430 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:430 */
 .fa-turkish-lira:before,
 .fa-try:before {
     content: "\f195" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:432 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:432 */
 .fa-plus-square-o:before {
     content: "\f196" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:433 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:433 */
 .fa-space-shuttle:before {
     content: "\f197" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:434 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:434 */
 .fa-slack:before {
     content: "\f198" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:435 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:435 */
 .fa-envelope-square:before {
     content: "\f199" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:436 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:436 */
 .fa-wordpress:before {
     content: "\f19a" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:437 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:437 */
 .fa-openid:before {
     content: "\f19b" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:438 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:438 */
 .fa-institution:before,
 .fa-bank:before,
 .fa-university:before {
     content: "\f19c" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:441 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:441 */
 .fa-mortar-board:before,
 .fa-graduation-cap:before {
     content: "\f19d" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:443 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:443 */
 .fa-yahoo:before {
     content: "\f19e" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:444 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:444 */
 .fa-google:before {
     content: "\f1a0" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:445 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:445 */
 .fa-reddit:before {
     content: "\f1a1" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:446 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:446 */
 .fa-reddit-square:before {
     content: "\f1a2" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:447 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:447 */
 .fa-stumbleupon-circle:before {
     content: "\f1a3" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:448 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:448 */
 .fa-stumbleupon:before {
     content: "\f1a4" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:449 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:449 */
 .fa-delicious:before {
     content: "\f1a5" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:450 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:450 */
 .fa-digg:before {
     content: "\f1a6" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:451 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:451 */
 .fa-pied-piper-pp:before {
     content: "\f1a7" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:452 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:452 */
 .fa-pied-piper-alt:before {
     content: "\f1a8" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:453 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:453 */
 .fa-drupal:before {
     content: "\f1a9" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:454 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:454 */
 .fa-joomla:before {
     content: "\f1aa" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:455 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:455 */
 .fa-language:before {
     content: "\f1ab" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:456 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:456 */
 .fa-fax:before {
     content: "\f1ac" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:457 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:457 */
 .fa-building:before {
     content: "\f1ad" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:458 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:458 */
 .fa-child:before {
     content: "\f1ae" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:459 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:459 */
 .fa-paw:before {
     content: "\f1b0" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:460 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:460 */
 .fa-spoon:before {
     content: "\f1b1" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:461 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:461 */
 .fa-cube:before {
     content: "\f1b2" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:462 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:462 */
 .fa-cubes:before {
     content: "\f1b3" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:463 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:463 */
 .fa-behance:before {
     content: "\f1b4" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:464 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:464 */
 .fa-behance-square:before {
     content: "\f1b5" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:465 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:465 */
 .fa-steam:before {
     content: "\f1b6" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:466 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:466 */
 .fa-steam-square:before {
     content: "\f1b7" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:467 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:467 */
 .fa-recycle:before {
     content: "\f1b8" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:468 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:468 */
 .fa-automobile:before,
 .fa-car:before {
     content: "\f1b9" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:470 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:470 */
 .fa-cab:before,
 .fa-taxi:before {
     content: "\f1ba" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:472 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:472 */
 .fa-tree:before {
     content: "\f1bb" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:473 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:473 */
 .fa-spotify:before {
     content: "\f1bc" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:474 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:474 */
 .fa-deviantart:before {
     content: "\f1bd" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:475 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:475 */
 .fa-soundcloud:before {
     content: "\f1be" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:476 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:476 */
 .fa-database:before {
     content: "\f1c0" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:477 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:477 */
 .fa-file-pdf-o:before {
     content: "\f1c1" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:478 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:478 */
 .fa-file-word-o:before {
     content: "\f1c2" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:479 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:479 */
 .fa-file-excel-o:before {
     content: "\f1c3" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:480 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:480 */
 .fa-file-powerpoint-o:before {
     content: "\f1c4" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:481 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:481 */
 .fa-file-photo-o:before,
 .fa-file-picture-o:before,
 .fa-file-image-o:before {
     content: "\f1c5" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:484 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:484 */
 .fa-file-zip-o:before,
 .fa-file-archive-o:before {
     content: "\f1c6" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:486 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:486 */
 .fa-file-sound-o:before,
 .fa-file-audio-o:before {
     content: "\f1c7" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:488 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:488 */
 .fa-file-movie-o:before,
 .fa-file-video-o:before {
     content: "\f1c8" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:490 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:490 */
 .fa-file-code-o:before {
     content: "\f1c9" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:491 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:491 */
 .fa-vine:before {
     content: "\f1ca" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:492 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:492 */
 .fa-codepen:before {
     content: "\f1cb" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:493 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:493 */
 .fa-jsfiddle:before {
     content: "\f1cc" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:494 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:494 */
 .fa-life-bouy:before,
 .fa-life-buoy:before,
 .fa-life-saver:before,
@@ -883,1073 +978,1073 @@
 .fa-life-ring:before {
     content: "\f1cd" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:499 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:499 */
 .fa-circle-o-notch:before {
     content: "\f1ce" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:500 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:500 */
 .fa-ra:before,
 .fa-resistance:before,
 .fa-rebel:before {
     content: "\f1d0" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:503 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:503 */
 .fa-ge:before,
 .fa-empire:before {
     content: "\f1d1" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:505 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:505 */
 .fa-git-square:before {
     content: "\f1d2" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:506 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:506 */
 .fa-git:before {
     content: "\f1d3" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:507 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:507 */
 .fa-y-combinator-square:before,
 .fa-yc-square:before,
 .fa-hacker-news:before {
     content: "\f1d4" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:510 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:510 */
 .fa-tencent-weibo:before {
     content: "\f1d5" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:511 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:511 */
 .fa-qq:before {
     content: "\f1d6" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:512 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:512 */
 .fa-wechat:before,
 .fa-weixin:before {
     content: "\f1d7" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:514 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:514 */
 .fa-send:before,
 .fa-paper-plane:before {
     content: "\f1d8" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:516 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:516 */
 .fa-send-o:before,
 .fa-paper-plane-o:before {
     content: "\f1d9" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:518 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:518 */
 .fa-history:before {
     content: "\f1da" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:519 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:519 */
 .fa-circle-thin:before {
     content: "\f1db" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:520 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:520 */
 .fa-header:before {
     content: "\f1dc" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:521 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:521 */
 .fa-paragraph:before {
     content: "\f1dd" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:522 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:522 */
 .fa-sliders:before {
     content: "\f1de" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:523 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:523 */
 .fa-share-alt:before {
     content: "\f1e0" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:524 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:524 */
 .fa-share-alt-square:before {
     content: "\f1e1" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:525 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:525 */
 .fa-bomb:before {
     content: "\f1e2" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:526 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:526 */
 .fa-soccer-ball-o:before,
 .fa-futbol-o:before {
     content: "\f1e3" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:528 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:528 */
 .fa-tty:before {
     content: "\f1e4" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:529 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:529 */
 .fa-binoculars:before {
     content: "\f1e5" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:530 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:530 */
 .fa-plug:before {
     content: "\f1e6" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:531 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:531 */
 .fa-slideshare:before {
     content: "\f1e7" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:532 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:532 */
 .fa-twitch:before {
     content: "\f1e8" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:533 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:533 */
 .fa-yelp:before {
     content: "\f1e9" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:534 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:534 */
 .fa-newspaper-o:before {
     content: "\f1ea" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:535 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:535 */
 .fa-wifi:before {
     content: "\f1eb" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:536 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:536 */
 .fa-calculator:before {
     content: "\f1ec" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:537 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:537 */
 .fa-paypal:before {
     content: "\f1ed" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:538 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:538 */
 .fa-google-wallet:before {
     content: "\f1ee" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:539 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:539 */
 .fa-cc-visa:before {
     content: "\f1f0" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:540 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:540 */
 .fa-cc-mastercard:before {
     content: "\f1f1" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:541 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:541 */
 .fa-cc-discover:before {
     content: "\f1f2" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:542 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:542 */
 .fa-cc-amex:before {
     content: "\f1f3" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:543 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:543 */
 .fa-cc-paypal:before {
     content: "\f1f4" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:544 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:544 */
 .fa-cc-stripe:before {
     content: "\f1f5" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:545 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:545 */
 .fa-bell-slash:before {
     content: "\f1f6" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:546 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:546 */
 .fa-bell-slash-o:before {
     content: "\f1f7" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:547 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:547 */
 .fa-trash:before {
     content: "\f1f8" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:548 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:548 */
 .fa-copyright:before {
     content: "\f1f9" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:549 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:549 */
 .fa-at:before {
     content: "\f1fa" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:550 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:550 */
 .fa-eyedropper:before {
     content: "\f1fb" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:551 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:551 */
 .fa-paint-brush:before {
     content: "\f1fc" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:552 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:552 */
 .fa-birthday-cake:before {
     content: "\f1fd" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:553 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:553 */
 .fa-area-chart:before {
     content: "\f1fe" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:554 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:554 */
 .fa-pie-chart:before {
     content: "\f200" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:555 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:555 */
 .fa-line-chart:before {
     content: "\f201" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:556 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:556 */
 .fa-lastfm:before {
     content: "\f202" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:557 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:557 */
 .fa-lastfm-square:before {
     content: "\f203" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:558 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:558 */
 .fa-toggle-off:before {
     content: "\f204" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:559 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:559 */
 .fa-toggle-on:before {
     content: "\f205" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:560 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:560 */
 .fa-bicycle:before {
     content: "\f206" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:561 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:561 */
 .fa-bus:before {
     content: "\f207" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:562 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:562 */
 .fa-ioxhost:before {
     content: "\f208" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:563 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:563 */
 .fa-angellist:before {
     content: "\f209" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:564 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:564 */
 .fa-cc:before {
     content: "\f20a" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:565 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:565 */
 .fa-shekel:before,
 .fa-sheqel:before,
 .fa-ils:before {
     content: "\f20b" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:568 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:568 */
 .fa-meanpath:before {
     content: "\f20c" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:569 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:569 */
 .fa-buysellads:before {
     content: "\f20d" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:570 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:570 */
 .fa-connectdevelop:before {
     content: "\f20e" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:571 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:571 */
 .fa-dashcube:before {
     content: "\f210" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:572 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:572 */
 .fa-forumbee:before {
     content: "\f211" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:573 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:573 */
 .fa-leanpub:before {
     content: "\f212" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:574 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:574 */
 .fa-sellsy:before {
     content: "\f213" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:575 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:575 */
 .fa-shirtsinbulk:before {
     content: "\f214" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:576 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:576 */
 .fa-simplybuilt:before {
     content: "\f215" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:577 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:577 */
 .fa-skyatlas:before {
     content: "\f216" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:578 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:578 */
 .fa-cart-plus:before {
     content: "\f217" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:579 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:579 */
 .fa-cart-arrow-down:before {
     content: "\f218" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:580 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:580 */
 .fa-diamond:before {
     content: "\f219" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:581 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:581 */
 .fa-ship:before {
     content: "\f21a" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:582 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:582 */
 .fa-user-secret:before {
     content: "\f21b" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:583 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:583 */
 .fa-motorcycle:before {
     content: "\f21c" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:584 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:584 */
 .fa-street-view:before {
     content: "\f21d" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:585 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:585 */
 .fa-heartbeat:before {
     content: "\f21e" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:586 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:586 */
 .fa-venus:before {
     content: "\f221" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:587 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:587 */
 .fa-mars:before {
     content: "\f222" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:588 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:588 */
 .fa-mercury:before {
     content: "\f223" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:589 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:589 */
 .fa-intersex:before,
 .fa-transgender:before {
     content: "\f224" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:591 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:591 */
 .fa-transgender-alt:before {
     content: "\f225" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:592 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:592 */
 .fa-venus-double:before {
     content: "\f226" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:593 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:593 */
 .fa-mars-double:before {
     content: "\f227" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:594 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:594 */
 .fa-venus-mars:before {
     content: "\f228" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:595 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:595 */
 .fa-mars-stroke:before {
     content: "\f229" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:596 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:596 */
 .fa-mars-stroke-v:before {
     content: "\f22a" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:597 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:597 */
 .fa-mars-stroke-h:before {
     content: "\f22b" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:598 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:598 */
 .fa-neuter:before {
     content: "\f22c" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:599 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:599 */
 .fa-genderless:before {
     content: "\f22d" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:600 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:600 */
 .fa-facebook-official:before {
     content: "\f230" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:601 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:601 */
 .fa-pinterest-p:before {
     content: "\f231" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:602 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:602 */
 .fa-whatsapp:before {
     content: "\f232" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:603 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:603 */
 .fa-server:before {
     content: "\f233" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:604 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:604 */
 .fa-user-plus:before {
     content: "\f234" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:605 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:605 */
 .fa-user-times:before {
     content: "\f235" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:606 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:606 */
 .fa-hotel:before,
 .fa-bed:before {
     content: "\f236" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:608 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:608 */
 .fa-viacoin:before {
     content: "\f237" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:609 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:609 */
 .fa-train:before {
     content: "\f238" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:610 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:610 */
 .fa-subway:before {
     content: "\f239" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:611 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:611 */
 .fa-medium:before {
     content: "\f23a" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:612 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:612 */
 .fa-yc:before,
 .fa-y-combinator:before {
     content: "\f23b" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:614 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:614 */
 .fa-optin-monster:before {
     content: "\f23c" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:615 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:615 */
 .fa-opencart:before {
     content: "\f23d" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:616 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:616 */
 .fa-expeditedssl:before {
     content: "\f23e" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:617 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:617 */
 .fa-battery-4:before,
 .fa-battery:before,
 .fa-battery-full:before {
     content: "\f240" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:620 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:620 */
 .fa-battery-3:before,
 .fa-battery-three-quarters:before {
     content: "\f241" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:622 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:622 */
 .fa-battery-2:before,
 .fa-battery-half:before {
     content: "\f242" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:624 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:624 */
 .fa-battery-1:before,
 .fa-battery-quarter:before {
     content: "\f243" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:626 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:626 */
 .fa-battery-0:before,
 .fa-battery-empty:before {
     content: "\f244" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:628 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:628 */
 .fa-mouse-pointer:before {
     content: "\f245" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:629 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:629 */
 .fa-i-cursor:before {
     content: "\f246" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:630 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:630 */
 .fa-object-group:before {
     content: "\f247" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:631 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:631 */
 .fa-object-ungroup:before {
     content: "\f248" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:632 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:632 */
 .fa-sticky-note:before {
     content: "\f249" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:633 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:633 */
 .fa-sticky-note-o:before {
     content: "\f24a" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:634 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:634 */
 .fa-cc-jcb:before {
     content: "\f24b" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:635 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:635 */
 .fa-cc-diners-club:before {
     content: "\f24c" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:636 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:636 */
 .fa-clone:before {
     content: "\f24d" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:637 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:637 */
 .fa-balance-scale:before {
     content: "\f24e" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:638 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:638 */
 .fa-hourglass-o:before {
     content: "\f250" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:639 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:639 */
 .fa-hourglass-1:before,
 .fa-hourglass-start:before {
     content: "\f251" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:641 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:641 */
 .fa-hourglass-2:before,
 .fa-hourglass-half:before {
     content: "\f252" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:643 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:643 */
 .fa-hourglass-3:before,
 .fa-hourglass-end:before {
     content: "\f253" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:645 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:645 */
 .fa-hourglass:before {
     content: "\f254" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:646 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:646 */
 .fa-hand-grab-o:before,
 .fa-hand-rock-o:before {
     content: "\f255" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:648 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:648 */
 .fa-hand-stop-o:before,
 .fa-hand-paper-o:before {
     content: "\f256" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:650 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:650 */
 .fa-hand-scissors-o:before {
     content: "\f257" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:651 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:651 */
 .fa-hand-lizard-o:before {
     content: "\f258" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:652 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:652 */
 .fa-hand-spock-o:before {
     content: "\f259" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:653 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:653 */
 .fa-hand-pointer-o:before {
     content: "\f25a" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:654 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:654 */
 .fa-hand-peace-o:before {
     content: "\f25b" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:655 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:655 */
 .fa-trademark:before {
     content: "\f25c" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:656 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:656 */
 .fa-registered:before {
     content: "\f25d" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:657 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:657 */
 .fa-creative-commons:before {
     content: "\f25e" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:658 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:658 */
 .fa-gg:before {
     content: "\f260" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:659 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:659 */
 .fa-gg-circle:before {
     content: "\f261" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:660 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:660 */
 .fa-tripadvisor:before {
     content: "\f262" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:661 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:661 */
 .fa-odnoklassniki:before {
     content: "\f263" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:662 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:662 */
 .fa-odnoklassniki-square:before {
     content: "\f264" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:663 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:663 */
 .fa-get-pocket:before {
     content: "\f265" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:664 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:664 */
 .fa-wikipedia-w:before {
     content: "\f266" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:665 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:665 */
 .fa-safari:before {
     content: "\f267" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:666 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:666 */
 .fa-chrome:before {
     content: "\f268" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:667 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:667 */
 .fa-firefox:before {
     content: "\f269" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:668 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:668 */
 .fa-opera:before {
     content: "\f26a" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:669 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:669 */
 .fa-internet-explorer:before {
     content: "\f26b" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:670 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:670 */
 .fa-tv:before,
 .fa-television:before {
     content: "\f26c" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:672 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:672 */
 .fa-contao:before {
     content: "\f26d" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:673 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:673 */
 .fa-500px:before {
     content: "\f26e" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:674 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:674 */
 .fa-amazon:before {
     content: "\f270" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:675 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:675 */
 .fa-calendar-plus-o:before {
     content: "\f271" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:676 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:676 */
 .fa-calendar-minus-o:before {
     content: "\f272" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:677 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:677 */
 .fa-calendar-times-o:before {
     content: "\f273" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:678 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:678 */
 .fa-calendar-check-o:before {
     content: "\f274" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:679 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:679 */
 .fa-industry:before {
     content: "\f275" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:680 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:680 */
 .fa-map-pin:before {
     content: "\f276" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:681 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:681 */
 .fa-map-signs:before {
     content: "\f277" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:682 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:682 */
 .fa-map-o:before {
     content: "\f278" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:683 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:683 */
 .fa-map:before {
     content: "\f279" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:684 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:684 */
 .fa-commenting:before {
     content: "\f27a" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:685 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:685 */
 .fa-commenting-o:before {
     content: "\f27b" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:686 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:686 */
 .fa-houzz:before {
     content: "\f27c" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:687 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:687 */
 .fa-vimeo:before {
     content: "\f27d" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:688 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:688 */
 .fa-black-tie:before {
     content: "\f27e" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:689 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:689 */
 .fa-fonticons:before {
     content: "\f280" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:690 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:690 */
 .fa-reddit-alien:before {
     content: "\f281" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:691 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:691 */
 .fa-edge:before {
     content: "\f282" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:692 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:692 */
 .fa-credit-card-alt:before {
     content: "\f283" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:693 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:693 */
 .fa-codiepie:before {
     content: "\f284" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:694 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:694 */
 .fa-modx:before {
     content: "\f285" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:695 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:695 */
 .fa-fort-awesome:before {
     content: "\f286" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:696 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:696 */
 .fa-usb:before {
     content: "\f287" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:697 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:697 */
 .fa-product-hunt:before {
     content: "\f288" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:698 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:698 */
 .fa-mixcloud:before {
     content: "\f289" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:699 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:699 */
 .fa-scribd:before {
     content: "\f28a" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:700 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:700 */
 .fa-pause-circle:before {
     content: "\f28b" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:701 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:701 */
 .fa-pause-circle-o:before {
     content: "\f28c" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:702 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:702 */
 .fa-stop-circle:before {
     content: "\f28d" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:703 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:703 */
 .fa-stop-circle-o:before {
     content: "\f28e" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:704 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:704 */
 .fa-shopping-bag:before {
     content: "\f290" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:705 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:705 */
 .fa-shopping-basket:before {
     content: "\f291" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:706 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:706 */
 .fa-hashtag:before {
     content: "\f292" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:707 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:707 */
 .fa-bluetooth:before {
     content: "\f293" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:708 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:708 */
 .fa-bluetooth-b:before {
     content: "\f294" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:709 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:709 */
 .fa-percent:before {
     content: "\f295" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:710 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:710 */
 .fa-gitlab:before {
     content: "\f296" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:711 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:711 */
 .fa-wpbeginner:before {
     content: "\f297" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:712 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:712 */
 .fa-wpforms:before {
     content: "\f298" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:713 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:713 */
 .fa-envira:before {
     content: "\f299" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:714 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:714 */
 .fa-universal-access:before {
     content: "\f29a" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:715 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:715 */
 .fa-wheelchair-alt:before {
     content: "\f29b" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:716 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:716 */
 .fa-question-circle-o:before {
     content: "\f29c" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:717 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:717 */
 .fa-blind:before {
     content: "\f29d" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:718 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:718 */
 .fa-audio-description:before {
     content: "\f29e" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:719 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:719 */
 .fa-volume-control-phone:before {
     content: "\f2a0" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:720 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:720 */
 .fa-braille:before {
     content: "\f2a1" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:721 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:721 */
 .fa-assistive-listening-systems:before {
     content: "\f2a2" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:722 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:722 */
 .fa-asl-interpreting:before,
 .fa-american-sign-language-interpreting:before {
     content: "\f2a3" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:724 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:724 */
 .fa-deafness:before,
 .fa-hard-of-hearing:before,
 .fa-deaf:before {
     content: "\f2a4" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:727 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:727 */
 .fa-glide:before {
     content: "\f2a5" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:728 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:728 */
 .fa-glide-g:before {
     content: "\f2a6" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:729 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:729 */
 .fa-signing:before,
 .fa-sign-language:before {
     content: "\f2a7" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:731 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:731 */
 .fa-low-vision:before {
     content: "\f2a8" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:732 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:732 */
 .fa-viadeo:before {
     content: "\f2a9" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:733 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:733 */
 .fa-viadeo-square:before {
     content: "\f2aa" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:734 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:734 */
 .fa-snapchat:before {
     content: "\f2ab" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:735 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:735 */
 .fa-snapchat-ghost:before {
     content: "\f2ac" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:736 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:736 */
 .fa-snapchat-square:before {
     content: "\f2ad" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:737 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:737 */
 .fa-pied-piper:before {
     content: "\f2ae" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:738 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:738 */
 .fa-first-order:before {
     content: "\f2b0" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:739 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:739 */
 .fa-yoast:before {
     content: "\f2b1" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:740 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:740 */
 .fa-themeisle:before {
     content: "\f2b2" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:741 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:741 */
 .fa-google-plus-circle:before,
 .fa-google-plus-official:before {
     content: "\f2b3" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:743 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:743 */
 .fa-fa:before,
 .fa-font-awesome:before {
     content: "\f2b4" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:745 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:745 */
 .fa-handshake-o:before {
     content: "\f2b5" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:746 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:746 */
 .fa-envelope-open:before {
     content: "\f2b6" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:747 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:747 */
 .fa-envelope-open-o:before {
     content: "\f2b7" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:748 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:748 */
 .fa-linode:before {
     content: "\f2b8" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:749 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:749 */
 .fa-address-book:before {
     content: "\f2b9" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:750 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:750 */
 .fa-address-book-o:before {
     content: "\f2ba" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:751 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:751 */
 .fa-vcard:before,
 .fa-address-card:before {
     content: "\f2bb" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:753 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:753 */
 .fa-vcard-o:before,
 .fa-address-card-o:before {
     content: "\f2bc" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:755 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:755 */
 .fa-user-circle:before {
     content: "\f2bd" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:756 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:756 */
 .fa-user-circle-o:before {
     content: "\f2be" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:757 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:757 */
 .fa-user-o:before {
     content: "\f2c0" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:758 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:758 */
 .fa-id-badge:before {
     content: "\f2c1" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:759 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:759 */
 .fa-drivers-license:before,
 .fa-id-card:before {
     content: "\f2c2" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:761 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:761 */
 .fa-drivers-license-o:before,
 .fa-id-card-o:before {
     content: "\f2c3" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:763 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:763 */
 .fa-quora:before {
     content: "\f2c4" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:764 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:764 */
 .fa-free-code-camp:before {
     content: "\f2c5" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:765 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:765 */
 .fa-telegram:before {
     content: "\f2c6" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:766 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:766 */
 .fa-thermometer-4:before,
 .fa-thermometer:before,
 .fa-thermometer-full:before {
     content: "\f2c7" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:769 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:769 */
 .fa-thermometer-3:before,
 .fa-thermometer-three-quarters:before {
     content: "\f2c8" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:771 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:771 */
 .fa-thermometer-2:before,
 .fa-thermometer-half:before {
     content: "\f2c9" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:773 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:773 */
 .fa-thermometer-1:before,
 .fa-thermometer-quarter:before {
     content: "\f2ca" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:775 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:775 */
 .fa-thermometer-0:before,
 .fa-thermometer-empty:before {
     content: "\f2cb" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:777 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:777 */
 .fa-shower:before {
     content: "\f2cc" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:778 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:778 */
 .fa-bathtub:before,
 .fa-s15:before,
 .fa-bath:before {
     content: "\f2cd" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:781 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:781 */
 .fa-podcast:before {
     content: "\f2ce" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:782 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:782 */
 .fa-window-maximize:before {
     content: "\f2d0" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:783 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:783 */
 .fa-window-minimize:before {
     content: "\f2d1" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:784 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:784 */
 .fa-window-restore:before {
     content: "\f2d2" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:785 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:785 */
 .fa-times-rectangle:before,
 .fa-window-close:before {
     content: "\f2d3" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:787 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:787 */
 .fa-times-rectangle-o:before,
 .fa-window-close-o:before {
     content: "\f2d4" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:789 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:789 */
 .fa-bandcamp:before {
     content: "\f2d5" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:790 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:790 */
 .fa-grav:before {
     content: "\f2d6" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:791 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:791 */
 .fa-etsy:before {
     content: "\f2d7" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:792 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:792 */
 .fa-imdb:before {
     content: "\f2d8" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:793 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:793 */
 .fa-ravelry:before {
     content: "\f2d9" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:794 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:794 */
 .fa-eercast:before {
     content: "\f2da" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:795 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:795 */
 .fa-microchip:before {
     content: "\f2db" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:796 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:796 */
 .fa-snowflake-o:before {
     content: "\f2dc" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:797 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:797 */
 .fa-superpowers:before {
     content: "\f2dd" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:798 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:798 */
 .fa-wpexplorer:before {
     content: "\f2de" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:799 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:799 */
 .fa-meetup:before {
     content: "\f2e0" !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/src/all.scss:20 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/src/all.scss:20 */
 .x-fa:before {
     font-family: FontAwesome !important;
 }

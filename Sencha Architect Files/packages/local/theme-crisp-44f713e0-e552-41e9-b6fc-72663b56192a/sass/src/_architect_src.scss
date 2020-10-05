@@ -3,6 +3,10 @@ $mediumFont: 24px;
 $largeFont: 36px;
 $xlFont:40px;
 
+body {
+    font-family: Arial, sans-serif;
+}
+
 .largeTxt .x-btn-inner-default-small,
 .largeTxt .x-btn-icon-el-default-small {
     font-size: $mediumFont !important;
@@ -28,24 +32,53 @@ $xlFont:40px;
 .x-title-text {
     overflow:visible !important;
 }
+
 #logo {
-    background: transparent url(FinalPAGAF2020-01.png) no-repeat fixed 159px 11px;
-    position: absolute;
+    color: rgb(0, 77, 28);
+    background: url(/pagaf-auth-logo.png) no-repeat right;
+    background-size: auto 100%;
+    padding: 50px 130px 0 0;
+    margin-top: 10px
+    left: 160px;
+    font-size: 0;
     display: block;
-    width: 637px;
-    height: 123px;
-    top: 10px;
-    left: 120px;
-    background-size: 31%;
+    position: absolute;
+    width: 560px;
 }
+#logo .precision {
+    font-size: 64px;
+}
+#logo .ag {
+    display: inline-block;
+    font-size: 100px;
+    font-weight: 900;
+    letter-spacing: -5px;
+    vertical-align: bottom;
+    transform-origin: left;
+    transform: translateY(-6px) translateX(-4px) scaleX(1.2);
+}
+#logo .for-farmers {
+    font-size: 26px;
+}
+#logo .demo {
+    display: inline-block;
+    font-size: 16px;
+    transform: translateY(20px) translateX(8px);
+}
+#logo .demo a {
+    text-decoration: dotted underline;
+    color: rgb(0, 77, 28);
+}
+
+
 #header {
-    background: transparent url(headerShort.jpeg) no-repeat fixed top left;
+    background: transparent url(headerShort.jpeg) no-repeat top left;
     display: block;
     float: left;
     position: relative;
     width: 100%;
     height: 100%;
-    background-size: 100%;
+    background-size: 100% 100%;
 }
 #footer {
     display:block;
