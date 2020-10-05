@@ -390,6 +390,10 @@ textarea, input { outline: none; }
 }
 .loginHeader {
     display:block;
+    margin-bottom: 0;
+}
+.loginHeader + p {
+    margin-top: 0;
 }
 .loginButton {
     display: inline-block;
@@ -405,6 +409,13 @@ textarea, input { outline: none; }
     border-radius: 5px;
     background-color: #333232;
     box-shadow: 0px 3px 15px rgba(0,0,0,0.2);
+}
+
+footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
 }
 
 .track,
