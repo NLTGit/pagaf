@@ -3,3 +3,6 @@ bootstrap.*
 classic.json*
 modern.json*
 .sencha
+/.architect
+/.arch-internal-preview.css
+/build.settings
