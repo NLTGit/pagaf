@@ -13728,158 +13728,64 @@ a.x-monthpicker-yearnav-button:hover {
 .x-resizable-pinned .x-resizable-handle-southwest {
     background-position: 2px -2px;
 }
-/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/Component.scss:8 */
-@font-face {
-    font-family: 'Open Sans';
-    src: local("OpenSans-Light");
-    src: url('fonts/OpenSans-Light.ttf');
-    font-weight: 300;
-    font-style: normal;
-}
-/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/Component.scss:16 */
-@font-face {
-    font-family: 'Open Sans';
-    src: local("OpenSans-LightItalic");
-    src: url('fonts/OpenSans-LightItalic.ttf');
-    font-weight: 300;
-    font-style: italic;
-}
-/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/Component.scss:24 */
-@font-face {
-    font-family: 'Open Sans';
-    src: local("OpenSans-Regular");
-    src: url('fonts/OpenSans-Regular.ttf');
-    font-weight: 400;
-    font-style: normal;
-}
-/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/Component.scss:32 */
-@font-face {
-    font-family: 'Open Sans';
-    src: local("OpenSans-Italic");
-    src: url('fonts/OpenSans-Italic.ttf');
-    font-weight: 400;
-    font-style: italic;
-}
-/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/Component.scss:40 */
-@font-face {
-    font-family: 'Open Sans';
-    src: local("OpenSans-Semibold");
-    src: url('fonts/OpenSans-Semibold.ttf');
-    font-weight: 600;
-    font-style: normal;
-}
-/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/Component.scss:48 */
-@font-face {
-    font-family: 'Open Sans';
-    src: local("OpenSans-SemiboldItalic");
-    src: url('fonts/OpenSans-SemiboldItalic.ttf');
-    font-weight: 600;
-    font-style: italic;
-}
-/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/Component.scss:56 */
-@font-face {
-    font-family: 'Open Sans';
-    src: local("OpenSans-Bold");
-    src: url('fonts/OpenSans-Bold.ttf');
-    font-weight: 700;
-    font-style: normal;
-}
-/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/Component.scss:64 */
-@font-face {
-    font-family: 'Open Sans';
-    src: local("OpenSans-BoldItalic");
-    src: url('fonts/OpenSans-BoldItalic.ttf');
-    font-weight: 700;
-    font-style: italic;
-}
-/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/Component.scss:72 */
-@font-face {
-    font-family: 'Open Sans';
-    src: local("OpenSans-ExtraBold");
-    src: url('fonts/OpenSans-ExtraBold.ttf');
-    font-weight: 800;
-    font-style: normal;
-}
-/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/Component.scss:80 */
-@font-face {
-    font-family: 'Open Sans';
-    src: local("OpenSans-ExtraBoldItalic");
-    src: url('fonts/OpenSans-ExtraBoldItalic.ttf');
-    font-weight: 800;
-    font-style: italic;
-}
-/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/Component.scss:89 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/Component.scss:6 */
 .largeTxt .x-btn-inner-default-small,
 .largeTxt .x-btn-icon-el-default-small {
     font-size: 24px !important;
     line-height: 36px !important;
 }
-/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/Component.scss:94 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/Component.scss:11 */
 .largeTxt {
     font-size: 36px !important;
 }
-/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/Component.scss:98 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/Component.scss:15 */
 .XLText {
     font-size: 40px !important;
 }
-/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/Component.scss:102 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/Component.scss:19 */
 .mediumText {
     font-size: 24px;
 }
-/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/Component.scss:105 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/Component.scss:22 */
 #inSeasonNMgmt .x-panel-header-title-default {
     font-size: 24px !important;
 }
-/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/Component.scss:108 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/Component.scss:25 */
 #inSeasonNMgmt .x-accordion-item .x-accordion-hd {
     padding: 20px 30px !important;
 }
-/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/Component.scss:111 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/Component.scss:28 */
 .x-title-text {
     overflow: visible !important;
 }
-/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/Component.scss:115 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/Component.scss:31 */
 #logo {
-    color: #004d1c;
-    background: url(/pagaf-auth-logo.png) no-repeat right;
-    background-size: auto 100%;
-    padding: 50px 130px 0 0;
-    left: 160px;
-    font-size: 0;
-    display: block;
+    background: transparent url(FinalPAGAF2020-01.png) no-repeat fixed 159px 11px;
     position: absolute;
-    width: 560px;
+    display: block;
+    width: 637px;
+    height: 123px;
+    top: 10px;
+    left: 120px;
+    background-size: 31%;
 }
-/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/Component.scss:126 */
-#logo .precision {
-    font-size: 64px;
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/Component.scss:41 */
+#logo h1 {
+    position: fixed;
+    left: -99999px;
 }
-/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/Component.scss:129 */
-#logo .ag {
-    display: inline-block;
-    font-size: 100px;
-    font-weight: 900;
-    letter-spacing: -5px;
-    vertical-align: bottom;
-    transform-origin: left;
-    transform: translateY(-6px) translateX(-4px) scaleX(1.2);
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/Component.scss:45 */
+#header .demo {
+    color: #004d1c;
+    position: absolute;
+    top: 110px;
+    left: 382px;
 }
-/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/Component.scss:138 */
-#logo .for-farmers {
-    font-size: 26px;
-}
-/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/Component.scss:141 */
-#logo .demo {
-    display: inline-block;
-    font-size: 16px;
-    transform: translateY(20px) translateX(8px);
-}
-/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/Component.scss:146 */
-#logo .demo a {
-    text-decoration: dotted underline;
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/Component.scss:51 */
+#header .demo a {
     color: #004d1c;
 }
-/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/Component.scss:152 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/Component.scss:54 */
 #header {
     background: transparent url(headerShort.jpeg) no-repeat fixed top left;
     display: block;
@@ -13889,7 +13795,7 @@ a.x-monthpicker-yearnav-button:hover {
     height: 100%;
     background-size: 100%;
 }
-/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/Component.scss:161 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/Component.scss:63 */
 #footer {
     display: block;
     float: left;
@@ -13897,7 +13803,7 @@ a.x-monthpicker-yearnav-button:hover {
     height: 100%;
     width: 100%;
 }
-/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/Component.scss:169 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/Component.scss:71 */
 #footerimg {
     background: transparent url(footer.jpeg) no-repeat top left;
     display: block;
@@ -13907,14 +13813,14 @@ a.x-monthpicker-yearnav-button:hover {
     height: 100%;
     background-size: 100%;
 }
-/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/Component.scss:178 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/Component.scss:80 */
 #tag {
     width: 100%;
     margin-left: auto;
     margin-right: auto;
     text-align: center;
 }
-/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/Component.scss:184 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/Component.scss:86 */
 #topright {
     display: block;
     position: relative;
@@ -13922,163 +13828,69 @@ a.x-monthpicker-yearnav-button:hover {
     top: 20px;
     right: 20px;
 }
-/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/Component.scss:197 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/Component.scss:99 */
 #bar2,
 #webglContainer {
     visibility: hidden !important;
 }
-/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/_architect_src.scss:8 */
-@font-face {
-    font-family: 'Open Sans';
-    src: local("OpenSans-Light");
-    src: url('fonts/OpenSans-Light.ttf');
-    font-weight: 300;
-    font-style: normal;
-}
-/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/_architect_src.scss:16 */
-@font-face {
-    font-family: 'Open Sans';
-    src: local("OpenSans-LightItalic");
-    src: url('fonts/OpenSans-LightItalic.ttf');
-    font-weight: 300;
-    font-style: italic;
-}
-/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/_architect_src.scss:24 */
-@font-face {
-    font-family: 'Open Sans';
-    src: local("OpenSans-Regular");
-    src: url('fonts/OpenSans-Regular.ttf');
-    font-weight: 400;
-    font-style: normal;
-}
-/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/_architect_src.scss:32 */
-@font-face {
-    font-family: 'Open Sans';
-    src: local("OpenSans-Italic");
-    src: url('fonts/OpenSans-Italic.ttf');
-    font-weight: 400;
-    font-style: italic;
-}
-/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/_architect_src.scss:40 */
-@font-face {
-    font-family: 'Open Sans';
-    src: local("OpenSans-Semibold");
-    src: url('fonts/OpenSans-Semibold.ttf');
-    font-weight: 600;
-    font-style: normal;
-}
-/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/_architect_src.scss:48 */
-@font-face {
-    font-family: 'Open Sans';
-    src: local("OpenSans-SemiboldItalic");
-    src: url('fonts/OpenSans-SemiboldItalic.ttf');
-    font-weight: 600;
-    font-style: italic;
-}
-/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/_architect_src.scss:56 */
-@font-face {
-    font-family: 'Open Sans';
-    src: local("OpenSans-Bold");
-    src: url('fonts/OpenSans-Bold.ttf');
-    font-weight: 700;
-    font-style: normal;
-}
-/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/_architect_src.scss:64 */
-@font-face {
-    font-family: 'Open Sans';
-    src: local("OpenSans-BoldItalic");
-    src: url('fonts/OpenSans-BoldItalic.ttf');
-    font-weight: 700;
-    font-style: italic;
-}
-/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/_architect_src.scss:72 */
-@font-face {
-    font-family: 'Open Sans';
-    src: local("OpenSans-ExtraBold");
-    src: url('fonts/OpenSans-ExtraBold.ttf');
-    font-weight: 800;
-    font-style: normal;
-}
-/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/_architect_src.scss:80 */
-@font-face {
-    font-family: 'Open Sans';
-    src: local("OpenSans-ExtraBoldItalic");
-    src: url('fonts/OpenSans-ExtraBoldItalic.ttf');
-    font-weight: 800;
-    font-style: italic;
-}
-/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/_architect_src.scss:89 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/_architect_src.scss:6 */
 .largeTxt .x-btn-inner-default-small,
 .largeTxt .x-btn-icon-el-default-small {
     font-size: 24px !important;
     line-height: 36px !important;
 }
-/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/_architect_src.scss:94 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/_architect_src.scss:11 */
 .largeTxt {
     font-size: 36px !important;
 }
-/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/_architect_src.scss:98 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/_architect_src.scss:15 */
 .XLText {
     font-size: 40px !important;
 }
-/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/_architect_src.scss:102 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/_architect_src.scss:19 */
 .mediumText {
     font-size: 24px;
 }
-/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/_architect_src.scss:105 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/_architect_src.scss:22 */
 #inSeasonNMgmt .x-panel-header-title-default {
     font-size: 24px !important;
 }
-/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/_architect_src.scss:108 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/_architect_src.scss:25 */
 #inSeasonNMgmt .x-accordion-item .x-accordion-hd {
     padding: 20px 30px !important;
 }
-/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/_architect_src.scss:111 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/_architect_src.scss:28 */
 .x-title-text {
     overflow: visible !important;
 }
-/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/_architect_src.scss:115 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/_architect_src.scss:31 */
 #logo {
-    color: #004d1c;
-    background: url(/pagaf-auth-logo.png) no-repeat right;
-    background-size: auto 100%;
-    padding: 50px 130px 0 0;
-    left: 160px;
-    font-size: 0;
-    display: block;
+    background: transparent url(FinalPAGAF2020-01.png) no-repeat fixed 159px 11px;
     position: absolute;
-    width: 560px;
+    display: block;
+    width: 637px;
+    height: 123px;
+    top: 10px;
+    left: 120px;
+    background-size: 31%;
 }
-/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/_architect_src.scss:126 */
-#logo .precision {
-    font-size: 64px;
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/_architect_src.scss:41 */
+#logo h1 {
+    position: fixed;
+    left: -99999px;
 }
-/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/_architect_src.scss:129 */
-#logo .ag {
-    display: inline-block;
-    font-size: 100px;
-    font-weight: 900;
-    letter-spacing: -5px;
-    vertical-align: bottom;
-    transform-origin: left;
-    transform: translateY(-6px) translateX(-4px) scaleX(1.2);
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/_architect_src.scss:45 */
+#header .demo {
+    color: #004d1c;
+    position: absolute;
+    top: 110px;
+    left: 382px;
 }
-/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/_architect_src.scss:138 */
-#logo .for-farmers {
-    font-size: 26px;
-}
-/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/_architect_src.scss:141 */
-#logo .demo {
-    display: inline-block;
-    font-size: 16px;
-    transform: translateY(20px) translateX(8px);
-}
-/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/_architect_src.scss:146 */
-#logo .demo a {
-    text-decoration: dotted underline;
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/_architect_src.scss:51 */
+#header .demo a {
     color: #004d1c;
 }
-/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/_architect_src.scss:152 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/_architect_src.scss:54 */
 #header {
     background: transparent url(headerShort.jpeg) no-repeat fixed top left;
     display: block;
@@ -14088,7 +13900,7 @@ a.x-monthpicker-yearnav-button:hover {
     height: 100%;
     background-size: 100%;
 }
-/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/_architect_src.scss:161 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/_architect_src.scss:63 */
 #footer {
     display: block;
     float: left;
@@ -14096,7 +13908,7 @@ a.x-monthpicker-yearnav-button:hover {
     height: 100%;
     width: 100%;
 }
-/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/_architect_src.scss:169 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/_architect_src.scss:71 */
 #footerimg {
     background: transparent url(footer.jpeg) no-repeat top left;
     display: block;
@@ -14106,14 +13918,14 @@ a.x-monthpicker-yearnav-button:hover {
     height: 100%;
     background-size: 100%;
 }
-/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/_architect_src.scss:178 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/_architect_src.scss:80 */
 #tag {
     width: 100%;
     margin-left: auto;
     margin-right: auto;
     text-align: center;
 }
-/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/_architect_src.scss:184 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/_architect_src.scss:86 */
 #topright {
     display: block;
     position: relative;
@@ -14121,7 +13933,7 @@ a.x-monthpicker-yearnav-button:hover {
     top: 20px;
     right: 20px;
 }
-/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/_architect_src.scss:197 */
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/_architect_src.scss:99 */
 #bar2,
 #webglContainer {
     visibility: hidden !important;
@@ -15108,4 +14920,82 @@ a.x-monthpicker-yearnav-button:hover {
 /* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:220 */
 .fa-pinterest:before {
     content: "\f0d2" !important;
+}
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:221 */
+.fa-pinterest-square:before {
+    content: "\f0d3" !important;
+}
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:222 */
+.fa-google-plus-square:before {
+    content: "\f0d4" !important;
+}
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:223 */
+.fa-google-plus:before {
+    content: "\f0d5" !important;
+}
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:224 */
+.fa-money:before {
+    content: "\f0d6" !important;
+}
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:225 */
+.fa-caret-down:before {
+    content: "\f0d7" !important;
+}
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:226 */
+.fa-caret-up:before {
+    content: "\f0d8" !important;
+}
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:227 */
+.fa-caret-left:before {
+    content: "\f0d9" !important;
+}
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:228 */
+.fa-caret-right:before {
+    content: "\f0da" !important;
+}
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:229 */
+.fa-columns:before {
+    content: "\f0db" !important;
+}
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:230 */
+.fa-unsorted:before,
+.fa-sort:before {
+    content: "\f0dc" !important;
+}
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:232 */
+.fa-sort-down:before,
+.fa-sort-desc:before {
+    content: "\f0dd" !important;
+}
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:234 */
+.fa-sort-up:before,
+.fa-sort-asc:before {
+    content: "\f0de" !important;
+}
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:236 */
+.fa-envelope:before {
+    content: "\f0e0" !important;
+}
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:237 */
+.fa-linkedin:before {
+    content: "\f0e1" !important;
+}
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:238 */
+.fa-rotate-left:before,
+.fa-undo:before {
+    content: "\f0e2" !important;
+}
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:240 */
+.fa-legal:before,
+.fa-gavel:before {
+    content: "\f0e3" !important;
+}
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:242 */
+.fa-dashboard:before,
+.fa-tachometer:before {
+    content: "\f0e4" !important;
+}
+/* C:/Users/WDAGUtilityAccount/Desktop/pagaf/Sencha Architect Files/ext/packages/font-awesome/sass/etc/_icons.scss:244 */
+.fa-comment-o:before {
+    content: "\f0e5" !important;
 }
