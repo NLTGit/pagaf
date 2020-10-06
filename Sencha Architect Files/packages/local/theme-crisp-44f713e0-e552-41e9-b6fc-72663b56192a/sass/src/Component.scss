@@ -38,6 +38,19 @@ $xlFont:40px;
     left: 120px;
     background-size: 31%;
 }
+#logo h1 {
+    position: fixed;
+    left: -99999px;
+}
+#header .demo {
+    color: rgb(0, 77, 28);
+    position: absolute;
+    top: 110px;
+    left: 382px;
+}
+#header .demo a {
+    color: rgb(0, 77, 28);
+}
 #header {
     background: transparent url(headerShort.jpeg) no-repeat fixed top left;
     display: block;

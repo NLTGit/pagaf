@@ -43,7 +43,7 @@ Ext.define('pagaf.view.appmain', {
                 {
                     xtype: 'container',
                     height: '200px',
-                    html: '<div id="header"> 	<span id="logo"></span> 	<div id="topright"> 		<button id="logout" class="organization">Log Out</button> 		<button id="organization" class="organization"></button> 	</div> </div>',
+                    html: '<div id="header"> <span id="logo"><h1>Precision AG for American Farmers</h1></span><span class="demo">Demo <a href="https://github.com/NLTGit/pagaf/wiki">About</a></span> <div id="topright"> <button id="logout" class="organization">Log Out</button> <button id="organization" class="organization"></button> </div> </div>',
                     maxHeight: 200,
                     minHeight: 200,
                     width: '100%'
