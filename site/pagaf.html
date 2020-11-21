@@ -56,7 +56,7 @@
 			.headImage {
 				height:600px;
 				background-repeat: no-repeat;
-				background-attachment: cover;
+				background-size: cover;
 				background-position: center;
 				font-family: 'Merriweather Sans';
 				font-style: normal;
@@ -65,6 +65,9 @@
 			}
 			.headImageOurStory {
 				background-image: linear-gradient(0deg, rgba(0, 146, 69, 0.3), rgba(0, 146, 69, 0.3)), url('./resources/images/content/ourStoryHeadImage.jpg');
+			}
+			.headImageTechnology {
+				background-image: url('./resources/images/content/technologyHeadImage.jpg');
 			}
 			.tryitnow {
 				height:400px;
@@ -87,8 +90,11 @@
 				font-weight: 100;
 				font-size: 24px;
 				line-height: 30px;
-				top:-45px;
 				font-style: light;
+			}
+			.headImage .tryitnowBtn {
+				left: 52px;
+				margin-top:20px;
 			}
 			.members {
 				margin-bottom:30px;
@@ -134,7 +140,6 @@
 				text-align:center;
 			}
 			.tryitnowBtn {
-				margin: 0 auto;
 				width:100px;
 			}
 			
@@ -188,6 +193,26 @@
 			.contactForm {
 				height:100%;
 			}
+			.stepImage {
+				height:500px;
+				width:720px;
+				left:-15px;
+				display:block;
+				float:left;
+				position:relative;
+				object-fit:cover;
+			}
+			.stepText {
+				height:340px;
+				width:540px;
+				overflow:hidden;
+				margin: 100px 109px 60px 80px;
+			}
+			.bigCallout {
+				margin-top:61px;
+				text-align:center;
+			}
+			
 			.leftPadding {
 				padding-left:40px;
 			}
@@ -205,6 +230,10 @@
 			}
 			.noMargins {
 				margin:0 !important;
+			}
+			.center {
+				margin-left:auto;
+				margin-right:auto;
 			}
 			.ltGreen {
 				color: #009245;
@@ -267,6 +296,9 @@
 			a { /*no underline*/
 				text-decoration:none;
 			}
+			.showOF {
+				overflow:visible;
+			}
 		</style>
 	</head>
 	<body>
@@ -280,14 +312,14 @@
 				<div class="signIn bgGreen">Sign in</div>
 			</div>
 		</div>
-		<div id="story" class="container_8">
+		<div id="story" class="container_8" style="display:none">
 			<div class="headImage headImageOurStory container_8">
 				<div class="grid_5">
 					<p class="space150"></p>
-					<h2>
+					<h2 class="noMargins">
 						Helping farmers <br />become more efficient
 					</h2>
-					<p>
+					<p class="noMargins">
 						We aim to help farmers push back against the high tides <br /> of labour shortage and climate change.
 					</p>
 				</div>
@@ -357,8 +389,64 @@
 			</div>
 			
 		</div>
-		<div id="technology" class="container_8" style="display:none">
-		
+		<div id="technology" class="container_8">
+			<div class="headImage headImageTechnology container_8">
+				<div class="grid_5">
+					<p class="space150"></p>
+					<h2 class="noMargins">
+						Improve your Crop <br />Yield with Precision AG
+					</h2>
+					<p class="noMargins">
+						In three simple steps, you can gurantee a better yield and <br /> meet the demands of your buyers.
+					</p>
+					<div class="tryitnowBtn bgWhite button green clearBoth left">Try it Now</div>
+				</div>
+			</div>
+			<div class="steps container_8">
+				<div class="grid_4 showOF">
+					<img src="./resources/images/content/homePage1.jpg" class="stepImage noMargins" />
+				</div>
+				<div class="grid_4">
+					<div class="stepText">
+						<h5 class="gray">Step 1</h5>
+						<h3 class="ltGreen">Define your field</h3>
+						<p class="gray">
+							Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+						</p>
+					</div>
+				</div>
+			</div>
+			<div class="steps container_8">
+				<div class="grid_4">
+					<div class="stepText">
+						<h5 class="gray">Step 2</h5>
+						<h3 class="ltGreen">Choose your crop</h3>
+						<p class="gray">
+							Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+						</p>
+					</div>
+				</div>
+				<div class="grid_4 showOF">
+					<img src="./resources/images/content/homePage2.jpg" class="stepImage noMargins" />
+				</div>
+			</div>
+			<div class="steps container_8">
+				<div class="grid_4 showOF">
+					<img src="./resources/images/content/homePage3.jpg" class="stepImage noMargins" />
+				</div>
+				<div class="grid_4">
+					<div class="stepText">
+						<h5 class="gray">Step 3</h5>
+						<h3 class="ltGreen">Download your map</h3>
+						<p class="gray">
+							Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+						</p>
+					</div>
+				</div>
+			</div>
+			<div class="bigCallout container_8">
+				<h1 class="green noMargins">Discover PAGAF</h1>
+			</div>
 		</div>
 		<div id="blog" class="container_8" style="display:none">
 		
@@ -372,7 +460,7 @@
 				<h3>Powered by open source technology.<br />
 				Made free for the everyday farmer.</h3>
 			</div>
-			<div class="tryitnowBtn bgWhite button green clearBoth">Try it Now</div>
+			<div class="tryitnowBtn bgWhite button green clearBoth center">Try it Now</div>
 		</div>
 		<div class="footer container_8">
 			<div class="grid_3 leftPadding">
