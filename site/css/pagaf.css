@@ -196,4 +196,70 @@ body {
 .clearfix {
   zoom: 1;
 }
+
+/**
+ * Generated with https://github.com/trungdq88/960-grid-generator
+ * Columns number: 3 column(s)
+ * Column width: 420px
+ * Column space: 60px
+ *
+ * Content width: 1380px
+ * Full width: 1440px
+ */
+ 
+ .container_3 {
+  margin-left: auto;
+  margin-right: auto;
+  width: 1440px;
+  overflow: hidden;
+}
+.grid_3c1,
+.grid_3c2,
+.grid_3c3
+{
+  display:inline;
+  float: left;
+  position: relative;
+  margin-left: 30px;
+  margin-right: 30px;
+}
+.push_3c1,.pull_3c1,
+.push_3c2,.pull_3c2,
+.pull_3c3,.push_3c3
+{
+  position:relative;
+}
+.container_3 .grid_3c1 {
+  width: 420px
+}
+.container_3 .grid_3c2 {
+  width: 900px
+}
+.container_3 .grid_3c3 {
+  width: 1380px
+}
+.container_3 .prefix_3c1 {
+  padding-left: 480px
+}
+.container_3 .prefix_3c2 {
+  padding-left: 960px
+}
+.container_3 .suffix_3c1 {
+  padding-right: 480px
+}
+.container_3 .suffix_3c2 {
+  padding-right: 960px
+}
+.container_3 .push_3c1 {
+  left: 480px
+}
+.container_3 .push_3c2 {
+  left: 960px
+}
+.container_3 .pull_3c1 {
+  left: -480px
+}
+.container_3 .pull_3c2 {
+  left: -960px
+}
   
