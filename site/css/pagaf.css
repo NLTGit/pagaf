@@ -1,4 +1,298 @@
+div {
+	display:block;
+	position:relative;
+}
+#nav {
+	height:102px;
+}
+.navLink {
+	font-family: 'Merriweather Sans';
+	font-size: 18px;
+	line-height: 23px;
+	text-align: center;
+	float:left;
+	top:40px;
+	margin-left:45px;
+}
+.signIn {
+	border-radius: 6px;
+	color: white;
+	font-family: 'Merriweather Sans';
+	font-style: normal;
+	font-weight: bold;
+	font-size: 18px;
+	line-height: 23px;
+	text-align: center;
+	top:20px;
+	margin-left:60px;
+	padding-top:20px;
+	width:165px;
+	height:40px;
+	float:left;
+}
+.logo {
+	width: 260px;
+	left:52px;
+	top: 15px;
+	float:left;
+	position:relative;
+}
+.headImage {
+	height:600px;
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: center;
+	font-family: 'Merriweather Sans';
+	font-style: normal;
+	color: white;
+	margin-bottom:60px;
+}
+.headImageOurStory {
+	background-image: linear-gradient(0deg, rgba(0, 146, 69, 0.3), rgba(0, 146, 69, 0.3)), url('./resources/images/content/ourStoryHeadImage.jpg');
+}
+.headImageTechnology {
+	background-image: url('./resources/images/content/technologyHeadImage.jpg');
+}
+.tryitnow {
+	height:400px;
+	background-repeat: no-repeat;
+	background-position: 50% 72%;
+	margin-bottom:60px;
+	background-image: url('./resources/images/content/poweredBy.jpg');
+	background-size: cover;
+	margin-top:100px;
+}
+.headImage h2 {
+	position: relative;
+	left: 52px;
+	font-size: 64px;
+	line-height: 80px;
+}
+.headImage p {
+	position: relative;
+	left: 52px;
+	font-weight: 100;
+	font-size: 24px;
+	line-height: 30px;
+	font-style: light;
+}
+.headImage .tryitnowBtn {
+	left: 52px;
+	margin-top:20px;
+}
+.members {
+	margin-bottom:30px;
+}
+.teamImage {
+	width:300px;
+	height:311px;
+	background-color:#C4C4C4;
+	border-radius: 6px;
+}
+.teamName {
+	font-family: 'Merriweather Sans';
+	font-style: normal;
+	font-weight: bold;
+	font-size: 24px;
+	line-height: 30px;
+	clear:both;
+	display:block;
+	position:relative;
+}
+.teamRole {
+	font-family: 'Merriweather Sans';
+	font-style: normal;
+	font-weight: 300;
+	font-size: 16px;
+	line-height: 20px;
+	clear:both;
+	display:block;
+	position:relative;
+}
+.button {
+	padding:10px 30px;
+	text-align:center;
+	border-radius: 6px;
+	font-family: 'Merriweather Sans';
+	font-style: normal;
+	font-weight: bold;
+	font-size: 18px;
+	line-height: 40px;
+	height:40px;
+}
+.poweredby {
+	text-align:center;
+}
+.tryitnowBtn {
+	width:100px;
+}
 
+.footer {
+	height: 600px;
+}
+.footerPagaf {
+	margin-top:78px;
+	width:419px;
+}
+.footerTalk {
+	margin-top:45px;
+	margin-bottom:0px;
+}
+.socialMedia, .socialMediaNext {
+	float:left;
+	display:block;
+	position:relative;
+	width:35px;
+	height:35px;
+	margin-top: 56px;
+}
+.socialMediaNext {
+	margin-left:25px;
+}
+.footerMenu {
+	margin-top:141px;
+}
+.footerSubMenu {
+	margin-top:20px;
+	display:block;
+	position:relative;
+	float:left;
+	clear:both;
+}
+.poweredByFooter {
+	text-align:center;
+	width:100%;
+	display:block;
+}
+.poweredByFooterNLT {
+	width: 294px;
+	position:relative;
+	display:block;
+	margin:0px auto;
+}
+.contactUs {
+	margin-top:75px;
+	height:750px;
+}
+.contactForm {
+	height:100%;
+}
+.stepImage {
+	height:500px;
+	width:720px;
+	left:-15px;
+	display:block;
+	float:left;
+	position:relative;
+	object-fit:cover;
+}
+.stepText {
+	height:340px;
+	width:540px;
+	overflow:hidden;
+	margin: 100px 109px 60px 80px;
+}
+.bigCallout {
+	margin-top:61px;
+	text-align:left;
+}
+.discoverPagafBlock, .bigCallout {
+	height:700px;
+}
+.blogCallouts {
+	margin-top:100px;
+	margin-bottom:100px;
+}
+
+.leftPadding {
+	padding-left:40px;
+}
+.space100 {
+	height:100px !important;
+}
+.space150 {
+	height:150px !important;
+}
+.space250 {
+	height:250px !important;
+}
+.space350 {
+	height:350px !important;
+}
+.noMargins {
+	margin:0 !important;
+}
+.centerFont {
+	text-align:center;
+}
+.center {
+	margin-left:auto;
+	margin-right:auto;
+}
+.ltGreen {
+	color: #009245;
+}
+.bgLtGreen {
+	background: #009245;
+}
+.green {
+	color: #006837;
+}
+.bgGreen {
+	background-color: #006837;
+}
+.gray {
+	color: #777777;
+}
+.bgGray {
+	background-color: #C4C4C4;
+}
+.white {
+	color:white;
+}
+.bgWhite {
+	background-color: white;
+}
+h1,h2,h3,h4,h5 {
+	font-family: 'Merriweather Sans';
+	font-style: normal;
+	font-weight: bold;
+}
+h1 {
+	font-size: 64px;
+	line-height: 80px;
+}
+h2 {
+	font-size: 48px;
+	line-height: 60px;
+}
+h3 {
+	font-size: 36px;
+	line-height: 45px;
+}
+h4 {
+	font-size: 21px;
+	line-height: 33px;
+}
+h4 {
+	font-size: 18px;
+	line-height: 30px;
+}
+.left {
+	float:left;
+}
+.right {
+	float:right;
+}
+.clearBoth {
+	clear:both;
+}
+a { /*no underline*/
+	text-decoration:none;
+}
+.showOF {
+	overflow:visible;
+}
 /**
  * Generated with https://github.com/trungdq88/960-grid-generator
  * Columns number: 8 column(s)
