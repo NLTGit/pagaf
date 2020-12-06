@@ -314,6 +314,13 @@
 		<script>
 			function show(passed){
 				var ids = ['home','technology','story','blog','support'];
+				if(typeof(passed) == 'undefined') {
+					var t = window.location.href.split('#');
+					console.log('t = '); console.log(t);
+					passed = (t.length > 1 ? (t[1]).toLowerCase() : 'home');
+				}
+				if(ids.indexOf(passed) == -1)
+					passed = 'home';
 				for(var i in ids){
 					if(ids[i] != passed)
 						try{ document.getElementById(ids[i]).style.display = 'none'; }catch(err){}
@@ -322,14 +329,14 @@
 			}
 		</script>
 	</head>
-	<body>
+	<body onload="show()">
 		<div id="nav" class="container_8">
 			<div class="grid_4"><a href="#" onclick="show('home');"><img src="./resources/images/logos/FinalPAGAF2020-01.png" class="logo" /></a></div>
 			<div class="grid_4">
-				<div class="navLink green"><a href="#" onclick="show('technology');" class="green" >Technology</a></div>
-				<div class="navLink green"><a href="#" onclick="show('story');" class="green" >Our Story</a></div>
-				<div class="navLink green"><a href="#" onclick="show('blog');" class="green" >Blog</a></div>
-				<div class="navLink green"><a href="#" onclick="show('support');" class="green" >Support</a></div>
+				<div class="navLink green"><a href="#Technology" onclick="show('technology');" class="green" >Technology</a></div>
+				<div class="navLink green"><a href="#Story" onclick="show('story');" class="green" >Our Story</a></div>
+				<div class="navLink green"><a href="#Blog" onclick="show('blog');" class="green" >Blog</a></div>
+				<div class="navLink green"><a href="#Support" onclick="show('support');" class="green" >Support</a></div>
 				<div class="signIn bgGreen"><a href="login.html" class="white">Sign in</a></div>
 			</div>
 		</div>
