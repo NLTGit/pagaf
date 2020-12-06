@@ -1,3 +1,21 @@
+/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:232 */
+.fa-sort-down:before,
+.fa-sort-desc:before {
+    content: "\f0dd" !important;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:234 */
+.fa-sort-up:before,
+.fa-sort-asc:before {
+    content: "\f0de" !important;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:236 */
+.fa-envelope:before {
+    content: "\f0e0" !important;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:237 */
+.fa-linkedin:before {
+    content: "\f0e1" !important;
+}
 /* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:238 */
 .fa-rotate-left:before,
 .fa-undo:before {

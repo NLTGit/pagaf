@@ -13732,41 +13732,52 @@ a.x-monthpicker-yearnav-button:hover {
 .height100p {
     height: 100%;
 }
-/* C:/Users/burton.rosenberger/pagaf/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/Component.scss:8 */
+/* C:/Users/burton.rosenberger/pagaf/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/Component.scss:4 */
+.right {
+    float: right;
+    clear: both;
+    position: relative !important;
+    display: block;
+}
+/* C:/Users/burton.rosenberger/pagaf/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/Component.scss:10 */
+.mapboxgl-control-container {
+    top: 100%;
+}
+/* C:/Users/burton.rosenberger/pagaf/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/Component.scss:17 */
 .green {
     color: #006837;
 }
-/* C:/Users/burton.rosenberger/pagaf/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/Component.scss:11 */
+/* C:/Users/burton.rosenberger/pagaf/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/Component.scss:20 */
 .largeTxt .x-btn-inner-default-small,
 .largeTxt .x-btn-icon-el-default-small {
     font-size: 24px !important;
     line-height: 36px !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/Component.scss:16 */
+/* C:/Users/burton.rosenberger/pagaf/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/Component.scss:25 */
 .largeTxt {
     font-size: 36px !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/Component.scss:20 */
+/* C:/Users/burton.rosenberger/pagaf/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/Component.scss:29 */
 .XLText {
     font-size: 40px !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/Component.scss:24 */
+/* C:/Users/burton.rosenberger/pagaf/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/Component.scss:33 */
 .mediumText {
     font-size: 24px;
 }
-/* C:/Users/burton.rosenberger/pagaf/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/Component.scss:27 */
+/* C:/Users/burton.rosenberger/pagaf/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/Component.scss:36 */
 #inSeasonNMgmt .x-panel-header-title-default {
     font-size: 24px !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/Component.scss:30 */
+/* C:/Users/burton.rosenberger/pagaf/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/Component.scss:39 */
 #inSeasonNMgmt .x-accordion-item .x-accordion-hd {
     padding: 20px 30px !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/Component.scss:33 */
+/* C:/Users/burton.rosenberger/pagaf/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/Component.scss:42 */
 .x-title-text {
     overflow: visible !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/Component.scss:36 */
+/* C:/Users/burton.rosenberger/pagaf/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/Component.scss:45 */
 #logo {
     position: absolute;
     display: block;
@@ -13775,7 +13786,7 @@ a.x-monthpicker-yearnav-button:hover {
     left: 0px;
     width: 312px;
 }
-/* C:/Users/burton.rosenberger/pagaf/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/Component.scss:44 */
+/* C:/Users/burton.rosenberger/pagaf/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/Component.scss:53 */
 .logo {
     width: 260px;
     left: 52px;
@@ -13783,7 +13794,7 @@ a.x-monthpicker-yearnav-button:hover {
     float: left;
     position: relative;
 }
-/* C:/Users/burton.rosenberger/pagaf/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/Component.scss:51 */
+/* C:/Users/burton.rosenberger/pagaf/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/Component.scss:60 */
 #header {
     display: block;
     float: left;
@@ -13792,7 +13803,7 @@ a.x-monthpicker-yearnav-button:hover {
     height: 100%;
     background-size: 100%;
 }
-/* C:/Users/burton.rosenberger/pagaf/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/Component.scss:59 */
+/* C:/Users/burton.rosenberger/pagaf/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/Component.scss:68 */
 #footer {
     display: block;
     float: left;
@@ -13800,7 +13811,7 @@ a.x-monthpicker-yearnav-button:hover {
     height: 100%;
     width: 100%;
 }
-/* C:/Users/burton.rosenberger/pagaf/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/Component.scss:67 */
+/* C:/Users/burton.rosenberger/pagaf/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/Component.scss:76 */
 #footerimg {
     background: transparent url(footer.jpeg) no-repeat top left;
     display: block;
@@ -13810,18 +13821,18 @@ a.x-monthpicker-yearnav-button:hover {
     height: 100%;
     background-size: 100%;
 }
-/* C:/Users/burton.rosenberger/pagaf/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/Component.scss:76 */
+/* C:/Users/burton.rosenberger/pagaf/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/Component.scss:85 */
 #tag {
     width: 100%;
     margin-left: auto;
     margin-right: auto;
     text-align: center;
 }
-/* C:/Users/burton.rosenberger/pagaf/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/Component.scss:82 */
+/* C:/Users/burton.rosenberger/pagaf/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/Component.scss:91 */
 #menu {
     float: right;
 }
-/* C:/Users/burton.rosenberger/pagaf/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/Component.scss:85 */
+/* C:/Users/burton.rosenberger/pagaf/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/Component.scss:94 */
 #topright {
     display: block;
     position: relative;
@@ -13829,56 +13840,78 @@ a.x-monthpicker-yearnav-button:hover {
     top: 32px;
     width: 300px;
 }
-/* C:/Users/burton.rosenberger/pagaf/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/Component.scss:95 */
+/* C:/Users/burton.rosenberger/pagaf/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/Component.scss:104 */
 #organization,
 #logout {
     background-color: #006837;
     color: white;
 }
-/* C:/Users/burton.rosenberger/pagaf/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/Component.scss:99 */
+/* C:/Users/burton.rosenberger/pagaf/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/Component.scss:108 */
 #bar2,
 #webglContainer {
     visibility: hidden !important;
+    display: none;
+}
+/* C:/Users/burton.rosenberger/pagaf/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/Component.scss:112 */
+#bar3 {
+    position: relative;
+    display: block;
+    margin-left: 10%;
+    width: 172px;
+    height: 40px;
+    text-align: left;
+    line-height: 40px;
 }
 /* C:/Users/burton.rosenberger/pagaf/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/_architect_src.scss:1 */
 .height100p {
     height: 100%;
 }
-/* C:/Users/burton.rosenberger/pagaf/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/_architect_src.scss:8 */
+/* C:/Users/burton.rosenberger/pagaf/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/_architect_src.scss:4 */
+.right {
+    float: right;
+    clear: both;
+    position: relative !important;
+    display: block;
+}
+/* C:/Users/burton.rosenberger/pagaf/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/_architect_src.scss:10 */
+.mapboxgl-control-container {
+    top: 100%;
+}
+/* C:/Users/burton.rosenberger/pagaf/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/_architect_src.scss:17 */
 .green {
     color: #006837;
 }
-/* C:/Users/burton.rosenberger/pagaf/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/_architect_src.scss:11 */
+/* C:/Users/burton.rosenberger/pagaf/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/_architect_src.scss:20 */
 .largeTxt .x-btn-inner-default-small,
 .largeTxt .x-btn-icon-el-default-small {
     font-size: 24px !important;
     line-height: 36px !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/_architect_src.scss:16 */
+/* C:/Users/burton.rosenberger/pagaf/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/_architect_src.scss:25 */
 .largeTxt {
     font-size: 36px !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/_architect_src.scss:20 */
+/* C:/Users/burton.rosenberger/pagaf/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/_architect_src.scss:29 */
 .XLText {
     font-size: 40px !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/_architect_src.scss:24 */
+/* C:/Users/burton.rosenberger/pagaf/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/_architect_src.scss:33 */
 .mediumText {
     font-size: 24px;
 }
-/* C:/Users/burton.rosenberger/pagaf/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/_architect_src.scss:27 */
+/* C:/Users/burton.rosenberger/pagaf/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/_architect_src.scss:36 */
 #inSeasonNMgmt .x-panel-header-title-default {
     font-size: 24px !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/_architect_src.scss:30 */
+/* C:/Users/burton.rosenberger/pagaf/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/_architect_src.scss:39 */
 #inSeasonNMgmt .x-accordion-item .x-accordion-hd {
     padding: 20px 30px !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/_architect_src.scss:33 */
+/* C:/Users/burton.rosenberger/pagaf/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/_architect_src.scss:42 */
 .x-title-text {
     overflow: visible !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/_architect_src.scss:36 */
+/* C:/Users/burton.rosenberger/pagaf/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/_architect_src.scss:45 */
 #logo {
     position: absolute;
     display: block;
@@ -13887,7 +13920,7 @@ a.x-monthpicker-yearnav-button:hover {
     left: 0px;
     width: 312px;
 }
-/* C:/Users/burton.rosenberger/pagaf/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/_architect_src.scss:44 */
+/* C:/Users/burton.rosenberger/pagaf/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/_architect_src.scss:53 */
 .logo {
     width: 260px;
     left: 52px;
@@ -13895,7 +13928,7 @@ a.x-monthpicker-yearnav-button:hover {
     float: left;
     position: relative;
 }
-/* C:/Users/burton.rosenberger/pagaf/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/_architect_src.scss:51 */
+/* C:/Users/burton.rosenberger/pagaf/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/_architect_src.scss:60 */
 #header {
     display: block;
     float: left;
@@ -13904,7 +13937,7 @@ a.x-monthpicker-yearnav-button:hover {
     height: 100%;
     background-size: 100%;
 }
-/* C:/Users/burton.rosenberger/pagaf/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/_architect_src.scss:59 */
+/* C:/Users/burton.rosenberger/pagaf/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/_architect_src.scss:68 */
 #footer {
     display: block;
     float: left;
@@ -13912,7 +13945,7 @@ a.x-monthpicker-yearnav-button:hover {
     height: 100%;
     width: 100%;
 }
-/* C:/Users/burton.rosenberger/pagaf/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/_architect_src.scss:67 */
+/* C:/Users/burton.rosenberger/pagaf/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/_architect_src.scss:76 */
 #footerimg {
     background: transparent url(footer.jpeg) no-repeat top left;
     display: block;
@@ -13922,18 +13955,18 @@ a.x-monthpicker-yearnav-button:hover {
     height: 100%;
     background-size: 100%;
 }
-/* C:/Users/burton.rosenberger/pagaf/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/_architect_src.scss:76 */
+/* C:/Users/burton.rosenberger/pagaf/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/_architect_src.scss:85 */
 #tag {
     width: 100%;
     margin-left: auto;
     margin-right: auto;
     text-align: center;
 }
-/* C:/Users/burton.rosenberger/pagaf/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/_architect_src.scss:82 */
+/* C:/Users/burton.rosenberger/pagaf/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/_architect_src.scss:91 */
 #menu {
     float: right;
 }
-/* C:/Users/burton.rosenberger/pagaf/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/_architect_src.scss:85 */
+/* C:/Users/burton.rosenberger/pagaf/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/_architect_src.scss:94 */
 #topright {
     display: block;
     position: relative;
@@ -13941,16 +13974,27 @@ a.x-monthpicker-yearnav-button:hover {
     top: 32px;
     width: 300px;
 }
-/* C:/Users/burton.rosenberger/pagaf/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/_architect_src.scss:95 */
+/* C:/Users/burton.rosenberger/pagaf/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/_architect_src.scss:104 */
 #organization,
 #logout {
     background-color: #006837;
     color: white;
 }
-/* C:/Users/burton.rosenberger/pagaf/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/_architect_src.scss:99 */
+/* C:/Users/burton.rosenberger/pagaf/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/_architect_src.scss:108 */
 #bar2,
 #webglContainer {
     visibility: hidden !important;
+    display: none;
+}
+/* C:/Users/burton.rosenberger/pagaf/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/_architect_src.scss:112 */
+#bar3 {
+    position: relative;
+    display: block;
+    margin-left: 10%;
+    width: 172px;
+    height: 40px;
+    text-align: left;
+    line-height: 40px;
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_path.scss:5 */
 @font-face {
@@ -14975,22 +15019,4 @@ a.x-monthpicker-yearnav-button:hover {
 .fa-unsorted:before,
 .fa-sort:before {
     content: "\f0dc" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:232 */
-.fa-sort-down:before,
-.fa-sort-desc:before {
-    content: "\f0dd" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:234 */
-.fa-sort-up:before,
-.fa-sort-asc:before {
-    content: "\f0de" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:236 */
-.fa-envelope:before {
-    content: "\f0e0" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:237 */
-.fa-linkedin:before {
-    content: "\f0e1" !important;
 }
