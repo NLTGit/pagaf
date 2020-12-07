@@ -65417,6 +65417,7 @@ Ext.define('pagaf.view.InSeason.N.Management', {extend:Ext.panel.Panel, alias:'w
 height:50, maxWidth:600, minWidth:600, width:600, fieldLabel:'When did you plant?', labelWidth:400, matchFieldWidth:false}, {xtype:'numberfield', height:50, id:'setPreInput', maxWidth:600, minWidth:600, width:600, fieldLabel:'How many kg/ha of nitrogen have you already applied?', labelWidth:400, minValue:0}, {xtype:'container', height:40, maxWidth:600, minWidth:600, width:'600px', layout:{type:'hbox', align:'middle'}, items:[{xtype:'container', flex:1, flex:1}, {xtype:'button', scale:'large', text:'Next', 
 listeners:{click:'onButtonClick'}}]}]}], onButtonClick:function(button, e, eOpts) {
   Ext.getCmp('selectbtn').setText('Download');
+  Ext.getCmp('backtostartbtn').setHidden(false);
   var t = Ext.getCmp('isnm_management');
   t.setDisabled(true);
   t.setVisible(false);
@@ -65449,15 +65450,11 @@ Ext.define('pagaf.view.pagafAppPanel', {extend:Ext.panel.Panel, alias:'widget.pa
   '\t\x3c/div\x3e' + '\x3c/div\x3e');
 }, onPagafapppanelBeforeExpand:function(p, animate, eOpts) {
 }});
-Ext.define('pagaf.view.InSeason.N.Selection', {extend:Ext.panel.Panel, alias:'widget.inseason.n.selection', viewModel:{type:'inseason.n.selection'}, id:'isnm_selection', width:'100%', defaultListenerScope:true, layout:{type:'vbox', pack:'center'}, items:[{xtype:'container', cls:'right', height:40, margin:'', width:'78%', layout:{type:'hbox', align:'stretch'}, items:[{xtype:'button', componentCls:'', id:'selectbtn', scale:'large', text:'Next', listeners:{click:'onButtonClick'}}, {xtype:'container', 
-flex:1, flex:1, width:'10%'}]}, {xtype:'pagafapppanel', height:'700px', maxHeight:700, minHeight:700, width:'100%', margins:'0 auto'}], onButtonClick:function(button, e, eOpts) {
+Ext.define('pagaf.view.InSeason.N.Selection', {extend:Ext.panel.Panel, alias:'widget.inseason.n.selection', viewModel:{type:'inseason.n.selection'}, id:'isnm_selection', width:'100%', defaultListenerScope:true, layout:{type:'vbox', pack:'center'}, items:[{xtype:'container', cls:'right', height:40, margin:'', width:'78%', layout:{type:'hbox', align:'stretch'}, items:[{xtype:'button', componentCls:'', id:'selectbtn', scale:'large', text:'Next', listeners:{click:'onButtonClick'}}, {xtype:'button', componentCls:'', 
+hidden:true, id:'backtostartbtn', margin:'0 0 0 10px', scale:'large', text:'Start Analysis Over', listeners:{click:'onButtonClick1'}}, {xtype:'container', flex:1, flex:1, width:'10%'}]}, {xtype:'pagafapppanel', height:'700px', maxHeight:700, minHeight:700, width:'100%', margins:'0 auto'}], onButtonClick:function(button, e, eOpts) {
   var t = Ext.getCmp('isnm_selection');
   if (t.getTitle().search('3.') > -1) {
-    t.setTitle('1. Select field');
-    Ext.getCmp('mainCardPanel').getLayout().setActiveItem('home');
     window.download();
-    Ext.getCmp('selectbtn').setText('Next');
-    window.loadView('FieldManagement');
   } else {
     window.setPre(0);
     Ext.getCmp('setPreInput').setValue(0);
@@ -65467,6 +65464,15 @@ flex:1, flex:1, width:'10%'}]}, {xtype:'pagafapppanel', height:'700px', maxHeigh
     t.expand();
     t.setDisabled(false);
     t.setVisible(true);
+  }
+}, onButtonClick1:function(button, e, eOpts) {
+  var t = Ext.getCmp('isnm_selection');
+  if (t.getTitle().search('3.') > -1) {
+    t.setTitle('1. Select field');
+    Ext.getCmp('mainCardPanel').getLayout().setActiveItem('home');
+    Ext.getCmp('selectbtn').setText('Next');
+    Ext.getCmp('backtostartbtn').setHidden(true);
+    window.loadView('FieldManagement');
   }
 }});
 Ext.define('pagaf.view.appmainViewModel', {extend:Ext.app.ViewModel, alias:'viewmodel.appmain'});
