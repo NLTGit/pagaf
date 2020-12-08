@@ -31,55 +31,57 @@ Ext.define('pagaf.view.pagafAppPanel', {
     defaultListenerScope: true,
 
     listeners: {
-        afterrender: 'onPagafAfterRender'
+        beforerender: 'onPagafapppanelBeforeRender',
+        beforeexpand: 'onPagafapppanelBeforeExpand'
     },
 
-    onPagafAfterRender: function(component, eOpts) {
+    onPagafapppanelBeforeRender: function(component, eOpts) {
         component.setHtml(
-        '<div id="spinnerContainer" class="spinContainer" aria-busy="true">' +
-        '        <div class="loading-spinner"></div>' +
-        '    </div>' +
-        '    ' +
-        '    <div class="container">' +
-        '        <div id="topBar" class="topBar">' +
-        '            <button id="logout" class="organization">Log Out</button>' +
-        '            <button id="organization" class="organization"></button>' +
-        '        </div><div id="bar2" class="bar2"></div>' +
-        '        <div id="selectedFields" class="fieldBox">' +
-        '        </div>' +
-        '        <div id="mapContainer" class="mapContainer">' +
-        '            <div id="map" class="map">' +
-        '                <div id="drawing" class="drawingContainer">' +
-        '                    <p class="instructions">Draw fields on the map with drawing tools. When done, <button class="continue">continue</button> to model selection.</p>' +
-        '                    <button class="saveButton">Save Polygons</button>' +
-        '                    <button class="editButton">Edit Polygons</button>' +
-        '                </div>' +
-        '                ' +
-        '                <div id="tiles" class="tiles"></div>' +
-        '                <button class="layerButton stepClassed">Layer visibility</button>' +
-        '            </div>' +
-        '        </div>' +
-        '        <div id="modelContainer" class="modelContainer">' +
-        '            <p class="instructionsRel">Click a field outline to adjust model for that field.</p>' +
-        '            <img id="testImage">' +
-        '            <canvas class="hidden" id="testCanvas"></canvas>' +
-        '            <canvas class="hidden" id="clipCanvas"></canvas>' +
-        '            <div id="webglContainer" class="webglContainer hidden">' +
-        '                ' +
-        '                <canvas id="webglCanvas" style="display:inline-block;"></canvas>' +
-        '                <p class="barTitle">Napp ranges from 0 to 250 kg/ha</p>' +
-        '                <canvas id="colorCanvas"></canvas>' +
-        '                <svg id="eonrSlider" class="slider" width="250" height="40"></svg>' +
-        '                <svg id="mSlider" class="slider" width="250" height="40"></svg>' +
-        '                <svg id="sithreshSlider" class="slider" width="250" height="40"></svg>' +
-        '            </div>' +
-        '            ' +
-        '        </div>' +
-        '        ' +
-        '    </div>' +
-        '' +
-        '    <script src="js/auth.js"></script>' +
-        '    <script src="js/farms.js"></script>');
+        '<div id="spinnerContainer" class="spinContainer"  aria-busy="true">' +
+        '	<div class="loading-spinner"></div>' +
+        '</div>' +
+        '<div class="container">' +
+        '	<!--<div id="topBar" class="topBar">' +
+        '		<button id="logout" class="organization">Log Out</button>' +
+        '		<button id="organization" class="organization"></button>' +
+        '	</div>-->' +
+        '	<div id="bar2" class="bar2"></div>' +
+        '	<div id="selectedFields" class="fieldBox">' +
+        '	</div>' +
+        '	<div id="mapContainer" class="mapContainer">' +
+        '		<div id="map" class="map">' +
+        '			<div id="drawing" class="drawingContainer">' +
+        '				<p class="instructions">Draw fields on the map with drawing tools. When done, click the next button.</p>' +
+        '				<button class="saveButton">Save Polygons</button>' +
+        '				<button class="editButton">Edit Polygons</button>' +
+        '			</div>' +
+        '			' +
+        '			<div id="tiles" class="tiles"></div>' +
+        '			<button class="layerButton stepClassed">Layer visibility</button>' +
+        '		</div>' +
+        '	</div>' +
+        '	<div id="modelContainer" class="modelContainer">' +
+        '		<p class="instructionsRel">Click a field outline to adjust model for that field. When done, click the download button.</p>' +
+        '		<div class="sliderContainer"></div>' +
+        '		<div id="mapOutput" class="mapOutput"></div>' +
+        '		<img id="testImage">' +
+        '		<canvas class="hidden" id="testCanvas"></canvas>' +
+        '		<canvas class="hidden" id="clipCanvas"></canvas>' +
+        '		<div id="webglContainer" class="webglContainer hidden">' +
+        '			<canvas id="webglCanvas" style="display:none;"></canvas>' +
+        '			<p class="barTitle">Napp ranges from 0 to 250 kg/ha</p>' +
+        '			<canvas id="colorCanvas"></canvas>' +
+        '			<svg id="eonrSlider" class="slider" width="250" height="40"></svg>' +
+        '			<svg id="mSlider" class="slider" width="250" height="40"></svg>' +
+        '			<svg id="sithreshSlider" class="slider" width="250" height="40"></svg>' +
+        '			<canvas id="webglCanvasEncoded" style="display:inline-block;" class="hidden"></canvas>' +
+        '		</div>' +
+        '	</div>' +
+        '</div>');
+    },
+
+    onPagafapppanelBeforeExpand: function(p, animate, eOpts) {
+
     }
 
 });

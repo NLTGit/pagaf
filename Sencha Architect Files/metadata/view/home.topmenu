@@ -9,9 +9,11 @@
         "container|align": "stretch",
         "designer|userAlias": "home.topmenu",
         "designer|userClassName": "home.topmenu",
-        "height": 100,
+        "height": 40,
         "id": "homeTopMenu",
         "layout": "hbox",
+        "margin": 0,
+        "padding": 0,
         "width": ""
     },
     "configAlternates": {
@@ -21,7 +23,9 @@
         "height": "auto",
         "id": "string",
         "layout": "string",
-        "width": "auto"
+        "width": "auto",
+        "margin": "auto",
+        "padding": "auto"
     },
     "name": "MyPanel1",
     "designerId": "63edfbea-0bbd-449b-8302-715eb7301189",
@@ -37,7 +41,8 @@
             "codeClass": null,
             "userConfig": {
                 "layout|flex": 1,
-                "margin": 20,
+                "margin": "5 5 0 0",
+                "padding": 0,
                 "scale": "medium",
                 "text": "Home"
             },
@@ -45,7 +50,8 @@
                 "layout|flex": "number",
                 "margin": "auto",
                 "scale": "string",
-                "text": "string"
+                "text": "string",
+                "padding": "auto"
             },
             "name": "MyButton",
             "designerId": "7ba0ed37-1439-4303-b38a-e376f55c0005"
@@ -59,7 +65,7 @@
             "codeClass": null,
             "userConfig": {
                 "layout|flex": 1,
-                "margin": 20,
+                "margin": "5 5 0 5",
                 "scale": "medium",
                 "text": "Tools"
             },
@@ -81,7 +87,7 @@
             "codeClass": null,
             "userConfig": {
                 "layout|flex": 1,
-                "margin": 20,
+                "margin": "5 5 0 5",
                 "scale": "medium",
                 "text": "Report"
             },
@@ -103,7 +109,7 @@
             "codeClass": null,
             "userConfig": {
                 "layout|flex": 1,
-                "margin": 20,
+                "margin": "5 0 0 5",
                 "scale": "medium",
                 "text": "Data"
             },

@@ -23,10 +23,6 @@ Ext.define('pagaf.view.appmain', {
         'pagaf.view.home.bottommenu',
         'pagaf.view.InSeason.N.Selection',
         'pagaf.view.InSeason.N.Management',
-        'pagaf.view.InSeason.N.Credits',
-        'pagaf.view.InSeason.N.Economics',
-        'pagaf.view.InSeason.N.Review',
-        'pagaf.view.InSeason.N.Finish',
         'Ext.tab.Panel',
         'Ext.tab.Tab'
     ],
@@ -47,7 +43,7 @@ Ext.define('pagaf.view.appmain', {
                 {
                     xtype: 'container',
                     height: '200px',
-                    html: '<div id="header"><span id="logo"></span></div>',
+                    html: '<div id="header"> <span id="logo"><h1>Precision AG for American Farmers</h1></span><span class="demo">Demo <a href="https://github.com/NLTGit/pagaf/wiki">About</a></span> <div id="topright"> <button id="logout" class="organization">Log Out</button> <button id="organization" class="organization"></button> </div> </div>',
                     maxHeight: 200,
                     minHeight: 200,
                     width: '100%'
@@ -102,37 +98,15 @@ Ext.define('pagaf.view.appmain', {
                             items: [
                                 {
                                     xtype: 'inseason.n.selection',
-                                    title: '1. Field Selection'
+                                    title: '1. Field Selection',
+                                    titleAlign: 'center'
                                 },
                                 {
                                     xtype: 'inseason.n.management',
                                     disabled: true,
                                     hidden: true,
-                                    title: '2. Management'
-                                },
-                                {
-                                    xtype: 'inseason.n.credits',
-                                    disabled: true,
-                                    hidden: true,
-                                    title: '3. Credits'
-                                },
-                                {
-                                    xtype: 'inseason.n.economics',
-                                    disabled: true,
-                                    hidden: true,
-                                    title: '4. Economics'
-                                },
-                                {
-                                    xtype: 'inseason.n.review',
-                                    disabled: true,
-                                    hidden: true,
-                                    title: '5. Review'
-                                },
-                                {
-                                    xtype: 'inseason.n.finish',
-                                    disabled: true,
-                                    hidden: true,
-                                    title: '6. Download'
+                                    title: '2. Management',
+                                    titleAlign: 'center'
                                 }
                             ]
                         },
@@ -214,7 +188,7 @@ Ext.define('pagaf.view.appmain', {
                 {
                     xtype: 'container',
                     height: '200px',
-                    html: '<div id="footer"><div id="footerimg"></div><div id="social" /></div><div id="tag">PAGAF: Precision Agriculture for all American Farmers</div></div>',
+                    html: '<div id="footer"><div id="footerimg"></div><div id="social" /></div><div id="tag">PAGAF: Precision Agriculture for all American Farmers. Copyright (C) 2020, New Light Technologies. <a href="https://github.com/NLTGit/pagaf/wiki#legal">Legal</a></div></div>',
                     maxHeight: 200,
                     minHeight: 200,
                     width: '100%'

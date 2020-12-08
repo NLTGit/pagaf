@@ -9,8 +9,9 @@ function User() {
 //variables for shader program
 function modelVars() {
     this.eonr = 130.0;
-    this.m = 0;
+    this.m = 10;
     this.sithresh = 0.7;
+    this.npre = 0;
 }
 
 //maintain "global" values
@@ -118,6 +119,9 @@ document.querySelector('.editButton').onclick = editPolygons
 //End functions that contact bucket
 //***************************************
 
+function setPre(val) {
+    modelvars.npre = val;
+}
 
 function toggleLayer(el) {
     for (let i=0; i<layers.length;i++) {
@@ -529,13 +533,14 @@ var fragmentShaderSource = `
     uniform float eonr;
     uniform float m;
     uniform float sithresh;
+    uniform float npre;
 
     void main() {
         //look up color from texture
         vec4 color = texture2D(u_image0, v_texCoord);
         color.w = floor(color.w);
-        float napp = eonr * sqrt((1.0-color.x)/((1.0-sithresh)*(1.0+0.1*exp(m*(sithresh-color.x)))));
-        vec4 outcolor = texture2D(u_image1, vec2(min(1.0,napp/250.0),0.0));
+        float napp = max((eonr-npre),0.0) * sqrt((1.0-color.x)/((1.0-sithresh)*(1.0+0.1*exp(m*(sithresh-color.x)))));
+        vec4 outcolor = texture2D(u_image1, vec2(min(1.0,napp/130.0),0.0));
         gl_FragColor = vec4(outcolor.x, outcolor.y, outcolor.z, color.w);
     }
 `;
@@ -553,6 +558,7 @@ var fragmentShaderSourceEncoded = `
     uniform float eonr;
     uniform float m;
     uniform float sithresh;
+    uniform float npre;
 
     //encode value in png
     void encode(in float v, out vec4 enc) {
@@ -565,7 +571,7 @@ var fragmentShaderSourceEncoded = `
         //look up color from texture
         vec4 color = texture2D(u_image0, v_texCoord);
         color.w = floor(color.w);
-        float napp = eonr * sqrt((1.0-color.x)/((1.0-sithresh)*(1.0+0.1*exp(m*(sithresh-color.x)))));
+        float napp = max((eonr-npre),0.0) * sqrt((1.0-color.x)/((1.0-sithresh)*(1.0+0.1*exp(m*(sithresh-color.x)))));
         vec4 outt;
         //in order to encode, need to scale value 0-1. Chose 10000, which should be larger than any reasonable
         //maximum nitrogen application value
@@ -602,7 +608,7 @@ function setRectangle(gl, x, y, width, height) {
 
 //copy data from webgl canvas to 2d canvas
 function mapRender() {
-    render(document.getElementById('webglCanvas'), gl, program);
+    render(document.getElementById('clipCanvas'), gl, program);
     let canvas2 = document.getElementById('testCanvas');
     let ctx2 = canvas2.getContext('2d');
     ctx2.clearRect(0,0,canvas2.width,canvas2.height);
@@ -685,10 +691,12 @@ function render(canvas, gl, program) {
     var eonrLocation = gl.getUniformLocation(program, "eonr");
     var mLocation = gl.getUniformLocation(program,"m");
     var sithreshLocation = gl.getUniformLocation(program,"sithresh");
+    var npreLocation = gl.getUniformLocation(program, "npre");
 
     gl.uniform1f(eonrLocation, modelvars.eonr);
     gl.uniform1f(mLocation, modelvars.m);
     gl.uniform1f(sithreshLocation, modelvars.sithresh);
+    gl.uniform1f(npreLocation, modelvars.npre);
 
     //image location
     var u_image0Location = gl.getUniformLocation(program, "u_image0");
@@ -1399,6 +1407,8 @@ function download(d) {
 //for sencha wrapper
 window.loadView = loadView;
 window.download = download;
+window.setPre = setPre;
+
 initializeMap();
 
 })()

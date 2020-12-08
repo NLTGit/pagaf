@@ -7,5 +7,4 @@ variables.tf
 site/config.json
 node_modules/
 package-lock.json
-package.json
 server.js

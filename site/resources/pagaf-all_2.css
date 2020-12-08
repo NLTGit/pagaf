@@ -1,3 +1,66 @@
+/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:232 */
+.fa-sort-down:before,
+.fa-sort-desc:before {
+    content: "\f0dd" !important;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:234 */
+.fa-sort-up:before,
+.fa-sort-asc:before {
+    content: "\f0de" !important;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:236 */
+.fa-envelope:before {
+    content: "\f0e0" !important;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:237 */
+.fa-linkedin:before {
+    content: "\f0e1" !important;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:238 */
+.fa-rotate-left:before,
+.fa-undo:before {
+    content: "\f0e2" !important;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:240 */
+.fa-legal:before,
+.fa-gavel:before {
+    content: "\f0e3" !important;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:242 */
+.fa-dashboard:before,
+.fa-tachometer:before {
+    content: "\f0e4" !important;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:244 */
+.fa-comment-o:before {
+    content: "\f0e5" !important;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:245 */
+.fa-comments-o:before {
+    content: "\f0e6" !important;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:246 */
+.fa-flash:before,
+.fa-bolt:before {
+    content: "\f0e7" !important;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:248 */
+.fa-sitemap:before {
+    content: "\f0e8" !important;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:249 */
+.fa-umbrella:before {
+    content: "\f0e9" !important;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:250 */
+.fa-paste:before,
+.fa-clipboard:before {
+    content: "\f0ea" !important;
+}
+/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:252 */
+.fa-lightbulb-o:before {
+    content: "\f0eb" !important;
+}
 /* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:253 */
 .fa-exchange:before {
     content: "\f0ec" !important;

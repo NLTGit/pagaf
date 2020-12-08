@@ -1927,7 +1927,7 @@ td.x-frame-mc {
 .x-keyboard-mode .x-mask.x-focus {
     border-style: solid;
     border-width: 1px;
-    border-color: #006546;
+    border-color: #006837;
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/src/LoadMask.scss:31 */
 .x-mask-msg {
@@ -1963,11 +1963,11 @@ td.x-frame-mc {
     padding: 3px 3px 3px 3px;
     border-width: 1px;
     border-style: solid;
-    background-color: #267c62;
+    background-color: #267f55;
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:237 */
 .x-btn-default-small-mc {
-    background-color: #267c62;
+    background-color: #267f55;
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:264 */
 .x-nbr .x-btn-default-small {
@@ -2060,7 +2060,7 @@ td.x-frame-mc {
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/button/Button.scss:2463 */
 .x-btn-default-small {
-    border-color: #006546;
+    border-color: #006837;
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/button/Button.scss:2470 */
 .x-btn-button-default-small {
@@ -2115,7 +2115,7 @@ td.x-frame-mc {
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/button/Button.scss:2554 */
 .x-ie8 .x-btn-icon-el-default-small.x-btn-glyph {
-    color: #93beb0;
+    color: #93bfaa;
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/button/Button.scss:2561 */
 .x-btn-text.x-btn-icon-left > .x-btn-icon-el-default-small {
@@ -2179,10 +2179,10 @@ td.x-frame-mc {
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/button/Button.scss:2757 */
 .x-keyboard-mode .x-btn-focus.x-btn-default-small {
     background-image: none;
-    background-color: #267c62;
-    -webkit-box-shadow: #d4e5e0 0 1px 0px 0 inset, #d4e5e0 0 -1px 0px 0 inset, #d4e5e0 -1px 0 0px 0 inset, #d4e5e0 1px 0 0px 0 inset;
-    -moz-box-shadow: #d4e5e0 0 1px 0px 0 inset, #d4e5e0 0 -1px 0px 0 inset, #d4e5e0 -1px 0 0px 0 inset, #d4e5e0 1px 0 0px 0 inset;
-    box-shadow: #d4e5e0 0 1px 0px 0 inset, #d4e5e0 0 -1px 0px 0 inset, #d4e5e0 -1px 0 0px 0 inset, #d4e5e0 1px 0 0px 0 inset;
+    background-color: #267f55;
+    -webkit-box-shadow: #d4e5dd 0 1px 0px 0 inset, #d4e5dd 0 -1px 0px 0 inset, #d4e5dd -1px 0 0px 0 inset, #d4e5dd 1px 0 0px 0 inset;
+    -moz-box-shadow: #d4e5dd 0 1px 0px 0 inset, #d4e5dd 0 -1px 0px 0 inset, #d4e5dd -1px 0 0px 0 inset, #d4e5dd 1px 0 0px 0 inset;
+    box-shadow: #d4e5dd 0 1px 0px 0 inset, #d4e5dd 0 -1px 0px 0 inset, #d4e5dd -1px 0 0px 0 inset, #d4e5dd 1px 0 0px 0 inset;
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/button/Button.scss:2793 */
 .x-btn-default-small .x-btn-arrow-el {
@@ -2195,38 +2195,38 @@ td.x-frame-mc {
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/button/Button.scss:2810 */
 .x-keyboard-mode .x-btn-default-small.x-arrow-focus .x-btn-arrow-el {
-    border: 1px solid #d4e5e0;
+    border: 1px solid #d4e5dd;
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/button/Button.scss:2817 */
 .x-btn-over.x-btn-default-small {
-    border-color: #005d40;
+    border-color: #006033;
     background-image: none;
-    background-color: #23725a;
+    background-color: #23754e;
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/button/Button.scss:2845 */
 .x-keyboard-mode .x-btn-focus.x-btn-over.x-btn-default-small {
-    -webkit-box-shadow: #d3e3de 0 1px 0px 0 inset, #d3e3de 0 -1px 0px 0 inset, #d3e3de -1px 0 0px 0 inset, #d3e3de 1px 0 0px 0 inset;
-    -moz-box-shadow: #d3e3de 0 1px 0px 0 inset, #d3e3de 0 -1px 0px 0 inset, #d3e3de -1px 0 0px 0 inset, #d3e3de 1px 0 0px 0 inset;
-    box-shadow: #d3e3de 0 1px 0px 0 inset, #d3e3de 0 -1px 0px 0 inset, #d3e3de -1px 0 0px 0 inset, #d3e3de 1px 0 0px 0 inset;
+    -webkit-box-shadow: #d3e3dc 0 1px 0px 0 inset, #d3e3dc 0 -1px 0px 0 inset, #d3e3dc -1px 0 0px 0 inset, #d3e3dc 1px 0 0px 0 inset;
+    -moz-box-shadow: #d3e3dc 0 1px 0px 0 inset, #d3e3dc 0 -1px 0px 0 inset, #d3e3dc -1px 0 0px 0 inset, #d3e3dc 1px 0 0px 0 inset;
+    box-shadow: #d3e3dc 0 1px 0px 0 inset, #d3e3dc 0 -1px 0px 0 inset, #d3e3dc -1px 0 0px 0 inset, #d3e3dc 1px 0 0px 0 inset;
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/button/Button.scss:2874 */
 .x-btn.x-btn-menu-active.x-btn-default-small,
 .x-btn.x-btn-pressed.x-btn-default-small {
-    border-color: #004c35;
+    border-color: #004e29;
     background-image: none;
-    background-color: #1d5d49;
+    background-color: #1d5f40;
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/button/Button.scss:2904 */
 .x-keyboard-mode .x-btn-focus.x-btn-menu-active.x-btn-default-small,
 .x-keyboard-mode .x-btn-focus.x-btn-pressed.x-btn-default-small {
-    -webkit-box-shadow: #d2dfdb 0 1px 0px 0 inset, #d2dfdb 0 -1px 0px 0 inset, #d2dfdb -1px 0 0px 0 inset, #d2dfdb 1px 0 0px 0 inset;
-    -moz-box-shadow: #d2dfdb 0 1px 0px 0 inset, #d2dfdb 0 -1px 0px 0 inset, #d2dfdb -1px 0 0px 0 inset, #d2dfdb 1px 0 0px 0 inset;
-    box-shadow: #d2dfdb 0 1px 0px 0 inset, #d2dfdb 0 -1px 0px 0 inset, #d2dfdb -1px 0 0px 0 inset, #d2dfdb 1px 0 0px 0 inset;
+    -webkit-box-shadow: #d2dfd9 0 1px 0px 0 inset, #d2dfd9 0 -1px 0px 0 inset, #d2dfd9 -1px 0 0px 0 inset, #d2dfd9 1px 0 0px 0 inset;
+    -moz-box-shadow: #d2dfd9 0 1px 0px 0 inset, #d2dfd9 0 -1px 0px 0 inset, #d2dfd9 -1px 0 0px 0 inset, #d2dfd9 1px 0 0px 0 inset;
+    box-shadow: #d2dfd9 0 1px 0px 0 inset, #d2dfd9 0 -1px 0px 0 inset, #d2dfd9 -1px 0 0px 0 inset, #d2dfd9 1px 0 0px 0 inset;
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/button/Button.scss:2933 */
 .x-btn.x-btn-disabled.x-btn-default-small {
     background-image: none;
-    background-color: #267c62;
+    background-color: #267f55;
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/button/Button.scss:2966 */
 .x-keyboard-mode .x-btn-focus .x-btn-default-small-tl,
@@ -2244,7 +2244,7 @@ td.x-frame-mc {
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/button/Button.scss:2978 */
 .x-keyboard-mode .x-btn-focus .x-btn-default-small-mc {
-    background-color: #267c62;
+    background-color: #267f55;
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/button/Button.scss:2991 */
 .x-btn-over .x-btn-default-small-tl,
@@ -2262,7 +2262,7 @@ td.x-frame-mc {
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/button/Button.scss:3003 */
 .x-btn-over .x-btn-default-small-mc {
-    background-color: #23725a;
+    background-color: #23754e;
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/button/Button.scss:3016 */
 .x-keyboard-mode .x-btn-focus.x-btn-over .x-btn-default-small-tl,
@@ -2280,7 +2280,7 @@ td.x-frame-mc {
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/button/Button.scss:3028 */
 .x-keyboard-mode .x-btn-focus.x-btn-over .x-btn-default-small-mc {
-    background-color: #23725a;
+    background-color: #23754e;
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/button/Button.scss:3043 */
 .x-btn.x-btn-menu-active .x-btn-default-small-tl,
@@ -2307,7 +2307,7 @@ td.x-frame-mc {
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/button/Button.scss:3055 */
 .x-btn.x-btn-menu-active .x-btn-default-small-mc,
 .x-btn.x-btn-pressed .x-btn-default-small-mc {
-    background-color: #1d5d49;
+    background-color: #1d5f40;
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/button/Button.scss:3069 */
 .x-keyboard-mode .x-btn-focus.x-btn-menu-active .x-btn-default-small-tl,
@@ -2334,7 +2334,7 @@ td.x-frame-mc {
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/button/Button.scss:3081 */
 .x-keyboard-mode .x-btn-focus.x-btn-menu-active .x-btn-default-small-mc,
 .x-keyboard-mode .x-btn-focus.x-btn-pressed .x-btn-default-small-mc {
-    background-color: #1d5d49;
+    background-color: #1d5f40;
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/button/Button.scss:3095 */
 .x-btn.x-btn-disabled .x-btn-default-small-tl,
@@ -2352,7 +2352,7 @@ td.x-frame-mc {
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/button/Button.scss:3107 */
 .x-btn.x-btn-disabled .x-btn-default-small-mc {
-    background-color: #267c62;
+    background-color: #267f55;
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/button/Button.scss:3117 */
 .x-nbr .x-btn-default-small {
@@ -2373,11 +2373,11 @@ td.x-frame-mc {
     padding: 3px 3px 3px 3px;
     border-width: 1px;
     border-style: solid;
-    background-color: #267c62;
+    background-color: #267f55;
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:237 */
 .x-btn-default-medium-mc {
-    background-color: #267c62;
+    background-color: #267f55;
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:264 */
 .x-nbr .x-btn-default-medium {
@@ -2470,7 +2470,7 @@ td.x-frame-mc {
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/button/Button.scss:2463 */
 .x-btn-default-medium {
-    border-color: #006546;
+    border-color: #006837;
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/button/Button.scss:2470 */
 .x-btn-button-default-medium {
@@ -2525,7 +2525,7 @@ td.x-frame-mc {
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/button/Button.scss:2554 */
 .x-ie8 .x-btn-icon-el-default-medium.x-btn-glyph {
-    color: #93beb0;
+    color: #93bfaa;
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/button/Button.scss:2561 */
 .x-btn-text.x-btn-icon-left > .x-btn-icon-el-default-medium {
@@ -2589,10 +2589,10 @@ td.x-frame-mc {
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/button/Button.scss:2757 */
 .x-keyboard-mode .x-btn-focus.x-btn-default-medium {
     background-image: none;
-    background-color: #267c62;
-    -webkit-box-shadow: #d4e5e0 0 1px 0px 0 inset, #d4e5e0 0 -1px 0px 0 inset, #d4e5e0 -1px 0 0px 0 inset, #d4e5e0 1px 0 0px 0 inset;
-    -moz-box-shadow: #d4e5e0 0 1px 0px 0 inset, #d4e5e0 0 -1px 0px 0 inset, #d4e5e0 -1px 0 0px 0 inset, #d4e5e0 1px 0 0px 0 inset;
-    box-shadow: #d4e5e0 0 1px 0px 0 inset, #d4e5e0 0 -1px 0px 0 inset, #d4e5e0 -1px 0 0px 0 inset, #d4e5e0 1px 0 0px 0 inset;
+    background-color: #267f55;
+    -webkit-box-shadow: #d4e5dd 0 1px 0px 0 inset, #d4e5dd 0 -1px 0px 0 inset, #d4e5dd -1px 0 0px 0 inset, #d4e5dd 1px 0 0px 0 inset;
+    -moz-box-shadow: #d4e5dd 0 1px 0px 0 inset, #d4e5dd 0 -1px 0px 0 inset, #d4e5dd -1px 0 0px 0 inset, #d4e5dd 1px 0 0px 0 inset;
+    box-shadow: #d4e5dd 0 1px 0px 0 inset, #d4e5dd 0 -1px 0px 0 inset, #d4e5dd -1px 0 0px 0 inset, #d4e5dd 1px 0 0px 0 inset;
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/button/Button.scss:2793 */
 .x-btn-default-medium .x-btn-arrow-el {
@@ -2605,38 +2605,38 @@ td.x-frame-mc {
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/button/Button.scss:2810 */
 .x-keyboard-mode .x-btn-default-medium.x-arrow-focus .x-btn-arrow-el {
-    border: 1px solid #d4e5e0;
+    border: 1px solid #d4e5dd;
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/button/Button.scss:2817 */
 .x-btn-over.x-btn-default-medium {
-    border-color: #005d40;
+    border-color: #006033;
     background-image: none;
-    background-color: #23725a;
+    background-color: #23754e;
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/button/Button.scss:2845 */
 .x-keyboard-mode .x-btn-focus.x-btn-over.x-btn-default-medium {
-    -webkit-box-shadow: #d3e3de 0 1px 0px 0 inset, #d3e3de 0 -1px 0px 0 inset, #d3e3de -1px 0 0px 0 inset, #d3e3de 1px 0 0px 0 inset;
-    -moz-box-shadow: #d3e3de 0 1px 0px 0 inset, #d3e3de 0 -1px 0px 0 inset, #d3e3de -1px 0 0px 0 inset, #d3e3de 1px 0 0px 0 inset;
-    box-shadow: #d3e3de 0 1px 0px 0 inset, #d3e3de 0 -1px 0px 0 inset, #d3e3de -1px 0 0px 0 inset, #d3e3de 1px 0 0px 0 inset;
+    -webkit-box-shadow: #d3e3dc 0 1px 0px 0 inset, #d3e3dc 0 -1px 0px 0 inset, #d3e3dc -1px 0 0px 0 inset, #d3e3dc 1px 0 0px 0 inset;
+    -moz-box-shadow: #d3e3dc 0 1px 0px 0 inset, #d3e3dc 0 -1px 0px 0 inset, #d3e3dc -1px 0 0px 0 inset, #d3e3dc 1px 0 0px 0 inset;
+    box-shadow: #d3e3dc 0 1px 0px 0 inset, #d3e3dc 0 -1px 0px 0 inset, #d3e3dc -1px 0 0px 0 inset, #d3e3dc 1px 0 0px 0 inset;
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/button/Button.scss:2874 */
 .x-btn.x-btn-menu-active.x-btn-default-medium,
 .x-btn.x-btn-pressed.x-btn-default-medium {
-    border-color: #004c35;
+    border-color: #004e29;
     background-image: none;
-    background-color: #1d5d49;
+    background-color: #1d5f40;
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/button/Button.scss:2904 */
 .x-keyboard-mode .x-btn-focus.x-btn-menu-active.x-btn-default-medium,
 .x-keyboard-mode .x-btn-focus.x-btn-pressed.x-btn-default-medium {
-    -webkit-box-shadow: #d2dfdb 0 1px 0px 0 inset, #d2dfdb 0 -1px 0px 0 inset, #d2dfdb -1px 0 0px 0 inset, #d2dfdb 1px 0 0px 0 inset;
-    -moz-box-shadow: #d2dfdb 0 1px 0px 0 inset, #d2dfdb 0 -1px 0px 0 inset, #d2dfdb -1px 0 0px 0 inset, #d2dfdb 1px 0 0px 0 inset;
-    box-shadow: #d2dfdb 0 1px 0px 0 inset, #d2dfdb 0 -1px 0px 0 inset, #d2dfdb -1px 0 0px 0 inset, #d2dfdb 1px 0 0px 0 inset;
+    -webkit-box-shadow: #d2dfd9 0 1px 0px 0 inset, #d2dfd9 0 -1px 0px 0 inset, #d2dfd9 -1px 0 0px 0 inset, #d2dfd9 1px 0 0px 0 inset;
+    -moz-box-shadow: #d2dfd9 0 1px 0px 0 inset, #d2dfd9 0 -1px 0px 0 inset, #d2dfd9 -1px 0 0px 0 inset, #d2dfd9 1px 0 0px 0 inset;
+    box-shadow: #d2dfd9 0 1px 0px 0 inset, #d2dfd9 0 -1px 0px 0 inset, #d2dfd9 -1px 0 0px 0 inset, #d2dfd9 1px 0 0px 0 inset;
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/button/Button.scss:2933 */
 .x-btn.x-btn-disabled.x-btn-default-medium {
     background-image: none;
-    background-color: #267c62;
+    background-color: #267f55;
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/button/Button.scss:2966 */
 .x-keyboard-mode .x-btn-focus .x-btn-default-medium-tl,
@@ -2654,7 +2654,7 @@ td.x-frame-mc {
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/button/Button.scss:2978 */
 .x-keyboard-mode .x-btn-focus .x-btn-default-medium-mc {
-    background-color: #267c62;
+    background-color: #267f55;
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/button/Button.scss:2991 */
 .x-btn-over .x-btn-default-medium-tl,
@@ -2672,7 +2672,7 @@ td.x-frame-mc {
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/button/Button.scss:3003 */
 .x-btn-over .x-btn-default-medium-mc {
-    background-color: #23725a;
+    background-color: #23754e;
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/button/Button.scss:3016 */
 .x-keyboard-mode .x-btn-focus.x-btn-over .x-btn-default-medium-tl,
@@ -2690,7 +2690,7 @@ td.x-frame-mc {
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/button/Button.scss:3028 */
 .x-keyboard-mode .x-btn-focus.x-btn-over .x-btn-default-medium-mc {
-    background-color: #23725a;
+    background-color: #23754e;
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/button/Button.scss:3043 */
 .x-btn.x-btn-menu-active .x-btn-default-medium-tl,
@@ -2717,7 +2717,7 @@ td.x-frame-mc {
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/button/Button.scss:3055 */
 .x-btn.x-btn-menu-active .x-btn-default-medium-mc,
 .x-btn.x-btn-pressed .x-btn-default-medium-mc {
-    background-color: #1d5d49;
+    background-color: #1d5f40;
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/button/Button.scss:3069 */
 .x-keyboard-mode .x-btn-focus.x-btn-menu-active .x-btn-default-medium-tl,
@@ -2744,7 +2744,7 @@ td.x-frame-mc {
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/button/Button.scss:3081 */
 .x-keyboard-mode .x-btn-focus.x-btn-menu-active .x-btn-default-medium-mc,
 .x-keyboard-mode .x-btn-focus.x-btn-pressed .x-btn-default-medium-mc {
-    background-color: #1d5d49;
+    background-color: #1d5f40;
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/button/Button.scss:3095 */
 .x-btn.x-btn-disabled .x-btn-default-medium-tl,
@@ -2762,7 +2762,7 @@ td.x-frame-mc {
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/button/Button.scss:3107 */
 .x-btn.x-btn-disabled .x-btn-default-medium-mc {
-    background-color: #267c62;
+    background-color: #267f55;
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/button/Button.scss:3117 */
 .x-nbr .x-btn-default-medium {
@@ -2783,11 +2783,11 @@ td.x-frame-mc {
     padding: 3px 3px 3px 3px;
     border-width: 1px;
     border-style: solid;
-    background-color: #267c62;
+    background-color: #267f55;
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:237 */
 .x-btn-default-large-mc {
-    background-color: #267c62;
+    background-color: #267f55;
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:264 */
 .x-nbr .x-btn-default-large {
@@ -2880,7 +2880,7 @@ td.x-frame-mc {
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/button/Button.scss:2463 */
 .x-btn-default-large {
-    border-color: #006546;
+    border-color: #006837;
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/button/Button.scss:2470 */
 .x-btn-button-default-large {
@@ -2935,7 +2935,7 @@ td.x-frame-mc {
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/button/Button.scss:2554 */
 .x-ie8 .x-btn-icon-el-default-large.x-btn-glyph {
-    color: #93beb0;
+    color: #93bfaa;
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/button/Button.scss:2561 */
 .x-btn-text.x-btn-icon-left > .x-btn-icon-el-default-large {
@@ -2999,10 +2999,10 @@ td.x-frame-mc {
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/button/Button.scss:2757 */
 .x-keyboard-mode .x-btn-focus.x-btn-default-large {
     background-image: none;
-    background-color: #267c62;
-    -webkit-box-shadow: #d4e5e0 0 1px 0px 0 inset, #d4e5e0 0 -1px 0px 0 inset, #d4e5e0 -1px 0 0px 0 inset, #d4e5e0 1px 0 0px 0 inset;
-    -moz-box-shadow: #d4e5e0 0 1px 0px 0 inset, #d4e5e0 0 -1px 0px 0 inset, #d4e5e0 -1px 0 0px 0 inset, #d4e5e0 1px 0 0px 0 inset;
-    box-shadow: #d4e5e0 0 1px 0px 0 inset, #d4e5e0 0 -1px 0px 0 inset, #d4e5e0 -1px 0 0px 0 inset, #d4e5e0 1px 0 0px 0 inset;
+    background-color: #267f55;
+    -webkit-box-shadow: #d4e5dd 0 1px 0px 0 inset, #d4e5dd 0 -1px 0px 0 inset, #d4e5dd -1px 0 0px 0 inset, #d4e5dd 1px 0 0px 0 inset;
+    -moz-box-shadow: #d4e5dd 0 1px 0px 0 inset, #d4e5dd 0 -1px 0px 0 inset, #d4e5dd -1px 0 0px 0 inset, #d4e5dd 1px 0 0px 0 inset;
+    box-shadow: #d4e5dd 0 1px 0px 0 inset, #d4e5dd 0 -1px 0px 0 inset, #d4e5dd -1px 0 0px 0 inset, #d4e5dd 1px 0 0px 0 inset;
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/button/Button.scss:2793 */
 .x-btn-default-large .x-btn-arrow-el {
@@ -3015,38 +3015,38 @@ td.x-frame-mc {
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/button/Button.scss:2810 */
 .x-keyboard-mode .x-btn-default-large.x-arrow-focus .x-btn-arrow-el {
-    border: 1px solid #d4e5e0;
+    border: 1px solid #d4e5dd;
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/button/Button.scss:2817 */
 .x-btn-over.x-btn-default-large {
-    border-color: #005d40;
+    border-color: #006033;
     background-image: none;
-    background-color: #23725a;
+    background-color: #23754e;
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/button/Button.scss:2845 */
 .x-keyboard-mode .x-btn-focus.x-btn-over.x-btn-default-large {
-    -webkit-box-shadow: #d3e3de 0 1px 0px 0 inset, #d3e3de 0 -1px 0px 0 inset, #d3e3de -1px 0 0px 0 inset, #d3e3de 1px 0 0px 0 inset;
-    -moz-box-shadow: #d3e3de 0 1px 0px 0 inset, #d3e3de 0 -1px 0px 0 inset, #d3e3de -1px 0 0px 0 inset, #d3e3de 1px 0 0px 0 inset;
-    box-shadow: #d3e3de 0 1px 0px 0 inset, #d3e3de 0 -1px 0px 0 inset, #d3e3de -1px 0 0px 0 inset, #d3e3de 1px 0 0px 0 inset;
+    -webkit-box-shadow: #d3e3dc 0 1px 0px 0 inset, #d3e3dc 0 -1px 0px 0 inset, #d3e3dc -1px 0 0px 0 inset, #d3e3dc 1px 0 0px 0 inset;
+    -moz-box-shadow: #d3e3dc 0 1px 0px 0 inset, #d3e3dc 0 -1px 0px 0 inset, #d3e3dc -1px 0 0px 0 inset, #d3e3dc 1px 0 0px 0 inset;
+    box-shadow: #d3e3dc 0 1px 0px 0 inset, #d3e3dc 0 -1px 0px 0 inset, #d3e3dc -1px 0 0px 0 inset, #d3e3dc 1px 0 0px 0 inset;
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/button/Button.scss:2874 */
 .x-btn.x-btn-menu-active.x-btn-default-large,
 .x-btn.x-btn-pressed.x-btn-default-large {
-    border-color: #004c35;
+    border-color: #004e29;
     background-image: none;
-    background-color: #1d5d49;
+    background-color: #1d5f40;
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/button/Button.scss:2904 */
 .x-keyboard-mode .x-btn-focus.x-btn-menu-active.x-btn-default-large,
 .x-keyboard-mode .x-btn-focus.x-btn-pressed.x-btn-default-large {
-    -webkit-box-shadow: #d2dfdb 0 1px 0px 0 inset, #d2dfdb 0 -1px 0px 0 inset, #d2dfdb -1px 0 0px 0 inset, #d2dfdb 1px 0 0px 0 inset;
-    -moz-box-shadow: #d2dfdb 0 1px 0px 0 inset, #d2dfdb 0 -1px 0px 0 inset, #d2dfdb -1px 0 0px 0 inset, #d2dfdb 1px 0 0px 0 inset;
-    box-shadow: #d2dfdb 0 1px 0px 0 inset, #d2dfdb 0 -1px 0px 0 inset, #d2dfdb -1px 0 0px 0 inset, #d2dfdb 1px 0 0px 0 inset;
+    -webkit-box-shadow: #d2dfd9 0 1px 0px 0 inset, #d2dfd9 0 -1px 0px 0 inset, #d2dfd9 -1px 0 0px 0 inset, #d2dfd9 1px 0 0px 0 inset;
+    -moz-box-shadow: #d2dfd9 0 1px 0px 0 inset, #d2dfd9 0 -1px 0px 0 inset, #d2dfd9 -1px 0 0px 0 inset, #d2dfd9 1px 0 0px 0 inset;
+    box-shadow: #d2dfd9 0 1px 0px 0 inset, #d2dfd9 0 -1px 0px 0 inset, #d2dfd9 -1px 0 0px 0 inset, #d2dfd9 1px 0 0px 0 inset;
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/button/Button.scss:2933 */
 .x-btn.x-btn-disabled.x-btn-default-large {
     background-image: none;
-    background-color: #267c62;
+    background-color: #267f55;
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/button/Button.scss:2966 */
 .x-keyboard-mode .x-btn-focus .x-btn-default-large-tl,
@@ -3064,7 +3064,7 @@ td.x-frame-mc {
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/button/Button.scss:2978 */
 .x-keyboard-mode .x-btn-focus .x-btn-default-large-mc {
-    background-color: #267c62;
+    background-color: #267f55;
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/button/Button.scss:2991 */
 .x-btn-over .x-btn-default-large-tl,
@@ -3082,7 +3082,7 @@ td.x-frame-mc {
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/button/Button.scss:3003 */
 .x-btn-over .x-btn-default-large-mc {
-    background-color: #23725a;
+    background-color: #23754e;
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/button/Button.scss:3016 */
 .x-keyboard-mode .x-btn-focus.x-btn-over .x-btn-default-large-tl,
@@ -3100,7 +3100,7 @@ td.x-frame-mc {
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/button/Button.scss:3028 */
 .x-keyboard-mode .x-btn-focus.x-btn-over .x-btn-default-large-mc {
-    background-color: #23725a;
+    background-color: #23754e;
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/button/Button.scss:3043 */
 .x-btn.x-btn-menu-active .x-btn-default-large-tl,
@@ -3127,7 +3127,7 @@ td.x-frame-mc {
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/button/Button.scss:3055 */
 .x-btn.x-btn-menu-active .x-btn-default-large-mc,
 .x-btn.x-btn-pressed .x-btn-default-large-mc {
-    background-color: #1d5d49;
+    background-color: #1d5f40;
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/button/Button.scss:3069 */
 .x-keyboard-mode .x-btn-focus.x-btn-menu-active .x-btn-default-large-tl,
@@ -3154,7 +3154,7 @@ td.x-frame-mc {
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/button/Button.scss:3081 */
 .x-keyboard-mode .x-btn-focus.x-btn-menu-active .x-btn-default-large-mc,
 .x-keyboard-mode .x-btn-focus.x-btn-pressed .x-btn-default-large-mc {
-    background-color: #1d5d49;
+    background-color: #1d5f40;
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/button/Button.scss:3095 */
 .x-btn.x-btn-disabled .x-btn-default-large-tl,
@@ -3172,7 +3172,7 @@ td.x-frame-mc {
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/button/Button.scss:3107 */
 .x-btn.x-btn-disabled .x-btn-default-large-mc {
-    background-color: #267c62;
+    background-color: #267f55;
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/button/Button.scss:3117 */
 .x-nbr .x-btn-default-large {
@@ -3410,9 +3410,9 @@ td.x-frame-mc {
 .x-keyboard-mode .x-btn-focus.x-btn-default-toolbar-small {
     background-image: none;
     background-color: #f5f5f5;
-    -webkit-box-shadow: #318269 0 1px 0px 0 inset, #318269 0 -1px 0px 0 inset, #318269 -1px 0 0px 0 inset, #318269 1px 0 0px 0 inset;
-    -moz-box-shadow: #318269 0 1px 0px 0 inset, #318269 0 -1px 0px 0 inset, #318269 -1px 0 0px 0 inset, #318269 1px 0 0px 0 inset;
-    box-shadow: #318269 0 1px 0px 0 inset, #318269 0 -1px 0px 0 inset, #318269 -1px 0 0px 0 inset, #318269 1px 0 0px 0 inset;
+    -webkit-box-shadow: #31845d 0 1px 0px 0 inset, #31845d 0 -1px 0px 0 inset, #31845d -1px 0 0px 0 inset, #31845d 1px 0 0px 0 inset;
+    -moz-box-shadow: #31845d 0 1px 0px 0 inset, #31845d 0 -1px 0px 0 inset, #31845d -1px 0 0px 0 inset, #31845d 1px 0 0px 0 inset;
+    box-shadow: #31845d 0 1px 0px 0 inset, #31845d 0 -1px 0px 0 inset, #31845d -1px 0 0px 0 inset, #31845d 1px 0 0px 0 inset;
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/button/Button.scss:2793 */
 .x-btn-default-toolbar-small .x-btn-arrow-el {
@@ -3425,7 +3425,7 @@ td.x-frame-mc {
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/button/Button.scss:2810 */
 .x-keyboard-mode .x-btn-default-toolbar-small.x-arrow-focus .x-btn-arrow-el {
-    border: 1px solid #318269;
+    border: 1px solid #31845d;
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/button/Button.scss:2817 */
 .x-btn-over.x-btn-default-toolbar-small {
@@ -3435,9 +3435,9 @@ td.x-frame-mc {
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/button/Button.scss:2845 */
 .x-keyboard-mode .x-btn-focus.x-btn-over.x-btn-default-toolbar-small {
-    -webkit-box-shadow: #318269 0 1px 0px 0 inset, #318269 0 -1px 0px 0 inset, #318269 -1px 0 0px 0 inset, #318269 1px 0 0px 0 inset;
-    -moz-box-shadow: #318269 0 1px 0px 0 inset, #318269 0 -1px 0px 0 inset, #318269 -1px 0 0px 0 inset, #318269 1px 0 0px 0 inset;
-    box-shadow: #318269 0 1px 0px 0 inset, #318269 0 -1px 0px 0 inset, #318269 -1px 0 0px 0 inset, #318269 1px 0 0px 0 inset;
+    -webkit-box-shadow: #31845d 0 1px 0px 0 inset, #31845d 0 -1px 0px 0 inset, #31845d -1px 0 0px 0 inset, #31845d 1px 0 0px 0 inset;
+    -moz-box-shadow: #31845d 0 1px 0px 0 inset, #31845d 0 -1px 0px 0 inset, #31845d -1px 0 0px 0 inset, #31845d 1px 0 0px 0 inset;
+    box-shadow: #31845d 0 1px 0px 0 inset, #31845d 0 -1px 0px 0 inset, #31845d -1px 0 0px 0 inset, #31845d 1px 0 0px 0 inset;
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/button/Button.scss:2874 */
 .x-btn.x-btn-menu-active.x-btn-default-toolbar-small,
@@ -3449,9 +3449,9 @@ td.x-frame-mc {
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/button/Button.scss:2904 */
 .x-keyboard-mode .x-btn-focus.x-btn-menu-active.x-btn-default-toolbar-small,
 .x-keyboard-mode .x-btn-focus.x-btn-pressed.x-btn-default-toolbar-small {
-    -webkit-box-shadow: #318269 0 1px 0px 0 inset, #318269 0 -1px 0px 0 inset, #318269 -1px 0 0px 0 inset, #318269 1px 0 0px 0 inset;
-    -moz-box-shadow: #318269 0 1px 0px 0 inset, #318269 0 -1px 0px 0 inset, #318269 -1px 0 0px 0 inset, #318269 1px 0 0px 0 inset;
-    box-shadow: #318269 0 1px 0px 0 inset, #318269 0 -1px 0px 0 inset, #318269 -1px 0 0px 0 inset, #318269 1px 0 0px 0 inset;
+    -webkit-box-shadow: #31845d 0 1px 0px 0 inset, #31845d 0 -1px 0px 0 inset, #31845d -1px 0 0px 0 inset, #31845d 1px 0 0px 0 inset;
+    -moz-box-shadow: #31845d 0 1px 0px 0 inset, #31845d 0 -1px 0px 0 inset, #31845d -1px 0 0px 0 inset, #31845d 1px 0 0px 0 inset;
+    box-shadow: #31845d 0 1px 0px 0 inset, #31845d 0 -1px 0px 0 inset, #31845d -1px 0 0px 0 inset, #31845d 1px 0 0px 0 inset;
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/button/Button.scss:2933 */
 .x-btn.x-btn-disabled.x-btn-default-toolbar-small {
@@ -3820,9 +3820,9 @@ td.x-frame-mc {
 .x-keyboard-mode .x-btn-focus.x-btn-default-toolbar-medium {
     background-image: none;
     background-color: #f5f5f5;
-    -webkit-box-shadow: #318269 0 1px 0px 0 inset, #318269 0 -1px 0px 0 inset, #318269 -1px 0 0px 0 inset, #318269 1px 0 0px 0 inset;
-    -moz-box-shadow: #318269 0 1px 0px 0 inset, #318269 0 -1px 0px 0 inset, #318269 -1px 0 0px 0 inset, #318269 1px 0 0px 0 inset;
-    box-shadow: #318269 0 1px 0px 0 inset, #318269 0 -1px 0px 0 inset, #318269 -1px 0 0px 0 inset, #318269 1px 0 0px 0 inset;
+    -webkit-box-shadow: #31845d 0 1px 0px 0 inset, #31845d 0 -1px 0px 0 inset, #31845d -1px 0 0px 0 inset, #31845d 1px 0 0px 0 inset;
+    -moz-box-shadow: #31845d 0 1px 0px 0 inset, #31845d 0 -1px 0px 0 inset, #31845d -1px 0 0px 0 inset, #31845d 1px 0 0px 0 inset;
+    box-shadow: #31845d 0 1px 0px 0 inset, #31845d 0 -1px 0px 0 inset, #31845d -1px 0 0px 0 inset, #31845d 1px 0 0px 0 inset;
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/button/Button.scss:2793 */
 .x-btn-default-toolbar-medium .x-btn-arrow-el {
@@ -3835,7 +3835,7 @@ td.x-frame-mc {
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/button/Button.scss:2810 */
 .x-keyboard-mode .x-btn-default-toolbar-medium.x-arrow-focus .x-btn-arrow-el {
-    border: 1px solid #318269;
+    border: 1px solid #31845d;
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/button/Button.scss:2817 */
 .x-btn-over.x-btn-default-toolbar-medium {
@@ -3845,9 +3845,9 @@ td.x-frame-mc {
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/button/Button.scss:2845 */
 .x-keyboard-mode .x-btn-focus.x-btn-over.x-btn-default-toolbar-medium {
-    -webkit-box-shadow: #318269 0 1px 0px 0 inset, #318269 0 -1px 0px 0 inset, #318269 -1px 0 0px 0 inset, #318269 1px 0 0px 0 inset;
-    -moz-box-shadow: #318269 0 1px 0px 0 inset, #318269 0 -1px 0px 0 inset, #318269 -1px 0 0px 0 inset, #318269 1px 0 0px 0 inset;
-    box-shadow: #318269 0 1px 0px 0 inset, #318269 0 -1px 0px 0 inset, #318269 -1px 0 0px 0 inset, #318269 1px 0 0px 0 inset;
+    -webkit-box-shadow: #31845d 0 1px 0px 0 inset, #31845d 0 -1px 0px 0 inset, #31845d -1px 0 0px 0 inset, #31845d 1px 0 0px 0 inset;
+    -moz-box-shadow: #31845d 0 1px 0px 0 inset, #31845d 0 -1px 0px 0 inset, #31845d -1px 0 0px 0 inset, #31845d 1px 0 0px 0 inset;
+    box-shadow: #31845d 0 1px 0px 0 inset, #31845d 0 -1px 0px 0 inset, #31845d -1px 0 0px 0 inset, #31845d 1px 0 0px 0 inset;
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/button/Button.scss:2874 */
 .x-btn.x-btn-menu-active.x-btn-default-toolbar-medium,
@@ -3859,9 +3859,9 @@ td.x-frame-mc {
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/button/Button.scss:2904 */
 .x-keyboard-mode .x-btn-focus.x-btn-menu-active.x-btn-default-toolbar-medium,
 .x-keyboard-mode .x-btn-focus.x-btn-pressed.x-btn-default-toolbar-medium {
-    -webkit-box-shadow: #318269 0 1px 0px 0 inset, #318269 0 -1px 0px 0 inset, #318269 -1px 0 0px 0 inset, #318269 1px 0 0px 0 inset;
-    -moz-box-shadow: #318269 0 1px 0px 0 inset, #318269 0 -1px 0px 0 inset, #318269 -1px 0 0px 0 inset, #318269 1px 0 0px 0 inset;
-    box-shadow: #318269 0 1px 0px 0 inset, #318269 0 -1px 0px 0 inset, #318269 -1px 0 0px 0 inset, #318269 1px 0 0px 0 inset;
+    -webkit-box-shadow: #31845d 0 1px 0px 0 inset, #31845d 0 -1px 0px 0 inset, #31845d -1px 0 0px 0 inset, #31845d 1px 0 0px 0 inset;
+    -moz-box-shadow: #31845d 0 1px 0px 0 inset, #31845d 0 -1px 0px 0 inset, #31845d -1px 0 0px 0 inset, #31845d 1px 0 0px 0 inset;
+    box-shadow: #31845d 0 1px 0px 0 inset, #31845d 0 -1px 0px 0 inset, #31845d -1px 0 0px 0 inset, #31845d 1px 0 0px 0 inset;
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/button/Button.scss:2933 */
 .x-btn.x-btn-disabled.x-btn-default-toolbar-medium {
@@ -4230,9 +4230,9 @@ td.x-frame-mc {
 .x-keyboard-mode .x-btn-focus.x-btn-default-toolbar-large {
     background-image: none;
     background-color: #f5f5f5;
-    -webkit-box-shadow: #318269 0 1px 0px 0 inset, #318269 0 -1px 0px 0 inset, #318269 -1px 0 0px 0 inset, #318269 1px 0 0px 0 inset;
-    -moz-box-shadow: #318269 0 1px 0px 0 inset, #318269 0 -1px 0px 0 inset, #318269 -1px 0 0px 0 inset, #318269 1px 0 0px 0 inset;
-    box-shadow: #318269 0 1px 0px 0 inset, #318269 0 -1px 0px 0 inset, #318269 -1px 0 0px 0 inset, #318269 1px 0 0px 0 inset;
+    -webkit-box-shadow: #31845d 0 1px 0px 0 inset, #31845d 0 -1px 0px 0 inset, #31845d -1px 0 0px 0 inset, #31845d 1px 0 0px 0 inset;
+    -moz-box-shadow: #31845d 0 1px 0px 0 inset, #31845d 0 -1px 0px 0 inset, #31845d -1px 0 0px 0 inset, #31845d 1px 0 0px 0 inset;
+    box-shadow: #31845d 0 1px 0px 0 inset, #31845d 0 -1px 0px 0 inset, #31845d -1px 0 0px 0 inset, #31845d 1px 0 0px 0 inset;
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/button/Button.scss:2793 */
 .x-btn-default-toolbar-large .x-btn-arrow-el {
@@ -4245,7 +4245,7 @@ td.x-frame-mc {
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/button/Button.scss:2810 */
 .x-keyboard-mode .x-btn-default-toolbar-large.x-arrow-focus .x-btn-arrow-el {
-    border: 1px solid #318269;
+    border: 1px solid #31845d;
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/button/Button.scss:2817 */
 .x-btn-over.x-btn-default-toolbar-large {
@@ -4255,9 +4255,9 @@ td.x-frame-mc {
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/button/Button.scss:2845 */
 .x-keyboard-mode .x-btn-focus.x-btn-over.x-btn-default-toolbar-large {
-    -webkit-box-shadow: #318269 0 1px 0px 0 inset, #318269 0 -1px 0px 0 inset, #318269 -1px 0 0px 0 inset, #318269 1px 0 0px 0 inset;
-    -moz-box-shadow: #318269 0 1px 0px 0 inset, #318269 0 -1px 0px 0 inset, #318269 -1px 0 0px 0 inset, #318269 1px 0 0px 0 inset;
-    box-shadow: #318269 0 1px 0px 0 inset, #318269 0 -1px 0px 0 inset, #318269 -1px 0 0px 0 inset, #318269 1px 0 0px 0 inset;
+    -webkit-box-shadow: #31845d 0 1px 0px 0 inset, #31845d 0 -1px 0px 0 inset, #31845d -1px 0 0px 0 inset, #31845d 1px 0 0px 0 inset;
+    -moz-box-shadow: #31845d 0 1px 0px 0 inset, #31845d 0 -1px 0px 0 inset, #31845d -1px 0 0px 0 inset, #31845d 1px 0 0px 0 inset;
+    box-shadow: #31845d 0 1px 0px 0 inset, #31845d 0 -1px 0px 0 inset, #31845d -1px 0 0px 0 inset, #31845d 1px 0 0px 0 inset;
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/button/Button.scss:2874 */
 .x-btn.x-btn-menu-active.x-btn-default-toolbar-large,
@@ -4269,9 +4269,9 @@ td.x-frame-mc {
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/button/Button.scss:2904 */
 .x-keyboard-mode .x-btn-focus.x-btn-menu-active.x-btn-default-toolbar-large,
 .x-keyboard-mode .x-btn-focus.x-btn-pressed.x-btn-default-toolbar-large {
-    -webkit-box-shadow: #318269 0 1px 0px 0 inset, #318269 0 -1px 0px 0 inset, #318269 -1px 0 0px 0 inset, #318269 1px 0 0px 0 inset;
-    -moz-box-shadow: #318269 0 1px 0px 0 inset, #318269 0 -1px 0px 0 inset, #318269 -1px 0 0px 0 inset, #318269 1px 0 0px 0 inset;
-    box-shadow: #318269 0 1px 0px 0 inset, #318269 0 -1px 0px 0 inset, #318269 -1px 0 0px 0 inset, #318269 1px 0 0px 0 inset;
+    -webkit-box-shadow: #31845d 0 1px 0px 0 inset, #31845d 0 -1px 0px 0 inset, #31845d -1px 0 0px 0 inset, #31845d 1px 0 0px 0 inset;
+    -moz-box-shadow: #31845d 0 1px 0px 0 inset, #31845d 0 -1px 0px 0 inset, #31845d -1px 0 0px 0 inset, #31845d 1px 0 0px 0 inset;
+    box-shadow: #31845d 0 1px 0px 0 inset, #31845d 0 -1px 0px 0 inset, #31845d -1px 0 0px 0 inset, #31845d 1px 0 0px 0 inset;
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/button/Button.scss:2933 */
 .x-btn.x-btn-disabled.x-btn-default-toolbar-large {
@@ -4423,7 +4423,7 @@ td.x-frame-mc {
     width: 16px;
     height: 16px;
     margin: 0;
-    color: #006546;
+    color: #006837;
     text-align: center;
     -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=80)";
     opacity: 0.8;
@@ -4440,7 +4440,7 @@ td.x-frame-mc {
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/src/panel/Tool.scss:30 */
 .x-keyboard-mode .x-tool-focus {
-    outline: 1px solid #006546;
+    outline: 1px solid #006837;
     outline-offset: 2px;
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/css-outline.scss:63 */
@@ -4459,7 +4459,7 @@ td.x-frame-mc {
     right: -3px;
     bottom: -3px;
     left: -3px;
-    border: 1px solid #006546;
+    border: 1px solid #006837;
     pointer-events: none;
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/src/panel/Tool.scss:40 */
@@ -4686,7 +4686,7 @@ td.x-frame-mc {
     right: 0px;
     bottom: 0px;
     left: 0px;
-    border: 1px solid #006546;
+    border: 1px solid #006837;
     pointer-events: none;
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/toolbar/Toolbar.scss:598 */
@@ -4743,7 +4743,7 @@ td.x-frame-mc {
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/toolbar/Toolbar.scss:694 */
 .x-toolbar-text-default {
     padding: 0 4px;
-    color: #0c4b38;
+    color: #0d4b2e;
     font: 300 13px/16px helvetica, arial, verdana, sans-serif;
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/toolbar/Toolbar.scss:700 */
@@ -4883,7 +4883,7 @@ td.x-frame-mc {
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/toolbar/Toolbar.scss:694 */
 .x-toolbar-text-footer {
     padding: 0 4px;
-    color: #0c4b38;
+    color: #0d4b2e;
     font: 300 13px/16px helvetica, arial, verdana, sans-serif;
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/toolbar/Toolbar.scss:700 */
@@ -5036,7 +5036,7 @@ td.x-frame-mc {
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/panel/Panel.scss:916 */
 .x-panel-header-title-default {
-    color: #006546;
+    color: #006837;
     font-size: 15px;
     font-weight: 300;
     font-family: helvetica, arial, verdana, sans-serif;
@@ -5044,7 +5044,7 @@ td.x-frame-mc {
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/panel/Panel.scss:929 */
 .x-keyboard-mode .x-panel-header-title-default.x-title-focus {
-    outline: 1px solid #006546;
+    outline: 1px solid #006837;
     outline-offset: 2px;
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/css-outline.scss:63 */
@@ -5063,7 +5063,7 @@ td.x-frame-mc {
     right: -3px;
     bottom: -3px;
     left: -3px;
-    border: 1px solid #006546;
+    border: 1px solid #006837;
     pointer-events: none;
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/panel/Panel.scss:950 */
@@ -5096,7 +5096,7 @@ td.x-frame-mc {
     width: 16px;
     height: 16px;
     font-size: 16px;
-    color: #006546;
+    color: #006837;
     background-position: center center;
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/panel/Panel.scss:1038 */
@@ -5105,7 +5105,7 @@ td.x-frame-mc {
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/panel/Panel.scss:1051 */
 .x-ie8 .x-panel-header-title-default > .x-title-icon-wrap-default > .x-title-icon-default.x-title-glyph {
-    color: #7bad9e;
+    color: #7baf96;
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/panel/Panel.scss:1062 */
 .x-panel-body-default {
@@ -5162,7 +5162,7 @@ td.x-frame-mc {
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/panel/Panel.scss:1381 */
 .x-keyboard-mode .x-panel-header-default .x-tool-focus {
-    outline: 1px solid #006546;
+    outline: 1px solid #006837;
     outline-offset: 2px;
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/css-outline.scss:63 */
@@ -5181,7 +5181,7 @@ td.x-frame-mc {
     right: -3px;
     bottom: -3px;
     left: -3px;
-    border: 1px solid #006546;
+    border: 1px solid #006837;
     pointer-events: none;
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/panel/Panel.scss:1429 */
@@ -5348,7 +5348,7 @@ td.x-frame-mc {
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/panel/Panel.scss:916 */
 .x-panel-header-title-default-framed {
-    color: #006546;
+    color: #006837;
     font-size: 15px;
     font-weight: 300;
     font-family: helvetica, arial, verdana, sans-serif;
@@ -5356,7 +5356,7 @@ td.x-frame-mc {
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/panel/Panel.scss:929 */
 .x-keyboard-mode .x-panel-header-title-default-framed.x-title-focus {
-    outline: 1px solid #006546;
+    outline: 1px solid #006837;
     outline-offset: 2px;
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/css-outline.scss:63 */
@@ -5375,7 +5375,7 @@ td.x-frame-mc {
     right: -3px;
     bottom: -3px;
     left: -3px;
-    border: 1px solid #006546;
+    border: 1px solid #006837;
     pointer-events: none;
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/panel/Panel.scss:950 */
@@ -5408,7 +5408,7 @@ td.x-frame-mc {
     width: 16px;
     height: 16px;
     font-size: 16px;
-    color: #006546;
+    color: #006837;
     background-position: center center;
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/panel/Panel.scss:1038 */
@@ -5417,7 +5417,7 @@ td.x-frame-mc {
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/panel/Panel.scss:1051 */
 .x-ie8 .x-panel-header-title-default-framed > .x-title-icon-wrap-default-framed > .x-title-icon-default-framed.x-title-glyph {
-    color: #7bad9e;
+    color: #7baf96;
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/panel/Panel.scss:1062 */
 .x-panel-body-default-framed {
@@ -6481,7 +6481,7 @@ td.x-frame-mc {
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/panel/Panel.scss:1381 */
 .x-keyboard-mode .x-panel-header-default-framed .x-tool-focus {
-    outline: 1px solid #006546;
+    outline: 1px solid #006837;
     outline-offset: 2px;
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/css-outline.scss:63 */
@@ -6500,7 +6500,7 @@ td.x-frame-mc {
     right: -3px;
     bottom: -3px;
     left: -3px;
-    border: 1px solid #006546;
+    border: 1px solid #006837;
     pointer-events: none;
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/panel/Panel.scss:1429 */
@@ -6763,7 +6763,7 @@ td.x-frame-mc {
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/window/Window.scss:622 */
 .x-window-header-title-default {
-    color: #006546;
+    color: #006837;
     font-size: 15px;
     font-weight: 300;
     font-family: helvetica, arial, verdana, sans-serif;
@@ -6799,7 +6799,7 @@ td.x-frame-mc {
     width: 16px;
     height: 16px;
     font-size: 16px;
-    color: #006546;
+    color: #006837;
     background-position: center center;
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/window/Window.scss:719 */
@@ -6808,7 +6808,7 @@ td.x-frame-mc {
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/window/Window.scss:732 */
 .x-ie8 .x-window-header-title-default > .x-title-icon-wrap-default > .x-title-icon-default.x-title-glyph {
-    color: #7bad9e;
+    color: #7baf96;
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:187 */
 .x-window-header-default-top {
@@ -7682,21 +7682,21 @@ td.x-frame-mc {
 .x-window-header-default .x-window-header-icon {
     width: 16px;
     height: 16px;
-    color: #006546;
+    color: #006837;
     font-size: 16px;
     line-height: 16px;
     background-position: center center;
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/window/Window.scss:866 */
 .x-window-header-default .x-window-header-glyph {
-    color: #006546;
+    color: #006837;
     font-size: 16px;
     line-height: 16px;
     opacity: 0.5;
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/window/Window.scss:883 */
 .x-ie8 .x-window-header-default .x-window-header-glyph {
-    color: #7bad9e;
+    color: #7baf96;
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/window/Window.scss:892 */
 .x-window-header-default-horizontal .x-tool-after-title {
@@ -7716,7 +7716,7 @@ td.x-frame-mc {
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/window/Window.scss:937 */
 .x-keyboard-mode .x-window-header-default .x-tool-focus {
-    outline: 1px solid #006546;
+    outline: 1px solid #006837;
     outline-offset: 2px;
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/css-outline.scss:63 */
@@ -7735,7 +7735,7 @@ td.x-frame-mc {
     right: -3px;
     bottom: -3px;
     left: -3px;
-    border: 1px solid #006546;
+    border: 1px solid #006837;
     pointer-events: none;
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/window/Window.scss:951 */
@@ -7926,7 +7926,7 @@ td.x-frame-mc {
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/form/field/Text.scss:229 */
 .x-form-trigger-wrap-default.x-form-trigger-wrap-focus {
-    border-color: #267c62;
+    border-color: #267f55;
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/form/field/Text.scss:233 */
 .x-form-trigger-wrap-default.x-form-trigger-wrap-invalid {
@@ -8117,7 +8117,7 @@ div.x-datepicker-arrow:hover {
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/src/picker/Date.scss:93 */
 .x-datepicker-month .x-btn-inner {
-    color: #267c62;
+    color: #267f55;
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/src/picker/Date.scss:98 */
 .x-datepicker-month .x-btn-split-right:after,
@@ -8174,16 +8174,16 @@ div.x-datepicker-arrow:hover {
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/src/picker/Date.scss:173 */
 div.x-datepicker-date:hover {
     color: #000;
-    background-color: #e9f2ef;
+    background-color: #e9f2ee;
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/src/picker/Date.scss:178 */
 .x-datepicker-selected {
     border-style: solid;
-    border-color: #267c62;
+    border-color: #267f55;
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/src/picker/Date.scss:181 */
 .x-datepicker-selected div.x-datepicker-date {
-    background-color: #d2e4df;
+    background-color: #d2e5dc;
     color: #000;
     font-weight: 300;
 }
@@ -8264,14 +8264,14 @@ div.x-datepicker-date:hover {
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/src/picker/Date.scss:295 */
 a.x-monthpicker-item-inner:hover {
     color: #000;
-    background-color: #e9f2ef;
+    background-color: #e9f2ee;
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/src/picker/Date.scss:301 */
 .x-monthpicker-item a.x-monthpicker-selected {
-    background-color: #d2e4df;
+    background-color: #d2e5dc;
     color: #000;
     border-style: solid;
-    border-color: #267c62;
+    border-color: #267f55;
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/src/picker/Date.scss:308 */
 .x-monthpicker-yearnav {
@@ -8343,11 +8343,11 @@ a.x-monthpicker-yearnav-button:hover {
     padding: 2px 2px 2px 2px;
     border-width: 1px;
     border-style: solid;
-    background-color: #e9f2ef;
+    background-color: #e9f2ee;
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:237 */
 .x-tip-default-mc {
-    background-color: #e9f2ef;
+    background-color: #e9f2ee;
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:264 */
 .x-nbr .x-tip-default {
@@ -8440,13 +8440,13 @@ a.x-monthpicker-yearnav-button:hover {
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/tip/Tip.scss:318 */
 .x-tip-default {
-    background-color: #e9f2ef;
+    background-color: #e9f2ee;
     border-color: #e1e1e1;
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/tip/Tip.scss:328 */
 .x-tip-default .x-tool-img {
     background-image: url(images/tools/tool-sprites-dark.png);
-    background-color: #e9f2ef;
+    background-color: #e9f2ee;
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/tip/Tip.scss:343 */
 .x-tip-header-default .x-tool-after-title {
@@ -8518,28 +8518,28 @@ a.x-monthpicker-yearnav-button:hover {
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/tip/Tip.scss:439 */
 .x-tip-default .x-tip-anchor-top:after {
     border-top-width: 0;
-    border-bottom: 10px solid #e9f2ef;
+    border-bottom: 10px solid #e9f2ee;
     top: 1px;
     margin-left: -10px;
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/tip/Tip.scss:446 */
 .x-tip-default .x-tip-anchor-bottom:after {
     border-bottom-width: 0;
-    border-top: 10px solid #e9f2ef;
+    border-top: 10px solid #e9f2ee;
     bottom: 1px;
     margin-left: -10px;
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/tip/Tip.scss:453 */
 .x-tip-default .x-tip-anchor-left:after {
     border-left-width: 0;
-    border-right: 10px solid #e9f2ef;
+    border-right: 10px solid #e9f2ee;
     left: 1px;
     margin-top: -10px;
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/tip/Tip.scss:460 */
 .x-tip-default .x-tip-anchor-right:after {
     border-right-width: 0;
-    border-left: 10px solid #e9f2ef;
+    border-left: 10px solid #e9f2ee;
     right: 1px;
     margin-top: -10px;
 }
@@ -8553,11 +8553,11 @@ a.x-monthpicker-yearnav-button:hover {
     padding: 2px 2px 2px 2px;
     border-width: 1px;
     border-style: solid;
-    background-color: #e9f2ef;
+    background-color: #e9f2ee;
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:237 */
 .x-tip-form-invalid-mc {
-    background-color: #e9f2ef;
+    background-color: #e9f2ee;
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/frame.scss:264 */
 .x-nbr .x-tip-form-invalid {
@@ -8650,13 +8650,13 @@ a.x-monthpicker-yearnav-button:hover {
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/tip/Tip.scss:318 */
 .x-tip-form-invalid {
-    background-color: #e9f2ef;
+    background-color: #e9f2ee;
     border-color: #e1e1e1;
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/tip/Tip.scss:328 */
 .x-tip-form-invalid .x-tool-img {
     background-image: url(images/tools/tool-sprites-dark.png);
-    background-color: #e9f2ef;
+    background-color: #e9f2ee;
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/tip/Tip.scss:343 */
 .x-tip-header-form-invalid .x-tool-after-title {
@@ -8728,28 +8728,28 @@ a.x-monthpicker-yearnav-button:hover {
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/tip/Tip.scss:439 */
 .x-tip-form-invalid .x-tip-anchor-top:after {
     border-top-width: 0;
-    border-bottom: 10px solid #e9f2ef;
+    border-bottom: 10px solid #e9f2ee;
     top: 1px;
     margin-left: -10px;
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/tip/Tip.scss:446 */
 .x-tip-form-invalid .x-tip-anchor-bottom:after {
     border-bottom-width: 0;
-    border-top: 10px solid #e9f2ef;
+    border-top: 10px solid #e9f2ee;
     bottom: 1px;
     margin-left: -10px;
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/tip/Tip.scss:453 */
 .x-tip-form-invalid .x-tip-anchor-left:after {
     border-left-width: 0;
-    border-right: 10px solid #e9f2ef;
+    border-right: 10px solid #e9f2ee;
     left: 1px;
     margin-top: -10px;
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/tip/Tip.scss:460 */
 .x-tip-form-invalid .x-tip-anchor-right:after {
     border-right-width: 0;
-    border-left: 10px solid #e9f2ef;
+    border-left: 10px solid #e9f2ee;
     right: 1px;
     margin-top: -10px;
 }
@@ -8793,12 +8793,12 @@ a.x-monthpicker-yearnav-button:hover {
 .x-menu-item-default.x-menu-item-focus,
 .x-menu-item-default.x-menu-item-active {
     background-image: none;
-    background-color: #d2e4df;
+    background-color: #d2e5dc;
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/menu/Menu.scss:862 */
 .x-nlg .x-menu-item-default.x-menu-item-focus,
 .x-nlg .x-menu-item-default.x-menu-item-active {
-    background: #d2e4df repeat-x left top;
+    background: #d2e5dc repeat-x left top;
     background-image: url(images/menu/menu-item-default-active-bg.gif);
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/menu/Menu.scss:869 */
@@ -9015,12 +9015,12 @@ a.x-monthpicker-yearnav-button:hover {
 .x-menu-item-default-menubar.x-menu-item-focus,
 .x-menu-item-default-menubar.x-menu-item-active {
     background-image: none;
-    background-color: #d2e4df;
+    background-color: #d2e5dc;
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/menu/Menu.scss:862 */
 .x-nlg .x-menu-item-default-menubar.x-menu-item-focus,
 .x-nlg .x-menu-item-default-menubar.x-menu-item-active {
-    background: #d2e4df repeat-x left top;
+    background: #d2e5dc repeat-x left top;
     background-image: url(images/menu/menu-item-default-menubar-active-bg.gif);
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/menu/Menu.scss:869 */
@@ -9217,14 +9217,14 @@ a.x-monthpicker-yearnav-button:hover {
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/src/layout/container/Accordion.scss:6 */
 .x-accordion-hd .x-panel-header-title {
-    color: #006546;
+    color: #006837;
     font-weight: 300;
     font-family: helvetica, arial, verdana, sans-serif;
     text-transform: none;
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/src/layout/container/Accordion.scss:13 */
 .x-keyboard-mode .x-accordion-hd .x-panel-header-title.x-title-focus {
-    outline: 1px solid #006546;
+    outline: 1px solid #006837;
     outline-offset: 2px;
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/css-outline.scss:63 */
@@ -9243,7 +9243,7 @@ a.x-monthpicker-yearnav-button:hover {
     right: -3px;
     bottom: -3px;
     left: -3px;
-    border: 1px solid #006546;
+    border: 1px solid #006837;
     pointer-events: none;
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/src/layout/container/Accordion.scss:34 */
@@ -9273,7 +9273,7 @@ a.x-monthpicker-yearnav-button:hover {
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/src/layout/container/Accordion.scss:72 */
 .x-accordion-hd .x-tool-tool-el {
     background-color: #fff;
-    color: #006546;
+    color: #006837;
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/src/layout/container/Accordion.scss:87 */
 .x-accordion-hd .x-tool-collapse-top,
@@ -9287,7 +9287,7 @@ a.x-monthpicker-yearnav-button:hover {
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/src/layout/container/Accordion.scss:126 */
 .x-keyboard-mode .x-accordion-hd .x-tool-focus {
-    outline: 1px solid #006546;
+    outline: 1px solid #006837;
     outline-offset: 2px;
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/css-outline.scss:63 */
@@ -9306,7 +9306,7 @@ a.x-monthpicker-yearnav-button:hover {
     right: -3px;
     bottom: -3px;
     left: -3px;
-    border: 1px solid #006546;
+    border: 1px solid #006837;
     pointer-events: none;
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/src/resizer/Resizer.scss:1 */
@@ -9937,21 +9937,21 @@ a.x-monthpicker-yearnav-button:hover {
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/tab/Tab.scss:2763 */
 .x-keyboard-mode .x-tab-default-top.x-tab-focus {
-    -webkit-box-shadow: #267c62 0 1px 0px 0 inset, #267c62 0 -1px 0px 0 inset, #267c62 -1px 0 0px 0 inset, #267c62 1px 0 0px 0 inset;
-    -moz-box-shadow: #267c62 0 1px 0px 0 inset, #267c62 0 -1px 0px 0 inset, #267c62 -1px 0 0px 0 inset, #267c62 1px 0 0px 0 inset;
-    box-shadow: #267c62 0 1px 0px 0 inset, #267c62 0 -1px 0px 0 inset, #267c62 -1px 0 0px 0 inset, #267c62 1px 0 0px 0 inset;
+    -webkit-box-shadow: #267f55 0 1px 0px 0 inset, #267f55 0 -1px 0px 0 inset, #267f55 -1px 0 0px 0 inset, #267f55 1px 0 0px 0 inset;
+    -moz-box-shadow: #267f55 0 1px 0px 0 inset, #267f55 0 -1px 0px 0 inset, #267f55 -1px 0 0px 0 inset, #267f55 1px 0 0px 0 inset;
+    box-shadow: #267f55 0 1px 0px 0 inset, #267f55 0 -1px 0px 0 inset, #267f55 -1px 0 0px 0 inset, #267f55 1px 0 0px 0 inset;
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/tab/Tab.scss:2794 */
 .x-keyboard-mode .x-tab-default-top.x-tab-focus.x-tab-over {
-    -webkit-box-shadow: #267c62 0 1px 0px 0 inset, #267c62 0 -1px 0px 0 inset, #267c62 -1px 0 0px 0 inset, #267c62 1px 0 0px 0 inset;
-    -moz-box-shadow: #267c62 0 1px 0px 0 inset, #267c62 0 -1px 0px 0 inset, #267c62 -1px 0 0px 0 inset, #267c62 1px 0 0px 0 inset;
-    box-shadow: #267c62 0 1px 0px 0 inset, #267c62 0 -1px 0px 0 inset, #267c62 -1px 0 0px 0 inset, #267c62 1px 0 0px 0 inset;
+    -webkit-box-shadow: #267f55 0 1px 0px 0 inset, #267f55 0 -1px 0px 0 inset, #267f55 -1px 0 0px 0 inset, #267f55 1px 0 0px 0 inset;
+    -moz-box-shadow: #267f55 0 1px 0px 0 inset, #267f55 0 -1px 0px 0 inset, #267f55 -1px 0 0px 0 inset, #267f55 1px 0 0px 0 inset;
+    box-shadow: #267f55 0 1px 0px 0 inset, #267f55 0 -1px 0px 0 inset, #267f55 -1px 0 0px 0 inset, #267f55 1px 0 0px 0 inset;
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/tab/Tab.scss:2825 */
 .x-keyboard-mode .x-tab-default-top.x-tab-focus.x-tab-active {
-    -webkit-box-shadow: #d4e5e0 0 1px 0px 0 inset, #d4e5e0 0 -1px 0px 0 inset, #d4e5e0 -1px 0 0px 0 inset, #d4e5e0 1px 0 0px 0 inset;
-    -moz-box-shadow: #d4e5e0 0 1px 0px 0 inset, #d4e5e0 0 -1px 0px 0 inset, #d4e5e0 -1px 0 0px 0 inset, #d4e5e0 1px 0 0px 0 inset;
-    box-shadow: #d4e5e0 0 1px 0px 0 inset, #d4e5e0 0 -1px 0px 0 inset, #d4e5e0 -1px 0 0px 0 inset, #d4e5e0 1px 0 0px 0 inset;
+    -webkit-box-shadow: #d4e5dd 0 1px 0px 0 inset, #d4e5dd 0 -1px 0px 0 inset, #d4e5dd -1px 0 0px 0 inset, #d4e5dd 1px 0 0px 0 inset;
+    -moz-box-shadow: #d4e5dd 0 1px 0px 0 inset, #d4e5dd 0 -1px 0px 0 inset, #d4e5dd -1px 0 0px 0 inset, #d4e5dd 1px 0 0px 0 inset;
+    box-shadow: #d4e5dd 0 1px 0px 0 inset, #d4e5dd 0 -1px 0px 0 inset, #d4e5dd -1px 0 0px 0 inset, #d4e5dd 1px 0 0px 0 inset;
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/tab/Tab.scss:2852 */
 .x-tab-default-right {
@@ -9963,21 +9963,21 @@ a.x-monthpicker-yearnav-button:hover {
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/tab/Tab.scss:2884 */
 .x-keyboard-mode .x-tab-default-right.x-tab-focus {
-    -webkit-box-shadow: #267c62 0 1px 0px 0 inset, #267c62 0 -1px 0px 0 inset, #267c62 -1px 0 0px 0 inset, #267c62 1px 0 0px 0 inset;
-    -moz-box-shadow: #267c62 0 1px 0px 0 inset, #267c62 0 -1px 0px 0 inset, #267c62 -1px 0 0px 0 inset, #267c62 1px 0 0px 0 inset;
-    box-shadow: #267c62 0 1px 0px 0 inset, #267c62 0 -1px 0px 0 inset, #267c62 -1px 0 0px 0 inset, #267c62 1px 0 0px 0 inset;
+    -webkit-box-shadow: #267f55 0 1px 0px 0 inset, #267f55 0 -1px 0px 0 inset, #267f55 -1px 0 0px 0 inset, #267f55 1px 0 0px 0 inset;
+    -moz-box-shadow: #267f55 0 1px 0px 0 inset, #267f55 0 -1px 0px 0 inset, #267f55 -1px 0 0px 0 inset, #267f55 1px 0 0px 0 inset;
+    box-shadow: #267f55 0 1px 0px 0 inset, #267f55 0 -1px 0px 0 inset, #267f55 -1px 0 0px 0 inset, #267f55 1px 0 0px 0 inset;
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/tab/Tab.scss:2915 */
 .x-keyboard-mode .x-tab-default-right.x-tab-focus.x-tab-over {
-    -webkit-box-shadow: #267c62 0 1px 0px 0 inset, #267c62 0 -1px 0px 0 inset, #267c62 -1px 0 0px 0 inset, #267c62 1px 0 0px 0 inset;
-    -moz-box-shadow: #267c62 0 1px 0px 0 inset, #267c62 0 -1px 0px 0 inset, #267c62 -1px 0 0px 0 inset, #267c62 1px 0 0px 0 inset;
-    box-shadow: #267c62 0 1px 0px 0 inset, #267c62 0 -1px 0px 0 inset, #267c62 -1px 0 0px 0 inset, #267c62 1px 0 0px 0 inset;
+    -webkit-box-shadow: #267f55 0 1px 0px 0 inset, #267f55 0 -1px 0px 0 inset, #267f55 -1px 0 0px 0 inset, #267f55 1px 0 0px 0 inset;
+    -moz-box-shadow: #267f55 0 1px 0px 0 inset, #267f55 0 -1px 0px 0 inset, #267f55 -1px 0 0px 0 inset, #267f55 1px 0 0px 0 inset;
+    box-shadow: #267f55 0 1px 0px 0 inset, #267f55 0 -1px 0px 0 inset, #267f55 -1px 0 0px 0 inset, #267f55 1px 0 0px 0 inset;
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/tab/Tab.scss:2946 */
 .x-keyboard-mode .x-tab-default-right.x-tab-focus.x-tab-active {
-    -webkit-box-shadow: #d4e5e0 0 1px 0px 0 inset, #d4e5e0 0 -1px 0px 0 inset, #d4e5e0 -1px 0 0px 0 inset, #d4e5e0 1px 0 0px 0 inset;
-    -moz-box-shadow: #d4e5e0 0 1px 0px 0 inset, #d4e5e0 0 -1px 0px 0 inset, #d4e5e0 -1px 0 0px 0 inset, #d4e5e0 1px 0 0px 0 inset;
-    box-shadow: #d4e5e0 0 1px 0px 0 inset, #d4e5e0 0 -1px 0px 0 inset, #d4e5e0 -1px 0 0px 0 inset, #d4e5e0 1px 0 0px 0 inset;
+    -webkit-box-shadow: #d4e5dd 0 1px 0px 0 inset, #d4e5dd 0 -1px 0px 0 inset, #d4e5dd -1px 0 0px 0 inset, #d4e5dd 1px 0 0px 0 inset;
+    -moz-box-shadow: #d4e5dd 0 1px 0px 0 inset, #d4e5dd 0 -1px 0px 0 inset, #d4e5dd -1px 0 0px 0 inset, #d4e5dd 1px 0 0px 0 inset;
+    box-shadow: #d4e5dd 0 1px 0px 0 inset, #d4e5dd 0 -1px 0px 0 inset, #d4e5dd -1px 0 0px 0 inset, #d4e5dd 1px 0 0px 0 inset;
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/tab/Tab.scss:2973 */
 .x-tab-default-bottom {
@@ -9989,21 +9989,21 @@ a.x-monthpicker-yearnav-button:hover {
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/tab/Tab.scss:3005 */
 .x-keyboard-mode .x-tab-default-bottom.x-tab-focus {
-    -webkit-box-shadow: #267c62 0 1px 0px 0 inset, #267c62 0 -1px 0px 0 inset, #267c62 -1px 0 0px 0 inset, #267c62 1px 0 0px 0 inset;
-    -moz-box-shadow: #267c62 0 1px 0px 0 inset, #267c62 0 -1px 0px 0 inset, #267c62 -1px 0 0px 0 inset, #267c62 1px 0 0px 0 inset;
-    box-shadow: #267c62 0 1px 0px 0 inset, #267c62 0 -1px 0px 0 inset, #267c62 -1px 0 0px 0 inset, #267c62 1px 0 0px 0 inset;
+    -webkit-box-shadow: #267f55 0 1px 0px 0 inset, #267f55 0 -1px 0px 0 inset, #267f55 -1px 0 0px 0 inset, #267f55 1px 0 0px 0 inset;
+    -moz-box-shadow: #267f55 0 1px 0px 0 inset, #267f55 0 -1px 0px 0 inset, #267f55 -1px 0 0px 0 inset, #267f55 1px 0 0px 0 inset;
+    box-shadow: #267f55 0 1px 0px 0 inset, #267f55 0 -1px 0px 0 inset, #267f55 -1px 0 0px 0 inset, #267f55 1px 0 0px 0 inset;
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/tab/Tab.scss:3036 */
 .x-keyboard-mode .x-tab-default-bottom.x-tab-focus.x-tab-over {
-    -webkit-box-shadow: #267c62 0 1px 0px 0 inset, #267c62 0 -1px 0px 0 inset, #267c62 -1px 0 0px 0 inset, #267c62 1px 0 0px 0 inset;
-    -moz-box-shadow: #267c62 0 1px 0px 0 inset, #267c62 0 -1px 0px 0 inset, #267c62 -1px 0 0px 0 inset, #267c62 1px 0 0px 0 inset;
-    box-shadow: #267c62 0 1px 0px 0 inset, #267c62 0 -1px 0px 0 inset, #267c62 -1px 0 0px 0 inset, #267c62 1px 0 0px 0 inset;
+    -webkit-box-shadow: #267f55 0 1px 0px 0 inset, #267f55 0 -1px 0px 0 inset, #267f55 -1px 0 0px 0 inset, #267f55 1px 0 0px 0 inset;
+    -moz-box-shadow: #267f55 0 1px 0px 0 inset, #267f55 0 -1px 0px 0 inset, #267f55 -1px 0 0px 0 inset, #267f55 1px 0 0px 0 inset;
+    box-shadow: #267f55 0 1px 0px 0 inset, #267f55 0 -1px 0px 0 inset, #267f55 -1px 0 0px 0 inset, #267f55 1px 0 0px 0 inset;
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/tab/Tab.scss:3067 */
 .x-keyboard-mode .x-tab-default-bottom.x-tab-focus.x-tab-active {
-    -webkit-box-shadow: #d4e5e0 0 1px 0px 0 inset, #d4e5e0 0 -1px 0px 0 inset, #d4e5e0 -1px 0 0px 0 inset, #d4e5e0 1px 0 0px 0 inset;
-    -moz-box-shadow: #d4e5e0 0 1px 0px 0 inset, #d4e5e0 0 -1px 0px 0 inset, #d4e5e0 -1px 0 0px 0 inset, #d4e5e0 1px 0 0px 0 inset;
-    box-shadow: #d4e5e0 0 1px 0px 0 inset, #d4e5e0 0 -1px 0px 0 inset, #d4e5e0 -1px 0 0px 0 inset, #d4e5e0 1px 0 0px 0 inset;
+    -webkit-box-shadow: #d4e5dd 0 1px 0px 0 inset, #d4e5dd 0 -1px 0px 0 inset, #d4e5dd -1px 0 0px 0 inset, #d4e5dd 1px 0 0px 0 inset;
+    -moz-box-shadow: #d4e5dd 0 1px 0px 0 inset, #d4e5dd 0 -1px 0px 0 inset, #d4e5dd -1px 0 0px 0 inset, #d4e5dd 1px 0 0px 0 inset;
+    box-shadow: #d4e5dd 0 1px 0px 0 inset, #d4e5dd 0 -1px 0px 0 inset, #d4e5dd -1px 0 0px 0 inset, #d4e5dd 1px 0 0px 0 inset;
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/tab/Tab.scss:3094 */
 .x-tab-default-left {
@@ -10015,21 +10015,21 @@ a.x-monthpicker-yearnav-button:hover {
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/tab/Tab.scss:3126 */
 .x-keyboard-mode .x-tab-default-left.x-tab-focus {
-    -webkit-box-shadow: #267c62 0 1px 0px 0 inset, #267c62 0 -1px 0px 0 inset, #267c62 -1px 0 0px 0 inset, #267c62 1px 0 0px 0 inset;
-    -moz-box-shadow: #267c62 0 1px 0px 0 inset, #267c62 0 -1px 0px 0 inset, #267c62 -1px 0 0px 0 inset, #267c62 1px 0 0px 0 inset;
-    box-shadow: #267c62 0 1px 0px 0 inset, #267c62 0 -1px 0px 0 inset, #267c62 -1px 0 0px 0 inset, #267c62 1px 0 0px 0 inset;
+    -webkit-box-shadow: #267f55 0 1px 0px 0 inset, #267f55 0 -1px 0px 0 inset, #267f55 -1px 0 0px 0 inset, #267f55 1px 0 0px 0 inset;
+    -moz-box-shadow: #267f55 0 1px 0px 0 inset, #267f55 0 -1px 0px 0 inset, #267f55 -1px 0 0px 0 inset, #267f55 1px 0 0px 0 inset;
+    box-shadow: #267f55 0 1px 0px 0 inset, #267f55 0 -1px 0px 0 inset, #267f55 -1px 0 0px 0 inset, #267f55 1px 0 0px 0 inset;
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/tab/Tab.scss:3157 */
 .x-keyboard-mode .x-tab-default-left.x-tab-focus.x-tab-over {
-    -webkit-box-shadow: #267c62 0 1px 0px 0 inset, #267c62 0 -1px 0px 0 inset, #267c62 -1px 0 0px 0 inset, #267c62 1px 0 0px 0 inset;
-    -moz-box-shadow: #267c62 0 1px 0px 0 inset, #267c62 0 -1px 0px 0 inset, #267c62 -1px 0 0px 0 inset, #267c62 1px 0 0px 0 inset;
-    box-shadow: #267c62 0 1px 0px 0 inset, #267c62 0 -1px 0px 0 inset, #267c62 -1px 0 0px 0 inset, #267c62 1px 0 0px 0 inset;
+    -webkit-box-shadow: #267f55 0 1px 0px 0 inset, #267f55 0 -1px 0px 0 inset, #267f55 -1px 0 0px 0 inset, #267f55 1px 0 0px 0 inset;
+    -moz-box-shadow: #267f55 0 1px 0px 0 inset, #267f55 0 -1px 0px 0 inset, #267f55 -1px 0 0px 0 inset, #267f55 1px 0 0px 0 inset;
+    box-shadow: #267f55 0 1px 0px 0 inset, #267f55 0 -1px 0px 0 inset, #267f55 -1px 0 0px 0 inset, #267f55 1px 0 0px 0 inset;
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/tab/Tab.scss:3188 */
 .x-keyboard-mode .x-tab-default-left.x-tab-focus.x-tab-active {
-    -webkit-box-shadow: #d4e5e0 0 1px 0px 0 inset, #d4e5e0 0 -1px 0px 0 inset, #d4e5e0 -1px 0 0px 0 inset, #d4e5e0 1px 0 0px 0 inset;
-    -moz-box-shadow: #d4e5e0 0 1px 0px 0 inset, #d4e5e0 0 -1px 0px 0 inset, #d4e5e0 -1px 0 0px 0 inset, #d4e5e0 1px 0 0px 0 inset;
-    box-shadow: #d4e5e0 0 1px 0px 0 inset, #d4e5e0 0 -1px 0px 0 inset, #d4e5e0 -1px 0 0px 0 inset, #d4e5e0 1px 0 0px 0 inset;
+    -webkit-box-shadow: #d4e5dd 0 1px 0px 0 inset, #d4e5dd 0 -1px 0px 0 inset, #d4e5dd -1px 0 0px 0 inset, #d4e5dd 1px 0 0px 0 inset;
+    -moz-box-shadow: #d4e5dd 0 1px 0px 0 inset, #d4e5dd 0 -1px 0px 0 inset, #d4e5dd -1px 0 0px 0 inset, #d4e5dd 1px 0 0px 0 inset;
+    box-shadow: #d4e5dd 0 1px 0px 0 inset, #d4e5dd 0 -1px 0px 0 inset, #d4e5dd -1px 0 0px 0 inset, #d4e5dd 1px 0 0px 0 inset;
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/tab/Tab.scss:3215 */
 .x-tab-button-default {
@@ -10095,18 +10095,18 @@ a.x-monthpicker-yearnav-button:hover {
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/tab/Tab.scss:3454 */
 .x-tab-over.x-tab-default {
-    border-color: #c4d9d2;
-    background-color: #c4d9d2;
+    border-color: #c4d9cf;
+    background-color: #c4d9cf;
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/tab/Tab.scss:3567 */
 .x-keyboard-mode .x-tab-focus.x-tab-over.x-tab-default {
-    border-color: #c4d9d2;
-    background-color: #c4d9d2;
+    border-color: #c4d9cf;
+    background-color: #c4d9cf;
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/tab/Tab.scss:3685 */
 .x-tab.x-tab-active.x-tab-default {
-    border-color: #267c62;
-    background-color: #267c62;
+    border-color: #267f55;
+    background-color: #267f55;
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/tab/Tab.scss:3741 */
 .x-tab.x-tab-active.x-tab-default .x-tab-inner-default {
@@ -10118,12 +10118,12 @@ a.x-monthpicker-yearnav-button:hover {
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/tab/Tab.scss:3769 */
 .x-ie8 .x-tab.x-tab-active.x-tab-default .x-tab-icon-el {
-    color: #93beb0;
+    color: #93bfaa;
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/tab/Tab.scss:3797 */
 .x-keyboard-mode .x-tab-focus.x-tab-active.x-tab-default {
-    border-color: #267c62;
-    background-color: #267c62;
+    border-color: #267f55;
+    background-color: #267f55;
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/tab/Tab.scss:3916 */
 .x-tab.x-tab-disabled.x-tab-default {
@@ -11043,9 +11043,9 @@ a.x-monthpicker-yearnav-button:hover {
 .x-keyboard-mode .x-btn-focus.x-btn-plain-toolbar-small {
     background-image: none;
     background-color: transparent;
-    -webkit-box-shadow: #318269 0 1px 0px 0 inset, #318269 0 -1px 0px 0 inset, #318269 -1px 0 0px 0 inset, #318269 1px 0 0px 0 inset;
-    -moz-box-shadow: #318269 0 1px 0px 0 inset, #318269 0 -1px 0px 0 inset, #318269 -1px 0 0px 0 inset, #318269 1px 0 0px 0 inset;
-    box-shadow: #318269 0 1px 0px 0 inset, #318269 0 -1px 0px 0 inset, #318269 -1px 0 0px 0 inset, #318269 1px 0 0px 0 inset;
+    -webkit-box-shadow: #31845d 0 1px 0px 0 inset, #31845d 0 -1px 0px 0 inset, #31845d -1px 0 0px 0 inset, #31845d 1px 0 0px 0 inset;
+    -moz-box-shadow: #31845d 0 1px 0px 0 inset, #31845d 0 -1px 0px 0 inset, #31845d -1px 0 0px 0 inset, #31845d 1px 0 0px 0 inset;
+    box-shadow: #31845d 0 1px 0px 0 inset, #31845d 0 -1px 0px 0 inset, #31845d -1px 0 0px 0 inset, #31845d 1px 0 0px 0 inset;
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/button/Button.scss:2793 */
 .x-btn-plain-toolbar-small .x-btn-arrow-el {
@@ -11058,7 +11058,7 @@ a.x-monthpicker-yearnav-button:hover {
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/button/Button.scss:2810 */
 .x-keyboard-mode .x-btn-plain-toolbar-small.x-arrow-focus .x-btn-arrow-el {
-    border: 1px solid #318269;
+    border: 1px solid #31845d;
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/button/Button.scss:2817 */
 .x-btn-over.x-btn-plain-toolbar-small {
@@ -11068,9 +11068,9 @@ a.x-monthpicker-yearnav-button:hover {
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/button/Button.scss:2845 */
 .x-keyboard-mode .x-btn-focus.x-btn-over.x-btn-plain-toolbar-small {
-    -webkit-box-shadow: #318269 0 1px 0px 0 inset, #318269 0 -1px 0px 0 inset, #318269 -1px 0 0px 0 inset, #318269 1px 0 0px 0 inset;
-    -moz-box-shadow: #318269 0 1px 0px 0 inset, #318269 0 -1px 0px 0 inset, #318269 -1px 0 0px 0 inset, #318269 1px 0 0px 0 inset;
-    box-shadow: #318269 0 1px 0px 0 inset, #318269 0 -1px 0px 0 inset, #318269 -1px 0 0px 0 inset, #318269 1px 0 0px 0 inset;
+    -webkit-box-shadow: #31845d 0 1px 0px 0 inset, #31845d 0 -1px 0px 0 inset, #31845d -1px 0 0px 0 inset, #31845d 1px 0 0px 0 inset;
+    -moz-box-shadow: #31845d 0 1px 0px 0 inset, #31845d 0 -1px 0px 0 inset, #31845d -1px 0 0px 0 inset, #31845d 1px 0 0px 0 inset;
+    box-shadow: #31845d 0 1px 0px 0 inset, #31845d 0 -1px 0px 0 inset, #31845d -1px 0 0px 0 inset, #31845d 1px 0 0px 0 inset;
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/button/Button.scss:2874 */
 .x-btn.x-btn-menu-active.x-btn-plain-toolbar-small,
@@ -11082,9 +11082,9 @@ a.x-monthpicker-yearnav-button:hover {
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/button/Button.scss:2904 */
 .x-keyboard-mode .x-btn-focus.x-btn-menu-active.x-btn-plain-toolbar-small,
 .x-keyboard-mode .x-btn-focus.x-btn-pressed.x-btn-plain-toolbar-small {
-    -webkit-box-shadow: #318269 0 1px 0px 0 inset, #318269 0 -1px 0px 0 inset, #318269 -1px 0 0px 0 inset, #318269 1px 0 0px 0 inset;
-    -moz-box-shadow: #318269 0 1px 0px 0 inset, #318269 0 -1px 0px 0 inset, #318269 -1px 0 0px 0 inset, #318269 1px 0 0px 0 inset;
-    box-shadow: #318269 0 1px 0px 0 inset, #318269 0 -1px 0px 0 inset, #318269 -1px 0 0px 0 inset, #318269 1px 0 0px 0 inset;
+    -webkit-box-shadow: #31845d 0 1px 0px 0 inset, #31845d 0 -1px 0px 0 inset, #31845d -1px 0 0px 0 inset, #31845d 1px 0 0px 0 inset;
+    -moz-box-shadow: #31845d 0 1px 0px 0 inset, #31845d 0 -1px 0px 0 inset, #31845d -1px 0 0px 0 inset, #31845d 1px 0 0px 0 inset;
+    box-shadow: #31845d 0 1px 0px 0 inset, #31845d 0 -1px 0px 0 inset, #31845d -1px 0 0px 0 inset, #31845d 1px 0 0px 0 inset;
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/button/Button.scss:2933 */
 .x-btn.x-btn-disabled.x-btn-plain-toolbar-small {
@@ -11436,9 +11436,9 @@ a.x-monthpicker-yearnav-button:hover {
 .x-keyboard-mode .x-btn-focus.x-btn-plain-toolbar-medium {
     background-image: none;
     background-color: transparent;
-    -webkit-box-shadow: #318269 0 1px 0px 0 inset, #318269 0 -1px 0px 0 inset, #318269 -1px 0 0px 0 inset, #318269 1px 0 0px 0 inset;
-    -moz-box-shadow: #318269 0 1px 0px 0 inset, #318269 0 -1px 0px 0 inset, #318269 -1px 0 0px 0 inset, #318269 1px 0 0px 0 inset;
-    box-shadow: #318269 0 1px 0px 0 inset, #318269 0 -1px 0px 0 inset, #318269 -1px 0 0px 0 inset, #318269 1px 0 0px 0 inset;
+    -webkit-box-shadow: #31845d 0 1px 0px 0 inset, #31845d 0 -1px 0px 0 inset, #31845d -1px 0 0px 0 inset, #31845d 1px 0 0px 0 inset;
+    -moz-box-shadow: #31845d 0 1px 0px 0 inset, #31845d 0 -1px 0px 0 inset, #31845d -1px 0 0px 0 inset, #31845d 1px 0 0px 0 inset;
+    box-shadow: #31845d 0 1px 0px 0 inset, #31845d 0 -1px 0px 0 inset, #31845d -1px 0 0px 0 inset, #31845d 1px 0 0px 0 inset;
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/button/Button.scss:2793 */
 .x-btn-plain-toolbar-medium .x-btn-arrow-el {
@@ -11451,7 +11451,7 @@ a.x-monthpicker-yearnav-button:hover {
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/button/Button.scss:2810 */
 .x-keyboard-mode .x-btn-plain-toolbar-medium.x-arrow-focus .x-btn-arrow-el {
-    border: 1px solid #318269;
+    border: 1px solid #31845d;
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/button/Button.scss:2817 */
 .x-btn-over.x-btn-plain-toolbar-medium {
@@ -11461,9 +11461,9 @@ a.x-monthpicker-yearnav-button:hover {
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/button/Button.scss:2845 */
 .x-keyboard-mode .x-btn-focus.x-btn-over.x-btn-plain-toolbar-medium {
-    -webkit-box-shadow: #318269 0 1px 0px 0 inset, #318269 0 -1px 0px 0 inset, #318269 -1px 0 0px 0 inset, #318269 1px 0 0px 0 inset;
-    -moz-box-shadow: #318269 0 1px 0px 0 inset, #318269 0 -1px 0px 0 inset, #318269 -1px 0 0px 0 inset, #318269 1px 0 0px 0 inset;
-    box-shadow: #318269 0 1px 0px 0 inset, #318269 0 -1px 0px 0 inset, #318269 -1px 0 0px 0 inset, #318269 1px 0 0px 0 inset;
+    -webkit-box-shadow: #31845d 0 1px 0px 0 inset, #31845d 0 -1px 0px 0 inset, #31845d -1px 0 0px 0 inset, #31845d 1px 0 0px 0 inset;
+    -moz-box-shadow: #31845d 0 1px 0px 0 inset, #31845d 0 -1px 0px 0 inset, #31845d -1px 0 0px 0 inset, #31845d 1px 0 0px 0 inset;
+    box-shadow: #31845d 0 1px 0px 0 inset, #31845d 0 -1px 0px 0 inset, #31845d -1px 0 0px 0 inset, #31845d 1px 0 0px 0 inset;
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/button/Button.scss:2874 */
 .x-btn.x-btn-menu-active.x-btn-plain-toolbar-medium,
@@ -11475,9 +11475,9 @@ a.x-monthpicker-yearnav-button:hover {
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/button/Button.scss:2904 */
 .x-keyboard-mode .x-btn-focus.x-btn-menu-active.x-btn-plain-toolbar-medium,
 .x-keyboard-mode .x-btn-focus.x-btn-pressed.x-btn-plain-toolbar-medium {
-    -webkit-box-shadow: #318269 0 1px 0px 0 inset, #318269 0 -1px 0px 0 inset, #318269 -1px 0 0px 0 inset, #318269 1px 0 0px 0 inset;
-    -moz-box-shadow: #318269 0 1px 0px 0 inset, #318269 0 -1px 0px 0 inset, #318269 -1px 0 0px 0 inset, #318269 1px 0 0px 0 inset;
-    box-shadow: #318269 0 1px 0px 0 inset, #318269 0 -1px 0px 0 inset, #318269 -1px 0 0px 0 inset, #318269 1px 0 0px 0 inset;
+    -webkit-box-shadow: #31845d 0 1px 0px 0 inset, #31845d 0 -1px 0px 0 inset, #31845d -1px 0 0px 0 inset, #31845d 1px 0 0px 0 inset;
+    -moz-box-shadow: #31845d 0 1px 0px 0 inset, #31845d 0 -1px 0px 0 inset, #31845d -1px 0 0px 0 inset, #31845d 1px 0 0px 0 inset;
+    box-shadow: #31845d 0 1px 0px 0 inset, #31845d 0 -1px 0px 0 inset, #31845d -1px 0 0px 0 inset, #31845d 1px 0 0px 0 inset;
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/button/Button.scss:2933 */
 .x-btn.x-btn-disabled.x-btn-plain-toolbar-medium {
@@ -11829,9 +11829,9 @@ a.x-monthpicker-yearnav-button:hover {
 .x-keyboard-mode .x-btn-focus.x-btn-plain-toolbar-large {
     background-image: none;
     background-color: transparent;
-    -webkit-box-shadow: #318269 0 1px 0px 0 inset, #318269 0 -1px 0px 0 inset, #318269 -1px 0 0px 0 inset, #318269 1px 0 0px 0 inset;
-    -moz-box-shadow: #318269 0 1px 0px 0 inset, #318269 0 -1px 0px 0 inset, #318269 -1px 0 0px 0 inset, #318269 1px 0 0px 0 inset;
-    box-shadow: #318269 0 1px 0px 0 inset, #318269 0 -1px 0px 0 inset, #318269 -1px 0 0px 0 inset, #318269 1px 0 0px 0 inset;
+    -webkit-box-shadow: #31845d 0 1px 0px 0 inset, #31845d 0 -1px 0px 0 inset, #31845d -1px 0 0px 0 inset, #31845d 1px 0 0px 0 inset;
+    -moz-box-shadow: #31845d 0 1px 0px 0 inset, #31845d 0 -1px 0px 0 inset, #31845d -1px 0 0px 0 inset, #31845d 1px 0 0px 0 inset;
+    box-shadow: #31845d 0 1px 0px 0 inset, #31845d 0 -1px 0px 0 inset, #31845d -1px 0 0px 0 inset, #31845d 1px 0 0px 0 inset;
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/button/Button.scss:2793 */
 .x-btn-plain-toolbar-large .x-btn-arrow-el {
@@ -11844,7 +11844,7 @@ a.x-monthpicker-yearnav-button:hover {
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/button/Button.scss:2810 */
 .x-keyboard-mode .x-btn-plain-toolbar-large.x-arrow-focus .x-btn-arrow-el {
-    border: 1px solid #318269;
+    border: 1px solid #31845d;
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/button/Button.scss:2817 */
 .x-btn-over.x-btn-plain-toolbar-large {
@@ -11854,9 +11854,9 @@ a.x-monthpicker-yearnav-button:hover {
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/button/Button.scss:2845 */
 .x-keyboard-mode .x-btn-focus.x-btn-over.x-btn-plain-toolbar-large {
-    -webkit-box-shadow: #318269 0 1px 0px 0 inset, #318269 0 -1px 0px 0 inset, #318269 -1px 0 0px 0 inset, #318269 1px 0 0px 0 inset;
-    -moz-box-shadow: #318269 0 1px 0px 0 inset, #318269 0 -1px 0px 0 inset, #318269 -1px 0 0px 0 inset, #318269 1px 0 0px 0 inset;
-    box-shadow: #318269 0 1px 0px 0 inset, #318269 0 -1px 0px 0 inset, #318269 -1px 0 0px 0 inset, #318269 1px 0 0px 0 inset;
+    -webkit-box-shadow: #31845d 0 1px 0px 0 inset, #31845d 0 -1px 0px 0 inset, #31845d -1px 0 0px 0 inset, #31845d 1px 0 0px 0 inset;
+    -moz-box-shadow: #31845d 0 1px 0px 0 inset, #31845d 0 -1px 0px 0 inset, #31845d -1px 0 0px 0 inset, #31845d 1px 0 0px 0 inset;
+    box-shadow: #31845d 0 1px 0px 0 inset, #31845d 0 -1px 0px 0 inset, #31845d -1px 0 0px 0 inset, #31845d 1px 0 0px 0 inset;
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/button/Button.scss:2874 */
 .x-btn.x-btn-menu-active.x-btn-plain-toolbar-large,
@@ -11868,9 +11868,9 @@ a.x-monthpicker-yearnav-button:hover {
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/button/Button.scss:2904 */
 .x-keyboard-mode .x-btn-focus.x-btn-menu-active.x-btn-plain-toolbar-large,
 .x-keyboard-mode .x-btn-focus.x-btn-pressed.x-btn-plain-toolbar-large {
-    -webkit-box-shadow: #318269 0 1px 0px 0 inset, #318269 0 -1px 0px 0 inset, #318269 -1px 0 0px 0 inset, #318269 1px 0 0px 0 inset;
-    -moz-box-shadow: #318269 0 1px 0px 0 inset, #318269 0 -1px 0px 0 inset, #318269 -1px 0 0px 0 inset, #318269 1px 0 0px 0 inset;
-    box-shadow: #318269 0 1px 0px 0 inset, #318269 0 -1px 0px 0 inset, #318269 -1px 0 0px 0 inset, #318269 1px 0 0px 0 inset;
+    -webkit-box-shadow: #31845d 0 1px 0px 0 inset, #31845d 0 -1px 0px 0 inset, #31845d -1px 0 0px 0 inset, #31845d 1px 0 0px 0 inset;
+    -moz-box-shadow: #31845d 0 1px 0px 0 inset, #31845d 0 -1px 0px 0 inset, #31845d -1px 0 0px 0 inset, #31845d 1px 0 0px 0 inset;
+    box-shadow: #31845d 0 1px 0px 0 inset, #31845d 0 -1px 0px 0 inset, #31845d -1px 0 0px 0 inset, #31845d 1px 0 0px 0 inset;
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/button/Button.scss:2933 */
 .x-btn.x-btn-disabled.x-btn-plain-toolbar-large {
@@ -12097,7 +12097,7 @@ a.x-monthpicker-yearnav-button:hover {
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/panel/Panel.scss:929 */
 .x-keyboard-mode .x-panel-header-title-light.x-title-focus {
-    outline: 1px solid #006546;
+    outline: 1px solid #006837;
     outline-offset: 2px;
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/css-outline.scss:63 */
@@ -12116,7 +12116,7 @@ a.x-monthpicker-yearnav-button:hover {
     right: -3px;
     bottom: -3px;
     left: -3px;
-    border: 1px solid #006546;
+    border: 1px solid #006837;
     pointer-events: none;
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/panel/Panel.scss:950 */
@@ -12215,7 +12215,7 @@ a.x-monthpicker-yearnav-button:hover {
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/panel/Panel.scss:1381 */
 .x-keyboard-mode .x-panel-header-light .x-tool-focus {
-    outline: 1px solid #006546;
+    outline: 1px solid #006837;
     outline-offset: 2px;
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/css-outline.scss:63 */
@@ -12234,7 +12234,7 @@ a.x-monthpicker-yearnav-button:hover {
     right: -3px;
     bottom: -3px;
     left: -3px;
-    border: 1px solid #006546;
+    border: 1px solid #006837;
     pointer-events: none;
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/panel/Panel.scss:1429 */
@@ -12417,7 +12417,7 @@ a.x-monthpicker-yearnav-button:hover {
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/panel/Panel.scss:929 */
 .x-keyboard-mode .x-panel-header-title-light-framed.x-title-focus {
-    outline: 1px solid #006546;
+    outline: 1px solid #006837;
     outline-offset: 2px;
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/css-outline.scss:63 */
@@ -12436,7 +12436,7 @@ a.x-monthpicker-yearnav-button:hover {
     right: -3px;
     bottom: -3px;
     left: -3px;
-    border: 1px solid #006546;
+    border: 1px solid #006837;
     pointer-events: none;
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/panel/Panel.scss:950 */
@@ -13542,7 +13542,7 @@ a.x-monthpicker-yearnav-button:hover {
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/panel/Panel.scss:1381 */
 .x-keyboard-mode .x-panel-header-light-framed .x-tool-focus {
-    outline: 1px solid #006546;
+    outline: 1px solid #006837;
     outline-offset: 2px;
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-base/sass/etc/mixins/css-outline.scss:63 */
@@ -13561,7 +13561,7 @@ a.x-monthpicker-yearnav-button:hover {
     right: -3px;
     bottom: -3px;
     left: -3px;
-    border: 1px solid #006546;
+    border: 1px solid #006837;
     pointer-events: none;
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/classic/theme-neutral/sass/var/panel/Panel.scss:1429 */
@@ -13728,46 +13728,74 @@ a.x-monthpicker-yearnav-button:hover {
 .x-resizable-pinned .x-resizable-handle-southwest {
     background-position: 2px -2px;
 }
-/* C:/Users/burton.rosenberger/pagaf/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/Component.scss:6 */
+/* C:/Users/burton.rosenberger/pagaf/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/Component.scss:1 */
+.height100p {
+    height: 100%;
+}
+/* C:/Users/burton.rosenberger/pagaf/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/Component.scss:4 */
+.right {
+    float: right;
+    clear: both;
+    position: relative !important;
+    display: block;
+}
+/* C:/Users/burton.rosenberger/pagaf/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/Component.scss:10 */
+.mapboxgl-control-container {
+    top: 100%;
+}
+/* C:/Users/burton.rosenberger/pagaf/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/Component.scss:17 */
+.green {
+    color: #006837;
+}
+/* C:/Users/burton.rosenberger/pagaf/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/Component.scss:20 */
 .largeTxt .x-btn-inner-default-small,
 .largeTxt .x-btn-icon-el-default-small {
     font-size: 24px !important;
     line-height: 36px !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/Component.scss:12 */
-.XLText {
-    font-size: 48px !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/Component.scss:16 */
-.mediumText {
-    font-size: 24px;
-}
-/* C:/Users/burton.rosenberger/pagaf/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/Component.scss:19 */
-#inSeasonNMgmt .x-panel-header-title-default {
-    font-size: 24px !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/Component.scss:22 */
-#inSeasonNMgmt .x-accordion-item .x-accordion-hd {
-    padding: 20px 30px !important;
 }
 /* C:/Users/burton.rosenberger/pagaf/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/Component.scss:25 */
+.largeTxt {
+    font-size: 36px !important;
+}
+/* C:/Users/burton.rosenberger/pagaf/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/Component.scss:29 */
+.XLText {
+    font-size: 40px !important;
+}
+/* C:/Users/burton.rosenberger/pagaf/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/Component.scss:33 */
+.mediumText {
+    font-size: 24px;
+}
+/* C:/Users/burton.rosenberger/pagaf/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/Component.scss:36 */
+#inSeasonNMgmt .x-panel-header-title-default {
+    font-size: 24px !important;
+}
+/* C:/Users/burton.rosenberger/pagaf/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/Component.scss:39 */
+#inSeasonNMgmt .x-accordion-item .x-accordion-hd {
+    padding: 20px 30px !important;
+}
+/* C:/Users/burton.rosenberger/pagaf/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/Component.scss:42 */
 .x-title-text {
     overflow: visible !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/Component.scss:28 */
+/* C:/Users/burton.rosenberger/pagaf/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/Component.scss:45 */
 #logo {
-    background: transparent url(FinalPAGAF2020-01.png) no-repeat fixed 159px 11px;
     position: absolute;
     display: block;
-    width: 637px;
-    height: 123px;
-    top: 10px;
-    left: 120px;
-    background-size: 31%;
+    height: 102px;
+    top: 0px;
+    left: 0px;
+    width: 312px;
 }
-/* C:/Users/burton.rosenberger/pagaf/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/Component.scss:38 */
+/* C:/Users/burton.rosenberger/pagaf/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/Component.scss:53 */
+.logo {
+    width: 260px;
+    left: 52px;
+    top: 15px;
+    float: left;
+    position: relative;
+}
+/* C:/Users/burton.rosenberger/pagaf/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/Component.scss:60 */
 #header {
-    background: transparent url(headerShort.jpeg) no-repeat fixed top left;
     display: block;
     float: left;
     position: relative;
@@ -13775,7 +13803,7 @@ a.x-monthpicker-yearnav-button:hover {
     height: 100%;
     background-size: 100%;
 }
-/* C:/Users/burton.rosenberger/pagaf/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/Component.scss:47 */
+/* C:/Users/burton.rosenberger/pagaf/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/Component.scss:68 */
 #footer {
     display: block;
     float: left;
@@ -13783,7 +13811,7 @@ a.x-monthpicker-yearnav-button:hover {
     height: 100%;
     width: 100%;
 }
-/* C:/Users/burton.rosenberger/pagaf/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/Component.scss:55 */
+/* C:/Users/burton.rosenberger/pagaf/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/Component.scss:76 */
 #footerimg {
     background: transparent url(footer.jpeg) no-repeat top left;
     display: block;
@@ -13793,66 +13821,115 @@ a.x-monthpicker-yearnav-button:hover {
     height: 100%;
     background-size: 100%;
 }
-/* C:/Users/burton.rosenberger/pagaf/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/Component.scss:64 */
+/* C:/Users/burton.rosenberger/pagaf/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/Component.scss:85 */
 #tag {
     width: 100%;
     margin-left: auto;
     margin-right: auto;
     text-align: center;
 }
-/* C:/Users/burton.rosenberger/pagaf/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/Component.scss:70 */
+/* C:/Users/burton.rosenberger/pagaf/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/Component.scss:91 */
+#menu {
+    float: right;
+}
+/* C:/Users/burton.rosenberger/pagaf/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/Component.scss:94 */
 #topright {
     display: block;
     position: relative;
-    float: right;
-    top: 20px;
-    right: 20px;
+    float: left;
+    top: 32px;
+    width: 300px;
 }
-/* C:/Users/burton.rosenberger/pagaf/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/Component.scss:83 */
+/* C:/Users/burton.rosenberger/pagaf/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/Component.scss:104 */
+#organization,
+#logout {
+    background-color: #006837;
+    color: white;
+}
+/* C:/Users/burton.rosenberger/pagaf/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/Component.scss:108 */
 #bar2,
 #webglContainer {
     visibility: hidden !important;
+    display: none;
 }
-/* C:/Users/burton.rosenberger/pagaf/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/_architect_src.scss:6 */
+/* C:/Users/burton.rosenberger/pagaf/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/Component.scss:112 */
+#bar3 {
+    position: relative;
+    display: block;
+    margin-left: 10%;
+    width: 172px;
+    height: 40px;
+    text-align: left;
+    line-height: 40px;
+}
+/* C:/Users/burton.rosenberger/pagaf/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/_architect_src.scss:1 */
+.height100p {
+    height: 100%;
+}
+/* C:/Users/burton.rosenberger/pagaf/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/_architect_src.scss:4 */
+.right {
+    float: right;
+    clear: both;
+    position: relative !important;
+    display: block;
+}
+/* C:/Users/burton.rosenberger/pagaf/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/_architect_src.scss:10 */
+.mapboxgl-control-container {
+    top: 100%;
+}
+/* C:/Users/burton.rosenberger/pagaf/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/_architect_src.scss:17 */
+.green {
+    color: #006837;
+}
+/* C:/Users/burton.rosenberger/pagaf/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/_architect_src.scss:20 */
 .largeTxt .x-btn-inner-default-small,
 .largeTxt .x-btn-icon-el-default-small {
     font-size: 24px !important;
     line-height: 36px !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/_architect_src.scss:12 */
-.XLText {
-    font-size: 48px !important;
+/* C:/Users/burton.rosenberger/pagaf/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/_architect_src.scss:25 */
+.largeTxt {
+    font-size: 36px !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/_architect_src.scss:16 */
+/* C:/Users/burton.rosenberger/pagaf/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/_architect_src.scss:29 */
+.XLText {
+    font-size: 40px !important;
+}
+/* C:/Users/burton.rosenberger/pagaf/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/_architect_src.scss:33 */
 .mediumText {
     font-size: 24px;
 }
-/* C:/Users/burton.rosenberger/pagaf/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/_architect_src.scss:19 */
+/* C:/Users/burton.rosenberger/pagaf/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/_architect_src.scss:36 */
 #inSeasonNMgmt .x-panel-header-title-default {
     font-size: 24px !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/_architect_src.scss:22 */
+/* C:/Users/burton.rosenberger/pagaf/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/_architect_src.scss:39 */
 #inSeasonNMgmt .x-accordion-item .x-accordion-hd {
     padding: 20px 30px !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/_architect_src.scss:25 */
+/* C:/Users/burton.rosenberger/pagaf/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/_architect_src.scss:42 */
 .x-title-text {
     overflow: visible !important;
 }
-/* C:/Users/burton.rosenberger/pagaf/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/_architect_src.scss:28 */
+/* C:/Users/burton.rosenberger/pagaf/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/_architect_src.scss:45 */
 #logo {
-    background: transparent url(FinalPAGAF2020-01.png) no-repeat fixed 159px 11px;
     position: absolute;
     display: block;
-    width: 637px;
-    height: 123px;
-    top: 10px;
-    left: 120px;
-    background-size: 31%;
+    height: 102px;
+    top: 0px;
+    left: 0px;
+    width: 312px;
 }
-/* C:/Users/burton.rosenberger/pagaf/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/_architect_src.scss:38 */
+/* C:/Users/burton.rosenberger/pagaf/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/_architect_src.scss:53 */
+.logo {
+    width: 260px;
+    left: 52px;
+    top: 15px;
+    float: left;
+    position: relative;
+}
+/* C:/Users/burton.rosenberger/pagaf/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/_architect_src.scss:60 */
 #header {
-    background: transparent url(headerShort.jpeg) no-repeat fixed top left;
     display: block;
     float: left;
     position: relative;
@@ -13860,7 +13937,7 @@ a.x-monthpicker-yearnav-button:hover {
     height: 100%;
     background-size: 100%;
 }
-/* C:/Users/burton.rosenberger/pagaf/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/_architect_src.scss:47 */
+/* C:/Users/burton.rosenberger/pagaf/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/_architect_src.scss:68 */
 #footer {
     display: block;
     float: left;
@@ -13868,7 +13945,7 @@ a.x-monthpicker-yearnav-button:hover {
     height: 100%;
     width: 100%;
 }
-/* C:/Users/burton.rosenberger/pagaf/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/_architect_src.scss:55 */
+/* C:/Users/burton.rosenberger/pagaf/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/_architect_src.scss:76 */
 #footerimg {
     background: transparent url(footer.jpeg) no-repeat top left;
     display: block;
@@ -13878,25 +13955,46 @@ a.x-monthpicker-yearnav-button:hover {
     height: 100%;
     background-size: 100%;
 }
-/* C:/Users/burton.rosenberger/pagaf/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/_architect_src.scss:64 */
+/* C:/Users/burton.rosenberger/pagaf/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/_architect_src.scss:85 */
 #tag {
     width: 100%;
     margin-left: auto;
     margin-right: auto;
     text-align: center;
 }
-/* C:/Users/burton.rosenberger/pagaf/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/_architect_src.scss:70 */
+/* C:/Users/burton.rosenberger/pagaf/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/_architect_src.scss:91 */
+#menu {
+    float: right;
+}
+/* C:/Users/burton.rosenberger/pagaf/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/_architect_src.scss:94 */
 #topright {
     display: block;
     position: relative;
-    float: right;
-    top: 20px;
-    right: 20px;
+    float: left;
+    top: 32px;
+    width: 300px;
 }
-/* C:/Users/burton.rosenberger/pagaf/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/_architect_src.scss:83 */
+/* C:/Users/burton.rosenberger/pagaf/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/_architect_src.scss:104 */
+#organization,
+#logout {
+    background-color: #006837;
+    color: white;
+}
+/* C:/Users/burton.rosenberger/pagaf/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/_architect_src.scss:108 */
 #bar2,
 #webglContainer {
     visibility: hidden !important;
+    display: none;
+}
+/* C:/Users/burton.rosenberger/pagaf/packages/local/theme-crisp-44f713e0-e552-41e9-b6fc-72663b56192a/sass/src/_architect_src.scss:112 */
+#bar3 {
+    position: relative;
+    display: block;
+    margin-left: 10%;
+    width: 172px;
+    height: 40px;
+    text-align: left;
+    line-height: 40px;
 }
 /* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_path.scss:5 */
 @font-face {
@@ -14921,67 +15019,4 @@ a.x-monthpicker-yearnav-button:hover {
 .fa-unsorted:before,
 .fa-sort:before {
     content: "\f0dc" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:232 */
-.fa-sort-down:before,
-.fa-sort-desc:before {
-    content: "\f0dd" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:234 */
-.fa-sort-up:before,
-.fa-sort-asc:before {
-    content: "\f0de" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:236 */
-.fa-envelope:before {
-    content: "\f0e0" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:237 */
-.fa-linkedin:before {
-    content: "\f0e1" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:238 */
-.fa-rotate-left:before,
-.fa-undo:before {
-    content: "\f0e2" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:240 */
-.fa-legal:before,
-.fa-gavel:before {
-    content: "\f0e3" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:242 */
-.fa-dashboard:before,
-.fa-tachometer:before {
-    content: "\f0e4" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:244 */
-.fa-comment-o:before {
-    content: "\f0e5" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:245 */
-.fa-comments-o:before {
-    content: "\f0e6" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:246 */
-.fa-flash:before,
-.fa-bolt:before {
-    content: "\f0e7" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:248 */
-.fa-sitemap:before {
-    content: "\f0e8" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:249 */
-.fa-umbrella:before {
-    content: "\f0e9" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:250 */
-.fa-paste:before,
-.fa-clipboard:before {
-    content: "\f0ea" !important;
-}
-/* C:/Users/burton.rosenberger/pagaf/ext/packages/font-awesome/sass/etc/_icons.scss:252 */
-.fa-lightbulb-o:before {
-    content: "\f0eb" !important;
 }

@@ -25,8 +25,10 @@ Ext.define('pagaf.view.home.topmenu', {
     viewModel: {
         type: 'home.topmenu'
     },
-    height: 100,
+    height: 40,
     id: 'homeTopMenu',
+    margin: 0,
+    padding: 0,
     width: '',
 
     layout: {
@@ -37,28 +39,29 @@ Ext.define('pagaf.view.home.topmenu', {
         {
             xtype: 'button',
             flex: 1,
-            margin: 20,
+            margin: '5 5 0 0',
+            padding: 0,
             scale: 'medium',
             text: 'Home'
         },
         {
             xtype: 'button',
             flex: 1,
-            margin: 20,
+            margin: '5 5 0 5',
             scale: 'medium',
             text: 'Tools'
         },
         {
             xtype: 'button',
             flex: 1,
-            margin: 20,
+            margin: '5 5 0 5',
             scale: 'medium',
             text: 'Report'
         },
         {
             xtype: 'button',
             flex: 1,
-            margin: 20,
+            margin: '5 0 0 5',
             scale: 'medium',
             text: 'Data'
         }

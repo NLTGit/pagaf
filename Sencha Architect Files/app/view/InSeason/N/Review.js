@@ -33,7 +33,7 @@ Ext.define('pagaf.view.InSeason.N.Review', {
         {
             xtype: 'button',
             scale: 'large',
-            text: 'Next',
+            text: 'Download',
             listeners: {
                 click: 'onButtonClick111'
             }
@@ -41,10 +41,11 @@ Ext.define('pagaf.view.InSeason.N.Review', {
     ],
 
     onButtonClick111: function(button, e, eOpts) {
-        var t = Ext.getCmp('isnm_download');
+        var t = Ext.getCmp('isnm_selection');
         t.expand();
         t.setDisabled(false);
         t.setVisible(true);
+
         var t = Ext.getCmp('isnm_review');
         t.setDisabled(true);
         t.setVisible(false);

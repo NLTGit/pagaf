@@ -19,55 +19,110 @@ Ext.define('pagaf.view.InSeason.N.Management', {
 
     requires: [
         'pagaf.view.InSeason.N.ManagementViewModel',
+        'Ext.container.Container',
         'Ext.form.field.Date',
         'Ext.form.field.Number',
         'Ext.button.Button'
     ],
+
+    config: {
+        buttonAlign: 'right'
+    },
 
     viewModel: {
         type: 'inseason.n.management'
     },
     id: 'isnm_management',
     margin: 'auto 0',
-    width: '80%',
-    layout: 'vbox',
+    width: '100%',
     defaultListenerScope: true,
 
+    layout: {
+        type: 'hbox',
+        align: 'stretch',
+        pack: 'center'
+    },
     items: [
         {
-            xtype: 'datefield',
-            cls: 'mediumTxt',
-            height: 50,
-            width: 600,
-            fieldLabel: 'When did you plant?',
-            labelWidth: 400,
-            matchFieldWidth: false
-        },
-        {
-            xtype: 'numberfield',
-            height: 50,
-            width: 600,
-            fieldLabel: 'How much N have you already applied?',
-            labelWidth: 400
-        },
-        {
-            xtype: 'button',
-            scale: 'large',
-            text: 'Next',
-            listeners: {
-                click: 'onButtonClick'
-            }
+            xtype: 'container',
+            flex: 1,
+            height: '150px',
+            maxHeight: 150,
+            minHeight: 150,
+            width: '100%',
+            layout: {
+                type: 'vbox',
+                align: 'center',
+                pack: 'center'
+            },
+            items: [
+                {
+                    xtype: 'datefield',
+                    cls: 'mediumTxt',
+                    height: 50,
+                    maxWidth: 600,
+                    minWidth: 600,
+                    width: 600,
+                    fieldLabel: 'When did you plant?',
+                    labelWidth: 400,
+                    matchFieldWidth: false
+                },
+                {
+                    xtype: 'numberfield',
+                    height: 50,
+                    id: 'setPreInput',
+                    maxWidth: 600,
+                    minWidth: 600,
+                    width: 600,
+                    fieldLabel: 'How many kg/ha of nitrogen have you already applied?',
+                    labelWidth: 400,
+                    minValue: 0
+                },
+                {
+                    xtype: 'container',
+                    height: 40,
+                    maxWidth: 600,
+                    minWidth: 600,
+                    width: '600px',
+                    layout: {
+                        type: 'hbox',
+                        align: 'middle'
+                    },
+                    items: [
+                        {
+                            xtype: 'container',
+                            flex: 1,
+                            flex: 1
+                        },
+                        {
+                            xtype: 'button',
+                            scale: 'large',
+                            text: 'Next',
+                            listeners: {
+                                click: 'onButtonClick'
+                            }
+                        }
+                    ]
+                }
+            ]
         }
     ],
 
     onButtonClick: function(button, e, eOpts) {
-        var t = Ext.getCmp('isnm_credits');
-        t.expand();
-        t.setDisabled(false);
-        t.setVisible(true);
+        Ext.getCmp('selectbtn').setText('Download');
+
         var t = Ext.getCmp('isnm_management');
         t.setDisabled(true);
         t.setVisible(false);
+
+        var t = Ext.getCmp('isnm_selection');
+        t.setTitle('3. Select field to download solution.');
+        t.expand();
+        t.setDisabled(false);
+        t.setVisible(true);
+        window.loadView("ModelSelection");
+
+        window.setPre(Ext.getCmp('setPreInput').getValue());
     }
 
 });

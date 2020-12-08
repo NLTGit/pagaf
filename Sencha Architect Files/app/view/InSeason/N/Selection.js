@@ -20,48 +20,79 @@ Ext.define('pagaf.view.InSeason.N.Selection', {
     requires: [
         'pagaf.view.InSeason.N.ManagementViewModel5',
         'pagaf.view.pagafAppPanel',
-        'Ext.panel.Panel',
-        'Ext.button.Button'
+        'Ext.button.Button',
+        'Ext.panel.Panel'
     ],
 
     viewModel: {
         type: 'inseason.n.selection'
     },
     id: 'isnm_selection',
-    margin: 'auto 0',
-    width: '80%',
-    layout: 'vbox',
+    width: '100%',
     defaultListenerScope: true,
 
+    layout: {
+        type: 'vbox',
+        pack: 'center'
+    },
     items: [
         {
-            xtype: 'pagafapppanel',
-            flex: 1
+            xtype: 'container',
+            height: 40,
+            margin: '',
+            width: '95%',
+            layout: {
+                type: 'hbox',
+                align: 'stretch'
+            },
+            items: [
+                {
+                    xtype: 'container',
+                    flex: 1
+                },
+                {
+                    xtype: 'button',
+                    id: 'selectbtn',
+                    scale: 'large',
+                    text: 'Next',
+                    listeners: {
+                        click: 'onButtonClick'
+                    }
+                }
+            ]
         },
         {
-            xtype: 'button',
-            scale: 'large',
-            text: 'Next',
-            listeners: {
-                click: 'onButtonClick'
-            }
+            xtype: 'pagafapppanel',
+            height: '700px',
+            maxHeight: 700,
+            minHeight: 700,
+            width: '100%',
+            margins: '0 auto'
         }
     ],
 
     onButtonClick: function(button, e, eOpts) {
         var t = Ext.getCmp('isnm_selection');
-        t.setDisabled(true);
-        t.setVisible(false);
 
-        if(t.getTitle().search('4.') > -1){
+        if(t.getTitle().search('3.') > -1){
             t.setTitle('1. Select field');
-            t = Ext.getCmp('isnm_review');
+
+            Ext.getCmp("mainCardPanel").getLayout().setActiveItem('home');
+            window.download();
+            Ext.getCmp('selectbtn').setText('Next');
+            window.loadView("FieldManagement");
         } else {
+            window.setPre(0);
+            Ext.getCmp('setPreInput').setValue(0);
+            t.setDisabled(true);
+            t.setVisible(false);
             t = Ext.getCmp('isnm_management');
+            t.expand();
+            t.setDisabled(false);
+            t.setVisible(true);
         }
-        t.expand();
-        t.setDisabled(false);
-        t.setVisible(true);
+
+
     }
 
 });

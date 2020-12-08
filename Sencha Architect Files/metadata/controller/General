@@ -32,6 +32,7 @@
                 "fn": "init",
                 "implHandler": [
                     "window['GV'] = this;",
+                    "",
                     "//window.tPagafWindow = '';",
                     "//window.tPagafWindow = Ext.widget('pagafappwindow');",
                     "",
@@ -46,6 +47,32 @@
             },
             "name": "init",
             "designerId": "7887f8b7-cbcb-4d44-a606-05dc6b8cef0b"
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "loadModelSel",
+                "implHandler": [
+                    "hideAll();",
+                    "page.draw.deleteAll();",
+                    "let canvas2 = document.getElementById('testCanvas');",
+                    "let ctx2 = canvas2.getContext('2d');",
+                    "ctx2.clearRect(0,0,canvas2.width,canvas2.height);",
+                    "d3.select(\"#modelContainer\").style('display','inline-block');",
+                    "page.mapOutput.resize();"
+                ]
+            },
+            "configAlternates": {
+                "fn": "string",
+                "implHandler": "code"
+            },
+            "name": "loadModelSel",
+            "designerId": "33222024-c386-42e8-84e9-73b3bb03e1e8"
         }
     ]
 }

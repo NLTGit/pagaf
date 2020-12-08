@@ -6,12 +6,12 @@
     },
     "codeClass": null,
     "userConfig": {
+        "container|pack": "center",
         "designer|userAlias": "inseason.n.selection",
         "designer|userClassName": "InSeason.N.Selection",
         "id": "isnm_selection",
         "layout": "vbox",
-        "margin": "auto 0",
-        "width": "80%"
+        "width": "100%"
     },
     "configAlternates": {
         "designer|userAlias": "string",
@@ -19,13 +19,126 @@
         "margin": "auto",
         "width": "auto",
         "id": "string",
-        "layout": "string"
+        "layout": "string",
+        "container|pack": "string"
     },
     "name": "InSeason.N.Management3",
     "designerId": "b3dbc628-a0d9-422c-af72-6ff4c7ba314b",
     "viewControllerInstanceId": "db53c9e2-3233-4220-bdd7-86cb19bc7fe1",
     "viewModelInstanceId": "409fb732-3143-4fae-ab15-b2f80d364ee0",
     "cn": [
+        {
+            "type": "Ext.container.Container",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "container|align": "stretch",
+                "height": 40,
+                "layout": "hbox",
+                "margin": "",
+                "maxWidth": null,
+                "minWidth": null,
+                "width": "95%"
+            },
+            "configAlternates": {
+                "container|align": "string",
+                "height": "auto",
+                "layout": "string",
+                "margin": "auto",
+                "maxWidth": "number",
+                "minWidth": "number",
+                "width": "auto"
+            },
+            "name": "MyContainer7",
+            "designerId": "97a1a6d9-8e31-4b7e-8afb-c7195ee23c94",
+            "cn": [
+                {
+                    "type": "Ext.container.Container",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "flex": 1
+                    },
+                    "configAlternates": {
+                        "flex": "number"
+                    },
+                    "name": "MyContainer8",
+                    "designerId": "ee9e4ed2-8d0d-4bff-9f76-1566d18c3a1c"
+                },
+                {
+                    "type": "Ext.button.Button",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "id": "selectbtn",
+                        "scale": "large",
+                        "text": "Next"
+                    },
+                    "configAlternates": {
+                        "scale": "string",
+                        "text": "string",
+                        "id": "string"
+                    },
+                    "name": "MyButton7",
+                    "designerId": "31469c64-e461-411a-96d9-81dee972f9a8",
+                    "cn": [
+                        {
+                            "type": "basiceventbinding",
+                            "reference": {
+                                "name": "listeners",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "fn": "onButtonClick",
+                                "implHandler": [
+                                    "var t = Ext.getCmp('isnm_selection');",
+                                    "",
+                                    "if(t.getTitle().search('3.') > -1){",
+                                    "    t.setTitle('1. Select field');",
+                                    "",
+                                    "    Ext.getCmp(\"mainCardPanel\").getLayout().setActiveItem('home');",
+                                    "    window.download();",
+                                    "    Ext.getCmp('selectbtn').setText('Next');",
+                                    "    window.loadView(\"FieldManagement\");",
+                                    "} else {",
+                                    "    window.setPre(0);",
+                                    "    Ext.getCmp('setPreInput').setValue(0);",
+                                    "    t.setDisabled(true);",
+                                    "    t.setVisible(false);",
+                                    "    t = Ext.getCmp('isnm_management');",
+                                    "    t.expand();",
+                                    "    t.setDisabled(false);",
+                                    "    t.setVisible(true);",
+                                    "}",
+                                    "",
+                                    ""
+                                ],
+                                "name": "click",
+                                "scope": "me"
+                            },
+                            "configAlternates": {
+                                "fn": "string",
+                                "implHandler": "code",
+                                "name": "string",
+                                "scope": "string"
+                            },
+                            "name": "onButtonClick",
+                            "designerId": "d79d4196-0143-42d9-86ef-4ba04c9790e9"
+                        }
+                    ]
+                }
+            ]
+        },
         {
             "type": "linkedinstance",
             "reference": {
@@ -34,70 +147,27 @@
             },
             "codeClass": null,
             "userConfig": {
-                "layout|flex": 1
+                "height": "700px",
+                "layout|margins": "0 auto",
+                "maxHeight": 700,
+                "maxWidth": null,
+                "minHeight": 700,
+                "minWidth": null,
+                "width": "100%"
             },
             "configAlternates": {
-                "layout|flex": "number"
+                "layout|flex": "number",
+                "height": "auto",
+                "layout|margins": "string",
+                "maxHeight": "number",
+                "maxWidth": "number",
+                "minHeight": "number",
+                "minWidth": "number",
+                "width": "auto"
             },
-            "name": "pagafAppPanel",
+            "name": "pagafapppanel",
             "designerId": "74ccdd64-240e-4ac8-8e49-7d07861b0aed",
             "masterInstanceId": "c16e4bf5-b2e7-46e1-86f0-a7a0e2db0362"
-        },
-        {
-            "type": "Ext.button.Button",
-            "reference": {
-                "name": "items",
-                "type": "array"
-            },
-            "codeClass": null,
-            "userConfig": {
-                "scale": "large",
-                "text": "Next"
-            },
-            "configAlternates": {
-                "scale": "string",
-                "text": "string"
-            },
-            "name": "MyButton7",
-            "designerId": "31469c64-e461-411a-96d9-81dee972f9a8",
-            "cn": [
-                {
-                    "type": "basiceventbinding",
-                    "reference": {
-                        "name": "listeners",
-                        "type": "array"
-                    },
-                    "codeClass": null,
-                    "userConfig": {
-                        "fn": "onButtonClick",
-                        "implHandler": [
-                            "var t = Ext.getCmp('isnm_selection');",
-                            "t.setDisabled(true);",
-                            "t.setVisible(false);",
-                            "",
-                            "if(t.getTitle().search('4.') > -1){",
-                            "    t.setTitle('1. Select field');",
-                            "    t = Ext.getCmp('isnm_review');",
-                            "} else {",
-                            "    t = Ext.getCmp('isnm_management');",
-                            "}",
-                            "t.expand();",
-                            "t.setDisabled(false);",
-                            "t.setVisible(true);"
-                        ],
-                        "name": "click",
-                        "scope": "me"
-                    },
-                    "configAlternates": {
-                        "fn": "string",
-                        "implHandler": "code",
-                        "name": "string",
-                        "scope": "string"
-                    },
-                    "name": "onButtonClick",
-                    "designerId": "d79d4196-0143-42d9-86ef-4ba04c9790e9"
-                }
-            ]
         }
     ]
 }

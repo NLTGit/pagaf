@@ -1,16 +1,582 @@
 <!DOCTYPE html>
-<html><head>
-<meta charset=utf-8>
-<meta http-equiv=content-security-policy
-  content="default-src 'self'; script-src 'self';">
-<title>PAGAF Login</title>
-<link href="css/style.css" rel="stylesheet">
-</head><body>
-
-<div class="loginContainer">
-    <h1 class="loginHeader">PAGAF</h1>
-    <a href=home.html class="loginButton">Log In</a>
-</div>
-
-</body>
+<html>
+	<head>
+		<link rel="stylesheet" href="./css/pagaf.css">
+		<link rel="preconnect" href="https://fonts.gstatic.com">
+		<link href="https://fonts.googleapis.com/css2?family=Merriweather+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&display=swap" rel="stylesheet">
+		
+		<style>
+			body {
+				font-family: 'Merriweather Sans';
+				font-style: normal;
+				font-weight: 300;
+				font-size:16px;
+				line-height:25px;
+				letter-spacing: -0.04em;
+			}
+			div {
+				display:block;
+				position:relative;
+			}
+			#nav {
+				height:102px;
+			}
+			.navLink {
+				font-family: 'Merriweather Sans';
+				font-size: 18px;
+				line-height: 23px;
+				text-align: center;
+				float:left;
+				top:40px;
+				margin-left:45px;
+			}
+			.signIn {
+				border-radius: 6px;
+				color: white;
+				font-family: 'Merriweather Sans';
+				font-style: normal;
+				font-weight: bold;
+				font-size: 18px;
+				line-height: 23px;
+				text-align: center;
+				top:20px;
+				margin-left:60px;
+				padding-top:20px;
+				width:165px;
+				height:40px;
+				float:left;
+			}
+			.logo {
+				width: 260px;
+				left:52px;
+				top: 15px;
+				float:left;
+				position:relative;
+			}
+			.headImage {
+				height:600px;
+				background-repeat: no-repeat;
+				background-size: cover;
+				background-position: center;
+				font-family: 'Merriweather Sans';
+				font-style: normal;
+				color: white;
+				margin-bottom:60px;
+			}
+			.headImageOurStory {
+				background-image: linear-gradient(0deg, rgba(0, 146, 69, 0.3), rgba(0, 146, 69, 0.3)), url('./resources/images/content/ourStoryHeadImage.jpg');
+			}
+			.headImageTechnology {
+				background-image: url('./resources/images/content/technologyHeadImage.jpg');
+			}
+			.tryitnow {
+				height:400px;
+				background-repeat: no-repeat;
+				background-position: 50% 72%;
+				margin-bottom:60px;
+				background-image: url('./resources/images/content/poweredBy.jpg');
+				background-size: cover;
+				margin-top:100px;
+			}
+			.headImage h2 {
+				position: relative;
+				left: 52px;
+				font-size: 64px;
+				line-height: 80px;
+			}
+			.headImage p {
+				position: relative;
+				left: 52px;
+				font-weight: 100;
+				font-size: 24px;
+				line-height: 30px;
+				font-style: light;
+			}
+			.headImage .tryitnowBtn {
+				left: 52px;
+				margin-top:20px;
+			}
+			.members {
+				margin-bottom:30px;
+			}
+			.teamImage {
+				width:300px;
+				height:311px;
+				background-color:#C4C4C4;
+				border-radius: 6px;
+			}
+			.teamName {
+				font-family: 'Merriweather Sans';
+				font-style: normal;
+				font-weight: bold;
+				font-size: 24px;
+				line-height: 30px;
+				clear:both;
+				display:block;
+				position:relative;
+			}
+			.teamRole {
+				font-family: 'Merriweather Sans';
+				font-style: normal;
+				font-weight: 300;
+				font-size: 16px;
+				line-height: 20px;
+				clear:both;
+				display:block;
+				position:relative;
+			}
+			.button {
+				padding:10px 30px;
+				text-align:center;
+				border-radius: 6px;
+				font-family: 'Merriweather Sans';
+				font-style: normal;
+				font-weight: bold;
+				font-size: 18px;
+				line-height: 40px;
+				height:40px;
+			}
+			.poweredby {
+				text-align:center;
+			}
+			.tryitnowBtn {
+				width:100px;
+			}
+			
+			.footer {
+				height: 600px;
+			}
+			.footerPagaf {
+				margin-top:78px;
+				width:419px;
+			}
+			.footerTalk {
+				margin-top:45px;
+				margin-bottom:0px;
+			}
+			.socialMedia, .socialMediaNext {
+				float:left;
+				display:block;
+				position:relative;
+				width:35px;
+				height:35px;
+				margin-top: 56px;
+			}
+			.socialMediaNext {
+				margin-left:25px;
+			}
+			.footerMenu {
+				margin-top:141px;
+			}
+			.footerSubMenu {
+				margin-top:20px;
+				display:block;
+				position:relative;
+				float:left;
+				clear:both;
+			}
+			.poweredByFooter {
+				text-align:center;
+				width:100%;
+				display:block;
+			}
+			.poweredByFooterNLT {
+				width: 294px;
+				position:relative;
+				display:block;
+				margin:0px auto;
+			}
+			.contactUs {
+				margin-top:75px;
+				height:750px;
+			}
+			.contactForm {
+				height:100%;
+			}
+			.stepImage {
+				height:500px;
+				width:720px;
+				left:-15px;
+				display:block;
+				float:left;
+				position:relative;
+				object-fit:cover;
+			}
+			.stepText {
+				height:340px;
+				width:540px;
+				overflow:hidden;
+				margin: 100px 109px 60px 80px;
+			}
+			.bigCallout {
+				margin-top:61px;
+				text-align:left;
+			}
+			.discoverPagafBlock, .bigCallout {
+				height:700px;
+			}
+			.blogCallouts {
+				margin-top:100px;
+				margin-bottom:100px;
+			}
+			
+			.leftPadding {
+				padding-left:40px;
+			}
+			.space100 {
+				height:100px !important;
+			}
+			.space150 {
+				height:150px !important;
+			}
+			.space250 {
+				height:250px !important;
+			}
+			.space350 {
+				height:350px !important;
+			}
+			.noMargins {
+				margin:0 !important;
+			}
+			.centerFont {
+				text-align:center;
+			}
+			.center {
+				margin-left:auto;
+				margin-right:auto;
+			}
+			.ltGreen {
+				color: #009245;
+			}
+			.bgLtGreen {
+				background: #009245;
+			}
+			.green {
+				color: #006837;
+			}
+			.bgGreen {
+				background-color: #006837;
+			}
+			.gray {
+				color: #777777;
+			}
+			.bgGray {
+				background-color: #C4C4C4;
+			}
+			.white {
+				color:white;
+			}
+			.bgWhite {
+				background-color: white;
+			}
+			h1,h2,h3,h4,h5 {
+				font-family: 'Merriweather Sans';
+				font-style: normal;
+				font-weight: bold;
+			}
+			h1 {
+				font-size: 64px;
+				line-height: 80px;
+			}
+			h2 {
+				font-size: 48px;
+				line-height: 60px;
+			}
+			h3 {
+				font-size: 36px;
+				line-height: 45px;
+			}
+			h4 {
+				font-size: 21px;
+				line-height: 33px;
+			}
+			h4 {
+				font-size: 18px;
+				line-height: 30px;
+			}
+			.left {
+				float:left;
+			}
+			.right {
+				float:right;
+			}
+			.clearBoth {
+				clear:both;
+			}
+			a { /*no underline*/
+				text-decoration:none;
+			}
+			.showOF {
+				overflow:visible;
+			}
+		</style>
+	
+		<script>
+			function show(passed){
+				var ids = ['home','technology','story','blog','support'];
+				if(typeof(passed) == 'undefined') {
+					var t = window.location.href.split('#');
+					console.log('t = '); console.log(t);
+					passed = (t.length > 1 ? (t[1]).toLowerCase() : 'home');
+				}
+				if(ids.indexOf(passed) == -1)
+					passed = 'home';
+				for(var i in ids){
+					if(ids[i] != passed)
+						try{ document.getElementById(ids[i]).style.display = 'none'; }catch(err){}
+				}
+				document.getElementById(passed).style.display = '';
+			}
+		</script>
+	</head>
+	<body onload="show()">
+		<div id="nav" class="container_8">
+			<div class="grid_4"><a href="#" onclick="show('home');"><img src="./resources/images/logos/FinalPAGAF2020-01.png" class="logo" /></a></div>
+			<div class="grid_4">
+				<div class="navLink green"><a href="#Technology" onclick="show('technology');" class="green" >Technology</a></div>
+				<div class="navLink green"><a href="#Story" onclick="show('story');" class="green" >Our Story</a></div>
+				<div class="navLink green"><a href="#Blog" onclick="show('blog');" class="green" >Blog</a></div>
+				<div class="navLink green"><a href="#Support" onclick="show('support');" class="green" >Support</a></div>
+				<div class="signIn bgGreen"><a href="login.html" class="white">Sign in</a></div>
+			</div>
+		</div>
+		<div id="home" class="container_8" style="display:none">
+			<div class="headImage headImageTechnology container_8">
+				<div class="grid_5">
+					<p class="space150"></p>
+					<h2 class="noMargins">
+						Improve your Crop <br />Yield with Precision AG
+					</h2>
+					<p class="noMargins">
+						In three simple steps, you can gurantee a better yield and <br /> meet the demands of your buyers.
+					</p>
+					<div class="tryitnowBtn bgWhite button green clearBoth left"><a href="" class="green">Try it Now</a></div>
+				</div>
+			</div>
+			<div class="steps container_8">
+				<div class="grid_4 showOF">
+					<img src="./resources/images/content/homePage1.jpg" class="stepImage noMargins" />
+				</div>
+				<div class="grid_4">
+					<div class="stepText">
+						<h5 class="gray">Step 1</h5>
+						<h3 class="ltGreen">Define your field</h3>
+						<p class="gray">
+							Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+						</p>
+					</div>
+				</div>
+			</div>
+			<div class="steps container_8">
+				<div class="grid_4">
+					<div class="stepText">
+						<h5 class="gray">Step 2</h5>
+						<h3 class="ltGreen">Choose your crop</h3>
+						<p class="gray">
+							Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+						</p>
+					</div>
+				</div>
+				<div class="grid_4 showOF">
+					<img src="./resources/images/content/homePage2.jpg" class="stepImage noMargins" />
+				</div>
+			</div>
+			<div class="steps container_8">
+				<div class="grid_4 showOF">
+					<img src="./resources/images/content/homePage3.jpg" class="stepImage noMargins" />
+				</div>
+				<div class="grid_4">
+					<div class="stepText">
+						<h5 class="gray">Step 3</h5>
+						<h3 class="ltGreen">Download your map</h3>
+						<p class="gray">
+							Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+						</p>
+					</div>
+				</div>
+			</div>
+			<div class="bigCallout container_3">
+				<h1 class="green centerFont">Discover PAGAF</h1>
+				<div class="grid_3c1">
+					<div class="space150"></div>
+					<h5 class="gray noMargins">Now</h5>
+					<h3 class="ltGreen noMargins">In-Season N <br/>Management</h3>
+					<p class="gray">
+						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
+					</p>
+					<div class="button white bgGreen clearBoth left"><a href="" class="white">Learn More</a></div>
+				</div>
+				<div class="grid_3c2 bgGray discoverPagafBlock">
+				</div>
+			</div>
+			<div class="blogCallouts container_3">
+				<div class="grid_3c1">
+					<h5 class="gray noMargins">Available soon</h5>
+					<h3 class="ltGreen noMargins">Seeding Rate Rx</h3>
+					<p class="gray">
+						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
+					</p>
+				</div>
+				<div class="grid_3c1">
+					<h5 class="gray noMargins">Available soon</h5>
+					<h3 class="ltGreen noMargins">Planting Date <br />Decision Making</h3>
+					<p class="gray">
+						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
+					</p>
+				</div>
+				<div class="grid_3c1">
+					<h5 class="gray noMargins">Available soon</h5>
+					<h3 class="ltGreen noMargins">Fungicide Wheat</h3>
+					<p class="gray">
+						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
+					</p>
+				</div>
+			</div>
+		</div>
+		<div id="story" class="container_8" style="display:none">
+			<div class="headImage headImageOurStory container_8">
+				<div class="grid_5">
+					<p class="space150"></p>
+					<h2 class="noMargins">
+						Helping farmers <br />become more efficient
+					</h2>
+					<p class="noMargins">
+						We aim to help farmers push back against the high tides <br /> of labour shortage and climate change.
+					</p>
+				</div>
+			</div>
+			<div class="grid_5">
+				<h1 class="green">Why we do what we do</h1>
+				<p class="gray">
+					Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+				</p>
+			</div>
+			<div class="grid_8">
+				<h1 class="green">Meet the team</h1>
+			</div>
+			<div class="members container_8">
+				<div class="grid_2">
+					<img class="teamImage bgGray" src="./resources/images/content/profiles/DaveWilliams-250x250.jpg"/>
+					<span class="teamName green">Dave</span>
+					<span class="teamRole gray ">Project Team lead</span>
+				</div>
+				<div class="grid_2">
+					<img class="teamImage bgGray" />
+					<span class="teamName green">Dave</span>
+					<span class="teamRole gray">Project Team lead</span>
+				</div>
+				<div class="grid_2">
+					<img class="teamImage bgGray" />
+					<span class="teamName green">Dave</span>
+					<span class="teamRole gray">Project Team lead</span>
+				</div>
+				<div class="grid_2">
+					<img class="teamImage bgGray" />
+					<span class="teamName green">Dave</span>
+					<span class="teamRole gray">Project Team lead</span>
+				</div>
+			</div>
+			
+			<div class="members container_8">
+				<div class="grid_2">
+					<img class="teamImage bgGray" />
+					<span class="teamName green">Dave</span>
+					<span class="teamRole gray">Project Team lead</span>
+				</div>
+				<div class="grid_2">
+					<img class="teamImage bgGray" />
+					<span class="teamName green">Dave</span>
+					<span class="teamRole gray">Project Team lead</span>
+				</div>
+				<div class="grid_2">
+					<img class="teamImage bgGray" />
+					<span class="teamName green">Dave</span>
+					<span class="teamRole gray">Project Team lead</span>
+				</div>
+				<div class="grid_2">
+					<img class="teamImage bgGray" />
+					<span class="teamName green">Dave</span>
+					<span class="teamRole gray">Project Team lead</span>
+				</div>
+			</div>
+			<div class="contactUs container_8">
+				<div class="grid_2">
+					<div class="space350"></div>
+					<h2 class="green noMargins">Contact Us</h2>
+					<p class="gray noMargins">For media, business and collaboration questions</p>
+				</div>
+				<div class="grid_6 contactForm bgGray">
+				</div>
+			</div>
+		</div>	
+		<div id="technology" class="container_8" style="display:none">
+			<div class="headImage headImageTechnology container_8">
+				<div class="grid_5">
+					<p class="space150"></p>
+					<h2 class="noMargins">
+						PAGAF is powered by<br />open source technology
+					</h2>
+					<p class="noMargins">
+						We take pride in opening the curtains and taking you<br />behind the scenes to see how we develop our algorithms<br />and product.
+					</p>
+				</div>
+			</div>
+			<div class="grid_5">
+				<h1 class="green noMargins">Ag Models</h1>
+				<p class="gray">
+					Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+				</p>
+				<h4 class="green">Model details</h4>
+			</div>
+		</div>
+		<div id="blog" class="container_8" style="display:none">
+			
+		</div>
+		<div id="support" class="container_8" style="display:none">
+		
+		</div>
+		<div class="tryitnow container_8">
+			<div class="space100 grid_8"></div>
+			<div class="poweredby grid_8 white">
+				<h3>Powered by open source technology.<br />
+				Made free for the everyday farmer.</h3>
+			</div>
+			<div class="tryitnowBtn bgWhite button green clearBoth center"><a href="" class="green">Try it Now</a></div>
+		</div>
+		<div class="footer container_8">
+			<div class="grid_3 leftPadding">
+				<img src="./resources/images/logos/FinalPAGAF2020-01.png" class="footerPagaf" />
+				<h5 class="green clearBoth footerTalk ">Talk to us at:</h5>
+				<p class="noMargins"><a href="mailto:info@nltpagaf.ai" class="gray clearBoth">info@nltpagaf.ai</a></p>
+				<a href="https://github.com/NLTGit/"><img src="./resources/images/logos/github.png" class="socialMedia" /></a>
+				<a href="https://www.linkedin.com/in/newlighttechnologies"><img src="./resources/images/logos/linkedin.png" class="socialMediaNext" /></a>
+				<a href="https://www.facebook.com/NewLightTechnologies/"><img src="./resources/images/logos/facebook.png" class="socialMediaNext" /></a>
+				<a href="https://twitter.com/newlighttech"><img src="./resources/images/logos/twitter.png" class="socialMediaNext" /></a>
+			</div>
+			<div class="grid_1 footerMenu">
+				<h4 class="green">Product</h4>
+				<a href="#" class="gray footerSubMenu">Team</a>
+				<a href="#" onclick="show('technology');" class="gray footerSubMenu">Technology</a>
+				<a href="#" class="gray footerSubMenu">For Investors</a>
+			</div>
+			<div class="grid_1 footerMenu">
+				<h4 class="green">About Us</h4>
+				<a href="#" class="gray footerSubMenu">NLT</a>
+				<a href="#" onclick="show('blog');" class="gray footerSubMenu">Blog</a>
+			</div>
+			<div class="grid_1 footerMenu">
+				<h4 class="green">Support</h4>
+				<a href="#" class="gray footerSubMenu">Product Improvements</a>
+				<a href="#" class="gray footerSubMenu">Updates</a>
+			</div>
+			<div class="grid_8 space100"></div>
+			<div class="grid_8">
+				<span class="poweredByFooter gray noMargins">Powered By</span>
+				<a href=https://nltgis.com" ><img src="./resources/images/logos/nltlogo.png" class="poweredByFooterNLT" /></a>
+			</div>
+		</div>
+		<script>
+			show('home');
+		</script>
+	</body>
 </html>
