@@ -1093,6 +1093,28 @@ async function initializeMap() {
    //         'maxzoom':11,
    //         tiles:["http://localhost:8080/data/ia/{z}/{x}/{y}.pbf"]
    //     });
+   
+   //Carl's tiles
+   map.addSource('ia', {
+    id:'fields',
+    type:'vector',
+    "metadata": {
+    "mapbox:autocomposite": true
+    },
+    'maxzoom':15,
+    tiles:[window.origin+'/data/tiles/{z}/{x}/{y}.pbf']
+    });
+
+    //NAIP
+    map.addSource(
+        'naip',
+        {'type': 'raster',
+        'tiles': [
+            window.origin+'/data/naip_tiles/{z}/{x}/{y}.png'
+			],
+        'tileSize': 256
+		}
+    )
     d3.json('data/adair.geojsonl.json', function(error, data) {
         if (error){
             console.log(error);
@@ -1157,6 +1179,31 @@ async function initializeMap() {
     //         'fill-color':'rgba(0,0,0,0)'
     //     }
     // },"aerialway")
+	
+	map.addLayer({
+        'id':'polys',
+        'maxzoom': 15,
+        'type':'fill',
+        'source':'ia',
+        'source-layer':'singlepoly',
+        'layout': {
+            'visibility':'visible'
+        },
+        'paint':{
+            'fill-outline-color':'#fff',
+            'fill-color':'rgba(255,255,0,0.3)'
+        }
+    },"aerialway")
+
+    map.addLayer({
+
+        'id': 'simple-tiles',
+        'type': 'raster',
+        'source': 'naip',
+        'minzoom': 2,
+        'maxzoom': 18
+                    
+        }, "tunnel-street-minor-low")
     
 
     map.addLayer({
