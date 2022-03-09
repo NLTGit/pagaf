@@ -44,7 +44,6 @@ Ext.define('Ext.field.FileButton', {
     ui: 'action',
     text: 'Browse...',
     preventDefaultAction: false,
-    keyHandlersAdded: true,
 
     eventHandlers: {
         change: 'onChange'
@@ -99,13 +98,13 @@ Ext.define('Ext.field.FileButton', {
 
     privates: {
         setInputAttribute: function (attribute, newValue) {
-            var buttonElement = this.buttonElement.dom;
+            var buttonElement = this.buttonElement;
 
             if (!Ext.isEmpty(newValue, true)) {
-                buttonElement.setAttribute(attribute, newValue);
+                buttonElement.dom.setAttribute(attribute, newValue);
             }
             else {
-                buttonElement.removeAttribute(attribute);
+                buttonElement.dom.removeAttribute(attribute);
             }
         }
     }

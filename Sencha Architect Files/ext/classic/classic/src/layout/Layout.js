@@ -511,7 +511,7 @@ Ext.define('Ext.layout.Layout', {
 
     /**
      * This method is called when a child item changes in some way. By default this calls
-     * {@link Ext.Component#method!updateLayout} on this layout's owner.
+     * {@link Ext.Component#updateLayout} on this layout's owner.
      * 
      * @param {Ext.Component} child The child item that has changed.
      * @return {Boolean} True if this layout has handled the content change.

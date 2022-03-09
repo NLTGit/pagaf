@@ -90,12 +90,6 @@ topSuite("Ext.Function", function() {
                 expect(fn).toHaveBeenCalledWith('c', 'd');
             });
 
-            it("should not append args passed to the bound function by default", function() {
-                bind = Ext.Function.bind(fn, this, ['a', 'b']);
-                bind('c');
-                expect(fn).toHaveBeenCalledWith('a', 'b');
-            });
-
             it("should append args", function() {
                 bind = Ext.Function.bind(fn, this, ['a', 'b'], true);
 
@@ -407,7 +401,7 @@ topSuite("Ext.Function", function() {
         it("should return a timeout number", function() {
             var timer = Ext.defer(function() {}, 10);
             expect(typeof timer === 'number').toBe(true);
-            Ext.undefer(timer);
+            clearTimeout(timer);
         });
     });
 
@@ -608,14 +602,14 @@ topSuite("Ext.Function", function() {
                 return called;
             }, 'the asap function to call the passed function');
         });
-        it('should not call the passed function if unasap called', function() {
+        it('should not call the passed function if asapCancel called', function() {
             var called = false,
                 timer;
 
             timer = Ext.asap(function(){
                 called = true;
             });
-            Ext.unasap(timer);
+            Ext.asapCancel(timer);
 
             // We expect nothing to happen, so there's nothing to wait for.
             // Wait for the most pessmistic time to allow aany erroneous call to occur.
@@ -642,7 +636,7 @@ topSuite("Ext.Function", function() {
             });
 
             runs(function() {
-                Ext.uninterval(timerId);
+                clearInterval(timerId);
                 expect(foundScope).toBe(scope);
             });
         });

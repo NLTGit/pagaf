@@ -40,8 +40,7 @@ Ext.define('Ext.draw.gradient.Radial', {
     type: 'radial',
     config: {
         /**
-         * @cfg {Object} start
-         * The starting circle of the gradient.
+         * @cfg {Object} start The starting circle of the gradient.
          */
         start: {
             x: 0,
@@ -49,8 +48,7 @@ Ext.define('Ext.draw.gradient.Radial', {
             r: 0
         },
         /**
-         * @cfg {Object} end
-         * The ending circle of the gradient.
+         * @cfg {Object} end The ending circle of the gradient.
          */
         end: {
             x: 0,
@@ -120,7 +118,6 @@ Ext.define('Ext.draw.gradient.Radial', {
     },
 
     /**
-     * @method generateGradient
      * @inheritdoc
      */
     generateGradient: function (ctx, bbox) {

@@ -1,7 +1,6 @@
 /**
  * @class Ext.plugin.Abstract
  */
-
 Ext.define('Ext.overrides.plugin.Abstract', {
     override: 'Ext.plugin.Abstract',
 

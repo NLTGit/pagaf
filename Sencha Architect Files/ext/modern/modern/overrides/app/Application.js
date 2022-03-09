@@ -1,7 +1,6 @@
 /**
  * @class Ext.app.Application
  */
-
 Ext.define('Ext.overrides.app.Application', {
     override: 'Ext.app.Application',
     requires: ['Ext.viewport.Viewport'],
@@ -17,12 +16,12 @@ Ext.define('Ext.overrides.app.Application', {
         viewport: null
     },
 
-    // @cmd-auto-dependency {defaultType: "Ext.tip.Manager"}
     /**
      * @cfg {Boolean/Object} quickTips
      * `true` to enable quick tips to be read from the DOM and displayed
      * by the `Ext.tip.Manager`. Pass the object form as a configuration
      * for `Ext.tip.Manager`.
+     * @cmd-auto-dependency {defaultType: "Ext.tip.Manager"}
      *
      * @since 6.2.0
      */

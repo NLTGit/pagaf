@@ -263,9 +263,9 @@ Ext.define('Ext.form.field.FileButton', {
                 
                 // In IE focus events are asynchronous so we can't enable focus event
                 // in the same event loop.
-                Ext.defer(function() {
+                setTimeout(function() {
                     focusTo.resumeEvent('focus');
-                }, 1);
+                }, 0);
             }
         } else if (key === e.ENTER || key === e.SPACE) {
             this.handlePrompt(e);

@@ -251,7 +251,7 @@ Ext.define('Ext.form.field.TextArea', {
                 me.inputWrap.getBorderWidth('tb') + me.triggerWrap.getBorderWidth('tb');
 
             height = Math.min(Math.max(height, me.growMin), me.growMax);
-            hideScroller = me.preventScrollbars || !me.growMax || height < me.growMax;
+            hideScroller = me.preventScrollbars || !me.growMax || height <= me.growMax;
 
             inputEl.setStyle('overflow-y', hideScroller ? 'hidden' : 'auto');
             me.bodyEl.setHeight(height);

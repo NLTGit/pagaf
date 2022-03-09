@@ -240,13 +240,13 @@ Ext.define('Ext.route.Action', {
      *
      * @param {Boolean} [first=false] Pass `true` to add the function to the beginning of the
      * {@link #befores} stack instead of the end.
-     * @param {Function/String} fn The function to add to the {@link #befores}.
+     * @param {Function} fn The function to add to the {@link #befores}.
      * @param {Object} [scope] The scope of the function to execute with. This is normally
      * the class that is adding the function to the before stack.
      * @return {Ext.route.Action} this
      */
     before: function (first, fn, scope) {
-        if (!Ext.isBoolean(first)) {
+        if (Ext.isFunction(first)) {
             scope = fn;
             fn = first;
             first = false;
@@ -292,13 +292,13 @@ Ext.define('Ext.route.Action', {
      *
      * @param {Boolean} [first=false] Pass `true` to add the function to the beginning of the
      * {@link #befores} stack.
-     * @param {Function/String} fn The function to add to the {@link #actions}.
+     * @param {Function} fn The function to add to the {@link #befores}.
      * @param {Object} [scope] The scope of the function to execute with. This is normally
      * the class that is adding the function to the action stack.
      * @return {Ext.route.Action} this
      */
     action: function (first, fn, scope) {
-        if (!Ext.isBoolean(first)) {
+        if (Ext.isFunction(first)) {
             scope = fn;
             fn = first;
             first = false;

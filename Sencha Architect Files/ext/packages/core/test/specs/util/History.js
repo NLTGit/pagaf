@@ -1,12 +1,20 @@
 topSuite('Ext.util.History', function () {
-    var HistoryUtil = Ext.util.History;
+    var HistoryUtil = Ext.util.History,
+        helper = Ext.testHelper,
+        win;
 
     beforeEach(function () {
-        Ext.testHelper.hash.init();
+        win = HistoryUtil.win;
+        HistoryUtil.win = helper.createHashMock();
     });
 
     afterEach(function () {
-        Ext.testHelper.hash.reset();
+        HistoryUtil.win = win;
+        win = null;
+
+        delete HistoryUtil.hashBang;
+
+        HistoryUtil.currentToken = HistoryUtil.hash = window.location.hash = '';
     });
 
     function createSetAddReplaceSuites (fn) {

@@ -91,13 +91,13 @@ Ext.define('Ext.google.ux.Client', {
             refresh: function() {
                 var me = this;
 
-                if (!me.initialized) {
-                    return;
-                }
-
                 if (!me.blocked) {
                     Ext.env.Ready.block();
                     me.blocked = true;
+                }
+
+                if (!me.initialized) {
+                    return;
                 }
 
                 Ext.Object.each(me.libraries, function(api, library) {

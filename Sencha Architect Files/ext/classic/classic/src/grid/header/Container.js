@@ -569,7 +569,12 @@ Ext.define('Ext.grid.header.Container', {
 
     // Find the topmost HeaderContainer
     getRootHeaderCt: function() {
-        return this.isRootHeader ? this : this.up('[isRootHeader]');
+        var me = this;
+
+        if (!me.rootHeaderCt) {
+            me.rootHeaderCt = me.isRootHeader ? me : me.up('[isRootHeader]');
+        }
+        return me.rootHeaderCt;
     },
 
     doDestroy: function() {
@@ -579,7 +584,7 @@ Ext.define('Ext.grid.header.Container', {
             me.menu.un('hide', me.onMenuHide, me);
         }
 
-        Ext.unasap(me.unblockTimer);
+        Ext.asapCancel(me.unblockTimer);
         me.menuTask.cancel();
         
         Ext.destroy(me.visibleColumnManager, me.columnManager, me.menu);

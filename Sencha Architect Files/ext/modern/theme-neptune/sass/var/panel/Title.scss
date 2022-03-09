@@ -39,9 +39,6 @@
  * @param {number/list} $padding-big
  * Panel Title padding in the {@link Global_CSS#$enable-big big} sizing scheme
  *
- * @param {number/list} $opacity
- * Panel Title opacity
- *
  * @param {color} $icon-color
  * Panel Title icon color.
  *
@@ -88,7 +85,6 @@
     $font-family: null,
     $padding: null,
     $padding-big: null,
-    $opacity: null,
     $icon-color: null,
     $icon-size: null,
     $icon-size-big: null,
@@ -137,10 +133,6 @@
                 $font-size: $icon-font-size,
                 $font-size-big: $icon-font-size-big
             );
-        }
-
-        .#{$prefix}text-el {
-            opacity: $opacity;
         }
 
         &.#{$prefix}horizontal {

@@ -1,6 +1,6 @@
 {
-    "name": "@extjs/ext-react-toolkit",
-    "version": "6.5.3.57",
+    "name": "@extjs/ext-react-modern",
+    "version": "6.5.0.775",
     "sencha": {
         "name": "modern",
         "namespace": "Ext",
@@ -12,7 +12,7 @@
         "creator": "Sencha",
         "summary": "The Modern UI Toolkit",
         "detailedDescription": "UI components for modern browsers",
-        "version": "6.5.3.57",
+        "version": "6.5.0",
         "compatVersion": "6.0.0",
         "format": "1",
         "output": "${framework.dir}/build",
@@ -42,13 +42,6 @@
         },
         "buildOptions": {
             "modern": true
-        },
-        "language": {
-            "js": {
-                "input": {
-                    "version": "ES5"
-                }
-            }
         },
         "properties": {
             "skip.sass": 1,

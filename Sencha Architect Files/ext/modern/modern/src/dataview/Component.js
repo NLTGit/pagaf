@@ -17,8 +17,7 @@
  *          ],
  *
  *          itemConfig: {
- *              xtype: 'button',
- *              cls: 'x-item-no-tap' // Prevent childtap events
+ *              xtype: 'button'
  *          },
  *
  *          itemDataMap: {
@@ -199,9 +198,7 @@ Ext.define('Ext.dataview.Component', {
 
     /**
      * @event childtap
-     * Fires when a child is tapped. Add `x-item-no-tap` CSS class to a child
-     * of list item to suppress `childtap` events on that child. This can be
-     * useful when items contain components such as Buttons.
+     * Fires when a child is tapped.
      * @param {Ext.dataview.Component} this This dataview.
      * @param {Ext.dataview.Location} location The location for the event.
      *
@@ -352,10 +349,6 @@ Ext.define('Ext.dataview.Component', {
 
         me.callParent(arguments);
 
-        if (!dataItems.length) {
-            return;
-        }
-
         for (i = len; i-- > 0; ) {
             me.removeDataItem(dataItems[i]); // less ripple-down cost...
         }
@@ -392,7 +385,6 @@ Ext.define('Ext.dataview.Component', {
         // If the itemConfig is being set after creation, preserve the original
         // xtype/xclass if one wasn't provided
         itemConfig = itemConfig || {};
-
         if (oldItemConfig && !itemConfig.xtype && !itemConfig.xclass) {
             var xtype = oldItemConfig.xtype,
                 xclass = oldItemConfig.xclass;
@@ -636,7 +628,7 @@ Ext.define('Ext.dataview.Component', {
         },
 
         changeItemRecord: function (options) {
-            this.syncItemRecord(options);
+            this.syncItemRecord(options.item, options.record, null, options);
         },
 
         changeItemRecordIndex: function (options) {
@@ -691,27 +683,14 @@ Ext.define('Ext.dataview.Component', {
 
         createDataItem: function (cfg) {
             var me = this,
-                markDirty = me.getMarkDirty(),
-                cls = markDirty ? me.markDirtyCls : '',
-                itemCls = me.getItemCls(),
-                config;
+                config = {
+                    xtype: me.getDefaultType(),
+                    cls: me.getItemCls(),
+                    tpl: me.getItemTpl(),
+                    $dataItem: 'record'
+                },
+                cls = me.getItemInnerCls();
 
-            if (itemCls) {
-                if (markDirty) {
-                    cls += ' ';
-                }
-
-                cls += itemCls;
-            }
-            
-            config = {
-                xtype: me.getDefaultType(),
-                cls: cls,
-                tpl: me.getItemTpl(),
-                $dataItem: 'record'
-            };
-
-            cls = me.getItemInnerCls();
             if (cls) {
                 config.innerCls = cls;
             }
@@ -809,42 +788,32 @@ Ext.define('Ext.dataview.Component', {
             }
         },
 
-        syncItemRecord: function (options, tombstoneRec) {
+        syncItemRecord: function (item, record, force, options) {
+            // Note: This method is called by Ext.dataview.Abstract with 2 arguments
+            // but we extend it with "force" to support List. Ext.dataview.DataView
+            // also adds a parameter but it is different.
+
             var me = this,
-                item = options.item,
-                itemClasses = options && options.itemClasses,
+                itemClasses = options ? options.itemClasses : item.el.getClassMap(false),
                 oldRecord = item.getRecord(),
-                record = tombstoneRec || options.record,
                 dataMap = me.getItemDataMap(),
-                el = item.el,
-                viewModel = item.getViewModel(),
-                selectedCls = me.selectedCls;
+                viewModel = item.getViewModel();
 
             if (oldRecord === record) {
-                if (!tombstoneRec) {
-                    if (item.isRecordRefreshable) {
-                        item.refresh(options);
-                    }
-                    else {
-                        item.updateRecord(record, oldRecord);
-                    }
+                if (force !== false) {
+                    item.updateRecord(record, oldRecord);
                 }
             }
             else {
                 // Ask the selection model if this record is selected
                 if (me.getSelectable().isRowSelected(record)) {
-                    if (itemClasses) {
-                        itemClasses[selectedCls] = true;
-                    }
-                    else {
-                        el.addCls(selectedCls);
-                    }
+                    itemClasses[me.selectedCls] = true;
+                } else {
+                    delete itemClasses[me.selectedCls];
                 }
-                else if (itemClasses) {
-                    delete itemClasses[selectedCls];
-                }
-                else {
-                    el.removeCls(selectedCls);
+
+                if (!options) {
+                    item.el.setClassMap(itemClasses, true);
                 }
 
                 item.setRecord(record);
@@ -858,7 +827,7 @@ Ext.define('Ext.dataview.Component', {
 
             if (viewModel) {
                 viewModel.setData({
-                    record: options.record  // will be null for a tombstone
+                    record: record.tombstone ? null : record
                 });
             }
         },

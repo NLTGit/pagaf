@@ -6,36 +6,30 @@
  * In general an array of column configurations will be passed to the grid:
  *
  *     @example
- *     Ext.create({
- *         xtype: 'grid',
- *         title: 'Tree Grid Demo',
- *         itemConfig: {
- *             viewModel: true
- *         },
- *         store: {
- *              data: [
- *                  {firstname:"Michael", lastname:"Scott", seniority:7, department:"Management", hired:"01/10/2004"},
- *                  {firstname:"Dwight", lastname:"Schrute", seniority:2, department:"Sales", hired:"04/01/2004"},
- *                  {firstname:"Jim", lastname:"Halpert", seniority:3, department:"Sales", hired:"02/22/2006"},
- *                  {firstname:"Kevin", lastname:"Malone", seniority:4, department:"Accounting", hired:"06/10/2007"},
- *                  {firstname:"Angela", lastname:"Martin", seniority:5, department:"Accounting", hired:"10/21/2008"}
- *              ]
- *         },
+ *     Ext.create('Ext.data.Store', {
+ *         storeId: 'employeeStore',
+ *         fields: ['firstname', 'lastname', 'seniority', 'dep', 'hired'],
+ *         data: [
+ *             {firstname:"Michael", lastname:"Scott", seniority:7, dep:"Management", hired:"01/10/2004"},
+ *             {firstname:"Dwight", lastname:"Schrute", seniority:2, dep:"Sales", hired:"04/01/2004"},
+ *             {firstname:"Jim", lastname:"Halpert", seniority:3, dep:"Sales", hired:"02/22/2006"},
+ *             {firstname:"Kevin", lastname:"Malone", seniority:4, dep:"Accounting", hired:"06/10/2007"},
+ *             {firstname:"Angela", lastname:"Martin", seniority:5, dep:"Accounting", hired:"10/21/2008"}
+ *         ]
+ *     });
+ *
+ *     var grid = Ext.create('Ext.grid.Grid', {
+ *         title: 'Column Demo',
+ *         store: Ext.data.StoreManager.lookup('employeeStore'),
  *         columns: [
  *             {text: 'First Name',  dataIndex:'firstname'},
  *             {text: 'Last Name',  dataIndex:'lastname'},
- *             {text: 'Hired Month',  dataIndex:'hired'},
- *             {
- *                 text: 'Department',
- *                 width: 200,
- *                 cell: {
- *                    bind: '{record.department} ({record.seniority})'
- *                 }
- *             }
+ *             {text: 'Hired Month',  dataIndex:'hired', xtype:'datecolumn', format:'M'},
+ *             {text: 'Department (Yrs)', xtype:'templatecolumn', tpl:'{dep} ({seniority})'}
  *         ],
- *         width: 500,
- *         fullscreen: true
+ *         width: 400
  *     });
+ *     Ext.ViewPort.add(grid);
  *
  * # Convenience Subclasses
  *
@@ -129,21 +123,6 @@ Ext.define('Ext.grid.column.Column', {
          */
         defaultWidth: 100,
 
-        /**
-         * @cfg {String[]} depends
-         * Set this config to the field names that effect this column's rendering. This is
-         * important for best performance when using a `renderer`, a `summaryRenderer` or
-         * a `tpl` to render the cell's content. This is because such mechanisms can use
-         * any field and as such must be refreshed on *any* field change. When this config
-         * is provided, only changes to these fields (or the `dataIndex`) will cause a
-         * refresh.
-         *
-         * When not using these mechanisms, only changes to the `dataIndex` will cause the
-         * cell content to be refreshed.
-         * @since 6.5.1
-         */
-        depends: null,
-
         emptyText: {
             cached: true,
             $value: '\xA0'
@@ -165,20 +144,17 @@ Ext.define('Ext.grid.column.Column', {
 
         /**
          * @cfg {Boolean} groupable
-         * If the grid is {@link Ext.grid.Grid#grouped grouped}, the menu for this column will
-         * offer to "Group by this column" if this is set to `true`.
-         *
-         * If using the {@link Ext.grid.plugin.ViewOptions ViewOptions} plugin, this option may be used to
-         * disable the option to group by this column.
+         * If the grid is {@link Ext.grid.Grid#grouped grouped}, and uses a
+         * {@link Ext.grid.plugin.ViewOptions ViewOptions} plugin this option may be used to
+         * disable the option to group by this column. By default, the group option is enabled.
          */
         groupable: true,
 
         /**
          * @cfg {Boolean} resizable
          * False to prevent the column from being resizable.
-         * Note that this configuration only works when the
-         * {@link Ext.grid.plugin.ColumnResizing ColumnResizing} plugin is enabled on the
-         * {@link Ext.grid.Grid Grid}.
+         * Note that this configuration only works when the {@link Ext.grid.plugin.ColumnResizing ColumnResizing} plugin
+         * is enabled on the {@link Ext.grid.Grid Grid}.
          */
         resizable: true,
 
@@ -243,9 +219,8 @@ Ext.define('Ext.grid.column.Column', {
          * implied scope on which "foo" is found is the `scope` config for the column.
          *
          * If the `scope` is not given, or implied using a prefix of `"this"`, then either the
-         * {@link #method-getController ViewController} or the closest ancestor component
-         * configured as {@link #defaultListenerScope} is assumed to be the object with the
-         * method.
+         * {@link #method-getController ViewController} or the closest ancestor component configured
+         * as {@link #defaultListenerScope} is assumed to be the object with the method.
          * @since 6.2.0
          */
         formatter: null,
@@ -265,24 +240,25 @@ Ext.define('Ext.grid.column.Column', {
 
         /**
          * @cfg {Object/String} editor
-         * The `xtype` or config object for a {@link Ext.field.Field Field} to use for
-         * editing. This config is used by the {@link Ext.grid.plugin.Editable grideditable}
-         * plugin.
-         *
-         * If this config is not set, and {@link #editable} is set to true, the
-         * {@link #defaultEditor} is used.
+         * An optional xtype or config object for a {@link Ext.field.Field Field} to use for editing.
+         * Only applicable if the grid is using an {@link Ext.grid.plugin.Editable Editable} plugin.
+         * Note also that {@link #editable} has to be set to true if you want to make this column editable.
+         * If this configuration is not set, and {@link #editable} is set to true, the {@link #defaultEditor} is used.
          */
         editor: null,
 
         /**
-         * @cfg {Object/Ext.field.Field} defaultEditor
-         * An optional config object that should not really be modified. This is used to
-         * create a default editor used by the {@link Ext.grid.plugin.Editable grideditable}
-         * plugin when no {@link #editor} is specified.
+         * @cfg {Object/Ext.field.Field}
+         * An optional config object that should not really be modified. This is used to create
+         * a default editor used by the {@link Ext.grid.plugin.Editable Editable} plugin when no
+         * {@link #editor} is specified.
          */
         defaultEditor: {
             lazy: true,
-            $value: {}
+            $value: {
+                xtype: 'textfield',
+                required: true
+            }
         },
 
         /**
@@ -665,7 +641,7 @@ Ext.define('Ext.grid.column.Column', {
          */
         sorter: {
             lazy: true,
-            $value: true
+            $value: null
         },
 
         /**
@@ -745,8 +721,6 @@ Ext.define('Ext.grid.column.Column', {
 
     classCls: Ext.baseCSSPrefix + 'gridcolumn',
     sortedCls: Ext.baseCSSPrefix + 'sorted',
-    secondarySortCls : Ext.baseCSSPrefix + 'secondary-sort',
-    auxSortCls : Ext.baseCSSPrefix + 'aux-sort',
     resizableCls: Ext.baseCSSPrefix + 'resizable',
     groupCls: Ext.baseCSSPrefix + 'group',
     leafCls: Ext.baseCSSPrefix + 'leaf',
@@ -813,8 +787,7 @@ Ext.define('Ext.grid.column.Column', {
             className: Ext.baseCSSPrefix + 'title-el',
             children: [{
                 reference: 'textElement',
-                className: Ext.baseCSSPrefix + 'text-el',
-                "data-qoverflow": true
+                className: Ext.baseCSSPrefix + 'text-el'
             }, {
                 reference: 'sortIconElement',
                 cls: Ext.baseCSSPrefix + 'sort-icon-el ' +
@@ -850,59 +823,6 @@ Ext.define('Ext.grid.column.Column', {
             cls: Ext.baseCSSPrefix + 'body-el',
             uiCls: 'body-el'
         }];
-    },
-
-    initialize: function () {
-        var me = this;
-
-        if (me.isLeafHeader && !me.getWidth() && me.getFlex() == null) {
-            me.setWidth(me.getDefaultWidth());
-        }
-
-        me.callParent();
-
-        me.element.on({
-            tap: 'onColumnTap',
-            longpress: 'onColumnLongPress',
-            scope: this
-        });
-        me.triggerElement.on({
-            tap: 'onTriggerTap',
-            scope: this
-        });
-        me.resizerElement.on({
-            tap: 'onResizerTap',
-            scope: this
-        });
-
-        if (me.isHeaderGroup) {
-            me.on({
-                add: 'doVisibilityCheck',
-                remove: 'doVisibilityCheck',
-                show: 'onColumnShow',
-                hide: 'onColumnHide',
-                move: 'onColumnMove',
-                delegate: '> column',
-                scope: me
-            });
-
-            me.on({
-                show: 'onShow',
-                scope: me
-            });
-        }
-    },
-
-    doDestroy: function () {
-        var me = this;
-
-        me.destroyMembers('editor', 'resizeListener', 'menu', 'hideShowMenuItem', 'childColumnsMenu');
-
-        me.setScratchCell(null);
-
-        me.mixins.toolable.doDestroy.call(me);
-
-        me.callParent();
     },
 
     onAdded: function(parent, instanced) {
@@ -949,8 +869,6 @@ Ext.define('Ext.grid.column.Column', {
             gridScopeRe = me._gridScopeRe,
             extraItems, gridColumnMenu, i, item, items, s;
 
-        Ext.destroy(me.sortChangeListener);
-
         // Allow menu:null to rid the column of all menus... so only merge in the
         // grid's column menu if we have a non-null menu
         if (menu && !menu.isMenu) {
@@ -976,12 +894,6 @@ Ext.define('Ext.grid.column.Column', {
             menu.ownerCmp = me;
 
             menu = Ext.create(menu);
-
-            // This column is informed about group changes
-            me.sortChangeListener = menu.on({
-                groupchange: 'onColumnMenuGroupChange',
-                scope: me
-            });
 
             // We cannot use defaultListenerScope to map handlers in our menu to
             // ourselves because user views would then be blocked from doing so to
@@ -1024,56 +936,39 @@ Ext.define('Ext.grid.column.Column', {
         return menu;
     },
 
-    updateMenu: function (menu, oldMenu) {
-        if (oldMenu) {
-            oldMenu.destroy();
-        }
-    },
-
     beforeShowMenu: function (menu) {
         var me = this,
-            store = me.getGrid().getStore(),
-            isGrouped = store && !!store.getGrouper(),
+            grid = me.getGrid(),
+            grouper = grid.getStore().getGrouper(),
             groupByThis = menu.getComponent('groupByThis'),
             showInGroups = menu.getComponent('showInGroups'),
             sortAsc = menu.getComponent('sortAsc'),
-            sortDesc = menu.getComponent('sortDesc');
+            sortDesc = menu.getComponent('sortDesc'),
+            sortable = this.isSortable(),
+            groupedByThis = false,
+            dataIndex = me.getDataIndex();
 
-        sortAsc.setDisabled(!store);
-        sortDesc.setDisabled(!store);
-
-        // We have no store yet, we can't group or ungroup
-        if (!store) {
-            groupByThis.setHidden(true);
-            showInGroups.setHidden(true);
-            return;
-        }
-
-        // Ensure the checked state of the ascending and descending menu items
-        // matches the reality of the Store's sorters.
-        //
-        // We are syncing the menu state with the reality of the store.
-        // Ensure its state change doesn't drive the store state
-        // by suspending the groupchange event.
-        menu.suspendEvent('groupchange');
         if (sortAsc) {
-            me.syncMenuItemState(sortAsc);
+            sortAsc.setDisabled(!sortable);
         }
         if (sortDesc) {
-            me.syncMenuItemState(sortDesc);
+            sortDesc.setDisabled(!sortable);
         }
 
         if (groupByThis) {
-            groupByThis.setHidden(!(me.canGroup() && !store.isTreeStore));
+            if (grouper) {
+                if (!(groupedByThis = grouper === me.getGrouper())) {
+                    groupedByThis = dataIndex != null && dataIndex === grouper.getProperty();
+                }
+            }
+
+            groupByThis.setChecked(groupedByThis);
+            groupByThis.setDisabled(groupedByThis);
         }
-        menu.resumeEvent('groupchange');
 
         if (showInGroups) {
-            // A TreeStore is never grouped
-            showInGroups.setHidden(store.isTreeStore);
-            // Disable the "Show in groups" options if we're not already shown in groups
-            showInGroups.setChecked(isGrouped);
-            showInGroups.setDisabled(!isGrouped);
+            showInGroups.setChecked(!!grouper);
+            showInGroups.setDisabled(!grouper);
         }
     },
 
@@ -1093,13 +988,13 @@ Ext.define('Ext.grid.column.Column', {
                     grid.beforeShowColumnMenu(me, menu) !== false) {
                 menu.showBy(me.triggerElement);
 
-                // Add menu open class to show the trigger element while the menu is open
+                // Add menu open class which shows the trigger element while the menu is open
                 me.addCls(menuOpenCls);
 
                 menu.on({
                     single: true,
                     hide: function () {
-                        if (!(me.destroyed || me.destroying)) {
+                        if (!me.destroyed) {
                             me.removeCls(menuOpenCls);
                             menu.remove(columnsMenu, /*destroy=*/false);
                         }
@@ -1131,28 +1026,6 @@ Ext.define('Ext.grid.column.Column', {
         }
 
         return this.callParent([ fieldName ]);
-    },
-
-    /**
-     * Determines whether the UI should be allowed to offer an option to hide this column.
-     *
-     * A column may *not* be hidden if to do so would leave the grid with no visible columns.
-     *
-     * This is used to determine the enabled/disabled state of header hide menu items.
-     */
-    isHideable: function() {
-        var menuOfferingColumns = [];
-
-        // Collect menu offering columns so that we can assess our hideability.
-        // Cannot use CQ because we need to use getConfig with peek flag to
-        // check whether there's a menu without instantiating it.
-        this.getRootHeaderCt().visitPreOrder('gridcolumn:not([hidden])', function(col) {
-            if (!col.getMenuDisabled() && col.getConfig('menu', true)) {
-                menuOfferingColumns.push(col);
-            }
-        });
-
-        return menuOfferingColumns.length > 1 || menuOfferingColumns[0] !== this;
     },
 
     applyTpl: function (tpl) {
@@ -1193,49 +1066,61 @@ Ext.define('Ext.grid.column.Column', {
         }
     },
 
+    initialize: function () {
+        var me = this;
+
+        if (me.isLeafHeader && !me.getWidth() && me.getFlex() == null) {
+            me.setWidth(me.getDefaultWidth());
+        }
+
+        me.callParent();
+
+        me.element.on({
+            tap: 'onColumnTap',
+            longpress: 'onColumnLongPress',
+            scope: this
+        });
+        me.triggerElement.on({
+            tap: 'onTriggerTap',
+            scope: this
+        });
+        me.resizerElement.on({
+            tap: 'onResizerTap',
+            scope: this
+        });
+
+        if (me.isHeaderGroup) {
+            me.on({
+                add: 'doVisibilityCheck',
+                remove: 'doVisibilityCheck',
+                show: 'onColumnShow',
+                hide: 'onColumnHide',
+                delegate: '> column',
+                scope: me
+            });
+
+            me.on({
+                show: 'onShow',
+                scope: me
+            });
+        }
+    },
+
     onColumnTap: function (e) {
-        var me = this,
-            grid = me.getGrid(),
-            selModel = grid.getSelectable(),
-            store = grid.getStore(),
-            sorters = store && store.getSorters(true),
-            sorter = store && me.pickSorter(),
-            sorterIndex = sorter ? sorters.indexOf(sorter) : -1,
-            isSorted = sorter && (sorterIndex !== -1 || sorter === store.getGrouper());
+        var me = this;
 
         // Tapping on the trigger or resizer must not sort the column and
         // neither should tapping on any components (e.g. tools) contained
         // in the column.
         if (Ext.Component.from(e) !== me ||
-            e.getTarget('.' + Ext.baseCSSPrefix + 'item-no-tap', me)) {
+                e.getTarget('.' + Ext.baseCSSPrefix + 'item-no-tap', me)) {
             return;
         }
 
-        // Column tap sorts if we are sortable, and the selection model
-        // is not selecting columns
-        if (store && me.isSortable() && (!selModel || !selModel.getColumns())) {
-            // Special case that our sorter is the grouper
-            if (sorter.isGrouper) {
-                sorter.toggle();
-                store.group(sorter);
-            }
-            // If we are already the primary sorter
-            // then just toggle through the three states
-            else if (sorterIndex === 0) {
-                me.toggleSortState();
-            }
-            // We must be a secondary or auxilliary in a multi column sort grid,
-            // or unsorted now.
-            else {
-                // We're secondary or auxilliary, bring top top of sorter stack
-                if (isSorted) {
-                    store.sort(sorter, 'prepend');
-                }
-                // Our sorter is unused, go primary, ascending
-                else {
-                    me.sort('ASC');
-                }
-            }
+        // HeaderContainer's sortable config must be honoured dynamically since
+        // SelectionModels can change it.
+        if (me.getRootHeaderCt().getSortable()) {
+            me.toggleSortState();
         }
 
         return me.fireEvent('tap', me, e);
@@ -1281,85 +1166,40 @@ Ext.define('Ext.grid.column.Column', {
         }
     },
 
-    /**
-     * @private
-     * Called as a groupchange handler on the header menu to either set the direction, or
-     * remove the sorter.
-     */
-    onColumnMenuGroupChange: function (menu, groupName, value) {
-        if (groupName === 'sortDir') {
-            this.setSortDirection(value);
-        }
-    },
-
-    getSortDirection: function () {
-        var sorter = this.pickSorter();
-
-        return sorter && sorter.getDirection();
-    },
-
-    setSortDirection: function (direction) {
+    onSortDirectionToggle: function (menuItem) {
         var me = this,
             grid = me.getGrid(),
             store = grid.getStore(),
-            sorter = me.pickSorter(),
-            sorters = store.getSorters(true),
-            isSorted = sorter && (sorters.contains(sorter) || sorter.isGrouper);
+            sorter = me.getSorter(),
+            sorters = store.getSorters(),
+            isSorted = sorter && (sorters.contains(sorter) || sorter === store.getGrouper()),
+            direction = menuItem.direction;
 
-        // Toggling to checked.
-        if (direction) {
-            if (isSorted) {
-                if (sorter.getDirection() !== direction) {
-                    sorter.setDirection(direction);
-
-                    if (sorter.isGrouper) {
-                        store.group(sorter);
-                    } else {
-                        sorters.beginUpdate();
-                        sorters.endUpdate();
-                    }
-                }
-            }
-            // Either the sorter is not applied, or it's the first time and there's no sorter.
-            // Sort by direction as primary
-            else {
-                return me.sort(direction);
-            }
-        }
-        // Toggled to clear.
-        // If we own a sorter, and its in our direction, and it's applied to the store
-        // then remove it.
-        else if (sorter) {
+        // Remove sorter on uncheck if its the matching direction
+        if (sorter && sorter.getDirection() === direction) {
             sorters.remove(sorter);
+
+            // Store will not refresh in response to having a sorter removed, so we must
+            // clear the column header arrow now.
+            me.setSortState(null);
         }
-
-        // A locally sorted store will not refresh in response to having a sorter
-        // removed, so we must sync the column header arrows now.
-        // AbstractStore#onSorterEndUpdate will however always fire the sort event
-        // which is what Grid uses to trigger a HeaderContainer sort state sync
-        if (!store.getRemoteSort()) {
-            me.getRootHeaderCt().setSortState();
-        }
-    },
-
-    syncMenuItemState: function (menuItem) {
-        if (menuItem) {
-            var me = this,
-                sortable = me.isSortable(),
-                store = me.getGrid().getStore(),
-                sorter = me.pickSorter(),
-                isSorted = sorter && (store.getSorters().contains(sorter) || sorter.isGrouper);
-
-            menuItem.setDisabled(!sortable);
-            menuItem.setChecked(sortable && isSorted && sorter.getDirection() === menuItem.getValue());
+        else {
+            // If have no sorter, or store is not sorting by that sorter, or the sorter
+            // is opposite to what we just checked then sort according to the CheckItems's
+            // direction
+            if (!isSorted || sorter.getDirection() !== direction) {
+                me.sort(direction);
+            }
         }
     },
 
     onToggleShowInGroups: function (menuItem) {
-        var grid = this.getGrid(),
-            store = grid.getStore();
+        if (!menuItem.getChecked()) {
+            var grid = this.getGrid(),
+                store = grid.getStore();
 
-        store.setGrouper(null);
+            store.setGrouper(null);
+        }
     },
 
     updateResizable: function (resizable) {
@@ -1378,16 +1218,14 @@ Ext.define('Ext.grid.column.Column', {
     },
 
     onResize: function () {
-        if (!this.isHidden(true)) {
-            // Update the resizability of this column based on *how* it's just been sized.
-            // If we are shrinkwrapping, we are not drag-resizable.
-            this.updateResizable(this.getResizable());
+        // Update the resizability of this column based on *how* it's just been sized.
+        // If we are shrinkwrapping, we are not drag-resizable.
+        this.updateResizable(this.getResizable());
 
-            // Computed with needs to be exact so that sub-pixel changes are
-            // not rejected by the config system because scrollbars may
-            // depend upon the *exact* width of the cells in the view.
-            this.measureWidth();
-        }
+        // Computed with needs to be exact so that sub-pixel changes are
+        // not rejected by the config system because scrollbars may
+        // depend upon the *exact* width of the cells in the view.
+        this.measureWidth();
     },
 
     getComputedWidth: function () {
@@ -1430,14 +1268,16 @@ Ext.define('Ext.grid.column.Column', {
     },
 
     updateDataIndex: function (dataIndex) {
-        var sorter;
+        if (this.isConfiguring) {
+            return;
+        }
 
-        if (!this.isConfiguring) {
-            sorter = this.pickSorter();
+        var editor = this.getEditor();
 
-            if (sorter) {
-                this.setSorter(null);
-            }
+        if (editor) {
+            editor.name = dataIndex;
+        } else {
+            this.getDefaultEditor().name = dataIndex;
         }
     },
 
@@ -1454,19 +1294,7 @@ Ext.define('Ext.grid.column.Column', {
     },
 
     isSortable: function () {
-        var me = this;
-
-        // Only leaf headers are sortable.
-        // Only if we are not configured sortable: false.
-        // We're not sortable if there's no Sorter configured AND we have no dataIndex.
-        // HeaderContainer's sortable config must be honoured dynamically since
-        // SelectionModels can change it.
-        // And the grid has the final say.
-        return me.isLeafHeader &&
-            me.getSortable() &&
-            (me.pickSorter() || me.getDataIndex()) &&
-            me.getRootHeaderCt().getSortable() &&
-            me.getGrid().sortableColumns !== false;
+        return this.isLeafHeader && this.getSortable() && this.getGrid().sortableColumns !== false;
     },
 
     applyEditor: function (value) {
@@ -1483,52 +1311,18 @@ Ext.define('Ext.grid.column.Column', {
                 }, value);
             }
 
+            value.name = value.name || this.getDataIndex();
+
             return Ext.create(value);
         }
 
         return value;
     },
 
-    applyDefaultEditor: function(editor) {
-        var dataIndex = this.getDataIndex(),
-            model, field;
-
-        if (dataIndex && !editor.isInstance) {
-            // We mutate the config
-            editor = Ext.clone(editor);
-
-            // Infer default xtype from data field type
-            if (!editor.isInstance && !editor.xtype) {
-                model = this.getGrid().getStore().getModel();
-                field = model.getField(dataIndex);
-
-                if (field) {
-                    switch (field.type) {
-                        case 'date':
-                            editor.xtype = 'datefield';
-                            break;
-                        case 'int':
-                        case 'integer':
-                            editor.xtype = 'numberfield';
-                            editor.decimals = 0;
-                            break;
-                        case 'float':
-                        case 'number':
-                            editor.xtype = 'numberfield';
-                            break;
-                        case 'boolean':
-                        case 'bool':
-                            editor.xtype = 'checkboxfield';
-                            break;
-                        default:
-                            editor.xtype = 'textfield';
-                    }
-                } else {
-                    editor.xtype = 'textfield';
-                }
-            }
+    updateDefaultEditor: function(editor) {
+        if (!editor.name) {
+            editor.name = this.getDataIndex();
         }
-        return editor;
     },
 
     updateEditor: function (editor, oldEditor) {
@@ -1595,7 +1389,6 @@ Ext.define('Ext.grid.column.Column', {
             if (typeof cfg.sorterFn === 'string') {
                 cfg = me.scopeReplacer(cfg, grouper, 'sorterFn', 'setSorterFn');
             }
-
             grouper = new Ext.util.Grouper(cfg);
         }
 
@@ -1606,8 +1399,6 @@ Ext.define('Ext.grid.column.Column', {
             grouper.headerTpl = me.getGroupHeaderTpl();
         }
 
-        // So folks can easily pick this up w/o calling getGrouper which will trigger
-        // its creation.
         return grouper;
     },
 
@@ -1619,50 +1410,29 @@ Ext.define('Ext.grid.column.Column', {
                 store.setGrouper(grouper);
             }
         }
-
-        this.grouper = grouper;
     },
 
     applySorter: function (sorter) {
         var me = this,
-            cfg = sorter,
-            sortProperty;
+            cfg = sorter;
 
         if (cfg && !cfg.isInstance) {
-            // The default value is true to indicate use the dataIndex
-            if (cfg === true) {
-                sortProperty = me.getSortParam();
-                if (!sortProperty) {
-                    return null;
-                }
-
+            if (typeof cfg === 'string') {
                 cfg = {
-                    property: sortProperty,
-                    direction: 'ASC'
+                    sorterFn: cfg
                 };
-            } else {
-                if (typeof cfg === 'string') {
-                    cfg = {
-                        sorterFn: cfg
-                    };
-                }
+            }
 
-                if (typeof cfg.sorterFn === 'string') {
-                    cfg = me.scopeReplacer(cfg, sorter, 'sorterFn', 'setSorterFn');
-                }
+            if (typeof cfg.sorterFn === 'string') {
+                cfg = me.scopeReplacer(cfg, sorter, 'sorterFn', 'setSorterFn');
             }
 
             sorter = new Ext.util.Sorter(cfg);
         }
-
-        if (sorter) {
-            sorter.owner = me.getGrid();
-        }
-
         return sorter;
     },
 
-    updateSorter: function (sorter, oldSorter) {
+    updateSorter: function(sorter, oldSorter) {
         var store = this.getGrid().getStore(),
             sorters = store ? store.getSorters() : null,
             at;
@@ -1678,34 +1448,10 @@ Ext.define('Ext.grid.column.Column', {
                 }
             }
         }
-
-        // So folks can easily pick this up w/o calling getSorter which will trigger
-        // its creation.
-        this.sorter = sorter;
     },
 
-    pickSorter: function() {
-        var me = this,
-            store = me.getGrid().getStore(),
-            result;
-
-        // Must always use the grouper if our dataIndex is the store's groupField.
-        // We have to test dynamically in the getter because of possible store changes
-        if (store.isGrouped() && store.getGroupField() === me.getDataIndex()) {
-            result = me.getGrouper() || store.getGrouper();
-
-            // The sort state is always the direction of the grouper
-            me.sortState = result.getDirection();
-        }
-        else {
-            result = me.getSorter();
-        }
-
-        return result;
-    },
-
-    applyHideShowMenuItem: function (config, existing) {
-        return Ext.updateWidget(existing, config, this, 'createHideShowMenuItem');
+    applyHideShowMenuItem: function(hideShowMenuItem, oldHideShowMenuItem) {
+        return Ext.Factory.widget.update(oldHideShowMenuItem, hideShowMenuItem, this, 'createHideShowMenuItem');
     },
 
     createHideShowMenuItem: function(defaults) {
@@ -1716,37 +1462,22 @@ Ext.define('Ext.grid.column.Column', {
         }, defaults);
     },
 
-    getHideShowMenuItem: function(deep) {
+    doDestroy: function () {
         var me = this,
-            result = me.callParent(),
-            items = me.items.items,
-            len = items.length,
-            childItems = [],
-            childColumnsMenu = me.childColumnsMenu,
-            i;
+            editor = me.getConfig('editor', false, true);
 
-        // If we're a header group, we offer our hideable child columns
-        // in a submenu.
-        if (me.isHeaderGroup && deep !== false) {
-            if (!childColumnsMenu) {
-                result.setMenu({});
-                me.childColumnsMenu = childColumnsMenu = result.getMenu();
-            }
-            if (!childColumnsMenu.items.length || me.rebuildChildColumnsMenu) {
-                for (i = 0; i < len; i++) {
-                    if (items[i].getHideable()) {
-                        childItems.push(items[i].getHideShowMenuItem());
-                    }
-                }
-                childColumnsMenu.removeAll(false);
-                childColumnsMenu.add(childItems);
-            }
+        me.destroyMembers('resizeListener', 'menu', 'hideShowMenuItem');
+
+        me.setScratchCell(null);
+
+        if (editor && editor.isWidget) {
+            editor.ownerCmp = null;
+            Ext.destroy(editor);
         }
 
-        // Ensure we're enabled/disabled correctly on first show
-        result['set' + (result.getMenu() ? 'CheckChange' : '') + 'Disabled'](!me.isHideable());
+        this.mixins.toolable.doDestroy.call(this);
 
-        return result;
+        me.callParent();
     },
 
     getInnerHtmlElement: function () {
@@ -1754,8 +1485,8 @@ Ext.define('Ext.grid.column.Column', {
     },
 
     /**
-     * Returns the parameter to sort upon when sorting this header. By default this returns
-     * the dataIndex and will not need to be overridden in most cases.
+     * Returns the parameter to sort upon when sorting this header. By default this returns the dataIndex and will not
+     * need to be overridden in most cases.
      * @return {String}
      */
     getSortParam: function () {
@@ -1841,9 +1572,6 @@ Ext.define('Ext.grid.column.Column', {
                 cell.xtype = 'gridcell';
                 cell = Ext.create(cell);
             }
-            // Add the positioned class to make this position:absolute so that it can be
-            // added to the document without breaking the layout.
-            cell.addCls(me.floatingCls);
         }
 
         if (oldCell) {
@@ -1868,13 +1596,6 @@ Ext.define('Ext.grid.column.Column', {
     },
 
     privates: {
-        // State map for cycling our sortState property
-        directionSequence: {
-            "null": "ASC",
-            "ASC": "DESC",
-            "DESC": null
-        },
-
         applySummary: function (summary) {
             if (summary) {
                 summary = Ext.Factory.dataSummary(summary);
@@ -1899,174 +1620,105 @@ Ext.define('Ext.grid.column.Column', {
             return context;
         },
 
-        canGroup: function() {
-            return this.getGroupable() && (this.getDataIndex() || this.getGrouper());
-        },
-
-        /**
-         * Sorts by this column's sorter in the passed direction.
-         * @param direction
-         * @param mode
-         */
-        sort: function(direction, mode) {
+        sort: function (direction) {
             var me = this,
-                sorter = me.pickSorter(),
+                sorter = me.getSorter(),
                 grid = me.getGrid(),
                 store = grid.getStore(),
-                sorters = store.getSorters();
+                isSorted = sorter && store.getSorters().contains(sorter);
 
-            if (!me.isSortable()) {
-                return;
-            }
-
-            // This is the "group by" column - we have to set the grouper and tell it to
-            // recalculate. AbstractStore#group just calls its Collection's updateGrouper
-            // if passed a Grouper because *something* in the grouper might have changed,
-            // but the config system would reject that as not a change.
-            if (sorter.isGrouper) {
+            // This is the "group by" column - we have to set the grouper and tellit to recacculate.
+            // AbstractStore#group just calls its Collection's updateGrouper if passed a Grouper
+            // because *something* in the grouper might have changed, but the config system would
+            // reject that as not a change.
+            if (store.isGrouped() && store.getGroupField() === me.getDataIndex()) {
+                sorter = store.getGrouper();
+                me.setSorter(sorter);
                 if (sorter.getDirection() !== direction) {
                     sorter.toggle();
                     store.group(sorter);
                 }
+                return;
             }
-            // We are moving to a sorted state
-            else if (direction) {
-                // We have a sorter - set its direction.
-                if (sorter) {
-                    // Not the primary. We will make it so.
-                    // If it's already the primary, SorterCollection#addSort will toggle it
-                    if (sorters.indexOf(sorter) !== 0) {
-                        sorter.setDirection(direction);
+
+            if (sorter) {
+                // Our sorter is in the requested direction
+                if (sorter.getDirection() === direction) {
+                    // If it is applied, we've nothing to do
+                    if (isSorted) {
+                        return;
                     }
+                } else {
+                    me.oldDirection = sorter.getDirection();
+                    sorter.toggle();
                 }
-                // First time in, create a sorter with required direction
-                else {
-                    me.setSorter({
-                        property: me.getSortParam(),
-                        direction: 'ASC'
-                    });
-
-                    sorter = me.getSorter(); // not pickSorter
-                }
-
-                // If the grid is NOT configured with multi column sorting, then specify
-                // "replace". Only if we are doing multi column sorting do we insert it as
-                // one of a multi set.
-                store.sort(sorter, mode || grid.getMultiColumnSort() ? 'multi' : 'replace');
+            } else {
+                me.setSorter({
+                    property: me.getSortParam(),
+                    direction: direction
+                });
+                sorter = me.getSorter();
             }
-            // We're moving to an unsorted state
-            else {
-                if (sorter) {
-                    sorters.remove(sorter);
 
-                    // A locally sorted store will not refresh in response to having a
-                    // sorter removed, so we must sync the column header arrows now.
-                    // AbstractStore#onSorterEndUpdate will however always fire the sort
-                    // event which is what Grid uses to trigger a HeaderContainer sort
-                    // state sync
-                    if (!store.getRemoteSort()) {
-                        me.getRootHeaderCt().setSortState();
-                    }
-                }
-            }
+            // If the sorter is already applied, just command the store to sort with no params.
+            // If the grid is NOT configured with multi column sorting, then specify "replace".
+            // Only if we are doing multi column sorting do we insert it as one of a multi set.
+            store.sort.apply(store, isSorted ? [] : [sorter, grid.getMultiColumnSort() ? 'multi' : 'replace']);
         },
 
-        /**
-         * Called on HeaderTap to toggle the column through three sort states.
-         *
-         *    Is primary sort?
-         *      Yes - Cycle through ASC, DESC, None
-         *      No - is sorted?
-         *          Yes - Make it primary (leave direction alone)
-         *          No - Make it primary ASC
-         *
-         *  - None -> ASC
-         *  - ASC  -> DESC
-         *  - DESC -> None
-         */
         toggleSortState: function () {
-            this.sort(this.directionSequence[this.sortState]);
+            if (this.isSortable()) {
+                this.sort();
+            }
         },
 
         /**
-         * Sets the column sort state according to the direction of the Sorter passed.
-         * @param {Ext.util.Sorter/String} sorter A Sorter, or the direction (`'ASC'` or `'DESC'`) to display in the header.
+         * Sets the column sort state according to the direction of the Sorter passed, or the direction String passed.
+         * @param {Ext.util.Sorter/String} sorter A Sorter, or `'ASC'` or `'DESC'`
          */
         setSortState: function (sorter) {
             // Set the UI state to reflect the state of any passed Sorter
             // Called by the grid's HeaderContainer on view refresh
             var me = this,
-                store = me.getGrid().getStore(),
-                grouper = store.isGrouped() && store.getGrouper(),
-                oldDirection = me.sortState,
-                direction = null,
+                direction,
                 sortedCls = me.sortedCls,
-                secondarySortCls = me.secondarySortCls,
-                auxSortCls = me.auxSortCls,
                 ascCls = sortedCls + '-asc',
                 descCls = sortedCls + '-desc',
                 ariaDom = me.ariaEl.dom,
-                sortPrioClass = '',
-                changed, index,
-                remove = [
-                    secondarySortCls,
-                    auxSortCls
-                ],
-                add;
+                changed;
 
             if (sorter) {
-                if (typeof sorter === 'string') {
-                    direction = sorter;
-                } else {
-                    //<debug>
-                    if (!sorter.isSorter) {
-                        Ext.raise('Must pass a sorter instance into HeaderContainer#saveState');
-                    }
-                    //</debug>
-
-                    // The Grouper is always primary
-                    if (sorter === grouper) {
-                        index = 0;
-                    }
-                    else {
-                        index = store.getSorters().indexOf(sorter);
-                    }
-
-                    //<debug>
-                    if (index === -1) {
-                        Ext.raise("Sorter passed into HeaderContainer#saveState is not used by the grid's store");
-                    }
-                    //</debug>
-
-                    direction = sorter.getDirection();
-                    sortPrioClass = index === 1 ? secondarySortCls : index > 1 ? auxSortCls : '';
-                }
+                direction = sorter.isSorter ? sorter.getDirection() : sorter;
             }
-
-            // Detect if we've changed state, then set our state
-            changed = direction !== oldDirection;
-            me.sortState = direction;
 
             switch (direction) {
                 case 'DESC':
-                    add = [sortedCls, descCls, sortPrioClass];
-                    remove.push(ascCls);
+                    if (!me.hasCls(descCls)) {
+                        me.addCls([sortedCls, descCls]);
+                        me.sortState = 'DESC';
+                        changed = true;
+                    }
+                    me.removeCls(ascCls);
                     break;
 
                 case 'ASC':
-                    add = [sortedCls, ascCls, sortPrioClass];
-                    remove.push(descCls);
+                    if (!me.hasCls(ascCls)) {
+                        me.addCls([sortedCls, ascCls]);
+                        me.sortState = 'ASC';
+                        changed = true;
+                    }
+                    me.removeCls(descCls);
                     break;
 
                 default:
-                    remove.push(sortedCls, ascCls, descCls);
+                    me.removeCls([sortedCls, ascCls, descCls]);
+                    me.sortState = null;
                     break;
             }
-            me.replaceCls(remove, add);
 
             if (ariaDom) {
-                if (direction) {
-                    ariaDom.setAttribute('aria-sort', me.ariaSortStates[direction]);
+                if (me.sortState) {
+                    ariaDom.setAttribute('aria-sort', me.ariaSortStates[me.sortState]);
                 }
                 else {
                     ariaDom.removeAttribute('aria-sort');
@@ -2075,7 +1727,7 @@ Ext.define('Ext.grid.column.Column', {
 
             // we only want to fire the event if we have actually sorted
             if (changed) {
-                me.fireEvent('sort', me, direction, oldDirection);
+                me.fireEvent('sort', this, direction, me.oldDirection);
             }
         },
 
@@ -2116,7 +1768,6 @@ Ext.define('Ext.grid.column.Column', {
 
             for (i = 0; i < ln; i++) {
                 column = columns[i];
-
                 if (!column.isHidden()) {
                     if (me.isHidden()) {
                         if (me.initialized) {
@@ -2130,53 +1781,18 @@ Ext.define('Ext.grid.column.Column', {
             }
 
             me.hide();
-
-            // Next time we show our hide/show item, we need to rebuild the submenu
-            me.rebuildChildColumnsMenu = true;
-
-            // Update hideable/showable state of column menu items
-            me.updateMenuDisabledState();
         },
 
-        onColumnShow: function () {
-            var me = this,
-                hideShowItem;
-
-            if (me.getVisibleCount() > 0) {
-                me.show();
-                hideShowItem = me.getHideShowMenuItem(false);
-                hideShowItem.setChecked(true);
-                hideShowItem.setCheckChangeDisabled(false);
+        onColumnShow: function (column) {
+            if (this.getVisibleCount() > 0) {
+                this.show();
             }
-
-            // Next time we show our hide/show item, we need to rebuild the submenu
-            me.rebuildChildColumnsMenu = true;
-
-            // Update hideable/showable state of column menu items
-            me.updateMenuDisabledState();
         },
 
         onColumnHide: function (column) {
-            var me = this,
-                hideShowItem;
-
-            if (me.getVisibleCount() === 0) {
-                me.hide();
-                hideShowItem = me.getHideShowMenuItem(false);
-                hideShowItem.setChecked(false);
-                hideShowItem.setCheckChangeDisabled(true);
+            if (this.getVisibleCount() === 0) {
+                this.hide();
             }
-
-            // Next time we show our hide/show item, we need to rebuild the submenu
-            me.rebuildChildColumnsMenu = true;
-
-            // Update hideable/showable state of column menu items
-            me.updateMenuDisabledState();
-        },
-
-        onColumnMove: function(column) {
-            // Next time we show our hide/show item, we need to rebuild the submenu
-            this.rebuildChildColumnsMenu = true;
         },
 
         scopeReplacer: function (config, original, prop, setter) {
@@ -2221,4 +1837,62 @@ Ext.define('Ext.grid.column.Column', {
             return config;
         }
     } // privates
+
+    /**
+     * @method getEditor
+     * Returns the value of {@link #editor}
+     *
+     * **Note:** This method will only have an implementation if the
+     * {@link Ext.grid.plugin.Editable Editing plugin} has been enabled on the grid.
+     *
+     * @return {Mixed} The editor value.
+     */
+    /**
+     * @method setEditor
+     * @chainable
+     * Sets the form field to be used for editing.
+     *
+     * **Note:** This method will only have an implementation if the
+     * {@link Ext.grid.plugin.Editable Editing plugin} has been enabled on the grid.
+     *
+     * @param {Object} field An object representing a field to be created. You must
+     * include the column's dataIndex as the value of the field's name property when
+     * setting the editor field.
+     *
+     *     column.setEditor({
+     *         xtype: 'textfield',
+     *         name: column.getDataIndex()
+     *     });
+     *
+     * @return {Ext.column.Column} this
+     */
+
+    /**
+     * @method getDefaultEditor
+     * Returns the value of {@link #defaultEditor}
+     *
+     * **Note:** This method will only have an implementation if the
+     * {@link Ext.grid.plugin.Editable Editing plugin} has been enabled on the grid.
+     *
+     * @return {Mixed} The defaultEditor value.
+     */
+    /**
+     * @method setDefaultEditor
+     * @chainable
+     * Sets the default form field to be used for editing.
+     *
+     * **Note:** This method will only have an implementation if the
+     * {@link Ext.grid.plugin.Editable Editing plugin} has been enabled on the grid.
+     *
+     * @param {Object} field An object representing a field to be created. You must
+     * include the column's dataIndex as the value of the field's name property when
+     * setting the default editor field.
+     *
+     *     column.setDefaultEditor({
+     *         xtype: 'textfield',
+     *         name: column.getDataIndex()
+     *     });
+     *
+     * @return {Ext.column.Column} this
+     */
 });

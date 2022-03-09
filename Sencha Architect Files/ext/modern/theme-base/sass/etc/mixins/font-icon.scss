@@ -90,15 +90,9 @@
  * and grid grouping headers.
  *
  * @private
- * @deprecated 6.5.0 This mixin is deprecated.
+ * @deprecated
  */
-@mixin font-icon(
-    $glyph,
-    $pseudo: true,
-    $line-height: 1,
-    $color: null,
-    $style-pseudo: false
-) {
+@mixin font-icon($glyph, $pseudo: true, $line-height: 1, $color: null, $style-pseudo: false) {
     $args: parseFontIconArgs($glyph);
 
     $char: nth($args, 1);

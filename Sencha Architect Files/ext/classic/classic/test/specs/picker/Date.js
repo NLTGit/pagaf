@@ -50,31 +50,6 @@ topSuite("Ext.picker.Date", ['Ext.form.field.Date'], function() {
                 });
             }).not.toThrow();
         });
-
-        describe("defaultValue", function() {
-            it("should default to the current date", function() {
-                makeComponent();
-
-                expect(component.getValue()).toEqual(Ext.Date.clearTime(new Date()));
-            });
-
-            it("should allow for the user to set a defaultValue", function() {
-                makeComponent({
-                    defaultValue: new Date(2017, 5, 31)
-                });
-
-                expect(component.getValue()).toEqual(new Date(2017, 5, 31));
-            });
-
-            it("should not be used if a value is set", function() {
-                makeComponent({
-                    defaultValue: new Date(2017, 5, 31),
-                    value: new Date(2017, 6, 1)
-                });
-
-                expect(component.getValue()).toEqual(new Date(2017, 6, 1));
-            });
-        });
         
         describe("startDay", function() {
             var weekStart;
@@ -253,15 +228,6 @@ topSuite("Ext.picker.Date", ['Ext.form.field.Date'], function() {
                 component.showNextMonth();
                 expect(isDisabled(makeRange(20, 41), component.maxText)).toBeTruthy();
             });
-
-            it("should set the value to the max date if its greater than max date", function() {
-                makeComponent({
-                    value: new Date(2007, 4, 3),
-                    maxDate: new Date(2007, 3, 3)
-                });
-
-                expect(component.getValue()).toEqual(component.maxDate);
-            });
         });  
         
         describe("min date", function(){
@@ -321,15 +287,6 @@ topSuite("Ext.picker.Date", ['Ext.form.field.Date'], function() {
                 
                 component.showPrevMonth();
                 expect(isDisabled(makeRange(0, 3), component.minText)).toBeTruthy();
-            });
-
-            it("should set the value to the min date if its less than min date", function() {
-                makeComponent({
-                    value: new Date(2007, 2, 3),
-                    minDate: new Date(2007, 3, 3)
-                });
-
-                expect(component.getValue()).toEqual(component.minDate);
             });
         });
         
@@ -458,7 +415,7 @@ topSuite("Ext.picker.Date", ['Ext.form.field.Date'], function() {
                         disabled: true
                     });
                     expectDisabled();
-                });
+                })
             });
 
             describe("setting min/max after configuring", function() {

@@ -1926,7 +1926,7 @@ topSuite("Ext.data.Connection", ['Ext.JSON'], function() {
             want: {
                 status: 400,
                 statusText: "Could not acquire a suitable connection for the file upload service.",
-                responseText: '{"success":false, "message":"Could not acquire a suitable connection for the file upload service."}'
+                responseText: '{success:false,message:"Could not acquire a suitable connection for the file upload service."}'
             }
         });
         
@@ -1936,7 +1936,7 @@ topSuite("Ext.data.Connection", ['Ext.JSON'], function() {
                 aborted: true,
                 status: -1,
                 statusText: "transaction aborted",
-                responseText: '{"success":false, "message":"transaction aborted"}'
+                responseText: '{success:false,message:"transaction aborted"}'
             },
             failFn: function(request) {
                 request.abort();
@@ -1952,7 +1952,7 @@ topSuite("Ext.data.Connection", ['Ext.JSON'], function() {
                 timedout: true,
                 status: 0,
                 statusText: "communication failure",
-                responseText: '{"success":false, "message":"communication failure"}'
+                responseText: '{success:false,message:"communication failure"}'
             },
             failFn: Ext.emptyFn
         });

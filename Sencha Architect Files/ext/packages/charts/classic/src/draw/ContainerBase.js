@@ -1,6 +1,6 @@
 /**
- * @class Ext.draw.ContainerBase
  * @private
+ * @class Ext.draw.ContainerBase
  */
 Ext.define('Ext.draw.ContainerBase', {
     extend: 'Ext.panel.Panel',
@@ -36,10 +36,11 @@ Ext.define('Ext.draw.ContainerBase', {
     },
 
     removeElementListener: function () {
-        var me = this;
+        var me = this,
+            args = arguments;
 
         if (me.rendered) {
-            me.el.un.apply(me.el, arguments);
+            me.el.un.apply(me.el, args);
         }
     },
 

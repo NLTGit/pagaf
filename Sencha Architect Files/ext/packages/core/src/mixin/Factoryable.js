@@ -21,7 +21,7 @@
  *      });
  *
  * The value of the `layout` config is passed to the `Ext.Factory.layout` function. The
- * exact signature of a factory method matches `{@link Ext.Factory#method!create}`.
+ * exact signature of a factory method matches `{@link Ext.Factory#create}`.
  *
  * To define this factory directly, one could call `Ext.Factory.define` like so:
  *

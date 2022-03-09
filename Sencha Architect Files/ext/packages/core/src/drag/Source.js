@@ -25,7 +25,7 @@
  *
  * ## Data
  *
- * Data representing the underlying drag is driven by the {@link #method!describe} method. This method
+ * Data representing the underlying drag is driven by the {@link #describe} method. This method
  * is called once at the beginning of the drag. It should populate the info object with data using
  * the {@link Ext.data.Info#setData setData} method. It accepts 2 arguments. 
  * 
@@ -172,7 +172,7 @@ Ext.define('Ext.drag.Source', {
 
         // @cmd-auto-dependency {aliasPrefix: "drag.proxy."}
         /**
-         * @cfg {String/Object/Ext.drag.proxy.Base} proxy
+         * {String/Object/Ext.drag.proxy.Base} proxy
          * The proxy to show while this element is dragging. This may be
          * the alias, a config, or instance of a proxy.
          *
@@ -393,11 +393,7 @@ Ext.define('Ext.drag.Source', {
                 panX: false,
                 panY: false
             });
-            
-            // Suppress translation and delegation for this to avoid event firing on
-            // synthetic dragstart published by Gesture from pointermove. We need the
-            // native event here.
-            element.on('dragstart', 'stopNativeDrag', this, {translate: false, delegated: false});
+            element.on('dragstart', 'stopNativeDrag', this, {translate: false});
         }
 
         this.callParent([ element, oldElement ]);
@@ -502,7 +498,6 @@ Ext.define('Ext.drag.Source', {
         },
 
         /**
-         * @method getElListeners
          * @inheritdoc
          */
         getElListeners: function() {

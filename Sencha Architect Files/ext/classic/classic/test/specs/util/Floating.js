@@ -883,7 +883,7 @@ function() {
                 columnsItem,
                 columnsMenu;
 
-            panel.getScrollable().ensureVisible(grid9.el);
+            panel.getScrollable().scrollIntoView(grid9.el);
 
             jasmine.fireMouseEvent(col, 'mouseover');
             jasmine.fireMouseEvent(col.triggerEl, 'click');
@@ -914,7 +914,7 @@ function() {
                 columnsMenuY,
                 scrolledColumnsMenuY;
 
-            panel.getScrollable().ensureVisible(grid10.el);
+            panel.getScrollable().scrollIntoView(grid10.el);
 
             jasmine.fireMouseEvent(col, 'mouseover');
             jasmine.fireMouseEvent(col.triggerEl, 'click');

@@ -364,7 +364,7 @@ Ext.define('Ext.util.Color', {
      *
      * If the string is not recognized, setFromString returns rgba(0,0,0,0).
      *
-     * @param {String} str Color as string.
+     * @param {String} Color Color as string.
      * @return this
      */
     setFromString: function (str) {

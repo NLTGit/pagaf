@@ -383,7 +383,7 @@ Ext.define('Ext.Editor', {
             field.resetOriginalValue();
             field.resumeEvents();
             if (doFocus !== false) {
-                field.focus(field.selectOnFocus ? true : [Ext.Number.MAX_SAFE_INTEGER]);
+                field.focus(field.selectOnFocus ? true : [Number.MAX_VALUE]);
             }
             if (field.autoSize) {
                 field.autoSize();

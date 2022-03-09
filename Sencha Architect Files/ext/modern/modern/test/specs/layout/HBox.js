@@ -173,8 +173,8 @@ describe("Ext.layout.HBox", function(){
     });
     
     describe("pack", function(){
-        function makeCt (pack, cfg){
-            ct = new Ext.container.Container(Ext.apply({
+        function makeCt (pack){
+            ct = new Ext.container.Container({
                 defaultType: 'component',
                 renderTo: Ext.getBody(),
                 width: 600,
@@ -190,7 +190,7 @@ describe("Ext.layout.HBox", function(){
                 }, {
                     width: 20
                 }]
-            }, cfg));
+            });
         }
 
         it("should pack at the left with pack: start", function(){
@@ -233,81 +233,6 @@ describe("Ext.layout.HBox", function(){
             expect(getX(0)).toBe(85);
             expect(getX(1)).toBe(285);
             expect(getX(2)).toBe(495);
-        });
-
-        it("should pack start with maxWidthed items", function () {
-            // https://sencha.jira.com/browse/EXTJS-25260
-            makeCt('start', {
-                // These items must not have a "width", only a "maxWidth"
-                items: [{
-                    flex: 1,
-                    maxWidth: 100
-                }, {
-                    flex: 1,
-                    maxWidth: 100
-                }, {
-                    flex: 1,
-                    maxWidth: 100
-                }]
-            });
-
-            expect(getX(0)).toBe(0);
-            expect(getX(1)).toBe(100);
-            expect(getX(2)).toBe(200);
-
-            expect(getWidth(0)).toBe(100);
-            expect(getWidth(1)).toBe(100);
-            expect(getWidth(2)).toBe(100);
-        });
-
-        it("should pack center with maxWidthed items", function() {
-            // https://sencha.jira.com/browse/EXTJS-25260
-            makeCt('center', {
-                // These items must not have a "width", only a "maxWidth"
-                items: [{
-                    flex: 1,
-                    maxWidth: 100
-                }, {
-                    flex: 1,
-                    maxWidth: 100
-                }, {
-                    flex: 1,
-                    maxWidth: 100
-                }]
-            });
-
-            expect(getX(0)).toBe(150);
-            expect(getX(1)).toBe(250);
-            expect(getX(2)).toBe(350);
-
-            expect(getWidth(0)).toBe(100);
-            expect(getWidth(1)).toBe(100);
-            expect(getWidth(2)).toBe(100);
-        });
-
-        it("should pack end with maxWidthed items", function () {
-            // https://sencha.jira.com/browse/EXTJS-25260
-            makeCt('end', {
-                // These items must not have a "width", only a "maxWidth"
-                items: [{
-                    flex: 1,
-                    maxWidth: 100
-                }, {
-                    flex: 1,
-                    maxWidth: 100
-                }, {
-                    flex: 1,
-                    maxWidth: 100
-                }]
-            });
-
-            expect(getX(0)).toBe(300);
-            expect(getX(1)).toBe(400);
-            expect(getX(2)).toBe(500);
-
-            expect(getWidth(0)).toBe(100);
-            expect(getWidth(1)).toBe(100);
-            expect(getWidth(2)).toBe(100);
         });
     });
 

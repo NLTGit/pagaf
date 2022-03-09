@@ -149,44 +149,6 @@ $gridcell-padding: dynamic($listitem-padding);
 $gridcell-padding-big: dynamic($listitem-padding-big);
 
 /**
- * @var {string/list}
- * Grid Cell {@link Ext.grid.Grid#markDirty dirty} icon
- */
-$gridcell-dirty-icon: dynamic($ext-var-dirty ExtJS);
-
-/**
- * @var {color}
- * Grid Cell {@link Ext.grid.Grid#markDirty dirty} icon color
- */
-$gridcell-dirty-icon-color: dynamic($alert-color);
-
-/**
- * @var {number}
- * Grid Cell {@link Ext.grid.Grid#markDirty dirty} icon size
- */
-$gridcell-dirty-icon-size: dynamic(14px);
-
-/**
- * @var {number}
- * Grid Cell {@link Ext.grid.Grid#markDirty dirty} icon size in the
- * {@link Global_CSS#$enable-big big} sizing scheme
- */
-$gridcell-dirty-icon-size-big: dynamic(18px);
-
-/**
- * @var {number}
- * Grid Cell {@link Ext.grid.Grid#markDirty dirty} icon font-size
- */
-$gridcell-dirty-icon-font-size: dynamic(null);
-
-/**
- * @var {number}
- * Grid Cell {@link Ext.grid.Grid#markDirty dirty} icon font-size in the
- * {@link Global_CSS#$enable-big big} sizing scheme
- */
-$gridcell-dirty-icon-font-size-big: dynamic(null);
-
-/**
  * @var {Map}
  * Parameters for the `summary` gridcell UI used for cells in a summary row
  * @ui gridcell-ui
@@ -273,26 +235,6 @@ $gridcell-summary-ui: dynamic((
  *
  * @param {number/list} $padding-big
  * Grid Cell padding in the {@link Global_CSS#$enable-big big} sizing scheme
- *
- * @param {string/list} $dirty-icon
- * Grid Cell {@link Ext.grid.Grid#markDirty dirty} icon
- *
- * @param {color} $dirty-icon-color
- * Grid Cell {@link Ext.grid.Grid#markDirty dirty} icon color
- *
- * @param {number} $dirty-icon-size
- * Grid Cell {@link Ext.grid.Grid#markDirty dirty} icon size
- *
- * @param {number} $dirty-icon-size-big
- * Grid Cell {@link Ext.grid.Grid#markDirty dirty} icon size in the
- * {@link Global_CSS#$enable-big big} sizing scheme
- *
- * @param {number} $dirty-icon-font-size
- * Grid Cell {@link Ext.grid.Grid#markDirty dirty} icon font-size
- *
- * @param {number} $dirty-icon-font-size-big
- * Grid Cell {@link Ext.grid.Grid#markDirty dirty} icon font-size in the
- * {@link Global_CSS#$enable-big big} sizing scheme
  */
 @mixin gridcell-ui(
     $ui: null,
@@ -319,13 +261,7 @@ $gridcell-summary-ui: dynamic((
     $line-height-big: null,
     $font-family: null,
     $padding: null,
-    $padding-big: null,
-    $dirty-icon: null,
-    $dirty-icon-color: null,
-    $dirty-icon-size: null,
-    $dirty-icon-size-big: null,
-    $dirty-icon-font-size: null,
-    $dirty-icon-font-size-big: null
+    $padding-big: null
 ) {
     $ui-suffix: ui-suffix($ui);
 
@@ -363,18 +299,6 @@ $gridcell-summary-ui: dynamic((
 
         .#{$prefix}keyboard-mode &.#{$prefix}focused {
             @include outline($focused-outline-width, $focused-outline-style, $focused-outline-color, $focused-outline-offset);
-        }
-
-        .#{$prefix}mark-dirty > * > &.#{$prefix}dirty {
-            @include icon(
-                $icon: $dirty-icon,
-                $color: $dirty-icon-color,
-                $size: $dirty-icon-size,
-                $size-big: $dirty-icon-size-big,
-                $font-size: $dirty-icon-font-size,
-                $font-size-big: $dirty-icon-font-size-big,
-                $style-pseudo: true
-            );
         }
     }
 

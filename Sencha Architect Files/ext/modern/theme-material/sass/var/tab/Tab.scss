@@ -58,8 +58,8 @@ $tab-badge-right: dynamic(4px);
 $tab-badge-left: dynamic(null);
 $tab-badge-padding: dynamic($content-padding/4);
 $tab-badge-padding-big: dynamic($tab-badge-padding);
-$tab-badge-min-width: dynamic($tab-badge-line-height + horizontal($tab-badge-padding));
-$tab-badge-min-width-big: dynamic($tab-badge-line-height-big + horizontal($tab-badge-padding-big));
+$tab-badge-min-width: dynamic($tab-badge-line-height + $tab-badge-padding * 2);
+$tab-badge-min-width-big: dynamic($tab-badge-line-height-big + $tab-badge-padding-big * 2);
 $tab-badge-max-width: dynamic(75%);
 
 $tab-active-indicator-background-color: dynamic($accent-light-color);

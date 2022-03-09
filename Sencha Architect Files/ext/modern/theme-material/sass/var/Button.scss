@@ -49,8 +49,8 @@ $button-badge-line-height: dynamic(16px);
 $button-badge-line-height-big: dynamic(16px);
 $button-text-transform: dynamic(uppercase);
 $button-text-transform-big: dynamic(null);
-$button-badge-min-width: dynamic($button-badge-line-height + horizontal($button-badge-padding));
-$button-badge-min-width-big: dynamic($button-badge-line-height-big + horizontal($button-badge-padding-big));
+$button-badge-min-width: dynamic($button-badge-line-height + $button-badge-padding * 2);
+$button-badge-min-width-big: dynamic($button-badge-line-height-big + $button-badge-padding-big * 2);
 $button-badge-max-width: dynamic(55%);
 
 $button-raised-ui: dynamic((
@@ -87,7 +87,6 @@ $button-decline-ui: dynamic((
 
 $button-segmented-ui: dynamic((
     color: $base-foreground-color,
-    background-color: $base-pressed-color,
-    pressed-color: $background-color,
-    pressed-background-color: $base-color
+    background-color: $base-color,
+    pressed-background-color: $base-pressed-color
 ));

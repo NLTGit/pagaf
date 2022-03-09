@@ -39,7 +39,7 @@ Ext.define('Ext.grid.column.Check', {
 
     cachedConfig: {
         /**
-         * @cfg {'top'/'right'/'bottom'/'left'} headerCheckboxAlign
+         * @cfg {'top'/'right'/'bottom'/'left'}
          * Alignment of the header checkbox relative to the title text.
          */
         headerCheckboxAlign: 'bottom'
@@ -47,7 +47,7 @@ Ext.define('Ext.grid.column.Check', {
 
     config: {
         /**
-         * @cfg {Boolean} stopSelection
+         * @cfg {Boolean} [stopSelection=true]
          * Prevent grid selection upon tap.
          */
         stopSelection: true,
@@ -62,15 +62,11 @@ Ext.define('Ext.grid.column.Check', {
     },
 
     /**
-     * @cfg align
+     * @cfg {String} [align='center']
      * @inheritdoc
      */
     align: 'center',
 
-    /**
-     * @property classCls
-     * @inheritdoc
-     */
     classCls: Ext.baseCSSPrefix + 'checkcolumn',
     noHeaderCheckboxCls: Ext.baseCSSPrefix + 'no-header-checkbox',
     checkedCls: Ext.baseCSSPrefix + 'checked',
@@ -82,22 +78,10 @@ Ext.define('Ext.grid.column.Check', {
         left: Ext.baseCSSPrefix + 'checkbox-align-left'
     },
 
-    /**
-     * @cfg text
-     * @inheritdoc
-     */
     text: '',
 
-    /**
-     * @cfg ignoreExport
-     * @inheritdoc
-     */
     ignoreExport: true,
 
-    /**
-     * @cfg cell
-     * @inheritdoc
-     */
     cell: {
         xtype: 'checkcell'
     },

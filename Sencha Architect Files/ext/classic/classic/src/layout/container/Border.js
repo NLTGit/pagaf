@@ -798,14 +798,7 @@ Ext.define('Ext.layout.container.Border', {
                 }
                 
                 if ((item.isHorz || item.isVert) && (split || item.collapseMode === 'mini')) {
-                    if (item.collapseMode === 'mini' && item.collapsed) {
-                        hidden = false;
-                    }
-                    else if (!split) {
-                        hidden = true;
-                    }
-                    
-                    me.insertSplitter(item, index, hidden, cfg);
+                    me.insertSplitter(item, index, hidden || !split, cfg);
                 }
             }
 

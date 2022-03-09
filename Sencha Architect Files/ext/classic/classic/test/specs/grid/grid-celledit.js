@@ -1632,36 +1632,6 @@ function() {
                         return plugin.getActiveColumn() === colRef[1] && Ext.Element.getActiveElement() === plugin.getActiveEditor().field.inputEl.dom;
                     });
                 });
-
-                it("should not scroll the view horizontally when it's not necessary", function() {
-                    var spy = jasmine.createSpy();
-                    var cols = [
-                        { name: 'F1', dataIndex: 'field1', editor: 'textfield'},
-                        { name: 'F2', dataIndex: 'field2'},
-                        { name: 'F3', dataIndex: 'field3'},
-                        { name: 'F4', dataIndex: 'field4'},
-                        { name: 'F5', dataIndex: 'field5'},
-                        { name: 'F6', dataIndex: 'field6'},
-                    ];
-
-                    grid.reconfigure(null, cols);
-
-                    grid.setWidth(300);
-                    grid.getScrollable().on('scroll', spy);
-                    startEditing(0, 0);
-
-                    runs(function() {
-                        triggerEditorKey(TAB);
-                    });
-
-                    waitsFor(function() {
-                        return plugin.getActiveRecord() === getRec(1);
-                    });
-
-                    runs(function(){
-                        expect(spy.callCount).toBe(0);
-                    });
-                });
                 
                 it("should move to the next row if at the last cell", function() {
                     startEditing(0, 4);
@@ -1775,14 +1745,7 @@ function() {
                         // locked grid's actiobPosition is null indicating that it does not contain the action position
                         // even though it is actionable mode
                         expect(grid.lockedGrid.view.actionPosition).toBeNull();
-
-                        waitsFor(function() {
-                            return grid.normalGrid.view.actionableMode;
-                        });
-
-                        runs(function() {
-                            expect(plugin.getActiveEditor().context.isEqual(grid.normalGrid.view.actionPosition)).toBe(true);
-                        });
+                        expect(plugin.getActiveEditor().context.isEqual(grid.normalGrid.view.actionPosition)).toBe(true);
                     });
                 });
             });
@@ -2150,53 +2113,6 @@ function() {
                         features: {
                             ftype: 'grouping'
                         }
-                    });
-                    plugin.startEdit(0, 0);
-                    expect(plugin.editing).toBe(true);
-
-                    // Check we are at 0,0
-                    expect(plugin.getActiveColumn()).toBe(colRef[0]);
-                    expect(plugin.getActiveRecord()).toBe(store.getAt(0));
-
-                    // To 0,1
-                    jasmine.fireKeyEvent(Ext.Element.getActiveElement(), 'keydown', TAB);
-                    waits(20);
-                    runs(function() {
-                        // To 0,2
-                        jasmine.fireKeyEvent(Ext.Element.getActiveElement(), 'keydown', TAB);
-                    });
-                    waits(20);
-                    runs(function() {
-                        // To 1,0
-                        jasmine.fireKeyEvent(Ext.Element.getActiveElement(), 'keydown', TAB);
-                    });
-                    waits(20);
-                    runs(function() {
-                        expect(plugin.getActiveColumn()).toBe(colRef[0]);
-                        expect(plugin.getActiveRecord()).toBe(store.getAt(1));
-                    });
-                });
-
-                webkitIt("should not lose track of editing position when autotabbing and beforeedit causes a refresh", function() {
-                    makeGrid([{
-                        dataIndex: 'field1',
-                        editor: 'textfield'
-                    }, {
-                        dataIndex: 'field2',
-                        editor: 'textfield'
-                    }, {
-                        dataIndex: 'field3',
-                        editor: 'textfield'
-                    },{
-                        dataIndex: 'field4'
-                    }], {}, {
-                        features: {
-                            ftype: 'grouping'
-                        }
-                    });
-
-                    plugin.on('beforeedit', function(editor, ctx) {
-                        ctx.record.set('field4', 'foo');
                     });
                     plugin.startEdit(0, 0);
                     expect(plugin.editing).toBe(true);

@@ -64,10 +64,6 @@ topSuite("Ext.list.Tree", ['Ext.data.TreeStore'], function() {
                 text: 'Item 4.3',
                 leaf: true
             }]
-        }, {
-            id: 'i5',
-            text: 'Item 5',
-            leaf: true
         }];
     });
 
@@ -1904,7 +1900,7 @@ topSuite("Ext.list.Tree", ['Ext.data.TreeStore'], function() {
                         // We can test the DOM here because root is a special subclass
                         it("should insert the item at the end", function() {
                             var item = getItem('i9');
-                            expect(item.el.prev()).toBe(getItem('i5').el);
+                            expect(item.el.prev()).toBe(getItem('i4').el);
                         });
 
                         describe("events", function() {
@@ -3943,8 +3939,8 @@ topSuite("Ext.list.Tree", ['Ext.data.TreeStore'], function() {
                             id: 'foo'
                         });
                         var toolNodes = list.toolsElement.dom.childNodes;
-                        expect(toolNodes.length).toBe(6);
-                        expect(toolNodes[5]).toBe(getItem('foo').getToolElement().dom);
+                        expect(toolNodes.length).toBe(5);
+                        expect(toolNodes[4]).toBe(getItem('foo').getToolElement().dom);
                     });
 
                     it("should handle insertion", function() {
@@ -3954,14 +3950,14 @@ topSuite("Ext.list.Tree", ['Ext.data.TreeStore'], function() {
 
                         var toolNodes = list.toolsElement.dom.childNodes;
 
-                        expect(toolNodes.length).toBe(6);
+                        expect(toolNodes.length).toBe(5);
                         expect(toolNodes[0]).toBe(getItem('foo').getToolElement().dom);
 
                         store.getRoot().insertChild(2, {
                             id: 'foo'
                         });
 
-                        expect(toolNodes.length).toBe(7);
+                        expect(toolNodes.length).toBe(6);
                         expect(toolNodes[2]).toBe(getItem('foo').getToolElement().dom);
                     });
 
@@ -3970,12 +3966,11 @@ topSuite("Ext.list.Tree", ['Ext.data.TreeStore'], function() {
                         root.removeChild(root.getChildAt(1));
 
                         var toolNodes = list.toolsElement.dom.childNodes;
-                        expect(toolNodes.length).toBe(4);
+                        expect(toolNodes.length).toBe(3);
 
                         expect(toolNodes[0]).toBe(getItem('i1').getToolElement().dom);
                         expect(toolNodes[1]).toBe(getItem('i3').getToolElement().dom);
                         expect(toolNodes[2]).toBe(getItem('i4').getToolElement().dom);
-                        expect(toolNodes[3]).toBe(getItem('i5').getToolElement().dom);
                     });
                 });
             });
@@ -4073,66 +4068,6 @@ topSuite("Ext.list.Tree", ['Ext.data.TreeStore'], function() {
                     expect(list.toolsElement.isVisible()).toBe(true);
                 });
             });
-        });
-
-        describe('menu', function () {
-            beforeEach(function() {
-                makeList({
-                    micro: true
-                });
-            });
-
-            function makeShowMenuSpecs (event) {
-                describe(event, function () {
-                    var isClick = event === 'click';
-
-                    it('should show menu of items', function () {
-                        var node = byId('i1'),
-                            item = list.getItem(node);
-
-                        jasmine.fireMouseEvent(item.toolElement, event);
-
-                        expect(list.activeFloater).toBe(item);
-                        expect(item.getFloated()).toBe(true);
-                    });
-
-                    it('should ' + (isClick ? 'not ' : '') + 'show menu for leaf node', function () {
-                        var node = byId('i5'),
-                            item = list.getItem(node);
-
-                        jasmine.fireMouseEvent(item.toolElement, event);
-
-                        if (isClick) {
-                            expect(list.activeFloater).toBeFalsy();
-                            expect(item.getFloated()).toBeFalsy();
-                        } else {
-                            expect(list.activeFloater).toBeTruthy();
-                            expect(item.getFloated()).toBe(true);
-                        }
-                    });
-
-                    if (isClick) {
-                        // only click event can prevent floating leaf items
-                        it('should show menu for leaf node', function () {
-                            var node = byId('i5'),
-                                item = list.getItem(node);
-
-                            list.setFloatLeafItems(true);
-
-                            jasmine.fireMouseEvent(item.toolElement, event);
-
-                            expect(list.activeFloater).toBeTruthy();
-                            expect(item.getFloated()).toBe(true);
-                        });
-                    }
-                });
-            }
-
-            makeShowMenuSpecs('click');
-
-            if (!jasmine.supportsTouch) {
-                makeShowMenuSpecs('mouseover');
-            }
         });
     });
 

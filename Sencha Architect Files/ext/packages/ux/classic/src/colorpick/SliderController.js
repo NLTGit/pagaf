@@ -15,7 +15,7 @@ Ext.define('Ext.ux.colorpick.SliderController', {
         // configure draggable constraints 
         dd.constrain = true;
         dd.constrainTo = container.getEl();
-        dd.initialConstrainTo = dd.constrainTo; // needed otherwise error EXTJS-13187
+        dd.initialConstrainTo = dd.constrainTo; // needed otheriwse error EXTJS-13187
         
         // event handlers
         dd.on('drag', me.onHandleDrag, me);

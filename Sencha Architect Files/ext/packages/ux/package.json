@@ -1,6 +1,6 @@
 {
     "name": "@extjs/ext-react-ux",
-    "version": "6.5.3.57",
+    "version": "6.5.0.775",
     "sencha": {
         "name": "ux",
         "namespace": "Ext",
@@ -12,7 +12,7 @@
         "creator": "Sencha",
         "summary": "User eXtensions",
         "detailedDescription": "This package contains extensions to Ext JS that should be considered as 'beta' or 'work in progress'. We hope they are useful 'as is' or serve as inspiration for more feature-rich work.",
-        "version": "6.5.3.57",
+        "version": "6.5.0",
         "compatVersion": "6.0.0",
         "format": "1",
         "output": {

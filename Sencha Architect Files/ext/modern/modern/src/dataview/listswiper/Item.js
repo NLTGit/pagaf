@@ -49,12 +49,9 @@ Ext.define('Ext.dataview.listswiper.Item', {
     autoSize: null,
 
     initialize: function() {
-        this.callParent();
-        this.ownerCmp.on({
-            scope: this,
-            destroy: 'onItemDestroy',
-            removed: 'onItemDestroy'
-        });
+        var item = this.ownerCmp;
+        item.on('destroy', 'onItemDestroy', this);
+        item.on('removed', 'onItemDestroy', this);
     },
 
     applyUndo: function(config) {

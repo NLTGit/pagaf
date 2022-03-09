@@ -28,7 +28,7 @@ Ext.define('Ext.ElementLoader', {
     statics: {
         Renderer: {
             Html: function(loader, response, active){
-                loader.getTarget().setHtml(response.responseText, active.scripts === true, active.callback, active.rendererScope);
+                loader.getTarget().setHtml(response.responseText, active.scripts === true, active.rendererScope);
                 return true;
             }
         }
@@ -175,14 +175,11 @@ Ext.define('Ext.ElementLoader', {
     constructor: function(config) {
         var me = this,
             autoLoad;
-        
-        //<debug>
-        me.callParent([config]);
-        //</debug>
 
         me.mixins.observable.constructor.call(me, config);
 
         me.setTarget(me.target);
+
 
         if (me.autoLoad) {
             autoLoad = me.autoLoad;
@@ -256,13 +253,9 @@ Ext.define('Ext.ElementLoader', {
      * class defaults.
      */
     load: function(options) {
-        if (this.destroying || this.destroyed) {
-            return;
-        }
-        
         //<debug>
         if (!this.target) {
-            Ext.raise('A valid target is required when loading content for ' + this.id);
+            Ext.raise('A valid target is required when loading content');
         }
         //</debug>
 
@@ -396,7 +389,7 @@ Ext.define('Ext.ElementLoader', {
      * Clears any auto refresh. See {@link #startAutoRefresh}.
      */
     stopAutoRefresh: function() {
-        Ext.uninterval(this.autoRefresh);
+        clearInterval(this.autoRefresh);
         this.autoRefresh = null;
     },
 

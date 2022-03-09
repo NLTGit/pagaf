@@ -92,25 +92,25 @@ Ext.define('Ext.window.Toast', {
      * @inheritdoc
      */
     shadow: false,
-    
+        
     focus: Ext.emptyFn,
 
     /**
-     * @cfg {String/Ext.Component} anchor
+     * @cfg {String/Ext.Component} [anchor]
      * The component or the `id` of the component to which the `toast` will be anchored.
      * The default behavior is to anchor a `toast` to the document body (no component).
      */
     anchor: null,
 
     /**
-     * @cfg {Boolean} useXAxis
+     * @cfg {Boolean} [useXAxis]
      * Directs the toast message to animate on the x-axis (if `true`) or y-axis (if `false`).
      * This value defaults to a value based on the `align` config.
      */
     useXAxis: false,
 
     /**
-     * @cfg {"br"/"bl"/"tr"/"tl"/"t"/"l"/"b"/"r"} align
+     * @cfg {"br"/"bl"/"tr"/"tl"/"t"/"l"/"b"/"r"} [align]
      * Specifies the basic alignment of the toast message with its {@link #anchor}. This 
      * controls many aspects of the toast animation as well. For fine grain control of 
      * the final placement of the toast and its `anchor` you may set 
@@ -136,7 +136,7 @@ Ext.define('Ext.window.Toast', {
     alwaysOnTop: true,
 
     /**
-     * @cfg {String} anchorAlign
+     * @cfg {String} [anchorAlign]
      * This string is a full specification of how to position the toast with respect to
      * its `anchor`. This is set to a reasonable value based on `align` but the `align`
      * also sets defaults for various other properties. This config controls only the
@@ -188,32 +188,32 @@ Ext.define('Ext.window.Toast', {
     slideBackDuration: 500,
 
     /**
-     * @cfg {Number} hideDuration
+     * @cfg {Number}
      * The number of milliseconds it takes for a Toast to hide.
      */
     hideDuration: 500,
 
     /**
-     * @cfg {Number} autoCloseDelay
+     * @cfg {Number}
      * The number of milliseconds a Toast waits before automatically closing.
      */
     autoCloseDelay: 3000,
     
     /**
-     * @cfg {Boolean} stickOnClick
+     * @cfg {Boolean} [stickOnClick]
      * This config will prevent the Toast from closing when you click on it. If this is set to `true`,
      * closing the Toast will have to be handled some other way (e.g., Setting `closable: true`).
      */
     stickOnClick: false,
 
     /**
-     * @cfg {Boolean} stickWhileHover
+     * @cfg {Boolean} [stickWhileHover]
      * This config will prevent the Toast from closing while you're hovered over it.
      */
     stickWhileHover: true,
 
     /**
-     * @cfg {Boolean} closeOnMouseDown
+     * @cfg {Boolean} [closeOnMouseDown]
      * This config will prevent the Toast from closing when a user produces a mousedown event.
      */
     closeOnMouseDown: false,
@@ -231,7 +231,6 @@ Ext.define('Ext.window.Toast', {
     minHeight: 1,
 
     /**
-     * @property focusable
      * @inheritdoc
      */
     focusable: false,

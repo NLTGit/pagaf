@@ -25,7 +25,7 @@ Ext.define('Ext.util.Cookies', {
      */
     set : function(name, value){
         var argv = arguments,
-            argc = argv.length,
+            argc = arguments.length,
             expires = (argc > 2) ? argv[2] : null,
             path = (argc > 3) ? argv[3] : '/',
             domain = (argc > 4) ? argv[4] : null,

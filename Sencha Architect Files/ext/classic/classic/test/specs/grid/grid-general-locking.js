@@ -102,43 +102,6 @@ function() {
                 expect(grid.rowLines).toBe(true);
                 expect(grid.lockedGrid.rowLines).toBe(false);
             });
-
-            it("should set both sides with xtype gridpanel when creating form extended classes", function() {
-                grid.destroy();
-
-                Ext.define('BaseGrid',{
-                    extend: 'Ext.grid.Panel',
-                    xtype: 'base-grid',
-                    title: 'foo'
-                });
-
-                Ext.define('MyGrid', {
-                    extend: 'BaseGrid',
-                    xtype: 'mygrid',
-                    columns: [{
-                        dataIndex: 'foo',
-                        locked: true
-                    },{
-                        dataIndex:'bar'
-                    }]
-                });
-
-                grid = Ext.create('MyGrid',{
-                    renderTo: document.body,
-                    store: {
-                        data: {
-                            foo: 1,
-                            bar: 2
-                        }
-                    }
-                });
-
-                expect(grid.lockedGrid.isXType('base-grid')).not.toBe(true);
-                expect(grid.lockedGrid.isXType('gridpanel')).toBe(true);
-
-                Ext.undefine('BaseGrid');
-                Ext.undefine('MyGrid');
-            });
         });
 
         describe("when stateful", function () {
@@ -321,7 +284,6 @@ function() {
                 makeGrid(0, {
                     enableLocking: true
                 });
-
                 expect(grid.lockedGrid.isVisible()).toBe(false);
 
                 // Because the locked side is collapsible, it gets a header with the collapse tool
@@ -340,13 +302,19 @@ function() {
                 waitsForSpy(spyOnEvent(lockedGrid, 'collapse'));
 
                 runs(function() {
-                    grid.lockedGrid.expand();
+                    jasmine.fireMouseEvent(grid.lockedGrid.placeholder.el, 'click');
                 });
 
-                waitsForSpy(spyOnEvent(lockedGrid, 'expand'));
+                waitsForSpy(spyOnEvent(lockedGrid, 'float'));
 
                 runs(function() {
                     grid.lock(grid.columns[1]);
+                    
+                    grid.lockedGrid.expand();
+                });
+                waitsForSpy(spyOnEvent(lockedGrid, 'expand'));
+
+                runs(function() {
                     // Width should exactly shrinkwrap the columns
                     expect(grid.lockedGrid.getWidth()).toBe(grid.lockedGrid.headerCt.getTableWidth() + grid.lockedGrid.gridPanelBorderWidth);
 
@@ -367,79 +335,7 @@ function() {
                     expect(grid.lockedGrid.getWidth()).toBe(grid.lockedGrid.headerCt.getTableWidth() + grid.lockedGrid.gridPanelBorderWidth);
                 });
             });
-
-            (Ext.getScrollbarSize().height ? describe : xdescribe)("collpasing and expanding", function() {
-                it("should display the scroller if needed", function() {
-                    var spy = jasmine.createSpy();
-                    
-                    makeGrid(2, null, {
-                        width: 100,
-                        collapsible: true,
-                        listeners: {
-                            expand: spy,
-                            collapse: spy
-                        }
-                    });
-
-                    grid.lockedGrid.collapse();
-
-                    waitsFor(function() {
-                        return spy.callCount === 1;
-                    });
-
-                    runs(function() {
-                        grid.lockedGrid.expand();
-                    });
-
-                    waitsFor(function() {
-                        return spy.callCount === 2;
-                    });
-
-                    runs(function() {
-                        expect(grid.lockedScrollbarScroller.getElement().getWidth()).toBe(grid.lockedGrid.getWidth());
-                        expect(grid.lockedScrollbarScroller.getElement().isScrollable()).toBe(true);
-                        // overflow of the locked side should be handled by the lockedScrollbarScroller, not the view's body
-                        expect(grid.lockedGrid.body.dom.style.overflowX).toBe('');
-                    });
-                });
-
-                it("should display the scroller if need and the normal side continued to be scrollable during expand/collapse", function() {
-                    var spy = jasmine.createSpy();
-                    
-                    makeGrid(2, {
-                        width: 400
-                    }, {
-                        width: 100,
-                        collapsible: true,
-                        listeners: {
-                            expand: spy,
-                            collapse: spy
-                        }
-                    });
-
-
-                    grid.lockedGrid.collapse();
-
-                    waitsFor(function() {
-                        return spy.callCount === 1;
-                    });
-
-                    runs(function() {
-                        grid.lockedGrid.expand();
-                    });
-
-                    waitsFor(function() {
-                        return spy.callCount === 2;
-                    });
-
-                    runs(function() {
-                        expect(grid.lockedScrollbarScroller.getElement().getWidth()).toBe(grid.lockedGrid.getWidth());
-                        expect(grid.lockedScrollbarScroller.getElement().isScrollable()).toBe(true);
-                        // overflow of the locked side should be handled by the lockedScrollbarScroller, not the view's body
-                        expect(grid.lockedGrid.body.dom.style.overflowX).toBe('');
-                    });
-                });
-            });
+            
         });
     });
 
@@ -479,7 +375,7 @@ function() {
     });
 
     describe('Focusing the view el, not a cell', function() {
-        Ext.isIE8 ? xit: it('should move to the same row on the other side', function() {
+        it('should move to the same row on the other side', function() {
             var errorSpy = jasmine.createSpy('error handler'),
                 old = window.onError;
 
@@ -569,8 +465,7 @@ function() {
         });
 
         it("should not scroll back to top when selecting records", function() {
-            var scroller,
-                cell;
+            var scroller;
 
             createGrid({
                 columns: [{
@@ -601,8 +496,7 @@ function() {
             });
 
             runs(function(){ 
-                cell = grid.normalGrid.view.getCell(7, 0);
-                jasmine.fireMouseEvent(cell, 'mousedown');
+                jasmine.fireMouseEvent(grid.normalGrid.view.getCell(7, 0), 'mousedown');
             });
 
             // Need waits here because we are waitign for the scroller not to move
@@ -610,8 +504,6 @@ function() {
 
             runs(function() {
                 expect(scroller.getPosition().y).toBe(100);
-                // finish the click to avoid even publisher leaks
-                jasmine.fireMouseEvent(cell, 'mouseup'); 
             });
         });
     });

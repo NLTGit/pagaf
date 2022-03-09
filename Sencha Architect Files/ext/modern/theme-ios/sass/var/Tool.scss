@@ -4,20 +4,6 @@ $tool-hovered-opacity: dynamic(null);
 $tool-pressed-opacity: dynamic(null);
 $tool-disabled-opacity: dynamic(.5);
 
-$tool-boxscroller-toolbar-ui: dynamic((
-    color: $base-color,
-    opacity: .5,
-    hovered-opacity: .6,
-    pressed-opacity: .7
-));
-
-$tool-boxscroller-tabbar-ui: dynamic((
-    color: $base-color,
-    opacity: .5,
-    hovered-opacity: .6,
-    pressed-opacity: .7
-));
-
 //---------------------------------------------------------------
 // Tool icons
 
@@ -71,8 +57,3 @@ $tool-collapse-left-icon: dynamic($ios-arrow-left $font-icon-font-family);
 
 $tool-expand-right-icon: dynamic($ios-arrow-right $font-icon-font-family);
 $tool-collapse-right-icon: dynamic($ios-arrow-right $font-icon-font-family);
-
-$tool-scroll-up-icon: dynamic($ios-arrow-up $font-icon-font-family);
-$tool-scroll-down-icon: dynamic($ios-arrow-down $font-icon-font-family);
-$tool-scroll-left-icon: dynamic($ios-arrow-left $font-icon-font-family);
-$tool-scroll-right-icon: dynamic($ios-arrow-right $font-icon-font-family);

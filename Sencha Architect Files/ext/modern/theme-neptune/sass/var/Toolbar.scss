@@ -371,7 +371,7 @@ $toolbar-footer-ui: dynamic((
         }
 
         @if $horizontal-spacing != null {
-            &.#{$prefix}horizontal > .#{$prefix}component {
+            &.#{$prefix}horizontal > * {
                 margin-right: $horizontal-spacing;
 
                 @if $enable-big {
@@ -387,7 +387,7 @@ $toolbar-footer-ui: dynamic((
         }
 
         @if $vertical-spacing != null {
-            &.#{$prefix}vertical > .#{$prefix}component {
+            &.#{$prefix}vertical > * {
                 margin-bottom: $vertical-spacing;
 
                 @if $enable-big {
@@ -416,16 +416,12 @@ $toolbar-footer-ui: dynamic((
  * @param {string} $ui-label The name of the UI being created.
  *   Can not included spaces or special punctuation (used in class names)
  * @param {color} $color Base color for the UI.
- * @param {string} [$gradient=$toolbar-background-gradient] Background gradient style for the UI.
+ * @param {string} $gradient: $toolbar-background-gradient Background gradient style for the UI.
  *
  * @member Ext.Button
  * @deprecated 6.0 Use {@link #toolbar-ui} instead
  */
-@mixin sencha-toolbar-ui(
-    $ui-label,
-    $color,
-    $gradient: $toolbar-background-gradient
-) {
+@mixin sencha-toolbar-ui($ui-label, $color, $gradient: $toolbar-background-gradient) {
     @include toolbar-ui(
         $ui: $ui-label,
         $background-color: $color,

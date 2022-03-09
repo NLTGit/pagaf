@@ -19,9 +19,6 @@ $grid-resize-marker-width: dynamic(1px);
  * Creates a visual theme for a Grid.
  *
  * @param {string} $ui
- * @param {color} $resize-marker-background-color
- * @param {number} $resize-marker-width
- *
  * The name of the UI being created. Can not included spaces or special punctuation
  * (used in CSS class names).
  *

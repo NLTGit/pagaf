@@ -44,7 +44,7 @@ Ext.define('Ext.grid.column.RowNumberer', {
     sortable: false,
 
     /**
-     * @cfg {Boolean} draggable
+     * @cfg {Boolean} [draggable=false]
      * False to disable drag-drop reordering of this column.
      */
     draggable: false,
@@ -55,22 +55,14 @@ Ext.define('Ext.grid.column.RowNumberer', {
     // May not be moved from its preferred locked side when grid is enableLocking:true
     lockable: false,
 
-    /**
-     * @cfg align
-     * @inheritdoc
-     */
     align: 'right',
 
     /**
-     * @cfg producesHTML
+     * @cfg {Boolean} producesHTML
      * @inheritdoc
      */
     producesHTML: false,
 
-    /**
-     * @cfg ignoreExport
-     * @inheritdoc
-     */
     ignoreExport: true,
 
     constructor: function (config) {
@@ -88,40 +80,11 @@ Ext.define('Ext.grid.column.RowNumberer', {
         me.scope = me;
     },
 
-    /**
-     * @cfg resizable
-     * @inheritdoc
-     */
     resizable: false,
-    
-    /**
-     * @cfg hideable
-     * @inheritdoc
-     */
     hideable: false,
-    
-    /**
-     * @cfg menuDisabled
-     * @inheritdoc
-     */
     menuDisabled: true,
-    
-    /**
-     * @cfg dataIndex
-     * @inheritdoc
-     */
     dataIndex: '',
-    
-    /**
-     * @cfg cls
-     * @inheritdoc
-     */
     cls: Ext.baseCSSPrefix + 'row-numberer',
-    
-    /**
-     * @cfg tdCls
-     * @inheritdoc
-     */
     tdCls: Ext.baseCSSPrefix + 'grid-cell-row-numberer ' + Ext.baseCSSPrefix + 'grid-cell-special',
     innerCls: Ext.baseCSSPrefix + 'grid-cell-inner-row-numberer',
     rowspan: undefined,
@@ -151,7 +114,7 @@ Ext.define('Ext.grid.column.RowNumberer', {
         }
         
         if (me.renumberRows.timer) {
-            Ext.undefer(me.renumberRows.timer);
+            clearTimeout(me.renumberRows.timer);
         }
         
         me.renumberRows = null;

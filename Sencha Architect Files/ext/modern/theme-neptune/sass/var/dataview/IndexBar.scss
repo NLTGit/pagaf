@@ -443,11 +443,6 @@ $indexbar-indicator-enable-arrow: dynamic(true);
 ) {
     $ui-suffix: ui-suffix($ui);
 
-    // Create this variable to de-reference CSS variables for Edge
-    // Odd bug where before pseudo is not being rendered if in a rule
-    // with a CSS variable background-color
-    $edge-indicator-background-color: mix(#fff, $indicator-background-color, 0%);
-
     .#{$prefix}indexbar#{$ui-suffix} .#{$prefix}body-el {
         color: $color;
         justify-content: $justify-items;
@@ -558,61 +553,45 @@ $indexbar-indicator-enable-arrow: dynamic(true);
                 }
             }
         }
+    },
+
+    .#{$prefix}indexbar-indicator {
+        width: $indicator-width;
+        height: $indicator-height;
+        margin: $indicator-margin;
+        color: $indicator-color;
+        font-size: $indicator-font-size;
+        line-height: $indicator-line-height;
+        font-weight: $indicator-font-weight;
+        background-color: $indicator-background-color;
+        border-radius: $indicator-border-radius;
+
+        .#{$prefix}big & {
+            width: $indicator-width-big;
+            height: $indicator-height-big;
+            font-size: $indicator-font-size-big;
+            line-height: $indicator-line-height-big;
+            font-weight: $indicator-font-weight-big;
+        }
     }
 
-    .#{$prefix}indexbar#{$ui-suffix} {
-        .#{$prefix}indexbar-indicator {
-            .#{$prefix}edge & {
-                background-color: $edge-indicator-background-color;
-            }
-        }
-
-        .#{$prefix}indexbar-indicator {
-            width: $indicator-width;
-            height: $indicator-height;
-            margin: $indicator-margin;
-            color: $indicator-color;
-            font-size: $indicator-font-size;
-            line-height: $indicator-line-height;
-            font-weight: $indicator-font-weight;
+    @if $indicator-enable-arrow {
+        $indicator-arrow-size: floor($indexbar-indicator-width * .4);
+        .#{$prefix}indexbar-indicator::before {
+            content: "";
+            width: $indicator-arrow-size;
+            height: $indicator-arrow-size;
+            transform: rotate(45deg);
+            position: absolute;
             background-color: $indicator-background-color;
-            border-radius: $indicator-border-radius;
-
-            .#{$prefix}big & {
-                width: $indicator-width-big;
-                height: $indicator-height-big;
-                font-size: $indicator-font-size-big;
-                line-height: $indicator-line-height-big;
-                font-weight: $indicator-font-weight-big;
-            }
         }
 
-        @if $indicator-enable-arrow {
-            $indicator-arrow-size: floor($indexbar-indicator-width * .4);
+        .#{$prefix}horizontal > .#{$prefix}indexbar-indicator::before {
+            bottom: floor($indicator-arrow-size * -.25);
+        }
 
-            .#{$prefix}indexbar-indicator::before {
-                .#{$prefix}edge & {
-                    background-color: $edge-indicator-background-color;
-                }
-            }
-
-            .#{$prefix}indexbar-indicator::before {
-                content: "";
-                width: $indicator-arrow-size;
-                height: $indicator-arrow-size;
-                transform: rotate(45deg);
-                top: ($indicator-height/2) - ($indicator-arrow-size/2);
-                position: absolute;
-                background-color: $indicator-background-color;
-            }
-
-            &.#{$prefix}horizontal > .#{$prefix}indexbar-indicator::before {
-                bottom: floor($indicator-arrow-size * -.25);
-            }
-
-            &.#{$prefix}vertical > .#{$prefix}indexbar-indicator::before {
-                right: floor($indicator-arrow-size * -.25);
-            }
+        .#{$prefix}vertical > .#{$prefix}indexbar-indicator::before {
+            right: floor($indicator-arrow-size * -.25);
         }
     }
 }

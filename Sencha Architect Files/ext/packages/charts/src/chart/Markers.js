@@ -53,12 +53,6 @@ Ext.define('Ext.chart.Markers', {
         }
     },
 
-    clearAll: function () {
-        this.callParent();
-        this.categories = {};
-        this.revisions = {};
-    },
-
     /**
      * Puts a marker in the category with additional attributes.
      * @param {String} category

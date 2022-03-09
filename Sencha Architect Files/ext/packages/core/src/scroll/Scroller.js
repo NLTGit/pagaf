@@ -7,10 +7,7 @@ Ext.define('Ext.scroll.Scroller', {
     extend: 'Ext.Evented',
     alias: 'scroller.scroller',
 
-    mixins: [
-        'Ext.mixin.Factoryable',
-        'Ext.mixin.Bufferable'
-    ],
+    mixins: [ 'Ext.mixin.Factoryable' ],
 
     requires: [
         'Ext.util.CSS',
@@ -20,10 +17,6 @@ Ext.define('Ext.scroll.Scroller', {
 
     factoryConfig: {
         defaultType: 'scroller'
-    },
-
-    bufferableMethods: {
-        onDomScrollEnd: 100
     },
 
     isScroller: true,
@@ -172,12 +165,13 @@ Ext.define('Ext.scroll.Scroller', {
     elementCls: Ext.baseCSSPrefix + 'scroller',
     spacerCls: Ext.baseCSSPrefix + 'scroller-spacer',
     noScrollbarsCls: Ext.baseCSSPrefix + 'no-scrollbars',
+    
+    scrollEndBuffer: 100,
 
     statics: {
         /**
          * Creates and returns an appropriate Scroller instance for the current device.
          * @param {Object} config Configuration options for the Scroller
-         * @param type
          * @return {Ext.scroll.Scroller}
          */
         create: function(config, type) {
@@ -244,6 +238,9 @@ Ext.define('Ext.scroll.Scroller', {
         me.position = { x: 0, y: 0 };
 
         me.callParent([config]);
+
+        me.bufferedOnDomScrollEnd =
+            Ext.Function.createBuffered(me.onDomScrollEnd, me.scrollEndBuffer, me);
     },
 
     destroy: function() {
@@ -251,7 +248,8 @@ Ext.define('Ext.scroll.Scroller', {
             partners = me._partners,
             key;
 
-        Ext.undefer(me.restoreTimer);
+        clearTimeout(me.restoreTimer);
+        clearTimeout(me.bufferedOnDomScrollEnd.timer);
 
         // Clear any overflow styles
         me.setX(Ext.emptyString);
@@ -274,8 +272,9 @@ Ext.define('Ext.scroll.Scroller', {
         // Remove element listeners, this will cause scrollElement to
         // be cleared also.
         me.setElement(null);
-        me._partners = me.component = null;
-
+        
+        me.bufferedOnDomScrollEnd = me._partners = me.component = null;
+        
         if (me.translatable) {
             me.translatable.destroy();
             me.translatable = null;
@@ -602,52 +601,25 @@ Ext.define('Ext.scroll.Scroller', {
     },
 
     /**
-     * Ensures a descendant element of the scroller is visible by scrolling to it.
-     *
-     * @param {String/HTMLElement/Ext.dom.Element/Object} el
-     * The descendant element to scroll into view. May also be the options object with
-     * the `element` key defining the descendant element.
-     *
-     * @param {Object} [options] An object containing options to modify the operation.
-     *
-     * @param {Object} [options.align] The alignment for the scroll.
-     * @param {'start'/'center'/'end'} [options.align.x] The alignment of the x scroll. If not
-     * specified, the minimum will be done to make the element visible. The behavior is `undefined`
-     * if the request cannot be honored. If the alignment is suffixed with a `?`, the alignment will
-     * only take place if the item is not already in the visible area.
-     * @param {'start'/'center'/'end'} [options.align.y] The alignment of the y scroll. If not
-     * specified, the minimum will be done to make the element visible. The behavior is `undefined`
-     * if the request cannot be honored. If the alignment is suffixed with a `?`, the alignment will
-     * only take place if the item is not already in the visible area.
-     *
-     * @param {Boolean} [options.animation] Pass `true` to animate the row into view.
-     *
-     * @param {Boolean} [options.highlight=false] Pass `true` to highlight the row with a glow
-     * animation when it is in view. Can also be a hex color to use for highlighting
-     * (defaults to yellow = '#ffff9c').
-     *
-     * @param {Boolean} [options.x=true] `false` to disable horizontal scroll.
-     * @param {Boolean} [options.y=true] `false` to disable vertical scroll.
+     * Scrolls a descendant element of the scroller into view.
+     * @param {String/HTMLElement/Ext.dom.Element} el the descendant to scroll into view
+     * @param {Boolean} [hscroll=true] False to disable horizontal scroll.
+     * @param {Boolean/Object} [animate] true for the default animation or a standard Element
+     * animation config object
+     * @param {Boolean/String} [highlight=false] true to
+     * {@link Ext.dom.Element#highlight} the element when it is in view. Can also be a
+     * hex color to use for highlighting (defaults to yellow = '#ffff9c').
      *
      * @return {Ext.Promise} A promise for when the scroll completes.
-     * @since 6.5.1
      */
-    ensureVisible: function (el, options) {
+    scrollIntoView: function(el, hscroll, animate, highlight) {
         var me = this,
             position = me.getPosition(),
-            highlight, newPosition, ret;
+            newPosition, ret;
 
         // Might get called before Component#onBoxReady which is when the Scroller is set up with elements.
         if (el) {
-            if (el && el.element && !el.isElement) {
-                options = el;
-                el = options.element;
-            }
-
-            options = options || {};
-
-            highlight = options.highlight;
-            newPosition = me.getEnsureVisibleXY(el, options);
+            newPosition = me.getScrollIntoViewXY(el, hscroll);
 
             // Only attempt to scroll if it's needed.
             if (newPosition.y !== position.y || newPosition.x !== position.x) {
@@ -659,14 +631,12 @@ Ext.define('Ext.scroll.Scroller', {
                         args: [el, highlight]
                     });
                 }
-
-                ret = me.doScrollTo(newPosition.x, newPosition.y, options.animation);
+                ret = me.doScrollTo(newPosition.x, newPosition.y, animate);
             } else {
-                // No scrolling needed, but still honor highlight request
+                // No scrolling needed, but still honour highlight request
                 if (highlight) {
                     me.doHighlight(el, highlight);
                 }
-
                 // Resolve straight away
                 ret = Ext.Deferred.getCachedResolved();
             }
@@ -674,29 +644,7 @@ Ext.define('Ext.scroll.Scroller', {
             // Can't scroll
             ret = Ext.Deferred.getCachedRejected();
         }
-
         return ret;
-    },
-
-    /**
-     * Scrolls a descendant element of the scroller into view.
-     * @param {String/HTMLElement/Ext.dom.Element} el the descendant to scroll into view
-     * @param {Boolean} [hscroll=true] False to disable horizontal scroll.
-     * @param {Boolean/Object} [animate] true for the default animation or a standard Element
-     * animation config object
-     * @param {Boolean/String} [highlight=false] true to
-     * {@link Ext.dom.Element#highlight} the element when it is in view. Can also be a
-     * hex color to use for highlighting (defaults to yellow = '#ffff9c').
-     *
-     * @deprecated 6.5.1 Use {@link #ensureVisible} instead.
-     * @return {Ext.Promise} A promise for when the scroll completes.
-     */
-    scrollIntoView: function(el, hscroll, animate, highlight) {
-        return this.ensureVisible(el, {
-            animation: animate,
-            highlight: highlight,
-            x: hscroll
-        });
     },
 
     /**
@@ -873,11 +821,10 @@ Ext.define('Ext.scroll.Scroller', {
         }
     },
 
-    updateElement: function(element, oldElement) {
+    updateElement: function(element) {
         var me = this,
             touchAction = me.getTouchAction(),
             scrollListener = me.scrollListener,
-            elementCls = me.elementCls,
             eventSource, scrollEl;
 
         // If we have a scrollListener, we also have a scrollElement
@@ -885,12 +832,6 @@ Ext.define('Ext.scroll.Scroller', {
             scrollListener.destroy();
             me.scrollListener = null;
             me.setScrollElement(null);
-        }
-
-        if (oldElement && !oldElement.destroyed) {
-            // TODO: might be nice to have x-scroller-foo classes to map overflow styling
-            oldElement.setStyle('overflow', 'hidden');
-            oldElement.removeCls(elementCls);
         }
 
         if (element) {
@@ -915,7 +856,7 @@ Ext.define('Ext.scroll.Scroller', {
 
             me.initXStyle();
             me.initYStyle();
-            element.addCls(elementCls);
+            element.addCls(me.elementCls);
             me.initSnap();
             me.initMsSnapInterval();
             me.syncScrollbarCls();
@@ -947,8 +888,7 @@ Ext.define('Ext.scroll.Scroller', {
                  * Ext.scroll.Scroller, and Ext.scroll.View has been removed.  Component's
                  * getScrollable() method now returns a Ext.scroll.Scroller.  This method is
                  * provided for compatibility.
-                 * @deprecated 5.0 This method is deprecated.  Please use Ext.scroll.Scroller's
-                 * getScrollable() method instead.
+                 * @deprecated 5.0
                  */
                 getScroller: function() {
                     return this;
@@ -1000,67 +940,13 @@ Ext.define('Ext.scroll.Scroller', {
             }
         },
 
-        /**
-         * @private
-         * Gets the x/y coordinates to ensure the element is scrolled into view.
-         *
-         * @param {String/HTMLElement/Ext.dom.Element/Object} el
-         * The descendant element to scroll into view. May also be the options object with
-         * the `element` key defining the descendant element.
-         *
-         * @param {Object} [options] An object containing options to modify the operation.
-         *
-         * @param {Object/String} [options.align] The alignment for the scroll. If a string, this value
-         * will be used for both `x` and `y` alignments.
-         * @param {'start'/'center'/'end'} [options.align.x] The alignment of the x scroll. If not
-         * specified, the minimum will be done to make the element visible. The behavior is `undefined`
-         * if the request cannot be honored. If the alignment is suffixed with a `?`, the alignment will
-         * only take place if the item is not already in the visible area.
-         * @param {'start'/'center'/'end'} [options.align.y] The alignment of the y scroll. If not
-         * specified, the minimum will be done to make the element visible. The behavior is `undefined`
-         * if the request cannot be honored. If the alignment is suffixed with a `?`, the alignment will
-         * only take place if the item is not already in the visible area.
-         *
-         * @param {Boolean} [options.x=true] `false` to disable horizontal scroll and `x` align option.
-         * @param {Boolean} [options.y=true] `false` to disable vertical scroll and `y` align option.
-         * @return {Object} The new position that will be used to scroll the element into view.
-         * @since 6.5.1
-         */
-        getEnsureVisibleXY: function (el, options) {
+        getScrollIntoViewXY: function(el, hscroll, align) {
             var position = this.getPosition(),
                 viewport = this.component ? this.component.getScrollableClientRegion() : this.getElement(),
-                newPosition, align;
-
-            if (el && el.element && !el.isElement) {
-                options = el;
-                el = options.element;
-            }
-
-            options = options || {};
-            align = options.align;
-
-            if (align) {
-                if (Ext.isString(align)) {
-                    align = {
-                        x: options.x === false ? null : align,
-                        y: options.y === false ? null : align
-                    };
-                } else if (Ext.isObject(align)) {
-                    if (align.x && options.x === false) {
-                        align.x = null;
-                    }
-
-                    if (align.y && options.y === false) {
-                        align.y = null;
-                    }
-                }
-            }
+                newPosition;
 
             newPosition = Ext.fly(el).getScrollIntoViewXY(viewport, position.x, position.y, align);
-
-            newPosition.x = options.x === false ? position.x : newPosition.x;
-            newPosition.y = options.y === false ? position.y : newPosition.y;
-
+            newPosition.x = (hscroll === false) ? position.x : newPosition.x;
             return newPosition;
         },
 
@@ -1147,22 +1033,6 @@ Ext.define('Ext.scroll.Scroller', {
                 result.y = elRegion.bottom > myElRegion.top && elRegion.top < myElRegion.bottom;
             }
             return result;
-        },
-
-        // Checks if the scroller contains a component by searching up the element hierarchy
-        // using components. It uses component navigation as opposed to elements because we
-        // want logical ownership.
-        contains: function(component) {
-            var el = this.getElement(),
-                owner = component;
-
-            while (owner && owner !== Ext.Viewport) {
-                if (el.contains(owner.el)) {
-                    return true;
-                }
-                owner = owner.getRefOwner();
-            }
-            return false;
         },
 
         constrainScrollRange: function(scrollRange) {
@@ -1568,7 +1438,7 @@ Ext.define('Ext.scroll.Scroller', {
 
                     me.fireScroll(x, y, xDelta, yDelta);
 
-                    me.onDomScrollEnd(x, y, xDelta, yDelta);
+                    me.bufferedOnDomScrollEnd(x, y, xDelta, yDelta);
                 }
             }
 
@@ -1583,7 +1453,9 @@ Ext.define('Ext.scroll.Scroller', {
         syncWithPartners: function() {
             var me = this,
                 partners = me._partners,
-                id, partner, position;
+                id,
+                partner,
+                position;
 
             me.suspendPartnerSync();
             for (id in partners) {
@@ -1608,12 +1480,12 @@ Ext.define('Ext.scroll.Scroller', {
             this.updateDomScrollPosition(hasTimer);
 
             if (hasTimer) {
-                Ext.undefer(this.onDomScrollEnd.timer);
+                clearTimeout(this.onDomScrollEnd.timer);
                 return;
             }
         },
 
-        doOnDomScrollEnd: function(x, y, xDelta, yDelta) {
+        onDomScrollEnd: function(x, y, xDelta, yDelta) {
             var me = this;
 
             // Could be destroyed by this time
@@ -1622,11 +1494,6 @@ Ext.define('Ext.scroll.Scroller', {
             }
 
             me.isScrolling = Ext.isScrolling = false;
-
-            // if this is being flushed we only need to set the scrolling status to false
-            if (x === undefined) {
-                return;
-            }
             me.trackingScrollLeft = x;
             me.trackingScrollTop = y;
             me.fireScrollEnd(x, y, xDelta, yDelta);
@@ -1652,12 +1519,10 @@ Ext.define('Ext.scroll.Scroller', {
         },
 
         onPartnerScrollEnd: function(partner, x, y, xDelta, yDelta) {
-            // manually clearing the buffer queue before calling the method without buffering
-            this.cancelOnDomScrollEnd();
             // Pass the signal on immediately to all partners.
-            // We are called by the onDomScrollEnd of our controller
-            // so we must not add another delay and call doOnScrollEnd directly.
-            this.doOnDomScrollEnd(x, y, xDelta, yDelta);
+            // We are called by the bufferedOnDomScrollEnd of our controller
+            // so we must not add another delay.
+            this.onDomScrollEnd(x, y, xDelta, yDelta);
         },
 
         removeSnapStylesheet: function() {
@@ -1685,7 +1550,7 @@ Ext.define('Ext.scroll.Scroller', {
                     // enough to capture the async scroll events, anything after that
                     // we re-enable.
                     if (!me.restoreTimer) {
-                        me.restoreTimer = Ext.defer(function() {
+                            me.restoreTimer = Ext.defer(function() {
                             me.restoreTimer = null;
                         }, 50);
                     }
@@ -1707,12 +1572,7 @@ Ext.define('Ext.scroll.Scroller', {
         // always exist regardless of whether or not there is a Viewport component in use
         // so that global scroll events will still fire.  Menus and some other floating
         // things use these scroll events to hide themselves.
-        var scroller = Scroller.viewport;
-        if (!scroller) {
-            Scroller.viewport = scroller = new Scroller();
-            Scroller.initViewportScroller();
-        }
-        return scroller;
+        return Scroller.viewport || (Scroller.viewport = new Scroller());
     };
 
     /**
@@ -1722,10 +1582,7 @@ Ext.define('Ext.scroll.Scroller', {
     Ext.setViewportScroller = function(scroller) {
         if (Scroller.viewport !== scroller) {
             Ext.destroy(Scroller.viewport);
-            if (scroller && !scroller.isScroller) {
-                scroller = new Scroller(scroller);
-            }
-            Scroller.viewport = scroller;
+            Scroller.viewport = scroller.isScroller ? scroller : new Scroller(scroller);
         }
     };
 

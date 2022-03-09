@@ -17,38 +17,32 @@ Ext.define('Ext.sparkline.TriState', {
     config: {
 
         /**
-         * @cfg {Number} barWidth
-         * The pixel width of each bar.
+         * @cfg {Number} [barWidth=4] The pixel width of each bar.
          */
         barWidth: 4,
         
         /**
-         * @cfg {Number} barSpacing
-         * The pixel spacing between each bar.
+         * @cfg {Number} [barSpacing=1] The pixel spacing between each bar.
          */
         barSpacing: 1,
         
         /**
-         * @cfg {String} posBarColor
-         * The color for positive value bars.
+         * @cfg {String} [posBarColor=#6f6] The color for positive value bars.
          */
         posBarColor: '#6f6',
         
         /**
-         * @cfg {String} negBarColor
-         * The color for negative value bars.
+         * @cfg {String} [negBarColor=#f44] The color for negative value bars.
          */
         negBarColor: '#f44',
         
         /**
-         * @cfg {String} zeroBarColor
-         * The color for zero value bars.
+         * @cfg {String} [zeroBarColor=#999] The color for zero value bars.
          */
         zeroBarColor: '#999',
         
         /**
-         * @cfg {Object} colorMap
-         * An object that uses range specifiers as keys to
+         * @cfg {Object} [colorMap] An object that uses range specifiers as keys to
          * indicate bar color values for a range of values. A range specifier is
          * specified in the form `[number]:[number]`, which indicates start and end range.
          * Omitting either means an open ended range.

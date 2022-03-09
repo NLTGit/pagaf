@@ -207,6 +207,7 @@ Ext.define('Ext.data.Session', {
         }
         //</debug>
         if (record.session !== me) {
+            record.session = me;
             me.add(record);
 
             if (associations) {
@@ -231,10 +232,7 @@ Ext.define('Ext.data.Session', {
         var me = this,
             data = me.data,
             matrices = me.matrices,
-            dirtyWas = me.getDirty(),
             entityName, entities, id, record;
-
-        me.suspendEvent('dirtychange');
 
         for (entityName in data) {
             entities = data[entityName];
@@ -251,11 +249,6 @@ Ext.define('Ext.data.Session', {
         }
 
         me.clearRecordStates();
-
-        me.resumeEvent('dirtychange');
-        if (me.getDirty() !== dirtyWas) {
-            me.fireDirtyChange();
-        }
     },
 
     /**
@@ -263,10 +256,9 @@ Ext.define('Ext.data.Session', {
      *
      * @param {String/Ext.Class} type The `entityName` or the actual class of record to create.
      * @param {Object} [data] The data for the record.
-     * @param {Boolean} [preventAdd] (private) `true` to prevent the record from being added to the session
      * @return {Ext.data.Model} The new record.
      */
-    createRecord: function (type, data, preventAdd) {
+    createRecord: function (type, data) {
         //<debug>
         this.checkModelType(type);
         //</debug>
@@ -282,7 +274,7 @@ Ext.define('Ext.data.Session', {
             }
         }
         // By passing the session to the constructor, it will call session.add()
-        return new Model(data, preventAdd ? null : this);
+        return new Model(data, this);
     },
 
     /**
@@ -328,7 +320,7 @@ Ext.define('Ext.data.Session', {
      * described.
      * @param {Object} id The id of the record.
      * @param {Boolean/Object} [autoLoad=true] `false` to prevent the record from being loaded if
-     * it does not exist. If this parameter is an object, it will be passed to the {@link Ext.data.Model#method!load} call.
+     * it does not exist. If this parameter is an object, it will be passed to the {@link Ext.data.Model#load} call.
      * @return {Ext.data.Model} The record.
      */
     getRecord: function(type, id, autoLoad) {
@@ -540,11 +532,8 @@ Ext.define('Ext.data.Session', {
             crudOperations = me.crudOperations,
             len = crudOperations.length,
             crudKeys = me.crudKeys,
-            dirtyWas = me.getDirty(),
             entityName, entityType, entityInfo, i,
             operation, item, associations, key, role, associationData;
-
-        me.suspendEvent('dirtychange');
 
         // Force the schema to process any pending drops
         me.getSchema().processKeyChecks(true);
@@ -589,13 +578,7 @@ Ext.define('Ext.data.Session', {
                 role.processUpdate(me, associationData);
             }
         }
-
-        me.resumeEvent('dirtychange');
-
-        if (me.getDirty() !== dirtyWas) {
-            me.fireDirtyChange();
-        }
-    },
+    }, 
 
     //-------------------------------------------------------------------------
 
@@ -643,22 +626,11 @@ Ext.define('Ext.data.Session', {
         this.evict(record);
     },
 
-    /**
-     * Template method, will be called by Model after a record is rejected.
-     * @param {Ext.data.Model} record The record.
-     *
-     * @protected
-     * @since 6.5.1
-     */
-    afterReject: function (record) {
-        this.trackRecordState(record);
-    },
-
     privates: {
         /**
          * Add a record instance to this session. Called by model.
          * @param {Ext.data.Model} record The record.
-         *
+         * 
          * @private
          */
         add: function (record) {
@@ -672,8 +644,6 @@ Ext.define('Ext.data.Session', {
                 Ext.raise('Duplicate id ' + record.id + ' for ' + record.entityName);
             }
             //</debug>
-
-            record.session = me;
 
             entry.record = record;
 
@@ -722,34 +692,21 @@ Ext.define('Ext.data.Session', {
          * @private
          */
         createEntities: function(entityType, items) {
-            var me = this,
-                len = items.length,
+            var len = items.length,
                 i, data, rec, id;
 
             for (i = 0; i < len; ++i) {
                 data = items[i];
                 id = entityType.getIdFromData(data);
-                rec = me.peekRecord(entityType, id);
+                rec = this.peekRecord(entityType, id);
                 if (!rec) {
-                    // Wait until after creating the record before adding it to the session,
-                    // instead of allowing the Model constructor to call session.add().
-                    // This allows us to first initialize the phantom and crudState properties.
-                    // so that the session sets its dirty state correctly when add() is called.
-                    // The Model constructor usually handles setting phantom/crudState,
-                    // but in this case it will not detect the record as phantom because
-                    // we are passing an id (generated by the child session) to the Model
-                    // constructor.
-                    rec = me.createRecord(entityType, data, true);
-
-                    rec.phantom = true;
-                    rec.crudState = 'C';
-
-                    me.add(rec);
-                    // Be sure to set this after "notifying" the session.
-                    rec.crudStateWas = 'C';
+                    rec = this.createRecord(entityType, data);
                 } else {
-                    me.onInvalidEntityCreate(entityType, id);
+                    this.onInvalidEntityCreate(entityType, id);
                 }
+                // This record has been marked as being created, so we must
+                // be a phantom
+                rec.phantom = true;
             }
         },
 
@@ -1039,23 +996,21 @@ Ext.define('Ext.data.Session', {
          * @private
          */
         readEntities: function(entityType, items) {
-            var me = this,
-                len = items.length,
+            var len = items.length,
                 i, data, rec, id;
 
             for (i = 0; i < len; ++i) {
                 data = items[i];
                 id = entityType.getIdFromData(data);
-                rec = me.peekRecord(entityType, id);
+                rec = this.peekRecord(entityType, id);
                 if (!rec) {
-                    rec = me.createRecord(entityType, data, true);
+                    rec = this.createRecord(entityType, data);
                 } else {
-                    me.onInvalidEntityRead(entityType, id);
+                    this.onInvalidEntityRead(entityType, id);
                 }
                 // We've been read from a "server", so we aren't a phantom,
                 // regardless of whether or not we have an id
                 rec.phantom = false;
-                me.add(rec);
             }
         },
 

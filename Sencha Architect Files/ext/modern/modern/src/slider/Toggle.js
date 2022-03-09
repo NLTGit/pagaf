@@ -11,7 +11,6 @@ Ext.define('Ext.slider.Toggle', {
     },
 
     /**
-     * @cfg value
      * @inheritdoc
      */
     value: 0,
@@ -21,6 +20,15 @@ Ext.define('Ext.slider.Toggle', {
     // TODO:  7.0 remove these two classes once legacy themes that rely on them are removed
     minValueCls: Ext.baseCSSPrefix + 'off',
     maxValueCls: Ext.baseCSSPrefix + 'on',
+
+    initialize: function() {
+        this.callParent();
+
+        this.on({
+            scope: this,
+            change: 'onChange'
+        });
+    },
 
     applyMinValue: function() {
         return 0;
@@ -50,6 +58,11 @@ Ext.define('Ext.slider.Toggle', {
         }
     },
 
+    setValue: function(newValue, oldValue) {
+        this.callParent(arguments);
+        this.onChange(this, this.thumbs[0], newValue, oldValue);
+    },
+
     setIndexValue: function(index, value, animation) {
         var oldValue = this.getValue()[index];
         this.callParent(arguments);
@@ -62,19 +75,16 @@ Ext.define('Ext.slider.Toggle', {
         }
     },
 
-    onChange: function(thumb, newValue, oldValue) {
-        var me = this,
-            isOn = newValue > 0,
+    onChange: function(me, thumb, newValue, oldValue) {
+        var isOn = newValue > 0,
             onCls = me.maxValueCls,
             offCls = me.minValueCls,
-            element = me.element;
+            element = this.element;
 
         element.addCls(isOn ? onCls : offCls);
         element.removeCls(isOn ? offCls : onCls);
 
-        me.thumbs[0].setUi(isOn ? me.getOnThumbUi() : me.getOffThumbUi());
-
-        me.callParent([thumb, newValue, oldValue]);
+        this.thumbs[0].setUi(isOn ? this.getOnThumbUi() : this.getOffThumbUi());
     },
 
     toggle: function() {

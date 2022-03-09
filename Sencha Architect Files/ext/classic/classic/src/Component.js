@@ -429,7 +429,7 @@ Ext.define('Ext.Component', {
      */
     renderConfig: {
         /**
-         * @cfg {Object} touchAction
+         * @cfg {Object}
          *
          * Emulates the behavior of the CSS
          * [touch-action](https://www.w3.org/TR/pointerevents/#the-touch-action-css-property)
@@ -485,14 +485,10 @@ Ext.define('Ext.Component', {
         touchAction: null
     },
 
-    /**
-     * @property defaultBindProperty
-     * @inheritdoc
-     */
     defaultBindProperty: 'html',
 
     /**
-     * @cfg {String} alignTarget
+     * @cfg {String} [alignTarget]
      * A Component or Element by which to position this component according to the {@link #defaultAlign}.
      * Defaults to the owning Container.
      *
@@ -503,7 +499,7 @@ Ext.define('Ext.Component', {
     alignTarget: null,
 
     /**
-     * @cfg anchor
+     * @cfg {String} anchor
      * @inheritDoc Ext.layout.container.Anchor#cfg-anchor
      */
 
@@ -577,7 +573,7 @@ Ext.define('Ext.Component', {
     autoShow: false,
 
     /**
-     * @cfg {String} baseCls
+     * @cfg {String} [baseCls='x-component']
      * The base CSS class to apply to this component's element. This will also be prepended to elements within this
      * component like Panel's body will get a class `x-panel-body`. This means that if you create a subclass of Panel, and
      * you want it to get all the Panels styling for the element and the body, you leave the `baseCls` `x-panel` and use
@@ -603,8 +599,8 @@ Ext.define('Ext.Component', {
      */
 
     /**
-     * @cfg childEls
-     * @inheritdoc Ext.util.ElementContainer#cfg-childEls
+     * @cfg {Object/String[]/Object[]} childEls
+     * @inheritdoc Ext.util.ElementContainer#childEls
      */
     childEls: {
         frameTable: { frame: true },
@@ -697,7 +693,7 @@ Ext.define('Ext.Component', {
      */
 
     /**
-     * @cfg {String} defaultAlign
+     * @cfg {String} [defaultAlign="c-c"]
      * The default {@link Ext.util.Positionable#getAlignToXY Ext.dom.Element#getAlignToXY} anchor position value for this component
      * relative to its {@link #alignTarget} (which defaults to its owning Container).
      *
@@ -731,7 +727,7 @@ Ext.define('Ext.Component', {
     }()),
 
     /**
-     * @cfg {String} disabledCls
+     * @cfg {String} [disabledCls='x-item-disabled']
      * CSS class to add when the Component is disabled.
      */
     disabledCls: Ext.baseCSSPrefix + 'item-disabled',
@@ -751,7 +747,7 @@ Ext.define('Ext.Component', {
      */
 
     /**
-     * @cfg {Boolean/Object} draggable
+     * @cfg {Boolean/Object} [draggable=false]
      * Specify as true to make a {@link #cfg-floating} Component draggable using the Component's encapsulating element as
      * the drag handle.
      *
@@ -971,7 +967,7 @@ Ext.define('Ext.Component', {
      */
 
     /**
-     * @cfg {String} maskElement
+     * @cfg {String} [maskElement=null]
      * Related to the {@link #cfg-childEls} configuration which specifies named properties which correspond to component sub-elements.
      *
      * The name of the element property in this component to mask when masked by a LoadMask.
@@ -1042,19 +1038,7 @@ Ext.define('Ext.Component', {
      *
      *     plugins: 'cellediting',
      *
-     * The preferred form for multiple plugins or to configure plugins is the keyed-object
-     * form (new in version 6.5):
-     *
-     *      plugins: {
-     *          gridviewdragdrop: true,
-     *          cellediting: {
-     *              clicksToEdit: 1
-     *          }
-     *      },
-     *
-     * The keys are `id`'s as well as the default type alias.
-     *
-     * The `plugins` config can also be an array of plugin aliases:
+     * It can also be an array of plugin aliases:
      *
      *     plugins: [ 'cellediting', 'gridviewdragdrop' ],
      *
@@ -1065,6 +1049,17 @@ Ext.define('Ext.Component', {
      *          ptype: 'cellediting',
      *          clicksToEdit: 1
      *      }],
+     *
+     * A final form (new in version 6.5) is the keyed-object form:
+     *
+     *      plugins: {
+     *          gridviewdragdrop: true,
+     *          cellediting: {
+     *              clicksToEdit: 1
+     *          }
+     *      },
+     *
+     * In this last form, the keys are `id`'s as well as the default type alias.
      *
      * @since 2.3.0
      */
@@ -1223,7 +1218,7 @@ Ext.define('Ext.Component', {
     resizeHandles: 'all',
 
     /**
-     * @cfg {Boolean/Number} shrinkWrap
+     * @cfg {Boolean/Number} [shrinkWrap=2]
      *
      * The possible values for shrinkWrap are:
      *
@@ -1308,7 +1303,7 @@ Ext.define('Ext.Component', {
      */
 
     /**
-     * @property {Boolean} synthetic
+     * @property {Boolean} [synthetic=false]
      * This property is `true` if the component was created internally by the framework
      * and is not explicitly user-defined. This is set for such things as `Splitter`
      * instances managed by `border` and `box` layouts.
@@ -1356,7 +1351,7 @@ Ext.define('Ext.Component', {
     userCls: null,
 
     /**
-     * @cfg {Number} weight
+     * @cfg {Number} [weight]
      * A value to control how Components are laid out in a {@link Ext.layout.container.Border Border} layout or as docked items.
      *
      * In a Border layout, this can control how the regions (not the center) region lay out if the west or east take full height
@@ -1528,8 +1523,8 @@ Ext.define('Ext.Component', {
      */
     
     /**
-     * @cfg {Number} tabIndex
-     * DOM tabIndex attribute for this component's {@link #focusEl}.
+     * @cfg {Number} [tabIndex] DOM tabIndex attribute for this component's
+     * {@link #focusEl}.
      */
 
     // ***********************************************************************************
@@ -1567,7 +1562,7 @@ Ext.define('Ext.Component', {
     componentLayoutCounter: 0,
 
     /**
-     * @property {String} contentPaddingProperty
+     * @property {String} [contentPaddingProperty='padding']
      * The name of the padding property that is used by the layout to manage
      * padding.  See {@link Ext.layout.container.Auto#managePadding managePadding}
      */
@@ -1626,7 +1621,7 @@ Ext.define('Ext.Component', {
     isComponent: true,
 
     /**
-     * @property {Boolean} _isLayoutRoot
+     * @property {Boolean} [_isLayoutRoot=false]
      * Setting this property to `true` causes the {@link #isLayoutRoot} method to return
      * `true` and stop the search for the top-most component for a layout.
      * @protected
@@ -1639,7 +1634,7 @@ Ext.define('Ext.Component', {
     layoutSuspendCount: 0,
 
     /**
-     * @cfg {Boolean} liquidLayout
+     * @cfg {Boolean}
      * Components that achieve their internal layout results using solely CSS with no JS
      * intervention must set this to true.  This allows the component to opt out of the
      * layout run when used inside certain container layouts such as {@link
@@ -1656,11 +1651,11 @@ Ext.define('Ext.Component', {
      * - {@link #event-resize}
      * - {@link #event-boxready}
      *
-     * In addition, liquidLayout components do not call the following template methods:
+     * In addition liquidLayout components do not call the following template methods:
      *
-     * - {@link #method!afterComponentLayout}
-     * - {@link #method!onBoxReady}
-     * - {@link #method!onResize}
+     * - {@link #afterComponentLayout}
+     * - {@link #onBoxReady}
+     * - {@link #onResize}
      *
      * Any component that needs to fire these events or to have these methods called during
      * its life cycle needs to set `liquidLayout` to `false`.  The following example
@@ -2120,13 +2115,6 @@ Ext.define('Ext.Component', {
         me.initialConfig = config;
 
         me.$iid = ++Ext.$nextIid;
-
-        // We want to determine very early on whether or not we are a reference holder,
-        // so peek at either the incoming config or the class config to see if we have
-        // a controller defined.
-        if ((config && config.controller) || me.config.controller) {
-            me.referenceHolder = true;
-        }
 
         // Ensure that we have an id early so that config getters may access it
         me.getId();
@@ -2999,8 +2987,7 @@ Ext.define('Ext.Component', {
      */
     doDestroy: function() {
         var me = this,
-            focusableContainer = me.ownerFocusableContainer,
-            container = me.container,
+            container = me.ownerFocusableContainer,
             selectors = me.renderSelectors,
             selector, ownerCt, el;
 
@@ -3053,8 +3040,8 @@ Ext.define('Ext.Component', {
             );
         }
 
-        if (focusableContainer && !focusableContainer.onFocusableChildDestroy.$nullFn) {
-            focusableContainer.onFocusableChildDestroy(me);
+        if (container && !container.onFocusableChildDestroy.$nullFn) {
+            container.onFocusableChildDestroy(me);
         }
 
         if (me.focusable) {
@@ -3109,10 +3096,8 @@ Ext.define('Ext.Component', {
             // We don't own the container element so can't just destroy it as that would
             // remove it from the DOM; we have to remove the Element instance from cache
             // though.
-            if (me.collectContainerElement && container) {
-                if (!container.destroyed) {
-                    container.collect();
-                }
+            if (me.collectContainerElement && me.container) {
+                me.container.collect();
                 me.container = null;
             }
             
@@ -3611,7 +3596,6 @@ Ext.define('Ext.Component', {
             height = me.height,
             typeofWidth, typeofHeight,
             hasPixelWidth, hasPixelHeight,
-            hasWidthStyle, hasHeightStyle,
             heightModel, ownerLayout, policy, shrinkWrap, topLevel, widthModel,
 
             // floating === a floating Component, floated === a border layout's slideout view of a region.
@@ -3661,12 +3645,9 @@ Ext.define('Ext.Component', {
             if (topLevel && shrinkWrap) {
                 if (width && typeofWidth === 'string') {
                     shrinkWrap &= 2; // percentage, "30em" or whatever - not width shrinkWrap
-                    hasWidthStyle = true;
                 }
-                
                 if (height && typeofHeight === 'string') {
                     shrinkWrap &= 1; // percentage, "30em" or whatever - not height shrinkWrap
-                    hasHeightStyle = true;
                 }
             }
 
@@ -3681,7 +3662,7 @@ Ext.define('Ext.Component', {
             }
 
             if (!widthModel) {
-                if (!policy.setsWidth && !(me.frame && hasWidthStyle)) {
+                if (!policy.setsWidth) {
                     if (hasPixelWidth) {
                         widthModel = models.configured;
                     } else {
@@ -3700,7 +3681,7 @@ Ext.define('Ext.Component', {
             }
 
             if (!heightModel) {
-                if (!policy.setsHeight && !(me.frame && hasHeightStyle)) {
+                if (!policy.setsHeight) {
                     if (hasPixelHeight) {
                         heightModel = models.configured;
                     } else {
@@ -3906,7 +3887,7 @@ Ext.define('Ext.Component', {
      * up the hierarchy to Ext.Component being called thereafter. This makes it easy to implement and,
      * if needed, override the constructor logic of the Component at any step in the hierarchy.
      *
-     * The initComponent method **must** contain a call to {@link Ext.Base#method!callParent callParent} in order
+     * The initComponent method **must** contain a call to {@link Ext.Base#callParent callParent} in order
      * to ensure that the parent class' initComponent method is also called.
      *
      * All config options passed to the constructor are applied to `this` before initComponent is called,
@@ -4419,6 +4400,7 @@ Ext.define('Ext.Component', {
      */
     onRemoved: function(destroying) {
         var me = this,
+            refHolder,
             focusTarget;
 
         // Revert focus to closest sibling or ancestor unless we are being moved
@@ -5775,11 +5757,7 @@ Ext.define('Ext.Component', {
             steps = 0;
 
         if (selector) {
-            for (; result; result = result.getRefOwner()) {
-                if (result.destroyed) {
-                    return null;
-                }
-
+            for (; result && !result.destroyed; result = result.getRefOwner()) {
                 steps++;
                 if (selector.isComponent) {
                     if (result === selector) {
@@ -5866,7 +5844,7 @@ Ext.define('Ext.Component', {
 
     /**
      * Update the content area of a component.
-     * @param {String/Object} html If this component has been configured with a
+     * @param {String/Object} htmlOrData If this component has been configured with a
      * template via the tpl config then it will use this argument as data to populate the
      * template. If this component was not configured with a template, the components
      * content area will be updated via Ext.Element update.
@@ -5875,13 +5853,13 @@ Ext.define('Ext.Component', {
      * with this Component as the scope (`this` reference).
      * @param {Function} [callback] Only legitimate when using the `html` configuration.
      * Callback to execute when scripts have finished loading.
-     * @param {Object} [scriptScope='this'] The scope (`this` reference) in which to
+     * @param {Object} [scriptScope=`this`] The scope (`this` reference) in which to
      * execute *inline* script elements content. Scripts with a `src` attribute cannot
      * be executed with this scope.
      *
      * @since 3.4.0
      */
-    setHtml: function (html, loadScripts, callback, scriptScope) {
+    setHtml: function (html, loadScripts, scriptScope) {
         this.update(html, loadScripts, null, scriptScope);
     },
 

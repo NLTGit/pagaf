@@ -16,7 +16,7 @@ Ext.define('Ext.util.StoreHolder', {
 
     /**
      * @property {Boolean} [autoDestroyBoundStore] This property allows the object
-     * to destroy bound stores that have {@link Ext.data.AbstractStore#autoDestroy}
+     * to destroy bound stores that have {@link #Ext.data.AbstractStore#autoDestroy}
      * option set to `true`. 
      */
     autoDestroyBoundStore: false,
@@ -25,8 +25,6 @@ Ext.define('Ext.util.StoreHolder', {
      * Binds a store to this instance.
      * @param {Ext.data.AbstractStore/String} [store] The store to bind or ID of the store.
      * When no store given (or when `null` or `undefined` passed), unbinds the existing store.
-     * @param initial
-     * @param propertyName
      */
     bindStore: function(store, initial, propertyName) {
         // Private params

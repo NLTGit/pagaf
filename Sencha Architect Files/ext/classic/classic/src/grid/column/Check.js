@@ -73,12 +73,12 @@ Ext.define('Ext.grid.column.Check', {
 
     /**
      * @cfg {String} tooltip
-     * The tooltip text to show upon hover of a unchecked cell.
+     * The tooltip text to show upon hover of a checked cell.
      */
 
     /**
      * @cfg {String} checkedTooltip
-     * The tooltip text to show upon hover of an checked cell.
+     * The tooltip text to show upon hover of an unchecked cell.
      */
 
     ignoreExport: true,
@@ -154,8 +154,11 @@ Ext.define('Ext.grid.column.Check', {
      */
 
     constructor: function(config) {
-        this.scope = this;
-        this.callParent([config]);
+        var me = this,
+            updateHeaderState = config && config.updateHeaderState;
+
+        me.scope = me;
+        me.callParent([config]);
     },
 
     afterComponentLayout: function() {
@@ -274,7 +277,7 @@ Ext.define('Ext.grid.column.Check', {
             view = me.getView(),
             store = view.getStore(),
             checked = !me.allChecked,
-            position;
+            position, text, anncEl;
 
         if (me.fireEvent('beforeheadercheckchange', me, checked, e) !== false) {
 
@@ -314,7 +317,7 @@ Ext.define('Ext.grid.column.Check', {
         var me = this;
 
         if (!me.headerStateTimer) {
-            me.headerStateTimer = Ext.raf(me.doUpdateHeaderState, me);
+            me.headerStateTimer = Ext.Function.requestAnimationFrame(me.doUpdateHeaderState, me);
         }
     },
 
@@ -361,7 +364,7 @@ Ext.define('Ext.grid.column.Check', {
     defaultRenderer: function(value, cellValues) {
         var me = this,
             cls = me.checkboxCls,
-            tip = '';
+            tip = me.tooltip;
 
         if (me.invert) {
             value = !value;
@@ -369,18 +372,12 @@ Ext.define('Ext.grid.column.Check', {
         if (me.disabled) {
             cellValues.tdCls += ' ' + me.disabledCls;
         }
-
+        
         if (value) {
             cls += ' ' + me.checkboxCheckedCls;
-            tip = me.checkedTooltip;
-        } else {
-            tip = me.tooltip;
+            tip = me.checkedTooltip || tip;
         }
-
-        if (tip) {
-            cellValues.tdAttr += ' data-qtip="' + Ext.htmlEncode(tip) + '"';
-        }
-
+        
         if (me.useAriaElements) {
             cellValues.tdAttr += ' aria-describedby="' + me.id + '-cell-description' +
                                  (!value ? '-not' : '') + '-selected"';
@@ -390,7 +387,7 @@ Ext.define('Ext.grid.column.Check', {
         // after all rows have been rendered.
         me.updateHeaderState();
 
-        return '<span class="' + cls + '" role="' + me.checkboxAriaRole + '"' +
+        return '<span ' + (tip || '') + ' class="' + cls + '" role="' + me.checkboxAriaRole + '"' +
                 (!me.ariaStaticRoles[me.checkboxAriaRole] ? ' tabIndex="0"' : '') +
                '></span>';
     },
@@ -422,7 +419,8 @@ Ext.define('Ext.grid.column.Check', {
 
     setRecordCheck: function (record, recordIndex, checked, cell) {
         var me = this,
-            prop = me.property;
+            prop = me.property,
+            result;
 
         // Only proceed if we NEED to change
         if (prop ? record[prop] : record.get(me.dataIndex) != checked) {
@@ -437,28 +435,24 @@ Ext.define('Ext.grid.column.Check', {
 
     updater: function (cell, value) {
         var me = this,
-            tip;
+            tip = me.tooltip;
 
         if (me.invert) {
             value = !value;
         }
         if (value) {
-            tip = me.checkedTooltip;
-        } else {
-            tip = me.tooltip;
+            tip = me.checkedTooltip || tip;
         }
-
         if (tip) {
             cell.setAttribute('data-qtip', tip);
         } else {
             cell.removeAttribute('data-qtip');
         }
+        cell = Ext.fly(cell);
 
         if (me.useAriaElements) {
             me.updateCellAriaDescription(null, value, cell);
         }
-
-        cell = Ext.fly(cell);
         
         cell[me.disabled ? 'addCls' : 'removeCls'](me.disabledCls);
         Ext.fly(cell.down(me.getView().innerSelector, true).firstChild)[value ? 'addCls' : 'removeCls'](Ext.baseCSSPrefix + 'grid-checkcolumn-checked');
@@ -497,7 +491,7 @@ Ext.define('Ext.grid.column.Check', {
     },
 
     doDestroy: function() {
-        Ext.unraf(this.headerStateTimer);
+        Ext.Function.cancelAnimationFrame(this.headerStateTimer);
         this.callParent();
     },
 

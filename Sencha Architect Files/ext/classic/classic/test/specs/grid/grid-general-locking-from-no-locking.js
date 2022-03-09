@@ -112,21 +112,6 @@ function() {
                 expect(grid.lockedScrollbar.isVisible()).toBe(false);
             });
         }
-        it('should display the locked side if all columns are locked', function() {
-            var width;
-            grid.reconfigure([
-                {
-                    text: 'Locked',
-                    dataIndex: 'name',
-                    locked: true
-                }
-            ]);
-
-            width = grid.lockedGrid.view.getWidth();
-
-            expect(width).not.toBe(0);
-            expect(grid.normalGrid.view.getX()).toBeGreaterThan(width);
-        });
         
         describe('scrolling with no locked columns', function() {
             var oldOnError = window.onerror;

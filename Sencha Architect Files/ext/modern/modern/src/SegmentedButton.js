@@ -40,10 +40,6 @@ Ext.define('Ext.SegmentedButton', {
 
     isSegmentedButton: true,
 
-    /**
-     * @property classCls
-     * @inheritdoc
-     */
     classCls: Ext.baseCSSPrefix + 'segmentedbutton',
 
     config: {
@@ -63,9 +59,7 @@ Ext.define('Ext.SegmentedButton', {
         allowDepress: false,
 
         /**
-         * @cfg {Boolean} allowToggle
-         * Allow child buttons to be pressed when tapped on. Set to `false` to allow
-         * tapping but not toggling of the buttons.
+         * @cfg {Boolean} allowToggle Allow child buttons to be pressed when tapped on. Set to `false` to allow tapping but not toggling of the buttons.
          * @accessor
          */
         allowToggle: true,
@@ -92,20 +86,20 @@ Ext.define('Ext.SegmentedButton', {
         pressedButtons: null,
 
         /**
-         * @cfg defaultType
+         * @cfg
          * @inheritdoc
          */
         defaultType: 'button',
 
         /**
-         * @cfg {String} defaultUI
+         * @cfg {String}
          * Default {@link Ext.Component#ui ui} to use for buttons in this segmented button.
          * Buttons can override this default by specifying their own UI
          */
         defaultUI: 'segmented',
 
         /**
-         * @cfg {String/Number/String[]/Number[]} value
+         * @cfg {String/Number/String[]/Number[]}
          * @accessor
          * The value of this button.  When {@link #allowMultiple} is `false`, value is a
          * String or Number.  When {@link #allowMultiple is `true`, value is an array
@@ -172,22 +166,10 @@ Ext.define('Ext.SegmentedButton', {
         vertical: false
     },
 
-    /**
-     * @cfg defaults
-     * @inheritdoc
-     */
-    defaults: {
-        flex: '1 1 auto'
-    },
-
-    /**
-     * @cfg autoSize
-     * @inheritdoc
-     */
     autoSize: null,
 
     /**
-     * @cfg layout
+     * @cfg
      * @inheritdoc
      */
     layout: {
@@ -196,22 +178,10 @@ Ext.define('Ext.SegmentedButton', {
         align: 'stretch'
     },
 
-    /**
-     * @property defaultBindProperty
-     * @inheritdoc
-     */
     defaultBindProperty: 'value',
 
-    /**
-     * @cfg twoWayBindable
-     * @inheritdoc
-     */
     twoWayBindable: 'value',
 
-    /**
-     * @cfg publishes
-     * @inheritdoc
-     */
     publishes: 'value',
 
     /**

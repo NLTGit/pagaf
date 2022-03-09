@@ -263,7 +263,7 @@ Ext.define('Ext.ux.Gauge', {
     doDestroy: function () {
         var me = this;
 
-        Ext.undefer(me.resizeTimerId);
+        clearTimeout(me.resizeTimerId);
         me.el.un('resize', 'onElementResize', me);
         me.stopAnimation();
         me.svg = Ext.destroy(me.svg);
@@ -293,9 +293,11 @@ Ext.define('Ext.ux.Gauge', {
             return;
         }
 
-        me.resizeTimerId = Ext.undefer(me.resizeTimerId);
+        clearTimeout(me.resizeTimerId);
 
-        if (!instantly && me.resizeDelay) {
+        if (instantly || me.resizeDelay) {
+            me.resizeTimerId = 0;
+        } else {
             me.resizeTimerId = Ext.defer(me.handleResize, me.resizeDelay, me, [size, true]);
             return;
         }

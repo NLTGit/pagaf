@@ -2,7 +2,7 @@
  * Single checkbox field. Can be used as a direct replacement for traditional checkbox fields. Also serves as a
  * parent class for {@link Ext.form.field.Radio radio buttons}.
  *
- * ## Labeling
+ * # Labeling
  *
  * In addition to the {@link Ext.form.Labelable standard field labeling options}, checkboxes
  * may be given an optional {@link #boxLabel} which will be displayed immediately after checkbox. Also see
@@ -25,7 +25,7 @@
  * this value if you have multiple checkboxes with the same {@link #name}. If not specified, the value `on`
  * will be used.
  *
- * ## Example usage
+ * # Example usage
  *
  *     @example
  *     Ext.create('Ext.form.Panel', {
@@ -111,10 +111,6 @@ Ext.define('Ext.form.field.Checkbox', {
     // inputEl should always retain the same size, never stretch
     stretchInputElFixed: false,
 
-    /**
-     * @cfg childEls
-     * @inheritdoc
-     */
     childEls: [
         /**
          * @property {Ext.dom.Element} boxLabelEl
@@ -127,10 +123,6 @@ Ext.define('Ext.form.field.Checkbox', {
     ],
 
     // note: {id} here is really {inputId}, but {cmpId} is available
-    /**
-     * @cfg fieldSubTpl
-     * @inheritdoc
-     */
     fieldSubTpl: [
         '<div id="{cmpId}-innerWrapEl" data-ref="innerWrapEl" role="presentation"',
             ' class="{wrapInnerCls}">',
@@ -173,10 +165,6 @@ Ext.define('Ext.form.field.Checkbox', {
         }
     ],
 
-    /**
-     * @cfg publishes
-     * @inheritdoc
-     */
     publishes: {
         checked: 1
     },
@@ -232,7 +220,7 @@ Ext.define('Ext.form.field.Checkbox', {
     isCheckbox: true,
 
     /**
-     * @cfg {String} focusCls
+     * @cfg {String} [focusCls='x-form-checkbox-focus']
      * The CSS class to use when the checkbox receives focus
      */
     focusCls: 'form-checkbox-focus',
@@ -254,7 +242,7 @@ Ext.define('Ext.form.field.Checkbox', {
     checked: false,
 
     /**
-     * @cfg {String} checkedCls
+     * @cfg {String} [checkedCls='x-form-cb-checked']
      * The CSS class(es) added to the component's main element when it is in the checked state.
      * You can add your own class (checkedCls='myClass x-form-cb-checked') or replace the default 
      * class altogether (checkedCls='myClass').
@@ -268,7 +256,7 @@ Ext.define('Ext.form.field.Checkbox', {
      */
 
     /**
-     * @cfg {String} boxLabelCls
+     * @cfg {String} [boxLabelCls='x-form-cb-label']
      * The CSS class to be applied to the {@link #boxLabel} element
      */
     boxLabelCls: Ext.baseCSSPrefix + 'form-cb-label',
@@ -287,18 +275,17 @@ Ext.define('Ext.form.field.Checkbox', {
     noBoxLabelCls: Ext.baseCSSPrefix + 'form-cb-no-box-label',
 
     /**
-     * @cfg {String/Boolean} inputValue
-     * The value that should go into the generated input element's value attribute and
-     * should be used as the parameter value when submitting as part of a form.
+     * @cfg {String} inputValue
+     * The value that should go into the generated input element's value attribute and should be used as the parameter
+     * value when submitting as part of a form.
      */
     inputValue: 'on',
 
     /**
      * @cfg {String} uncheckedValue
-     * If configured, this will be submitted as the checkbox's value during form submit
-     * if the checkbox is unchecked. By default this is undefined, which results in
-     * nothing being submitted for the checkbox field when the form is submitted
-     * (the default behavior of HTML checkboxes).
+     * If configured, this will be submitted as the checkbox's value during form submit if the checkbox is unchecked. By
+     * default this is undefined, which results in nothing being submitted for the checkbox field when the form is
+     * submitted (the default behavior of HTML checkboxes).
      */
 
     /**
@@ -324,23 +311,8 @@ Ext.define('Ext.form.field.Checkbox', {
     
     // See IE8 override
     changeEventName: 'change',
-    
-    /**
-     * @cfg inputType
-     * @inheritdoc
-     */
     inputType: 'checkbox',
-    
-    /**
-     * @cfg isTextInput
-     * @inheritdoc
-     */
     isTextInput: false,
-    
-    /**
-     * @property ariaRole
-     * @inheritdoc
-     */
     ariaRole: 'native',
 
     /**
@@ -664,7 +636,7 @@ Ext.define('Ext.form.field.Checkbox', {
     },
 
     /**
-     * @method valueToRaw
+     * @method
      * @private
      */
     valueToRaw: Ext.identityFn,

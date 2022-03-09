@@ -39,9 +39,9 @@ topSuite("Ext.tip.ToolTip", function() {
         target.destroy();
     });
 
-    function mouseOverTarget(t, relatedTarget) {
+    function mouseOverTarget(t) {
         t = Ext.fly(t || target);
-        jasmine.fireMouseEvent(t, triggerEvent, t.getX(), t.getY(), 0, false, false, false, relatedTarget || document.body);
+        jasmine.fireMouseEvent(t, triggerEvent, t.getX(), t.getY(), 0, false, false, false, document.body);
     }
     function mouseOutTarget(targetEl, relatedTarget) {
         var eventPoint = [1000, 1000];
@@ -434,7 +434,7 @@ topSuite("Ext.tip.ToolTip", function() {
         });
 
         itNotTouch("should not hide the tooltip when mouse leaves delegate, then rapidly enters another delegate", function() {
-            createTip({delegate: '.hasTip', showDelay: 0, hideDelay: 200, dismissDelay: 2000});
+            createTip({delegate: '.hasTip', showDelay: 0, hideDelay: 200});
 
             var hideSpy = spyOn(tip, 'hide').andCallThrough();
 
@@ -484,11 +484,6 @@ topSuite("Ext.tip.ToolTip", function() {
                 // No flickering!
                 expect(hideSpy).not.toHaveBeenCalled();
                 expect(tip.isVisible()).toBe(true);
-            });
-
-            // Once we stop mouseovering adjacent delegates, it must dismiss after its dismissDelay
-            waitsFor(function() {
-                return !tip.isVisible();
             });
         });
 
@@ -617,52 +612,5 @@ topSuite("Ext.tip.ToolTip", function() {
                 return tip.isVisible();
             }, 'tooltip to reshow');
         });
-    });
-
-    describe('allowOver', function() {
-        if (Ext.supports.MouseEnterLeave) {
-            it('should not hide on mouseout of target and into tip, but should then hide after mouseout of the tip', function () {
-                createTip({
-                    target: document.body,
-                    delegate: '#tipTarget',
-                    showDelay: 300,
-                    allowOver: true
-                });
-
-                mouseOverTarget();
-
-                waitsFor(function () {
-                    return tip.isVisible();
-                }, 'tip to show initially');
-
-                runs(function () {
-                    // Exit the target, which should kick off the hide timer,
-                    // but mouseover of the tip el which, when allowOver is true
-                    // should cancel it.
-                    mouseOutTarget(target.el, tip.el);
-                    mouseOverTarget(tip.el, target.el);
-                });
-
-                // Check that mouseover of the tip el when allowOver: true cancels the
-                // mouseout delayed hiding
-                waits(tip.getHideDelay() + 500);
-
-                runs(function () {
-                    // After the hideDelay plus a bit, the tip should still be visible
-                    expect(tip.isVisible()).toBe(true);
-
-                    // Now mouseleaving the tip el out into the document.body should kick off the hide timer
-                    jasmine.fireMouseEvent(tip.el, 'mouseleave', 0, 0, null, false, false, false, document.body);
-                });
-
-                // Wait for the hide timer to fire
-                waits(tip.getHideDelay() + 500);
-
-                runs(function () {
-                    // After the hideDelay plus a bit, the tip should be hidden
-                    expect(tip.isVisible()).toBe(false);
-                });
-            });
-        }
     });
 });

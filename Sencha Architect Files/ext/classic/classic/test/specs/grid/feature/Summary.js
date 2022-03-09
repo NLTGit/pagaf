@@ -931,25 +931,16 @@ function() {
 
                     // Depending upon whether locking used...
                     var testEl = view.body || view.el,
-                        expectText = withLocking ? "subject:MathStudent1Student22studentssubject:ScienceStudent1Student22students4studentssubject:Math849690subject:Science72687080" : "subject:MathStudent184Student2962students90subject:ScienceStudent172Student2682students704students80",
-                        haveText;
-                    
-                    haveText = (testEl.dom.textContent || testEl.dom.innerText)
-                        .replace(/\r\n?|\n|\s/g, '')
-                        .replace(/Loading\.\.\./, '');
+                        expectText = withLocking ? "subject:MathStudent1Student22studentssubject:ScienceStudent1Student22students4studentssubject:Math849690subject:Science72687080" : "subject:MathStudent184Student2962students90subject:ScienceStudent172Student2682students704students80";
 
-                    expect(haveText).toBe(expectText);
+                    expect((testEl.dom.textContent || testEl.dom.innerText).replace(/\r\n?|\n|\s/g, '')).toBe(expectText);
 
                     // Change the mark scored by first student.
                     store.getAt(0).set('mark', 64);
 
                     // Just the changed marks should have changed.
                     expectText = withLocking ? "subject:MathStudent1Student22studentssubject:ScienceStudent1Student22students4studentssubject:Math649680subject:Science72687075" : "subject:MathStudent164Student2962students80subject:ScienceStudent172Student2682students704students75";
-                    haveText = (testEl.dom.textContent || testEl.dom.innerText)
-                        .replace(/\r\n?|\n|\s/g, '')
-                        .replace(/Loading\.\.\./, '');
-                    
-                    expect(haveText).toBe(expectText);
+                    expect((testEl.dom.textContent || testEl.dom.innerText).replace(/\r\n?|\n|\s/g, '')).toBe(expectText);
                 });
             });
         });

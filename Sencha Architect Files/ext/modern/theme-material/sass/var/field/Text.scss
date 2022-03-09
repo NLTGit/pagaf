@@ -24,14 +24,12 @@ $textfield-focused-input-underline-color: dynamic($base-color);
 
 $textfield-alt-ui: dynamic((
     input-background-color: rgba(255, 255, 255, .2),
-    focused-input-background-color: rgba(255, 255, 255, .15),
     input-color: rgba(255, 255, 255, .6),
     focused-input-color: rgba(255, 255, 255, .6),
     input-padding: 7px 7px 7px 0,
     input-padding-big: 7px 7px 7px 0,
     input-border-width: 0,
     placeholder-color: rgba(255, 255, 255, .6),
-    focused-placeholder-color: rgb(255, 255, 255),
     border-radius: 3px,
     input-underline-width: 0,
     focused-input-underline-width: 0,
@@ -40,14 +38,12 @@ $textfield-alt-ui: dynamic((
 
 $textfield-faded-ui: dynamic((
     input-background-color: rgba(0, 0, 0, .1),
-    focused-input-background-color: rgba(0, 0, 0, .15),
     input-color: rgba(0, 0, 0, .4),
     focused-input-color: rgba(0, 0, 0, .4),
     input-padding: 7px 7px 7px 0,
     input-padding-big: 7px 7px 7px 0,
     input-border-width: 0,
     placeholder-color: rgba(0, 0, 0, .4),
-    focused-placeholder-color: #333,
     border-radius: 3px,
     input-underline-width: 0,
     focused-input-underline-width: 0,

@@ -14,7 +14,7 @@ Ext.define('Ext.drag.Constraint', {
 
     config: {
         /**
-         * @cfg {Boolean/String/HTMLElement/Ext.dom.Element} element
+         * @cfg {Boolean/String/HTMLELement/Ext.dom.Element} element
          *
          * The element to constrain to:
          * - `true` to constrain to the parent of the {@link Ext.drag.Source#element}.

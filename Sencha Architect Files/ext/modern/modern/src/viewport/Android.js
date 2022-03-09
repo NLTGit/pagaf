@@ -11,28 +11,15 @@ Ext.define('Ext.viewport.Android', {
         }
     },
 
-    /**
-     * @property {Boolean} preventPullRefresh
-     * Disables built-in pull-refresh of a page in Chrome
-     */
-    preventPullRefresh: true,
-
     constructor: function() {
-        var me = this;
+        this.callParent(arguments);
 
-        me.callParent(arguments);
-
-        me.on({
+        this.on({
             orientationchange: 'hideKeyboardIfNeeded',
-            scope: me,
+            scope: this,
             // run our handler before user code
             priority: 1001
         });
-
-        // https://sencha.jira.com/browse/EXTJS-25292
-        if (me.preventPullRefresh) {
-            Ext.getBody().setStyle({overflow:'hidden'});
-        }
     },
 
     getWindowWidth: function () {
@@ -138,7 +125,7 @@ Ext.define('Ext.viewport.Android', {
 
         this.setHeight(height);
 
-        var isHeightMaximized = this.isHeightMaximized.bind(this, height);
+        var isHeightMaximized = Ext.Function.bind(this.isHeightMaximized, this, [height]);
 
         this.scrollToTop();
         this.waitUntil(isHeightMaximized, this.fireMaximizeEvent, this.fireMaximizeEvent);
@@ -182,7 +169,7 @@ Ext.define('Ext.viewport.Android', {
 
                 config.autoMaximize = false;
 
-                this.watchDogTick = this.watchDogTick.bind(this);
+                this.watchDogTick = Ext.Function.bind(this.watchDogTick, this);
 
                 Ext.interval(this.watchDogTick, 1000);
 
@@ -224,7 +211,7 @@ Ext.define('Ext.viewport.Android', {
     if (version.match('2')) {
         this.override({
             onReady: function() {
-                this.addWindowListener('resize', this.onWindowResize.bind(this));
+                this.addWindowListener('resize', Ext.Function.bind(this.onWindowResize, this));
 
                 this.callParent(arguments);
             },

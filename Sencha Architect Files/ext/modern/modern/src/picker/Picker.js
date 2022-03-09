@@ -144,19 +144,16 @@ Ext.define('Ext.picker.Picker', {
          * An array of slot configurations.
          *
          * - `name` {String} - Name of the slot
-         * - `data` {Array} - An array of text/value pairs in the format `{text: 'myKey',
-         * value: 'myValue'}`
-         * - `title` {String} - Title of the slot. This is used in conjunction with
-         * `useTitles: true`.
+         * - `data` {Array} - An array of text/value pairs in the format `{text: 'myKey', value: 'myValue'}`
+         * - `title` {String} - Title of the slot. This is used in conjunction with `useTitles: true`.
          *
          * @accessor
          */
         slots: null,
 
         /**
-         * @cfg {Object} value
-         * The value to initialize the picker with. The value must be an object with the
-         * key being the name of the slot to set the value to.
+         * @cfg {Object} value The value to initialize the picker with. The value must be an object
+         * with the key being the name of the slot to set the value to.
          *
          *     Ext.create('Ext.picker.Picker', {
          *         displayed: true,
@@ -188,7 +185,7 @@ Ext.define('Ext.picker.Picker', {
         height: 220,
 
         /**
-         * @cfg layout
+         * @cfg
          * @inheritdoc
          */
         layout: {
@@ -203,19 +200,19 @@ Ext.define('Ext.picker.Picker', {
         centered: false,
 
         /**
-         * @cfg left
+         * @cfg
          * @inheritdoc
          */
         left : 0,
 
         /**
-         * @cfg right
+         * @cfg
          * @inheritdoc
          */
         right: 0,
 
         /**
-         * @cfg bottom
+         * @cfg
          * @inheritdoc
          */
         bottom: 0,
@@ -229,10 +226,9 @@ Ext.define('Ext.picker.Picker', {
 
         /**
          * @cfg {Ext.TitleBar/Ext.Toolbar/Object} toolbar
-         * The toolbar which contains the {@link #doneButton} and {@link #cancelButton}
-         * buttons. You can override this if you wish, and add your own configurations.
-         * Just ensure that you take into account the {@link #doneButton} and
-         * {@link #cancelButton} configurations.
+         * The toolbar which contains the {@link #doneButton} and {@link #cancelButton} buttons.
+         * You can override this if you wish, and add your own configurations. Just ensure that you take into account
+         * the {@link #doneButton} and {@link #cancelButton} configurations.
          *
          * The default xtype is a {@link Ext.TitleBar}:
          *
@@ -274,40 +270,16 @@ Ext.define('Ext.picker.Picker', {
         },
 
         /**
-         * @cfg side
+         * @cfg
          * @inheritdoc
          */
         side: 'bottom'
     },
 
-    /**
-     * @property baseCls
-     * @inheritdoc
-     */
     baseCls: Ext.baseCSSPrefix + 'picker',
 
-    /**
-     * @cfg floated
-     * @inheritdoc
-     */
     floated: true,
-    
-    /**
-     * @property focusEl
-     * @inheritdoc
-     */
-    focusEl: null,
-    
-    /**
-     * @property focusable
-     * @inheritdoc
-     */
     focusable: true,
-    
-    /**
-     * @cfg tabIndex
-     * @inheritdoc
-     */
     tabIndex: -1,
 
     initialize: function() {
@@ -366,7 +338,6 @@ Ext.define('Ext.picker.Picker', {
     /**
      * Updates the {@link #doneButton} configuration. Will change it into a button when appropriate, or just update the text if needed.
      * @param {Object} config
-     * @param {Object} oldButton
      * @return {Object}
      */
     applyDoneButton: function(config, oldButton) {
@@ -402,7 +373,6 @@ Ext.define('Ext.picker.Picker', {
     /**
      * Updates the {@link #cancelButton} configuration. Will change it into a button when appropriate, or just update the text if needed.
      * @param {Object} config
-     * @param {Object} oldButton
      * @return {Object}
      */
     applyCancelButton: function(config, oldButton) {
@@ -628,20 +598,5 @@ Ext.define('Ext.picker.Picker', {
      */
     getValues: function() {
         return this.getValue();
-    },
-
-    privates: {
-        /**
-         * This override always reverts focus back to its ownerField on hide, as long
-         * as that field still owns focus. We always need to focus the field on picker hide.
-         * If we are hiding because the focus has left the ownerField, we do nothing.
-         */
-        _revertFocus: function() {
-            var ownerField = this.ownerField;
-
-            if (this.rendered && ownerField && ownerField.containsFocus) {
-                ownerField.revertFocusTo(ownerField.ariaEl);
-            }
-        }
     }
 });

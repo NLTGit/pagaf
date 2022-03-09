@@ -103,15 +103,13 @@ Ext.define('Ext.tab.Bar', {
     /**
      * @cfg {Number} minTabWidth
      * The minimum width for a tab in this tab Bar. Defaults to the tab Panel's {@link Ext.tab.Panel#minTabWidth minTabWidth} value.
-     * @deprecated 6.5.0 This config is deprecated. Please use the
-     * {@link Ext.tab.Panel#minTabWidth minTabWidth} config on the TabPanel.
+     * @deprecated This config is deprecated. It is much easier to use the {@link Ext.tab.Panel#minTabWidth minTabWidth} config on the TabPanel.
      */
 
     /**
      * @cfg {Number} maxTabWidth
      * The maximum width for a tab in this tab Bar. Defaults to the tab Panel's {@link Ext.tab.Panel#maxTabWidth maxTabWidth} value.
-     * @deprecated 6.5.0 This config is deprecated. Please use the
-     * {@link Ext.tab.Panel#maxTabWidth maxTabWidth} config on the TabPanel.
+     * @deprecated This config is deprecated. It is much easier to use the {@link Ext.tab.Panel#maxTabWidth maxTabWidth} config on the TabPanel.
      */
 
     _reverseDockNames: {
@@ -148,11 +146,11 @@ Ext.define('Ext.tab.Bar', {
         }
 
         // Will be applied to Ext.panel.Bar's layout config in parent initComponent
-        me.layout = Ext.apply({
+        me.layout = {
             align: initialAlign || (me.getTabStretchMax() ? 'stretchmax' :
                 me._layoutAlign[me.dock]),
             overflowHandler: initialOverflowHandler || 'scroller'
-        }, me.layout);
+        };
 
         me.callParent();
 

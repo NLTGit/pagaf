@@ -1,6 +1,6 @@
 {
     "name": "@extjs/ext-react-classic-touch-sizing",
-    "version": "6.5.3.57",
+    "version": "6.5.0.775",
     "sencha": {
         "name": "touch-sizing",
         "type": "code",
@@ -12,7 +12,7 @@
         "creator": "Sencha",
         "summary": "Adds Touch Sizing to a Theme",
         "detailedDescription": "This package sets all the required sass variables to make a theme touch-friendly.",
-        "version": "6.5.3.57",
+        "version": "6.5.0",
         "compatVersion": "6.0.0",
         "format": "1",
         "output": "${workspace.subpkg.prefix}/${package.name}",

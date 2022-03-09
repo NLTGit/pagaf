@@ -40,7 +40,7 @@ Ext.define('Ext.ux.TabScrollerMenu', {
             render: function() {
                 me.tabBar = tabPanel.tabBar;
                 me.layout = me.tabBar.layout;
-                me.layout.overflowHandler.handleOverflow = me.showButton.bind(me);
+                me.layout.overflowHandler.handleOverflow = Ext.Function.bind(me.showButton, me);
                 me.layout.overflowHandler.clearOverflow = Ext.Function.createSequence(me.layout.overflowHandler.clearOverflow, me.hideButton, me);
             },
             destroy: me.destroy,

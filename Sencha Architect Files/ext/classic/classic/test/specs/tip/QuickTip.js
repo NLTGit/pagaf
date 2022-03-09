@@ -5,12 +5,11 @@ topSuite("Ext.tip.QuickTip", function() {
         target = Ext.getBody().insertHtml('beforeEnd', '<a href="#" ' + attrString + '>x</a>', true);
     }
 
-    function mouseoverTarget(theTarget) {
-        theTarget = theTarget || target;
+    function mouseoverTarget() {
         if (jasmine.supportsTouch && !Ext.os.is.Desktop) {
-            jasmine.fireMouseEvent(theTarget, 'click');
+            jasmine.fireMouseEvent(target, 'click');
         } else {
-            jasmine.fireMouseEvent(theTarget, 'mouseover');
+            jasmine.fireMouseEvent(target, 'mouseover');
         }
     }
 
@@ -184,40 +183,6 @@ topSuite("Ext.tip.QuickTip", function() {
             setup({dismissDelay: null});
             runs(function() {
                 expect(tip.dismissDelay).toEqual(5000);
-            });
-        });
-
-        it("should not throw an error when the registered target is destroyed", function() {
-            createTargetEl('id="tipExample1"');
-            createTargetEl('id="tipExample2"');
-
-            createTip({maxWidth: 400});
-            tip.register({
-                target: 'tipExample1',
-                text: 'Foo'
-            });
-
-            tip.register({
-                target: 'tipExample2',
-                text: 'Bar'
-            });
-
-            mouseoverTarget('tipExample1');
-            waitsFor(function() {
-                return tip.isVisible();
-            });
-            runs(function() {
-                tip.hide();
-                Ext.get('tipExample1').destroy();
-                mouseoverTarget('tipExample2');
-            });
-
-            waitsFor(function() {
-                return tip.isVisible();
-            });
-
-            runs(function() {
-                Ext.get('tipExample2').destroy();
             });
         });
     });

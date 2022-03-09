@@ -44,10 +44,11 @@ Ext.define('Ext.scroll.LockingScroller', {
     },
 
     getPosition: function() {
-        var position = this.callParent();
+        var me = this,
+            position = me.callParent();
 
-        position.x = this.getNormalScroller().getPosition().x;
-        position.lockedX = this.getLockedScroller().getPosition().x;
+        position.x = me.getNormalScroller().getPosition().x;
+        position.lockedX = me.getLockedScroller().getPosition().x;
 
         return position;
     },
@@ -63,7 +64,7 @@ Ext.define('Ext.scroll.LockingScroller', {
 
             normalView.stretchHeight(height);
             lockedView.stretchHeight(height);
-            me.callParent([pos]);
+            this.callParent([pos]);
         },
 
         doScrollTo: function(x, y, animate) {
@@ -88,19 +89,6 @@ Ext.define('Ext.scroll.LockingScroller', {
 
         onNormalScroll: function(normalScroller, x, y) {
             this.position.x = x;
-        },
-
-        readPosition: function (position) {
-            var me = this;
-            
-            position = me.callParent([position]);
-            position = position || {};
-
-            // read position should consider the normal view for the x axis
-            position.x = me.getNormalScroller().getPosition().x;
-
-
-            return position;
         }
     }
 });

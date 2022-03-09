@@ -68,9 +68,9 @@ Ext.define('Ext.util.GroupCollection', {
     },
 
     onCollectionItemChange: function (source, details) {
-        // Check if the change to the item caused the item to move. If it did, the group
-        // ordering will be handled by virtue of being removed/added to the collection.
-        // If not, check whether we're in the correct group and fix up if not.
+        // Check if the change to the item caused the item to move. If it did, the group ordering
+        // will be handled by virtue of being removed/added to the collection. If not, check whether
+        // we're in the correct group and fix up if not.
         if (!details.indexChanged) {
             this.syncItemGrouping(source, details);
         }
@@ -271,11 +271,14 @@ Ext.define('Ext.util.GroupCollection', {
         };
     },
 
-    syncItemGrouping: function (source, details) {
+    syncItemGrouping: function(source, details) {
         var me = this,
             itemGroupKeys = me.itemGroupKeys || (me.itemGroupKeys = {}),
             item = details.item,
-            oldKey, itemKey, oldGroup, group;
+            oldKey,
+            itemKey,
+            oldGroup,
+            group;
 
         itemKey = source.getKey(item);
         oldKey = 'oldKey' in details ? details.oldKey : itemKey;
@@ -286,11 +289,8 @@ Ext.define('Ext.util.GroupCollection', {
         // Look up/create the group into which the item now must be added.
         group = me.getGroup(source, me.getGrouper().getGroupString(item));
 
-        details.group = group;
-        details.oldGroup = oldGroup;
-
         // The change did not cause a change in group
-        if (!(details.groupChanged = group !== oldGroup)) {
+        if (group === oldGroup) {
             // Inform group about change
             oldGroup.itemChanged(item, details.modified, details.oldKey, details);
         } else {
@@ -375,7 +375,7 @@ Ext.define('Ext.util.GroupCollection', {
         // Ensure group objects get destroyed, they may have
         // added listeners to the main collection sorters.
         me.destroyGroups(me.items);
-        Ext.undefer(me.checkRemoveQueueTimer);
+        clearTimeout(me.checkRemoveQueueTimer);
         me.callParent();
     },
 
@@ -426,7 +426,7 @@ Ext.define('Ext.util.GroupCollection', {
 
             // Still some to remove in the future. Check back in emptyGroupRetainTime
             if (reschedule) {
-                Ext.undefer(me.checkRemoveQueueTimer);
+                clearTimeout(me.checkRemoveQueueTimer);
                 me.checkRemoveQueueTimer = Ext.defer(me.checkRemoveQueue, me.emptyGroupRetainTime, me);
             }
         }

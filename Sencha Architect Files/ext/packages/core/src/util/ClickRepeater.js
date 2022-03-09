@@ -161,7 +161,7 @@ Ext.define('Ext.util.ClickRepeater', {
 
             if (oldEl) {
                 oldEl.selectable();
-                Ext.undefer(me.timer);
+                clearTimeout(me.timer);
                 if (me.pressedCls) {
                     oldEl.removeCls(me.pressedCls);
                 }
@@ -195,7 +195,7 @@ Ext.define('Ext.util.ClickRepeater', {
             var me = this,
                 el = me.getEl();
 
-            Ext.undefer(me.timer);
+            clearTimeout(me.timer);
             if (me.pressedCls) {
                 el.addCls(me.pressedCls);
             }
@@ -245,7 +245,7 @@ Ext.define('Ext.util.ClickRepeater', {
             var me = this,
                 el = me.getEl();
 
-            Ext.undefer(me.timer);
+            clearTimeout(me.timer);
             if (me.pressedCls) {
                 el.removeCls(me.pressedCls);
             }
@@ -267,7 +267,7 @@ Ext.define('Ext.util.ClickRepeater', {
             var me = this,
                 el = me.getEl();
 
-            Ext.undefer(me.timer);
+            clearTimeout(me.timer);
             el.un("mouseover", me.handleMouseReturn, me);
             el.un("mouseout", me.handleMouseOut, me);
             Ext.getDoc().un("mouseup", me.handleMouseUp, me);

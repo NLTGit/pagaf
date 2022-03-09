@@ -429,41 +429,6 @@ topSuite("Ext.form.field.Date", ['Ext.window.Window', 'Ext.layout.container.Anch
         });
     });
 
-    describe("picker creation", function() {
-        it("should create the picker set to the current date", function() {
-            makeComponent({
-                renderTo: document.body
-            });
-            component.expand();
-
-            expect(component.picker.getValue()).toEqual(Ext.Date.clearTime(new Date()));
-        });
-
-        it("should set the picker to minValue if its greater than the current date", function() {
-            var date = Ext.Date.add(Ext.Date.clearTime(new Date(), Ext.Date.DAY, 5));
-            makeComponent({
-                renderTo: document.body,
-                minValue: date
-            });
-
-            component.expand();
-
-            expect(component.picker.getValue()).toEqual(date);
-        });
-
-        it("should set the picker to maxValue if its lower than the current date", function() {
-            var date = Ext.Date.add(Ext.Date.clearTime(new Date(), Ext.Date.DAY, -5));
-            makeComponent({
-                renderTo: document.body,
-                maxValue: date
-            });
-
-            component.expand();
-
-            expect(component.picker.getValue()).toEqual(date);
-        });
-    });
-
     describe("DateField inside a floating component", function() {
         var window;
 
@@ -744,7 +709,7 @@ topSuite("Ext.form.field.Date", ['Ext.window.Window', 'Ext.layout.container.Anch
                     value: '2010/11/05', //Friday
                     disabledDays: [1, 5] //Mon, Fri
                 });
-                expect(component.getErrors()).toContain(component.disabledDaysText);
+                expect(component.getErrors()).toContain(component.disabledDaysText);     
             });
 
             describe("setDisabledDays method", function() {

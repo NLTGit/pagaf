@@ -19,7 +19,7 @@ Ext.define('Ext.grid.plugin.RowWidget', {
 
     config: {
         /**
-         * @cfg {Object} defaultWidgetUI
+         * @cfg defaultWidgetUI
          * A map of xtype to {@link Ext.Component#ui} names to use when using Components in the expansion row.
          */
         defaultWidgetUI: {}

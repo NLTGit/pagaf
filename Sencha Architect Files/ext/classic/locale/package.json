@@ -1,6 +1,6 @@
 {
     "name": "@extjs/ext-react-classic-locale",
-    "version": "6.5.3.57",
+    "version": "6.5.0.775",
     "sencha": {
         "name": "locale",
         "namespace": "Ext",
@@ -13,7 +13,7 @@
         "creator": "anonymous",
         "summary": "Short summary",
         "detailedDescription": "Long description of package",
-        "version": "6.5.3.57",
+        "version": "6.5.0",
         "compatVersion": "6.0.0",
         "format": "1",
         "output": "${workspace.subpkg.prefix}/${package.name}",

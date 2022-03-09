@@ -19,7 +19,7 @@ Ext.define('Ext.ux.ajax.SimXhr', {
         var me = this;
 
         if (me.timer) {
-            Ext.undefer(me.timer);
+            clearTimeout(me.timer);
             me.timer = null;
         }
         me.aborted = true;
@@ -60,7 +60,7 @@ Ext.define('Ext.ux.ajax.SimXhr', {
             delay = me.simlet.delay || me.mgr.delay;
             
         if (delay) {
-            me.timer = Ext.defer(function () {
+            me.timer = setTimeout(function () {
                 me.onTick();
             }, delay);
         } else {

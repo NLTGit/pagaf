@@ -1,48 +1,18 @@
 /**
- * A checkable menu item that participates in a `group` of mutually exclusive items.
+ * A menu item that contains a radio button item which can participate in a group of mutually exclusive radio items.
  *
- * Radio items must be a assigned to a `{@link #cfg!group group}` and only one member of
- * that group is allowed to be checked. The owning `{@link Ext.menu.Menu menu}` provides
- * the `{@link Ext.menu.Menu#cfg!groups groups}` config to assist in managing the state
- * of its radio items.
- *
- *      @example
- *      Ext.Viewport.add({
- *          xtype: 'container',
- *          items: [{
- *              xtype: 'button',
- *              bind: 'Call {menuGroups.option}',
- *               
- *              viewModel: {
- *                  data: {
- *                      menuGroups: {
- *                          option: 'home'
- *                      }
- *                  }
- *              },
- *               
- *              menu: {
- *                  bind: {
- *                      groups: '{menuGroups}'
- *                  },
- *                  items: [{
- *                      text: 'Home',
- *                      group: 'option',  // causes Menu to create this class of item
- *                      value: 'home'
- *                  }, {
- *                      text: 'Work',
- *                      group: 'option',
- *                      value: 'work'
- *                  }, {
- *                      text: 'Mobile',
- *                      group: 'option',
- *                      value: 'mobile'
- *                  }]
- *              }
- *          }]
- *      });
- *
- * @since 6.5.0
+ *     @example
+ *     Ext.create('Ext.menu.Menu', {
+ *         width: 100,
+ *         height: 110,
+ *         items: [{
+ *             name: 'ui-type',
+ *             text: 'Mobile'
+ *         },{
+ *             name: 'ui-type',
+ *             text: 'Desktop'
+ *         }]
+ *     });
  */
 Ext.define('Ext.menu.RadioItem', {
     extend: 'Ext.menu.CheckItem',
@@ -55,21 +25,18 @@ Ext.define('Ext.menu.RadioItem', {
 
     ariaRole: 'menuitemradio',
 
-    /**
-     * @cfg {String} name
-     * This config is used internally by the {@link #cfg!group} config and should not be set.
-     */
-
     config: {
         /**
-         * @cfg {String} group (required)
+         * @cfg {String} [group]
          * Name of a radio group that the item belongs.
          *
-         * This assigns a common name to several RadioItems to allow selection of a single value.
+         * Specifying this option will turn check item into a radio item.
          *
          * Note that the group name is local to the owning Menu.
          */
         group: null,
+
+        name: null,
 
         /**
          * @cfg {Boolean} [allowUncheck=false]
@@ -79,15 +46,6 @@ Ext.define('Ext.menu.RadioItem', {
         allowUncheck: null
     },
 
-    //<debug>
-    initialize: function() {
-        if (!this.getGroup()) {
-            Ext.raise('Menu RadioItems must be configured with a group');
-        }
-        this.callParent();
-    },
-    //</debug>
-
     privates: {
         onSpace: function (e) {
             // Veto uncheck for radio items.
@@ -96,19 +54,27 @@ Ext.define('Ext.menu.RadioItem', {
             }
         },
 
-        updateGroup: function (group) {
-            // Inheritable will update the NameHolder upon add.
-            this.name = group;
+        applyChecked: function (checked, oldChecked) {
+            // We are only allowed to uncheck when being called from onCheckChange
+            // which sets the isClearing flag, OR if we have been configured with
+            // allowUncheck: true
+            if (checked || this.isClearing || this.getAllowUncheck()) {
+                return this.callParent([checked, oldChecked]);
+            }
         },
 
-        onCheckboxChange: function () {
-            var checkboxElement = this.checkboxElement.dom,
-                isChecked = checkboxElement.checked;
+        updateGroup: function (group, oldGroup) {
+            this.setName(group ? this.getParent().id + '_radio-' + group : null);
+        },
 
-            // If the DOM is insync with the config state, we are good, there's nothng to do.
-            if (isChecked === this.getChecked() || this.getDisabled()) {
-                return;
-            }
+        updateName: function (name) {
+            // Must have a "name" property for the ComponentManager to use.
+            this.checkboxElement.dom.name = this.name = name;
+            Ext.ComponentManager.markReferencesDirty();
+        },
+
+        onCheckboxChange: function() {
+            var checkboxElement = this.checkboxElement.dom;
 
             // The change event only fires in response to UI changes.
             // And the UI is not allowed to UNcheck radio items.
@@ -117,58 +83,35 @@ Ext.define('Ext.menu.RadioItem', {
             // 1. We want interaction to be native wherever possible for accessibility reasons.
             // 2. The click events fires after the change on some platforms so we have no control.
             // 3. We'd also have to handle keystroke accessibility.
-            if (!isChecked && !this.getAllowUncheck()) {
+            if (this.getChecked() && !this.getAllowUncheck()) {
                 checkboxElement.checked = true;
             }
             // Sync our widget state with the reality of the accessible checkbox field.
             else {
-                this.callParent();
+                this.setChecked(checkboxElement.checked);
             }
         },
 
         onCheckChange: function () {
-            var me = this,
-                checkboxElement = me.checkboxElement.dom,
-                parentMenu = me.getParent(),
-                name, groups, siblings, len, i;
+            var checkboxElement = this.checkboxElement.dom;
 
-            // Forces the group config to be read and pushed into the name property
-            me.getGroup();
-            name = me.name;
+            this.callParent();
 
-            // Sync state of all siblings in group via the parent menu *before* we call parent.
-            // State must be correct.
-            if (parentMenu && name) {
-                groups = {};
+            if (checkboxElement.checked && !this.isConfiguring) {
+                var siblings = this.lookupNameHolder().getNamedItems()[this.getName()],
+                    len = siblings.length,
+                    i, other;
 
-                if (checkboxElement.checked) {
-                    groups[name] = me.getValue();
-                    parentMenu.setGroups(groups);
-                }
-                // Now we have to see if our group has become all unchecked
-                // and potentially declare our group value as null.
-                else {
-                    siblings = parentMenu.lookupName(name);
-                    len = siblings && siblings.length;
-                    
-                    for (i = 0; i < len && !siblings[i].checkboxElement.dom.checked; i++) {
-                         // just loop
-                    }
-
-                    // If we ran out the end of the loop without finding a check item,
-                    // or we are in the config phase, and the menu has no items by that name,
-                    // we set the group's value to null.
-                    // If we are in the config phase, the parent menu just accumulates the
-                    // group values silently, it does not fire the groupchange event, or
-                    // publish the groups object.
-                    if (i === len) {
-                        groups[name] = null;
-                        parentMenu.setGroups(groups);
+                // Flip checked state of all others
+                for (i = 0; i < len; i++) {
+                    other = siblings[i];
+                    if (other !== this) {
+                        other.isClearing = true;
+                        other.setChecked(false);
+                        other.isClearing = false;
                     }
                 }
             }
-
-            me.callParent();
         }
     }
 });

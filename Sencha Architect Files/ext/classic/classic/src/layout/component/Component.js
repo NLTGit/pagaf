@@ -31,16 +31,11 @@ Ext.define('Ext.layout.component.Component', {
             lastSize = owner.el.lastBox || me.nullBox,
             dirty = !body,
             isTopLevel = ownerContext.isTopLevel,
-            ownerLayout, v, width, height, scroller;
-        
+            ownerLayout, v, width, height;
+
         me.callParent([ownerContext, firstCycle]);
 
         if (firstCycle) {
-            scroller = owner.getScrollable && owner.getScrollable();
-            if (scroller) {
-                scroller.flushOnDomScrollEnd();
-            }
-
             if (me.usesContentWidth) {
                 ++ownerContext.consumersContentWidth;
             }
@@ -70,13 +65,13 @@ Ext.define('Ext.layout.component.Component', {
 
         // we want to publish configured dimensions as early as possible and since this is
         // a write phase...
+
         if (widthModel.configured) {
             // If the owner.el is the body, owner.width is not dirty (we don't want to write
             // it to the body el). For other el's, the width may already be correct in the
             // DOM (e.g., it is rendered in the markup initially). If the width is not
             // correct in the DOM, this is only going to be the case on the first cycle.
             width = owner[widthModel.names.width];
-            
             if (isTopLevel && widthModel.calculatedFrom) {
                 width = lastBox.width;
             }
@@ -86,15 +81,12 @@ Ext.define('Ext.layout.component.Component', {
                         (firstCycle ? width !== lastSize.width : widthModel.constrained);
             }
 
+            
             ownerContext.setWidth(width, dirty);
-        }
-        else if (isTopLevel) {
+        } else if (isTopLevel) {
             if (widthModel.calculated) {
                 v = lastBox.width;
                 ownerContext.setWidth(v, /*dirty=*/v !== lastSize.width);
-            }
-            else if (widthModel.calculatedFromNatural) {
-                owner.el.dom.style.width = owner.width;
             }
 
             v = lastBox.x;
@@ -103,7 +95,6 @@ Ext.define('Ext.layout.component.Component', {
 
         if (heightModel.configured) {
             height = owner[heightModel.names.height];
-
             if (isTopLevel && heightModel.calculatedFrom) {
                 height = lastBox.height;
             }
@@ -114,14 +105,10 @@ Ext.define('Ext.layout.component.Component', {
             }
 
             ownerContext.setHeight(height, dirty);
-        }
-        else if (isTopLevel) {
+        } else if (isTopLevel) {
             if (heightModel.calculated) {
                 v = lastBox.height;
                 ownerContext.setHeight(v, v !== lastSize.height);
-            }
-            else if (heightModel.calculatedFromNatural) {
-                owner.el.dom.style.height = owner.height;
             }
 
             v = lastBox.y;

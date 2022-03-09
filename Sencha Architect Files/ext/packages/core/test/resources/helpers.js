@@ -185,7 +185,7 @@ Ext.testHelper = {
 
         // If the type required can be handled through the pointer events system, use that
         if (eventType) {
-            return jasmine.firePointerEvent(
+            jasmine.firePointerEvent(
                 target,
                 eventType,
                 cfg.id,
@@ -205,23 +205,19 @@ Ext.testHelper = {
             // If it's "over" or "out", we'll fall through to mouse events.
             // This is important for touch enabled platforms which have a mouse but
             // do not support W3C pointer events.
-            // If they insist on specifying touch events, override the fallback to mouse
-            // on desktop browsers that support touch events
-
-            eventType = me.touchEvents[type];
-            if (jasmine.supportsTouch &&
-                    (cfg.pointerType === 'touch' || (eventType && !Ext.os.is.Desktop))) {
+            // If they insist on specifying touch events, override the fallback to mouse on desktop browsers that support touch events
+            if (jasmine.supportsTouch && (cfg.pointerType === 'touch' || ((eventType = me.touchEvents[type]) && !Ext.os.is.Desktop))) {
                 // If a translated mousemove happens with no prior mousedown
                 // we have to ignore it - that's no gesture on touch.
                 if (eventType === 'touchmove' && !Ext.Object.getKeys(me.activeTouches).length) {
                     return;
                 }
 
-                return me.fireSingleTouch(me.touchEvents[type], target, cfg);
+                me.fireSingleTouch(me.touchEvents[type], target, cfg);
             }
             // Use mouse events
             else {
-                return jasmine.doFireMouseEvent(
+                jasmine.doFireMouseEvent(
                     target,
                     me.mouseEvents[type],
                     cfg.x - scroll.left,
@@ -256,10 +252,6 @@ Ext.testHelper = {
 
         touches = [];
 
-        if (type === 'touchend' || type === 'touchcancel') {
-            delete activeTouches[cfg.id];
-        }
-
         for (id in activeTouches) {
             touches.push(activeTouches[id]);
         }
@@ -271,83 +263,33 @@ Ext.testHelper = {
             [touch]
         );
 
-    },
-    
-    inputTypeSelectionSupported: /text|password|search|tel|url/i,
-
-    getCaretPos: function(el) {
-        var dom = Ext.getDom(el),
-            type = dom.type,
-            doSwitch = !Ext.testHelper.inputTypeSelectionSupported.test(type),
-            result;
-
-        if (doSwitch) {
-            dom.type = 'text';
-        }
-
-        result = Ext.fly(dom).getCaretPos();
-
-        if (doSwitch) {
-            dom.type = type;
-        }
-
-        return result;
-    },
-
-    setCaretPos: function(el, newPos) {
-        var dom = Ext.getDom(el),
-            type = dom.type,
-            doSwitch = !Ext.testHelper.inputTypeSelectionSupported.test(type);
-
-        if (doSwitch) {
-            dom.type = 'text';
-        }
-
-        Ext.fly(dom).setCaretPos(newPos);
-
-        if (doSwitch) {
-            dom.type = type;
-        }
-    },
-
-    select: function (el, start, end, direction) {
-        var dom = Ext.getDom(el),
-            type = dom.type,
-            doSwitch = !Ext.testHelper.inputTypeSelectionSupported.test(type);
-
-        if (doSwitch) {
-            dom.type = 'text';
-        }
-
-        Ext.fly(dom).selectText(start, end, direction);
-
-        if (doSwitch) {
-            dom.type = type;
+        if (type === 'touchend' || type === 'touchcancel') {
+            delete activeTouches[cfg.id];
         }
     },
 
     tap: function(target, cfg) {
-        var scroll, ret;
+        var scroll;
 
         cfg = cfg || {};
 
         this.fireEvent('start', target, cfg);
         this.fireEvent('end', target, cfg);
 
-        scroll = Ext.getDoc().getScroll();
+        if (Ext.supports.PointerEvents || Ext.supports.MSPointerEvents || cfg.pointerType !== 'touch') {
+            scroll = Ext.getDoc().getScroll();
 
-        ret = jasmine.doFireMouseEvent(
-            Ext.getDom(target),
-            'click',
-            (cfg.x || 0) - scroll.left,
-            (cfg.y || 0) - scroll.top,
-            cfg.button ? cfg.button : 0,
-            cfg.shiftKey,
-            cfg.ctrlKey,
-            cfg.altKey
-        );
-
-        return ret;
+            jasmine.doFireMouseEvent(
+                Ext.getDom(target),
+                'click',
+                (cfg.x || 0) - scroll.left,
+                (cfg.y || 0) - scroll.top,
+                cfg.button ? cfg.button : 0,
+                cfg.shiftKey,
+                cfg.ctrlKey,
+                cfg.altKey
+            );
+        }
     },
 
     touchStart: function(target, cfg) {
@@ -386,50 +328,8 @@ Ext.testHelper = {
         focusAndWait(column);
         runs(function() {
             jasmine.fireKeyEvent(column.el, 'keydown', Ext.event.Event.DOWN);
-            waitsForFocus(menu.child(':focusable'), 'Column #' + column.id +
-                          ' [text="' + column.text + '"] to focus');
+            waitsForFocus(menu.child(':focusable'), 'Column #' + column.id + ' [text="' + column.text + '"] to focus');
         });
-    },
-
-    parseTransform: function(el) {
-        el = Ext.getDom(el);
-
-        var match = /translate(?:3d)?\s*\(([^\)]*)\)/.exec(el.style.transform),
-            ret;
-
-        if (match) {
-            ret = match[1].split(/\s*,\s*/);
-        } else {
-            ret = [0, 0, 0];
-        }
-        return ret;
-    },
-
-    doTyping: function(el, text) {
-        el = Ext.get(el);
-        if (text == null) {
-            text = '';
-        }
-
-        var dom = Ext.getDom(el),
-            curValue = dom.value,
-            cursorPos = this.getCaretPos(el),
-            charCount = text.length,
-            newValue = curValue.substr(0, cursorPos) + text + curValue.substr(cursorPos),
-            inputEvent;
-
-        if (document.defaultView.InputEvent) {
-            inputEvent = new InputEvent('input');
-            inputEvent.bubbles = true;
-            inputEvent.cancelable = true;
-        } else {
-            inputEvent = document.createEvent('Event');
-            inputEvent.initEvent('input', true, true);
-        }
-
-        dom.value = newValue;
-        this.setCaretPos(el, cursorPos + charCount);
-        dom.dispatchEvent(inputEvent);
     },
 
     // jazzman automatically invokes this method after each spec
@@ -460,100 +360,81 @@ Ext.testHelper = {
         }
     },
 
-    hash: {
-        init: function () {
-            this.$win = Ext.util.History.win;
+    createHashMock: function () {
+        var HashMock = {
+            hash: '',
+            historyStack: [],
+            currentIdx: -1,
+            history: {
+                go: function (direction) {
+                    var newIdx = HashMock.currentIdx + direction;
 
-            Ext.util.History.win = Ext.testHelper.hash.create();
-        },
-
-        reset: function () {
-            Ext.util.History.win = this.$win;
-            this.$win = null;
-
-            delete Ext.util.History.hashBang;
-
-            Ext.util.History.currentToken =
-                Ext.util.History.hash =
-                window.location.hash = '';
-        },
-
-        create: function () {
-            var HashMock = {
-                hash: '',
-                historyStack: [],
-                currentIdx: -1,
-                history: {
-                    go: function (direction) {
-                        var newIdx = HashMock.currentIdx + direction;
-
-                        if (newIdx < 0) {
-                            //cannot go to -1
-                            newIdx = 0;
-                        }
-
-                        HashMock.currentIdx = newIdx;
-
-                        HashMock.hash = HashMock.historyStack[newIdx] || '';
+                    if (newIdx < 0) {
+                        //cannot go to -1
+                        newIdx = 0;
                     }
-                },
-                location: {
-                    replace: function (uri) {
-                        var stack = HashMock.historyStack,
-                            idx = HashMock.currentIdx;
 
-                        if (idx < 0) {
-                            //should not replace -1
-                            idx = HashMock.currentIdx = 0;
-                        }
+                    HashMock.currentIdx = newIdx;
 
-                        stack[idx] = uri;
-
-                        HashMock.hash = '#' + uri.split('#')[1];
-                    }
-                },
-                reset: function () {
-                    this.hash = '';
-                    this.historyStack.length = 0;
-                    this.currentIdx = -1;
+                    HashMock.hash = HashMock.historyStack[newIdx] || '';
                 }
-            };
+            },
+            location: {
+                replace: function (uri) {
+                    var stack = HashMock.historyStack,
+                        idx = HashMock.currentIdx;
 
-            if (!Ext.isIE8) {
-                Object.defineProperty(HashMock.location, 'hash', {
-                    enumerable : true,
-                    get        : function () {
-                        return HashMock.hash;
-                    },
-                    set        : function (frag) {
-                        if (frag.substr(0, 1) !== '#') {
-                            frag = '#' + frag;
-                        }
-
-                        if (HashMock.hash !== frag) {
-                            var stack = HashMock.historyStack,
-                                num = stack.length;
-
-                            if (HashMock.currentIdx === -1) {
-                                stack.push('');
-                                HashMock.currentIdx = num;
-
-                                num++;
-                            }
-
-                            if (num - 1 > HashMock.currentIdx) {
-                                stack.length = num - 1;
-                            }
-
-                            stack.push(HashMock.hash = frag);
-
-                            HashMock.currentIdx = num;
-                        }
+                    if (idx < 0) {
+                        //should not replace -1
+                        idx = HashMock.currentIdx = 0;
                     }
-                });
-            }
 
-            return HashMock;
+                    stack[idx] = uri;
+
+                    HashMock.hash = '#' + uri.split('#')[1];
+                }
+            },
+            reset: function () {
+                this.hash = '';
+                this.historyStack.length = 0;
+                this.currentIdx = -1;
+            }
+        };
+
+        if (!Ext.isIE8) {
+            Object.defineProperty(HashMock.location, 'hash', {
+                enumerable : true,
+                get        : function () {
+                    return HashMock.hash;
+                },
+                set        : function (frag) {
+                    if (frag.substr(0, 1) !== '#') {
+                        frag = '#' + frag;
+                    }
+
+                    if (HashMock.hash !== frag) {
+                        var stack = HashMock.historyStack,
+                            num = stack.length;
+
+                        if (HashMock.currentIdx === -1) {
+                            stack.push('');
+                            HashMock.currentIdx = num;
+
+                            num++;
+                        }
+
+                        if (num - 1 > HashMock.currentIdx) {
+                            stack.length = num - 1;
+                        }
+
+                        stack.push(HashMock.hash = frag);
+
+                        HashMock.currentIdx = num;
+                    }
+                }
+            });
         }
+
+        return HashMock;
     }
 };

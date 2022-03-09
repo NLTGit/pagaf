@@ -376,9 +376,5 @@ Ext.define('Ext.grid.ColumnLayout', {
         }
 
         return me.callParent([ownerContext, adjustment]);
-    },
-
-    roundFlex: function(width) {
-        return Math.round(width);
     }
 });

@@ -59,38 +59,38 @@ $expandercell-icon-color: dynamic($neutral-dark-color);
 /**
  * Creates a visual theme for an expander cell.
  *
- * @param {string} $ui
+ * @var {string} $ui
  * The name of the UI being created. Can not included spaces or special punctuation
  * (used in CSS class names).
  *
- * @param {String} [$xtype=expandercell] (protected) The {@link Ext.Class#xtype} to use
+ * @var {String} [$xtype=expandercell] (protected) The {@link Ext.Class#xtype} to use
  * in CSS selectors.  For use by UI mixins of derived classes.
  *
- * @param {number/list} $padding
+ * @var {number/list} $padding
  * Expander cell padding
  *
- * @param {number/list} $padding-big
+ * @var {number/list} $padding-big
  * Expander cell padding in the {@link Global_CSS#$enable-big big} sizing scheme
  *
- * @param {number} $icon-size
+ * @var {number} $icon-size
  * Expander cell icon size
  *
- * @param {number} $icon-size-big
+ * @var {number} $icon-size-big
  * Expander cell icon size in the {@link Global_CSS#$enable-big big} sizing scheme
  *
- * @param {number} $icon-font-size
+ * @var {number} $icon-font-size
  * Expander cell icon font-size
  *
- * @param {number} $icon-font-size-big
+ * @var {number} $icon-font-size-big
  * Expander cell icon font-size in the {@link Global_CSS#$enable-big big} sizing scheme
  *
- * @param {string/list} $expand-icon
+ * @var {string/list} $expand-icon
  * Expander cell expand icon
  *
- * @param {string/list} $collapse-icon
+ * @var {string/list} $collapse-icon
  * Expander cell collapse icon
  *
- * @param {color} $icon-color
+ * @var {color} $icon-color
  * Expander cell icon color
  */
 @mixin expandercell-ui(

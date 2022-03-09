@@ -2,12 +2,6 @@
  * @class Ext.tip.ToolTip
  */
 
-/**
- * @var {color/list}
- * ToolTip background-color
- */
-$tooltip-background-color: dynamic(mix($base-light-color, #fff, 25%));
-
 //# fashion replaces $tip-border-color
 /**
  * @var {color/list}
@@ -45,7 +39,7 @@ $tooltip-border-radius-big: dynamic($tooltip-border-radius);
  * @var {color}
  * ToolTip body background-color
  */
-$tooltip-body-background-color: dynamic($tooltip-background-color);
+$tooltip-body-background-color: dynamic(mix($base-light-color, #fff, 25%));
 
 //# fashion replaces $tip-body-color
 /**
@@ -223,12 +217,6 @@ $tooltip-header-title-padding: dynamic(0);
  * ToolTip Header Title padding in the {@link Global_CSS#$enable-big big} sizing scheme
  */
 $tooltip-header-title-padding-big: dynamic(0);
-
-/**
- * @var {number}
- * ToolTip Header Title opacity
- */
-$tooltip-header-title-opacity: dynamic(null);
 
 /**
  * @var {shadow}
@@ -639,9 +627,6 @@ $tooltip-manage-borders: dynamic($panel-manage-borders);
  * @param {number/list} $header-title-padding-big
  * ToolTip Header Title padding in the {@link Global_CSS#$enable-big big} sizing scheme
  *
- * @param {number/list} $header-title-opacity
- * ToolTip Header Title opacity
- *
  * @param {shadow} $header-shadow
  * ToolTip Header Shadow
  *
@@ -824,7 +809,6 @@ $tooltip-manage-borders: dynamic($panel-manage-borders);
     $header-padding-big: null,
     $header-title-padding: null,
     $header-title-padding-big: null,
-    $header-title-opacity: null,
     $header-shadow: null,
     $header-z-index: null,
     $header-min-height: null,

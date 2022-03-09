@@ -95,17 +95,17 @@ Ext.define('Ext.chart.series.Bar', {
     },
 
     getItemForPoint: function (x, y) {
-        if (this.getSprites().length) {
-            var chart = this.getChart(),
+        if (this.getSprites()) {
+            var me = this,
+                chart = me.getChart(),
                 padding = chart.getInnerPadding(),
                 isRtl = chart.getInherited().rtl;
 
-            // Convert the coordinates because the "items" sprites that draw
-            // the bars ignore the chart's InnerPadding.
+            // Convert the coordinates because the "items" sprites that draw the bars ignore the chart's InnerPadding.
+            // See also Ext.chart.series.sprite.Bar.getIndexNearPoint(x,y) regarding the series's vertical coordinate system.
             arguments[0] = x + (isRtl ? padding.right : -padding.left);
             arguments[1] = y + padding.bottom;
-
-            return this.callParent(arguments);
+            return me.callParent(arguments);
         }
     },
 
@@ -115,7 +115,7 @@ Ext.define('Ext.chart.series.Bar', {
             Ext.raise("'bar' series should be used with a 'category' axis. Please refer to the bar series docs.");
         }
         //</debug>
-        xAxis.setExpandRangeBy(0.5);
+        xAxis.setLabelInSpan(true);
         this.callParent(arguments);
     },
 

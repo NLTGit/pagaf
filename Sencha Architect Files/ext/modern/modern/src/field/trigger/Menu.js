@@ -14,7 +14,7 @@ Ext.define('Ext.field.trigger.Menu', {
         menuAlign: 'tl-bl?',
 
         /**
-         * @cfg {Boolean} [destroyMenu]
+         * @cfg {Boolean} [destroyMenu=true]
          * Whether or not to destroy any associated menu when this trigger is destroyed.
          * In addition, a value of `true` for this config will destroy the currently bound menu
          * when a new menu is set in {@link #setMenu} unless overridden by that method's destroyMenu
@@ -34,6 +34,15 @@ Ext.define('Ext.field.trigger.Menu', {
             lazy: true,
             $value: null
         }
+    },
+
+    //we don't want the field to get focus when trigger is clicked on
+    onMouseDown: Ext.emptyFn,
+
+    constructor: function (config) {
+        this.callParent([config]);
+
+        this.initConfig(config);
     },
 
     doDestroy: function () {

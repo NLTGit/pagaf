@@ -202,7 +202,12 @@ Ext.define('Ext.util.Positionable', {
      *   halfway down the right edge of the target item. This allows more flexibility
      *   and also describes which two edges are considered adjacent when positioning a tip pointer. 
      *
-     * Following are all of the supported predefined anchor positions:
+     * In addition to the anchor points, the position parameter also supports the "?"
+     * character. If "?" is passed at the end of the position string, the element will
+     * attempt to align as specified, but the position will be adjusted to constrain to
+     * the viewport if necessary. Note that the element being aligned might be swapped to
+     * align to a different position than that specified in order to enforce the viewport
+     * constraints. Following are all of the supported anchor positions:
      *
      *      Value  Description
      *      -----  -----------------------------
@@ -215,12 +220,6 @@ Ext.define('Ext.util.Positionable', {
      *      bl     The bottom left corner
      *      b      The center of the bottom edge
      *      br     The bottom right corner
-     *
-     * You can put a '?' at the end of the alignment string to constrain the positioned element to the
-     * {@link Ext.Viewport Viewport}. The element will attempt to align as specified, but the position
-     * will be adjusted to constrain to the viewport if necessary. Note that the element being aligned
-     * might be swapped to align to a different position than that specified in order to enforce the viewport
-     * constraints.
      *
      * Example Usage:
      *
@@ -241,17 +240,16 @@ Ext.define('Ext.util.Positionable', {
      *
      *     // align the 25% point on the bottom edge of this el
      *     // with the 75% point on the top edge of other-el.
-     *     el.alignTo("other-el", 'b25-t75');
+     *     el.alignTo("other-el", 'b25-c75');
      *
      * @param {Ext.util.Positionable/HTMLElement/String} element The Positionable,
      * HTMLElement, or id of the element to align to.
      * @param {String} [position="tl-bl?"] The position to align to
      * @param {Number[]} [offsets] Offset the positioning by [x, y]
      * Element animation config object
-     * @param {Boolean} animate (private)
      * @return {Ext.util.Positionable} this
      */
-    alignTo: function(element, position, offsets, animate) {
+    alignTo: function(element, position, offsets, /* private (documented in ext) */ animate) {
         var me = this,
             el = me.el;
 
@@ -317,7 +315,8 @@ Ext.define('Ext.util.Positionable', {
     
     getAlignToRegion: function(alignToEl, posSpec, offset, minHeight) {
         var me = this,
-            inside, newRegion, bodyScroll;
+            inside,
+            newRegion;
 
         alignToEl = Ext.fly(alignToEl.el || alignToEl);
 
@@ -349,13 +348,7 @@ Ext.define('Ext.util.Positionable', {
             
             inside = Ext.fly(inside.el || inside).getConstrainRegion();
         }
-
-        if (alignToEl === Ext.getBody()) {
-            bodyScroll = alignToEl.getScroll();
-
-            offset = [bodyScroll.left, bodyScroll.top];
-        }
-
+        
         newRegion = me.getRegion().alignTo({
             target: alignToEl.getRegion(),
             inside: inside,
@@ -759,9 +752,8 @@ Ext.define('Ext.util.Positionable', {
      * - `"b"` (or `"bottom"`, or `"down"`)
      *
      * @param {Number} distance How far to move the element in pixels
-     * @param {Boolean} animate (private)
      */
-    move: function(direction, distance, animate) {
+    move: function(direction, distance, /* private (documented in ext) */ animate) {
         var me = this,
             xy = me.getXY(),
             x = xy[0],

@@ -1,9 +1,11 @@
-.#{$prefix}toolbar-body-el {
+.#{$prefix}toolbar {
     //Material overrides this from base so that button ripples can expand beyond the left/right edges of the toolbar
-    overflow: visible;
+    .#{$prefix}body-el {
+        overflow: visible;
+    }
 
     // Titles in Toolbars
-    > .#{$prefix}title {
+    .#{$prefix}title {
         transition: .25s padding ease-out;
     }
 }

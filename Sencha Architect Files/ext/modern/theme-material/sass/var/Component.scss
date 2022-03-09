@@ -8,7 +8,7 @@ $modern-theme-material: true;
   * @var {string} $base-color-name
   * Material Design color name to be used as the primary application color.
   * For more information go here https://www.google.com/design/spec/style/color.html#color-color-palette
-  */
+*/
 $base-color-name: dynamic('blue');
 
 /**
@@ -52,6 +52,7 @@ $font-icon-font-family: 'Material Icons';
 //----- Material generated variables
 //------------------------------------------
 // Calculated variables, can be overridden
+
 $base-color: dynamic(material-color($base-color-name, '500'));
 $base-highlight-color: dynamic(material-color($base-color-name, '300'));
 $base-light-color: dynamic(material-color($base-color-name, '100'));
@@ -74,21 +75,16 @@ $alert-color: dynamic(material-color('red', '800'));
 $alert-pressed-color: dynamic(if($dark-mode, darken($alert-color, 15%), lighten($alert-color, 15%)));
 
 $color: dynamic(if($dark-mode, #fff, #111111));
-$reverse-color: dynamic(if($dark-mode, #222, #fff));
-
 $highlight-color: dynamic(rgba($color, .54));
 $disabled-color: dynamic(rgba($color, .38));
-$divider-color: dynamic(mix($color, $reverse-color, 12%));
+$divider-color: dynamic(rgba($color, .12));
 
-$selected-background-color: dynamic(if($dark-mode, $base-dark-color, material-color('grey', '300')));
-$hovered-background-color: dynamic(if($dark-mode, #4d4d4d, material-color('grey', '200')));
-
-$header-background-color: dynamic(if($dark-mode, material-color('grey', '800'), material-color('grey', '100')));
-
-
+$reverse-color: dynamic(if($dark-mode, #222, #fff));
+$reverse-highlight-color: dynamic(rgba($reverse-color, .54));
 $reverse-disabled-color: dynamic(rgba($reverse-color, .38));
+$reverse-divider-color: dynamic(rgba($reverse-color, .12));
 
-$faded-color: dynamic(if($dark-mode, #4d4d4d, #e1e1e1));
+$faded-color: dynamic(if($dark-mode, #4d4d4d, #c3c3c3));
 
 $background-color: dynamic(if($dark-mode, #303030, #fafafa));
 $alt-background-color: dynamic(if($dark-mode, #3a3a3a, #f5f5f5));

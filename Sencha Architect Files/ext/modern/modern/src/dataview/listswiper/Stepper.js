@@ -6,6 +6,8 @@ Ext.define('Ext.dataview.listswiper.Stepper', {
     extend: 'Ext.dataview.listswiper.Item',
     xtype: 'listswiperstepper',
 
+    classCls: Ext.baseCSSPrefix + 'listswiperstepper',
+
     requires: [
         'Ext.fx.easing.EaseOut',
         'Ext.util.translatable.CssTransform'
@@ -88,8 +90,9 @@ Ext.define('Ext.dataview.listswiper.Stepper', {
     }],
 
     initialize: function () {
-        this.callParent();
-        this.bodyElement.on('tap', 'onTap', this);
+        var me = this;
+        me.callParent(arguments);
+        me.bodyElement.on('tap', 'onTap', me);
     },
 
     onRender: function() {
@@ -216,7 +219,8 @@ Ext.define('Ext.dataview.listswiper.Stepper', {
             actionCls = action && action.cls,
             oldActionCls = oldAction && oldAction.cls,
             actionKeyCls = step && ('swipe-action-' + step.key),
-            oldActionKeyCls = oldStep && ('swipe-action-' + oldStep.key);
+            oldActionKeyCls = oldStep && ('swipe-action-' + oldStep.key),
+            layout = me.getLayout();
 
         if (step) {
             me.setSide(step.side);
@@ -431,6 +435,7 @@ Ext.define('Ext.dataview.listswiper.Stepper', {
 
         onTap: function (evt) {
             var me = this,
+                state = me.getState(),
                 plugin = me.owner,
                 dimissOnTap = plugin.getDismissOnTap();
 

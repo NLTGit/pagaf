@@ -7,8 +7,6 @@ Ext.define('Ext.ux.overrides.rating.Picker', {
     //<debug>
     initConfig: function (config) {
         if (config && config.tooltip) {
-            config.tip = config.tooltip;
-
             Ext.log.warn('[Ext.ux.rating.Picker] The "tooltip" config was replaced by "tip"');
         }
 

@@ -281,12 +281,7 @@ Ext.define('Ext.container.DockingContainer', {
     /**
      * Removes the docked item from the panel.
      * @param {Ext.Component} item The Component to remove.
-     * @param {Boolean/Object} [flags] Pass `true` to destroy the item or an
-     * object with multiple options. If not passed, {@link #cfg!autoDestroy} will
-     * determine if the item is destroyed.
-     * @param {Boolean} [flags.destroy] Pass `true` to destroy the item.
-     * @param {Boolean} [flags.detach] Pass `true` to put the item in the
-     * {@link Ext#getDetachedBody detachedBody element}.
+     * @param {Boolean} autoDestroy (optional) Destroy the component after removal.
      */
     removeDocked: function(item, flags) {
         var me = this,
@@ -370,10 +365,6 @@ Ext.define('Ext.container.DockingContainer', {
         me.addDocked(item);
 
         if (me.rendered) {
-            if (item.frame) {
-                item.updateFrame();
-            }
-            
             Ext.resumeLayouts(true);
         }
     },

@@ -285,7 +285,7 @@ Ext.define('Ext.Button', {
         menuAlign: 'tl-bl?',
 
         /**
-         * @cfg {Boolean} destroyMenu
+         * @cfg {Boolean} [destroyMenu=true]
          * Whether or not to destroy any associated menu when this button is destroyed.
          * In addition, a value of `true` for this config will destroy the currently bound menu
          * when a new menu is set in {@link #setMenu} unless overridden by that method's destroyMenu
@@ -293,19 +293,8 @@ Ext.define('Ext.Button', {
          */
         destroyMenu: true,
 
-        /**
-         * @cfg {Boolean} stretchMenu
-         * Configure as `true` if the cfg of this button's. {@link #cfg!menu} should
-         * at least match the width of this button. An {@link #minWidth} explicit `minWidth` on
-         * the menu will override this.
-         * @since 6.5.1
-         */
-        stretchMenu: false,
+        menuClickBuffer: 250,
 
-        /**
-         * @cfg eventHandlers
-         * @inheritdoc
-         */
         eventHandlers: {
             click: 'onClick'
         }
@@ -344,7 +333,7 @@ Ext.define('Ext.Button', {
         icon: false,
 
         /**
-         * @cfg {'top'/'right'/'bottom'/'left'} iconAlign
+         * @cfg {'top'/'right'/'bottom'/'left'}
          * The position of the icon relative to the button text
          */
         iconAlign: 'left',
@@ -377,7 +366,7 @@ Ext.define('Ext.Button', {
         arrow: null,
 
         /**
-         * @cfg {"right"/"bottom"} arrowAlign
+         * @cfg {"right"/"bottom"} [arrowAlign='right']
          * The side of the Button box to render the arrow if the button has an associated
          * {@link #cfg!menu}.
          */
@@ -397,7 +386,7 @@ Ext.define('Ext.Button', {
          * @cfg {Ext.Button} toggleHandler.button This Button.
          * @cfg {Boolean} toggleHandler.pressed This Button's new pressed state.
          * The handler function to run when the Button is toggled. Supplying this
-         * configuration implies `{@link #cfg!enableToggle}` is `true`.
+         * configuration implies `{@link #cfg!enableToggle: true}`.
          * @accessor
          */
         toggleHandler: null,
@@ -477,12 +466,6 @@ Ext.define('Ext.Button', {
      */
     preventDefaultAction: true,
 
-    isMenuOwner: true,
-
-    /**
-     * @property baseCls
-     * @inheritdoc
-     */
     baseCls: Ext.baseCSSPrefix + 'button',
     hasMenuCls: Ext.baseCSSPrefix + 'has-menu',
     hoveredCls: Ext.baseCSSPrefix + 'hovered',
@@ -494,57 +477,22 @@ Ext.define('Ext.Button', {
     hasArrowCls: Ext.baseCSSPrefix + 'has-arrow',
     noArrowCls: Ext.baseCSSPrefix + 'no-arrow',
 
-    /**
-     * @property defaultBindProperty
-     * @inheritdoc
-     */
     defaultBindProperty: 'text',
-    
-    /**
-     * @cfg publishes
-     * @inheritdoc
-     */
-    publishes: ['pressed'],
 
-    /**
-     * @property element
-     * @inheritdoc
-     */
     element: {
         reference: 'element',
         onclick: 'return Ext.doEv(this, event);'
     },
 
-    /**
-     * @property focusable
-     * @inheritdoc
-     */
     focusable: true,
-    
-    /**
-     * @property focusEl
-     * @inheritdoc
-     */
     focusEl: 'buttonElement',
-    
-    /**
-     * @property ariaEl
-     * @inheritdoc
-     */
     ariaEl: 'buttonElement',
     backgroundColorEl: 'innerElement',
-    
-    /**
-     * @property focusClsEl
-     * @inheritdoc
-     */
     focusClsEl: 'el',
 
     initialize: function() {
         var me = this,
             el = me.el;
-
-        me.callParent();
 
         // The menu config is lazy
         if (me.getConfig('menu', true)) {
@@ -666,12 +614,28 @@ Ext.define('Ext.Button', {
     },
 
     updateText: function(text) {
-        this.textElement.setHtml(text);
-        this.toggleCls(this.hasTextCls, !!text);
+        var me = this,
+            el = me.el,
+            hasTextCls = me.hasTextCls;
+
+        if (text) {
+            el.addCls(hasTextCls);
+            me.textElement.setHtml(text);
+        } else {
+            el.removeCls(hasTextCls);
+        }
     },
 
     updateHtml: function(html) {
-        this.setText(html);
+        var textElement = this.textElement;
+
+        if (html) {
+            textElement.show();
+            textElement.setHtml(html);
+        }
+        else {
+            textElement.hide();
+        }
     },
 
     applyPressed: function(pressed) {
@@ -770,30 +734,24 @@ Ext.define('Ext.Button', {
                 menu = Ext.widget(menu);
             }
 
-            this.menuMinWidth = menu.getMinWidth();
+            menu.menuClickBuffer = this.getMenuClickBuffer();
         }
 
         return menu;
     },
 
-    updateMenu: function(menu, oldMenu) {
-        var listener = {
-            scope: this,
-            hide: 'onMenuHide'
-        };
+    updateMenu: function(newMenu, oldMenu) {
+        var me = this;
 
-        if (oldMenu && !oldMenu.destroyed) {
-            if (this.getDestroyMenu()) {
-                oldMenu.destroy();
-            } else if (oldMenu.isMenu) {
-                oldMenu.un(listener);
-            }
+        if (me.getDestroyMenu() && oldMenu && !oldMenu.destroyed) {
+            oldMenu.destroy();
         }
 
-        this.toggleCls(this.hasMenuCls, !!menu);
-
-        if (menu && menu.isMenu) {
-            menu.on(listener);
+        if (newMenu) {
+            me.addCls(me.hasMenuCls);
+        }
+        else {
+            me.removeCls(me.hasMenuCls);
         }
     },
 
@@ -848,16 +806,9 @@ Ext.define('Ext.Button', {
     /**
      * @private
      */
-    findEventTarget: function(e) {
-        return this.element;
-    },
-
-    /**
-     * @private
-     */
     onPress: function(e) {
         var me = this,
-            element = this.findEventTarget(e),
+            element = me.element,
             pressedDelay = me.getPressedDelay(),
             pressingCls = me.pressingCls;
 
@@ -890,16 +841,12 @@ Ext.define('Ext.Button', {
      * @private
      */
     doRelease: function(me, e) {
-        var element = me.findEventTarget(e);
-
         if (!me.getDisabled()) {
             if (me.hasOwnProperty('pressedTimeout')) {
-                Ext.undefer(me.pressedTimeout);
+                clearTimeout(me.pressedTimeout);
                 delete me.pressedTimeout;
             } else {
-                if (element) {
-                    element.removeCls(me.pressingCls);
-                }
+                me.element.removeCls(me.pressingCls);
             }
         }
     },
@@ -933,7 +880,7 @@ Ext.define('Ext.Button', {
         }
 
         if (menu) {
-            me.toggleMenu(e, menu);
+            me.showMenu(e, menu);
         }
         else {
             if ((me.getToggleHandler() || me.getEnableToggle()) && (me.getAllowDepress() || !me.isPressed())) {
@@ -969,13 +916,13 @@ Ext.define('Ext.Button', {
     onEscKey: function(e) {
         var menu = this.getMenu();
 
-        if (menu && !this.getDisabled() && menu.isVisible()) {
+        if (!this.getDisabled() && menu && menu.isVisible()) {
             menu.hide();
-
-            e.stopEvent();
-
-            return false;
         }
+
+        e.stopEvent();
+
+        return false;
     },
 
     onFocus: function(e) {
@@ -992,42 +939,11 @@ Ext.define('Ext.Button', {
         this.callParent([e]);
     },
 
-    onMenuHide: function (menu) {
-        if (menu.isMenu && !this.$buttonWasPressed) {
-            this.setPressed(false);
-        }
-    },
-
-    toggleMenu: function (e, menu) {
-        var me = this;
-
-        menu = menu || me.getMenu();
-
-        if (menu) {
-            if (menu.isVisible()) {
-                me.hideMenu(e, menu);
-            } else {
-                me.showMenu(e, menu);
-            }
-        }
-    },
-
-    hideMenu: function (e, menu) {
-        menu = menu || this.getMenu();
-
-        if (menu) {
-            menu.hide();
-        }
-    },
-
     showMenu: function(e, menu) {
         var me = this,
-            isPointerEvent = !e || e.pointerType,
-            pressed;
+            isPointerEvent = !e || e.pointerType;
 
         menu = menu || me.getMenu();
-
-        me.setupMenuStretch(menu);
 
         if (menu) {
             if (menu.isVisible()) {
@@ -1041,21 +957,8 @@ Ext.define('Ext.Button', {
             }
             else {
                 menu.autoFocus = !isPointerEvent;
-
                 if (menu.isMenu) {
-                    /*
-                     * We need to keep track if this button was already
-                     * pressed when the menu was being shown so when the
-                     * menu hides, we don't unpress the button when it should
-                     * stay pressed.
-                     */
-                    me.$buttonWasPressed = pressed = me.getPressed();
-
                     menu.showBy(me.element, me.getMenuAlign());
-
-                    if (!pressed) {
-                        me.setPressed(true);
-                    }
                 } else if (menu.isViewportMenu) {
                     menu.setDisplayed(!menu.getDisplayed());
                 } else {
@@ -1069,7 +972,7 @@ Ext.define('Ext.Button', {
         var me = this;
 
         if (me.hasOwnProperty('pressedTimeout')) {
-            Ext.undefer(me.pressedTimeout);
+            clearTimeout(me.pressedTimeout);
         }
 
         me.setMenu(null);
@@ -1079,19 +982,5 @@ Ext.define('Ext.Button', {
 
     getFocusClsEl: function() {
         return this.element;
-    },
-
-    privates: {
-        setupMenuStretch: function(menu) {
-            var me = this;
-            // Only stretch to our width if the menu doesn't already have a minWidth
-            if (!me.menuMinWidth) {
-                if (me.getStretchMenu()) {
-                    menu.setMinWidth(me.el.measure('w'));
-                } else {
-                    menu.setMinWidth(null);
-                }
-            }
-        }
     }
 });

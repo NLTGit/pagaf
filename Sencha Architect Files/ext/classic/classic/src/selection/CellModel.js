@@ -45,8 +45,7 @@ Ext.define('Ext.selection.CellModel', {
     isCellModel: true,
 
     /**
-     * @cfg deselectOnContainerClick
-     * @inheritdoc Ext.mixin.Selectable#cfg!deselectOnContainerClick
+     * @inheritdoc
      */
     deselectOnContainerClick: false,
 
@@ -257,14 +256,11 @@ Ext.define('Ext.selection.CellModel', {
 
     /**
      * Sets the current position.
-     * @deprecated 5.0.1 This API uses column indices which include hidden columns in the
-     * count. Use {@link #setPosition} instead.
-     * @param {Ext.grid.CellContext/Object} pos The position to set. May be an object of
-     * the form `{row:1, column:2}`
+     * @deprecated 5.0.1 This API uses column indices which include hidden columns in the count. Use {@link #setPosition} instead.
+     * @param {Ext.grid.CellContext/Object} position The position to set. May be an object of the form `{row:1, column:2}`
      * @param {Boolean} suppressEvent True to suppress selection events
-     * @param {Boolean} preventCheck (private)
      */
-    setCurrentPosition: function(pos, suppressEvent, preventCheck) {
+    setCurrentPosition: function(pos, suppressEvent, /* private */ preventCheck) {
         if (pos && !pos.isCellContext) {
             pos = new Ext.grid.CellContext(this.view).setPosition({
                 row: pos.row,
@@ -281,11 +277,10 @@ Ext.define('Ext.selection.CellModel', {
      *
      * Note that if passing a column index, it is the index within the *visible* column set.
      *
-     * @param {Ext.grid.CellContext/Object} pos The position to set. May be an object of the form `{row:1, column:2}`
+     * @param {Ext.grid.CellContext/Object} position The position to set. May be an object of the form `{row:1, column:2}`
      * @param {Boolean} suppressEvent True to suppress selection events
-     * @param {Boolean} preventCheck (private)
      */
-    setPosition: function(pos, suppressEvent, preventCheck) {
+    setPosition: function(pos, suppressEvent, /* private */ preventCheck) {
         var me = this,
             last = me.selection;
 

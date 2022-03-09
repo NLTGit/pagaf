@@ -1,7 +1,7 @@
 /* global Ext, jasmine, expect */
 
 topSuite("grid-grouping",
-    [false, 'Ext.grid.Panel', 'Ext.grid.feature.GroupingSummary', 'Ext.data.BufferedStore'],
+    [false, 'Ext.grid.Panel', 'Ext.grid.feature.GroupingSummary'],
 function() {
     function createSuite(buffered) {
         describe(buffered ? "with buffered rendering" : "without buffered rendering", function() {
@@ -402,21 +402,6 @@ function() {
 
             describe("expand/collapse", function() {
                 describe("expand", function() {
-                    describe("basic functionality", function() {
-                        it("should work when scrollable is false", function() {
-                            makeGrid(null,{
-                                height: 400,
-                                scrollable: false
-                            }, manyGroups(), false, {
-                                startCollapsed: true
-                            });
-
-                            expect(function() {
-                                grouping.expand('group001');
-                            }).not.toThrow();
-                        });
-                    });
-
                     describe("with focus: true", function() {
                         describe("with the group in view", function() {
                             it("should expand the group", function() {
@@ -467,19 +452,6 @@ function() {
                 });
 
                 describe("collapse", function() {
-                    describe("basic functionality", function() {
-                        it("should work when scrollable is false", function() {
-                            makeGrid(null,{
-                                height: 400,
-                                scrollable: false
-                            }, manyGroups());
-
-                            expect(function() {
-                                grouping.collapse('group001');
-                            }).not.toThrow();
-                        });
-                    });
-
                     describe("with focus: true", function() {
                         describe("with the group in view", function() {
                             it("should collapse the group", function() {
@@ -1010,19 +982,10 @@ function() {
                     // scroll into view upon a refresh caused by the collapse;
                     grid.getSelectionModel().select(0);
                     grid.scrollByDeltaY(2000);
-
-                    waitsFor(function() {
-                        return !buffered || grid.bufferedRenderer.scrollTop;
-                    });
-
-                    runs(function() {
-                        var el;
-
-                        grouping.collapse('t4');
-                        el = grid.getView().el.dom;
+                    grouping.collapse('t4');
+                    var el = grid.getView().el.dom;
                              
-                        expect(el.scrollTop).toBe(el.scrollHeight - el.clientHeight);
-                    });
+                    expect(el.scrollTop).toBe(el.scrollHeight - el.clientHeight);
                 });  
                 
                 it("should not focus the selected row when expanding a group", function() {

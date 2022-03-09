@@ -128,7 +128,7 @@ Ext.define('Ext.grid.property.Grid', {
     * @cfg {Object} propertyNames
     * An object containing custom property name/display name pairs.
     * If specified, the display name will be shown in the name column instead of the property name.
-    * @deprecated 6.5.0 See {@link #sourceConfig} displayName
+    * @deprecated See {@link #sourceConfig} displayName
     */
 
     /**
@@ -161,7 +161,7 @@ Ext.define('Ext.grid.property.Grid', {
      *             evtStart: '10:00 AM'
      *         }
      *     });
-     * @deprecated 6.5.0 See {@link #sourceConfig} editor
+     * @deprecated See {@link #sourceConfig} editor
      */
 
     /**
@@ -186,7 +186,7 @@ Ext.define('Ext.grid.property.Grid', {
      *             Available: true
      *         }
      *     });
-     * @deprecated 6.5.0 See {@link #sourceConfig} renderer
+     * @deprecated See {@link #sourceConfig} renderer
      */
 
     /**

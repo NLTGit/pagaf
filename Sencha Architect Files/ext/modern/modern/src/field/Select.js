@@ -40,12 +40,6 @@ Ext.define('Ext.field.Select', {
     ],
 
     /**
-     * @property {Boolean} isSelectField
-     * `true` to identify an object as an instance of this class, or a subclass thereof.
-     */
-    isSelectField: true,
-
-    /**
      * @event change
      * Fires when selection has changed.
      *
@@ -64,50 +58,50 @@ Ext.define('Ext.field.Select', {
 
     /**
      * @event focus
-     * Fires when this field receives input focus. This happens both when you tap on the
-     * field and when you focus on the field by using 'next' or 'tab' on a keyboard.
+     * Fires when this field receives input focus. This happens both when you tap on the field and when you focus on the field by using
+     * 'next' or 'tab' on a keyboard.
      *
-     * Please note that this event is not very reliable on Android. For example, if your
-     * Select field is second in your form panel, you cannot use the Next button to get to
-     * this select field. This functionality works as expected on iOS.
+     * Please note that this event is not very reliable on Android. For example, if your Select field is second in your form panel,
+     * you cannot use the Next button to get to this select field. This functionality works as expected on iOS.
      * @param {Ext.field.Select} this This field
      * @param {Ext.event.Event} e
      */
 
     config: {
         /**
-         * @cfg {Object|Ext.util.Collection} valueCollection
-         * A {@link Ext.util.Collection collection} instance, or configuration object used
-         * to create the collection of selected records.
+         * @cfg {Boolean} hideTrigger
+         * `true` to hide the expand trigger.
+         */
+        hideTrigger: false,
+
+        /**
+         * @cfg {Object|Ext.util.Collection} A {@link Ext.util.Collection} instance, or configuration object
+         * used to create the collection of selected records.
          *
-         * This is used by the {@link #cfg!picker} as the core of its selection handling,
-         * and also as the collection of selected values for this widget.
+         * This is used by the {@link #cfg!picker} as the core of its selection handling, and also as the collection
+         * of selected values for this widget.
          *
          * @readonly
-         * @private
-         * @since 6.5.0
          */
         valueCollection: true,
 
         /**
-         * @cfg {String/Number} valueField
-         * The underlying {@link Ext.data.Field#name data value name} to bind to this
-         * Select control. If configured as `null`, the {@link #cfg!displayField} is
-         * used.
+         * @cfg {String/Number} [valueField=value] The underlying {@link Ext.data.Field#name data value name} to bind to this
+         * Select control. If configured as `null`, the {@link #cfg!displayField} is used.
          * @accessor
          */
         valueField: 'value',
 
         /**
-         * @cfg {String/Ext.XTemplate} itemTpl
-         * An XTemplate definition string (Or an {@link Ext.XTemplate}) which specifies
-         * how to display a list item from a record values object. This is automatically
-         * generated to display the {@link #cfg!displayField} if not specified.
+         * @cfg {String/Ext.XTemplate} [itemTpl]
+         * An XTemplate definition string (Or an {@link Ext.XTemplate}) which specifies how to display a list
+         * item from a record values object. This is automatically generated to display the {@link #cfg!displayField}
+         * if not specified.
          */
         itemTpl: false,
 
         /**
-         * @cfg {String/String[]/Ext.XTemplate} displayTpl
+         * @cfg {String/String[]/Ext.XTemplate} [displayTpl]
          * The template to be used to display the selected record inside the text field.
          *
          * If not specified, the {@link #cfg!displayField} is shown in the text field.
@@ -115,27 +109,23 @@ Ext.define('Ext.field.Select', {
         displayTpl: null,
 
         /**
-         * @cfg {String/Number} displayField
-         * The underlying {@link Ext.data.Field#name data value name} to bind to this
+         * @cfg {String/Number} [displayField=text] The underlying {@link Ext.data.Field#name data value name} to bind to this
          * Select control.  If configured as `null`, the {@link #cfg!valueField} is used.
          *
-         * This resolved value is the visibly rendered value of the available selection
-         * options.
+         * This resolved value is the visibly rendered value of the available selection options.
          * @accessor
          */
         displayField: 'text',
 
         /**
-         * @cfg {Ext.data.Store/Object/String} store
-         * The store to provide selection options data. Either a Store instance,
-         * configuration object or store ID.
+         * @cfg {Ext.data.Store/Object/String} store The store to provide selection options data.
+         * Either a Store instance, configuration object or store ID.
          * @accessor
          */
         store: null,
 
         /**
-         * @cfg {Array} options
-         * An array of select options.
+         * @cfg {Array} options An array of select options.
          *
          *     [
          *         {text: 'First Option',  value: 'first'},
@@ -143,56 +133,25 @@ Ext.define('Ext.field.Select', {
          *         {text: 'Third Option',  value: 'third'}
          *     ]
          *
-         * __Note:__ Option object member names should correspond with defined
-         * {@link #valueField valueField} and {@link #displayField displayField} values.
-         *
-         * This config is mutually exclusive with the {@link #cfg!store} config. Specifying
-         * them both is unssupported and will produce undefined behaviour.
+         * __Note:__ Option object member names should correspond with defined {@link #valueField valueField} and {@link #displayField displayField} values.
+         * This config will be ignored if a {@link #store store} instance is provided.
          * @accessor
          */
         options: null,
 
         /**
-         * @cfg {String} hiddenName
-         * Specify a `hiddenName` if you're using the {@link Ext.form.Panel#standardSubmit}
-         * option. This name will be used to post the underlying value of the select to
-         * the server.
+         * @cfg {String} hiddenName Specify a `hiddenName` if you're using the {@link Ext.form.Panel#standardSubmit standardSubmit} option.
+         * This name will be used to post the underlying value of the select to the server.
          * @accessor
          */
         hiddenName: null,
 
         /**
-         * @cfg {Boolean/'initial'} autoSelect
-         * `true` to auto select the first value in the {@link #store} or {@link #options}
-         * when they are changed. This settings attempts to avoid the {@link #value} being
-         * set to `null`, unless {@link #clearable clearable} is also `true` in which case
-         * only other changes (such as store load) will trigger auto-selection.
-         *
-         * If this value is `'initial'` then auto selection will only occur on the first
-         * opportunity (such as initial store load). This config will then be set to
-         * `false`.
+         * @cfg {Boolean} [autoSelect=true]
+         * `true` to auto select the first value in the {@link #store} or {@link #options} when they are changed. Only happens when
+         * the {@link #value} is set to `null`.
          */
-        autoSelect: false,
-
-        /**
-         * @cfg {Boolean} autoFocus
-         * `true` to automatically focus the first result gathered by the data store in the
-         * dropdown list when it is opened. A false value would cause nothing in the list
-         * to be highlighted automatically, so the user would have to manually highlight an
-         * item before pressing the enter or {@link #selectOnTab tab} key to select it
-         * (unless the value of ({@link #typeAhead}) were true), or use the mouse to select
-         * a value.
-         */
-        autoFocus: true,
-
-        /**
-         * @cfg {Boolean} autoFocusLast
-         * When `true`, the last selected record in the dropdown list will be re-selected
-         * upon {@link #autoFocus}. Set to `false` to always select the first record in
-         * the drop-down list. For accessible applications it is recommended to set this
-         * option to `false`.
-         */
-        autoFocusLast: true,
+        autoSelect: true,
 
         /**
          * @cfg {Ext.data.Model} selection
@@ -203,9 +162,8 @@ Ext.define('Ext.field.Select', {
 
         /**
          * @cfg {Boolean} autoLoadOnValue
-         * This option controls whether to initially load the store when a value is set so
-         * that the display value can be determined from the appropriate record.
-         *
+         * This option controls whether to *initially* load the store when a value is set so that
+         * the display value can be determined from the appropriate record.
          * The store will only be loaded in a limited set of circumstances:
          * - The store is not currently loading.
          * - The store does not have a pending {@link Ext.data.Store#autoLoad}.
@@ -215,10 +173,9 @@ Ext.define('Ext.field.Select', {
 
         /**
          * @cfg {Boolean} forceSelection
-         * By default the value must always be the {@link #cfg!valueField} of one of the
-         * records in the store. Configure as `false` to allow the value to be set to
-         * arbitrary text, and have this component auto create an associated record with
-         * the typed value as the {@link #cfg!valueField}.
+         * By default the value must always be the {@link #cfg!valueField} of one of the records in the store.
+         * Configure as `false` to allow the value to be set to arbitrary text, and have this component
+         * auto create an associated record with the typed value as the {@link #cfg!valueField}.
          *
          * This config is only supported for use in {@link Ext.field.ComboBox} but is defined
          * here (as private) because of its many entanglements with value processing.
@@ -228,8 +185,10 @@ Ext.define('Ext.field.Select', {
         forceSelection: true,
 
         /**
-         * @cfg {String} valueNotFoundText
-         * The message to display if the value passed to `setValue` is not found in the store.
+         * @cfg {String} [valueNotFoundText]
+         * If the value passed to setValue is not found in the store, valueNotFoundText will
+         * be displayed as the field text if defined. If this default text is used, it means there
+         * is no value set and no validation will occur on this field.
          */
         valueNotFoundText: null,
 
@@ -237,19 +196,27 @@ Ext.define('Ext.field.Select', {
          * @cfg {Boolean} selectOnTab
          * Whether the Tab key should select the currently highlighted item.
          */
-        selectOnTab: true
+        selectOnTab: true,
+
+        /**
+         * @cfg {Boolean} [multiSelect=false]
+         * @hide
+         * Configure as `true` to allow selection of multiple items from the picker. This results in each
+         * selected item being represented by a "tag" in the combobox's input area.
+         */
+        multiSelect: null,
+
+        /**
+         * @cfg {Boolean} [collapseOnSelect=false]
+         * Has no effect if {@link #cfg!multiSelect} is `false`
+         *
+         * Configure as true to automatically hide the picker after a selection is made.
+         */
+        collapseOnSelect: null
     },
 
-    /**
-     * @cfg editable
-     * @inheritdoc
-     */
     editable: false,
 
-    /**
-     * @cfg floatedPicker
-     * @inheritdoc
-     */
     floatedPicker: {
         xtype: 'boundlist',
         infinite: false,
@@ -266,33 +233,17 @@ Ext.define('Ext.field.Select', {
         hideAnimation: null
     },
 
-    /**
-     * @cfg edgePicker
-     * @inheritdoc
-     */
     edgePicker: {
         xtype: 'picker',
-        cover: true
+        hideAnimation: 'fadeOut'
     },
 
-    /**
-     * @property classCls
-     * @inheritdoc
-     */
     classCls: Ext.baseCSSPrefix + 'selectfield',
 
-    /**
-     * @cfg twoWayBindable
-     * @inheritdoc
-     */
     twoWayBindable: {
         selection: 1
     },
 
-    /**
-     * @cfg publishes
-     * @inheritdoc
-     */
     publishes: {
         selection: 1
     },
@@ -302,54 +253,12 @@ Ext.define('Ext.field.Select', {
             valueCollection = new Ext.util.Collection(valueCollection);
         }
 
-        // Add this SelectField as an observer immediately so that we are informed of any
+        // Add this ComboBox as an observer immediately so that we are informed of any
         // mutations which occur in this event run.
         // We must sync the selection property and the rawValue upon mutation.
         valueCollection.addObserver(this);
 
         return valueCollection;
-    },
-
-    /**
-     * This method is called to create a temporary record when the value entered does not
-     * match a record in the `store` (when {@link #cfg!forceSelection} is `false`).
-     *
-     * The `data` object passed contains the typed value in both the {@link #cfg!valueField}
-     * and the {@link #cfg!displayField}.
-     *
-     * The record created and returned from this method will be the {@link #cfg!selection}
-     * value in this non-matching state.
-     *
-     * @param data The data object used to create the new record.
-     * @return {Ext.data.Model} The new record.
-     * @template
-     * @since 6.5.1
-     */
-    createSelectionRecord: function (data) {
-        var Model = this.getStore().getModel();
-
-        return new Model(data);
-    },
-
-    completeEdit: Ext.emptyFn,
-
-    expand: function() {
-        // If we do not yet have a store (binding not arrived yet), we cannot expand.
-        if (this.getStore()) {
-            this.callParent();
-        }
-    },
-
-    /**
-     * @private
-     */
-    maybeCollapse: function(event) {
-        var record = event.to && event.to.record,
-            selection = this.getSelection();
-
-        if (record === selection) {
-            this.collapse();
-        }
     },
 
     /**
@@ -362,7 +271,7 @@ Ext.define('Ext.field.Select', {
         // If this remove is part of a splice, wait until the collection add to sync the selection.
         if (!chunk.replacement) {
             // Must ensure that null is passed if the valueCollection is empty
-            this.setSelection(selection.length ? selection[0] : null);
+            this.setSelection(selection.length ? (this.getMultiSelect() ? selection : selection[0]) : null);
         }
     },
 
@@ -373,19 +282,15 @@ Ext.define('Ext.field.Select', {
     onCollectionAdd: function(valueCollection, adds) {
         var selection = valueCollection.getRange();
 
-        this.setSelection(selection[0]);
+        this.setSelection(this.getMultiSelect() ? selection : selection[0]);
     },
 
     clearValue: function () {
-        var me = this;
-
         // We clear things differently vs superclass. The value of Select fields depends
         // upon the value collection.
-        me.forceInputChange = true;
-        me.setValue(null);
-        me.forceInputChange = false;
+        this.setValue(null);
 
-        me.syncEmptyState();
+        this.syncDefaultTriggers();
     },
 
     /* TODO fixup these docs and move to value config
@@ -407,10 +312,11 @@ Ext.define('Ext.field.Select', {
         this.getOptions();
 
         var me = this,
-            store = me.getStore();
-
-        // syncValue must now prioritize the value over the inputValue
-        me.syncMode = 'value';
+            autoLoadOnValue = me.getAutoLoadOnValue(),
+            valueField = me.getValueField(),
+            displayField = me.getDisplayField(),
+            store = me.getStore(),
+            record, Model, isLoaded, pendingLoad, needsLoad, dataObj, notFoundText;
 
         // We were passed a record.
         // Set the selection which updates the value from the valueField.
@@ -418,40 +324,106 @@ Ext.define('Ext.field.Select', {
             me.setSelection(value);
             return;
         }
+        // A non-empty value has to be matched to the valueField of a record
+        else if (value != null) {
+            if (store) {
+                // Stores can be programatically populated without going through a load.
+                // And they can have loaded and still have zero records.
+                isLoaded = store.getCount() > 0 || store.isLoaded();
 
-        if (me.isConfiguring) {
-            me.originalValue = value;
+                // If it turns out that we need to kick off a load, we don't need to bother is this is true
+                pendingLoad = store.hasPendingLoad();
+
+                // If we are configured to autoLoad when the value arrives, prepare to do so
+                needsLoad = autoLoadOnValue && !isLoaded && !pendingLoad;
+            }
+
+            if (me.isConfiguring) {
+                me.originalValue = value;
+            }
+            // Find the value in the store.
+            // *or in the valueCollection which may contain the new records enabled
+            // by setValue being passed a record, or by forceSelection: false, or
+            // createNewOnEnter or createNewOnTab*
+            // The method may be overridden in subclasses to also search
+            // in the valueCollection.
+            record = me.findRecordByValue(value);
+
+            // record was not found
+            if (!record) {
+                if (isLoaded && !me.getForceSelection()) {
+                    // user has typed in something that isn't in the store
+                    Model = store.getModel();
+                    dataObj = {};
+                    dataObj[displayField] = value;
+                    if (valueField && displayField !== valueField) {
+                        dataObj[valueField] = value;
+                    }
+                    record = new Model(dataObj);
+                    // mark record as entered text vs. an existing one from the store
+                    record.isEntered = true;
+                }
+                // If the store has not yet arrived from a bind flush
+                //  or, it has not yet been loaded then we need to cache
+                //  the value and apply it on store load.
+                // The onStoreLoad will push the cachedValue through setValue.
+                else {
+                    me.cachedValue = value;
+                }
+            } else if (store && me.getForceSelection() && store.indexOf(record) === -1) {
+                record = null;
+                value = null;
+            }
         }
 
         // Kick off a load unless we are clearing the value.
         // Doesn't matter whether proxy is remote - it needs loading
         // so we can select the correct record for the value in the load event handler.
-        if (store && value) {
-            // If we are configured to autoLoad when the value arrives, prepare to do so
-            if (me.getAutoLoadOnValue() && !store.isLoaded() && !store.hasPendingLoad()) {
-                store.load();
-            }
+        if (value && needsLoad) {
+            store.load();
         }
 
-        return me.transformValue(value);
+        // If we have a record, set the value property, so that our set of the selection
+        // does not recurse.
+        if (record && !record.isEntered) {
+            me._value = value;
+            me.setSelection(record);
+        } else if (me.getForceSelection()) {
+            me._value = null;
+            me.setSelection(null);
+            // If we could not match the value, update the valueNotFOund text
+            notFoundText = me.getValueNotFoundText();
+            if (notFoundText) {
+                me.inputElement.dom.value = notFoundText;
+            }
+        } else {
+            me._value = value = me.transformValue(value);
+
+            // In !forceSelection mode when we have a value that does not match a record
+            // we do not report the temporary record as the selection. But we also need
+            // to prevent the updateSelection process from zapping the value.
+            me._ignoreSelection = true;
+            me.setSelection(null);
+            me._ignoreSelection = false;
+
+            me.setFieldDisplay(record);
+        }
+
+        // Because we set the value property in here before setting the selection in order
+        // to prevent infinite recursion, and return undefined, the config's setter will
+        // not invoke the updater.
+        // We have to invoke our updater directly if the value has changed.
+        if (value !== oldValue) {
+            me.updateValue(value, oldValue);
+        }
     },
 
     updateValue: function(value, oldValue) {
-        this.syncValue();
-
         // Note that we must not invoke superclass updateValue because that updates the
         // field UI in ways that SelectFields cannot handle.
         // We must directly invoke the base class's updateValue. That fires the change
         // event and validates the value which we still need to happen.
         Ext.field.Field.prototype.updateValue.call(this, value, oldValue);
-    },
-
-    transformValue: function (value) {
-        if (value == null || value === '') {
-            value = this.getForceSelection() ? null : '';
-        }
-
-        return value;
     },
 
     /**
@@ -506,7 +478,7 @@ Ext.define('Ext.field.Select', {
             ret = false;
 
         if (store) {
-            result = store.byText.get(value);
+            result = this.store.byText.get(value);
             // If there are duplicate keys, tested behaviour is to return the *first* match.
             if (result) {
                 ret = result[0] || result;
@@ -515,34 +487,72 @@ Ext.define('Ext.field.Select', {
         return ret;
     },
 
+    applySelection: function(selection, oldSelection) {
+        var multiValues = selection && this.getMultiSelect();
+
+        selection = multiValues ? Ext.Array.from(selection) : selection;
+
+        if (multiValues ? (!oldSelection || !Ext.Array.equals(selection, oldSelection)) : selection !== oldSelection) {
+            return selection || null;
+        }
+    },
+
+    /**
+     * @private
+     * Updates the fields input UI according to the current selection.
+     * In the case of single selection, simply updates the input field's value.
+     *
+     * For multiSelection, a more complex input UI is needed.
+     * @param selection
+     */
+    setFieldDisplay: function(selection) {
+        var me = this,
+            inputValue = '',
+            displayTpl;
+
+        if (me.getMultiSelect()) {
+            //<debug>
+            Ext.raise('multiselect is not yet supported');
+            //</debug>
+        }
+        else {
+            if (selection) {
+                displayTpl = me.getDisplayTpl();
+                if (displayTpl) {
+                    inputValue = displayTpl.apply(me.getRecordDisplayData(selection));
+                } else {
+                    inputValue = selection.get(me.getDisplayField());
+                }
+            }
+            me.setInputValue(inputValue);
+        }
+    },
+
     /**
      * @private
      * Update the UI to reflect the new selection. The selection arrives as mutation notifications
      * from the {@link #cfg!valueCollection} which is the {@link Ext.util.Collection} at the heart
      * of the picker's {@link Ext.mixin.Selectable} persona.
      */
-    updateSelection: function(selection, oldSelection) {
-        var me = this,
-            isNull = selection == null,
-            valueCollection = me.getValueCollection(),
-            valueField = me.getValueField(),
-            oldValue = me._value,
-            newValue = null,
-            picker, spliceArgs;
-
-        if (me._ignoreSelection || me.destroyed || me.destroying) {
+    updateSelection: function(selection) {
+        if (this._ignoreSelection) {
             return;
         }
 
-        if (isNull || !valueCollection.containsAll(selection)) {
-            spliceArgs = [0, valueCollection.getCount()];
+        var me = this,
+            valueCollection = me.getValueCollection(),
+            isNull = selection == null,
+            spliceArgs = [0, valueCollection.getCount()],
+            valueField = me.getValueField(),
+            // Only get the picker if it has been created.
+            picker = me.getConfig('picker', false, true);
 
-            // If the selection isNull, do not append the final "toAdd" argument.
-            // That would attempt to add null which would throw an error.
+        if (isNull || !valueCollection.contains(selection)) {
             if (!isNull) {
-                spliceArgs.push(selection);
+                // Ext.Array.push uses .call/.apply to push either
+                // the passed single value, *or* the passed array.
+                Ext.Array.push(spliceArgs, selection);
             }
-
             // Replace all valueCollection content with the new selection.
             // We are an observer of the valueCollection.
             //
@@ -553,32 +563,26 @@ Ext.define('Ext.field.Select', {
             // which will push the valueCollection's data through to
             // our selection property.
             valueCollection.splice.apply(valueCollection, spliceArgs);
-
-            // In case splice user event handler destroyed us.
-            if (me.destroyed) {
-                return;
-            }
         }
 
-        if (selection) {
-            if (valueField) {
-                newValue = selection.get(valueField);
-                me.setValue(newValue);
-            }
+        if (!me.destroyed && !me.destroying && valueField) {
+            if (selection) {
+                if (!selection.isEntered) {
+                    me.setValue(selection.get(valueField));
 
-            // Allow selection to be vetoed, in which case fall back to oldValue
-            if (me.fireEvent('select', me, selection) === false) {
-                me.setValue(oldValue);
-                me._selection = oldSelection;
-            }
-        }
-        else {
-            me.clearValue();
-        }
+                    if (me.fireEvent('select', me, selection) === false) {
+                        me.setValue(null);
+                        selection = null;
+                    }
 
-        // Event handlers may destroy this component
-        if (me.destroyed) {
-            return;
+                    if (me.destroyed) {
+                        return;
+                    }
+                }
+            }
+            else {
+                me.clearValue();
+            }
         }
 
         // Update the field's input UI.
@@ -587,30 +591,13 @@ Ext.define('Ext.field.Select', {
         // selected record(s)
         me.setFieldDisplay(selection);
 
-        // Only get the picker if it has been created.
-        picker = me.getConfig('picker', false, true);
-
         // If the picker has been created, either collapse it,
         // or scroll to the latest selection.
-        if (picker && picker.isVisible()) {
-            // The setter's equality test cannot tell if the single selected record
-            // is in effect unchanged. We only need to collapse if a *new* value has
-            // been set, that is, the user has selected a record with a different id.
-            // We can get here when the selection is refreshed due to record add/remove
-            // when the record *instance* is renewed, but it is the same id.
-            // In that case, all we need is a refresh of the data in case the record's
-            // data payload changed.
-            //
-            // If unchanged, it's possible that other data in the record may have changed
-            // which could affect the BoundList, so refresh that
-            if (selection && oldSelection && selection.id === oldSelection.id) {
-                picker.refresh();
+        if (picker) {
+            if (!me.getMultiSelect() || me.getCollapseOnSelect() || !me.getStore().getCount()) {
+                me.collapse();
             } else {
-                // If it's a single select, dynamically created record, this is due
-                // to typing, so do not collapse.
-                if (!(selection && selection.isEntered)) {
-                    me.collapse();
-                }
+                me.setPickerLocation();
             }
         }
     },
@@ -630,14 +617,15 @@ Ext.define('Ext.field.Select', {
 
     createFloatedPicker: function() {
         var me = this,
+            multiSelect = me.getMultiSelect(),
             result = Ext.merge({
                 ownerCmp: me,
-                store: me._pickerStore || me.getStore(),
+                store: me.getStore(),
                 selectable: {
                     selected: me.getValueCollection(),
                     selectedRecord: me.getSelection(),
-                    mode: 'single',
-                    deselectable: false
+                    deselectable: !!multiSelect,
+                    mode: multiSelect ? 'multi' : 'single'
                 },
                 itemTpl: me.getItemTpl()
             }, me.getFloatedPicker());
@@ -660,7 +648,7 @@ Ext.define('Ext.field.Select', {
                 valueField: me.getValueField(),
                 displayField: me.getDisplayField(),
                 value: me.getValue(),
-                store: me._pickerStore || me.getStore()
+                store: me.getStore()
             }],
             listeners: {
                 change: me.onPickerChange,
@@ -675,38 +663,23 @@ Ext.define('Ext.field.Select', {
         }, me.getEdgePicker());
     },
 
-    setPickerLocation: function(fromKeyboard) {
+    setPickerLocation: function() {
         var me = this,
             picker = me.getConfig('picker', false, true),
-            store, location;
+            selection = me.getSelection(),
+            store;
 
         if (picker && me.expanded) {
-            // If an edge picker, access the slot which is a List
-            if (picker.isPicker) {
-                picker = picker.innerItems[0];
-            }
-            store = picker.getStore();
+            store = me.getStore();
 
-            if (picker.getViewItems().length) {
-                // If there's a selection, we always move focus to it
-                location = picker.getSelectable().getLastSelected();
-
-                // If there's no selection, or the selection is not in the picker store,
-                // then autoFocusLast attempts to focus the last known focused location.
-                // And the fallback is autoFocus focusing record 0.
-                if (!location || !store.contains(location)) {
-                    if (fromKeyboard || me.getAutoFocusLast()) {
-                        location = picker.getNavigationModel().lastLocation;
-                        if (location) {
-                            location = location.refresh();
-                        }
-                    }
-                    if (!location && (fromKeyboard || me.getAutoFocus())) {
-                        location = store.getAt(0);
-                    }
+            if (store && store.getCount() > 0) {
+                if (me.pickerType === 'floated') {
+                    picker.getNavigationModel().setLocation(selection, {
+                        select: true
+                    });
+                } else {
+                    this.updatePickerValue(picker);
                 }
-
-                picker.getNavigationModel().setLocation(location);
             }
         }
     },
@@ -779,34 +752,68 @@ Ext.define('Ext.field.Select', {
                 displayField = this.getDisplayField(),
                 i, value, option;
 
-            // Convert an array of primitives to record data objects
+            // Convert an array of strings to record data objects
             options = Ext.Array.slice(options);
             for (i = 0; i < len; i++) {
                 value = options[i];
-                if (Ext.isPrimitive(value)) {
+                if (typeof value === 'string') {
                     options[i] = option = {};
-                    option.id = value;
                     option[valueField] = value;
                     if (displayField && displayField !== valueField) {
                         option[displayField] = value;
                     }
                 }
             }
-
-            options = Ext.data.StoreManager.lookup({
-                fields: [valueField, displayField],
-                data: options
-            });
         }
         return options;
     },
 
-    updateOptions: function(options, oldOptions) {
-        if (options) {
-            this.setStore(options);
-        } else {
-            if (oldOptions === this.getStore()) {
-                this.setStore(null);
+    /**
+     * Updates the underlying `<options>` list with new values.
+     *
+     * @param {Array} newOptions An array of options configurations to insert or append.
+     *
+     *     selectBox.setOptions([
+     *         {text: 'First Option',  value: 'first'},
+     *         {text: 'Second Option', value: 'second'},
+     *         {text: 'Third Option',  value: 'third'}
+     *     ]).setValue('third');
+     *
+     * __Note:__ option object member names should correspond with defined {@link #valueField valueField} and
+     * {@link #displayField displayField} values.
+     *
+     * @return {Ext.field.Select} this
+     */
+    updateOptions: function(newOptions) {
+        if (newOptions) {
+
+            // *peek* at the store. Do not cause the config to be processed.
+            // The options data must be available to onStoreUpdate if we in fact
+            // have to pull the configuration through updateStore.
+            var me = this,
+                store = me.getConfig('store', true);
+
+            // We already had a store. Just update it
+            if (store && store.isStore) {
+                store.setData(newOptions);
+                me.onStoreDataChanged(store);
+                me.setOptions(null);
+            }
+            // Pull any configured store through updateStore which will
+            // load it with the options data.
+            else {
+                store = me.getStore();
+                me.setOptions(null);
+
+                // If we had a store, it will have picked up the optionsData and added them.
+                // If not, we create it here.
+                if (!store) {
+                    me.setStore({
+                        fields: [me.getValueField(), me.getDisplayField()],
+                        autoDestroy: true,
+                        data: newOptions
+                    });
+                }
             }
         }
     },
@@ -821,8 +828,10 @@ Ext.define('Ext.field.Select', {
 
     updateStore: function(store, oldStore) {
         var me = this,
+            picker = me.getConfig('picker', false, true),
             valueField = me.getValueField(),
             displayField = me.getDisplayField(),
+            optionsData = me.getOptions(),
             extraKeySpec;
 
         if (oldStore) {
@@ -862,8 +871,9 @@ Ext.define('Ext.field.Select', {
             }
 
             store.on({
-                scope: me,
+                scope: this,
                 add: 'onStoreDataChanged',
+                filterchange: 'onStoreDataChanged',
                 remove: 'onStoreDataChanged',
                 update: 'onStoreRecordUpdated',
 
@@ -874,25 +884,37 @@ Ext.define('Ext.field.Select', {
                 }
             });
 
+            // Add options from the last setOptions call.
+            if (optionsData) {
+                store.setData(optionsData);
+            }
+
             // If the store is already loaded, fix up any value we may have.
             // cachedValue will be set if there was no store at init time.
             // If we had a selected record, rematch it.
             // Otherwise auto select first record if configured to do so.
-            if (store.isLoaded() && !store.hasPendingLoad()) {
-                me.syncValue();
+            if (store.getCount()) {
+                // cachedValue could be 0 or false
+                if (me.cachedValue != null) {
+                    me.onStoreLoad(store);
+                }
+                // If we don't have a value, and we are not going to receive a value from
+                // binding and we are autoSelect: true, autoSelect the first record.
+                else if (!(me.getValue() != null || me.getSelection() || me.isBound('value') || me.isBound('selection')) && me.getAutoSelect()) {
+                    me.setSelection(store.getAt(0));
+                }
             }
             // If not loaded, and there's a value waiting to be matched
             // and we should autoload on value, load the store and onStoreLoad
             // will match it up.
-            else if (me.getValue() != null && me.getAutoLoadOnValue() && 
-                     !store.isLoaded() && !store.hasPendingLoad()) {
+            else if (me.cachedValue != null && me.getAutoLoadOnValue() && !store.isLoaded() && !store.hasPendingLoad()) {
                 store.load();
             }
         }
 
-        // Depending upon configurations, we may need a ChainedStore to drive
-        // the picker.
-        me.updatePickerStore();
+        if (picker) {
+            picker.setStore(store);
+        }
     },
 
     applyValueField: function(valueField) {
@@ -945,130 +967,22 @@ Ext.define('Ext.field.Select', {
         }
     },
 
+    updatehHideTrigger: function(hideTrigger) {
+        this.getTriggers().expand.setVisible(!hideTrigger);
+    },
+
     /**
      * @private
      * Whenever the store loads, we need to refresh the selection by pushing a value through
      * the setValue machinery. Upon initialization, there may be a cached initial value.
      * Otherwise use the current value.
      */
-    onStoreLoad: function (store, records, success) {
-        var filtering = this.isFiltering;
-        
-        this.isFiltering = false;
-        
-        if (success) {
-            // The isFilering flag is set in doFilter if the store
-            // if using remote filters and the primaryFilter has a value.
-            this.syncMode = filtering ? 'filter' : 'store';
-            this.syncValue();
-        }
-    },
+    onStoreLoad: function(store) {
+        var me = this;
 
-    syncValue: function() {
-        var me = this,
-            store = me.getStore(),
-            valueField = me.getValueField(),
-            displayField = me.getDisplayField(),
-            forceSelection = me.getForceSelection(),
-            valueNotFoundText = me.getValueNotFoundText(),
-            is, isCleared, isInput, value, matchedRecord, dataObj;
-
-        // If we are not ready to reconcile values for any reason.
-        //   We are in the middle of value syncing
-        //   Store has not arrived from bind
-        //   Store has not been loaded
-        //   Store is currently loading
-        // Then we cannot recconcile values now, this will be called later
-        // when the store arrives, or is loaded.
-        if (me.reconcilingValue || !store || !store.isLoaded() || store.hasPendingLoad()) {
-            return;
-        }
-
-        me.reconcilingValue = true;
-
-        me.getSelection(); // make sure selection config is flushed
-
-        is = {};
-        is[me.syncMode] = true;
-        value = (isInput = is.input || is.filter) ? me.getInputValue() : me.getValue();
-        isCleared = value == null || value === '';
-
-        // Get the record that matches our input value
-        if (!isCleared) {
-            matchedRecord = (isInput ? store.byText : store.byValue).get(value);
-
-            if (matchedRecord) {
-                if (!matchedRecord.isEntity) {
-                    // Since we lookup values not id's there can be multiple matching
-                    // records... so if we get back something that isn't a record, it is
-                    // an array.
-                    matchedRecord = matchedRecord[0];
-                }
-            }
-            else if (!forceSelection) {
-                // Not found in the regular indexes which index the store.
-                // If we are potentially inserting unmatched values as new "isEntered"
-                // records, then find a match in the valueCollection if possible.
-                matchedRecord = me.findRecordByValue(value);
-            }
-        }
-
-        // Either user has typed something (isInput), or we've had a setValue
-        // to a value which has no match in the store, and we are not forceSelection: true.
-        // We create a new record.
-        if (!isCleared && !matchedRecord && !forceSelection) {
-            dataObj = {};
-            dataObj[displayField] = value;
-
-            if (valueField && displayField !== valueField) {
-                dataObj[valueField] = value;
-            }
-
-            matchedRecord = me.createSelectionRecord(dataObj);
-            matchedRecord.isEntered = true;
-        }
-        else {
-            // Not in an record.isEntered situation.
-            // Value is the typed value.
-            if (isInput || is.store) {
-                if (!matchedRecord && forceSelection) {
-                    me.setValue(null);
-                    me.setSelection(null);
-
-                    // If we're processing a store load in response to remote filtering
-                    // then we must not clear the input value used to kick off that filter.
-                    // If they blur the field now, completeEdit will clear the value as unmatched.
-                    if (!is.filter) {
-                        me.setFieldDisplay();
-                    }
-                }
-            }
-            // Value is the set value.
-            else {
-                if (isCleared) {
-                    if (me.mustAutoSelect()) {
-                        matchedRecord = store.first();
-
-                        if (me.getAutoSelect() === 'initial') {
-                            me.setAutoSelect(false);
-                        }
-                    } else {
-                        me.setSelection(null);
-                    }
-                }
-                // We have a value, so get the record that matches our current value.
-                // Note that setValue can
-                else if (!matchedRecord && valueNotFoundText) {
-                    me.setError(valueNotFoundText);
-                }
-            }
-        }
-
-        if (matchedRecord) {
-            me.setSelection(matchedRecord);
-        }
-
-        me.reconcilingValue = false;
+        // cachedValue could be 0 or false
+        me.setValue(me.cachedValue == null ? me.getValue() : me.cachedValue);
+        me.cachedValue = null;
     },
 
     /**
@@ -1128,92 +1042,7 @@ Ext.define('Ext.field.Select', {
         if (store && !store.destroyed && store.getAutoDestroy()) {
             store.destroy();
         }
-        this.destroyMembers('options');
 
         this.callParent();
-    },
-
-    privates: {
-        syncMode: null,
-
-        mustAutoSelect: function () {
-            var me = this,
-                autoSelect = me.getAutoSelect();
-
-            if (autoSelect && !(me.isConfiguring || autoSelect === 'initial')) {
-                autoSelect = !me.getClearable() && me.getRequired();
-            }
-
-            return !!autoSelect;
-        },
-
-        /**
-         * Returns ths Store used to drive the BoundList.
-         *
-         * When the supplied store is `queryMode: 'local'`, this will be a ChainedStore sources from the
-         * configured store.
-         * @private
-         */
-        updatePickerStore: function() {
-            var me = this,
-                picker = me.getConfig('picker', false, true),
-                store = me.getStore(),
-                localFiltering = me.getQueryMode && me.getQueryMode() === 'local',
-                result = store;
-
-            // If we need to be adding local filters, then we need to chain off a store based
-            // on the supplied store so that we can own the filtering.
-            if (localFiltering) {
-                // Already got a ChainedStore - just reconfigure it.
-                if (me._pickerStore && me._pickerStore.isChainedStore) {
-                    me._pickerStore.setConfig({
-                        source: store
-                    });
-                }
-                // Create a ChainedStore based on our store
-                else {
-                    me._pickerStore = result = Ext.data.StoreManager.lookup({
-                        type: 'chained',
-                        source: store
-                    }, null, me);
-                }
-            }
-            // The _pickerStore is the base store.
-            else {
-                me._pickerStore = result = store;
-            }
-
-            // Bind the picker to the correct store. If it is the default store, this
-            // will be a no-op.
-            if (picker) {
-                picker.setStore(result);
-            }
-        },
-
-        /**
-         * Updates the fields input UI according to the current selection.
-         *
-         * @param selection
-         * @private
-         */
-        setFieldDisplay: function (selection) {
-            var me = this,
-                inputValue = '',
-                displayTpl;
-
-            if (selection) {
-                displayTpl = me.getDisplayTpl();
-                if (displayTpl) {
-                    inputValue = displayTpl.apply(me.getRecordDisplayData(selection));
-                } else {
-                    inputValue = selection.get(me.getDisplayField());
-                }
-            }
-
-            me.setInputValue(inputValue);
-
-            // Ensure clear icon is synced
-            me.syncEmptyState();
-        }
     }
 });

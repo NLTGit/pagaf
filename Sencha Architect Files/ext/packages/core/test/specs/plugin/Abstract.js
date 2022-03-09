@@ -247,10 +247,10 @@ topSuite("Ext.plugin.Abstract", [
                         },
 
                         responsiveConfig: {
-                            'true': {
+                            true: {
                                 foo: 1
                             },
-                            'false': {
+                            false: {
                                 bar: 2
                             }
                         }

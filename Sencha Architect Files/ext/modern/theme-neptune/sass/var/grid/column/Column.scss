@@ -148,18 +148,6 @@ $gridcolumn-sort-icon-font-size-big: dynamic(null);
  */
 $gridcolumn-sort-icon-color: dynamic($gridcolumn-color);
 
-/**
- * @var {color}
- * Grid Column secondary sort icon color
- */
-$gridcolumn-sort-secondary-icon-color: dynamic(mix(#fff, $gridcolumn-sort-icon-color, 50%));
-
-/**
- * @var {color}
- * Grid Column auxilliary (tertiary and below) sort icon color
- */
-$gridcolumn-sort-aux-icon-color: dynamic(mix(#fff, $gridcolumn-sort-icon-color, 70%));
-
 //# fashion replaces $grid-column-sort-asc-icon
 /**
  * @var {string/list}
@@ -322,12 +310,6 @@ $gridcolumn-resizer-background-color: dynamic(darken($gridcolumn-background-colo
  * @param {color} $sort-icon-color
  * Grid Column sort icon color
  *
- * @param {color} $sort-secondary-icon-color
- * Grid Column secondary sort icon color
- *
- * @param {color} $sort-aux-icon-color
- * Grid Column aux icon color
- *
  * @param {string/list} $sort-asc-icon
  * Grid Column sort ascending icon
  *
@@ -395,8 +377,6 @@ $gridcolumn-resizer-background-color: dynamic(darken($gridcolumn-background-colo
     $sort-icon-font-size: null,
     $sort-icon-font-size-big: null,
     $sort-icon-color: null,
-    $sort-secondary-icon-color: null,
-    $sort-aux-icon-color: null,
     $sort-asc-icon: null,
     $sort-desc-icon: null,
     $trigger-width: null,
@@ -483,18 +463,6 @@ $gridcolumn-resizer-background-color: dynamic(darken($gridcolumn-background-colo
                     }
                 }
             }
-
-            // Allow different colors for secondary and below sort arrows.
-            &.#{$prefix}secondary-sort {
-                .#{$prefix}sort-icon-el {
-                    color: $sort-secondary-icon-color;
-                }
-            }
-            &.#{$prefix}aux-sort {
-                .#{$prefix}sort-icon-el {
-                    color: $sort-aux-icon-color;
-                }
-            }
         }
 
         &.#{$prefix}sorted-asc .#{$prefix}sort-icon-el {
@@ -534,9 +502,3 @@ $gridcolumn-menu-sort-desc-icon: dynamic($fa-var-sort-alpha-desc);
  * Column hide/show menu item icon.
  */
 $gridcolumn-menu-columns-icon: dynamic($fa-var-columns);
-
-/**
- * @var {string/list}
- * Grid Column "Group by this column" icon
- */
-$gridcolumn-menu-group-by-this-icon: dynamic($ext-var-group-by ExtJS);

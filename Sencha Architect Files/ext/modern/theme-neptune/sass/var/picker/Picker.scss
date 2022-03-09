@@ -1,10 +1,6 @@
 /**
  * @class Ext.picker.Picker
  */
-
-/**
- * @var {color} $picker-background-color
- */
 $picker-background-color: dynamic($background-color);
 
 $picker-item-display: dynamic(null);
@@ -30,17 +26,17 @@ $picker-title-height: dynamic(20px);
 $picker-title-color: dynamic($toolbar-title-color);
 
 /**
- * @var {Number} $picker-title-border-width
+ * @var {Box<Size>} $picker-title-border-width
  */
 $picker-title-border-width: dynamic(null null 1px null);
 
 /**
- * @var {String} $picker-title-border-style
+ * @var {Box<BorderStyle>} $picker-title-border-style
  */
 $picker-title-border-style: dynamic(null null solid null);
 
 /**
- * @var {Color} $picker-title-border-color
+ * @var {Box<Color>} $picker-title-border-color
  */
 $picker-title-border-color: dynamic(null null $neutral-color null);
 $picker-title-padding: dynamic(3px 13px);

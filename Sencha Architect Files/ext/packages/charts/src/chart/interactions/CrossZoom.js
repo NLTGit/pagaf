@@ -222,7 +222,7 @@ Ext.define('Ext.chart.interactions.CrossZoom', {
     },
 
     getSurface: function () {
-        return this.getChart() && this.getChart().getSurface('overlay');
+        return this.getChart() && this.getChart().getSurface('main');
     },
     
     setSeriesOpacity: function (opacity) {

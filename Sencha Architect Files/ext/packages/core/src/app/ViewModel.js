@@ -148,9 +148,7 @@
  * the any dependencies for a binding are fired before the binding itself.
  * - To batch binding firings. The scheduler runs on a short timer, so the following code will only trigger
  * a single binding (the last), the changes in between will never be triggered.
- *
- * Example:
- *
+ * 
  *     viewModel.bind('{val}', function(v) {
  *         console.log(v);
  *     });
@@ -256,9 +254,7 @@
  * It is possible to bind to the certain state properties of a record. The available options are:
  * - `{@link Ext.data.Model#property-dirty dirty}`
  * - `{@link Ext.data.Model#property-phantom phantom}`
- * - `{@link Ext.data.Model#method-isValid valid}`
- *
- * Example usage:
+ * - `{@link #Ext.data.Model#method-isValid valid}`
  *
  *     Ext.define('MyApp.model.User', {
  *         extend: 'Ext.data.Model',
@@ -407,12 +403,10 @@
  *
  * It is possible to bind to the certain state properties of the store. The available options are:
  * - `{@link Ext.data.Store#method-getCount count}`
- * - `{@link Ext.data.Store#method-first}`
- * - `{@link Ext.data.Store#method-last}`
- * - `{@link Ext.data.Store#method-hasPendingLoad loading}`
- * - `{@link Ext.data.Store#method-getTotalCount totalCount}`
- *
- * Example:
+ * - `{@link #Ext.data.Store#method-first}`
+ * - `{@link #Ext.data.Store#method-last}`
+ * - `{@link #Ext.data.Store#method-hasPendingLoad loading}`
+ * - `{@link #Ext.data.Store#method-getTotalCount totalCount}`
  *
  *     Ext.define('MyApp.model.User', {
  *         extend: 'Ext.data.Model',
@@ -436,12 +430,12 @@
  *         console.log(first ? first.get('name') : 'Nobody');
  *     });
  *
- *     var timer = Ext.interval(function() {
+ *     var timer = setInterval(function() {
  *         var store = viewModel.getStore('users');
  *         if (store.getCount()) {
  *             store.removeAt(0);
  *         } else {
- *             Ext.uninterval(timer);
+ *             clearInterval(timer);
  *         }
  *     }, 100);
  *
@@ -459,34 +453,34 @@
  *         stores: {
  *             users: {
  *                 model: 'MyApp.model.User',
- *                 data: [{
- *                     name: 'Foo',
- *                     score: 100
- *                 }, {
- *                     name: 'Bar',
- *                     score: 350
- *                 }]
- *             }
- *         },
- *         formulas: {
- *             totalScore: {
- *                 bind: {
- *                     bindTo: '{users}',
- *                     deep: true
- *                 },
- *                 get: function(store) {
- *                     return store.sum('score');
- *                 }
- *             }
- *         }
- *     });
+ *               data: [{
+ *                   name: 'Foo',
+ *                   score: 100
+ *               }, {
+ *                   name: 'Bar',
+ *                   score: 350
+ *               }]
+ *           }
+ *       },
+ *       formulas: {
+ *           totalScore: {
+ *               bind: {
+ *                   bindTo: '{users}',
+ *                   deep: true
+ *               },
+ *               get: function(store) {
+ *                   return store.sum('score');
+ *               }
+ *           }
+ *       }
+ *   });
  *
- *     viewModel.bind('{totalScore}', function(score) {
- *         console.log(score);
- *     });
+ *   viewModel.bind('{totalScore}', function(score) {
+ *       console.log(score);
+ *   });
  *
- *     viewModel.notify();
- *     viewModel.getStore('users').removeAll();
+ *   viewModel.notify();
+ *   viewModel.getStore('users').removeAll();
  *
  * #### Formulas
  *
@@ -752,34 +746,6 @@ Ext.define('Ext.app.ViewModel', {
 
     expressionRe: /^(?:\{(?:(\d+)|([a-z_][\w\.]*))\})$/i,
 
-    statics: {
-        /**
-         * Escape bind strings so they are treated as literals.
-         * 
-         * @param {Object/String} value The value to escape. If the value is
-         * an object, any strings will be recursively escaped.
-         * @return {Object/String} The escaped value. Matches the type of the
-         * passed value.
-         *
-         * @since 6.5.2
-         * @private
-         */
-        escape: function(value) {
-            var ret = value,
-                key;
-
-            if (typeof value === 'string') {
-                ret = '~~' + value;
-            } else if (value && value.constructor === Object) {
-                ret = {};
-                for (key in value) {
-                    ret[key] = this.escape(value[key]);
-                }
-            }
-            return ret;
-        }
-    },
-
     $configStrict: false, // allow "formulas" to be specified on derived class body
     config: {
         /**
@@ -1003,7 +969,7 @@ Ext.define('Ext.app.ViewModel', {
             task = me.collectTask,
             children = me.children,
             bindings = me.bindings,
-            key, store, autoDestroy, storeBinding;
+            key, store, autoDestroy;
 
         me.destroying = true;
         if (task) {
@@ -1024,15 +990,11 @@ Ext.define('Ext.app.ViewModel', {
         if (stores) {
             for (key in stores) {
                 store = stores[key];
-
-                // Cache this property in case store is destroyed;
-                // Properties are cleared on destroy
-                storeBinding = store.$binding;
                 autoDestroy = store.autoDestroy;
                 if (autoDestroy || (!store.$wasInstance && autoDestroy !== false)) {
                     store.destroy();
                 }
-                Ext.destroy(storeBinding);
+                Ext.destroy(store.$binding);
             }
         }
 

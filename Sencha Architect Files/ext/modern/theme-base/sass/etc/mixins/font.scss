@@ -21,12 +21,7 @@
  *
  * @private
  */
-@mixin font(
-    $font-weight: null,
-    $font-size: null,
-    $line-height: null,
-    $font-family: null
-) {
+@mixin font($font-weight: null, $font-size: null, $line-height: null, $font-family: null) {
     @if $font-weight == null or $font-family == null or $font-size == null or $line-height == null {
         // if any of the parameters are null we cannot use a single "font" declaration
         // Single font declaration does not work without font-family and font-size, and

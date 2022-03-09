@@ -106,68 +106,6 @@ topSuite("Ext.form.RadioGroup", ['Ext.app.ViewModel'], function() {
                 Ext.Factory.viewModel.instance.clearCache();
             });
         });
-        
-        describe("simpleValue", function() {
-            var one, two, three;
-            
-            beforeEach(function() {
-                makeGroup(
-                [{
-                    boxLabel: 'one',
-                    inputValue: '1',
-                    checked: true
-                }, {
-                    boxLabel: 'two',
-                    inputValue: '2'
-                }, {
-                    boxLabel: 'three',
-                    inputValue: '3'
-                }], {
-                    // Test is for a non-rendered group (e.g. in a tab)
-                    // See https://sencha.jira.com/browse/EXTJS-25448
-                    renderTo: undefined,
-                    name: 'foo',
-                    simpleValue: true
-                });
-                
-                one = group.down('[boxLabel=one]');
-                two = group.down('[boxLabel=two]');
-                three = group.down('[boxLabel=three]');
-            });
-            
-            afterEach(function() {
-                one = two = three = null;
-            });
-            
-            describe("initial", function() {
-                it("should have first radio checked", function() {
-                    expect(one.checked).toBe(true);
-                });
-                
-                it("should return value from checked radio", function() {
-                    expect(group.getValue()).toBe('1');
-                });
-            });
-            
-            describe("setValue", function() {
-                beforeEach(function() {
-                    group.setValue('2');
-                });
-                
-                it("should set value", function() {
-                    expect(group.getValue()).toBe('2');
-                });
-                
-                it("should check the corresponding radio", function() {
-                    expect(two.checked).toBe(true);
-                });
-                
-                it("should uncheck other radios", function() {
-                    expect(one.checked).toBe(false);
-                    expect(three.checked).toBe(false);
-                });
-            });
-        });
     });
     
     describe("ARIA", function() {

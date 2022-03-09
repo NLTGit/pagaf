@@ -242,7 +242,7 @@ Ext.define('Ext.ux.desktop.TrayClock', {
 
     afterRender: function () {
         var me = this;
-        Ext.defer(me.updateTime, 100, me);
+        Ext.Function.defer(me.updateTime, 100, me);
         me.callParent();
     },
 
@@ -264,6 +264,6 @@ Ext.define('Ext.ux.desktop.TrayClock', {
             me.setText(text);
             me.lastText = text;
         }
-        me.timer = Ext.defer(me.updateTime, 10000, me);
+        me.timer = Ext.Function.defer(me.updateTime, 10000, me);
     }
 });

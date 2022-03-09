@@ -336,40 +336,6 @@ topSuite("Ext.data.TreeStore", function() {
         });
     });
 
-    describe("grouping", function() {
-        it("should always be ungroupable", function() {
-            store = new Ext.data.TreeStore({
-                model: NodeModel,
-                root: {
-                    expanded: true,
-                    children: [{
-                        id: 'l1',
-                        leaf: true,
-                        age: 20
-                    }, {
-                        id: 'f1',
-                        age: 30
-                    }, {
-                        id: 'l2',
-                        leaf: true,
-                        age: 20
-                    }, {
-                        id: 'f2',
-                        age: 30
-                    }]
-                }
-            });
-            expect(function() {
-                store.setGrouper('age');
-            }).toThrow();
-            expect(store.getGrouper()).toBeNull();
-            store.setGroupField('age');
-            expect(store.getGroupField()).toBe('');
-            store.setGroupDir('DESC');
-            expect(store.getGroupDir()).toBeNull();
-        });
-    });
-
     describe("sorting", function() {
         function expectStoreOrder(ids) {
             var len = ids.length,

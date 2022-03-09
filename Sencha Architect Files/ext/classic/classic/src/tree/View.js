@@ -6,10 +6,6 @@ Ext.define('Ext.tree.View', {
     alias: 'widget.treeview',
 
     config: {
-        /**
-         * @cfg selectionModel
-         * @inheritdoc
-         */
         selectionModel: {
             type: 'treemodel'
         }
@@ -21,10 +17,6 @@ Ext.define('Ext.tree.View', {
      */
     isTreeView: true,
 
-    /**
-     * @cfg loadingCls
-     * @inheritdoc
-     */
     loadingCls: Ext.baseCSSPrefix + 'grid-tree-loading',
     expandedCls: Ext.baseCSSPrefix + 'grid-tree-node-expanded',
     leafCls: Ext.baseCSSPrefix + 'grid-tree-node-leaf',
@@ -38,14 +30,10 @@ Ext.define('Ext.tree.View', {
     // for an ancestor node with this class.
     nodeAnimWrapCls: Ext.baseCSSPrefix + 'tree-animator-wrap',
 
-    /**
-     * @property ariaRole
-     * @inheritdoc
-     */
     ariaRole: 'treegrid',
 
     /**
-     * @cfg loadMask
+     * @cfg {Boolean}
      * @inheritdoc
      */
     loadMask: false,
@@ -64,16 +52,8 @@ Ext.define('Ext.tree.View', {
     expandDuration: 250,
     collapseDuration: 250,
 
-    /**
-     * @cfg {Boolean} toggleOnDblClick
-     * True to toggle expand or collapse with a double click.
-     */
     toggleOnDblClick: true,
 
-    /**
-     * @cfg stripeRows
-     * @inheritdoc
-     */
     stripeRows: false,
 
     // treeRowTpl which is inserted into the rowTpl chain before the base rowTpl. Sets tree-specific classes and attributes
@@ -347,6 +327,7 @@ Ext.define('Ext.tree.View', {
     onRemove: function(ds, records, index) {
         var me = this,
             empty, i,
+            fireRemoveEvent = me.hasListeners.remove,
             oldItems;
 
         if (me.viewReady) {
@@ -356,7 +337,9 @@ Ext.define('Ext.tree.View', {
             if (me.bufferedRenderer) {
                 return me.callParent([ds, records, index]);
             }
-            oldItems = this.all.slice(index, index + records.length);
+            if (fireRemoveEvent) {
+                oldItems = this.all.slice(index, index + records.length);
+            }
             // Nothing left, just refresh the view.
             if (empty) {
                 me.refresh();
@@ -369,7 +352,10 @@ Ext.define('Ext.tree.View', {
                 me.refreshSizePending = true;
             }
 
-            me.fireItemMutationEvent('itemremove', records, index, oldItems, me);
+            // Only fire the event if there's anyone listening
+            if (fireRemoveEvent) {
+                me.fireItemMutationEvent('itemremove', records, index, oldItems, me);
+            }
         }
     },
 
@@ -780,7 +766,7 @@ Ext.define('Ext.tree.View', {
 
         // If the new valud was not reset due to vetoing from
         // changes propagated to child nodes, then go ahead with the change.
-        if (record.get('checked') !== meChecked) {
+        if (record.get('data') !== meChecked) {
             record.set('checked', meChecked, options);
 
             // Fire checkchange now we know the valus has changed.
@@ -813,13 +799,11 @@ Ext.define('Ext.tree.View', {
                     parentChecked = foundCheck && foundClear ? halfCheckedValue : (foundCheck ? true : false);
                 }
 
-                if (parentNode.get('checked') !== parentChecked) {
-                    // We are setting the parent node, so pass the
-                    // progagateCheck flag as false to avoid reentry back into this node.
-                    me.setChecked(parentNode, parentChecked, e, {
-                        propagateCheck: false
-                    });
-                }
+                // We are setting the parent node, so pass the
+                // progagateCheck flag as false to avoid reentry back into this node.
+                me.setChecked(parentNode, parentChecked, e, {
+                    propagateCheck: false
+                });
             }
         }
     },

@@ -117,6 +117,7 @@ Ext.define('Ext.tree.Column', {
      * 
      * @return {String}
      * The HTML string to be rendered into the text portion of the tree node.
+     * @declarativeHandler
      */
 
     cellTpl: [

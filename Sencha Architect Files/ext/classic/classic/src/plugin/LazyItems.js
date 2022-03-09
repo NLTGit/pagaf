@@ -12,18 +12,16 @@
  *         xtype: 'tabpanel',
  *         items: [{
  *             title: 'Tab One',
- *             plugins: {
- *                 lazyitems: {
- *                     items: [... tab child items...]
- *                 }
- *             }
+ *             plugins: [{
+ *                 ptype: 'lazyitems',
+ *                 items: [... tab child items...]
+ *             }]
  *         }, {
  *             title: 'Tab One',
- *             plugins: {
- *                 lazyitems: {
- *                     items: [... tab child items...]
- *                 }
- *             }
+ *             plugins: [{
+ *                 ptype: 'lazyitems',
+ *                 items: [... tab child items...]
+ *             }]
  *         }]
  *     }
  *

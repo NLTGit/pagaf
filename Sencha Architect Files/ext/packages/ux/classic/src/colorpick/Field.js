@@ -47,7 +47,6 @@ Ext.define('Ext.ux.colorpick.Field', {
     childEls: [
         'swatchEl'
     ],
-    checkChangeEvents: ['change'],
 
     config: {
         /**
@@ -79,18 +78,11 @@ Ext.define('Ext.ux.colorpick.Field', {
 
     /**
      * @event change
-     * Fires when a color is selected or if the field value is updated (if {@link #editable}).
+     * Fires when a color is selected.
      * @param {Ext.ux.colorpick.Field} this
      * @param {String} color The value of the selected color as per specified {@link #format}.
      * @param {String} previousColor The previous color value.
      */
-    
-    initComponent: function () {
-        var me = this;
-        
-        me.callParent();
-        me.on('change', me.onHexChange);
-    },
 
     // NOTE: Since much of the logic of a picker class is overriding methods from the
     // base class, we don't bother to split out the small remainder as a controller.
@@ -102,7 +94,7 @@ Ext.define('Ext.ux.colorpick.Field', {
     },
 
     // override as required by parent pickerfield
-    createPicker: function () {
+    createPicker: function() {
         var me = this,
             popup = me.getPopup(),
             picker;
@@ -113,8 +105,6 @@ Ext.define('Ext.ux.colorpick.Field', {
 
         picker.setFormat(me.getFormat());
         picker.setColor(me.getColor());
-        picker.setHexReadOnly(!me.editable);
-        
         picker.on({
             ok: 'onColorPickerOK',
             cancel: 'onColorPickerCancel',
@@ -145,30 +135,21 @@ Ext.define('Ext.ux.colorpick.Field', {
 
         this.colorPicker.setPreviousColor(color);
     },
-    
-    onHexChange: function (field) {
-        if (field.validate()) {
-            this.setValue(field.getValue());
-        }
-    },
 
     // Expects value formatted as per "format" config
-    setValue: function (color) {
-        var me = this;
-        
-        if (Ext.ux.colorpick.ColorUtils.isValid(color)) {
-            color = me.applyValue(color);
-    
-            me.callParent([color]);
-    
-            // always update in case opacity changes, even if value doesn't have it
-            // to handle "hex6" non-opacity type of format
-            me.updateValue(color);
-        }
+    setValue: function(color) {
+        var me = this,
+            c = me.applyValue(color);
+
+        me.callParent([c]);
+
+        // always update in case opacity changes, even if value doesn't have it
+        // to handle "hex6" non-opacity type of format
+        me.updateValue(c);
     },
 
     // Sets this.format and color picker's setFormat()
-    updateFormat: function (format) {
+    updateFormat: function(format) {
         var cp = this.colorPicker;
 
         if (cp) {
@@ -190,21 +171,11 @@ Ext.define('Ext.ux.colorpick.Field', {
         }
 
         c = me.getColor();
-        
-        if (c) {
-            Ext.ux.colorpick.ColorUtils.setBackground(me.swatchEl, c);
-    
-            if (me.colorPicker) {
-                me.colorPicker.setColor(c);
-            }
+
+        Ext.ux.colorpick.ColorUtils.setBackground(me.swatchEl, c);
+
+        if (me.colorPicker) {
+            me.colorPicker.setColor(c);
         }
-    },
-    
-    validator: function (val) {
-        if (!Ext.ux.colorpick.ColorUtils.isValid(val)) {
-            return this.invalidText;
-        }
-        
-        return true;
     }
 });

@@ -551,7 +551,7 @@ Ext.define('Ext.ComponentQuery', {
                     if (propValue != null && compareTo.test(propValue)) {
                         result.push(candidate);
                     }
-                } else if (!compareTo ? !!propValue : queryOperators[operator](Ext.coerce(propValue, compareTo), compareTo)) {
+                } else if (!compareTo ? !!candidate[property] : queryOperators[operator](Ext.coerce(propValue, compareTo), compareTo)) {
                     result.push(candidate);
                 }
             }

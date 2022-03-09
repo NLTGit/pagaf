@@ -2,11 +2,54 @@
  * @class Ext.dom.Element
  * @override Ext.dom.Element
  */
-
 Ext.define('Ext.overrides.dom.Element', {
     override: 'Ext.dom.Element',
 
     _positionTopLeft: ['position', 'top', 'left'],
+
+    /**
+     * Measures and returns the size of this element. When `dimension` is `null` (or
+     * not specified), this will be an object with `width` and `height` properties.
+     *
+     * If `dimension` is `'w'` the value returned will be this element's width. If
+     * `dimension` is `'h'` the returned value will be this element's height.
+     *
+     * Unlike `getWidth` and `getHeight` this method only returns "precise" (sub-pixel)
+     * sizes based on the `getBoundingClientRect` API.
+     *
+     * @param {'w'/'h'} [dimension] Specifies which dimension is desired. If omitted
+     * then an object with `width` and `height` properties is returned.
+     * @return {Number/Object} This element's width, height or both as a readonly
+     * object. This object may be the direct result of `getBoundingClientRect` and
+     * hence immutable on some browsers.
+     * @private
+     * @since 6.5.0
+     */
+    measure: function (dimension) {
+        var me = this,
+            dom = me.dom,
+            includeWidth = dimension !== 'h',
+            height, rect, width;
+
+        // Use the viewport height if they are asking for body height
+        if (dom.nodeName === 'BODY') {
+            height = dimension !== 'w' && Element.getViewportHeight();
+            width = includeWidth && Element.getViewportWidth();
+
+            // Don't create a temporary object unless we need to return it...
+            rect = dimension ? null : { width: width, height: height };
+        }
+        else {
+            rect = dom.getBoundingClientRect();
+
+            height = rect.height;
+            width = rect.width;
+        }
+
+        // NOTE: The classic override handles IE8/9/10 issues (which are many)
+
+        return dimension ? (includeWidth ? width : height) : rect;
+    },
 
     setX: function(x, animate) {
         return this.setXY([x, this.getY()], animate);

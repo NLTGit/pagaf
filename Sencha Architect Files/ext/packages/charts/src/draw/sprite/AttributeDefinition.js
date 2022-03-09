@@ -52,7 +52,7 @@ Ext.define('Ext.draw.sprite.AttributeDefinition', {
 
         /**
          * @cfg {Object} dirtyTriggers
-         * @deprecated 6.5.0 Use the {@link #triggers} config instead.
+         * @deprecated Use the {@link #triggers} config instead.
          */
         dirtyTriggers: {},
 

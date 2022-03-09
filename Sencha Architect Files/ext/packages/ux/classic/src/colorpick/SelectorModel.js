@@ -44,7 +44,7 @@ Ext.define('Ext.ux.colorpick.SelectorModel', {
             },
 
             set: function (hex) {
-                var rgb = Ext.ux.colorpick.ColorUtils.parseColor(hex);
+                var rgb = Ext.ux.colorpick.ColorUtils.hex2rgb(hex);
                 this.changeRGB(rgb);
             }
         },

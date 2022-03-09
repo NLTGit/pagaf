@@ -185,9 +185,6 @@ Ext.define('Ext.util.History', {
      * @param {Boolean} [preventDuplicates=true] When true, if the passed token matches the current token
      * it will not save a new history step. Set to false if the same state can be saved more than once
      * at the same history stack location.
-     *
-     * @return {Boolean} Whether the token was set in the case if the current token matches the token
-     * passed.
      */
     add: function(token, preventDuplicates) {
         var me = this,
@@ -203,14 +200,11 @@ Ext.define('Ext.util.History', {
 
     /**
      * Replaces the current resource in history.
-     *
      * @param {String} token The value that will replace the current resource in the history state.
      * @param {Boolean} [preventDuplicates=true] When `true`, if the passed token matches the current token
      * it will not save a new history step. Set to `false` if the same state can be saved more than once
      * at the same history stack location.
-     *
-     * @return {Boolean} Whether the token was set in the case if the current token matches the token
-     * passed.
+     * @return {Boolean} Whether the token was set.
      */
     replace: function(token, preventDuplicates) {
         var me = this,

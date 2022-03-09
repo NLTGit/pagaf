@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>Add a raster tile source</title>
+<meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
+<script src="js/d3.min.js"></script>
+<script src="https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.js"></script>
+<link href="https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.css" rel="stylesheet" />
+<style>
+	body, html { margin: 0; padding: 0; width:100%; height:100%; }
+	#map { position: absolute; top: 0; bottom: 0; width: 100%; }
+</style>
+</head>
+<body>
+<div id="map"></div>
+<script>
+	mapboxgl.accessToken = 'pk.eyJ1IjoiY2Vuc3VzcGFnYWYiLCJhIjoiY2tid2FjZmxxMDZoczJycGtxNmthamNrYyJ9.g9IGWfD-Nz9waQzHT5klkg'
+
+    // var map = new mapboxgl.Map({
+    //     container: 'map', // container id
+    //     style: {
+    //         'version': 8,
+    //         'sources': {
+    //             'raster-tiles': {
+    //                 'type': 'raster',
+    //                 'tiles': [
+    //                     //window.origin+'/data/naip_tiles/{z}/{x}/{y}.png'
+    //                     window.origin+'/data/naipflds/{z}/{x}/{y}.png'
+    //                     //'https://stamen-tiles.a.ssl.fastly.net/watercolor/{z}/{x}/{y}.jpg'
+    //                 ],
+    //                 'tileSize': 256,
+    //                 'attribution':
+    //                     'Map tiles by <a target="_top" rel="noopener" href="http://stamen.com">Stamen Design</a>, under <a target="_top" rel="noopener" href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Data by <a target="_top" rel="noopener" href="http://openstreetmap.org">OpenStreetMap</a>, under <a target="_top" rel="noopener" href="http://creativecommons.org/licenses/by-sa/3.0">CC BY SA</a>'
+    //             }
+    //         },
+    //         'layers': [
+    //             {
+    //                 'id': 'simple-tiles',
+    //                 'type': 'raster',
+    //                 'source': 'raster-tiles',
+    //                 'minzoom': 1,
+    //                 'maxzoom': 22
+    //             }
+    //         ]
+    //     },
+    //     center: [-94.48, 41.5742], // starting position
+    //     zoom: 18 // starting zoom
+    // });
+
+    // var map = new mapboxgl.Map({
+    //         container: 'map', // container id
+    //         style: 'mapbox://styles/censuspagaf/ckbwcdt9h0k3e1iplxvtr36vx',
+    //         center: [-93.5, 37.5], // starting position
+    //         zoom: 3, // starting zoom
+    //         maxZoom:15
+    //     });
+
+    // map.on('move', function(d) {
+    //     console.log(d);
+    //     console.log(map.getZoom());
+    // })
+
+     var map = new mapboxgl.Map({
+            container: 'map', // container id
+            style: 'mapbox://styles/censuspagaf/ckbwcdt9h0k3e1iplxvtr36vx',
+            center: [-93.5, 37.5], // starting position
+            zoom: 3, // starting zoom
+            maxZoom:18
+        });
+
+    //page.map = map;
+    
+
+    //a lot of things wait until map loads to happen
+    map.on('load', function() {
+   ////was clu tiles
+   map.addSource('ia', {
+           id:'fields',
+           type:'vector',
+           "metadata": {
+           "mapbox:autocomposite": true
+           },
+           'maxzoom':15,
+           tiles:[window.origin+'/data/tiles/{z}/{x}/{y}.pbf']
+       });
+
+    map.addSource(
+        'naip',
+        {'type': 'raster',
+        'tiles': [
+            window.origin+'/data/naip_tiles/{z}/{x}/{y}.png'
+            //window.origin+'/data/naipflds/{z}/{x}/{y}.png'
+            //'https://stamen-tiles.a.ssl.fastly.net/watercolor/{z}/{x}/{y}.jpg'
+        ],
+        'tileSize': 256,
+        'attribution':
+            'Map tiles by <a target="_top" rel="noopener" href="http://stamen.com">Stamen Design</a>, under <a target="_top" rel="noopener" href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Data by <a target="_top" rel="noopener" href="http://openstreetmap.org">OpenStreetMap</a>, under <a target="_top" rel="noopener" href="http://creativecommons.org/licenses/by-sa/3.0">CC BY SA</a>'
+    }
+    )
+    d3.json('data/adair.geojsonl.json', function(error, data) {
+        if (error){
+            console.log(error);
+        }
+        else {
+            map.addSource('countySource', {
+                    'type':'geojson',
+                    'data':data
+                })
+
+            map.addLayer({
+                'id':'county',
+                'type':'fill',
+                'source':'countySource',
+                'layout': {
+            'visibility':'visible'
+            },
+            'paint':{
+            'fill-outline-color':'#fff',
+            'fill-color':'rgba(0,0,0,0)'
+        }
+            })
+           
+        }
+    })
+
+
+    map.addLayer({
+        'id':'polys',
+        'type':'fill',
+        'source':'ia',
+        'source-layer':'singlepoly',
+        'layout': {
+            'visibility':'visible'
+        },
+        'paint':{
+            'fill-outline-color':'#fff',
+            'fill-color':'rgba(255,255,0,0.3)'
+        }
+    },"aerialway")
+
+    map.addLayer({
+
+    'id': 'simple-tiles',
+    'type': 'raster',
+    'source': 'naip',
+    'minzoom': 1,
+    'maxzoom': 22
+                
+    }, "tunnel-street-minor-low")
+
+    map.on('mousemove', 'polys', function(e) {
+        //var geom = blank();
+        //geom['features'] = [e.features[0].geometry];
+        //map.getSource('outlineSource').setData(e.features[0].geometry);
+        var toMatch = e.features[0].properties;
+        console.log(toMatch);
+    })
+
+    })
+
+   
+</script>
+
+</body>
+</html>

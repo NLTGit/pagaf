@@ -55,28 +55,6 @@ topSuite("Ext.Util", false, function() {
         });
         
         describe("scoping", function() {
-            describe('up', function () {
-                it('should find the appropriate scope', function () {
-                    var top = {
-                        foo: function (x) {
-                            top.x = x;
-                            return x * 2;
-                        }
-                    };
-                    var bottom = {
-                        up: function (query) {
-                            expect(query).toBe(undefined); // doesn't use CQ
-                            return top;
-                        }
-                    };
-
-                    var y = Ext.callback('up.foo', null, [21], 0, bottom);
-
-                    expect(y).toBe(42);
-                    expect(top.x).toBe(21);
-                });
-            });
-
             describe("with a function", function() {
                 describe("scope 'this'", function() {
                     it("should resolve the scope to the defaultScope", function() {

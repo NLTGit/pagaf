@@ -18,8 +18,7 @@ Ext.define('Ext.layout.wrapper.Inner', {
         // https://bugs.webkit.org/show_bug.cgi?id=150445
         // https://bugs.webkit.org/show_bug.cgi?id=137730
         // See Ext.Container#autoSize
-        return container.boxScrollerElement || container.bodySizerElement ||
-            container.bodyElement;
+        return container.bodySizerElement || container.bodyElement;
     },
 
     setInnerWrapper: Ext.emptyFn,

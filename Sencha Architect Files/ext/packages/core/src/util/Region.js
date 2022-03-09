@@ -288,7 +288,7 @@ Ext.define('Ext.util.Region', function() {
          * So tl-br becomes {myEdge:'t', offset:0}, {otherEdge:'b', offset:100}
          *
          * This not only allows more flexibility in the alignment possibilities,
-         * but it also resolves any ambiguity as to which two edges are desired
+         * but it also resolves any ambiguity as to chich two edges are desired
          * to be adjacent if an anchor pointer is required.
          * 
          * @param {String} align The align spec, eg `"tl-br"`
@@ -319,7 +319,7 @@ Ext.define('Ext.util.Region', function() {
                     sourceClass: 'Ext.util.Region',
                     sourceMethod: 'getAlignInfo',
                     position: align,
-                    msg: 'Attempted to align an element with an invalid position: "' + align + '"'
+                    msg: 'Attemmpted to align an element with an invalid position: "' + align + '"'
                 });
             }
             //</debug>
@@ -333,7 +333,7 @@ Ext.define('Ext.util.Region', function() {
             };
 
             // t-l, b-r etc.
-            // Convert points to edge and offset.
+            // Convert points to egde and offset.
             if (parts[3]) {
                 result.myEdge = parts[3][0];
                 result.myOffset = offsetFactors[parts[3][1]];
@@ -722,14 +722,13 @@ Ext.define('Ext.util.Region', function() {
      * only take place along the major align axis. That is, if `align: "l-r"` is being used, and
      * `axisLock: true` is used, then if constraints fail, only fallback to `r-l` is considered.
      * @return {Ext.util.Region} The Region that will align this rectangle. Note that if
-     * a `minHeight` option was passed, and alignment is either above or below the target,
+     * a `minHeight` option was passed, and aligment is either above or below the target,
      * the Region might be reduced to fit within the space.
      */
     alignTo: function (options) {
         var me = this,
             Region = me.self,
             Offset = ExtUtil.Offset,
-            Element = Ext.Element,
             target = parseRegion(options.target),
             targetPlusAnchorOffset,
             rtl = options.rtl,
@@ -741,7 +740,8 @@ Ext.define('Ext.util.Region', function() {
             position = options.position,
             allowXTranslate = options.allowXTranslate,
             allowYTranslate = options.allowYTranslate,
-            wasConstrained, result, initialPosition, constrainedPosition;
+            wasConstrained,
+            result, initialPosition, constrainedPosition;
 
         if (offset) {
             offset = Offset.fromObject(offset);
@@ -759,13 +759,9 @@ Ext.define('Ext.util.Region', function() {
             }
             //</debug>
         }
-    
+
         if (inside && !inside.isRegion) {
-            if (Ext.getDom(inside) === document.body) {
-                inside = new Region(0, Element.getDocumentWidth(), Element.getDocumentHeight(), 0);
-            } else {
-                inside = Ext.fly(inside).getRegion();
-            }
+            inside = Ext.fly(inside).getRegion();
         }
 
         // Position the region using an exact position.
@@ -943,12 +939,11 @@ Ext.define('Ext.util.Region', function() {
      * translation. If an "inside" Region is passed, the exclusion also honours
      * that constraint.
      * @param {Region} other The Region to move so that it does not intersect this Region.
-     * @param {Object} options Object of options passed to exclude.
-     * @param {Region} options.inside A Region into which the other Region must be constrained.
-     * @param {Number} [options.minHeight] If passed, indicates that the height may be reduced up
+     * @param {Region} inside A Region into which the other Region must be constrained.
+     * @param {Number} [minHeight] If passed, indicates that the height may be reduced up
      * to a point to fit the "other" region below or above the target but within the "inside" Region.
-     * @param {Boolean} [options.allowX=true] Pass `false` to disallow translation along the X axis.
-     * @param {Boolean} [options.allowY=true] Pass `false` to disallow translation along the Y axis.
+     * @param {Boolean} [allowX=true] Pass `false` to disallow translation along the X axis.
+     * @param {Boolean} [allowY=true] Pass `false` to disallow translation along the Y axis.
      * @return {Number} The edge it is now aligned to, 0=top, 1=right, 2=bottom, 3=left.
      */
     exclude: function(other, options) {
@@ -1232,7 +1227,7 @@ Ext.define('Ext.util.Region', function() {
         me.bottom = p.bottom;
         me.left = me.x = me[0] = p.x;
 
-        return me;
+        return this;
     },
 
     /*
@@ -1309,15 +1304,13 @@ Ext.define('Ext.util.Region', function() {
     //<debug>
     ,highlight: function() {
         var highlightEl = Ext.getBody().createChild({
-            style: 'background-color:#52a0db;opacity:0.4;position:absolute;z-index:9999999'
+            style: 'background-color:#52a0db;opacity:0.4;position:absolute'
         });
 
         highlightEl.setBox(this);
-        
-        Ext.defer(function() {
+        setTimeout(function() {
             highlightEl.destroy();
         }, 5000);
-        
         return highlightEl;
     }
     //</debug>

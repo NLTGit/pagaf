@@ -329,29 +329,8 @@ function() {
                     reference: 'a'
                 }
             });
-
-            var c = controller.lookup('a');
-
-            expect(!!c).toBe(true);
-            expect(c).toBe(ct.down('#compA'));
-        });
-
-        it("should remove references on destroy()", function() {
-            makeContainer({
-                items: {
-                    xtype: 'component',
-                    itemId: 'compA',
-                    reference: 'a'
-                }
-            });
-
-            var c = controller.lookup('a');
-
-            c.destroy();
-
-            var c2 = controller.lookup('a');
-
-            expect(c2).toBe(null);
+            var c = controller.lookupReference('a');
+            expect(c).toBe(ct.down('#compA'));    
         });
     });
 
@@ -803,6 +782,28 @@ function() {
                 other.fireEvent('custom');
                 expect(controller.method1).not.toHaveBeenCalled();
                 other.destroy();
+            });
+            
+            it("should remove listeners when the controller is destroyed", function() {
+                makeContainer({
+                    controller: {
+                        type: 'test1',
+                        control: {
+                            'container': {
+                                custom: 'method1'
+                            }
+                        }
+                    },
+                    items: {
+                        xtype: 'container'
+                    }
+                });                
+
+                controller.clearPropertiesOnDestroy = false;
+                spyOn(controller, 'method1');
+                controller.destroy();    
+                ct.items.first().fireEvent('custom');
+                expect(controller.method1).not.toHaveBeenCalled();
             });
             
             it("should use the '#' selector to match the reference holder", function() {

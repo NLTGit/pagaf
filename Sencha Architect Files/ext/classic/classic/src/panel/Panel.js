@@ -124,18 +124,10 @@ Ext.define('Ext.panel.Panel', {
         docking: 'Ext.container.DockingContainer'
     },
 
-    /**
-     * @cfg childEls
-     * @inheritdoc
-     */
     childEls: [
         'bodyWrap', 'body'
     ],
 
-    /**
-     * @cfg renderTpl
-     * @inheritdoc
-     */
     renderTpl: [
         // headingEl can also be inserted in updateHeader
         '<tpl if="headingText">',
@@ -183,18 +175,6 @@ Ext.define('Ext.panel.Panel', {
     iconAlign: 'left',
     titleAlign: 'left',
     titleRotation: 'default',
-    titlePosition: 0,
-
-    headerConfigs: {
-        glyph: 1,
-        icon: 1,
-        iconAlign: 1,
-        iconCls: 1,
-        title: 1,
-        titleAlign: 1,
-        titlePosition: 1,
-        titleRotation: 1
-    },
 
     beforeRenderConfig: {
         /**
@@ -219,7 +199,7 @@ Ext.define('Ext.panel.Panel', {
         icon: null,
 
         /**
-         * @cfg [iconAlign='left']
+         * @cfg iconAlign
          * @inheritdoc Ext.panel.Header#cfg-iconAlign
          * @accessor
          */
@@ -233,8 +213,8 @@ Ext.define('Ext.panel.Panel', {
         iconCls: null,
 
         /**
-         * @cfg title
-         * @inheritdoc Ext.panel.Header#cfg-title
+         * @cfg {String/Object}
+         * @inheritdoc Ext.panel.Header#title
          * @localdoc When a `title` is specified, the {@link Ext.panel.Header} will 
          * automatically be created and displayed unless {@link #header} is set to `false`.
          * @accessor
@@ -242,22 +222,14 @@ Ext.define('Ext.panel.Panel', {
         title: null,
 
         /**
-         * @cfg [titleAlign='left']
+         * @cfg titleAlign
          * @inheritdoc Ext.panel.Header#cfg-titleAlign
          * @accessor
          */
         titleAlign: null,
 
         /**
-         * @cfg [titlePosition=0]
-         * @inheritdoc Ext.panel.Header#cfg-titlePosition
-         * @accessor
-         * @since 6.5.1
-         */
-        titlePosition: null,
-
-        /**
-         * @cfg [titleRotation='default']
+         * @cfg titleRotation
          * @inheritdoc Ext.panel.Header#cfg-titleRotation
          * @accessor
          */
@@ -312,7 +284,7 @@ Ext.define('Ext.panel.Panel', {
      */
 
     /**
-     * @cfg {Boolean} border
+     * @cfg {Boolean} [border=true]
      * Specify as `false` to render the Panel with zero width borders.
      *
      * Leaving the value as `true` uses the selected theme's {@link Ext.panel.Panel#$panel-border-width}
@@ -357,10 +329,9 @@ Ext.define('Ext.panel.Panel', {
     closeAction: 'destroy',
     
     /**
-     * @cfg {String} closeToolText
-     * Text to be announced by screen readers when the **close**
-     * {@link Ext.panel.Tool tool} is focused.  Will also be set as the close tool's 
-     * {@link Ext.panel.Tool#cfg-tooltip tooltip} text.
+     * @cfg {String} closeToolText Text to be announced by screen readers when the 
+     * **close** {@link Ext.panel.Tool tool} is focused.  Will also be set as the close 
+     * tool's {@link Ext.panel.Tool#cfg-tooltip tooltip} text.
      * 
      * **Note:** Applicable when the panel is {@link #closable}: true
      * @locale
@@ -430,10 +401,9 @@ Ext.define('Ext.panel.Panel', {
      */
     
     /**
-     * @cfg {String} collapseToolText
-     * Text to be announced by screen readers when  **collapse**
-     * {@link Ext.panel.Tool tool} is focused.  Will also be set as the  collapse tool's
-     * {@link Ext.panel.Tool#cfg-tooltip tooltip} text.
+     * @cfg {String} collapseToolText Text to be announced by screen readers when 
+     * **collapse** {@link Ext.panel.Tool tool} is focused.  Will also be set as the 
+     * collapse tool's {@link Ext.panel.Tool#cfg-tooltip tooltip} text.
      * 
      * **Note:** Applicable when the panel is {@link #collapsible}: true
      * @locale
@@ -441,10 +411,9 @@ Ext.define('Ext.panel.Panel', {
     collapseToolText: 'Collapse panel',
     
     /**
-     * @cfg {String} expandToolText
-     * Text to be announced by screen readers when **expand** {@link Ext.panel.Tool tool}
-     * is focused.  Will also be set as the  expand tool's
-     * {@link Ext.panel.Tool#cfg-tooltip tooltip} text.
+     * @cfg {String} expandToolText Text to be announced by screen readers when 
+     * **expand** {@link Ext.panel.Tool tool} is focused.  Will also be set as the 
+     * expand tool's {@link Ext.panel.Tool#cfg-tooltip tooltip} text.
      * 
      * **Note:** Applicable when the panel is {@link #collapsible}: true
      * @locale
@@ -673,7 +642,7 @@ Ext.define('Ext.panel.Panel', {
 
 
     /**
-     * @cfg {Boolean/Object} header
+     * @cfg {Boolean/Object} [header]
      * Pass as `false` to prevent a Header from being created and shown.
      *
      * Pass as a config object (optionally containing an `xtype`) to custom-configure this Panel's header.
@@ -723,7 +692,7 @@ Ext.define('Ext.panel.Panel', {
     manageHeight: true,
 
     /**
-     * @cfg {String} maskElement
+     * @cfg {String} [maskElement="el"]
      *
      * The name of the element property in this Panel to mask when masked by a LoadMask.
      *
@@ -772,16 +741,7 @@ Ext.define('Ext.panel.Panel', {
      * @deprecated 4.1.0 Use {@link #header} instead.
      * Prevent a Header from being created and shown.
      */
-    preventHeader: false,
-
-    /**
-     * @cfg {Boolean} maintainTitlePosition
-     * For panels that are collapsed to the left or right, 
-     * {@link Ext.panel.Header#titlePosition} may be temporarily changed for UI consistency.
-     * Setting this config to true will force the specified titlePosition to be maintained
-     * @since 6.5.1
-     */
-    maintainTitlePosition: false,
+     preventHeader: false,
 
     /**
      * @cfg [shrinkWrap=2]
@@ -886,10 +846,9 @@ Ext.define('Ext.panel.Panel', {
      */
     
     /**
-     * @cfg {String} defaultButton
-     * Reference name of the component to act as the default button for this Panel.
-     * Default button is activated by pressing Enter key while focus is contained within
-     * the Panel's {@link #defaultButtonTarget}.
+     * @cfg {String} [defaultButton] Reference name of the component to act as the default
+     * button for this Panel. Default button is activated by pressing Enter key while focus
+     * is contained within the Panel's {@link #defaultButtonTarget}.
      *
      * The most obvious use for `defaultButton` is submitting a form:
      *
@@ -939,10 +898,6 @@ Ext.define('Ext.panel.Panel', {
     // Begin Properties
     // ***********************************************************************************
 
-    /**
-     * @cfg baseCls
-     * @inheritdoc
-     */
     baseCls: Ext.baseCSSPrefix + 'panel',
 
     /**
@@ -954,7 +909,7 @@ Ext.define('Ext.panel.Panel', {
      * If this is used to load visible HTML elements in either way, then
      * the Panel may not be used as a Layout for hosting nested Panels.
      *
-     * If this Panel is intended to be used as the host of a Layout (See {@link #cfg!layout}
+     * If this Panel is intended to be used as the host of a Layout (See {@link #layout}
      * then the body Element must not be loaded or changed - it is under the control
      * of the Panel's Layout.
      *
@@ -966,14 +921,10 @@ Ext.define('Ext.panel.Panel', {
         y: 'y'
     },
 
-    /**
-     * @cfg componentLayout
-     * @inheritdoc
-     */
     componentLayout: 'dock',
 
     /**
-     * @property contentPaddingProperty
+     * @property {String} [contentPaddingProperty='bodyPadding']
      * @inheritdoc
      */
     contentPaddingProperty: 'bodyPadding',
@@ -986,10 +937,6 @@ Ext.define('Ext.panel.Panel', {
      */
     isPanel: true,
 
-    /**
-     * @property defaultBindProperty
-     * @inheritdoc
-     */
     defaultBindProperty: 'title',
 
     // ***********************************************************************************
@@ -1064,18 +1011,9 @@ Ext.define('Ext.panel.Panel', {
      */
 
     /**
-     * @event iconalignchange
-     * Fires after the Panel iconAlign has been set or changed.
-     * @param {Ext.panel.Panel} this The Panel which has the iconAlign changed.
-     * @param {String} newIconAlign
-     * @param {String} oldIconAlign
-     * @since 6.5.1
-     */
-
-    /**
      * @event iconchange
      * Fires after the Panel icon has been set or changed.
-     * @param {Ext.panel.Panel} this The Panel which has the icon changed.
+     * @param {Ext.panel.Panel} p The Panel which has the icon changed.
      * @param {String} newIcon The path to the new icon image.
      * @param {String} oldIcon The path to the previous panel icon image.
      */
@@ -1083,44 +1021,17 @@ Ext.define('Ext.panel.Panel', {
     /**
      * @event iconclschange
      * Fires after the Panel iconCls has been set or changed.
-     * @param {Ext.panel.Panel} this The Panel which has the iconCls changed.
+     * @param {Ext.panel.Panel} p The Panel which has the iconCls changed.
      * @param {String} newIconCls The new iconCls.
      * @param {String} oldIconCls The previous panel iconCls.
      */
 
     /**
-     * @event titlealignchange
-     * Fires after the Panel titleAlign has been set or changed.
-     * @param {Ext.panel.Panel} this the Panel which has the titleAlign changed.
-     * @param {String} newTitleAlign
-     * @param {String} oldTitleAlign
-     * @since 6.5.1
-     */
-
-    /**
      * @event titlechange
      * Fires after the Panel title has been set or changed.
-     * @param {Ext.panel.Panel} this the Panel which has been resized.
+     * @param {Ext.panel.Panel} p the Panel which has been resized.
      * @param {String} newTitle The new title.
      * @param {String} oldTitle The previous panel title.
-     */
-
-    /**
-     * @event titlepositionchange
-     * Fires after the Panel titlePosition has been set or changed.
-     * @param {Ext.panel.Panel} this the Panel which has the titlePosition changed.
-     * @param {String} newTitlePosition
-     * @param {String} oldTitlePosition
-     * @since 6.5.1
-     */
-
-    /**
-     * @event titlerotationchange
-     * Fires after the Panel titleRotation has been set or changed.
-     * @param {Ext.panel.Panel} this the Panel which has the titleRotation changed.
-     * @param {String} newTitleRotation
-     * @param {String} oldTitleRotation
-     * @since 6.5.1
      */
 
     /**
@@ -1156,41 +1067,24 @@ Ext.define('Ext.panel.Panel', {
     },
 
     /**
-     * Add tools to this panel {@link Ext.panel.Header header}
-     * 
-     *     panel.addTool({
-     *         type: 'gear',
-     *         handler: function () {
-     *             // ....
-     *         }
-     *     });
-     *     
-     *     panel.addTool([{
-     *         type: 'gear',
-     *         handler: 'viewControllerGearMethod'
-     *     }, {
-     *         type: 'save',
-     *         handler: 'viewControllerSaveMethod'
-     *     }]);
+     * Add tools to this panel
+     * @param {Object[]/Ext.panel.Tool[]} tools The tools to add.
      *
-     * By default the tools will be accessible via keyboard, with the exception of 
-     * automatically added collapse/expand and close tools.
+     * By default the tools will be accessible via keyboard, with the exception
+     * of automatically added collapse/expand and close tools.
      *
-     * If you implement keyboard equivalents of your tools' actions elsewhere and do not
-     * want the tools to participate in keyboard navigation, you can make them 
-     * presentational instead:
-     * 
-     *     panel.addTool({
-     *         type: 'mytool',
-     *         focusable: false,
-     *         ariaRole: 'presentation'
-     *         // ...
-     *     });
-     * 
-     * @param {Object/Object[]/Ext.panel.Tool/Ext.panel.Tool[]} tools The tool or tools to
-     * add.
+     * If you implement keyboard equivalents of your tools' actions elsewhere
+     * and do not want the tools to participate in keyboard navigation, you can
+     * make them presentational instead:
+     *
+     *      panel.addTool({
+     *          type: 'mytool',
+     *          focusable: false,
+     *          ariaRole: 'presentation',
+     *          ...
+     *      });
      */
-    addTool: function (tools) {
+    addTool: function(tools) {
         if (!Ext.isArray(tools)) {
             tools = [tools];
         }
@@ -1276,7 +1170,6 @@ Ext.define('Ext.panel.Panel', {
     },
 
     /**
-     * @method addUIClsToElement
      * @inheritdoc
      */
     addUIClsToElement: function(cls) {
@@ -1837,7 +1730,6 @@ Ext.define('Ext.panel.Panel', {
                 hideMode: 'offsets',
                 title: me.getTitle(),
                 titleAlign: me.getTitleAlign(),
-                titlePosition: me.getTitlePosition(),
                 vertical: isVertical,
                 textCls: me.headerTextCls,
                 icon: me.getIcon(),
@@ -1887,7 +1779,7 @@ Ext.define('Ext.panel.Panel', {
         // For UI consistency reasons, collapse:left reExpanders, and region: 'west' placeHolders
         // have the re expand tool at the *top* with a bit of space.
         if (!me.hideCollapseTool) {
-            if (!me.maintainTitlePosition && (isLeft || (isRight && me.isPlaceHolderCollapse()))) {
+            if (isLeft || (isRight && me.isPlaceHolderCollapse())) {
                 // adjust the title position if the collapse tool needs to be at the
                 // top of a vertical header
                 result.titlePosition = 1;
@@ -2533,12 +2425,9 @@ Ext.define('Ext.panel.Panel', {
         } else {
             ghostPanel.el.show();
         }
-
-        // Important to do this before the setSize call otherwise it won't
-        // stamp the sizes onto the element.
-        ghostPanel.setHiddenState(false);
         ghostPanel.setXY([box.x, box.y]);
         ghostPanel.setSize(box.width, box.height);
+        ghostPanel.setHiddenState(false);
         ghostPanel.floatParent = me.floatParent;
 
         // Only churn ghost's header if our header has changed composition
@@ -2554,9 +2443,7 @@ Ext.define('Ext.panel.Panel', {
             ghostHeader.setTitlePosition(0);
             ghostPanel.addTool(me.ghostTools());
             ghostPanel.setTitle(me.getTitle());
-            ghostHeader.setTitlePosition(header.getTitlePosition());
-            ghostHeader.setIconAlign(header.getIconAlign());
-            ghostHeader.setTitleAlign(header.getTitleAlign());
+            ghostHeader.setTitlePosition(header.titlePosition);
 
             iconCls = me.getIconCls();
             if (iconCls) {
@@ -2962,7 +2849,7 @@ Ext.define('Ext.panel.Panel', {
     },
 
     /**
-     * @method onRemoved
+     * @method
      * @inheritdoc
      */
     onRemoved: function(destroying) {
@@ -3162,7 +3049,7 @@ Ext.define('Ext.panel.Panel', {
             collapseDir = me.collapsed,
             expandTool = me.placeholder.expandTool,
             floatCls = Ext.panel.Panel.floatCls,
-            center = me.ownerLayout ? me.ownerLayout.centerRegion : null,
+            center = me.ownerLayout ? me.ownerLayout.centerRegion: null,
             finalPos, floatedPos;
 
         // Layouts suspended - don't bother with animation shenanigans
@@ -3177,7 +3064,7 @@ Ext.define('Ext.panel.Panel', {
             me.slideOutFloatedPanelEnd();
             me.floated = false;
         }
-
+        
         // We assume that if expand was caused by keyboard action on focused
         // placeholder expand tool, the logical focus transition is to the
         // panel header's collapse tool.
@@ -3186,6 +3073,7 @@ Ext.define('Ext.panel.Panel', {
         // sudden jumps.
         if (expandTool && Ext.ComponentManager.getActiveComponent() === expandTool) {
             me.focusHeaderCollapseTool = true;
+            
             // There is an odd issue with JAWS screen reader: when expanding a panel,
             // it will announce Expand tool again before focus is forced to Collapse
             // tool. I'm not sure why that happens since focus does not move from
@@ -3206,20 +3094,22 @@ Ext.define('Ext.panel.Panel', {
             me.el.show();
             me.collapsed = false;
             me.setHiddenState(false);
+
             // Stop the center region from moving when laid out without the placeholder there.
             // Unless we are expanding from a floated out situation. In that case, it's laid out immediately.
             if (center && !floatedPos) {
                 center.hidden = true;
             }
-            Ext.resumeLayouts(true);
 
-            if (center) {
-                center.hidden = false;
-            }
+            Ext.resumeLayouts(true);
+            center.hidden = false;
+
             if (!me.floatedFromCollapse) {
                 me.fireEvent('beginfloat', me);
             }
+
             me.el.addCls(floatCls);
+
             // At this point, this Panel is arranged in its correct, expanded layout.
             // The center region has not been affected because it has been flagged as hidden.
             //
@@ -3230,7 +3120,9 @@ Ext.define('Ext.panel.Panel', {
             // If we are proceeding from fully collapsed, the center region has *not* been relayed out because
             // the UI look and feel dictates that it stays stable until the expanding panel has slid in all the
             // way, and *then* it snaps into place.
+
             me.isCollapsingOrExpanding = 2;
+
             // Floated, move it back to the floated pos, and thence into the correct place
             if (floatedPos) {
                 finalPos = me.getXY();
@@ -3241,6 +3133,7 @@ Ext.define('Ext.panel.Panel', {
                         scope: me,
                         afteranimate: function() {
                             var me = this;
+                            
                             me.el.removeCls(floatCls);
                             me.isCollapsingOrExpanding = 0;
                             me.fireEvent('expand', me);
@@ -3266,10 +3159,12 @@ Ext.define('Ext.panel.Panel', {
                     }
                 });
             }
-        } else {
+        }
+        else {
             me.floated = me.collapsed = false;
             me.doPlaceholderExpand(true);
         }
+
         return me;
     },
     
@@ -3404,7 +3299,6 @@ Ext.define('Ext.panel.Panel', {
     },
 
     /**
-     * @method setBorder
      * @inheritdoc
      */
     setBorder: function(border, targetEl) {
@@ -3478,81 +3372,121 @@ Ext.define('Ext.panel.Panel', {
     },
 
     setGlyph: function(glyph) {
-        this.setHeaderConfig(glyph, 'glyph', 'setGlyph', true);
+        var me = this,
+            oldGlyph = me.glyph,
+            header = me.header,
+            placeholder = me.placeholder;
+
+        if (glyph !== oldGlyph) {
+            me.glyph = glyph;
+
+            if (header) {
+                if (header.isHeader) {
+                    header.setGlyph(glyph);
+                } else {
+                    header.glyph = glyph;
+                }
+            } else if (me.rendered|| me.afterHeaderInit) {
+                me.updateHeader();
+            }
+
+            if (placeholder && placeholder.setGlyph) {
+                placeholder.setGlyph(glyph);
+            }
+
+            me.fireEvent('glyphchange', me, glyph, oldGlyph);
+        }
     },
 
     setIcon: function(icon) {
-        this.setHeaderConfig(icon, 'icon', 'setIcon', true);
+        var me = this,
+            oldIcon = me.icon,
+            header = me.header,
+            placeholder = me.placeholder;
+
+        if (icon !== oldIcon) {
+            me.icon = icon;
+
+            if (header) {
+                if (header.isHeader) {
+                    header.setIcon(icon);
+                } else {
+                    header.icon = icon;
+                }
+            } else if (me.rendered|| me.afterHeaderInit) {
+                me.updateHeader();
+            }
+
+            if (placeholder && placeholder.setIcon) {
+                placeholder.setIcon(icon);
+            }
+
+            me.fireEvent('iconchange', me, icon, oldIcon);
+        }
     },
 
     setIconCls: function(iconCls) {
-        this.setHeaderConfig(iconCls, 'iconCls', 'setIconCls', true);
+        var me = this,
+            oldIconCls = me.iconCls,
+            header = me.header,
+            placeholder = me.placeholder;
+
+        if (iconCls !== oldIconCls) {
+            me.iconCls = iconCls;
+
+            if (header) {
+                if (header.isHeader) {
+                    header.setIconCls(iconCls);
+                } else {
+                    header.iconCls = iconCls;
+                }
+            } else if (me.rendered|| me.afterHeaderInit) {
+                me.updateHeader();
+            }
+
+            if (placeholder && placeholder.setIconCls) {
+                placeholder.setIconCls(iconCls);
+            }
+
+            me.fireEvent('iconclschange', me, iconCls, oldIconCls);
+        }
     },
 
-    setIconAlign: function(iconAlign) {
-        this.setHeaderConfig(iconAlign, 'iconAlign', 'setIconAlign', true);
-    },
-
-    setTitleAlign: function(titleAlign) {
-        this.setHeaderConfig(titleAlign, 'titleAlign', 'setTitleAlign', true);
-    },
-
-    setTitlePosition: function(titlePosition) {
-        this.setHeaderConfig(titlePosition, 'titlePosition', 'setTitlePosition', true);
-    },
-
-    setTitleRotation: function(titleRotation) {
-        this.setHeaderConfig(titleRotation, 'titleRotation', 'setTitleRotation', true);
-    },
-    
     /**
      * Sets the title of this panel.
      * @param {String} title The new title
      */
     setTitle: function(title) {
         var me = this,
-            oldTitle = me.title;
-        
-        if (title !== oldTitle && me.headingEl) {
-            me.headingEl.setHtml(title);
-        }
-        
-        this.setHeaderConfig(title, 'title', 'setTitle', false);
-    },
-
-    setHeaderConfig: function (value, prop, setter, addToHeaderCfg) {
-        var me = this,
-            oldValue = me[prop],
+            oldTitle = me.title,
             header = me.header,
-            placeholder = me.placeholder,
             reExpander = me.reExpander,
-            eventName;
-
-        if (value !== oldValue) {
-            me[prop] = value;
+            placeholder = me.placeholder;
+        
+        if (title !== oldTitle) {
+            me.title = title;
 
             if (header) {
                 if (header.isHeader) {
-                    header[setter](value);
-                } else if (addToHeaderCfg) {
-                    header[prop] = value;
+                    header.setTitle(title);
                 }
             } else if (me.rendered || me.afterHeaderInit) {
                 me.updateHeader();
             }
+            
+            if (me.headingEl) {
+                me.headingEl.setHtml(title);
+            }
 
             if (reExpander) {
-                reExpander[setter](value);
+                reExpander.setTitle(title);
             }
 
-            if (placeholder && placeholder[setter]) {
-                placeholder[setter](value);
+            if (placeholder && placeholder.setTitle) {
+                placeholder.setTitle(title);
             }
 
-            eventName = prop.toLowerCase() + 'change';
-            if (me.hasListeners[eventName]) {
-                me.fireEvent(eventName, me, value, oldValue);
-            }
+            me.fireEvent('titlechange', me, title, oldTitle);
         }
     },
 
@@ -3569,7 +3503,6 @@ Ext.define('Ext.panel.Panel', {
     },
 
     /**
-     * @method setUI
      * @inheritdoc
      */
     setUI: function(ui) {
@@ -3846,6 +3779,30 @@ Ext.define('Ext.panel.Panel', {
         }
     },
 
+    updateIconAlign: function(align) {
+        var header = this.header;
+
+        if (header && header.isHeader) {
+            header.setIconAlign(align);
+        }
+    },
+
+    updateTitleAlign: function(align) {
+        var header = this.header;
+
+        if (header && header.isHeader) {
+            header.setTitleAlign(align);
+        }
+    },
+
+    updateTitleRotation: function(rotation) {
+        var header = this.header;
+
+        if (header && header.isHeader) {
+            header.setTitleRotation(rotation);
+        }
+    },
+
     /**
      * @private
      */
@@ -3899,16 +3856,11 @@ Ext.define('Ext.panel.Panel', {
                 header.show();
             }
             else {
-                if (Ext.isObject(header)) {
-                    me.syncHeaderConfigs(header);
-                }
-    
                 // Apply the header property to the header config
                 header = me.header = Ext.widget(Ext.merge({
                     xtype: 'header',
                     title: title,
                     titleAlign: me.getTitleAlign(),
-                    titlePosition: me.getTitlePosition(),
                     vertical: vertical,
                     dock: me.getHeaderPosition() || 'top',
                     dockToEl: true,
@@ -4273,24 +4225,6 @@ Ext.define('Ext.panel.Panel', {
             me.isSliding = false;
             if (!suppressEvents) {
                 me.fireEvent('unfloat', me);
-            }
-        },
-
-        /*
-         * Syncs shared configs that might be specified on header config
-         * @param {Object} header
-         */
-        syncHeaderConfigs: function (header) {
-            var me = this,
-                config, value;
-
-            for (config in header) {
-                value = header[config];
-    
-                if (me.headerConfigs[config] && value !== undefined) {
-                    // set config directly so we don't fire events
-                    me[config] = value;
-                }
             }
         }
 

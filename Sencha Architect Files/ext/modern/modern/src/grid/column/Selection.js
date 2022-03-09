@@ -17,7 +17,6 @@ Ext.define('Ext.grid.column.Selection', {
     // Not quite as far left as the numberer column
     weight: -900,
 
-    menu: null,
     sortable: false,
     draggable: false,
     resizable: false,

@@ -21,9 +21,7 @@
  * With this plugin you can create the `tabpanel` as the viewport:
  *
  *      Ext.create('Ext.tab.Panel', {
- *          plugins: {
- *              viewport: true
- *          },
+ *          plugins: 'viewport',
  *
  *          items: [{
  *              ...
@@ -213,19 +211,7 @@ Ext.define('Ext.plugin.Viewport', {
                 doDestroy: function() {
                     var me = this,
                         root = Ext.rootInheritedState,
-                        scroller = me.scrollable,
                         key;
-
-                    // We set the global body scroller aboce in onRender.
-                    // Just relinquish it here and allow it to live on.
-                    if (scroller) {
-                        // Return the body scroller to default; X and Y scrolling
-                        scroller.setConfig({
-                            x: true,
-                            y: true
-                        });
-                        me.scrollable = null;
-                    }
 
                     // Clear any properties from the inheritedState so we don't pollute the
                     // global namespace. If we have a rtl flag set, leave it alone because it's

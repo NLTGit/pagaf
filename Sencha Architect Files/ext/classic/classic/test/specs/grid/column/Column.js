@@ -212,59 +212,59 @@ function() {
                 style: 'position:absolute;top:0;left:0'
             });
 
-            // IE9m appears to need some time to correct the table layout of the headers.
-            // so let's force it with a repaint
-            if (Ext.isIE9m) {
-                grid.el.repaint();
-            }
+            // IE appears to need some time to correct the table layout of the headers.
+            waits(Ext.isIE ? 100 : 0);
 
-            expect(grid.headerCt).toHaveLayout({
-                el: { xywh: '0 0 400 80' },
-                items: {
-                   0: {
-                     el: { xywh: '0 0 100 80' },
-                     textEl: { xywh: '6 33 87 13' },
-                     titleEl: { xywh: '0 0 99 80' }
-                  },
-                  1: {
-                     el: { xywh: '100 0 100 80' },
-                     textEl: { xywh: '106 4 87 13' },
-                     titleEl: { xywh: '100 0 99 22' },
-                     items: {
-                        0: {
-                           el: { xywh: '0 22 [99,100] 58' },
-                           textEl: { xywh: '6 44 [87,88] 13' },
-                           titleEl: { xywh: '0 23 [99,100] 57' }
-                        }
-                     }
-                  },
-                  2: {
-                     el: { xywh: '200 0 200 80' },
-                     textEl: { xywh: '206 4 187 13' },
-                     titleEl: { xywh: '200 0 199 22' },
-                     items: {
-                        0: {
-                           el: { xywh: '0 22 100 58' },
-                           textEl: { xywh: '6 44 87 13' },
-                           titleEl: { xywh: '0 23 99 57' }
-                        },
-                        1: {
-                           el: { xywh: '100 22 100 58' },
-                           textEl: { xywh: '106 26 87 26' },
-                           titleEl: { xywh: '100 23 99 34' },
-                           items: {
-                              0: {
-                                 el: { xywh: '0 35 100 22' },
-                                 textEl: { xywh: '6 39 87 13' },
-                                 titleEl: { xywh: '0 36 99 21' }
-                              }
-                           }
-                        }
-                     }
-                  }
-               }
+            runs(function() {
+                expect(grid.headerCt).toHaveLayout({
+                   el: { xywh: '0 0 400 80' },
+                   items: {
+                      0: {
+                         el: { xywh: '0 0 100 80' },
+                         textEl: { xywh: '6 33 87 13' },
+                         titleEl: { xywh: '0 0 99 80' }
+                      },
+                      1: {
+                         el: { xywh: '100 0 100 80' },
+                         textEl: { xywh: '106 4 87 13' },
+                         titleEl: { xywh: '100 0 99 22' },
+                         items: {
+                            0: {
+                               el: { xywh: '0 22 [99,100] 58' },
+                               textEl: { xywh: '6 44 [87,88] 13' },
+                               titleEl: { xywh: '0 23 [99,100] 57' }
+                            }
+                         }
+                      },
+                      2: {
+                         el: { xywh: '200 0 200 80' },
+                         textEl: { xywh: '206 4 187 13' },
+                         titleEl: { xywh: '200 0 199 22' },
+                         items: {
+                            0: {
+                               el: { xywh: '0 22 100 58' },
+                               textEl: { xywh: '6 44 87 13' },
+                               titleEl: { xywh: '0 23 99 57' }
+                            },
+                            1: {
+                               el: { xywh: '100 22 100 58' },
+                               textEl: { xywh: '106 26 87 26' },
+                               titleEl: { xywh: '100 23 99 34' },
+                               items: {
+                                  0: {
+                                     el: { xywh: '0 35 100 22' },
+                                     textEl: { xywh: '6 39 87 13' },
+                                     titleEl: { xywh: '0 36 99 21' }
+                                  }
+                               }
+                            }
+                         }
+                      }
+                   }
+                });
             });
         });
+
     });
 
     describe("destruction", function() {
@@ -394,18 +394,6 @@ function() {
             });
 
             expect(grid.query('[isGroupHeader]').length).toBe(0);
-        });
-    });
-
-    describe("align", function() {
-        it("should align text to right when set to end", function() {
-            createGrid({}, {
-                columns: [
-                    { header: 'Name',  dataIndex: 'name', width: 100 },
-                    { header: 'Email', dataIndex: 'email', flex: 1, align: 'end'}
-                ]
-            });
-            expect(Ext.fly(grid.view.getCell(0, colRef[1]).firstChild).getStyle('text-align')).toBe('right');
         });
     });
 

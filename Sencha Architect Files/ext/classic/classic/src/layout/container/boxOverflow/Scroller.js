@@ -237,15 +237,8 @@ Ext.define('Ext.layout.container.boxOverflow.Scroller', {
     },
 
     onMouseWheel: function(e) {
-        var cmp = Ext.Component.from(e.target),
-            cmpScroller = cmp.getScrollable && cmp.getScrollable();
-
-        // Only stop the event if we are not scrolling a scrollable component
-        // inside this container.
-        if (!cmpScroller || (cmpScroller === this.layout.owner.getScrollable())) {
-            e.stopEvent();
-            this.scrollBy(this.getWheelDelta(e) * this.wheelIncrement * -1, false);
-        }
+        e.stopEvent();
+        this.scrollBy(this.getWheelDelta(e) * this.wheelIncrement * -1, false);
     },
 
     getWheelDelta: function (e) {
@@ -298,7 +291,6 @@ Ext.define('Ext.layout.container.boxOverflow.Scroller', {
      * @private
      * Scrolls left or right by the number of pixels specified
      * @param {Number} delta Number of pixels to scroll to the right by. Use a negative number to scroll left
-     * @param {Boolean} animate
      */
     scrollBy: function(delta, animate) {
         var layout = this.layout,
@@ -428,9 +420,7 @@ Ext.define('Ext.layout.container.boxOverflow.Scroller', {
         item = this.getItem(item);
 
         if (item !== undefined) {
-            this.layout.owner.getScrollable().ensureVisible(item.el, {
-                animation: animate
-            });
+            this.layout.owner.getScrollable().scrollIntoView(item.el, true, animate);
         }
     },
 

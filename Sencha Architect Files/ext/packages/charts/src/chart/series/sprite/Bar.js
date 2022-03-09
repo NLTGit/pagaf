@@ -240,6 +240,15 @@ Ext.define('Ext.chart.series.sprite.Bar', {
         // of the first and last bars are not at the surface edges (which would mean that
         // bars are half-clipped), but padded, so that those bars are fully visible (assuming no pan/zoom).
 
+        // TODO: Oddly enough, this is controlled by the 'labelInSpan' config of the xAxis, which is set
+        // TODO: to 'true' by the Bar series in its 'updateXAxis' method. The 'labelInSpan' config
+        // TODO: doesn't actually do what it says it does: 'Draws the labels in the middle of the spans.'
+        // TODO: and its use to control the way bars render is puzzling.
+        // TODO: The way this works is the 'axis.getRange' method expands the axis range by the value
+        // TODO: of 'increment' - another axis config, which defaults to 0.5.
+        // TODO: So, for example, if the visible range was [0, 11] (for, say, twelve months of the year),
+        // TODO: it will become [-0.5, 11.5], making space for bars at the edges of a chart.
+
         for (i = start; i <= end; i++) {
             yLow = dataStartY ? dataStartY[i] : 0;
             yHi = dataY[i];
@@ -260,6 +269,42 @@ Ext.define('Ext.chart.series.sprite.Bar', {
                 translationY: surfaceMatrix.y(center, top)
             }, i, true);
         }
+    },
+
+    getIndexNearPoint: function (x, y) {
+        var sprite = this,
+            attr = sprite.attr,
+            dataX = attr.dataX,
+            surface = sprite.getSurface(),
+            surfaceRect = surface.getRect() || [0,0,0,0],
+            surfaceHeight = surfaceRect[3],
+            hitX, hitY,
+            i, bbox,
+            index = -1;
+
+        // The "items" sprites that draw the bars work in a reverse vertical coordinate system
+        // starting with 0 at the bottom and increasing the Y coordinate toward the top.
+        // See also Ext.chart.series.Bar.getItemForPoint(x,y) regarding the chart's innerPadding.
+        if (attr.flipXY) {
+            hitX = surfaceHeight - y;
+            if (surface.getInherited().rtl) {
+                hitY = surfaceRect[2] - x;
+            } else {
+                hitY = x;
+            }
+        } else {
+            hitX = x;
+            hitY = surfaceHeight - y;
+        }
+
+        for (i = 0; i < dataX.length; i++) {
+            bbox = sprite.getMarkerBBox('items', i);
+            if (Ext.draw.Draw.isPointInBBox(hitX, hitY, bbox)) {
+                index = i;
+                break;
+            }
+        }
+        return index;
     }
 
 });

@@ -96,7 +96,7 @@ Ext.define('Ext.draw.sprite.Sector', {
         var startAngle = Math.min(attr.startAngle, attr.endAngle),
             endAngle = Math.max(attr.startAngle, attr.endAngle),
             midAngle = this.midAngle = (startAngle + endAngle) * 0.5,
-            fullPie = Ext.Number.isEqual(Math.abs(endAngle - startAngle), Ext.draw.Draw.pi2, 1e-10),
+            fullPie = Math.abs(endAngle - startAngle) === Ext.draw.Draw.pi2,
             margin = attr.margin,
             centerX = attr.centerX,
             centerY = attr.centerY,

@@ -20,9 +20,6 @@
 Ext.define('Ext.picker.Slot', {
     extend: 'Ext.dataview.DataView',
     xtype: 'pickerslot',
-    requires: [
-        'Ext.dataview.BoundListNavigationModel'
-    ],
 
     /**
      * @event slotpick
@@ -118,8 +115,6 @@ Ext.define('Ext.picker.Slot', {
         verticallyCenterItems: true
     },
 
-    tabIndex: null,
-    focusEl: null,
     itemsFocusable: false,
 
     scrollToTopOnRefresh: false,
@@ -135,20 +130,6 @@ Ext.define('Ext.picker.Slot', {
     selectedIndex: 0,
 
     deselectable: false,
-
-    navigationModel: {
-        type: 'boundlist',
-        keyboard: false
-    },
-
-    onFocusEnter: Ext.emptyFn,
-    onFocusLeave: Ext.emptyFn,
-
-    /**
-     * @cfg {'tap'} triggerEvent
-     * @hide
-     * BoundLists always use tap. This is ignored.
-     */
 
     /**
      * Sets the title for this dataview by creating element.
@@ -240,19 +221,33 @@ Ext.define('Ext.picker.Slot', {
      * @private
      */
     initialize: function() {
-        var me = this;
+        var me = this,
+            scroller;
 
         me.callParent();
+
+        scroller = me.getScrollable();
 
         me.on({
             scope: me,
             painted: 'onPainted',
-            single: true
+            childtap: 'doChildTap'
         });
 
         me.picker.on({
             scope: me,
             beforehiddenchange: 'onBeforeHiddenChange'
+        });
+
+        me.element.on({
+            scope: me,
+            touchstart: 'onTouchStart',
+            touchend: 'onTouchEnd'
+        });
+
+        scroller.on({
+            scope: me,
+            scrollend: 'onSlotScrollEnd'
         });
     },
 
@@ -300,76 +295,101 @@ Ext.define('Ext.picker.Slot', {
      */
     setupBar: function() {
         if (!this.isPainted()) {
-            //if the component isn't rendered yet, there is no point in calculating the padding just yet
+            //if the component isnt rendered yet, there is no point in calculating the padding just eyt
             return;
         }
 
-        var me = this,
-            title = me.getTitle(),
-            titleHeight = me.getShowTitle() && title ? title.el.measure('h') : 0,
-            barHeight = me.getPicker().bar.measure('h'),
-            offset;
+        var element = this.element,
+            bodyElement = this.bodyElement,
+            picker = this.getPicker(),
+            bar = picker.bar,
+            value = this.getValue(),
+            showTitle = this.getShowTitle(),
+            title = this.getTitle(),
+            titleHeight = 0,
+            barHeight, offset;
 
-        if (me.getVerticallyCenterItems()) {
-            offset = Math.ceil((me.el.measure('h') - titleHeight - barHeight) / 2);
-            me.bodyElement.setStyle({
+        barHeight = bar.dom.getBoundingClientRect().height;
+
+        if (showTitle && title) {
+            titleHeight = title.element.getHeight();
+        }
+
+        offset = Math.ceil((element.getHeight() - titleHeight - barHeight) / 2);
+
+        if (this.getVerticallyCenterItems()) {
+            bodyElement.setStyle({
                 'padding-top' : offset + 'px'
             });
-            // Due to a change on how browsers set the element now, padding is applied
+            // Due to a change on how browsers set the element now, padding is applied 
             // at the content edge, not after any overflow. So the padding-bottom will
             // be clipped if the content becomes scrollable.
             // For more info see: https://bugzilla.mozilla.org/show_bug.cgi?id=74851
-            if (!me.bottomSpacer) {
-                me.bottomSpacer = me.add({
+            if (!this.bottomSpacer) {
+                this.bottomSpacer = this.add({
                     xtype: 'component',
                     scrollDock: 'end',
                     height: offset,
                     style: 'pointer-events: none'
                 });
             } else {
-                me.bottomSpacer.setHeight(offset);
+                this.bottomSpacer.setHeight(offset);
             }
         }
 
-        me.doSetValue(me.getValue());
+        this.doSetValue(value);
     },
 
     /**
-     * This method is required by the Scroller to return the scrollable client region
-     * @return {Ext.util.Region} The scrolling viewport region.
-     *
-     * It's overridden here because the region required for scrollIntoView to work
-     * is the bar of the picker.
      * @private
      */
-    getScrollableClientRegion: function() {
-        return this.picker.bar.getClientRegion();
+    doChildTap: function(list, e) {
+        var me = this;
+        me.selectedIndex = e.viewIndex;
+        me.selectedNode = e.child;
+        me.scrollToItem(me.selectedNode, true);
     },
 
     /**
      * @private
      */
     scrollToItem: function(item, animated) {
-        // Scrollable will scroll into the bar region because of our getScrollableClientRegion
-        // implementation above.
-        this.getScrollable().scrollIntoView(item.el, false, animated);
+        // The difference between the required item an the overlayed bar is how far to scroll.
+        var difference = item.getY() - this.picker.bar.getY();
+
+        if (difference) {
+            this.getScrollable().scrollBy(0, difference, animated);
+        }
     },
 
     /**
      * @private
-     * Called directly by our scroller when scrolling has stopped.
      */
-    onScrollEnd: function(x, y) {
+    onTouchStart: function() {
+        this.element.addCls(Ext.baseCSSPrefix + 'scrolling');
+    },
+
+    /**
+     * @private
+     */
+    onTouchEnd: function() {
+        this.element.removeCls(Ext.baseCSSPrefix + 'scrolling');
+    },
+
+    /**
+     * @private
+     */
+    onSlotScrollEnd: function(scroller, x, y) {
         var me = this,
+            index = Math.round(y / me.picker.bar.dom.getBoundingClientRect().height),
             viewItems = me.getViewItems(),
-            index = Ext.Number.constrain(Math.round(y / me.picker.bar.measure('h')), 0, viewItems.length - 1),
             item = viewItems[index];
 
         if (item) {
             me.selectedIndex = index;
             me.selectedNode = item;
 
-            me.setValueAnimated(me.getValue(true));
+            this.setValueAnimated(this.getValue(true));
             me.fireEvent('slotpick', me, me.getValue(), me.selectedNode);
         }
     },
@@ -421,12 +441,9 @@ Ext.define('Ext.picker.Slot', {
     doSetValue: function(value, animated) {
         var me = this,
             hasSelection = true,
-            store, index, item;
-        
-        // Store can be null
-        store = me.getStore();
-        
-        index = store ? store.findExact(me.getValueField(), value) : -1;
+            index, item;
+
+        index = me.getStore().findExact(me.getValueField(), value);
 
         if (index === -1) {
             hasSelection = false;
@@ -447,9 +464,5 @@ Ext.define('Ext.picker.Slot', {
         }
 
         me._value = value;
-    },
-
-    privates: {
-        forceRefreshOnRender: true
     }
 });

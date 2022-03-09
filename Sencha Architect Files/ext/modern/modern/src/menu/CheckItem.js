@@ -1,27 +1,23 @@
 /**
- * A menu item that contains a togglable checkbox by default, but that can also be
- * a part of a radio group.
+ * A menu item that contains a togglable checkbox by default, but that can also be a part of a radio group.
  *
- *      @example
- *      Ext.create({
- *          xtype: 'menu',
- *          renderTo: Ext.getBody(),
- *          width: 100,
- *          items: [{
- *              xtype: 'menucheckitem',
- *              text: 'select all'
- *          },{
- *              xtype: 'menucheckitem',
- *              text: 'select specific'
- *          },{
- *              iconCls: 'add16',
- *              text: 'icon item'
- *          },{
- *              text: 'regular item'
- *          }]
- *      });
- *
- * @since 6.5.0
+ *     @example
+ *     Ext.create('Ext.menu.Menu', {
+ *         width: 100,
+ *         height: 110,
+ *         items: [{
+ *             xtype: 'menucheckitem',
+ *             text: 'select all'
+ *         },{
+ *             xtype: 'menucheckitem',
+ *             text: 'select specific'
+ *         },{
+ *             iconCls: 'add16',
+ *             text: 'icon item'
+ *         },{
+ *             text: 'regular item'
+ *         }]
+ *     });
  */
 Ext.define('Ext.menu.CheckItem', {
     extend: 'Ext.menu.Item',
@@ -34,7 +30,14 @@ Ext.define('Ext.menu.CheckItem', {
     isMenuCheckItem: true,
 
     /**
-     * @cfg {Boolean} hideOnClick
+     * @cfg {String} iconAlign
+     * @hide
+     * Not supported at this level. Checkbox is on the left, iconAlign is always 'right'
+     */
+    iconAlign: 'right',
+
+    /**
+     * @cfg {Boolean} [hideOnClick=false]
      * Whether to not to hide the owning menu when this item is clicked.
      * Defaults to `false` for checkbox items, and radio group items.
      */
@@ -42,13 +45,13 @@ Ext.define('Ext.menu.CheckItem', {
 
     config: {
         /**
-         * @cfg {Boolean} checked
+         * @cfg {Boolean} [checked=false]
          * True to render the menuitem initially checked.
          */
         checked: false,
 
         /**
-         * @cfg {Function/String} checkHandler
+         * @cfg {Function/String} [checkHandler]
          * @param {Ext.menu.CheckItem} This menu CheckItem
          * @param {Boolean} checked The new checked state
          * Alternative for the {@link #checkchange} event.  Gets called with the same parameters.
@@ -57,30 +60,20 @@ Ext.define('Ext.menu.CheckItem', {
         checkHandler: null,
 
         /**
-         * @cfg {Object} scope
+         * @cfg {Object} [scope]
          * Scope for the {@link #checkHandler} callback.
          */
 
         /**
-         * @cfg {Boolean} checkChangeDisabled
+         * @cfg {Boolean} [checkChangeDisabled=false]
          * True to prevent the checked item from being toggled. Any submenu will still be accessible.
          */
         checkChangeDisabled: false,
 
-        /**
-         * @cfg {String} value
-         * The value of this item when {@link #cfg!checked} is `true`.
-         * If this is not specified, the value defaults to the {@link #cfg!text} value.
-         */
         value: null,
 
         showCheckbox: null
     },
-    
-    /**
-     * @cfg [publishes='checked']
-     * @inheritdoc Ext.mixin.Bindable#cfg-publishes
-     */
 
     classCls: Ext.baseCSSPrefix + 'menucheckitem',
 
@@ -93,8 +86,8 @@ Ext.define('Ext.menu.CheckItem', {
     defaultBindProperty: 'checked',
 
     /**
-     * @cfg {String} submenuText
-     * Text to be announced by screen readers when a check item submenu is focused.
+     * @cfg {String} submenuText Text to be announced by screen readers when a check item
+     * submenu is focused.
      * @locale
      */
     submenuText: '{0} submenu',
@@ -113,8 +106,7 @@ Ext.define('Ext.menu.CheckItem', {
 
     /**
      * @event beforecheckchange
-     * Fires before a a user invoked check change. This does *not* fire when a programmatic
-     * check change is performed.
+     * Fires before a change event. Return false to cancel.
      * @param {Ext.menu.CheckItem} this CheckItem
      * @param {Boolean} checked
      */
@@ -161,11 +153,6 @@ Ext.define('Ext.menu.CheckItem', {
         return template;
     },
 
-    initialize: function () {
-        this.callParent();
-        this.syncCheckboxCls();
-    },
-
     enableFocusable: function() {
         this.mixins.focusable.enableFocusable();
 
@@ -199,6 +186,16 @@ Ext.define('Ext.menu.CheckItem', {
         }
     },
 
+    applyChecked: function (checked, oldChecked) {
+        // Cast to boolean
+        checked = !!checked;
+
+        // Do not fire events if set in configuration
+        if (checked !== oldChecked && (this.isConfiguring || this.fireEvent('beforecheckchange', this, checked) !== false)) {
+            return checked;
+        }
+    },
+
     updateChecked: function (checked) {
         this.checkboxElement.dom.checked = checked;
 
@@ -221,11 +218,6 @@ Ext.define('Ext.menu.CheckItem', {
 
         me.callParent([text]);
 
-        // Use text as an analog for value if user has not specified a value
-        if (me.getValue() === null) {
-            me.setValue(text);
-        }
-
         if (ariaDom && me.getMenu()) {
             ariaDom.setAttribute('aria-label', Ext.String.formatEncode(me.submenuText, text));
         }
@@ -239,28 +231,25 @@ Ext.define('Ext.menu.CheckItem', {
         this.checkboxElement.setDisplayed(showCheckbox);
     },
 
-    updateIcon: function(icon, oldIcon) {
-        this.callParent([icon, oldIcon]);
-
-        if (!this.isConfiguring) {
-            this.syncCheckboxCls();
-        }
-    },
-
-    updateIconCls: function(iconCls, oldIconCls) {
-        this.callParent([iconCls, oldIconCls]);
-
-        if (!this.isConfiguring) {
-            this.syncCheckboxCls();
-        }
-    },
-
     updateIconAlign: function (iconAlign, oldIconAlign) {
-        this.callParent([iconAlign, oldIconAlign]);
+        var me = this,
+            leftIconElement = me.leftIconElement,
+            rightIconElement = me.rightIconElement,
+            checkboxIconElCls = me.checkboxIconElCls,
+            checkboxIconElement, oldCheckboxIconElement;
 
-        if (!this.isConfiguring) {
-            this.syncCheckboxCls();
+        if (iconAlign === 'left') {
+            checkboxIconElement = rightIconElement;
+            oldCheckboxIconElement = leftIconElement;
+        } else {
+            checkboxIconElement = leftIconElement;
+            oldCheckboxIconElement = rightIconElement;
         }
+
+        checkboxIconElement.addCls(checkboxIconElCls);
+        oldCheckboxIconElement.removeCls(checkboxIconElCls);
+
+        me.callParent([iconAlign, oldIconAlign]);
     },
 
     privates: {
@@ -320,33 +309,13 @@ Ext.define('Ext.menu.CheckItem', {
         },
 
         onCheckboxChange: function() {
-            var me = this,
-                checkboxElement = me.checkboxElement.dom,
-                meChecked = me.getChecked(),
-                isChecked = checkboxElement.checked;
-
-            if (me.getCheckChangeDisabled()) {
-                checkboxElement.checked = meChecked;
-                return false;
-            }
-            if (isChecked === meChecked || me.getDisabled()) {
-                return;
-            }
-
-            // Allow an event to veto by flipping the DOM state back.
-            // This will cause another DOM change event, but that will be
-            // rejected above.
-            if (me.fireEvent('beforecheckchange', me, isChecked) === false) {
-                checkboxElement.checked = !isChecked;
-            } else {
-                // Sync widget state in response to the checkbox changing state.
-                me.setChecked(isChecked);
-            }
+            // Sync widget state in response to the checkbox changing state.
+            this.setChecked(this.checkboxElement.dom.checked);
         },
 
         onCheckChange: function () {
             var me = this,
-                checked = me.checkboxElement.dom.checked,
+                checked = this.checkboxElement.dom.checked,
                 el = me.el,
                 ariaDom = me.ariaEl.dom;
 
@@ -368,26 +337,7 @@ Ext.define('Ext.menu.CheckItem', {
         syncHasIconCls: function () {
             var me = this;
 
-            me.toggleCls(me.hasRightIconCls, me.hasIcon());
-        },
-
-        syncCheckboxCls: function() {
-            var me = this,
-                leftIconElement = me.leftIconElement,
-                rightIconElement = me.rightIconElement,
-                checkboxIconElCls = me.checkboxIconElCls,
-                checkboxIconElement, oldCheckboxIconElement;
-
-            if (me.hasIcon() && (me.getIconAlign() === 'left')) {
-                checkboxIconElement = rightIconElement;
-                oldCheckboxIconElement = leftIconElement;
-            } else {
-                checkboxIconElement = leftIconElement;
-                oldCheckboxIconElement = rightIconElement;
-            }
-
-            checkboxIconElement.addCls(checkboxIconElCls);
-            oldCheckboxIconElement.removeCls(checkboxIconElCls);
+            me.toggleCls(me.hasRightIconCls, !!(me.getIconCls() || me.getIcon()));
         }
     }
 });

@@ -7,12 +7,12 @@ Ext.define('Ext.chart.theme.Midnight', {
     ],
     config: {
         colors: [
-            '#a837ff',
-            '#4ac0f2',
-            '#ff4d35',
-            '#ff8809',
-            '#61c102',
-            '#ff37ea'
+            '#A837FF',
+            '#4AC0F2',
+            '#FF4D35',
+            '#FF8809',
+            '#61C102',
+            '#FF37EA'
         ],
 
         chart: {

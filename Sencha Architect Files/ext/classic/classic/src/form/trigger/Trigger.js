@@ -22,8 +22,8 @@ Ext.define('Ext.form.trigger.Trigger', {
     repeatClick: false,
 
     /**
-     * @cfg cls
-     * @inheritdoc Ext.panel.Header#cfg-iconCls
+     * @cfg {String} cls
+     * @inheritdoc Ext.panel.Header#iconCls
      */
 
     /**
@@ -47,13 +47,12 @@ Ext.define('Ext.form.trigger.Trigger', {
 
     /**
      * @cfg {Boolean} [hideOnReadOnly=true]
-     * Set 'false' to prevent trigger from being hidden even though the related field is
-     * set {@link Ext.form.field.Text#readOnly readOnly}
+     * Set 'false' to prevent trigger from being hidden even though the related field is set {@link Ext.form.field.Text#readOnly readOnly}
      */
     hideOnReadOnly : undefined,
 
     /**
-     * @cfg {Object} scope
+     * @cfg {Object} [scope]
      * Execution context for the {@link #handler} function.
      */
 
@@ -81,7 +80,7 @@ Ext.define('Ext.form.trigger.Trigger', {
      */
 
     /**
-     * @cfg {Boolean} preventMouseDown
+     * @cfg {Boolean} [preventMouseDown=true]
      * @private
      * If true, preventDefault() will be called on the mousedown event.  This prevents
      * a click on the trigger from blurring the field, which is desirable in most cases.

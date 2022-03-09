@@ -883,7 +883,6 @@ function() {
                     if (options.collapse) {
                         var cb = function() {
                             // Let the stack unwind!
-                            var setTimeout = jasmine._setTimeout;
                             setTimeout(done, 1);
                         };
                         

@@ -7,8 +7,6 @@ Ext.define('Ext.data.validator.Date', {
 
     type: 'date',
 
-    isDateValidator: true,
-
     /**
      * @cfg {String} message
      * The error message to return when the value is not a valid date.
@@ -24,22 +22,7 @@ Ext.define('Ext.data.validator.Date', {
 
     privates: {
         getDefaultFormat: function() {
-            return [
-                Ext.Date.defaultFormat,
-                'm/d/Y',
-                'n/j/Y',
-                'n/j/y',
-                'm/j/y',
-                'n/d/y',
-                'm/j/Y',
-                'n/d/Y',
-                'm-d-y',
-                'n-d-y',
-                'm-d-Y',
-                'mdy',
-                'mdY',
-                'Y-m-d'
-            ];
+            return Ext.Date.defaultFormat;
         }
     }
 });

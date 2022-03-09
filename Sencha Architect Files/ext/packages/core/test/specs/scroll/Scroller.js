@@ -3,7 +3,7 @@
 topSuite("Ext.scroll.Scroller", function() {
     var ctWidth = 100,
         ctHeight = 100,
-        scroller, el, child;
+        scroller, el;
 
     function makeScroller(config) {
         scroller = new Ext.scroll.Scroller(Ext.apply({
@@ -26,71 +26,6 @@ topSuite("Ext.scroll.Scroller", function() {
         }, true);
     }
 
-    function makeOverflow (cfg) {
-        for (var i = 1; i <= 100; ++i) {
-            el.appendChild({
-                id: Ext.id(),
-                html: 'Line' + i,
-                cls: 'line',
-                style: 'height: 20px'
-            }, true);
-        }
-
-        makeScroller(cfg);
-    }
-
-    function makeInline (cfg) {
-        el.setStyle('white-space', 'nowrap');
-
-        for (var i = 1; i <= 100; ++i) {
-            el.appendChild({
-                id: Ext.id(),
-                html: 'Line' + i,
-                cls: 'line',
-                style: 'height: 20px;width: 50px;display: inline-block;'
-            }, true);
-        }
-
-        makeScroller(cfg);
-    }
-
-    function makeAbsoluteOverflow (left, top) {
-        el.dom.style.position = 'relative';
-
-        child = el.createChild({
-            style: {
-                width: '100px',
-                height: '100px',
-                html: 'Foo',
-                position: 'absolute',
-                left: (left || 0) + 'px',
-                top: (top || 0) + 'px'
-            }
-        });
-
-        makeScroller();
-
-        return child;
-    }
-
-    function makeNoOverflow (cfg) {
-        el.appendChild({
-            style: 'height:100px;width:100px;'
-        }, true);
-
-        makeScroller(cfg);
-    }
-
-    function getChild(i, asEl) {
-        var node = el.dom.childNodes[i];
-
-        if (asEl) {
-            node = Ext.fly(node);
-        }
-
-        return node;
-    }
-
     beforeEach(function() {
         el = Ext.getBody().createChild({
             style: {
@@ -101,7 +36,7 @@ topSuite("Ext.scroll.Scroller", function() {
     });
 
     afterEach(function() {
-        scroller = el = child = Ext.destroy(child, scroller, el);
+        scroller = el = Ext.destroy(scroller, el);
     });
 
     function calculateMaxScrollPosition(contentWidth, contentHeight) {
@@ -612,162 +547,29 @@ topSuite("Ext.scroll.Scroller", function() {
         });
     });
 
-    describe('getEnsureVisibleXY', function () {
-        describe('el', function () {
-            function createElSpec (asObj) {
-                describe(asObj ? 'as object' : 'as node', function () {
-                    function parseEl (el) {
-                        if (asObj) {
-                            el = {
-                                element: el
-                            };
-                        }
-
-                        return el;
-                    }
-
-                    it('should accept el as first argument', function () {
-                        makeOverflow();
-
-                        var el = getChild(10),
-                            position = scroller.getEnsureVisibleXY(parseEl(el));
-
-                        expect(position.x).toBe(0);
-                        expect(position.y).toBe(120);
-                    });
-
-                    it('should accept el as an Element as first argument', function () {
-                        makeOverflow();
-
-                        var el = getChild(10, true),
-                            position = scroller.getEnsureVisibleXY(parseEl(el));
-
-                        expect(position.x).toBe(0);
-                        expect(position.y).toBe(120);
-                    });
-
-                    it('should accept el as a String as first argument', function () {
-                        makeOverflow();
-
-                        var el = getChild(10),
-                            position = scroller.getEnsureVisibleXY(parseEl(el.id));
-
-                        expect(position.x).toBe(0);
-                        expect(position.y).toBe(120);
-                    });
-                });
-            }
-
-            createElSpec();
-            createElSpec(true);
-        });
-
-        describe('options', function () {
-            describe('align', function () {
-                function makeSpecs (align, x, y, asString) {
-                    function buildAlign (axis) {
-                        if (asString) {
-                            return align;
-                        } else {
-                            var cfg = {};
-
-                            cfg[axis] = align;
-
-                            return cfg;
-                        }
-                    }
-
-                    describe(align + (asString ? ' as string' : ''), function () {
-                        it('should align by x', function () {
-                            makeInline();
-
-                            child = getChild(40);
-
-                            var position = scroller.getEnsureVisibleXY(child, {
-                                align : buildAlign('x'),
-                                y     : false
-                            });
-
-                            expect(position.x).toBe(x);
-                            expect(position.y).toBe(0);
-                        });
-
-                        it('should align by y', function () {
-                            makeOverflow();
-
-                            child = getChild(50);
-
-                            var position = scroller.getEnsureVisibleXY(child, {
-                                align : buildAlign('y'),
-                                x     : false
-                            });
-
-                            expect(position.x).toBe(0);
-                            expect(position.y).toBe(y);
-                        });
-                    });
-                }
-
-                makeSpecs('center', 1950, 950);
-                makeSpecs('center', 1950, 950, true);
-                makeSpecs('end',    1950, 920);
-                makeSpecs('end',    1950, 920, true);
-                makeSpecs('start',  2000, 1000);
-                makeSpecs('start',  2000, 1000, true);
-            });
-
-            function makeXYSpec (axis, x, y) {
-                describe(axis, function () {
-                    beforeEach(function () {
-                        if (axis === 'x') {
-                            makeInline();
-                        } else {
-                            makeOverflow();
-                        }
-
-                        child = getChild(70);
-                    });
-
-                    function buildOptions (value) {
-                        var options = {};
-
-                        options[axis] = value;
-
-                        return options;
-                    }
-
-                    it('should allow scrolling', function () {
-                        var position = scroller.getEnsureVisibleXY(child);
-
-                        expect(position.x).toBe(x);
-                        expect(position.y).toBe(y);
-                    });
-
-                    it('should allow scrolling passing true', function () {
-                        var position = scroller.getEnsureVisibleXY(child, buildOptions(true));
-
-                        expect(position.x).toBe(x);
-                        expect(position.y).toBe(y);
-                    });
-
-                    it('should disallow scrolling', function () {
-                        var position = scroller.getEnsureVisibleXY(child, buildOptions(false));
-
-                        expect(position.x).toBe(0);
-                        expect(position.y).toBe(0);
-                    });
-                });
-            }
-
-            makeXYSpec('x', 3450, 0);
-            makeXYSpec('y', 0,    1320);
-        });
-    });
-
     xdescribe("scrolling methods", function() {
         describe("scrollTo", function() {
             var contentWidth = 300,
                 contentHeight = 200;
+
+            function makeOverflow(cfg) {
+                el.appendChild({
+                    style: {
+                        height: contentHeight + 'px',
+                        width: contentWidth + 'px'
+                    }
+                }, true);
+
+                makeScroller(cfg);
+            }
+
+            function makeNoOverflow(cfg) {
+                el.appendChild({
+                    style: 'height:100px;width:100px;'
+                }, true);
+
+                makeScroller(cfg);
+            }
 
             it("should scroll on the x axis", function() {
                 makeOverflow();
@@ -1318,8 +1120,45 @@ topSuite("Ext.scroll.Scroller", function() {
             });
         });
 
-        describe("ensureVisible", function() {
-            // TODO: add tests for ensureVisible
+        describe("scrollIntoView", function() {
+            var child;
+            
+            afterEach(function() {
+                child = Ext.destroy(child);
+            });
+            
+            function makeOverflow() {
+                for (var i = 1; i <= 100; ++i) {
+                    el.appendChild({
+                        html: 'Line' + i,
+                        cls: 'line',
+                        style: 'height: 20px'
+                    }, true);
+                }
+                makeScroller();
+            }
+
+            function makeAbsoluteOverflow(left, top) {
+                el.dom.style.position = 'relative';
+                child = el.createChild({
+                    style: {
+                        width: '100px',
+                        height: '100px',
+                        html: 'Foo',
+                        position: 'absolute',
+                        left: (left || 0) + 'px',
+                        top: (top || 0) + 'px'
+                    }
+                });
+                makeScroller();
+                return child;
+            }
+
+            function getChild(i) {
+                return el.dom.childNodes[i];
+            }
+
+            // TODO: add tests for scrollIntoView
 
             describe("promise return value", function() {
                 var spy;
@@ -1336,10 +1175,7 @@ topSuite("Ext.scroll.Scroller", function() {
                     if (typeof el === 'number') {
                         el = getChild(el);
                     }
-                    var promise = scroller.ensureVisible(el, {
-                        animation: animate,
-                        x: hscroll
-                    });
+                    var promise = scroller.scrollIntoView(el, hscroll, animate);
                     promise.then(spy);
                     waitsForSpy(spy);
                     runs(function() {
@@ -1376,10 +1212,7 @@ topSuite("Ext.scroll.Scroller", function() {
                         if (animate) {
                             it("should reject if destroyed during animation", function() {
                                 makeOverflow();
-                                var promise = scroller.ensureVisible(getChild(20), {
-                                    animation: animate,
-                                    x: null
-                                }).then(null, spy);
+                                var promise = scroller.scrollIntoView(getChild(20), null, animate).then(null, spy);
                                 waits(1);
                                 runs(function() {
                                     scroller.destroy();

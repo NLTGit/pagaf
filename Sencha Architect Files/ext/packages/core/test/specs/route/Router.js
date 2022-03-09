@@ -10,11 +10,11 @@ topSuite("Ext.route.Router", ['Ext.app.Controller', 'Ext.util.History'], functio
 
     function promiseHasBeenResolved (promise) {
         var resolved = spyOn({
-                test: Ext.emptyFn
-            }, 'test'),
-            rejected = spyOn({
-                test: Ext.emptyFn
-            }, 'test');
+                    test: Ext.emptyFn
+                }, 'test'),
+                rejected = spyOn({
+                    test: Ext.emptyFn
+                }, 'test');
 
         promise.then(resolved, rejected);
 
@@ -28,11 +28,11 @@ topSuite("Ext.route.Router", ['Ext.app.Controller', 'Ext.util.History'], functio
 
     function promiseHasBeenRejected (promise) {
         var resolved = spyOn({
-                test: Ext.emptyFn
-            }, 'test'),
-            rejected = spyOn({
-                test: Ext.emptyFn
-            }, 'test');
+                    test: Ext.emptyFn
+                }, 'test'),
+                rejected = spyOn({
+                    test: Ext.emptyFn
+                }, 'test');
 
         promise.then(resolved, rejected);
 
@@ -51,18 +51,18 @@ topSuite("Ext.route.Router", ['Ext.app.Controller', 'Ext.util.History'], functio
                 numBeforeArgs  += arguments.length;
                 beforeExecuted = true;
 
-                return new Ext.Promise(function (resolve, reject) {
-                    resolve();
-                });
+                var action = arguments[arguments.length - 1];
+
+                action.resume();
             },
 
             beforeHandleRouteBlock: function () {
                 numBeforeArgs  += arguments.length;
                 beforeExecuted = true;
 
-                return new Ext.Promise(function (resolve, reject) {
-                    reject();
-                });
+                var action = arguments[arguments.length - 1];
+
+                action.stop();
             },
 
             handleRoute: function () {

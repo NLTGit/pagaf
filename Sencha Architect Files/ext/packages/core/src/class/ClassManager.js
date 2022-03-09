@@ -7,7 +7,7 @@
  * these convenient shorthands:
  *
  * - {@link Ext#define Ext.define}
- * - {@link Ext#method!create Ext.create}
+ * - {@link Ext#create Ext.create}
  * - {@link Ext#widget Ext.widget}
  * - {@link Ext#getClass Ext.getClass}
  * - {@link Ext#getClassName Ext.getClassName}
@@ -17,7 +17,7 @@
  *     Ext.define(className, properties);
  *
  * in which `properties` is an object represent a collection of properties that apply to the class. See
- * {@link Ext.ClassManager#method!create} for more detailed instructions.
+ * {@link Ext.ClassManager#create} for more detailed instructions.
  *
  *     Ext.define('Person', {
  *          name: 'Unknown',
@@ -66,7 +66,7 @@
  *     jacky.code("JavaScript"); // alert("I'm coding in: JavaScript");
  *                               // alert("I'm eating: Bugs");
  *
- * See {@link Ext.Base#method!callParent} for more details on calling superclass' methods
+ * See {@link Ext.Base#callParent} for more details on calling superclass' methods
  *
  * # Mixins:
  *
@@ -1098,9 +1098,9 @@ var makeCtor = Ext.Class.makeCtor,
      * 
      * Methods defined on the overriding class will not automatically call the methods of 
      * the same name in the ancestor class chain.  To call the parent's method of the 
-     * same name you must call {@link Ext.Base#method!callParent callParent}.  To skip the
+     * same name you must call {@link Ext.Base#callParent callParent}.  To skip the 
      * method of the overridden class and call its parent you will instead call 
-     * {@link Ext.Base#method!callSuper callSuper}.
+     * {@link Ext.Base#callSuper callSuper}.
      *
      * See {@link Ext#define Ext.define} for additional usage examples.
      */
@@ -1639,9 +1639,9 @@ var makeCtor = Ext.Class.makeCtor,
         },
 
         /**
-         * @method createByAlias
-         * @inheritdoc Ext.ClassManager#method-instantiateByAlias
+         * @inheritdoc Ext.ClassManager#instantiateByAlias
          * @member Ext
+         * @method createByAlias
          */
         createByAlias: alias(Manager, 'instantiateByAlias'),
 
@@ -1967,9 +1967,9 @@ var makeCtor = Ext.Class.makeCtor,
         },
 
         /**
-         * @method getClassName
-         * @inheritdoc Ext.ClassManager#method-getName
+         * @inheritdoc Ext.ClassManager#getName
          * @member Ext
+         * @method getClassName
          */
         getClassName: alias(Manager, 'getName'),
 
@@ -1997,9 +1997,9 @@ var makeCtor = Ext.Class.makeCtor,
         },
 
         /**
-         * @method getClass
-         * @inheritdoc Ext.ClassManager#method-getClass
+         * @inheritdoc Ext.ClassManager#getClass
          * @member Ext
+         * @method getClass
          */
         getClass: alias(Manager, 'getClass'),
 
@@ -2079,10 +2079,10 @@ var makeCtor = Ext.Class.makeCtor,
     Ext.createWidget = Ext.widget;
 
     /**
-     * @method ns
      * Convenient alias for {@link Ext#namespace Ext.namespace}.
-     * @inheritdoc Ext#method-namespace
+     * @inheritdoc Ext#namespace
      * @member Ext
+     * @method ns
      */
     Ext.ns = Ext.namespace;
 

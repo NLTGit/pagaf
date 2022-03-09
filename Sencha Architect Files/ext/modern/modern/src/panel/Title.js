@@ -11,21 +11,21 @@ Ext.define('Ext.panel.Title', {
 
     cachedConfig: {
         /**
-         * @cfg textAlign
+         * @cfg [textAlign='left']
          * @inheritdoc Ext.panel.Header#cfg-titleAlign
          * @accessor
          */
         textAlign: 'left',
 
         /**
-         * @cfg iconAlign
-         * @inheritdoc Ext.panel.Header#cfg-iconAlign
+         * @cfg {'top'/'right'/'bottom'/'left'} [iconAlign='left']
+         * alignment of the icon
          * @accessor
          */
         iconAlign: 'left',
 
         /**
-         * @cfg {'90'/'270'/'0'} rotation
+         * @cfg {'90'/'270'/'0'}
          * The rotation of the {@link #cfg-text}.
          *
          * - `'0'` - no rotation
@@ -44,7 +44,7 @@ Ext.define('Ext.panel.Title', {
 
     config: {
         /**
-         * @cfg {String} text
+         * @cfg {String}
          * The title's text (can contain html tags/entities)
          * @accessor
          */
@@ -65,31 +65,15 @@ Ext.define('Ext.panel.Title', {
         iconCls: null
     },
 
-    /**
-     * @cfg weight
-     * @inheritdoc
-     */
     weight: -10,
 
-    /**
-     * @property inheritUi
-     * @inheritdoc
-     */
     inheritUi: true,
 
-    /**
-     * @property element
-     * @inheritdoc
-     */
     element: {
         reference: 'element',
         cls: Ext.baseCSSPrefix + 'unselectable'
     },
 
-    /**
-     * @property template
-     * @inheritdoc
-     */
     template: [{
         reference: 'bodyElement',
         cls: Ext.baseCSSPrefix + 'body-el',
@@ -128,16 +112,25 @@ Ext.define('Ext.panel.Title', {
         270: Ext.baseCSSPrefix + 'rotate-270'
     },
 
-    /**
-     * @property classCls
-     * @inheritdoc
-     */
     classCls: Ext.baseCSSPrefix + 'paneltitle',
     _titleSuffix: '-title',
 
     afterRender: function() {
+        var bodyElement = this.bodyElement.dom,
+            bodyStyle = bodyElement.style;
+
         if (Ext.isSafari) {
-            this.repaintBodyElement();
+            // When iconAlign is 'top' or 'bottom' with vertically rotated text, Safari
+            // does not initially layout the title with the correct width.  Setting the
+            // width to -webkit-min-content and back to '' with a read of offsetWidth in
+            // between forces a synchronous reflow and corrects the issue.  Unfortunately
+            // a static width or min-width in the stylesheet does not help.
+            // We use -webkit-min-content so that the next reflow after resetting the
+            // min-width to '' hopefully ends up with everything the same size as before
+            // thus minimizing the effect on the surrounding dom.
+            bodyStyle.width = '-webkit-min-content';
+            bodyElement.offsetWidth;
+            bodyStyle.width = '';
         }
 
         this.callParent();
@@ -198,10 +191,6 @@ Ext.define('Ext.panel.Title', {
         } else {
             el.replaceCls(horizontalCls, [verticalCls, me._rotationClasses[rotation]]);
         }
-
-        if (Ext.isSafari && this.rendered) {
-            this.repaintBodyElement();
-        }
     },
 
     updateRotateIcon: function(rotateIcon) {
@@ -228,23 +217,6 @@ Ext.define('Ext.panel.Title', {
     },
 
     privates: {
-        repaintBodyElement: function() {
-            var bodyElement = this.bodyElement.dom,
-                bodyStyle = bodyElement.style;
-
-            // When iconAlign is 'top' or 'bottom' with vertically rotated text, Safari
-            // does not initially layout the title with the correct width.  Setting the
-            // width to -webkit-min-content and back to '' with a read of offsetWidth in
-            // between forces a synchronous reflow and corrects the issue.  Unfortunately
-            // a static width or min-width in the stylesheet does not help.
-            // We use -webkit-min-content so that the next reflow after resetting the
-            // min-width to '' hopefully ends up with everything the same size as before
-            // thus minimizing the effect on the surrounding dom.
-            bodyStyle.width = '-webkit-min-content';
-            bodyElement.offsetWidth;
-            bodyStyle.width = '';
-        },
-        
         syncIconVisibility: function() {
             this.el.toggleCls(this.hasIconCls, !!(this.getIcon() || this.getIconCls()));
         }

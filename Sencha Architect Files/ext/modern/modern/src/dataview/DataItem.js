@@ -171,8 +171,6 @@ Ext.define('Ext.dataview.DataItem', function (DataItem) { return {
             DataItem.executeDataMap(record, me, dataMap);
         }
 
-        me.syncDirty(record);
-
         if (tpl || !dataMap || me.hasListeners.updatedata) {
             data = me.parent.gatherData(record);
 
@@ -186,9 +184,7 @@ Ext.define('Ext.dataview.DataItem', function (DataItem) { return {
              * @param {Ext.dataview.DataItem} dataItem The DataItem instance.
              * @param {Object} newData The new data.
              */
-            if (me.hasListeners.updatedata) {
-                me.fireEvent('updatedata', me, data);
-            }
+            me.fireEvent('updatedata', me, data);
         }
     },
 
@@ -211,7 +207,7 @@ Ext.define('Ext.dataview.DataItem', function (DataItem) { return {
                     cfg, dataPath, i, n, name, s, value;
 
                 for (name in mappings) {
-                    s = legacy ? name : ((cfg = configMap[name]) && cfg.names.set);
+                    s = legacy ? name : ((cfg = configMap[name]) && cfg.names.setter);
                     if (!target[s]) {
                         //<debug>
                         if (legacy) {
@@ -287,5 +283,4 @@ Ext.define('Ext.dataview.DataItem', function (DataItem) { return {
             }
         } // statics
     } // privates
-};
-});
+}});

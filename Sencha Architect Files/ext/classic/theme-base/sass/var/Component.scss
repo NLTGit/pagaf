@@ -106,7 +106,6 @@ $image-extension: dynamic('png');
 $slicer-image-extension: dynamic('gif');
 
 /**
- * @var {string} $image-search-path
  * Default search path for images
  */
 $image-search-path: '.' !default;
@@ -124,7 +123,7 @@ $include-default-uis: dynamic(true);
 $enable-font-smoothing: dynamic(true);
 
 /**
- * @var {string} $theme-resource-path
+ * @var {string}
  * The base path relative to the CSS output directory to use for theme resources.  For example
  * if the theme's images live one directory up from the generated CSS output in a directory
  * named 'foo/images/', you would need to set this variable to '../foo/' in order for the image
@@ -134,7 +133,6 @@ $enable-font-smoothing: dynamic(true);
 $theme-resource-path: dynamic('');
 
 /**
- * @var {boolean} [$grid-cell-field-src-included=false]
  * @private
  * Flag to ensure GridField rules only get set once
  */

@@ -414,7 +414,7 @@ function() {
             var selModel;
 
             function fireEvent(rowNum, eventName, shift) {
-                jasmine.fireMouseEvent(findCell(rowNum, 0),eventName, null, null, null, !!shift);
+                jasmine.fireMouseEvent(view.getNode(rowNum).getElementsByTagName('td')[0],eventName, null, null, null, !!shift);
             }
 
             function expectSelected(rec) {
@@ -1066,36 +1066,6 @@ function() {
             waitsFor(function() {
                 return plugin.activeEditor && plugin.activeEditor.up('grid') === grid;
             });
-        });
-    
-        it('should allow custom editors as a config', function () {
-            var spy;
-            
-            Ext.define('CustomEditor', {
-                extend : 'Ext.grid.CellEditor',
-                alias  : 'widget.customeditor',
-                
-                constructor: function (config) {return this.callParent([config])}
-            });
-            
-            spy = spyOn(CustomEditor.prototype, 'constructor').andCallThrough();
-            grid = Ext.destroy(grid);
-            
-            makeGrid(null, {
-                columns: [{
-                    header: 'Name',  dataIndex: 'name', editor: {
-                        xtype: 'customeditor',
-                        field: {
-                            xtype: 'textfield'
-                        }
-                    }
-                }]
-            });
-            startEdit();
-            
-            waitsForSpy(spy);
-            
-            Ext.undefine('CustomEditor');
         });
 
         describe('positioning the editor', function () {

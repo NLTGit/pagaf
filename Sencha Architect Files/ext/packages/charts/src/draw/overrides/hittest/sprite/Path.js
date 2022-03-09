@@ -65,8 +65,7 @@ Ext.define('Ext.draw.overrides.hittest.sprite.Path', {
     },
 
     /**
-     * @method hitTest
-     * @inheritdoc Ext.draw.Surface#method-hitTest
+     * @inheritdoc
      */
     hitTest: function (point, options) {
         var me = this,

@@ -1,9 +1,12 @@
 /** @class Ext.pivot.Grid */
 
+$ext-pivot-trial: false !default; // Updated automatically by the build script.
+
 $grid-header-trigger-border:
     $grid-column-header-border-width
     $grid-column-header-border-style
     $grid-header-border-color;
+
 
 /**
  * @var {number/list}
@@ -177,5 +180,3 @@ $pivot-grid-group-header-compact-border-color: dynamic($pivot-grid-group-header-
  * The background color of group headers in compact view
  */
 $pivot-grid-group-header-compact-background-color: dynamic($pivot-grid-group-header-background-color);
-
-$ext-pivot-trial: false !default; // Updated automatically by the build script.

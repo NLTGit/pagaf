@@ -30,7 +30,7 @@ Ext.define('Ext.form.trigger.Spinner', {
      */
 
     /**
-     * @cfg {Boolean} vertical
+     * @cfg
      * True to layout the spinner in a vertical format.
      *
      * **Note:** This is not intended to be configured on an instance level, but is

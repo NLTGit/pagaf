@@ -2,15 +2,6 @@
     display: table-cell;
     vertical-align: middle;
     position: relative;
-
-    &.#{$prefix}dirty {
-        &:before {
-            line-height: 1;
-            position: absolute;
-            top: 0;
-            left: 0;
-        }
-    }
 }
 
 .#{$prefix}gridcell-body-el {

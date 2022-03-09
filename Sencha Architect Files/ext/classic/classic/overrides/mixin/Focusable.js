@@ -1,7 +1,3 @@
-/**
- * @class Ext.mixin.Focusable
- */
-
 Ext.define('Ext.overrides.mixin.Focusable', {
     override: 'Ext.Component',
     

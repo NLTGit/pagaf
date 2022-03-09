@@ -428,13 +428,13 @@ Ext.define('Ext.field.Manager', {
      * @return {Boolean} `true` if all fields in the form are valid, false if
      * any one (or more) of the fields is invalid.
      */
-    validate: function (skipLazy) {
+    validate: function (skiplazy) {
         var fields = this.getFields(false),
             valid = true,
             i, length;
 
         for (i = 0, length = fields.length; i < length; i++) {
-            if (!fields[i].validate(skipLazy)) {
+            if (!fields[i].validate(skiplazy)) {
                 //don't stop the loop, need to validate all fields
                 //so all fields can show validation status
                 valid = false;

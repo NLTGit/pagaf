@@ -839,7 +839,6 @@ Ext.define('Ext.tab.Panel', {
                 me.getTabBar().setActiveTab(activeTab.tab);
             }
         }
-        return me;
     },
 
     privates: {

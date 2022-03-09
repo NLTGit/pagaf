@@ -131,21 +131,23 @@
 
     statics: {
         shared: null,
-
         /**
          * Measures the size of the specified text
          * @param {String/HTMLElement} el The element, dom node or id from which to copy existing CSS styles
          * that can affect the size of the rendered text
          * @param {String} text The text to measure
-         * @param {Number} [fixedWidth] If the text will be multiline, you have to set a fixed width
+         * @param {Number} fixedWidth (optional) If the text will be multiline, you have to set a fixed width
          * in order to accurately measure the text height
          * @return {Object} An object containing the text's size `{width: (width), height: (height)}`
          * @static
          */
-        measure: function(el, text, fixedWidth) {
+        measure: function(el, text, fixedWidth){
             var me = this,
-                shared = me.shared || (me.shared = new me(el, fixedWidth));
-
+                shared = me.shared;
+            
+            if(!shared){
+                shared = me.shared = new me(el, fixedWidth);
+            }
             shared.bind(el);
             shared.setFixedWidth(fixedWidth || 'auto');
             return shared.getSize(text);
@@ -155,8 +157,10 @@
          * Destroy the TextMetrics instance created by {@link #measure}.
          * @static
          */
-        destroy: function() {
-            this.shared = Ext.destroy(this.shared);
+        destroy: function(){
+            var me = this;
+            Ext.destroy(me.shared);
+            me.shared = null;
         }
     },
     
@@ -165,26 +169,27 @@
      * @param {String/HTMLElement/Ext.dom.Element} bindTo The element or its ID to bind to.
      * @param {Number} [fixedWidth] A fixed width to apply to the measuring element.
      */
-    constructor: function(bindTo, fixedWidth) {
+    constructor: function(bindTo, fixedWidth){
         var me = this,
-            measure = me.measure = Ext.getBody().createChild({
+            measure = Ext.getBody().createChild({
                 //<debug>
                 // tell the spec runner to ignore this element when checking if the dom is clean 
                 'data-sticky': true,
                 //</debug>
                 role: 'presentation',
-                cls: Ext.baseCSSPrefix + 'textmetrics',
-                style: {
-                    position: 'absolute',
-                    left: '-1000px',
-                    top: '-1000px',
-                    visibility: 'hidden'
-                }
+                cls: Ext.baseCSSPrefix + 'textmetrics'
             });
 
+        measure.setVisibilityMode(1);
+            
+        me.measure = measure; 
         if (bindTo) {
             me.bind(bindTo);
         }
+        
+        measure.position('absolute');
+        measure.setLocalXY(-1000, -1000);
+        measure.hide();
 
         if (fixedWidth) {
            measure.setWidth(fixedWidth);
@@ -196,7 +201,7 @@
      * @param {String} text The text to measure
      * @return {Object} An object containing the text's size `{width: (width), height: (height)}`
      */
-    getSize: function(text) {
+    getSize: function(text){
         var measure = this.measure,
             size;
         
@@ -210,24 +215,12 @@
      * Binds this TextMetrics instance to a new element
      * @param {String/HTMLElement/Ext.dom.Element} el The element or its ID.
      */
-    bind: function(el) {
-        this.measure.setStyle(
-            // Create an Ext.dom.Fly instance on our prototype unless we've already been through here.
-            // Attach it to the passed HTMLElement/Ext.Element
-            (this.el || (this.self.prototype.el = new Ext.dom.Fly())).attach(el).getStyle([
-                'font-size',
-                'font-size-adjust',
-                'font-style',
-                'font-weight',
-                'font-family',
-                'font-kerning',
-                'font-stretch',
-                'line-height',
-                'text-transform',
-                'text-decoration',
-                'letter-spacing',
-                'word-break'
-            ])
+    bind: function(el){
+        var me = this;
+        
+        me.el = Ext.get(el);
+        me.measure.setStyle(
+            me.el.getStyle(['font-size','font-style', 'font-weight', 'font-family','line-height', 'text-transform', 'letter-spacing', 'word-break'])
         );
     },
     

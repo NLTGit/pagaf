@@ -1,5 +1,4 @@
 @include dialog-ui(
-    $background-color: $dialog-background-color,
     $border-color: $dialog-border-color,
     $border-width: $dialog-border-width,
     $border-style: $dialog-border-style,
@@ -34,7 +33,6 @@
     $header-padding-big: $dialog-header-padding-big,
     $header-title-padding: $dialog-header-title-padding,
     $header-title-padding-big: $dialog-header-title-padding-big,
-    $header-title-opacity: $dialog-header-title-opacity,
     $header-shadow: $dialog-header-shadow,
     $header-z-index: $dialog-header-z-index,
     $header-min-height: $dialog-header-min-height,

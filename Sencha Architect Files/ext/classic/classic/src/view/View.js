@@ -253,11 +253,12 @@ Ext.define('Ext.view.View', {
     /**
      * @event itemkeypress
      * Fires when a key is pressed while an item is currently selected.
+     * @inheritdoc #beforeitemmousedown
      *
      * **Note:** itemkeypress is ONLY triggered by characters, numbers, and some action keys (esc, tab, backspace, space).
      * If you need an event that is triggered by other keys, like function keys, arrow keys, or shift, ctrl, alt, use
      * itemkeydown.
-     * @inheritdoc #beforeitemmousedown
+     *
      */
 
     /**

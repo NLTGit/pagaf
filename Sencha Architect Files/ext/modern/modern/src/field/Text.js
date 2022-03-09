@@ -68,8 +68,8 @@ Ext.define('Ext.field.Text', {
     alternateClassName: 'Ext.form.Text',
 
     requires: [
-        'Ext.field.trigger.Clear',
-        'Ext.Deferred'
+        'Ext.data.validator.*',
+        'Ext.field.trigger.Clear'
     ],
 
     /**
@@ -129,13 +129,14 @@ Ext.define('Ext.field.Text', {
 
     config: {
         /**
-         * @cfg {Boolean} clearable
+         * @cfg {Boolean}
          * `true` to show a clear trigger in this field when it has a non-empty value
+         * @accessor
          */
         clearable: true,
 
         /**
-         * @cfg labelAlign
+         * @cfg {'top'/'left'/'bottom'/'right'/'placeholder'} labelAlign
          * When value is `'placeholder'`, the label text will be rendered as placeholder
          * text inside the empty input and will animated to "top" alignment when the input
          * is focused or contains text.
@@ -143,13 +144,13 @@ Ext.define('Ext.field.Text', {
          */
 
         /**
-         * @cfg {String} placeholder
+         * @cfg {String}
          * A string value displayed in the input when the control is empty.
          */
         placeholder: null,
 
         /**
-         * @cfg {Number} maxLength
+         * @cfg {Number}
          * The maximum number of permitted input characters.
          */
         maxLength: null,
@@ -162,13 +163,13 @@ Ext.define('Ext.field.Text', {
         autoComplete: null,
 
         /**
-         * @cfg {Boolean} autoCapitalize
+         * @cfg {Boolean}
          * True to set the field's DOM element autocapitalize attribute to "on", false to set to "off".
          */
         autoCapitalize: null,
 
         /**
-         * @cfg {Boolean} autoCorrect
+         * @cfg {Boolean}
          * True to set the field DOM element autocorrect attribute to "on", false to set to "off".
          */
         autoCorrect: null,
@@ -191,7 +192,7 @@ Ext.define('Ext.field.Text', {
         inputMask: null,
 
         /**
-         * @cfg {String} pattern
+         * @cfg {String}
          * The value for the HTML5 `pattern` attribute. You can use this to change which
          * keyboard layout will be used.
          *
@@ -265,10 +266,9 @@ Ext.define('Ext.field.Text', {
         },
 
         /**
-         * @cfg {Boolean} editable
-         * Configure as `false` to prevent the user from typing text directly into the
-         * field; the field can only have its value set programmatically or via an action
-         * invoked by a trigger.
+         * @cfg {Boolean} [editable=true]
+         * Configure as `false` to prevent the user from typing text directly into the field;
+         * the field can only have its value set programmatically or via an action invoked by a trigger.
          *
          * Contrast with {@link #cfg!readOnly} which disables all mutation via the UI.
          */
@@ -276,10 +276,6 @@ Ext.define('Ext.field.Text', {
 
         bubbleEvents: ['action'],
 
-        /**
-         * @cfg bodyAlign
-         * @hide
-         */
         bodyAlign: 'stretch',
 
         /**
@@ -299,68 +295,32 @@ Ext.define('Ext.field.Text', {
 
     cachedConfig: {
         /**
-         * @cfg {Boolean} animateUnderline
+         * @cfg {Boolean}
          * 'true' to animate the underline of a field when focused
          */
-        animateUnderline: false,
-
-        /**
-         * @cfg {Ext.data.validator.Validator} parseValidator
-         * @private
-         * @since 6.5.1
-         */
-        parseValidator: null
+        animateUnderline: false
     },
-
-    /**
-     * @cfg {String} badFormatMessage
-     * The error message that will be displayed if the value cannot be parsed (for some
-     * derived types) or if the value does not match a configured {@link #inputMask}.
-     * @locale
-     * @since 6.5.0
-     */
-    badFormatMessage: 'Value does not match the required format',
 
     /**
      * @cfg bodyAlign
      * @hide
      */
 
-    /**
-     * @property defaultBindProperty
-     * @inheritdoc
-     */
     defaultBindProperty: 'value',
-
-    /**
-     * @cfg twoWayBindable
-     * @inheritdoc
-     */
     twoWayBindable: {
         value: 1
     },
 
-    /**
-     * @cfg publishes
-     * @inheritdoc
-     */
     publishes: {
         value: 1
     },
 
-    /**
-     * @cfg inputType
-     * @inheritdoc
-     */
     inputType: 'text',
 
-    /**
-     * @property classCls
-     * @inheritdoc
-     */
     classCls: Ext.baseCSSPrefix + 'textfield',
     focusedCls: Ext.baseCSSPrefix + 'focused',
     emptyCls: Ext.baseCSSPrefix + 'empty',
+    inputMaskMessage: 'Value does not match the required format',
     webkitBorderBoxBugCls: Ext.baseCSSPrefix + 'webkit-border-box-bug',
 
     requiredIndicator: '*',
@@ -392,10 +352,6 @@ Ext.define('Ext.field.Text', {
     initialize: function () {
         var me = this;
 
-        if (Ext.isRobot) {
-            me.focusedInputDelay = 0;
-        }
-
         me.callParent();
 
         me.inputElement.on({
@@ -407,7 +363,7 @@ Ext.define('Ext.field.Text', {
             scope: me
         });
 
-        me.syncEmptyState();
+        me.syncEmptyCls();
     },
 
     /**
@@ -421,12 +377,10 @@ Ext.define('Ext.field.Text', {
             // show empty mask and move caret to first editable position
             inputMask.showEmptyMask(me, true);
         } else {
-            me.forceInputChange = true;
             me.setValue('');
-            me.forceInputChange = false;
         }
 
-        me.syncEmptyState();
+        me.syncDefaultTriggers();
     },
 
     transformValue: function (value) {
@@ -452,116 +406,35 @@ Ext.define('Ext.field.Text', {
     },
 
     updateInputMask: function (inputMask, previous) {
-        this.hasMask = false;
         if (previous) {
             previous.release();
         }
 
         if (inputMask) {
-            this.hasMask = true;
             //Synchronize pattern in case we have changed it and ensure that initial mask is being shown
             inputMask.syncPattern(this);
         }
     },
 
     doValidate: function (value, errors, skipLazy) {
-        this.callParent([ value, errors, skipLazy ]);
+        var inputMask;
+
+        this.callParent([value, errors, skipLazy]);
 
         if (!skipLazy) {
-            var inputMask = this.getInputMask();
+            inputMask = this.getInputMask();
 
             // Field will be marked invalid if user has entered some chars.
             if (inputMask && !inputMask.isFilled(value) && value !== inputMask._mask) {
-                errors.push(this.badFormatMessage);
+                errors.push(this.inputMaskMessage);
             }
         }
-    },
-
-    /**
-     * Parses the given `value` and returns it in the desired representation. By default
-     * this will return the `value` given (no change). Derived classes (such as `datefield`
-     * and `numberfield`) will override this method and return a Date or a Number,
-     * respectively.
-     *
-     * If `value` cannot be parsed, this method will return `null`, otherwise it will
-     * return the parsed value. It is the parsed value that will become the field's
-     * {@link #cfg!value value}.
-     *
-     * This method is not called directly but is called internally by the
-     * {@link #method!validate validate method}. This call to parse a value is not made on
-     * empty or null values.
-     *
-     * *Note:* It is not expected that applications will need to override this method
-     * because an application can achieve value parsing by virtue of the `validators` it
-     * defines. These can come from this component or from a bound model field (using
-     * {@link #cfg!modelValidation}). In addition, `datefield` and `numberfield` both
-     * provide default parsing for their values.
-     *
-     * @param {String} value The value to parse (never `null`).
-     *
-     * @param {String[]} errors The set of validation errors. If the value cannot be
-     * parsed, the error message should be added to this array.
-     *
-     * @return {Mixed} The parsed value.
-     *
-     * @template
-     * @protected
-     * @since 6.5.1
-     */
-    parseValue: function (value, errors) {
-        var me = this,
-            parser = me.getParseValidator(),
-            field, i, k, len, v, validators;
-
-        if (parser) {
-            // If the derived class has specified a default parseValidator, then this
-            // pass is needed. Consult the component's validators first for a more
-            // specific validator, followed by the bound model field (if we have one).
-            field = me._validationField;
-
-            for (k = 2; k-- > 0; ) {
-                validators = k ? me.getValidators() : (field && field.getValidators());
-                len = validators && validators.length;
-
-                for (i = 0; i < len; ++i) {
-                    v = validators[i];
-
-                    if (v.parse) {
-                        v = v.parse(value);
-
-                        // The first parse validator to achieve a parse wins. Returns
-                        // its result.
-                        if (v !== null) {
-                            return v;
-                        }
-                    }
-                }
-            }
-
-            // No user-defined parse validator found, so run the default one. It must
-            // succeed or the value is invalid.
-            value = parser.parse(value);
-
-            if (value === null && errors) {
-                errors.push(me.badFormatMessage);
-            }
-        }
-
-        return value;
     },
 
     applyValue: function (value, oldValue) {
-        // This converts the raw, textual value into whatever form the field uses
-        // So Number and Date subclasses convert to number or date here.
-        // If the validation fails, undefined return will abort the setter.
-        if (value && typeof value === 'string') {
-            value = this.parseValue(value);
-            if (value === null) {
-                return;
-            }
-        }
+        value = this.callParent([value, oldValue]);
 
-        return this.transformValue(this.callParent([value, oldValue]));
+        return this.transformValue(value);
     },
 
     updateInputValue: function (value, oldValue) {
@@ -570,7 +443,8 @@ Ext.define('Ext.field.Text', {
 
         me.callParent([value, oldValue]);
 
-        me.syncEmptyState();
+        me.syncDefaultTriggers();
+        me.syncEmptyCls();
         me.syncLabelPlaceholder(false);
 
         if (inputMask) {
@@ -647,7 +521,7 @@ Ext.define('Ext.field.Text', {
             }
         }
 
-        me.syncEmptyState();
+        me.syncDefaultTriggers();
     },
 
     updateEditable: function (newEditable) {
@@ -671,7 +545,7 @@ Ext.define('Ext.field.Text', {
 
     updateDisabled: function (disabled, oldDisabled) {
         this.callParent([disabled, oldDisabled]);
-        this.syncEmptyState();
+        this.syncDefaultTriggers();
     },
 
     updateClearable: function (clearable, oldClearable) {
@@ -811,7 +685,6 @@ Ext.define('Ext.field.Text', {
         var me = this,
             inputMask = me.getInputMask();
 
-        me.lastKeyTime = Date.now();
         if (inputMask) {
             inputMask.onKeyDown(me, me.getValue(), event);
         }
@@ -827,40 +700,20 @@ Ext.define('Ext.field.Text', {
 
     onInput: function (e) {
         var me = this,
-            inputEl = me.inputElement.dom,
-            value = inputEl.value,
-            inputMask = me.getInputMask(),
-            parseErrors, oldValue;
-
-        if (inputMask) {
-            inputMask.processAutocomplete(this, value);
-            value = inputEl.value;
-        }
+            value = me.inputElement.dom.value,
+            inputMask = me.getInputMask();
 
         // Keep our config up to date:
         me._inputValue = value;
 
-        // If the value is empty don't try and parse it, use the result
-        // of parseValue as the default. For text fields it will be empty string,
-        // for other typed fields (number/date) it will be null
-        if (value) {
-            parseErrors = [];
-            value = me.parseValue(value, parseErrors);
-        }
-        if (parseErrors && parseErrors.length) {
-            me.setError(parseErrors);
+        if (inputMask) {
+            inputMask.processAutocomplete(this, value);
         } else {
-            oldValue = me.getValue();
             me.setValue(value);
-
-            // If the value did not change, revalidate.
-            // The user may have just erased into a valid state from an invalid state.
-            if (me.getValue() === oldValue) {
-                me.validate();
-            }
         }
 
-        me.syncEmptyState();
+        me.syncDefaultTriggers();
+        me.fireEvent('input', me, value);
 
         // if we should ignore input, stop now.
         if (me.ignoreInput) {
@@ -871,7 +724,7 @@ Ext.define('Ext.field.Text', {
         // set a timeout for 10ms to check if we want to stop the input event.
         // if not, then continue with the event (keyup)
         Ext.defer(function () {
-            if (!me.ignoreInput && !me.destroyed) {
+            if (!me.ignoreInput) {
                 me.fireEvent('keyup', e);
                 me.ignoreInput = false;
             }
@@ -911,7 +764,7 @@ Ext.define('Ext.field.Text', {
      * @private
      */
     doKeyUp: function (me, e) {
-        me.syncEmptyState();
+        me.syncDefaultTriggers();
 
         if (e.browserEvent.keyCode === 13) {
             me.fireAction('action', [me, e], 'doAction');
@@ -937,9 +790,10 @@ Ext.define('Ext.field.Text', {
         this.clearValue();
     },
 
-    onFocusEnter: function (event) {
+    onFocus: function (event) {
         var me = this,
-            inputMask = me.getInputMask();
+            inputMask = me.getInputMask(),
+            value = me.getValue();
 
         me.callParent([event]);
 
@@ -947,13 +801,16 @@ Ext.define('Ext.field.Text', {
         me.syncLabelPlaceholder(true);
 
         if (inputMask) {
-            inputMask.onFocus(me, me.getValue());
+            inputMask.onFocus(me, value);
         }
+
+        // me.fireEvent('focus', me, event);
     },
 
-    onFocusLeave: function (event) {
+    onBlur: function (event) {
         var me = this,
-            inputMask = me.getInputMask();
+            inputMask = me.getInputMask(),
+            value = me.getValue();
 
         me.callParent([event]);
 
@@ -961,14 +818,21 @@ Ext.define('Ext.field.Text', {
         me.syncLabelPlaceholder(true);
 
         if (inputMask) {
-            inputMask.onBlur(me, me.getValue());
+            inputMask.onBlur(me, value);
         }
+
+        // me.fireEvent('blur', me, event);
     },
 
-    onPaste: function (e) {
-        this.forceInputChange = true;
-        this.handlePaste(e);
-        this.forceInputChange = false;
+    onPaste: function (event) {
+        var me = this,
+            inputMask = me.getInputMask();
+
+        if (inputMask) {
+            inputMask.onPaste(me, me.getValue(), event);
+        }
+
+        me.fireEvent('paste', me, event);
     },
 
     getCaretPos: function () {
@@ -1002,12 +866,7 @@ Ext.define('Ext.field.Text', {
      * @chainable
      */
     select: function (start, end, direction) {
-        // Safari has a bug where selecting text in an input element focuses that
-        // input element. If we do not contain focus, do nothing. We select on focus
-        // anyway.
-        if (this.containsFocus) {
-            this.inputElement.selectText(start, end, direction);
-        }
+        this.inputElement.selectText(start, end, direction);
 
         return this;
     },
@@ -1015,7 +874,7 @@ Ext.define('Ext.field.Text', {
     reset: function () {
         this.callParent();
 
-        this.syncEmptyState();
+        this.syncDefaultTriggers();
     },
 
     onClick: function (e) {
@@ -1027,12 +886,12 @@ Ext.define('Ext.field.Text', {
     },
 
     trimValueToMaxLength: function () {
-        var me = this,
-            maxLength = me.getMaxLength(),
-            value = me.getValue();
-
-        if (maxLength && value.length > maxLength) {
-            me.setValue(value.slice(0, maxLength));
+        var maxLength = this.getMaxLength();
+        if (maxLength) {
+            var value = this.getValue();
+            if (value.length > this.getMaxLength()) {
+                this.setValue(value.slice(0, maxLength));
+            }
         }
     },
 
@@ -1091,52 +950,16 @@ Ext.define('Ext.field.Text', {
     },
 
     privates: {
-        focusedInputDelay: 300,
-        forceInputChange: false,
-        hasMask: false,
-        lastKeyTime: 0,
-
-        applyParseValidator: function (config) {
-            return this.decodeValidator(config);
-        },
-
         updateLabelInPlaceholder: function (inside) {
             var me = this,
+                labelElement = me.labelElement,
                 placeHolder = me.getPlaceholder() || '',
-                anim = me._animPlaceholderLabel;
+                anim, animation, info, insideInfo, outsideInfo;
 
             if (me.getLabelAlign() !== 'placeholder' || !me.getLabel()) {
-                me.clearWhenVisible('doPositionPlaceholder');
                 me.setInputAttribute('placeholder', placeHolder);
                 return;
             }
-
-            me.whenVisible('doPositionPlaceholder', [inside, anim]);
-            me.el.toggleCls(Ext.baseCSSPrefix + 'label-inside', inside);
-        },
-
-        updateAnimateUnderline: function (value) {
-            this.toggleCls(Ext.baseCSSPrefix + 'animate-underline', value);
-        },
-
-        canSetInputValue: function () {
-            var me = this;
-            // If we're using an inputMask, the field is updated dynamically
-            // as typing occurs. forceInputChange is for when the component wants
-            // to force the value to change, for example selecting from a picker,
-            // or after consuming a paste. If we are focused, make sure enough
-            // of a delay has passed so that we're not overwriting the value
-            // as the user is typing, which typically means the value will
-            // have come from a setValue call elsewhere, as opposed to
-            // from typing.
-            return me.hasMask || me.forceInputChange || !me.hasFocus ||
-                Date.now() - me.lastKeyTime > me.focusedInputDelay;
-        },
-
-        doPositionPlaceholder: function (inside, doAnimate) {
-            var me = this,
-                labelElement = me.labelElement,
-                anim, animation, info, insideInfo, outsideInfo;
 
             animation = labelElement.getActiveAnimation();
             if (animation) {
@@ -1158,19 +981,24 @@ Ext.define('Ext.field.Text', {
                 easing: 'ease-out'
             };
 
-            if (doAnimate) {
+            if (me._animPlaceholderLabel) {
                 labelElement.animate(anim);
             } else {
                 labelElement.setStyle(anim.to);
             }
+
+            me.el.toggleCls(Ext.baseCSSPrefix + 'label-inside', inside);
+        },
+
+        updateAnimateUnderline: function (value) {
+            this.toggleCls(Ext.baseCSSPrefix + 'animate-underline', value);
         },
 
         getPlaceholderLabel: function () {
-            var me = this,
-                label = me.getLabel();
+            var label = this.getLabel();
 
-            if (label && me.getRequired()) {
-                label += ' ' + me.requiredIndicator;
+            if (label && this.getRequired()) {
+                label += ' ' + this.requiredIndicator;
             }
 
             return label;
@@ -1208,17 +1036,6 @@ Ext.define('Ext.field.Text', {
             };
         },
 
-        handlePaste: function (e) {
-            var me = this,
-                inputMask = me.getInputMask();
-
-            if (inputMask) {
-                inputMask.onPaste(me, me.getValue(), e);
-            }
-
-            me.fireEvent('paste', me, e);
-        },
-
         /**
          * @private
          */
@@ -1245,6 +1062,10 @@ Ext.define('Ext.field.Text', {
             return trigger;
         },
 
+        syncEmptyCls: function () {
+            this.toggleCls(this.emptyCls, !this.getValue());
+        },
+
         syncLabelPlaceholder: function (animate) {
             var me = this,
                 inputEl = me.inputElement,
@@ -1266,7 +1087,9 @@ Ext.define('Ext.field.Text', {
                     // is UNLESS the field is disabled or readonly since doing that
                     // move-to-outside would make it seem like the field is editable
                     // in some way (which it is not).
-                    inside = !me.hasFocus || me.getDisabled() || me.getReadOnly();
+                    inside = document.activeElement !== inputEl.dom || 
+                        me.getDisabled() || 
+                        me.getReadOnly();
                 }
 
                 me.setLabelInPlaceholder(inside);
@@ -1349,18 +1172,17 @@ Ext.define('Ext.field.Text', {
             }
         },
 
-        syncEmptyState: function () {
+        syncDefaultTriggers: function () {
             var me = this,
                 triggers = me.getTriggers(),
                 inputMask = me.getInputMask(),
                 clearTrigger = triggers && triggers.clear,
-                value = me.inputElement.dom.value,
-                visible;
-
-            me.toggleCls(me.emptyCls, !value);
+                visible, value;
 
             if (clearTrigger) {
                 if (me.getClearable()) {
+                    value = me.inputElement.dom.value;
+
                     if (value !== '' && !me.getDisabled() && !me.getReadOnly()) {
                         visible = true;
                     }
@@ -1398,18 +1220,5 @@ Ext.define('Ext.field.Text', {
                 setPlaceHolder: 'setPlaceholder'
             }
         }
-    }
-},
-function() {
-    // Fix for android active field not scrolled into view when keyboard is shown
-    if (Ext.os.is.Android) {
-        window.addEventListener('resize', function () {
-            var el = document.activeElement,
-                tag = el && el.tagName;
-            
-            if (tag === 'INPUT' || tag === 'TEXTAREA') {
-                el.scrollIntoView();
-            }
-        });
     }
 });

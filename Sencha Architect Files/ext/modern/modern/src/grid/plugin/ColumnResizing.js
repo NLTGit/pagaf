@@ -1,4 +1,7 @@
 /**
+ * @class Ext.grid.plugin.ColumnResizing
+ * @extends Ext.Component
+ *
  * The Column Resizing plugin allows users to adjust the width of the grid columns to suit
  * their needs.  This functionality can be included by requiring the plugin and adding
  * it to your grid's plugins object.
@@ -17,9 +20,9 @@
  *         fullscreen: true,
  *         layout: 'fit',
  *         store: store,
- *         plugins: {
- *             columnresizing: true
- *         },
+ *         plugins: [{
+ *             type: 'columnresizing'
+ *         }],
  *         columns: [{
  *             text: "Name",
  *             dataIndex: "name",

@@ -1,4 +1,4 @@
-topSuite("Ext.form.field.Base", ['Ext.button.Button'], function() {
+topSuite("Ext.form.field.Base", function() {
     var c, makeField;
     
     function createField(cfg) {
@@ -416,45 +416,6 @@ topSuite("Ext.form.field.Base", ['Ext.button.Button'], function() {
                         c.disable();
                         expect(spy).not.toHaveBeenCalled();
                     });
-                });
-            });
-        });
-        
-        describe("validateOnBlur", function() {
-            var button;
-            
-            beforeEach(function() {
-                makeDisableField({
-                    allowBlank: false
-                });
-                
-                button = new Ext.button.Button({
-                    renderTo: document.body,
-                    text: 'foo'
-                });
-                
-                focusAndWait(c);
-            });
-            
-            afterEach(function() {
-                button = Ext.destroy(button);
-            });
-            
-            it("should validate on blur by default", function() {
-                focusAndWait(button);
-                
-                runs(function() {
-                    expect(spy).toHaveBeenCalled();
-                });
-            });
-            
-            it("should not validate when validateOnBlur is false", function() {
-                c.validateOnBlur = false;
-
-                focusAndWait(button);
-                
-                runs(function() {
-                    expect(spy).not.toHaveBeenCalled();
                 });
             });
         });

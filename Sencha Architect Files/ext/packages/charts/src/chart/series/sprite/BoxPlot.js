@@ -148,6 +148,40 @@ Ext.define('Ext.chart.series.sprite.BoxPlot', {
 
             me.putMarker('items', itemCfg, i, !renderer);
         }
+    },
+
+    getIndexNearPoint: function (x, y) {
+        var sprite = this,
+            attr = sprite.attr,
+            dataX = attr.dataX,
+            surface = sprite.getSurface(),
+            surfaceRect = surface.getRect() || [0,0,0,0],
+            surfaceHeight = surfaceRect[3],
+            index = -1,
+            hitX, hitY,
+            i, bbox;
+
+        if (attr.flipXY) {
+            hitX = surfaceHeight - y;
+            if (surface.getInherited().rtl) {
+                hitY = surfaceRect[2] - x;
+            } else {
+                hitY = x;
+            }
+        } else {
+            hitX = x;
+            hitY = surfaceHeight - y;
+        }
+
+        for (i = 0; i < dataX.length; i++) {
+            bbox = sprite.getMarkerBBox('items', i);
+            if (Ext.draw.Draw.isPointInBBox(hitX, hitY, bbox)) {
+                index = i;
+                break;
+            }
+        }
+
+        return index;
     }
 
 });

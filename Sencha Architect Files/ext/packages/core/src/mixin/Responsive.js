@@ -27,9 +27,7 @@
  *
  *          items: [{
  *              title: 'Some Title',
- *              plugins: {
- *                  responsive: true
- *              },
+ *              plugins: 'responsive',
  *
  *              responsiveConfig: {
  *                  'width < 800': {
@@ -57,9 +55,7 @@
  *
  *      Ext.create('Ext.panel.Panel', {
  *          renderTo: document.body,
- *          plugins: {
- *              responsive: true
- *          },
+ *          plugins: 'responsive',
  *          ...
  *      });
  * 
@@ -311,7 +307,8 @@ Ext.define('Ext.mixin.Responsive', function (Responsive) { return {
                     id;
 
                 if (timer) {
-                    Responsive.timer = Ext.unasap(timer);
+                    Responsive.timer = null;
+                    Ext.asapCancel(timer);
                 }
 
                 Responsive.updateContext();

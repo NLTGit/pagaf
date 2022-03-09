@@ -13,12 +13,6 @@
     }
 }
 
-// All floatWraps must be above inline components which may have z-indices assigned, so
-// elevate the root float wrap..
-#ext-global-floatWrap {
-    z-index: 999999;
-}
-
 // 100vh works on chromeios, 100% causes the body to be able
 // to be scrolled out of view.
 body.#{$prefix}chromeios {

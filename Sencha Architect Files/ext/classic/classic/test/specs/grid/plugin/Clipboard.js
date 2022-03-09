@@ -27,8 +27,8 @@ function() {
             autoDestroy: true
         }, storeCfg));
 
-        cellediting = new Ext.grid.plugin.CellEditing(Ext.merge({}, editorCfg));
-        clipboard = new Ext.grid.plugin.Clipboard(Ext.merge({}, clipboardCfg));
+        cellediting = new Ext.grid.plugin.CellEditing(editorCfg);
+        clipboard = new Ext.grid.plugin.Clipboard(clipboardCfg);
 
         grid = new Ext.grid.Panel(Ext.apply({
             columns: [

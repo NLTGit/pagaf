@@ -37,98 +37,89 @@ Ext.define('Ext.grid.plugin.Clipboard', {
         }
     },
 
-    gridListeners: {
-        render: 'onCmpReady'
-    },
-
     getCellData: function (format, erase) {
         var cmp = this.getCmp(),
-            selection = cmp.getSelectionModel().getSelected(),
+            selModel = cmp.getSelectionModel(),
             ret = [],
             isRaw = format === 'raw',
             isText = format === 'text',
             viewNode,
             cell, data, dataIndex, lastRecord, column, record, row, view;
 
-        if(selection) {
-            selection.eachCell(function (cellContext) {
-                column = cellContext.column,
-                    view = cellContext.column.getView();
-                record = cellContext.record;
+        selModel.getSelected().eachCell(function (cellContext) {
+            column = cellContext.column,
+            view = cellContext.column.getView();
+            record = cellContext.record;
 
-                // Do not copy the check column or row numberer column
-                if (column.ignoreExport) {
-                    return;
+            // Do not copy the check column or row numberer column
+            if (column.ignoreExport) {
+                return;
+            }
+
+            if (lastRecord !== record) {
+                lastRecord = record;
+                ret.push(row = []);
+            }
+            
+            dataIndex = column.dataIndex;
+
+            if (isRaw) {
+                data = record.data[dataIndex];
+            }
+            else {
+                // Try to access the view node.
+                viewNode = view.all.item(cellContext.rowIdx);
+                
+                // If we could not, it's because it's outside of the rendered block - recreate it.
+                if (!viewNode) {
+                    viewNode = Ext.fly(view.createRowElement(record, cellContext.rowIdx));
                 }
-
-                if (lastRecord !== record) {
-                    lastRecord = record;
-                    ret.push(row = []);
+                
+                cell = viewNode.dom.querySelector(column.getCellInnerSelector());
+                data = cell.innerHTML;
+                
+                if (isText) {
+                    data = Ext.util.Format.stripTags(data);
                 }
+            }
 
-                dataIndex = column.dataIndex;
+            row.push(data);
 
-                if (isRaw) {
-                    data = record.data[dataIndex];
-                }
-                else {
-                    // Try to access the view node.
-                    viewNode = view.all.item(cellContext.rowIdx);
+            if (erase && dataIndex) {
+                record.set(dataIndex, null);
+            }
+        });
 
-                    // If we could not, it's because it's outside of the rendered block - recreate it.
-                    if (!viewNode) {
-                        viewNode = Ext.fly(view.createRowElement(record, cellContext.rowIdx));
-                    }
-
-                    cell = viewNode.dom.querySelector(column.getCellInnerSelector());
-                    data = cell.innerHTML;
-
-                    if (isText) {
-                        data = Ext.util.Format.stripTags(data);
-                    }
-                }
-
-                row.push(data);
-
-                if (erase && dataIndex) {
-                    record.set(dataIndex, null);
-                }
-            });
-        }
-
-        // See decode() comment below
-        return Ext.util.TSV.encode(ret, undefined, null);
+        return Ext.util.TSV.encode(ret);
     },
 
     getCells: function (format, erase) {
         var cmp = this.getCmp(),
-            selection = cmp.getSelectionModel().getSelected(),
+            selModel = cmp.getSelectionModel(),
             ret = [],
             dataIndex, lastRecord, record, row;
 
-        if(selection) {
-            selection.eachCell(function (cellContext) {
-                record = cellContext.record;
-                if (lastRecord !== record) {
-                    lastRecord = record;
-                    ret.push(row = {
-                        model: record.self,
-                        fields: []
-                    });
-                }
-
-                dataIndex = cellContext.column.dataIndex;
-
-                row.fields.push({
-                    name: dataIndex,
-                    value: record.data[dataIndex]
+        selModel.getSelected().eachCell(function (cellContext) {
+            record = cellContext.record;
+            if (lastRecord !== record) {
+                lastRecord = record;
+                ret.push(row = {
+                    model: record.self,
+                    fields: []
                 });
+            }
 
-                if (erase && dataIndex) {
-                    record.set(dataIndex, null);
-                }
+            dataIndex = cellContext.column.dataIndex;
+
+            row.fields.push({
+                name: dataIndex,
+                value: record.data[dataIndex]
             });
-        }
+
+            if (erase && dataIndex) {
+                record.set(dataIndex, null);
+            }
+        });
 
         return ret;
     },
@@ -138,11 +129,7 @@ Ext.define('Ext.grid.plugin.Clipboard', {
     },
 
     putCellData: function (data, format) {
-        // We pass null as field quote here to override default TSV decoding behavior
-        // that will try to unquote fields and break if double quote character is
-        // encountered in the data. TSV format does not support any kind of field quoting
-        // but Ext.util.TSV mistakenly assumed otherwise pre-6.5.3
-        var values = Ext.util.TSV.decode(data, undefined, null),
+        var values = Ext.util.TSV.decode(data),
             row,
             recCount = values.length,
             colCount = recCount ? values[0].length : 0,
@@ -150,16 +137,14 @@ Ext.define('Ext.grid.plugin.Clipboard', {
             view = this.getCmp().getView(),
             maxRowIdx = view.dataSource.getCount() - 1,
             maxColIdx = view.getVisibleColumnManager().getColumns().length - 1,
-            selModel = view.getSelectionModel(),
-            selected = selModel.getSelected(),
             navModel = view.getNavigationModel(),
-            destination = selected.startCell || navModel.getPosition(),
+            destination = navModel.getPosition(),
             dataIndex, destinationStartColumn,
             dataObject = {};
 
         // If the view is not focused, use the first cell of the selection as the destination.
-        if (!destination && selected) {
-            selected.eachCell(function(c){
+        if (!destination) {
+            view.getSelectionModel().getSelected().eachCell(function(c){
                 destination = c;
                 return false;
             });

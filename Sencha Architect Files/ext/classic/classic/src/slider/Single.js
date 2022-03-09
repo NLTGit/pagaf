@@ -24,6 +24,11 @@ Ext.define('Ext.slider.Single', {
         'Ext.slider.Slider'
     ],
 
+    /**
+     * @inheritdoc
+     */
+    defaultBindProperty: 'value',
+
     initComponent: function() {
         if (this.publishOnComplete) {
             this.valuePublishEvent = 'changecomplete';

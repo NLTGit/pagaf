@@ -2,11 +2,7 @@
  * @class Global_CSS
  */
 
-/**
- * @var [$color-by-background-dark-color=null]
- */
 $color-by-background-dark-color: dynamic(null);
-
 $color-by-background-light-color: dynamic(null);
 
 /**
@@ -28,8 +24,8 @@ $color-by-background-light-color: dynamic(null);
 
 /**
  * @method color-difference
- * @param {color} $c1
- * @param {color} $c2
+ * @param {color} $sc1
+ * @param {color} $sc1
  * @private
  * @ignore
  */
@@ -181,17 +177,10 @@ $color-mode: 'inverse';
  *     }
  *
  * @param {color} $bg-color Background color of element.
- * @param {percent} [$contrast=$default-text-contrast] Contrast of text color to its background.
- * @param {boolean} [$default-color=false]
- * @param {boolean} [$inset-text=false]
+ * @param {percent} $contrast Contrast of text color to its background.
  *
  */
-@mixin color-by-background(
-    $bg-color,
-    $contrast: $default-text-contrast,
-    $default-color: false,
-    $inset-text: false
-) {
+@mixin color-by-background($bg-color, $contrast: $default-text-contrast, $default-color: false, $inset-text: false) {
     @if $bg-color != null {
         @if $default-color {
             color: color-by-background(hsla(hue($default-color), saturation($default-color), lightness($bg-color), opacity($bg-color)), $contrast);
@@ -205,7 +194,7 @@ $color-mode: 'inverse';
     }
 }
 
-@mixin inset-by-background($bg-color, $contrast: 10%, $box: false) {
+@mixin inset-by-background($bg-color, $contrast: 10%, $box: false){
     $bg-color: check-opacity($bg-color);
     $offset: get-inset-offset(get-color-mode($bg-color));
 

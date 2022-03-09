@@ -60,9 +60,9 @@ topSuite("Ext.field.Spinner", function() {
             it("should accept fractional values", function() {
                 createField({
                     stepValue: 0.1,
-                    value: 0.1
+                    value: 0.01
                 });
-                expect(field.getValue()).toEqual(0.1);
+                expect(field.getValue()).toEqual(0.01);
                 field.destroy();
                 createField({
                     stepValue: 1,
@@ -73,9 +73,9 @@ topSuite("Ext.field.Spinner", function() {
             it("should convert string to number", function() {
                 createField({
                     stepValue: 0.1,
-                    value: '.1'
+                    value: '.01'
                 });
-                expect(field.getValue()).toEqual(0.1);
+                expect(field.getValue()).toEqual(0.01);
                 field.destroy();
                 createField({
                     stepValue: 0.1,
@@ -178,51 +178,6 @@ topSuite("Ext.field.Spinner", function() {
                 field.spin(true);
                 field.spin(true);
                 expect(field.getValue()).toEqual(12);
-            });
-        });
-    });
-    
-    TODO(Ext.supports.Touch).
-    describe("keyboard interaction", function() {
-        beforeEach(function() {
-            createField({
-                renderTo: document.body,
-                value: 10,
-                minValue: 1,
-                maxValue: 20,
-                stepValue: 1
-            });
-        });
-        
-        it("should spin up on Up arrow key", function() {
-            pressKey(field, 'up');
-            
-            runs(function() {
-                expect(field.getValue()).toBe(11);
-            });
-        });
-        
-        it("should spin down on Down arrow key", function() {
-            pressKey(field, 'down');
-            
-            runs(function() {
-                expect(field.getValue()).toBe(9);
-            });
-        });
-        
-        it("should spin to min value on Home key", function() {
-            pressKey(field, 'home');
-            
-            runs(function() {
-                expect(field.getValue()).toBe(1);
-            });
-        });
-        
-        it("should spin to max value on End key", function() {
-            pressKey(field, 'end');
-            
-            runs(function() {
-                expect(field.getValue()).toBe(20);
             });
         });
     });

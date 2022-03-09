@@ -35,7 +35,7 @@ Ext.define('Ext.app.bind.TemplateBinding', {
             me.multiBinding = new Ext.app.bind.Multi(tokens, owner, me.onBindData, me);
         } else {
             me.isStatic = true;
-            me.onData(tpl.getText());
+            me.onData(tpl.text);
         }
     },
     

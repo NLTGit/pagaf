@@ -16,34 +16,49 @@
     );
 }
 
+.#{$prefix}column-options-item .#{$prefix}innerhtml {
+    flex: 1;
+}
+
+.#{$prefix}column-options-itemwrap {
+    display: flex;
+    align-items: center;
+
+    > * {
+        margin-right: 7px;
+    }
+
+    > :last-child {
+        margin-right: 0;
+    }
+
+    > .#{$prefix}column-options-visibleindicator {
+        margin-left: auto;
+    }
+}
+
 .#{$prefix}column-options-sortablehandle {
     @include icon($gridviewoptions-sortablehandle-icon);
+    color: $neutral-dark-color;
+}
 
-    &.#{$prefix}icon-el {
-        color: $neutral-dark-color;
-    }
+.#{$prefix}column-options-text {
+    flex: 1 1;
 }
 
 .#{$prefix}column-options-visibleindicator {
     @include icon($gridviewoptions-visibleindicator-icon);
-
-    &.#{$prefix}icon-el {
-        color: $base-color;
-    }
+    color: $base-color;
 }
 
 .#{$prefix}column-options-groupindicator {
     @include icon($gridviewoptions-groupindicator-icon);
-    &.#{$prefix}icon-el {
-        color: $neutral-dark-color;
-    }
+    color: $neutral-dark-color;
 }
 
 .#{$prefix}column-options-folder,
 .#{$prefix}column-options-leaf {
-    &.#{$prefix}icon-el {
-        color: #91E698;
-    }
+    color: #91E698;
 }
 
 .#{$prefix}column-options-folder {
@@ -58,14 +73,10 @@
     .#{$prefix}column-options-text,
     .#{$prefix}column-options-folder,
     .#{$prefix}column-options-leaf {
-        &.#{$prefix}icon-el {
-            color: $neutral-dark-color;
-        }
+        color: $neutral-dark-color;
     }
 }
 
 .#{$prefix}column-options-grouped .#{$prefix}column-options-groupindicator {
-    &.#{$prefix}icon-el {
-        color: $base-color;
-    }
+    color: $base-color;
 }

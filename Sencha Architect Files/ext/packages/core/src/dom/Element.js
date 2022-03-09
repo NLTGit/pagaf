@@ -187,7 +187,6 @@ Ext.define('Ext.dom.Element', function(Element) {
         numberRe = /\d+$/,
         unitRe = /\d+(px|r?em|%|vh|vw|vmin|vmax|en|ch|ex|pt|in|cm|mm|pc)$/i,
         defaultUnit = 'px',
-        msRe = /^-ms-/,
         camelRe = /(-[a-z])/gi,
         cssRe = /([a-z0-9\-]+)\s*:\s*([^;\s]+(?:\s*[^;\s]+)*);?/gi,
         pxRe = /^\d+(?:\.\d*)?px$/i,
@@ -213,9 +212,6 @@ Ext.define('Ext.dom.Element', function(Element) {
                     }
                 }
             }
-        },
-        toFloat = function(v) {
-            return parseFloat(v) || 0;
         },
 
         opacityCls = Ext.baseCSSPrefix + 'hidden-opacity',
@@ -296,12 +292,7 @@ Ext.define('Ext.dom.Element', function(Element) {
                             if (result) {
                                 result += ' ';
                             }
-
-                            if (prop.indexOf('translate') === 0 ) {
-                                result += prop + '(' + Element.addUnits(value[prop], 'px') + ')';
-                            } else {
-                                result += prop + '(' + value[prop] + ')';
-                            }
+                            result += prop + '(' + value[prop] + ')';
                         }
                         value = result;
                     }
@@ -674,7 +665,7 @@ Ext.define('Ext.dom.Element', function(Element) {
 
         inheritableStatics: {
             /**
-             * @property cache
+             * @property
              * @private
              * @static
              * @inheritable
@@ -682,7 +673,7 @@ Ext.define('Ext.dom.Element', function(Element) {
             cache: Ext.cache = {},
 
             /**
-             * @property editableSelector
+             * @property
              * @static
              * @private
              * @inheritable
@@ -690,7 +681,7 @@ Ext.define('Ext.dom.Element', function(Element) {
             editableSelector: 'input,textarea,[contenteditable="true"]',
 
             /**
-             * @property {Number} VISIBILITY
+             * @property {Number}
              * Visibility mode constant for use with {@link Ext.dom.Element#setVisibilityMode}.
              * Use the CSS 'visibility' property to hide the element.
              *
@@ -703,7 +694,7 @@ Ext.define('Ext.dom.Element', function(Element) {
             VISIBILITY: 1,
 
             /**
-             * @property {Number} DISPLAY
+             * @property {Number}
              * Visibility mode constant for use with {@link Ext.dom.Element#setVisibilityMode}.
              * Use the CSS 'display' property to hide the element.
              * @static
@@ -712,7 +703,7 @@ Ext.define('Ext.dom.Element', function(Element) {
             DISPLAY: 2,
 
             /**
-             * @property {Number} OFFSETS
+             * @property {Number}
              * Visibility mode constant for use with {@link Ext.dom.Element#setVisibilityMode}.
              * Use CSS absolute positioning and top/left offsets to hide the element.
              * @static
@@ -721,7 +712,7 @@ Ext.define('Ext.dom.Element', function(Element) {
             OFFSETS: 3,
 
             /**
-             * @property {Number} CLIP
+             * @property {Number}
              * Visibility mode constant for use with {@link Ext.dom.Element#setVisibilityMode}.
              * Use CSS `clip` property to reduce element's dimensions to 0px by 0px, effectively
              * making it hidden while not being truly invisible. This is useful when an element
@@ -732,7 +723,7 @@ Ext.define('Ext.dom.Element', function(Element) {
             CLIP: 4,
 
             /**
-             * @property {Number} OPACITY
+             * @property {Number}
              * Visibility mode constant for use with {@link Ext.dom.Element#setVisibilityMode}.
              * Use CSS `opacity` property to reduce element's opacity to 0
              * @static
@@ -741,7 +732,7 @@ Ext.define('Ext.dom.Element', function(Element) {
             OPACITY: 5,
 
             /**
-             * @property minKeyboardHeight
+             * @property
              * @static
              * @inheritable
              * @private
@@ -759,7 +750,7 @@ Ext.define('Ext.dom.Element', function(Element) {
             unitRe: unitRe,
 
             /**
-             * @property {Boolean} useDelegatedEvents
+             * @property {Boolean}
              * @private
              * @static
              * @inheritable
@@ -954,8 +945,7 @@ Ext.define('Ext.dom.Element', function(Element) {
             },
 
             /**
-             * @method fly
-             * @inheritdoc Ext#method-fly
+             * @inheritdoc Ext#fly
              * @inheritable
              * @static
              */
@@ -1285,6 +1275,7 @@ Ext.define('Ext.dom.Element', function(Element) {
              */
             getViewportTouchScale: function(forceRead) {
                 var scale = 1,
+                    hidden = 'hidden',
                     // WIN_TOP is guarded against cross-frame access in the closure above
                     top = WIN_TOP,
                     cachedScale;
@@ -1344,7 +1335,7 @@ Ext.define('Ext.dom.Element', function(Element) {
              * - `vmax`
              * - `ex
              * - `ch`
-             * @param {String} size The css unit and value.
+             * @param {String} The css unit and value.
              * @return {Boolean} `true` if the value is relative.
              *
              * @since 6.2.0
@@ -1382,8 +1373,7 @@ Ext.define('Ext.dom.Element', function(Element) {
              * @return {String} The normalized string
              */
             normalize: function(prop) {
-                // For '-ms-foo' we need msFoo
-                return propertyCache[prop] || (propertyCache[prop] = prop.replace(msRe, 'ms-').replace(camelRe, camelReplaceFn));
+                return propertyCache[prop] || (propertyCache[prop] = prop.replace(camelRe, camelReplaceFn));
             },
 
 
@@ -1418,8 +1408,8 @@ Ext.define('Ext.dom.Element', function(Element) {
                 deltaX = documentWidth - Element._documentWidth;
                 deltaY = documentHeight - Element._documentHeight;
 
-                Element._documentWidth = documentWidth;
-                Element._documentHeight = documentHeight;
+                Element._windowWidth = documentWidth;
+                Element._windowHeight = documentHeight;
 
                 // If the focus entered or left an editable element within a brief threshold
                 // of time, then this resize event MAY be due to a virtual keyboard being
@@ -1885,7 +1875,7 @@ Ext.define('Ext.dom.Element', function(Element) {
                 styleSides = [];
 
             if (len === 1) {
-                totalSize = parseFloat(this.getStyle(styles[sidesArr[0]])) || 0;
+                totalSize = Math.abs(parseFloat(this.getStyle(styles[sidesArr[0]])) || 0);
             } else if (len) {
                 for (i = 0; i < len; i++) {
                     side = sidesArr[i];
@@ -2206,16 +2196,18 @@ Ext.define('Ext.dom.Element', function(Element) {
             }
 
             if (me.resumeFocusEventsTimer) {
-                Ext.unasap(me.resumeFocusEventsTimer);
+                clearTimeout(me.resumeFocusEventsTimer);
                 me.resumeFocusEventsTimer = null;
             }
 
             if (me.repaintTimer) {
-                me.repaintTimer = Ext.undefer(me.repaintTimer);
+                clearTimeout(me.repaintTimer);
+                me.repaintTimer = null;
             }
 
             if (me.deferFocusTimer) {
-                me.deferFocusTimer = Ext.undefer(me.deferFocusTimer);
+                clearTimeout(me.deferFocusTimer);
+                me.deferFocusTimer = null;
             }
 
             if (dom) {
@@ -2358,10 +2350,9 @@ Ext.define('Ext.dom.Element', function(Element) {
          *
          * @param {Boolean} [options.animate=false] `true` to animate the shadow while
          * the element is animating.  By default the shadow will be hidden during animation.
-         * @param {Boolean} isVisible (private)
          * @private
          */
-        enableShadow: function(options, isVisible) {
+        enableShadow: function(options, /* private */ isVisible) {
             var me = this,
                 shadow = me.shadow || (me.shadow = new Ext.dom.Shadow(Ext.apply({
                     target: me
@@ -2393,11 +2384,10 @@ Ext.define('Ext.dom.Element', function(Element) {
          * automatically synchronized as the position, size, and visibility of this
          * Element are changed.
          * @param {Object} [options] Configuration options for the shim
-         * @param {Boolean} isVisible (private)
          * @return {Ext.dom.Shim} The new Shim
          * @private
          */
-        enableShim: function(options, isVisible) {
+        enableShim: function(options, /* private */ isVisible) {
             var me = this,
                 shim = me.shim || (me.shim = new Ext.dom.Shim(Ext.apply({
                     target: me
@@ -2426,8 +2416,7 @@ Ext.define('Ext.dom.Element', function(Element) {
 
         /**
          * Looks at this node and then at parent nodes for a match of the passed simple selector.
-         * @param {String} simpleSelector The simple selector to test. See {@link Ext.dom.Query}
-         * for information about simple selectors.
+         * @param {String} selector The simple selector to test. See {@link Ext.dom.Query} for information about simple selectors.
          * @param {Number/String/HTMLElement/Ext.dom.Element} [limit]
          * The max depth to search as a number or an element which causes the upward traversal to stop
          * and is **not** considered for inclusion as the result. (defaults to 50 || document.documentElement)
@@ -2463,8 +2452,7 @@ Ext.define('Ext.dom.Element', function(Element) {
 
         /**
          * Looks at parent nodes for a match of the passed simple selector.
-         * @param {String} simpleSelector The simple selector to test. See {@link Ext.dom.Query}
-         * for information about simple selectors.
+         * @param {String} selector The simple selector to test. See {@link Ext.dom.Query} for information about simple selectors.
          * @param {Number/String/HTMLElement/Ext.dom.Element} [limit]
          * The max depth to search as a number or an element which causes the upward traversal to stop
          * and is **not** considered for inclusion as the result. (defaults to 50 || document.documentElement)
@@ -2493,11 +2481,10 @@ Ext.define('Ext.dom.Element', function(Element) {
          * if `defer` argument is specified.
          *
          * @param {Number} [defer] Milliseconds to defer the focus
-         * @param {HTMLElement} [dom] (private)
          *
          * @return {Ext.dom.Element} this
          */
-        focus: function(defer, dom) {
+        focus: function(defer, /* private */ dom) {
             var me = this;
 
             dom = dom || me.dom;
@@ -2727,7 +2714,6 @@ Ext.define('Ext.dom.Element', function(Element) {
         /**
          * Returns the offset height of the element.
          * @param {Boolean} [contentHeight] `true` to get the height minus borders and padding.
-         * @param {Boolean} [preciseHeight] `true` to get the precise height
          * @return {Number} The element's height.
          */
         getHeight: function(contentHeight, preciseHeight) {
@@ -3232,15 +3218,13 @@ Ext.define('Ext.dom.Element', function(Element) {
                 //<feature legacyBrowser>
                 range,
                 //</feature>
-                dom = me.dom,
-                len;
+                dom = me.dom;
 
             if (dom && inputTypeSelectionSupported.test(dom.type)) {
                 start = start || 0;
-                len = dom.value.length;
 
                 if (end === undefined) {
-                    end = len;
+                    end = dom.value.length;
                 }
 
                 direction = selectDir[direction] || direction || 'forward';
@@ -3250,12 +3234,9 @@ Ext.define('Ext.dom.Element', function(Element) {
                 }
                 //<feature legacyBrowser>
                 else if (dom.createTextRange) {
-                    if (start > end) {
-                        start = end;
-                    }
                     range = dom.createTextRange();
                     range.moveStart('character', start);
-                    range.moveEnd('character', -(len - end));
+                    range.moveEnd('character', end);
                     range.select();
                 }
                 //</feature>
@@ -3345,7 +3326,6 @@ Ext.define('Ext.dom.Element', function(Element) {
         /**
          * Returns the offset width of the element.
          * @param {Boolean} [contentWidth] `true` to get the width minus borders and padding.
-         * @param {Boolean} [preciseWidth] `true` to get the precise width
          * @return {Number} The element's width.
          */
         getWidth: function(contentWidth, preciseWidth) {
@@ -3666,11 +3646,6 @@ Ext.define('Ext.dom.Element', function(Element) {
                 child = Ext.getDom(el);
 
             if (dom && child) {
-                // This handles the window object, which is not a Node and throws an error
-                if (!child.nodeType) {
-                    return false;
-                }
-
                 if (dom.contains) {
                     return dom.contains(child);
                 } else if (dom.compareDocumentPosition) {
@@ -3690,7 +3665,7 @@ Ext.define('Ext.dom.Element', function(Element) {
                 return Boolean(dom && dom.offsetParent);
             } : function() {
                 var dom = this.dom;
-                return Boolean(dom && (dom.offsetHeight !== 0 || dom.offsetWidth !== 0));
+                return Boolean(dom && (dom.offsetHeight !== 0 && dom.offsetWidth !== 0));
             };
         })(),
 
@@ -3706,7 +3681,7 @@ Ext.define('Ext.dom.Element', function(Element) {
         /**
          * Checks if the current value of a style is equal to a given value.
          * @param {String} style property whose value is returned.
-         * @param {String} val to check against.
+         * @param {String} value to check against.
          * @return {Boolean} `true` for when the current value equals the given value.
          */
         isStyle: function(style, val) {
@@ -3802,103 +3777,6 @@ Ext.define('Ext.dom.Element', function(Element) {
         },
 
         /**
-         * Measures and returns the size of this element. When `dimension` is `null` (or
-         * not specified), this will be an object with `width` and `height` properties.
-         *
-         * If `dimension` is `'w'` the value returned will be this element's width. If
-         * `dimension` is `'h'` the returned value will be this element's height.
-         *
-         * Unlike `getWidth` and `getHeight` this method only returns "precise" (sub-pixel)
-         * sizes based on the `getBoundingClientRect` API.
-         *
-         * @param {'w'/'h'} [dimension] Specifies which dimension is desired. If omitted
-         * then an object with `width` and `height` properties is returned.
-         * @return {Number/Object} This element's width, height or both as a readonly
-         * object. This object may be the direct result of `getBoundingClientRect` and
-         * hence immutable on some browsers.
-         * @private
-         * @since 6.5.0
-         */
-        measure: function (dimension) {
-            // This method doesn't use getBoundingClientRect because
-            // the values it returns are affected by transforms (scale etc).
-            // For this method we want the real size that's not affected by
-            // transforms.
-            var me = this,
-                dom = me.dom,
-                includeWidth = dimension !== 'h',
-                includeHeight = dimension !== 'w',
-                width = 0,
-                height = 0,
-                addPadding = !Ext.supports.ComputedSizeIncludesPadding,
-                style, rect, offsetParent;
-
-            // Use the viewport height if they are asking for body height
-            if (dom.nodeName === 'BODY') {
-                height = includeHeight && Element.getViewportHeight();
-                width = includeWidth && Element.getViewportWidth();
-            } else {
-                //<if legacyBrowser>
-                if (Ext.supports.ComputedStyle) {
-                //</if legacyBrowser>
-                    offsetParent = dom.offsetParent;
-                    style = dom.ownerDocument.defaultView.getComputedStyle(dom, null);
-
-                    // We also have to add the padding if the element uses content-box sizing
-                    addPadding |= style.boxSizing === 'content-box';
-
-                    // offsetParent will be null with position fixed
-                    if (offsetParent !== null || style.position === 'fixed') {
-                        if (includeHeight) {
-                            height = toFloat(style.height);
-                            if (addPadding) {
-                                height += toFloat(style.paddingTop) +
-                                          toFloat(style.paddingBottom) +
-                                          toFloat(style.borderTopWidth) +
-                                          toFloat(style.borderBottomWidth);
-                            }
-                        }
-
-                        if (includeWidth) {
-                            width = toFloat(style.width);
-                            if (addPadding) {
-                                width += toFloat(style.paddingLeft) +
-                                         toFloat(style.paddingRight) +
-                                         toFloat(style.borderLeftWidth) +
-                                         toFloat(style.borderRightWidth);
-                            }
-                        }
-                    }
-                //<if legacyBrowser>
-                } else {
-                    // Browsers that don't support computed style don't
-                    // support transforms (IE8), so gbcr is good enough.
-                    rect = dom.getBoundingClientRect();
-                    width = rect.width || rect.right - rect.left;
-                    height = rect.height || rect.bottom - rect.top;
-                }
-
-                // IE9/10 Direct2D dimension rounding bug
-                if (Ext.supports.Direct2DBug) {
-                    if (includeHeight) {
-                        height += me.adjustDirect2DDimension(HEIGHT);
-                    }
-
-                    if (includeWidth) {
-                        width += me.adjustDirect2DDimension(WIDTH);
-                    }
-                }
-                //</if legacyBrowser>
-            }
-
-            // Don't create a temporary object unless we need to return it...
-            rect = dimension ? null : { width: width, height: height };
-
-            // NOTE: The modern override ignores all these IE8/9/10 issues
-            return dimension ? (includeWidth ? width : height) : rect;
-        },
-
-        /**
          * Measures and returns this element's content. When `dimension` is `null` (or
          * not specified), this will be an object with `width` and `height` properties.
          *
@@ -3959,20 +3837,21 @@ Ext.define('Ext.dom.Element', function(Element) {
                         if (Ext.isIE9m) {
                             e.enableIEAsync();
                         }
-                        timer = Ext.defer(handler, delay, scope || me, [ e ]);
+                        timer = Ext.defer(handler, delay, scope || me, [
+                            e
+                        ]);
                     },
                     mouseenter: function() {
-                        Ext.undefer(timer);
+                        clearTimeout(timer);
                     },
                     destroy: function() {
-                        Ext.undefer(timer);
+                        clearTimeout(timer);
 
                         if (!me.destroyed) {
                             me.un(listeners);
                         }
                     }
                 };
-
             me.on(listeners);
             return listeners;
         },
@@ -4106,12 +3985,11 @@ Ext.define('Ext.dom.Element', function(Element) {
          *
          * @param {String} selector The CSS selector.
          * @param {Boolean} [asDom=true] `false` to return an array of Ext.dom.Element
-         * @param {Boolean} single (private)
          * @return {HTMLElement[]/Ext.dom.Element[]} An Array of elements (
          * HTMLElement or Ext.dom.Element if _asDom_ is _false_) that match the selector.
          * If there are no matches, an empty Array is returned.
          */
-        query: function(selector, asDom, single) {
+        query: function(selector, asDom, /* private */ single) {
             var dom = this.dom,
                 results, len, nlen, node, nodes, i, j;
 
@@ -4177,8 +4055,7 @@ Ext.define('Ext.dom.Element', function(Element) {
         },
 
         /**
-         * @method remove
-         * @inheritdoc Ext.dom.Element#method-destroy
+         * @inheritdoc Ext.dom.Element#destroy
          * @deprecated 5.0.0 Please use {@link #destroy} instead.
          */
         remove: function () {
@@ -5106,7 +4983,7 @@ Ext.define('Ext.dom.Element', function(Element) {
          *         padding: '10px'
          *     });
          *
-         * @param {String/Object} prop The style property to be set, or an object of
+         * @param {String/Object} property The style property to be set, or an object of
          * multiple styles.
          * @param {String} [value] The value to apply to the given property, or null if
          * an object was passed.
@@ -5618,11 +5495,10 @@ Ext.define('Ext.dom.Element', function(Element) {
         unwrap: function() {
             var dom = this.dom,
                 parentNode = dom.parentNode,
-                activeElement = (activeElFly || (activeElFly = new Ext.dom.Fly())).attach(Ext.Element.getActiveElement()),
                 grandparentNode,
+                grannyFly = grannyFly || new Ext.dom.Fly(),
+                activeElement = (activeElFly || (activeElFly = new Ext.dom.Fly())).attach(Ext.Element.getActiveElement()),
                 cached, resumeFocus, tabIndex;
-
-            grannyFly = grannyFly || new Ext.dom.Fly();
 
             cached = Ext.cache[activeElement.dom.id];
 
@@ -5681,11 +5557,9 @@ Ext.define('Ext.dom.Element', function(Element) {
         },
 
         /**.
-         * Walks up the dom looking for a parent node that matches the passed simple selector
-         * (e.g. 'div.some-class' or 'span:first-child').
+         * Walks up the dom looking for a parent node that matches the passed simple selector (e.g. 'div.some-class' or 'span:first-child').
          * This is a shortcut for findParentNode() that always returns an Ext.dom.Element.
-         * @param {String} simpleSelector The simple selector to test. See {@link Ext.dom.Query}
-         * for information about simple selectors.
+         * @param {String} selector The simple selector to test. See {@link Ext.dom.Query} for information about simple selectors.
          * @param {Number/String/HTMLElement/Ext.dom.Element} [limit]
          * The max depth to search as a number or an element that causes the upward
          * traversal to stop and is **not** considered for inclusion as the result.
@@ -5699,8 +5573,7 @@ Ext.define('Ext.dom.Element', function(Element) {
         },
 
         /**
-         * @method update
-         * @inheritdoc Ext.dom.Element#method-setHtml
+         * @inheritdoc Ext.dom.Element#setHtml
          * @deprecated 5.0.0 Please use {@link #setHtml} instead.
          */
         update: function (html) {
@@ -5974,6 +5847,8 @@ Ext.define('Ext.dom.Element', function(Element) {
          * ripple should search up the dom for an element that will fit the ripple
          * without clipping. Setting to false will force the unbound ripple into the specified container
          * Defaults to true
+         * @param {String} [options.delegate] The class selector used to determine the
+         * delegate of this ripple.
          * @param {Number} [options.destroyTime] The time (in milliseconds) to wait until
          * the ripple is destroyed.
          */
@@ -6004,16 +5879,15 @@ Ext.define('Ext.dom.Element', function(Element) {
                 measureElWidth, measureElHeight, rippleSize,
                 pos, posX, posY, rippleWrapper, rippleContainer, rippleBubble,
                 rippleDestructor, rippleClearFn, rippleDestructionTimer, rippleBox, unboundEl,
-                unboundElData, timeout;
+                region, unboundElData;
 
             if (rippleParent) {
                 offset = rippleParent.getXY();
                 width = rippleParent.getWidth();
                 height = rippleParent.getHeight();
 
-                timeout = rippleParent.$rippleClearTimeout;
-                if (timeout) {
-                    rippleParent.$rippleClearTimeout = Ext.undefer(timeout);
+                if (rippleParent.$rippleClearTimeout) {
+                    clearTimeout(rippleParent.$rippleClearTimeout);
                 }
 
                 // If a measure element exists use that to determine the ripple diameter
@@ -6051,7 +5925,7 @@ Ext.define('Ext.dom.Element', function(Element) {
                         // close to the edge
                         unboundEl = me.up(function (candidate) {
                                 var fly = Ext.fly(candidate, 'ripple');
-
+                                
                                 return !(candidate.tagName in me.noRippleTagMap) &&
                                     !(fly.getStyle('display') in me.noRippleDisplayMap) &&
                                     (fly.getRegion().contains(rippleBox));
@@ -6145,28 +6019,22 @@ Ext.define('Ext.dom.Element', function(Element) {
                     // Allow for transition to happen then remove classes
                     // we do this instead of a transtionend listener
                     // as we do not know which element is transitioning
-                    if (!rippleParent.destroyed) {
-                        rippleParent.$rippleClearTimeout = Ext.defer(function () {
-                            rippleParent.removeCls([ripplingCls, ripplingTransitionCls]);
-                            rippleParent.$rippleClearTimeout = null;
-                        }, 50);
-                    }
+                    rippleParent.$rippleClearTimeout = Ext.defer(function () {
+                        rippleParent.removeCls([ripplingCls, ripplingTransitionCls]);
+                        rippleParent.$rippleClearTimeout = null
+                    }, 50);
                 };
 
                 rippleDestructor = function() {
-                    var ripple, timeout;
+                    var ripple;
 
                     // destroy the ripple
                     rippleBubble.destroy();
 
                     // remove from lookup
                     if (me.$ripples) {
-                        delete me.$ripples[rippleBubble.id];
-                    }
-
-                    timeout = rippleParent.$rippleClearTimeout;
-                    if (timeout) {
-                        rippleParent.$rippleClearTimeout = Ext.undefer(timeout);
+                        me.$ripples[rippleBubble] = null;
+                        delete me.$ripples[rippleBubble];
                     }
 
                     if (unbound) {
@@ -6193,7 +6061,6 @@ Ext.define('Ext.dom.Element', function(Element) {
                             rippleClearFn();
                         }
                     }
-
                 };
 
                 rippleDestructionTimer = Ext.defer(rippleDestructor,
@@ -6204,7 +6071,7 @@ Ext.define('Ext.dom.Element', function(Element) {
                     me.$ripples = {};
                 }
 
-                me.$ripples[rippleBubble.id] = {
+                me.$ripples[rippleBubble] = {
                     timerId: rippleDestructionTimer,
                     destructor: rippleDestructor
                 };
@@ -6215,11 +6082,10 @@ Ext.define('Ext.dom.Element', function(Element) {
 
         destroyAllRipples: function () {
             var me = this,
-                rippleEl, ripple;
+                ripple;
 
-            for (rippleEl in me.$ripples) {
-                ripple = me.$ripples[rippleEl];
-                Ext.undefer(ripple.timerId);
+            for (ripple in me.$ripples) {
+                clearTimeout(ripple.timerId);
 
                 if (ripple.destructor) {
                     ripple.destructor();
@@ -6448,7 +6314,11 @@ Ext.define('Ext.dom.Element', function(Element) {
 
             doAddListener: function(eventName, fn, scope, options, order, caller, manager) {
                 var me = this,
+                    gesturePublisher = Ext.$gesturePublisher,
                     originalName = eventName,
+                    supports = Ext.supports,
+                    supportsTouch = supports.TouchEvents,
+                    supportsPointer = supports.PointerEvents,
                     observableDoAddListener, additiveEventName,
                     translatedEventName;
 
@@ -6512,8 +6382,12 @@ Ext.define('Ext.dom.Element', function(Element) {
 
             doRemoveListener: function(eventName, fn, scope) {
                 var me = this,
+                    gesturePublisher = Ext.$gesturePublisher,
+                    supports = Ext.supports,
+                    supportsTouch = supports.TouchEvents,
+                    supportsPointer = supports.PointerEvents,
                     observableDoRemoveListener, translatedEventName, additiveEventName,
-                    removed;
+                    contextMenuListenerRemover, removed;
 
                 // Even though the superclass method does conversion to lowercase, we need
                 // to do it here because we need to use the lowercase name for lookup
@@ -6646,6 +6520,13 @@ Ext.define('Ext.dom.Element', function(Element) {
             '5.0': {
                 methods: {
                     /**
+                     * @method cssTranslate
+                     * Translates an element using CSS 3 in 2D.
+                     * @removed 5.0.0
+                     */
+                    cssTranslate: null,
+
+                    /**
                      * @method getHTML
                      * @inheritdoc Ext.dom.Element#getHtml
                      * @deprecated 5.0.0 Please use {@link #getHtml} instead.
@@ -6653,11 +6534,25 @@ Ext.define('Ext.dom.Element', function(Element) {
                     getHTML: 'getHtml',
 
                     /**
+                     * @method getOuterHeight
+                     * Retrieves the height of the element account for the top and bottom margins.
+                     * @removed 5.0.0
+                     */
+                    getOuterHeight: null,
+
+                    /**
+                     * @method getOuterWidth
+                     * Retrieves the width of the element accounting for the left and right margins.
+                     * @removed 5.0.0
+                     */
+                    getOuterWidth: null,
+
+                    /**
                      * @method getPageBox
                      * Returns an object defining the area of this Element which can be passed to
                      * {@link Ext.util.Positionable#setBox} to set another Element's size/location to match this element.
                      *
-                     * @param {Boolean} [getRegion] If true an Ext.util.Region will be returned
+                     * @param {Boolean} [asRegion] If true an Ext.util.Region will be returned
                      * @return {Object/Ext.util.Region} box An object in the following format:
                      *
                      *     {
@@ -6703,13 +6598,27 @@ Ext.define('Ext.dom.Element', function(Element) {
                     },
 
                     /**
+                     * @method getScrollParent
+                     * Gets the Scroller instance of the first parent that has one.
+                     * @removed 5.0.0
+                     */
+                    getScrollParent: null,
+
+                    /**
+                     * @method isDescendent
+                     * Determines if this element is a descendant of the passed in Element.
+                     * @removed 5.0.0
+                     */
+                    isDescendent: null,
+
+                    /**
                      * @method isTransparent
                      * Returns `true` if the value of the given property is visually transparent. This
                      * may be due to a 'transparent' style value or an rgba value with 0 in the alpha
                      * component.
                      * @param {String} prop The style property whose value is to be tested.
                      * @return {Boolean} `true` if the style property is visually transparent.
-                     * @deprecated 5.0.0 This method is deprecated.
+                     * @deprecated 5.0.0
                      */
                     isTransparent: function(prop) {
                         var value = this.getStyle(prop);
@@ -6736,7 +6645,14 @@ Ext.define('Ext.dom.Element', function(Element) {
                      * @inheritdoc Ext.dom.Element#setHtml
                      * @deprecated 5.0.0 Please use {@link #setHtml} instead.
                      */
-                    setHTML: 'setHtml'
+                    setHTML: 'setHtml',
+
+                    /**
+                     * @method setTopLeft
+                     * Sets the element's top and left positions directly using CSS style.
+                     * @removed 5.0.0
+                     */
+                    setTopLeft: null
                 }
             }
         }
@@ -6938,7 +6854,6 @@ Ext.define('Ext.dom.Element', function(Element) {
     };
 
     /**
-     * @member Ext
      * @private
      * Returns the `X,Y` position of this element without regard to any RTL
      * direction settings.
@@ -7289,13 +7204,10 @@ Ext.define('Ext.dom.Element', function(Element) {
         if (Ext.isSafari) {
             bodyCls.push(Ext.baseCSSPrefix + 'safari');
         }
-        if (Ext.isSafari && Ext.browser.version.isLessThan(11)) {
-            bodyCls.push(Ext.baseCSSPrefix + 'safari10m');
-        }
         if (Ext.isSafari9) {
             bodyCls.push(Ext.baseCSSPrefix + 'safari9');
         }
-        if (Ext.isSafari && Ext.browser.version.isLessThan(9)) {
+        if (Ext.browser.is.Safari && Ext.browser.version.isLessThan(9)) {
             bodyCls.push(Ext.baseCSSPrefix + 'safari8m');
         }
         if (Ext.isChrome) {

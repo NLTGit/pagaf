@@ -3,40 +3,6 @@ Ext.define('Ext.overrides.event.publisher.Dom', {
     override: 'Ext.event.publisher.Dom'
 
 }, function (DomPublisher) {
-    var focusEvents = {
-        focus: true,
-        focusin: true,
-        focusout: true,
-        blur: true
-    };
-    
-    if (Ext.isIE10m) {
-        DomPublisher.override({
-            isEventBlocked: function(e) {
-                if (!focusEvents[e.type]) {
-                    return this.callParent([e]);
-                }
-                
-                var body = document.body,
-                    ev = e.browserEvent,
-                    el = Ext.synchronouslyFocusing;
-                
-                // This horrid hack is necessary to work around the issue with input elements
-                // in IE10m that can fail to focus under certain conditions. See comment in
-                // Ext.dom.Element override.
-                if (el &&
-                    ((ev.type === 'focusout' && (ev.srcElement === el || ev.srcElement === window) && ev.toElement === body) ||
-                     (ev.type === 'focusin' && (ev.srcElement === body || ev.srcElement === window) && ev.fromElement === el &&
-                      ev.toElement === null)))
-                {
-                    return true;
-                }
-                
-                return false;
-            }
-        });
-    }
-    
     if (Ext.isIE9m) {
         var docElement = document.documentElement,
             docBody = document.body,

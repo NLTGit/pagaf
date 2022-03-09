@@ -140,43 +140,31 @@
         }
     }
 
-    .#{$prefix}keyboard-mode {
-        .#{$prefix}form-checkbox-focus {
-            &.#{$prefix}form-radio-#{$ui} {
+    .#{$prefix}form-checkbox-focus {
+        &.#{$prefix}form-radio-#{$ui} {
+            .#{$prefix}keyboard-mode & {
                 @if $enable-font-icons and ($ui-radio-glyph != null) {
                     color: $ui-radio-glyph-focus-color;
-                }
-                @else {
+                } @else {
                     background-position: (0 - $ui-checkbox-size) 0;
-                }
-            }
 
-            &.#{$prefix}form-checkbox-#{$ui} {
-                @if $enable-font-icons and ($ui-checkbox-glyph != null) {
-                    color: $ui-checkbox-glyph-focus-color;
-                }
-                @else {
-                    background-position: (0 - $ui-checkbox-size) 0;
+                    .#{$prefix}form-cb-checked & {
+                        background-position: (0 - $ui-checkbox-size) (0 - $ui-checkbox-size);
+                    }
                 }
             }
         }
-        
-        .#{$prefix}form-cb-checked {
-            .#{$prefix}form-checkbox-focus.#{$prefix}form-radio-#{$ui} {
-                @if $enable-font-icons and ($ui-radio-glyph != null) {
-                    color: $ui-radio-glyph-focus-color;
-                }
-                @else {
-                    background-position: (0 - $ui-checkbox-size) (0 - $ui-checkbox-size);
-                }
-            }
-        
-            .#{$prefix}form-checkbox-focus.#{$prefix}form-checkbox-#{$ui} {
+
+        &.#{$prefix}form-checkbox-#{$ui} {
+            .#{$prefix}keyboard-mode & {
                 @if $enable-font-icons and ($ui-checkbox-glyph != null) {
                     color: $ui-checkbox-glyph-focus-color;
-                }
-                @else {
-                    background-position: (0 - $ui-checkbox-size) (0 - $ui-checkbox-size);
+                } @else {
+                    background-position: (0 - $ui-checkbox-size) 0;
+
+                    .#{$prefix}form-cb-checked & {
+                        background-position: (0 - $ui-checkbox-size) (0 - $ui-checkbox-size);
+                    }
                 }
             }
         }

@@ -1115,16 +1115,6 @@ function() {
                         expect(childNodes.length).toBe(1);
                     });
                 });
-
-                it("should be rendered after calling view refreshNode", function() {
-                    makeGrid(null, 1, {
-                        height: 200
-                    });
-
-                    grid.getView().refreshNode(0);
-
-                    expect(Ext.fly(grid.getView().getRow(0)).down('.x-btn')).not.toBeNull();
-                });
             });
 
             describe("item removal", function() {
@@ -1427,36 +1417,6 @@ function() {
                     panel.setActiveTab(0);
 
                     expect(getWidget(4, 0).textEl.dom.innerHTML).toBe('50%');
-                });
-            });
-
-            describe("with locking", function() {
-                it("should be able to add a widget as part of a header group on the locked side", function() {
-                    createGrid([{
-                        text: 'Foo',
-                        locked: true,
-                        columns: [getColCfg({
-                            xtype: 'button'
-                        })]
-                    }, {
-                        text: 'Bar',
-                        dataIndex: 'b'
-                    }]);
-                    expect(getWidget(0).getText()).toBe('1a');
-                });
-
-                it("should be able to add a widget as part of a header group on the unlocked side", function() {
-                    createGrid([{
-                        text: 'Foo',
-                        locked: true,
-                        dataIndex: 'b'
-                    }, {
-                        text: 'Bar',
-                        columns: [getColCfg({
-                            xtype: 'button'
-                        })]
-                    }]);
-                    expect(getWidget(0, colRef[1]).getText()).toBe('1a');
                 });
             });
         });

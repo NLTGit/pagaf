@@ -231,6 +231,12 @@ $listswiperstepper-decline-ui: dynamic((
  * @param {number} $line-height-big
  * ListSwiper stepper line-height in the {@link Global_CSS#$enable-big big} sizing scheme
  *
+ * @param {number/list} $padding
+ * ListSwiper stepper padding
+ *
+ * @param {number/list} $padding-big
+ * ListSwiper stepper padding in the {@link Global_CSS#$enable-big big} sizing scheme
+ *
  * @param {color} $icon-color
  * ListSwiper stepper icon color
  *
@@ -276,6 +282,8 @@ $listswiperstepper-decline-ui: dynamic((
     $font-weight: null,
     $line-height: null,
     $line-height-big: null,
+    $padding: null,
+    $padding-big: null,
     $icon-color: null,
     $active-icon-color: null,
     $undo-icon-color: null,

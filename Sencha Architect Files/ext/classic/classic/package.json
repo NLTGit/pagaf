@@ -1,6 +1,6 @@
 {
     "name": "@extjs/ext-react-classic",
-    "version": "6.5.3.57",
+    "version": "6.5.0.775",
     "sencha": {
         "name": "classic",
         "namespace": "Ext",
@@ -12,7 +12,7 @@
         "creator": "Sencha",
         "summary": "The Classic UI Toolkit",
         "detailedDescription": "UI components for desktops and legacy browsers",
-        "version": "6.5.3.57",
+        "version": "6.5.0",
         "compatVersion": "6.0.0",
         "format": "1",
         "output": "${framework.dir}/build",
@@ -52,13 +52,6 @@
                 "theme-aria",
                 "theme-triton"
             ]
-        },
-        "language": {
-            "js": {
-                "input": {
-                    "version": "ES5"
-                }
-            }
         },
         "properties": {
             "skip.sass": 1,

@@ -1,37 +1,6 @@
 /**
  * @class Ext.Progress
- *
- *     @example
- *     Ext.create({
- *         xtype: 'grid',
- *         title: 'Simpsons',
- *         store: {
- *             data: [
- *                 { name: 'Lisa', progress: .159 },
- *                 { name: 'Bart', progress: .216 },
- *                 { name: 'Homer', progress: .55 },
- *                 { name: 'Maggie', progress: .167 },
- *                 { name: 'Marge', progress: .145 }
- *             ]
- *         },
- *         columns: [
- *             { text: 'Name',  dataIndex: 'name' },
- *             {
- *                 text: 'Progress',
- *                 xtype: 'widgetcolumn',
- *                 width: 120,
- *                 dataIndex: 'progress',
- *                 widget: {
- *                     xtype: 'progress'
- *                 }
- *             }
- *         ],
- *         height: 200,
- *         width: 400,
- *         renderTo: Ext.getBody()
- *     });
  */
-
 Ext.define('Ext.overrides.Progress', {
     override: 'Ext.Progress',
 

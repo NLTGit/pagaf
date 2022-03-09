@@ -511,7 +511,7 @@ function () {
                         }
                     }]
                 },
-                buttonContainer, center, haveText;
+                buttonContainer, center;
 
             viewport = Ext.create(viewportConfig);
             buttonContainer = viewport.down('#button-container');
@@ -522,8 +522,7 @@ function () {
             
             if (Ext.isClassic) {
                 expect(buttonContainer.region).toBe('west');
-                haveText = Ext.String.trim(center.body.dom.innerText);
-                expect(haveText).toBe('Should have a west region using vbox layout');
+                expect((center.body.dom.innerText || center.body.dom.innerText).trim()).toBe('Should have a west region using vbox layout');
             } else {
                 expect(buttonContainer.getDocked()).toBe('left');
                 expect(center.getHtml()).toBe('Should have a west region using vbox layout');
@@ -538,8 +537,7 @@ function () {
             
             if (Ext.isClassic) {
                 expect(buttonContainer.region).toBe('north');
-                haveText = Ext.String.trim(center.body.dom.innerText);
-                expect(haveText).toBe('Should have a north region using hbox layout');
+                expect((center.body.dom.innerText || center.body.dom.innerText).trim()).toBe('Should have a north region using hbox layout');
             } else {
                 expect(buttonContainer.getDocked()).toBe('top');
                 expect(center.getHtml()).toBe('Should have a north region using hbox layout');

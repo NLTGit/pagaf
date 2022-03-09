@@ -45,21 +45,13 @@ Ext.define('Ext.field.Email', {
 
     config: {
         /**
-         * @cfg autoCapitalize
+         * @cfg
          * @inheritdoc
          */
         autoCapitalize: false
     },
     
-    /**
-     * @cfg inputType
-     * @inheritdoc
-     */
     inputType: 'email',
 
-    /**
-     * @property classCls
-     * @inheritdoc
-     */
     classCls: Ext.baseCSSPrefix + 'emailfield'
 });

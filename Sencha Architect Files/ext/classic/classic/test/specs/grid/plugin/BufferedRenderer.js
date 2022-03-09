@@ -3,7 +3,7 @@
 topSuite("Ext.grid.plugin.BufferedRenderer",
     ['Ext.grid.Panel', 'Ext.tree.Panel', 'Ext.grid.feature.Grouping',
      'Ext.grid.column.Widget', 'Ext.ProgressBarWidget', 'Ext.tab.Panel',
-     'Ext.window.Window', 'Ext.data.BufferedStore'],
+     'Ext.window.Window'],
 function() {
     var itNotIE8 = Ext.isIE8 ? xit : it,
         store, grid, tree, view, scroller, plugin,
@@ -332,13 +332,7 @@ function() {
                     normal.scrollTo(500);
 
                     expect(normal.onRangeFetched).toHaveBeenCalled();
-
-                    // Mirroring of onRangeFetched directly manipulates partner view
-                    expect(locked.onRangeFetched).not.toHaveBeenCalled();
-
-                    // And locked must stay in sync.
-                    expect(locked.view.all.startIndex).toBe(normal.view.all.startIndex);
-                    expect(locked.view.all.endIndex).toBe(normal.view.all.endIndex);
+                    expect(locked.onRangeFetched).toHaveBeenCalled();
                 });
 
                 it('should sync the view els', function () {
@@ -1636,6 +1630,8 @@ function() {
 
             var normalView = grid.normalGrid.getView(),
                 lockedView = grid.lockedGrid.getView(),
+                lockedScroller = lockedView.getScrollable(),
+                normalScroller = normalView.getScrollable(),
                 normalRows = normalView.all,
                 lockedRows = lockedView.all,
                 navModel = normalView.getNavigationModel();
@@ -1654,7 +1650,7 @@ function() {
 
                 if (p) {
                     // Scroll only when the last scroll signal has found both views and caused them to update
-                    if (navModel.getCell() && (a === navModel.getCell().dom) && normalRows.startIndex === lockedRows.startIndex) {
+                    if (navModel.getCell() && (a === navModel.getCell().dom) && normalRows.startIndex === lockedRows.startIndex && lockedScroller.getPosition().y === normalScroller.getPosition().y) {
                         jasmine.fireKeyEvent(a, 'keydown', Ext.event.Event.PAGE_DOWN);
                     }
 
@@ -1712,8 +1708,7 @@ function() {
                         textTpl: ['{percent:number("0")}% capacity']
                     }
                 }],
-                nodeCache,
-                margin = (Ext.isIE || Ext.isEdge) ? 2 : 0;
+                nodeCache;
 
                 makeGrid({
                     columns: columns
@@ -1742,8 +1737,7 @@ function() {
                         grid.reconfigure(null, columns);
                     }
 
-                    // MS browsers show innacuracies sometimes, so use approx for them
-                    expect(Ext.fly(view.el.dom.querySelector('.x-grid-item-container')).getHeight()).toBeApprox(Ext.fly(view.lockingPartner.el.dom.querySelector('.x-grid-item-container')).getHeight(), margin);
+                    expect(Ext.fly(view.el.dom.querySelector('.x-grid-item-container')).getHeight()).toBe(Ext.fly(view.lockingPartner.el.dom.querySelector('.x-grid-item-container')).getHeight());
                 });
             }
 
@@ -1807,14 +1801,12 @@ function() {
                     expect(lockedSize).toBe(normalSize);
 
                     for (i = 0; allEqual && i < lockedSize; i++) {
-                        // Allow for 1px margin for Microsoft browser's innacuracies.
-                        allEqual = allEqual && Math.abs(normalItems[i].offsetHeight - lockedItems[i].offsetHeight) < 2;
+                        allEqual = allEqual && normalItems[i].offsetHeight === lockedItems[i].offsetHeight;
                     }
                     // All rows must be same size
                     expect(allEqual).toBe(true);
                     bufferedRendererInvocationCount++;
-                },
-                margin = (Ext.isIE || Ext.isEdge) ? 2 : 0;
+                };
 
                 // Make grid with small buffer zones.
                 makeGrid({
@@ -1847,9 +1839,7 @@ function() {
                 // Must have invoked the row syncher and the two body heights must be the same
                 runs(function () {
                     expect(bufferedRendererInvocationCount).toBeGreaterThan(0);
-
-                    // Allow for 2px margin for Microsoft browser's innacuracies.
-                    expect(view.el.down('.x-grid-item-container', true).offsetHeight).toBeApprox(view.lockingPartner.el.down('.x-grid-item-container', true).offsetHeight, margin);
+                    expect(view.el.down('.x-grid-item-container', true).offsetHeight).toBe(view.lockingPartner.el.down('.x-grid-item-container', true).offsetHeight);
                     bufferedRendererInvocationCount = 0;
                 });
 
@@ -1882,9 +1872,8 @@ function() {
                     
                     var mainHeight = Ext.fly(view.el.dom.querySelector('.x-grid-item-container')).getHeight(),
                         partnerHeight = Ext.fly(view.lockingPartner.el.dom.querySelector('.x-grid-item-container')).getHeight();
-
-                    // Allow for 1px margin for Microsoft browser's innacuracies.
-                    expect(partnerHeight).toBeApprox(mainHeight, 1);
+                    
+                    expect(partnerHeight).toBe(mainHeight);
                     bufferedRendererInvocationCount = 0;
                 });
             });
@@ -1939,14 +1928,12 @@ function() {
                     expect(lockedSize).toBe(normalSize);
 
                     for (i = 0; allEqual && i < lockedSize; i++) {
-                        // Allow for 1px margin for Microsoft browser's innacuracies.
-                        allEqual = allEqual && Math.abs(normalItems[i].offsetHeight - lockedItems[i].offsetHeight) < 2;
+                        allEqual = allEqual && normalItems[i].offsetHeight === lockedItems[i].offsetHeight;
                     }
                     // All rows must be same size
                     expect(allEqual).toBe(true);
                     bufferedRendererInvocationCount++;
-                },
-                margin = (Ext.isIE || Ext.isEdge) ? 2 : 0;
+                };
 
                 // Make grid with small buffer zones.
                 makeGrid({
@@ -1983,9 +1970,7 @@ function() {
                 // Must have invoked the row syncher and the two body heights must be the same
                 runs(function () {
                     expect(bufferedRendererInvocationCount).toBeGreaterThan(0);
-
-                    // Allow for 2px margin for Microsoft browser's innacuracies.
-                    expect(Ext.fly(view.el.dom.querySelector('.x-grid-item-container')).getHeight()).toBeApprox(Ext.fly(view.lockingPartner.el.dom.querySelector('.x-grid-item-container')).getHeight(), margin);
+                    expect(Ext.fly(view.el.dom.querySelector('.x-grid-item-container')).getHeight()).toBe(Ext.fly(view.lockingPartner.el.dom.querySelector('.x-grid-item-container')).getHeight());
                     bufferedRendererInvocationCount = 0;
                 });
 
@@ -2014,9 +1999,8 @@ function() {
                     
                     var mainHeight = Ext.fly(view.el.dom.querySelector('.x-grid-item-container')).getHeight(),
                         partnerHeight = Ext.fly(view.lockingPartner.el.dom.querySelector('.x-grid-item-container')).getHeight();
-
-                    // Allow for 1px margin for Microsoft browser's innacuracies.
-                    expect(partnerHeight).toBeApprox(mainHeight, 1);
+                    
+                    expect(partnerHeight).toBe(mainHeight);
                     bufferedRendererInvocationCount = 0;
                 });
             });

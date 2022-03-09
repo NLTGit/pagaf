@@ -377,9 +377,8 @@ Ext.define('Ext.dd.DragTracker', {
             // we need to track on the parentEvent if it exists.
             trackEvent = e.parentEvent || e;
 
-        // Ignore all mousedown events that were not started by the primary button
         // If this is disabled, or the mousedown has been processed by an upstream DragTracker, return
-        if (e.button || me.disabled || trackEvent.dragTracked) {
+        if (me.disabled || trackEvent.dragTracked) {
             return;
         }
 
@@ -529,7 +528,7 @@ Ext.define('Ext.dd.DragTracker', {
     clearStart : function() {
         var timer = this.timer;
         if (timer) {
-            Ext.undefer(timer);
+            clearTimeout(timer);
             this.timer = null;
         }
     },
@@ -555,7 +554,7 @@ Ext.define('Ext.dd.DragTracker', {
      * @param {Ext.event.Event} e The event object
      * @template
      */
-    onStart : function(e) {
+    onStart : function(xy) {
 
     },
 
@@ -649,7 +648,7 @@ Ext.define('Ext.dd.DragTracker', {
      *    based upon the current mouse position, and then coerced into the constrainRegion. The returned
      *    mouse position is then adjusted by the same delta as was used to coerce the region.
      *
-     * @param {String} constrain (Optional) If omitted the true mouse position is returned. May be passed
+     * @param {String} constrainMode (Optional) If omitted the true mouse position is returned. May be passed
      * as `point` or `dragTarget`. See above.
      * @return {Number[]} The `X, Y` offset from the mousedown point, optionally constrained.
      */

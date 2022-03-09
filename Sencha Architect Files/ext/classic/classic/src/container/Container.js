@@ -67,7 +67,7 @@
  *     });
  *
  *     myTabPanel.add(myNewGrid); // Ext.tab.Panel implicitly uses Ext.layout.container.Card
- *     myTabPanel.setActiveTab(myNewGrid);
+ *     myTabPanel.setActiveTab.(myNewGrid);
  *
  * The example above adds a newly created GridPanel to a TabPanel. Note that a TabPanel uses {@link
  * Ext.layout.container.Card} as its layout manager which means all its child items are sized to {@link
@@ -433,10 +433,6 @@ Ext.define('Ext.container.Container', {
         'Ext.mixin.FocusableContainer'
     ],
 
-    /**
-     * @cfg renderTpl
-     * @inheritdoc
-     */
     renderTpl:
         '<tpl if="hasTabGuard">{% this.renderTabGuard(out, values, \'before\'); %}</tpl>' +
         '{% this.renderContainer(out,values) %}' +
@@ -449,7 +445,6 @@ Ext.define('Ext.container.Container', {
 
     config: {
         /**
-         * @cfg {Object} actions
          * An object containing properties which define named {@link Ext.Action actions}
          * for this container and any descendant components.
          *
@@ -464,7 +459,7 @@ Ext.define('Ext.container.Container', {
          * clicked.
          *
          * The property name is the action name, which may then be used as a child item
-         * configuration in an {@link Ext.container.Container#cfg!items items} configuration in
+         * configuration in an {@link Ext.container.Container#items items} configuration in
          * any descendant component such as a toolbar or a menu, or in a
          * {@link Ext.panel.Panel#tools tools} configuration of a Panel.
          *
@@ -489,7 +484,7 @@ Ext.define('Ext.container.Container', {
      */
 
     /**
-     * @cfg {Boolean} autoDestroy
+     * @cfg {Boolean} [autoDestroy=true]
      * If true the container will automatically destroy any contained component that is removed
      * from it, else destruction must be handled manually.
      * @since 2.3.0
@@ -542,7 +537,7 @@ Ext.define('Ext.container.Container', {
      */
     
      /**
-      * @cfg {String} defaultType
+      * @cfg {String} [defaultType="panel"]
       * The default {@link Ext.Component xtype} of child Components to create in this Container when
       * a child item is specified as a raw configuration object, rather than as an instantiated Component.
       * @since 2.3.0
@@ -550,7 +545,7 @@ Ext.define('Ext.container.Container', {
     defaultType: 'panel',
 
     /**
-     * @cfg {Boolean} detachOnRemove
+     * @cfg {Boolean} [detachOnRemove=true]
      * True to move any component to the {@link Ext#getDetachedBody detachedBody} when the component is
      * removed from this container. This option is only applicable when the component is not destroyed while
      * being removed, see {@link #autoDestroy} and {@link #method-remove}. If this option is set to false, the DOM
@@ -563,7 +558,7 @@ Ext.define('Ext.container.Container', {
      * @cfg {Object/Object[]} items
      * A single item, or an array of child Components to be added to this container
      *
-     * **Unless configured with a {@link #cfg!layout}, a Container simply renders child
+     * **Unless configured with a {@link #layout}, a Container simply renders child
      * Components serially into its encapsulating element and performs no sizing or
      * positioning upon them.**
      *
@@ -777,16 +772,8 @@ Ext.define('Ext.container.Container', {
         strict: false
     },
 
-    /**
-     * @property ariaRole
-     * @inheritdoc
-     */
     ariaRole: 'presentation',
     
-    /**
-     * @cfg baseCls
-     * @inheritdoc
-     */
     baseCls: Ext.baseCSSPrefix + 'container',
 
     /**
@@ -884,7 +871,7 @@ Ext.define('Ext.container.Container', {
      * If the Container is __already rendered__ when `add`
      * is called, it will render the newly added Component into its content area.
      *
-     * **If** the Container was configured with a size-managing {@link #cfg!layout} manager,
+     * **If** the Container was configured with a size-managing {@link #layout} manager,
      * the Container will recalculate its internal layout at this time too.
      *
      * Note that the default layout manager simply renders child Components sequentially
@@ -1014,7 +1001,7 @@ Ext.define('Ext.container.Container', {
     },
     
     /**
-     * @method onRemoved
+     * @method
      * @inheritdoc
      */
     onRemoved: function(destroying) {
@@ -1134,7 +1121,7 @@ Ext.define('Ext.container.Container', {
      * that branch.
      * @param {Function} fn The function to call
      * @param {Object} [scope] The scope of the function (defaults to current component)
-     * @param {Array} [origArgs] The args to call the function with. The current component
+     * @param {Array} [args] The args to call the function with. The current component
      * always passed as the last argument.
      * @return {Ext.Container} this
      * @since 2.3.0
@@ -1312,9 +1299,6 @@ Ext.define('Ext.container.Container', {
         var delegate = this.getDefaultFocus();
         
         if (delegate) {
-            // DO NOT drill down to delegate's focusEl or return its main el here.
-            // Container's getFocusEl() is supposed to return delegates as components,
-            // otherwise things break elsewhere.
             return delegate;
         }
         else if (this.focusable) {
@@ -1476,10 +1460,17 @@ Ext.define('Ext.container.Container', {
      */
     initInheritedState: function (inheritedState, inheritedStateInner) {
         var me = this,
-            layout = me.layout;
+            controller = me.controller,
+            layout = me.layout,
+            session = me.session,
+            // Don't instantiate it here, we just want to know whether we
+            // were configured with a VM
+            viewModel = me.viewModel,
+            reference = me.reference,
+            referenceHolder = me.referenceHolder;
 
         me.callParent([ inheritedState, inheritedStateInner ]);
-
+        
         if (me.collapsed) {
             inheritedState.collapsed = true;
         }
@@ -1539,7 +1530,7 @@ Ext.define('Ext.container.Container', {
      *
      * This may be overridden in subclasses when special processing needs to be applied to child creation. 
      *
-     * @param {Object} comp The config object being added.
+     * @param {Object} item The config object being added.
      * @return {Ext.Component} The component to be added.
      */
     lookupComponent: function(comp) {
@@ -1795,8 +1786,9 @@ Ext.define('Ext.container.Container', {
     },
 
     /**
-     * @method onResize
      * @inheritdoc
+     * @protected
+     * @template
      */
     onResize: function() {
         this.callParent(arguments);
@@ -1842,11 +1834,11 @@ Ext.define('Ext.container.Container', {
      *
      * @param {Ext.Component/String} component The component instance or id to remove.
      *
-     * @param {Object} [autoDestroy] Flags to determine what to do with the removed component.
+     * @param {Object} [disposition] Flags to determine what to do with the removed component.
      * (May also be specified as a boolean `autoDestroy` flag for backward compatibility).
-     * @param {Boolean} [autoDestroy.destroy] Defaults to this Container's {@link #autoDestroy} config.
+     * @param {Boolean} [disposition.destroy] Defaults to this Container's {@link #autoDestroy} config.
      * Specifies whether to destroy the component being removed.
-     * @param [autoDestroy.detach] Defaults to the {@link #detachOnRemove} configuration
+     * @param [disposition.detach] Defaults to the {@link #detachOnRemove} configuration
      * Specifies whether to remove the component's DOM from the container and into
      * the {@link Ext#getDetachedBody detached body element}
      *
@@ -1931,7 +1923,7 @@ Ext.define('Ext.container.Container', {
     },
 
     /**
-     * Reconfigures the initially configured {@link #cfg!layout}.
+     * Reconfigures the initially configured {@link #layout}.
      *
      * NOTE: this method cannot be used to change the "type" of layout after the component
      * has been rendered to the DOM. After rendering, this method can only modify the
@@ -1941,26 +1933,26 @@ Ext.define('Ext.container.Container', {
      * rendered.
      * @param {Object} configuration object for the layout
      */
-    setLayout: function(configuration) {
+    setLayout: function(layout) {
         var me = this,
             oldLayout = me.layout,
             type;
 
-        if (configuration) {
-            if (typeof configuration === 'string') {
-                configuration = {
-                    type: configuration
+        if (layout) {
+            if (typeof layout === 'string') {
+                layout = {
+                    type: layout
                 };
             }
-            type = configuration.type;
+            type = layout.type;
 
             if (oldLayout) {
                 if (oldLayout.isLayout) {
                     // Same layout type requested, or just a reconfigure object.
                     // Either way, we reconfigure the current layout.
                     if (!type || (type === oldLayout.type)) {
-                        oldLayout.setConfig(configuration);
-                        configuration = oldLayout;
+                        oldLayout.setConfig(layout);
+                        layout = oldLayout;
                     }
                     // Different layout type requested (not allowed after render)
                     // just detach from the current layout.
@@ -1975,17 +1967,17 @@ Ext.define('Ext.container.Container', {
                             type: oldLayout
                         };
                     }
-                    configuration = Ext.merge({}, oldLayout, configuration);
+                    layout = Ext.merge(oldLayout, layout);
                 }
             }
 
-            if (!(configuration && configuration.isLayout)) {
-                configuration.owner = this;
-                configuration = Ext.Factory.layout(configuration);
+            if (!(layout && layout.isLayout)) {
+                layout.owner = this;
+                layout = Ext.Factory.layout(layout);
             }
-            configuration.setOwner(this);
+            layout.setOwner(this);
         }
-        me.layout = configuration;
+        me.layout = layout;
 
         if (me.rendered) {
             me.updateLayout();
@@ -2036,7 +2028,7 @@ Ext.define('Ext.container.Container', {
     getAction: function(name) {
         var owner = this;
         
-        for (owner = this; owner; owner = owner.getRefOwner()) {
+        for (var owner = this; owner; owner = owner.getRefOwner()) {
             if (owner.actions && owner.actions[name]) {
                 return owner.actions[name];
             }
@@ -2129,25 +2121,21 @@ Ext.define('Ext.container.Container', {
          */
         doRemove: function(component, flags) {
             var me = this,
+                doDestroy,
+                doDetach = me.detachOnRemove,
                 layout = me.layout,
                 hasLayout = layout && me.rendered,
-                floating = component.floating,
-                doDetach = me.detachOnRemove,
-                doDestroy = me.autoDestroy,
-                isDestroying;
+                isDestroying,
+                floating = component.floating;
 
             // Ensure the flags are set correctly
-            if (typeof flags === 'boolean') {
+            if (flags === undefined) {
+                doDestroy = me.autoDestroy;
+            } else if (typeof flags === 'boolean') {
                 doDestroy = flags;
-            }
-            else if (typeof flags === 'object') {
-                if (flags.destroy != null) {
-                    doDestroy = flags.destroy;
-                }
-                
-                if (flags.detach != null) {
-                    doDetach = flags.detach;
-                }
+            } else {
+                doDestroy = ('destroy' in flags) && flags.destroy;
+                doDetach = ('detach' in flags) && flags.detach;
             }
 
             // isDestroying flag is true if the removal is taking place as part of destruction, OR if removal is intended to *cause* destruction
@@ -2214,7 +2202,7 @@ Ext.define('Ext.container.Container', {
          * @return {Ext.Component[]} Items to be enabled/disabled
          */
         getChildItemsToDisable: function() {
-            return this.query('[isLabelable],[isFocusableContainer],button');
+            return this.query('[isFormField],[isFocusableContainer],button');
         },
 
         /**

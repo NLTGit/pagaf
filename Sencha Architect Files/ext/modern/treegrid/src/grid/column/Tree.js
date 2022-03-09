@@ -10,7 +10,5 @@ Ext.define('Ext.grid.column.Tree', {
         cell: {
             xtype: 'treecell'
         }
-    },
-
-    isTreeColumn: true
+    }
 });

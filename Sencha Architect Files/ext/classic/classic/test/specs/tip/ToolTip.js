@@ -28,7 +28,11 @@ topSuite("Ext.tip.ToolTip", ['Ext.window.Window', 'Ext.form.field.*'], function(
     });
 
     afterEach(function() {
-        tip = target = Ext.destroy(tip, target);
+        if (tip) {
+            tip.destroy();
+            tip = null;
+        }
+        target.destroy();
     });
 
     function mouseOverTarget(t) {
@@ -721,32 +725,6 @@ topSuite("Ext.tip.ToolTip", ['Ext.window.Window', 'Ext.form.field.*'], function(
             waitsFor(function() {
                 return tip.isVisible();
             }, 1000, 'tooltip to show');
-        });
-    });
-
-    describe('positioning', function () {
-        it('should adjust constrained region with the body scroll position', function () {
-            var body = Ext.getBody(),
-                spy = jasmine.createSpy(),
-                container = body.insertHtml(
-                    'beforeEnd',
-                    '<div><div style="height: 5000px"></div><a href="#" id="tipTarget2" style="position:relative; width: 50px; height: 50px;background-color:red;">x</a></div>',
-                    true
-                );
-            
-            target.destroy();
-            target = container.down('a');
-
-            createTip();
-            window.scrollTo(0, 5000);
-            mouseOverTarget();
-            
-            waitsForEvent(tip, 'show');
-            runs(function () {
-                // within 10px is close enough
-                expect(Math.abs(target.getRegion().bottom - tip.el.getRegion().bottom)).toBeLessThan(10);
-                container.destroy();
-            });
         });
     });
 });

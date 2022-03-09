@@ -71,101 +71,6 @@
  *
  * **Note:** To use grouping with a grid that has {@link Ext.grid.column.Column#locked locked columns}, you need to supply
  * the grouping feature as a config object - so the grid can create two instances of the grouping feature.
- * 
- * ## Grouping Summary
- * 
- * An aggregate summary row may be added at the bottom of each group by setting 
- * {@link #cfg-showSummaryRow showSummaryRow} to `true`. There are two 
- * aspects to the summary:
- *
- * ## Calculation
- *
- * The summary value needs to be calculated for each column in the grid. This is 
- * controlled by the {@link Ext.grid.column.Column#cfg-summaryType summaryType} option 
- * specified on the column. There are several built in summary types which can be 
- * specified as a string on the column configuration. These call underlying methods on 
- * the store:
- *
- *  - {@link Ext.data.Store#method-count count}
- *  - {@link Ext.data.Store#method-sum sum}
- *  - {@link Ext.data.Store#method-min min}
- *  - {@link Ext.data.Store#method-max max}
- *  - {@link Ext.data.Store#method-average average}
- *
- * Alternatively, the summaryType can be a function definition. If this is the case,
- * the function is called with two parameters:
- * 
- *  - records {Array} - an array of records
- *  - values {Array} - an array of field values to calculate the summary value
- *
- * ## Rendering
- *
- * Similar to a column, the summary also supports a 
- * {@link Ext.grid.column.Column.html#cfg-summaryRenderer summaryRenderer} function. This
- * summaryRenderer is called before displaying a value. The function is optional.  If
- * not specified, the default calculated value is shown. The summaryRenderer is called 
- * with:
- *
- *  - value {Object} - The calculated value.
- *  - summaryData {Object} - Contains all raw summary values for the row.
- *  - field {String} - The name of the field we are calculating
- *  - metaData {Object} - A collection of metadata about the current cell; can be used or 
- * modified by the renderer.
- *
- * ## Example Usage
- *
- *     @example
- *     Ext.define('TestResult', {
- *         extend: 'Ext.data.Model',
- *         fields: ['student', 'subject', {
- *             name: 'mark',
- *             type: 'int'
- *         }]
- *     });
- *
- *     Ext.create('Ext.grid.Panel', {
- *         width: 200,
- *         height: 240,
- *         renderTo: document.body,
- *         features: [{
- *             ftype: 'grouping',
- *             groupHeaderTpl: 'Subject: {name}',
- *             showSummaryRow: true
- *         }],
- *         store: {
- *             model: 'TestResult',
- *             groupField: 'subject',
- *             data: [{
- *                 student: 'Student 1',
- *                 subject: 'Math',
- *                 mark: 84
- *             },{
- *                 student: 'Student 1',
- *                 subject: 'Science',
- *                 mark: 72
- *             },{
- *                 student: 'Student 2',
- *                 subject: 'Math',
- *                 mark: 96
- *             },{
- *                 student: 'Student 2',
- *                 subject: 'Science',
- *                 mark: 68
- *             }]
- *         },
- *         columns: [{
- *             dataIndex: 'student',
- *             text: 'Name',
- *             summaryType: 'count',
- *             summaryRenderer: function(value){
- *                 return Ext.String.format('{0} student{1}', value, value !== 1 ? 's' : '');
- *             }
- *         }, {
- *             dataIndex: 'mark',
- *             text: 'Mark',
- *             summaryType: 'average'
- *         }]
- *     });
  */
 Ext.define('Ext.grid.feature.Grouping', {
     extend: 'Ext.grid.feature.Feature',
@@ -348,16 +253,6 @@ Ext.define('Ext.grid.feature.Grouping', {
      */
     collapseTip: 'Click to collapse. CTRL/click collapses all others',
 
-    /**
-     * `True` to display a summary row for each grouping.
-     * 
-     * **Note:** Requires the setting of 
-     * {@link Ext.grid.column.Column#cfg-summaryType summaryType} on each participating 
-     * grid column.  To specify the summary text you may configure the column's 
-     * {@link Ext.grid.column.Column#cfg-summaryRenderer summaryRenderer} option.  See 
-     * the Grouping Summary heading in the Grouping class description for a working 
-     * example.
-     */
     showSummaryRow: false,
 
     outerTpl: [
@@ -612,18 +507,8 @@ Ext.define('Ext.grid.feature.Grouping', {
     },
 
     vetoEvent: function(record, row, rowIndex, e) {
-        var shouldVeto = false;
-        
         // Do not veto mouseover/mouseout
         if (e.type !== 'mouseover' && e.type !== 'mouseout'  && e.type !== 'mouseenter' && e.type !== 'mouseleave' && e.getTarget(this.eventSelector)) {
-            shouldVeto = true;
-        }
-
-        if (this.showSummaryRow && !shouldVeto && e.getTarget(this.summaryRowSelector)) {
-            shouldVeto = true;
-        }
-
-        if (shouldVeto) {
             return false;
         }
     },
@@ -722,7 +607,7 @@ Ext.define('Ext.grid.feature.Grouping', {
         var me = this,
             headerCt = me.view.headerCt;
 
-        headerCt.showMenuBy = Ext.Function.createInterceptor(headerCt.showMenuBy, me.showMenuBy);
+        headerCt.showMenuBy = me.showMenuBy;
         headerCt.getMenuItems = me.getMenuItems();
     },
 
@@ -799,11 +684,11 @@ Ext.define('Ext.grid.feature.Grouping', {
             isGrouped = me.grid.getStore().isGrouped();
 
         groupMenuItem[groupMenuMeth]();
-        
         if (groupToggleMenuItem) {
             groupToggleMenuItem.setChecked(isGrouped, true);
             groupToggleMenuItem[isGrouped ?  'enable' : 'disable']();
         }
+        Ext.grid.header.Container.prototype.showMenuBy.apply(me, arguments);
     },
 
     getMenuItems: function() {
@@ -1347,7 +1232,6 @@ Ext.define('Ext.grid.feature.Grouping', {
             if (record.isCollapsedPlaceholder) {
                 groupName = group.getGroupKey();
                 items = group.items;
-                record = items[0];
 
                 rowValues.isFirstRow = rowValues.isLastRow = true;
                 rowValues.groupHeaderCls = me.hdCollapsedCls;
@@ -1355,8 +1239,8 @@ Ext.define('Ext.grid.feature.Grouping', {
                 rowValues.groupName = groupName;
                 rowValues.groupRenderInfo = groupRenderInfo;
                 groupRenderInfo.groupField = groupField;
-                groupRenderInfo.groupValue = record.get(groupField);
-                groupRenderInfo.name = groupRenderInfo.renderedGroupValue = hasRenderer ? column.renderer(groupRenderInfo.groupValue, {}, record) : groupName;
+                groupRenderInfo.name = groupRenderInfo.renderedGroupValue = hasRenderer ? column.renderer(group.getAt(0).get(groupField), {}, record) : groupName;
+                groupRenderInfo.groupValue = items[0].get(groupField);
                 groupRenderInfo.columnName = header ? header.text : groupField;
                 rowValues.collapsibleCls = me.collapsible ? me.collapsibleCls : me.hdNotCollapsibleCls;
                 groupRenderInfo.rows = groupRenderInfo.children = items;
@@ -1462,7 +1346,7 @@ Ext.define('Ext.grid.feature.Grouping', {
     },
 
     /**
-     * Used by the Grouping Feature when {@link #cfg!showSummaryRow} is `true`.
+     * Used by the Grouping Feature when {@link #showSummaryRow} is `true`.
      *
      * Generates group summary data for the whole store.
      * @private

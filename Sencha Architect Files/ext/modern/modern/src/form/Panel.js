@@ -14,7 +14,7 @@
  * ## Submitting Forms
  *
  * Using the {@link Ext.field.Panel fieldpanel} class data can be saved to the server using
- * the {@link Ext.data.Model#method!save save method} of a record. With `formpanel`,
+ * the {@link Ext.data.Model!method-save save method} of a record. With `formpanel`,
  * however, you can use its submit method.
  *
  *      var panel = Ext.create({
@@ -174,8 +174,14 @@ Ext.define('Ext.form.Panel', {
      * @private
      */
     initialize: function () {
-        this.callParent();
-        this.element.on('submit', 'onSubmit', this);
+        var me = this;
+
+        me.callParent();
+
+        me.element.on({
+            submit: 'onSubmit',
+            scope : me
+        });
     },
 
     applyEnctype: function (newValue) {
@@ -309,11 +315,12 @@ Ext.define('Ext.form.Panel', {
      * The failed response or result object returned by the server which performed the
      * operation.
      *
+     * @param {Object} options.success.data
+     * The parsed data returned by the server.
+     *
      * @param {Object} options.scope
      * The scope in which to call the callback functions (The `this` reference for the
      * callback functions).
-     *
-     * @param e
      *
      * @return {Ext.data.Connection} The request object if the {@link #standardSubmit}
      * config is false. If `standardSubmit` is `true`, then the return value is undefined.
@@ -544,7 +551,7 @@ Ext.define('Ext.form.Panel', {
          */
         createSubmissionForm: function (form, values) {
             var fields = this.getFields(),
-                name, input, field, fileTrigger, inputDom;
+                name, input, field, inputDom;
 
             if (form.nodeType === 1) {
                 form = form.cloneNode(false);
@@ -562,17 +569,13 @@ Ext.define('Ext.form.Panel', {
                 if (fields.hasOwnProperty(name)) {
                     field = fields[name];
                     if(field.isFile) {
-                        // The <input type="file"> of a FileField is its "file" trigger button.
-                        fileTrigger = field.getTriggers().file;
-                        inputDom = fileTrigger && fileTrigger.getComponent().buttonElement.dom;
+                        if(!form.$fileswap) form.$fileswap = [];
 
-                        if (inputDom) {
-                            if(!form.$fileswap) form.$fileswap = [];
-                            input = inputDom.cloneNode(true);
-                            inputDom.parentNode.insertBefore(input, inputDom.nextSibling);
-                            form.appendChild(inputDom);
-                            form.$fileswap.push({original: inputDom, placeholder: input});
-                        }
+                        inputDom = field.inputElement.dom;
+                        input = inputDom.cloneNode(true);
+                        inputDom.parentNode.insertBefore(input, inputDom.nextSibling);
+                        form.appendChild(inputDom);
+                        form.$fileswap.push({original: inputDom, placeholder: input});
                     } else if(field.isPassword) {
                         if(field.getInputType() !== "password") {
                             field.setRevealed(false);

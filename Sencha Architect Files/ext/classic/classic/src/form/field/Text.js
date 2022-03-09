@@ -107,18 +107,11 @@ Ext.define('Ext.form.field.Text', {
     extend:'Ext.form.field.Base',
     alias: 'widget.textfield',
     requires: [
-        'Ext.layout.component.field.Text',
         'Ext.form.field.VTypes',
         'Ext.form.trigger.Trigger',
         'Ext.util.TextMetrics'
     ],
     alternateClassName: ['Ext.form.TextField', 'Ext.form.Text'],
-
-    /**
-     * @cfg componentLayout
-     * @inheritdoc
-     */
-    componentLayout: 'textfield',
 
     config: {
         /**
@@ -224,7 +217,7 @@ Ext.define('Ext.form.field.Text', {
      * An initial value for the 'size' attribute on the text input element. This is only
      * used if the field has no configured {@link #width} and is not given a width by its
      * container's layout. Defaults to 20.
-     * @deprecated 6.5.0 Please use {@link #width} instead.
+     * @deprecated use {@link #width} instead.
      */
 
     /**
@@ -245,6 +238,16 @@ Ext.define('Ext.form.field.Text', {
     growMax : 800,
 
     /**
+     * @cfg {String} growAppend
+     * A string that will be appended to the field's current value for the purposes of calculating the target field
+     * size. Only used when the {@link #grow} config is true. Defaults to a single capital "W" (the widest character in
+     * common fonts) to leave enough space for the next typed character and avoid the field value shifting before the
+     * width is adjusted.
+     * @locale
+     */
+    growAppend: 'W',
+
+    /**
      * @cfg {String} vtype
      * A validation type name as defined in {@link Ext.form.field.VTypes}
      */
@@ -262,7 +265,7 @@ Ext.define('Ext.form.field.Text', {
      */
 
     /**
-     * @cfg {Boolean} allowBlank
+     * @cfg {Boolean} [allowBlank=true]
      * Specify false to validate that the value's length must be > 0. If `true`, then a blank value is **always** taken to be valid regardless of any {@link #vtype}
      * validation that may be applied.
      *
@@ -271,7 +274,7 @@ Ext.define('Ext.form.field.Text', {
     allowBlank : true,
 
     /**
-     * @cfg {Boolean} validateBlank
+     * @cfg {Boolean} [validateBlank=false]
      * Specify as `true` to modify the behaviour of {@link #allowBlank} so that blank values are not passed as valid, but are subject to any configure {@link #vtype} validation.
      */
     validateBlank: false,
@@ -391,7 +394,7 @@ Ext.define('Ext.form.field.Text', {
     emptyText : '',
 
     /**
-     * @cfg {String} emptyCls
+     * @cfg {String} [emptyCls='x-form-empty-field']
      * The CSS class to apply to an empty field to style the **{@link #emptyText}**.
      * This class is automatically added and removed as needed depending on the current field value.
      */
@@ -405,7 +408,7 @@ Ext.define('Ext.form.field.Text', {
      placeholderCoverCls: Ext.baseCSSPrefix + 'placeholder-label',
 
     /**
-     * @cfg {String} requiredCls
+     * @cfg {String} [requiredCls='x-form-required-field']
      * The CSS class to apply to a required field, i.e. a field where **{@link #allowBlank}** is false.
      */
     requiredCls : Ext.baseCSSPrefix + 'form-required-field',
@@ -415,17 +418,13 @@ Ext.define('Ext.form.field.Text', {
      * true to enable the proxying of key events for the HTML input field
      */
 
-    /**
-     * @property ariaRole
-     * @inheritdoc
-     */
     ariaRole: 'textbox',
 
     /**
      * @cfg {Boolean} repeatTriggerClick
      * `true` to attach a {@link Ext.util.ClickRepeater click repeater} to the trigger(s).
      * Click repeating behavior can also be configured on the individual {@link #triggers
-     * trigger instances} using the trigger's {@link Ext.form.trigger.Trigger#repeatClick
+     * trigger instances using the trigger's {@link {Ext.form.trigger.Trigger#repeatClick
      * repeatClick} config.
      */
     repeatTriggerClick: false,
@@ -453,10 +452,6 @@ Ext.define('Ext.form.field.Text', {
     triggerWrapFocusCls: Ext.baseCSSPrefix + 'form-trigger-wrap-focus',
     triggerWrapInvalidCls: Ext.baseCSSPrefix + 'form-trigger-wrap-invalid',
 
-    /**
-     * @cfg fieldBodyCls
-     * @inheritdoc
-     */
     fieldBodyCls: Ext.baseCSSPrefix + 'form-text-field-body',
 
     /**
@@ -468,7 +463,6 @@ Ext.define('Ext.form.field.Text', {
     inputWrapFocusCls: Ext.baseCSSPrefix + 'form-text-wrap-focus',
     inputWrapInvalidCls: Ext.baseCSSPrefix + 'form-text-wrap-invalid',
     growCls: Ext.baseCSSPrefix + 'form-text-grow',
-    heightedCls: Ext.baseCSSPrefix + 'form-text-heighted',
 
     /* 
      * @private
@@ -478,10 +472,19 @@ Ext.define('Ext.form.field.Text', {
     
     needArrowKeys: true,
 
-    /**
-     * @cfg childEls
-     * @inheritdoc
-     */
+    // Listener block to preventDefault on the mouseup event..
+    // Observable rejects Ext.emptyFn as a no-op and the listener does not get added so the default does not get prevented.
+    // We do not want touchend events translated into mouseup, we only want to prevent default on real mouseup events.
+    squashMouseUp: {
+        mouseup: function(e) {
+            if (this.selectOnFocus) {
+                this.inputEl.dom.select();
+            }
+        },
+        single: true,
+        preventDefault: true
+    },
+
     childEls: [
         /**
          * @property {Ext.dom.Element} triggerWrap
@@ -595,6 +598,12 @@ Ext.define('Ext.form.field.Text', {
 
         me.callParent();
 
+        // Workaround for https://code.google.com/p/chromium/issues/detail?id=4505
+        // On mousedown, add a single: true mouseup listener which prevents default.
+        // That will prevent deselection of the text that was selected in the onFocus method.
+        if (me.selectOnFocus || me.emptyText) {
+            me.mon(el, 'mousedown', me.onMouseDown, me);
+        }
         if (me.maskRe || (me.vtype && me.disableKeyFilter !== true && (me.maskRe = Ext.form.field.VTypes[me.vtype+'Mask']))){
             me.mon(el, 'keypress', me.filterKeys, me);
         }
@@ -669,18 +678,6 @@ Ext.define('Ext.form.field.Text', {
         return data;
     },
 
-    beforeRender: function() {
-        var me = this,
-            heighted = me.height != null || me.minHeight != null ||
-                !!(me.ownerLayout && me.ownerLayout.getItemSizePolicy(me, me.fakeSizeModel).setsHeight);
-
-        if (heighted) {
-            me.protoEl.addCls(me.heightedCls);
-        }
-
-        me.callParent();
-    },
-
     onRender: function() {
         var me = this,
             triggers = me.getTriggers(),
@@ -721,8 +718,6 @@ Ext.define('Ext.form.field.Text', {
          * @deprecated 5.0 use {@link #inputWrap} instead
          */
         me.inputCell = me.inputWrap;
-
-        me.refreshEmptyText();
     },
 
     onResize: function(width, height, oldWidth, oldHeight) {
@@ -747,6 +742,17 @@ Ext.define('Ext.form.field.Text', {
 
         if (!me.liquidLayout) {
             this.autoSize();
+        }
+    },
+
+    onMouseDown: function(){
+        if (!this.hasFocus) {
+            // On the next mouseup, prevent default.
+            // 99% of the time, it will be the mouseup of the click into the field, and 
+            // We will be preventing deselection of selected text: https://code.google.com/p/chromium/issues/detail?id=4505
+            // Listener is on the doc in case the pointer moves out before user lets go.
+            this.squashMouseUp.scope = this;
+            Ext.getDoc().on(this.squashMouseUp);
         }
     },
 
@@ -839,7 +845,6 @@ Ext.define('Ext.form.field.Text', {
     /**
      * Invokes a method on all triggers.
      * @param {String} methodName
-     * @param args
      * @private
      */
     invokeTriggers: function(methodName, args) {
@@ -867,18 +872,9 @@ Ext.define('Ext.form.field.Text', {
         return this.getTriggers()[id];
     },
 
-    updateMinHeight: function(minHeight, oldMinHeight) {
-        this.callParent([minHeight, oldMinHeight]);
-        this.toggleCls(Ext.baseCSSPrefix + 'has-min-height', !!minHeight);
-    },
-
     updateInputMask: function (inputMask, previous) {
         if (previous) {
             previous.release();
-        }
-
-        if (inputMask) {
-            this.enableKeyEvents = true;
         }
     },
 
@@ -1144,11 +1140,7 @@ Ext.define('Ext.form.field.Text', {
             value = inputEl.value;
             len = value.length;
 
-            // We need a minimal delay here due to a bug that will deselect
-            // the text on mouseup + focus.
-            // https://code.google.com/p/chromium/issues/detail?id=4505
-            // Note: This was fixed years ago but still persists in Safari, IE and Edge.
-            Ext.asap(me.selectText, me, [0, len]);
+            me.selectText(0, len);
         }
     },
 
@@ -1157,13 +1149,9 @@ Ext.define('Ext.form.field.Text', {
      */
     onBlur: function(e) {
         var me = this,
-            inputEl = me.inputEl.dom,
-            inputMask = me.getInputMask(),
-            value;
+            inputMask = me.getInputMask();
 
         me.callParent([e]);
-
-        value = inputEl && inputEl.value;
 
         me.removeCls(me.fieldFocusCls);
         me.triggerWrap.removeCls(me.triggerWrapFocusCls);
@@ -1346,10 +1334,8 @@ Ext.define('Ext.form.field.Text', {
      * @chainable
      */
     selectText: function (start, end, direction) {
-        if (!this.destroyed) {
-            this.inputEl.selectText(start, end, direction);
-            return this;
-        }
+        this.inputEl.selectText(start, end, direction);
+        return this;
     },
 
     // Template method, override in Combobox.
@@ -1374,9 +1360,7 @@ Ext.define('Ext.form.field.Text', {
             value = Ext.util.Format.htmlEncode(
                 me.getGrowWidth() || (me.hasFocus ? '' : me.emptyText) || ''
             );
-
-            // Translate spaces to non-breaking spaces
-            value = value.replace(/\s/g, '&nbsp;');
+            value += me.growAppend;
 
             for (triggerId in triggers) {
                 triggerWidth += triggers[triggerId].el.getWidth();
@@ -1385,7 +1369,7 @@ Ext.define('Ext.form.field.Text', {
             width = inputEl.getTextWidth(value) +  triggerWidth +
                 // The element that has the border depends on theme - inputWrap (classic)
                 // or triggerWrap (neptune)
-                me.inputWrap.getBorderWidth('lr') + me.triggerWrap.getBorderWidth('lr') + inputEl.getPadding('lr');
+                me.inputWrap.getBorderWidth('lr') + me.triggerWrap.getBorderWidth('lr');
 
             width = Math.min(Math.max(width, me.growMin), me.growMax);
 
@@ -1425,7 +1409,7 @@ Ext.define('Ext.form.field.Text', {
                  * @method getTriggerWidth
                  * Get the total width of the trigger button area.
                  * @return {Number} The total trigger width
-                 * @deprecated 5.0 This method was removed.
+                 * @deprecated 5.0
                  */
                 getTriggerWidth: function() {
                     var triggers = this.getTriggers(),
@@ -1445,8 +1429,4 @@ Ext.define('Ext.form.field.Text', {
         }
     }
 
-}, function(TextField) {
-    var calculated = Ext.layout.SizeModel.calculated;
-        
-    TextField.prototype.fakeSizeModel = calculated.pairsByHeightOrdinal[calculated.ordinal];
 });

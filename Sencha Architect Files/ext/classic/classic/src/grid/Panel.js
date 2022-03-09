@@ -214,29 +214,19 @@ Ext.define('Ext.grid.Panel', {
     alias: ['widget.gridpanel', 'widget.grid'],
     alternateClassName: ['Ext.list.ListView', 'Ext.ListView', 'Ext.grid.GridPanel'],
     
-    /**
-     * @cfg viewType
-     * @inheritdoc
-     */
     viewType: 'tableview',
-    
-    /**
-     * @property ariaRole
-     * @inheritdoc
-     */
     ariaRole: 'grid',
 
     lockable: false,
 
     /**
-     * @cfg {Boolean} rowLines
-     * False to remove row line styling
+     * @cfg {Boolean} rowLines False to remove row line styling
      */
     rowLines: true
 
     // Columns config is required in Grid
     /**
-     * @cfg columns (required)
+     * @cfg {Ext.grid.column.Column[]/Object} columns (required)
      * @inheritdoc
      */
 

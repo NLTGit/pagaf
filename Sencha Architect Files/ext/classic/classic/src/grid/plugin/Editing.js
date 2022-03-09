@@ -532,15 +532,17 @@ Ext.define('Ext.grid.plugin.Editing', {
      * Collects all information necessary for any subclasses to perform their editing functions.
      * @param {Ext.data.Model/Number} record The record or record index to edit.
      * @param {Ext.grid.column.Column/Number} columnHeader The column of column index to edit.
-     * @param {Boolean} horizontalScroll True to scroll horizontally and display the Cell in the editing context
      * @return {Ext.grid.CellContext/undefined} The editing context based upon the passed record and column
      */
-    getEditingContext: function(record, columnHeader, horizontalScroll) {
+    getEditingContext: function(record, columnHeader) {
         var me = this,
             grid = me.grid,
             colMgr = grid.visibleColumnManager,
-            layoutView = me.grid.lockable ? me.grid : me.view,
-            view, gridRow, rowIdx, colIdx, result;
+            view,
+            gridRow,
+            rowIdx, colIdx,
+            result,
+            layoutView = me.grid.lockable ? me.grid : me.view;
 
         // The view must have had a layout to show the editor correctly, defer until that time.
         // In case a grid's startup code invokes editing immediately.
@@ -585,8 +587,8 @@ Ext.define('Ext.grid.plugin.Editing', {
         }
 
         // Ensure the row we want to edit is in the rendered range if the view is buffer rendered
-        grid.ensureVisible(record,{
-            column: horizontalScroll ? columnHeader : null
+        grid.ensureVisible(record, {
+            column : columnHeader
         });
         
         gridRow = view.getRow(record);

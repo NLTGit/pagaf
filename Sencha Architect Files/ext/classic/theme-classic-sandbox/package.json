@@ -1,6 +1,6 @@
 {
     "name": "@extjs/ext-react-classic-theme-classic-sandbox",
-    "version": "6.5.3.57",
+    "version": "6.5.0.775",
     "sencha": {
         "name": "theme-classic-sandbox",
         "namespace": "Ext",
@@ -14,7 +14,7 @@
         "creator": "Sencha",
         "summary": "Ext JS Classic Sandbox Theme",
         "detailedDescription": "The same visuals as the Classic Theme but in a CSS sandbox",
-        "version": "6.5.3.57",
+        "version": "6.5.0",
         "compatVersion": "6.0.0",
         "format": "1",
         "output": "${workspace.subpkg.prefix}/${package.name}",

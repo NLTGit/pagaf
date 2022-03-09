@@ -44,10 +44,6 @@ Ext.define('Ext.ux.colorpick.Selector', {
         'Ext.ux.colorpick.SliderValue',
         'Ext.ux.colorpick.SliderHue'
     ],
-    
-    config: {
-        hexReadOnly: true
-    },
 
     width: 580, // default width and height gives 255x255 color map in Crisp
     height: 337,
@@ -137,7 +133,7 @@ Ext.define('Ext.ux.colorpick.Selector', {
             me.setColor(color);
         });
 
-        me.callParent([config]);
+        me.callParent(arguments);
     },
 
     updateColor: function (color) {
@@ -196,8 +192,7 @@ Ext.define('Ext.ux.colorpick.Selector', {
                         labelSeparator: '',
                         allowBlank: false,
 
-                        onChange: function () {
-                            // prevent data binding propagation if bad value
+                        onChange: function () { // prevent data binding propagation if bad value
                             if (this.isValid()) {
                                 // this is kind of dirty and ideally we would extend these fields
                                 // and override the method, but works for now
@@ -212,8 +207,7 @@ Ext.define('Ext.ux.colorpick.Selector', {
                         flex       : 1,
                         bind       : '{hex}',
                         margin     : fieldMargin,
-                        regex      : /^#[0-9a-f]{6}$/i,
-                        readonly   : me.getHexReadOnly()
+                        readOnly   : true
                     }, {
                         xtype       : 'numberfield',
                         fieldLabel  : 'R',

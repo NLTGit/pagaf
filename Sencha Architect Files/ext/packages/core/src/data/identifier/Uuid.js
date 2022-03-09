@@ -57,9 +57,8 @@ Ext.define('Ext.data.identifier.Uuid', {
 
     config: {
         /**
-         * @cfg {String} id
          * The id for this generator instance. By default all model instances share the same
-         * UUID generator instance. By specifying an id other than 'uuid', a unique generator instance
+         * UUID generator instance. By specifying an id other then 'uuid', a unique generator instance
          * will be created for the Model.
          */
         id: null

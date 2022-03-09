@@ -479,14 +479,13 @@ var TemplateClass = function(){},
      */
     merge: function(destination) {
         var i = 1,
-            args = arguments,
-            ln = args.length,
+            ln = arguments.length,
             mergeFn = ExtObject.merge,
             cloneFn = Ext.clone,
             object, key, value, sourceKey;
 
         for (; i < ln; i++) {
-            object = args[i];
+            object = arguments[i];
 
             for (key in object) {
                 value = object[key];

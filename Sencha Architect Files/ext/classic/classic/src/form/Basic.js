@@ -349,7 +349,7 @@ Ext.define('Ext.form.Basic', {
         var me = this,
             mon = me.monitor;
 
-        Ext.undefer(me.actionTimer);
+        clearTimeout(me.actionTimer);
         if (mon) {
             mon.unbind();
             me.monitor = null;
@@ -877,7 +877,7 @@ Ext.define('Ext.form.Basic', {
     /**
      * Find a specific {@link Ext.form.field.Field} in this form by id or name.
      * @param {String} id The value to search for (specify either a {@link Ext.Component#id id} or
-     * {@link Ext.form.field.Field#method!getName name} or hiddenName).
+     * {@link Ext.form.field.Field#getName name or hiddenName}).
      * @return {Ext.form.field.Field} The first matching field, or `null` if none was found.
      */
     findField: function (id) {
@@ -1063,7 +1063,6 @@ Ext.define('Ext.form.Basic', {
      * @param {Boolean} [useDataValues=false] If true, the {@link Ext.form.field.Field#getModelData getModelData}
      * method is used to retrieve values from fields, otherwise the {@link Ext.form.field.Field#getSubmitData getSubmitData}
      * method is used.
-     * @param {Boolean} isSubmitting
      * @return {String/Object}
      */
     getValues: function(asString, dirtyOnly, includeEmptyText, useDataValues, isSubmitting) {

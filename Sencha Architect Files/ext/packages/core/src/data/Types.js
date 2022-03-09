@@ -128,7 +128,6 @@ Ext.define('Ext.data.Types', {
     });
 
     /**
-     * @member Ext.data.Types
      * @property {Object} BOOLEAN
      * This data type means that the raw data is converted into a boolean before it is placed into
      * a Record. The string "true" and the number 1 are converted to boolean `true`.
@@ -138,7 +137,6 @@ Ext.define('Ext.data.Types', {
     Types.BOOLEAN = Types.BOOL;
 
     /**
-     * @member Ext.data.Types
      * @property {Object} INTEGER
      * This data type means that the raw data is converted into an integer before it is placed into a Record.
      *
@@ -147,7 +145,6 @@ Ext.define('Ext.data.Types', {
     Types.INTEGER = Types.INT;
 
     /**
-     * @member Ext.data.Types
      * @property {Object} NUMBER
      * This data type means that the raw data is converted into a number before it is placed into a Record.
      *

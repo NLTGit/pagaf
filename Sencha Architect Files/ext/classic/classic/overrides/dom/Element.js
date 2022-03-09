@@ -2,7 +2,6 @@
  * @class Ext.dom.Element
  * @override Ext.dom.Element
  */
-
 Ext.define('Ext.overrides.dom.Element', (function() {
     var Element, // we cannot do this yet "= Ext.dom.Element"
         WIN = window,
@@ -67,8 +66,8 @@ Ext.define('Ext.overrides.dom.Element', (function() {
             }
             return visMode;
         },
-        emptyRange = DOC.createRange ? DOC.createRange() : null,
-        syncContentFly;
+        syncContentFly,
+        emptyRange = DOC.createRange ? DOC.createRange() : null;
 
     //<feature legacyBrowser>
     if (Ext.isIE8) {
@@ -415,7 +414,7 @@ Ext.define('Ext.overrides.dom.Element', (function() {
          *     // for how to create a custom box wrap style.
          *     Ext.get("foo").boxWrap().addCls("x-box-blue");
          *
-         * @param {String} [cls='x-box'] A base CSS class to apply to the containing wrapper element.
+         * @param {String} [class='x-box'] A base CSS class to apply to the containing wrapper element.
          * Note that there are a number of CSS rules that are dependent on this name to make the overall effect work,
          * so if you supply an alternate base class, make sure you also supply all of the necessary rules.
          * @return {Ext.dom.Element} The outermost wrapping element of the created box structure.
@@ -583,7 +582,7 @@ Ext.define('Ext.overrides.dom.Element', (function() {
             }
             
             if (me.deferredFocusTimer) {
-                Ext.undefer(me.deferredFocusTimer);
+                clearTimeout(me.deferredFocusTimer);
                 me.deferredFocusTimer = null;
             }
 
@@ -657,12 +656,12 @@ Ext.define('Ext.overrides.dom.Element', (function() {
          * @param {Object} options (optional) Object literal with any of the {@link Ext.fx.Anim} config options
          * @return {Ext.dom.Element} The Element
          */
-        fadeIn: function(options) {
+        fadeIn: function(o) {
             var me = this,
                 dom = me.dom,
                 animFly = new Ext.dom.Fly();
                 
-            me.animate(Ext.apply({}, options, {
+            me.animate(Ext.apply({}, o, {
                 opacity: 1,
                 internalListeners: {
                     beforeanimate: function(anim) {
@@ -706,12 +705,12 @@ Ext.define('Ext.overrides.dom.Element', (function() {
          * @param {Object} options (optional) Object literal with any of the {@link Ext.fx.Anim} config options
          * @return {Ext.dom.Element} The Element
          */
-        fadeOut: function(options) {
+        fadeOut: function(o) {
             var me = this,
                 dom = me.dom,
                 animFly = new Ext.dom.Fly();
                 
-            options = Ext.apply({
+            o = Ext.apply({
                 opacity: 0,
                 internalListeners: {
                     afteranimate: function(anim) {
@@ -723,7 +722,7 @@ Ext.define('Ext.overrides.dom.Element', (function() {
                             // Reattach to the DOM in case the caller animated a Fly
                             // in which case the dom reference will have changed by now.
                             animFly.attach(dom);
-                            if (options.useDisplay) {
+                            if (o.useDisplay) {
                                 animFly.setDisplayed(false);
                             } else {
                                 animFly.hide();
@@ -731,8 +730,8 @@ Ext.define('Ext.overrides.dom.Element', (function() {
                         }         
                     }
                 }
-            }, options);
-            me.animate(options);
+            }, o);
+            me.animate(o);
             return me;
         },
 
@@ -767,7 +766,7 @@ Ext.define('Ext.overrides.dom.Element', (function() {
          *
          * @param {String} [color='#C3DAF9'] The hex color value for the border.
          * @param {Number} [count=1] The number of ripples to display.
-         * @param {Object} [obj] Object literal with any of the {@link Ext.fx.Anim} config options
+         * @param {Object} [options] Object literal with any of the {@link Ext.fx.Anim} config options
          * @return {Ext.dom.Element} The Element
          */
         frame: function(color, count, obj){
@@ -930,11 +929,11 @@ Ext.define('Ext.overrides.dom.Element', (function() {
          *         duration: 500
          *     });
          *
-         * @param {String} [anchor] One of the valid {@link Ext.fx.Anim} anchor positions (defaults to bottom: 'b')
-         * @param {Object} [options] Object literal with any of the {@link Ext.fx.Anim} config options
+         * @param {String} anchor (optional) One of the valid {@link Ext.fx.Anim} anchor positions (defaults to bottom: 'b')
+         * @param {Object} options (optional) Object literal with any of the {@link Ext.fx.Anim} config options
          * @return {Ext.dom.Element} The Element
          */
-        ghost: function(anchor, options) {
+        ghost: function(anchor, obj) {
             var me = this,
                 dom = me.dom,
                 animFly = new Ext.dom.Fly(),
@@ -998,7 +997,7 @@ Ext.define('Ext.overrides.dom.Element', (function() {
                 });
             };
 
-            me.animate(Ext.applyIf(options || {}, {
+            me.animate(Ext.applyIf(obj || {}, {
                 duration: 500,
                 easing: 'ease-out',
                 listeners: {
@@ -1029,6 +1028,7 @@ Ext.define('Ext.overrides.dom.Element', (function() {
         //</feature>
 
         /**
+         * @override
          * Hide this element - Uses display mode to determine whether to use "display",
          * "visibility", "offsets", or "clip". See {@link #setVisible}.
          * @param {Boolean/Object} [animate] true for the default animation or a standard
@@ -1069,28 +1069,28 @@ Ext.define('Ext.overrides.dom.Element', (function() {
          * @param {Object} options (optional) Object literal with any of the {@link Ext.fx.Anim} config options
          * @return {Ext.dom.Element} The Element
          */
-        highlight: function(color, options) {
+        highlight: function(color, o) {
             var me = this,
                 dom = me.dom,
                 from = {},
                 animFly = new Ext.dom.Fly(),
                 restore, to, attr, lns, event, fn;
 
-            options = options || {};
-            lns = options.listeners || {};
-            attr = options.attr || 'backgroundColor';
+            o = o || {};
+            lns = o.listeners || {};
+            attr = o.attr || 'backgroundColor';
             from[attr] = color || 'ffff9c';
 
-            if (!options.to) {
+            if (!o.to) {
                 to = {};
-                to[attr] = options.endColor || me.getColor(attr, 'ffffff', '');
+                to[attr] = o.endColor || me.getColor(attr, 'ffffff', '');
             }
             else {
-                to = options.to;
+                to = o.to;
             }
 
             // Don't apply directly on lns, since we reference it in our own callbacks below
-            options.listeners = Ext.apply(Ext.apply({}, lns), {
+            o.listeners = Ext.apply(Ext.apply({}, lns), {
                 beforeanimate: function() {
                     // Reattach to the DOM in case the caller animated a Fly
                     // in which case the dom reference will have changed by now.
@@ -1119,7 +1119,7 @@ Ext.define('Ext.overrides.dom.Element', (function() {
                 }
             });
 
-            me.animate(Ext.apply({}, options, {
+            me.animate(Ext.apply({}, o, {
                 duration: 1000,
                 easing: 'ease-in',
                 from: from,
@@ -1210,16 +1210,15 @@ Ext.define('Ext.overrides.dom.Element', (function() {
         },
 
         /**
-         * Puts a mask over this element to disable user interaction.
-         * This method can only be applied to elements which accept child nodes. Use
-         * {@link #unmask} to remove the mask.
-         *
-         * @param {String} [msg] A message to display in the mask
-         * @param {String} [msgCls] A css class to apply to the msg element
-         * @param {Number} elHeight (private) Passed by AbstractComponent.mask to avoid the need to interrogate the DOM to get the height
-         * @return {Ext.dom.Element} The mask element
-         */
-        mask: function (msg, msgCls, elHeight) {
+        * Puts a mask over this element to disable user interaction.
+        * This method can only be applied to elements which accept child nodes. Use 
+        * {@link #unmask} to remove the mask.
+        * 
+        * @param {String} [msg] A message to display in the mask
+        * @param {String} [msgCls] A css class to apply to the msg element
+        * @return {Ext.dom.Element} The mask element
+        */
+        mask: function (msg, msgCls /* private - passed by AbstractComponent.mask to avoid the need to interrogate the DOM to get the height*/, elHeight) {
             var me = this,
                 dom = me.dom,
                 data = me.getData(),
@@ -1287,6 +1286,70 @@ Ext.define('Ext.overrides.dom.Element', (function() {
         },
 
         /**
+         * Measures and returns the size of this element. When `dimension` is `null` (or
+         * not specified), this will be an object with `width` and `height` properties.
+         *
+         * If `dimension` is `'w'` the value returned will be this element's width. If
+         * `dimension` is `'h'` the returned value will be this element's height.
+         *
+         * Unlike `getWidth` and `getHeight` this method only returns "precise" (sub-pixel)
+         * sizes based on the `getBoundingClientRect` API.
+         *
+         * @param {'w'/'h'} [dimension] Specifies which dimension is desired. If omitted
+         * then an object with `width` and `height` properties is returned.
+         * @return {Number/Object} This element's width, height or both as a readonly
+         * object. This object may be the direct result of `getBoundingClientRect` and
+         * hence immutable on some browsers.
+         * @private
+         * @since 6.5.0
+         */
+        measure: function (dimension) {
+            var me = this,
+                dom = me.dom,
+                includeWidth = dimension !== 'h',
+                includeHeight = dimension !== 'w',
+                height, rect, width;
+
+            // Use the viewport height if they are asking for body height
+            if (dom.nodeName === 'BODY') {
+                height = includeHeight && Element.getViewportHeight();
+                width = includeWidth && Element.getViewportWidth();
+                rect = dimension ? null : { width: width, height: height };
+            }
+            else {
+                rect = dom.getBoundingClientRect();
+
+                if (Ext.isIE8) {
+                    // IE8 does not provide width/height *and* the rect is readonly
+                    rect = {
+                        width: rect.right - rect.left,
+                        height: rect.bottom - rect.top
+                    };
+                }
+
+                height = rect.height;
+                width = rect.width;
+
+                // IE9/10 Direct2D dimension rounding bug
+                if (Ext.supports.Direct2DBug) {
+                    if (includeHeight) {
+                        height += me.adjustDirect2DDimension(HEIGHT);
+                    }
+
+                    if (includeWidth) {
+                        width += me.adjustDirect2DDimension(WIDTH);
+                    }
+
+                    rect = dimension ? null : { width: width, height: height };
+                }
+            }
+
+            // NOTE: The modern override ignores all these IE8/9/10 issues
+
+            return dimension ? (includeWidth ? width : height) : rect;
+        },
+
+        /**
          * Fades the element out while slowly expanding it in all directions. When the effect is completed, the element will
          * be hidden (visibility = 'hidden') but block elements will still take up space in the document. Usage:
          *
@@ -1300,7 +1363,7 @@ Ext.define('Ext.overrides.dom.Element', (function() {
          *         useDisplay: false
          *     });
          *
-         * @param {Object} obj (optional) Object literal with any of the {@link Ext.fx.Anim} config options
+         * @param {Object} options (optional) Object literal with any of the {@link Ext.fx.Anim} config options
          * @return {Ext.dom.Element} The Element
          */
         puff: function(obj) {
@@ -1501,20 +1564,23 @@ Ext.define('Ext.overrides.dom.Element', (function() {
             html += '<span id="' + id + '" role="presentation"></span>';
 
             interval = Ext.interval(function() {
-                var hd, match, attrs, srcMatch, typeMatch, el, s;
-
+                var hd,
+                    match,
+                    attrs,
+                    srcMatch,
+                    typeMatch,
+                    el,
+                    s;
                 if (!(el = DOC.getElementById(id))) {
                     return false;
                 }
-
-                Ext.uninterval(interval);
+                clearInterval(interval);
                 Ext.removeNode(el);
                 hd = Ext.getHead().dom;
 
                 while ((match = scriptTagRe.exec(html))) {
                     attrs = match[1];
                     srcMatch = attrs ? attrs.match(srcRe) : false;
-
                     if (srcMatch && srcMatch[2]) {
                        s = DOC.createElement("script");
                        s.src = srcMatch[2];
@@ -1523,8 +1589,7 @@ Ext.define('Ext.overrides.dom.Element', (function() {
                            s.type = typeMatch[2];
                        }
                        hd.appendChild(s);
-                    }
-                    else if (match[2] && match[2].length > 0) {
+                    } else if (match[2] && match[2].length > 0) {
                         if (scope) {
                             Ext.functionFactory(match[2]).call(scope);
                         } else {
@@ -1532,10 +1597,8 @@ Ext.define('Ext.overrides.dom.Element', (function() {
                         }
                     }
                 }
-
                 Ext.callback(callback, scope || me);
             }, 20);
-
             dom.innerHTML = html.replace(replaceScriptTagRe, '');
             return me;
         },
@@ -1576,7 +1639,7 @@ Ext.define('Ext.overrides.dom.Element', (function() {
 
         /**
          * Set positioning with an object returned by `getPositioning`.
-         * @param {Object} pc
+         * @param {Object} posCfg
          * @return {Ext.dom.Element} this
          */
         setPositioning: function(pc) {
@@ -1858,15 +1921,14 @@ Ext.define('Ext.overrides.dom.Element', (function() {
          *         duration: 500
          *     });
          *
-         * @param {String} [anchor] One of the valid {@link Ext.fx.Anim} anchor positions (defaults to top: 't')
-         * @param {Object} [options] Object literal with any of the {@link Ext.fx.Anim} config options
+         * @param {String} anchor (optional) One of the valid {@link Ext.fx.Anim} anchor positions (defaults to top: 't')
+         * @param {Object} options (optional) Object literal with any of the {@link Ext.fx.Anim} config options
          * @param {Boolean} options.preserveScroll Set to true if preservation of any descendant elements'
          * `scrollTop` values is required. By default the DOM wrapping operation performed by `slideIn` and
          * `slideOut` causes the browser to lose all scroll positions.
-         * @param {Boolean} slideOut
          * @return {Ext.dom.Element} The Element
          */
-        slideIn: function(anchor, options, slideOut) {
+        slideIn: function(anchor, obj, slideOut) {
             var me = this,
                 dom = me.dom,
                 elStyle = dom.style,
@@ -1877,7 +1939,7 @@ Ext.define('Ext.overrides.dom.Element', (function() {
                 wrapDomParentNode;
 
             anchor = anchor || "t";
-            options = options || {};
+            obj = obj || {};
 
             beforeAnim = function() {
                 // Reattach to the DOM in case the caller animated a Fly
@@ -1885,7 +1947,7 @@ Ext.define('Ext.overrides.dom.Element', (function() {
                 animFly.attach(dom);
 
                 var animScope = this,
-                    listeners = options.listeners,
+                    listeners = obj.listeners,
                     box, originalStyles, anim, wrap;
 
                 if (!slideOut) {
@@ -1904,7 +1966,7 @@ Ext.define('Ext.overrides.dom.Element', (function() {
                 animFly.setSize(box.width, box.height);
 
                 // Cache all descendants' scrollTop & scrollLeft values if configured to preserve scroll.
-                if (options.preserveScroll) {
+                if (obj.preserveScroll) {
                     restoreScroll = animFly.cacheScrollValues();
                 }
 
@@ -2062,7 +2124,7 @@ Ext.define('Ext.overrides.dom.Element', (function() {
                 }
 
                 wrap.show();
-                wrapAnim = Ext.apply({}, options);
+                wrapAnim = Ext.apply({}, obj);
                 delete wrapAnim.listeners;
                 wrapAnim = new Ext.fx.Anim(Ext.applyIf(wrapAnim, {
                     target: wrap,
@@ -2080,7 +2142,7 @@ Ext.define('Ext.overrides.dom.Element', (function() {
                     
                     animFly.setStyle(originalStyles);
                     if (slideOut) {
-                        if (options.useDisplay) {
+                        if (obj.useDisplay) {
                             animFly.setDisplayed(false);
                         } else {
                             animFly.hide();
@@ -2109,7 +2171,7 @@ Ext.define('Ext.overrides.dom.Element', (function() {
 
             me.animate({
                 // See "A Note About Wrapped Animations" at the top of this class:
-                duration: options.duration ? Math.max(options.duration, 500) * 2 : 1000,
+                duration: obj.duration ? Math.max(obj.duration, 500) * 2 : 1000,
                 listeners: {
                     beforeanimate: beforeAnim // kick off the wrap animation
                 }
@@ -2259,7 +2321,7 @@ Ext.define('Ext.overrides.dom.Element', (function() {
                 dest = this.dom,
                 destNodes = dest.childNodes,
                 destLen = destNodes.length,
-                i,  destNode, sourceNode, sourceStyle,
+                i,  destNode, sourceNode,
                 nodeType, newAttrs, attLen, attName, value,
                 elData = dest._extData;
 
@@ -2295,16 +2357,15 @@ Ext.define('Ext.overrides.dom.Element', (function() {
                 sourceNode = sourceNodes[i];
                 destNode = destNodes[i];
                 nodeType = sourceNode.nodeType;
-                sourceStyle = sourceNode.style;
 
                 // If node structure is out of sync, just drop innerHTML in and return
                 if (nodeType !== destNode.nodeType || (nodeType === 1 && sourceNode.tagName !== destNode.tagName)) {
                     dest.innerHTML = source.innerHTML;
                     return;
                 }
-    
-                // Update non-Element node (text, comment)
-                if (!sourceStyle) {
+
+                // Update text node
+                if (nodeType === 3) {
                     destNode.data = sourceNode.data;
                 }
                 // Sync element content
@@ -2312,7 +2373,7 @@ Ext.define('Ext.overrides.dom.Element', (function() {
                     if (sourceNode.id && destNode.id !== sourceNode.id) {
                         destNode.id = sourceNode.id;
                     }
-                    destNode.style.cssText = sourceStyle.cssText;
+                    destNode.style.cssText = sourceNode.style.cssText;
                     destNode.className = sourceNode.className;
                     syncContentFly.attach(destNode).syncContent(sourceNode);
                 }
@@ -2407,7 +2468,7 @@ Ext.define('Ext.overrides.dom.Element', (function() {
                      *     el.pause(1);
                      *
                      * @deprecated 4.0 Use the `delay` config to {@link #animate} instead.
-                     * @param {Number} ms The length of time to pause (in milliseconds)
+                     * @param {Number} seconds The length of time to pause (in seconds)
                      * @return {Ext.dom.Element} The Element
                      */
                     pause: function(ms) {
@@ -2442,10 +2503,10 @@ Ext.define('Ext.overrides.dom.Element', (function() {
                      * @param {Object} options (optional) Object literal with any of the {@link Ext.fx.Anim} config options
                      * @return {Ext.dom.Element} The Element
                      */
-                    scale: function(width, height, options) {
-                        this.animate(Ext.apply({}, options, {
-                            width: width,
-                            height: height
+                    scale: function(w, h, o) {
+                        this.animate(Ext.apply({}, o, {
+                            width: w,
+                            height: h
                         }));
                         return this;
                     },
@@ -2475,8 +2536,8 @@ Ext.define('Ext.overrides.dom.Element', (function() {
                      * @param {Object} options Object literal with any of the {@link Ext.fx.Anim} config options
                      * @return {Ext.dom.Element} The Element
                      */
-                    shift: function(options) {
-                        this.animate(options);
+                    shift: function(config) {
+                        this.animate(config);
                         return this;
                     }
                 }
@@ -2668,8 +2729,7 @@ Ext.define('Ext.overrides.dom.Element', (function() {
                      * deprecated as of version 5.0 because border-box sizing is forced upon all elements
                      * via a style sheet rule, and the browsers that do not support border-box (IE6/7 strict
                      * mode) are no longer supported.
-                     * @deprecated 5.0.0 This method is deprecated.  Browsers that do not
-                     * support border-box (IE6/7 strict mode) are no longer supported.
+                     * @deprecated 5.0.0 
                      * @return {Boolean}
                      */
                     isBorderBox: function() {
@@ -2941,7 +3001,7 @@ Ext.define('Ext.overrides.dom.Element', (function() {
                 dom = dom || me.dom;
                 
                 if (me.deferredFocusTimer) {
-                    Ext.undefer(me.deferredFocusTimer);
+                    clearTimeout(me.deferredFocusTimer);
                 }
                 
                 me.deferredFocusTimer = null;
@@ -3056,23 +3116,23 @@ Ext.define('Ext.overrides.dom.Element', (function() {
          * @param {Object} obj The list of behaviors to apply
          * @member Ext
          */
-        addBehaviors: function(obj){
+        addBehaviors: function(o){
             if(!Ext.isReady){
                 Ext.onInternalReady(function(){
-                    Ext.addBehaviors(obj);
+                    Ext.addBehaviors(o);
                 });
             } else {
                 var cache = {}, // simple cache for applying multiple behaviors to same selector does query multiple times
                     parts,
                     b,
                     s;
-                for (b in obj) {
+                for (b in o) {
                     if ((parts = b.split('@'))[1]) { // for Object prototype breakers
                         s = parts[0];
                         if(!cache[s]){
                             cache[s] = Ext.fly(document).select(s, true);
                         }
-                        cache[s].on(parts[1], obj[b]);
+                        cache[s].on(parts[1], o[b]);
                     }
                 }
                 cache = null;
@@ -3172,7 +3232,6 @@ Ext.define('Ext.overrides.dom.Element', (function() {
             origSetWidth = proto.setWidth,
             origSetHeight = proto.setHeight,
             origSetSize = proto.setSize,
-            origUnselectable = proto.unselectable,
             pxRe = /^\d+(?:\.\d*)?px$/i,
             colorStyles, i, name, camel;
 
@@ -3308,30 +3367,6 @@ Ext.define('Ext.overrides.dom.Element', (function() {
                 }
 
                 return origSetSize.call(this, width, height, animate);
-            };
-
-            // Override for IE8 which throws an error setting innerHTML when inside
-            // an event handler invoked from that element.
-            proto.setText = function(text) {
-                var dom = this.dom;
-
-                // Remove all child nodes, leave only a single textNode
-                if (!(dom.childNodes.length === 1 && dom.firstChild.nodeType === 3)) {
-                    while (dom.lastChild && dom.lastChild.nodeType !== 3) {
-                        dom.removeChild(dom.lastChild);
-                    }
-                    dom.appendChild(document.createTextNode());
-                }
-
-                // Set the data of the textNode
-                dom.firstChild.data = text;
-            };
-
-            proto.unselectable = function() {
-                origUnselectable.call(this);
-                this.dom.onselectstart = function() {
-                    return false;
-                };
             };
         }
         //</feature>

@@ -133,8 +133,8 @@ describe("Ext.layout.VBox", function(){
     });
     
     describe("pack", function(){
-        function makeCt(pack, cfg) {
-            ct = new Ext.container.Container(Ext.apply({
+        function makeCt(pack) {
+            ct = new Ext.container.Container({
                 defaultType: 'component',
                 renderTo: Ext.getBody(),
                 width: 600,
@@ -150,7 +150,7 @@ describe("Ext.layout.VBox", function(){
                 }, {
                     height: 20
                 }]
-            }, cfg));
+            });
         }
             
         function getY(index) {
@@ -197,81 +197,6 @@ describe("Ext.layout.VBox", function(){
             expect(getY(0)).toBe(85);
             expect(getY(1)).toBe(285);
             expect(getY(2)).toBe(495);
-        });
-
-        it("should pack start with maxHeighted items", function () {
-            // https://sencha.jira.com/browse/EXTJS-25260
-            makeCt('start', {
-                // These items must not have a "height", only a "maxHeight"
-                items: [{
-                    flex: 1,
-                    maxHeight: 100
-                }, {
-                    flex: 1,
-                    maxHeight: 100
-                }, {
-                    flex: 1,
-                    maxHeight: 100
-                }]
-            });
-
-            expect(getY(0)).toBe(0);
-            expect(getY(1)).toBe(100);
-            expect(getY(2)).toBe(200);
-
-            expect(getHeight(0)).toBe(100);
-            expect(getHeight(1)).toBe(100);
-            expect(getHeight(2)).toBe(100);
-        });
-
-        it("should pack center with maxHeighted items", function () {
-            // https://sencha.jira.com/browse/EXTJS-25260
-            makeCt('center', {
-                // These items must not have a "height", only a "maxHeight"
-                items: [{
-                    flex: 1,
-                    maxHeight: 100
-                }, {
-                    flex: 1,
-                    maxHeight: 100
-                }, {
-                    flex: 1,
-                    maxHeight: 100
-                }]
-            });
-
-            expect(getY(0)).toBe(150);
-            expect(getY(1)).toBe(250);
-            expect(getY(2)).toBe(350);
-
-            expect(getHeight(0)).toBe(100);
-            expect(getHeight(1)).toBe(100);
-            expect(getHeight(2)).toBe(100);
-        });
-
-        it("should pack end with maxHeighted items", function () {
-            // https://sencha.jira.com/browse/EXTJS-25260
-            makeCt('end', {
-                // These items must not have a "height", only a "maxHeight"
-                items: [{
-                    flex: 1,
-                    maxHeight: 100
-                }, {
-                    flex: 1,
-                    maxHeight: 100
-                }, {
-                    flex: 1,
-                    maxHeight: 100
-                }]
-            });
-
-            expect(getY(0)).toBe(300);
-            expect(getY(1)).toBe(400);
-            expect(getY(2)).toBe(500);
-
-            expect(getHeight(0)).toBe(100);
-            expect(getHeight(1)).toBe(100);
-            expect(getHeight(2)).toBe(100);
         });
     });
 

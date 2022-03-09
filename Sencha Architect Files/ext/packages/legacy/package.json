@@ -1,6 +1,6 @@
 {
     "name": "@extjs/ext-react-legacy",
-    "version": "6.5.3.57",
+    "version": "6.5.0.775",
     "sencha": {
         "name": "legacy",
         "namespace": "Ext",
@@ -11,7 +11,7 @@
         "creator": "Sencha",
         "summary": "Legacy / Deprecated Classes",
         "detailedDescription": "This package contains classes that are no longer supported",
-        "version": "6.5.3.57",
+        "version": "6.5.0",
         "compatVersion": "6.0.0",
         "format": "1",
         "output": {

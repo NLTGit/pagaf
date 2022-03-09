@@ -151,21 +151,18 @@ Ext.define('Ext.rtl.dom.Element', {
             body = doc.body,
             scroll = me.getScroll(),
             left = scroll.left,
-            flag = me._rtlScrollFlag,
             isDocOrBody = (dom === doc || dom === body);
 
-        if (isDocOrBody ? (3 & me._rtlDocScrollFlag) : (flag === 1)) { // jshint ignore:line
+        if (isDocOrBody ? (3 & me._rtlDocScrollFlag) : (me._rtlScrollFlag === 1)) { // jshint ignore:line
             // If the browser reports scrollLeft as the number of pixels from left
             // (same as ltr) we need to convert it to a rtl position by subtracting it
             // from scrollWidth
             if (isDocOrBody) {
                 dom = body;
             }
-
+            
             left = dom.scrollWidth - left -
                 (isDocOrBody ? Ext.Element.getViewportWidth() : dom.clientWidth);
-        } else if (!isDocOrBody && flag === 0) {
-            left = -left;
         }
         scroll.left = left;
 
@@ -179,7 +176,7 @@ Ext.define('Ext.rtl.dom.Element', {
     rtlNormalizeScrollLeft: function(left){
         var dom = this.dom,
             flag = this._rtlScrollFlag;
-
+            
         if (flag === 0) {
             left = -left;
         } else if (flag === 1) {
@@ -413,7 +410,7 @@ Ext.define('Ext.rtl.dom.Element', {
             }
         }
 
-        // Make content overflow vertically to see where the vertical scrollbar is
+        // Make content overflow vertically to see where the vertical scsrollbar is
         inner.style.width = '30px';
         inner.style.height = '150px';
 
@@ -439,7 +436,7 @@ Ext.define('Ext.rtl.dom.Element', {
      *    b. number of pixels offset from right expressed as a positive number
      *       (IE8 - IE10)
      *
-     * The following logic feature detects the handling of scrollLeft and sets the
+     * The following logic feture detects the handling of scrollLeft and sets the 
      * _rtlDocScrollFlag property on this class' prototype as a bit flag which has 
      * the following values:
      * 

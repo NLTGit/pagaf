@@ -62,33 +62,31 @@ Ext.define('Ext.grid.column.Action', {
     ],
 
     /**
-     * @cfg glyph
-     * @inheritdoc Ext.panel.Header#cfg-glyph
+     * @cfg {Number/String} glyph
+     * @inheritdoc Ext.panel.Header#glyph
      * @since 6.2.0
      */
 
     /**
-     * @cfg [icon=Ext#BLANK_IMAGE_URL]
-     * @inheritdoc Ext.panel.Header#cfg-icon
+     * @cfg {String} [icon=Ext#BLANK_IMAGE_URL]
+     * @inheritdoc Ext.panel.Header#icon
      */
     /**
-     * @cfg iconCls
+     * @cfg {String} iconCls
      * @inheritdoc Ext.panel.Header#cfg-iconCls
      * @localdoc **Note:** To determine the class dynamically, configure the Column with
      * a `{@link #getClass}` function.
      */
     /**
      * @cfg {Function/String} handler
-     * A function called when the icon is clicked.  The handler function is passed the
-     * following params:
-     * @param {Ext.view.Table} view The owning TableView
-     * @param {Number} rowIndex The row index clicked on
-     * @param {Number} colIndex The column index clicked on
-     * @param {Object} item The clicked item (or this Column if multiple
-     * {@link #cfg-items items} were not configured)
-     * @param {Event} e The click event
-     * @param {Ext.data.Model} record The Record underlying the clicked row
-     * @param {HTMLElement} row The table row clicked upon
+     * A function called when the icon is clicked.
+     * @cfg {Ext.view.Table} handler.view The owning TableView.
+     * @cfg {Number} handler.rowIndex The row index clicked on.
+     * @cfg {Number} handler.colIndex The column index clicked on.
+     * @cfg {Object} handler.item The clicked item (or this Column if multiple {@link #cfg-items} were not configured).
+     * @cfg {Event} handler.e The click event.
+     * @cfg {Ext.data.Model} handler.record The Record underlying the clicked row.
+     * @cfg {HTMLElement} handler.row The table row clicked upon.
      * @controllable
      */
     /**
@@ -112,7 +110,7 @@ Ext.define('Ext.grid.column.Action', {
      * This Column may also be disabled on a row by row basis by configuring a {@link #cfg-isActionDisabled} method.
      */
     /**
-     * @cfg {Boolean} stopSelection
+     * @cfg {Boolean} [stopSelection=true]
      * Prevent grid selection upon click.
      * Beware that if you allow for the selection to happen then the selection model will steal focus from
      * any possible floating window (like a message box) raised in the handler. This will prevent closing the
@@ -123,18 +121,16 @@ Ext.define('Ext.grid.column.Action', {
      * @cfg {Function} getClass
      * A function which returns the CSS class to apply to the icon image.
      * 
-     * For information on using the icons provided in the SDK see 
-     * {@link #cfg-iconCls iconCls}.  The function is passed the following params:
-     * @param {Object} value The value of the column's configured field (if any)
-     * @param {Object} metadata An object in which you may set the following attributes:
-     * @param {String} metadata.css A CSS class name to add to the cell's TD element
-     * @param {String} metadata.attr An HTML attribute definition string to apply to the
-     * data container element *within* the table cell (e.g. 'style="color:red;"')
-     * @param {Ext.data.Model} record The Record providing the data
-     * @param {Number} rowIndex The row index
-     * @param {Number} colIndex The column index
-     * @param {Ext.data.Store} store The Store which is providing the data Model
-     * @return {String} The CSS class
+     * For information on using the icons provided in the SDK see {@link #iconCls}.
+     * @cfg {Object} getClass.v The value of the column's configured field (if any).
+     * @cfg {Object} getClass.metadata An object in which you may set the following attributes:
+     * @cfg {String} getClass.metadata.css A CSS class name to add to the cell's TD element.
+     * @cfg {String} getClass.metadata.attr An HTML attribute definition string to apply to the data container
+     * element *within* the table cell (e.g. 'style="color:red;"').
+     * @cfg {Ext.data.Model} getClass.r The Record providing the data.
+     * @cfg {Number} getClass.rowIndex The row index.
+     * @cfg {Number} getClass.colIndex The column index.
+     * @cfg {Ext.data.Store} getClass.store The Store which is providing the data Model.
      *
      * @controllable
      */
@@ -149,17 +145,12 @@ Ext.define('Ext.grid.column.Action', {
      */
     
     /**
-     * @cfg {Function} isActionDisabled A function which determines whether the action
-     * item for any row is disabled and returns `true` or `false`.
-     * 
-     * The function is passed the following params:
-     * @param {Ext.view.Table} view The owning TableView.
-     * @param {Number} rowIndex The row index.
-     * @param {Number} colIndex The column index.
-     * @param {Object} item The clicked item (or this Column if multiple
-     * {@link #cfg-items items} were not configured).
-     * @param {Ext.data.Model} record The Record underlying the row.
-     * @return {Boolean} `true` or `false` indicating whether the action item is disabled
+     * @cfg {Function} isActionDisabled A function which determines whether the action item for any row is disabled and returns `true` or `false`.
+     * @cfg {Ext.view.Table} isActionDisabled.view The owning TableView.
+     * @cfg {Number} isActionDisabled.rowIndex The row index.
+     * @cfg {Number} isActionDisabled.colIndex The column index.
+     * @cfg {Object} isActionDisabled.item The clicked item (or this Column if multiple {@link #cfg-items} were not configured).
+     * @cfg {Ext.data.Model} isActionDisabled.record The Record underlying the row.
      *
      * @controllable
      */
@@ -332,42 +323,25 @@ Ext.define('Ext.grid.column.Action', {
     altText: '',
 
     /**
-     * @cfg {String} menuText
-     * The text to render in the column's visibility selection menu for this column. If
-     * not specified, menuText will display {@link #text text's} value.
+     * @cfg {String} [menuText=<i>Actions</i>]
+     * Text to display in this column's menu item if no {@link #text} was specified as a header.
      */
     menuText: '<i>Actions</i>',
     
     /**
-     * @cfg {Number} itemTabIndex
-     * Default tabIndex attribute value for each action item.
+     * @cfg {Number} [itemTabIndex=0] Default tabIndex attribute value for each action item.
      */
     itemTabIndex: 0,
     
     /**
-     * @cfg {String} itemAriaRole
-     * Default ARIA role for each action item.
+     * @cfg {String} [itemAriaRole="button"] Default ARIA role for each action item.
      */
     itemAriaRole: 'button',
 
-    /**
-     * @property maskOnDisable
-     * @inheritdoc
-     * @localdoc On Action Columns the masking applies to the action or actions 
-     * themselves
-     */
     maskOnDisable: false, // Disable means the action(s)
 
-    /**
-     * @cfg ignoreExport
-     * @inheritdoc
-     */
     ignoreExport: true,
 
-    /**
-     * @cfg sortable
-     * @inheritdoc
-     */
     sortable: false,
 
     innerCls: Ext.baseCSSPrefix + 'grid-cell-inner-action-col',

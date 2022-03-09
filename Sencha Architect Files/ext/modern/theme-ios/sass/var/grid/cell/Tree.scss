@@ -2,11 +2,7 @@
  * @class Ext.grid.cell.Tree
  */
 
-/**
- * @var [$treecell-icon-color=$base-color]
- */
 $treecell-icon-color: dynamic($base-color);
-
 $treecell-icon-size: dynamic(16px);
 $treecell-icon-size-big: dynamic(24px);
 $treecell-expander-icon: dynamic($ios-arrow-right);

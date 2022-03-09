@@ -30,9 +30,7 @@
  *         height: 250,
  *         width: 350,
  *         store: shows,
- *         plugins: {
- *             gridfilters: true
- *         },
+ *         plugins: 'gridfilters',
  *         columns: [{
  *             dataIndex: 'id',
  *             text: 'ID',

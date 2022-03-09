@@ -1,19 +1,16 @@
 /**
- * A plugin for Field Components which creates clones of the Field for as
- * long as the user keeps filling them. Leaving the final one blank ends the repeating series.
- *
- * Usage:
- *
- *      items: [{
- *          xtype: 'combo',
- *          plugins: {
- *              fieldreplicator: true
- *          },
- *          triggerAction: 'all',
- *          fieldLabel: 'Select recipient',
- *          store: recipientStore
- *      }]
- *
+ * <p>A plugin for Field Components which creates clones of the Field for as
+ * long as the user keeps filling them. Leaving the final one blank ends the repeating series.</p>
+ * <p>Usage:</p>
+ * <pre><code>
+    {
+        xtype: 'combo',
+        plugins: [ Ext.ux.FieldReplicator ],
+        triggerAction: 'all',
+        fieldLabel: 'Select recipient',
+        store: recipientStore
+    }
+ * </code></pre>
  */
 Ext.define('Ext.ux.FieldReplicator', {
     alias: 'plugin.fieldreplicator',
@@ -38,7 +35,7 @@ Ext.define('Ext.ux.FieldReplicator', {
 
         // If a field before the final one was blanked out, remove it
         if (isEmpty && !isLastInGroup) {
-            Ext.defer(field.destroy, 10, field); //delay to allow tab key to move focus first
+            Ext.Function.defer(field.destroy, 10, field); //delay to allow tab key to move focus first
         }
         // If the field is the last in the list and has a value, add a cloned field after it
         else if(!isEmpty && isLastInGroup) {

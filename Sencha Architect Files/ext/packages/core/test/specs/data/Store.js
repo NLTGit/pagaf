@@ -1,9 +1,8 @@
 /* global Ext, spyOn, expect, jasmine, MockAjaxManager */
 
 topSuite("Ext.data.Store", [
-    'Ext.data.BufferedStore',
-    'Ext.data.Session',
-    'Ext.data.proxy.JsonP',
+    'Ext.data.Session', 
+    'Ext.data.proxy.JsonP', 
     'Ext.data.validator.*',
     'Ext.data.summary.*'
 ], function() {
@@ -2212,7 +2211,7 @@ topSuite("Ext.data.Store", [
                     createStore({
                         data: [abeRaw]
                     });
-                    expect(store.loadCount).toBe(2);
+                    expect(store.loadCount).toBe(1);
                 });
 
                 it("should increment the loadCount when passing data with a memory proxy", function() {
@@ -2222,7 +2221,7 @@ topSuite("Ext.data.Store", [
                         },
                         data: [abeRaw]
                     });
-                    expect(store.loadCount).toBe(2);
+                    expect(store.loadCount).toBe(1);
                 });
             });
 
@@ -2233,12 +2232,12 @@ topSuite("Ext.data.Store", [
 
                 it("should increment when using loadRecords", function() {
                     store.loadRecords([makeUser('foo@sencha.com')]);
-                    expect(store.loadCount).toBe(2);
+                    expect(store.loadCount).toBe(1);
                 });
 
                 it("should increment when using loadData", function() {
                     store.loadData([tommyRaw]);
-                    expect(store.loadCount).toBe(2);
+                    expect(store.loadCount).toBe(1);
                 });
             });
 
@@ -2261,7 +2260,7 @@ topSuite("Ext.data.Store", [
                 it("should increment on a successful load with records", function() {
                     store.load();
                     completeWithData([abeRaw, aaronRaw]);
-                    expect(store.loadCount).toBe(2);
+                    expect(store.loadCount).toBe(1);
                 });
 
                 it("should not increment on an unsuccessful load", function() {
@@ -2615,14 +2614,6 @@ topSuite("Ext.data.Store", [
                         });
                         expect(result).toBe(false);
                         expect(store.getCount()).toBe(0);
-                    });
-
-                    it("should maintain the phantom state based on the data", function() {
-                        store.loadRawData({
-                            data: [{ email: 'foo@sencha.com' }, {}]
-                        });
-                        expect(store.first().phantom).toBe(false);
-                        expect(store.last().phantom).toBe(true);
                     });
                 });
                 
@@ -3816,36 +3807,7 @@ topSuite("Ext.data.Store", [
                         store.setRemoteSort(true);
                         expect(store.getProxy().read).not.toHaveBeenCalled();
                     });
-                });
-
-                describe("Removing sorters", function() {
-                    it("should not trigger a load by default when decrementing to zero sorters", function() {
-                        store.setRemoteSort(true);
-                        store.getSorters().add('name');
-
-                        var loadSpy = spyOn(store, 'load');
-                        expect(store.getSorters().length).toBe(1);
-                        store.getSorters().remove('name');
-                        expect(store.getSorters().length).toBe(0);
-
-                        // Default behaviour must be to NOT reload when sorterCount has dropped to zero
-                        expect(loadSpy).not.toHaveBeenCalled();
-                    });
-                    it("should trigger a load when decrementing to zero sorters if reloadOnClearSorters is set", function() {
-                        store.setRemoteSort(true);
-                        store.getSorters().add('name');
-                        store.reloadOnClearSorters = true;
-
-                        var loadSpy = spyOn(store, 'load');
-                        expect(store.getSorters().length).toBe(1);
-                        store.getSorters().remove('name');
-                        expect(store.getSorters().length).toBe(0);
-
-                        // Behaviour when is set must be to reload when sorterCount has dropped to zero
-                        expect(loadSpy).toHaveBeenCalled();
-                    });
-                });
-
+                }); 
             });
 
             describe("setting to false", function() {

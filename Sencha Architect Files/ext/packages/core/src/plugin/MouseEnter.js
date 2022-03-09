@@ -98,7 +98,7 @@ Ext.define('Ext.plugin.MouseEnter', {
         // If we have changed delegates, fire (or schedule, if we are delaying) the handler
         if (delegate && delegate !== e.getRelatedTarget(me.delegate)) {
             if (me.delay) {
-                Ext.undefer(me.mouseEventTimer);
+                clearTimeout(me.mouseEventTimer);
                 me.mouseEventTimer = Ext.defer(me.handleMouseEvent, me.delay, me, [e, delegate]);
             } else {
                 me.handleMouseEvent(e, delegate);

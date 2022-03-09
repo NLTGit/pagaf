@@ -370,12 +370,12 @@ Ext.feature = {
          * @type {Boolean}
          * @private
          *
-         * `true` If the event system should use [pointer events](https://www.w3.org/TR/pointerevents/).
+         * `true` If the event system should use {@link https://www.w3.org/TR/pointerevents/ pointer events}.
          * Currently only set to true if the browser supports pointer events and does not
          * also support touch events.  Touch events are preferred since they allow run-time
          * cancellation of browser default behavior such as scrolling by invoking `e.preventDefault()`
          * whereas pointer events require such intentions to be declared in advance via
-         * CSS [touch-action](https://www.w3.org/TR/pointerevents/#h3_the-touch-action-css-property).
+         * CSS {@link https://www.w3.org/TR/pointerevents/#h3_the-touch-action-css-property touch-action}.
          * This means that when pointer events are used, certain interactions are not possible
          * such as long-press to drag within a scrollable element.
          */
@@ -486,7 +486,7 @@ Ext.feature = {
         /**
          * @property GeoLocation `true` if the device supports Geo-location.
          * @type {Boolean}
-         * @deprecated 5.0.0 Use `Geolocation` instead (notice the lower-casing of 'L').
+         * @deprecated Use `Geolocation` instead (notice the lower-casing of 'L').
          */
         names: [ 'Geolocation', 'GeoLocation' ],
         fn: function() {
@@ -591,7 +591,7 @@ Ext.feature = {
         /**
          * @property AudioTag `true` if the device supports the HTML5 `audio` tag.
          * @type {Boolean}
-         * @deprecated 5.0.0 Use `Audio` instead.
+         * @deprecated Use `Audio` instead.
          */
         names: [ 'Audio', 'AudioTag' ],
         fn: function() {
@@ -819,7 +819,7 @@ Ext.feature = {
         ready: true,
         fn: function(doc, div, view) {
             view = doc.defaultView;
-            return !!(view && view.getComputedStyle);
+            return view && view.getComputedStyle;
         }
     },
 
@@ -1399,6 +1399,9 @@ Ext.feature = {
     //</feature>
 
     /**
+     * @property {Boolean} HighContrastMode `true` if the browser is currently
+     * running in Windows High Contrast accessibility mode.
+     *
      * @property {Object} accessibility Accessibility features.
      *
      * @property {Boolean} accessibility.Images `true` if the browser is configured
@@ -1684,7 +1687,7 @@ Ext.feature = {
         fn: function (doc, div) {
             var supportsPassive = false,
                 options;
-            
+
             try {
                 options = Object.defineProperty({}, 'passive', {
                     get: function() {
@@ -1694,7 +1697,7 @@ Ext.feature = {
                 window.addEventListener('e', null, options);
                 window.removeEventListener('e', null, options);
             } catch (e) {}
-            
+
             return supportsPassive;
         }
     },
@@ -1715,28 +1718,6 @@ Ext.feature = {
             div.innerHTML = '<div style="height:4px;width:4px;min-height:-webkit-min-content;min-height:-moz-min-content;min-height:min-content"><div style="height:8px;width:8px"></div></div>';
 
             return div.firstChild.offsetHeight === 8;
-        }
-    },
-    {
-        name: 'ComputedSizeIncludesPadding',
-        ready: true,
-        fn: function(doc, div) {
-            var ret = false,
-                bd = document.body,
-                el, w;
-
-            if (window.getComputedStyle) {
-                el = document.createElement('div');
-                el.style.cssText = 'width:10px;padding:2px;' +
-                  '-webkit-box-sizing:border-box;box-sizing:border-box;';
-                bd.appendChild(el);
-
-                w = window.getComputedStyle(el, null).width;
-                ret = w === '10px';
-
-                bd.removeChild(el);
-            }
-            return ret;
         }
     },
     0] // placeholder so legacy browser detectors can come/go cleanly

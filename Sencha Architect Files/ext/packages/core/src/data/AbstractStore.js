@@ -80,7 +80,7 @@ Ext.define('Ext.data.AbstractStore', {
         storeId: null,
 
         /**
-         * @cfg {Boolean} statefulFilters
+         * @cfg {Boolean} [statefulFilters=false]
          * Configure as `true` to have the filters saved when a client {@link Ext.grid.Panel grid} saves its state.
          */
         statefulFilters: false,
@@ -170,23 +170,7 @@ Ext.define('Ext.data.AbstractStore', {
          * sort order will always be maintained.
          * @private
          */
-        autoSort: null,
-
-        /**
-         * @cfg {Boolean} reloadOnClearSorters
-         * Set this to `true` to trigger a reload when the last sorter is removed (only
-         * applicable when {@link #cfg!remoteSort} is `true`).
-         *
-         * By default, the store reloads itself when a sorter is added or removed.
-         *
-         * When the last sorter is removed, however, the assumption is that the data
-         * does not need to become "unsorted", and so no reload is triggered.
-         *
-         * If the server has a default order to which it reverts in the absence of any
-         * sorters, then it is useful to set this config to `true`.
-         * @since 6.5.1
-         */
-        reloadOnClearSorters: false
+        autoSort: null
     },
 
     /**
@@ -278,8 +262,9 @@ Ext.define('Ext.data.AbstractStore', {
 
         /**
          * @event datachanged
-         * Fires for any data change in the store. This is a catch-all event that is typically fired
-         * in conjunction with other events (such as `add`, `remove`, `update`, `refresh`).
+         * Fires whenever records are added to or removed from the Store.
+         *
+         * To hook into modifications of records in this Store use the {@link #update} event.
          * @param {Ext.data.Store} this The data store
          * @since 1.1.0
          */
@@ -1039,39 +1024,31 @@ Ext.define('Ext.data.AbstractStore', {
 
     onSorterEndUpdate: function () {
         var me = this,
-            fireSort = true,
-            sorters = me.getSorters(false),
-            sorterCount;
+            sorters;
 
         // If we're in the middle of grouping, it will take care of loading.
         // If the collection is not instantiated yet, it's because we are constructing.
+        sorters = me.getSorters(false);
         if (me.settingGroups || !sorters) {
             return;
         }
 
         sorters = sorters.getRange();
-        sorterCount = sorters.length;
 
-        if (me.getRemoteSort()) {
-            // Only reload if there are sorters left to influence the sort order.
-            // Unless reloadOnClearSorters is set to indicate that there's a default
-            // order used by the server which must be returned to when there is no
-            // explicit sort order.
-            if (sorters.length || me.getReloadOnClearSorters()) {
-                // The sort event will fire in the load callback;
-                fireSort = false;
+        // Only load or sort if there are sorters
+        if (sorters.length) {
+            if (me.getRemoteSort()) {
                 me.load({
                     callback: function () {
                         me.fireEvent('sort', me, sorters);
                     }
                 });
+            } else {
+                me.fireEvent('datachanged', me);
+                me.fireEvent('refresh', me);
+                me.fireEvent('sort', me, sorters);
             }
-        } else if (sorterCount) {
-            me.fireEvent('datachanged', me);
-            me.fireEvent('refresh', me);
-        }
-
-        if (fireSort) {
+        } else {
             // Sort event must fire when sorters collection is updated to empty.
             me.fireEvent('sort', me, sorters);
         }
@@ -1290,8 +1267,7 @@ Ext.define('Ext.data.AbstractStore', {
             }
         },
 
-        // If remoteSort is set, we react to the endUpdate of the sorters Collection by reloading
-        // if there are still some sorters, or we're configured to reload on sorter remove.
+        // If remoteSort is set, we react to the endUpdate of the sorters Collection by reloading.
         // If remoteSort is set, we do not need to listen for the data Collection's beforesort event.
         //
         // If local sorting, we do not need to react to the endUpdate of the sorters Collection.

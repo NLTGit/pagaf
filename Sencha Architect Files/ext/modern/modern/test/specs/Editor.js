@@ -129,8 +129,8 @@ topSuite("Ext.Editor", ['Ext.field.*'], function() {
                     alignment: 'tl-br'
                 });
                 startEditWithTarget();
-                var targetRegion = target.getRegion();
-                expect(editor.element.getXY()).toEqual([targetRegion.right, targetRegion.bottom]);
+                var size = target.getSize();
+                expect(editor.element.getXY()).toEqual([size.width, size.height]);
             });
 
             it("should use offset", function() {
@@ -139,19 +139,18 @@ topSuite("Ext.Editor", ['Ext.field.*'], function() {
                     offset: [20, 30]
                 });
                 startEditWithTarget();
-                var targetRegion = target.getRegion();
-                expect(editor.element.getXY()).toEqual([targetRegion.left + 20, targetRegion.top + 30]);
+                expect(editor.element.getXY()).toEqual([20, 30]);
             });
 
             it("should use a combination of alignment & offset", function() {
                 // Top left of the field aligns to the bottom right of the target
                 makeEditor({
                     alignment: 'tl-br',
-                    offset: [20, 30]
+                     offset: [20, 30]
                 });
                 startEditWithTarget();
-                var targetRegion = target.getRegion();
-                expect(editor.element.getXY()).toEqual([targetRegion.right + 20, targetRegion.bottom + 30]);
+                var size = target.getSize();
+                expect(editor.element.getXY()).toEqual([size.width + 20, size.height + 30]);
             });
         });
 

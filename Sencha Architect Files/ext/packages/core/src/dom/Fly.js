@@ -41,7 +41,7 @@ Ext.define('Ext.dom.Fly', {
         }
         
         // Sometimes we want to attach to the DOM of Ext.Element instance
-        me.dom = Ext.getDom(dom);
+        me.dom = dom.isElement ? dom.dom : dom;
 
         // If the element is not being managed by an Ext.Element instance,
         // we have to assume that the classList/classMap in the data object are out of sync with reality.
@@ -56,7 +56,7 @@ Ext.define('Ext.dom.Fly', {
     },
 
     detach: function() {
-        return (this.dom = null);
+        this.dom = null;
     },
 
     addListener:

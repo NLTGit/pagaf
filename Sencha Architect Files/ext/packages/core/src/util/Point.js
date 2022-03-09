@@ -203,10 +203,9 @@ Ext.define('Ext.util.Point', {
     }
 }, function() {
     /**
-     * @method translate
-     * @member Ext.util.Point
+     * @method
      * Alias for {@link #translateBy}
-     * @inheritdoc Ext.util.Region#method-translateBy
+     * @inheritdoc Ext.util.Region#translateBy
      */
     this.prototype.translate = this.prototype.translateBy;
 });

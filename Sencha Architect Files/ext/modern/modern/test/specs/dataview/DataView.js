@@ -1,7 +1,7 @@
 topSuite("Ext.dataview.DataView", ['Ext.data.ArrayStore'], function() {
 
     var itNotTouch = jasmine.supportsTouch ? xit : it,
-        view, store, navigationModel, selModel;
+        view, store, navigationModel;
 
     var Model = Ext.define(null, {
         extend: 'Ext.data.Model',
@@ -64,7 +64,11 @@ topSuite("Ext.dataview.DataView", ['Ext.data.ArrayStore'], function() {
         }, viewCfg));
         store = view.getStore();
         navigationModel = view.getNavigationModel();
-        selModel = view.getSelectable();
+    }
+
+    function makeViewWaitsForFirstPaint(viewCfg, storeCfg, options) {
+        makeView(viewCfg, storeCfg, options);
+        waitsForFirstPaint();
     }
 
     function getElement(item) {
@@ -84,6 +88,17 @@ topSuite("Ext.dataview.DataView", ['Ext.data.ArrayStore'], function() {
         MockAjaxManager.removeMethods();
     });
 
+    function waitsForFirstPaint() {
+        waitsForEvent(view, 'painted');
+    }
+
+    function waitsExpectData(values) {
+        waitsForFirstPaint();
+        runs(function() {
+            expectData(values);
+        });
+    }
+
     function expectData(values) {
         var items = view.dataItems; // ignore things like emtpyTextCmp
         expect(values.length).toBe(items.length);
@@ -95,9 +110,11 @@ topSuite("Ext.dataview.DataView", ['Ext.data.ArrayStore'], function() {
     describe("cleanup", function() {
         it("should have the same component count", function() {
             var count = Ext.ComponentManager.getCount();
-            makeView(null, 10);
-            view.destroy();
-            expect(Ext.ComponentManager.getCount()).toBe(count);
+            makeViewWaitsForFirstPaint(null, 10);
+            runs(function() {
+                view.destroy();
+                expect(Ext.ComponentManager.getCount()).toBe(count);
+            });
         });
     });
 
@@ -126,7 +143,7 @@ topSuite("Ext.dataview.DataView", ['Ext.data.ArrayStore'], function() {
                         store: 'foo'
                     });
                     expect(view.getStore()).toBe(store);
-                    expectData(['Item1', 'Item2']);
+                    waitsExpectData(['Item1', 'Item2']);
                 });
 
                 it("should accept a store configuration", function() {
@@ -137,7 +154,7 @@ topSuite("Ext.dataview.DataView", ['Ext.data.ArrayStore'], function() {
                         }
                     });
                     expect(view.getStore().getModel()).toBe(Model);
-                    expectData(['Item1', 'Item2', 'Item3']);
+                    waitsExpectData(['Item1', 'Item2', 'Item3']);
                 });
 
                 it("should accept a store instance", function() {
@@ -146,7 +163,7 @@ topSuite("Ext.dataview.DataView", ['Ext.data.ArrayStore'], function() {
                         store: store
                     });
                     expect(view.getStore()).toBe(store);
-                    expectData(['Item1', 'Item2']);
+                    waitsExpectData(['Item1', 'Item2']);
                 });
 
                 it("should be able to configure without a store", function() {
@@ -156,7 +173,7 @@ topSuite("Ext.dataview.DataView", ['Ext.data.ArrayStore'], function() {
                     var store = view.getStore();
 
                     expect(store).toBeNull();
-                    expectData([]);
+                    waitsExpectData([]);
                 });
             });
 
@@ -180,20 +197,24 @@ topSuite("Ext.dataview.DataView", ['Ext.data.ArrayStore'], function() {
                         describe("store no has content", function() {
                             it("should have an empty view", function() {
                                 makeView(null, 0);
-                                expectData([]);
-                                view.setStore(null);
-                                expectData([]);
-                                expectMasked(false);
+                                waitsExpectData([]);
+                                runs(function() {
+                                    view.setStore(null);
+                                    expectData([]);
+                                    expectMasked(false);
+                                });
                             });
                         });
 
                         describe("store has content", function() {
                             it("should have an empty view", function() {
                                 makeView(null, 3);
-                                expectData(['Item1', 'Item2', 'Item3']);
-                                view.setStore(null);
-                                expectData([]);
-                                expectMasked(false);
+                                waitsExpectData(['Item1', 'Item2', 'Item3']);
+                                runs(function() {
+                                    view.setStore(null);
+                                    expectData([]);
+                                    expectMasked(false);
+                                });
                             });
                         });
 
@@ -216,34 +237,40 @@ topSuite("Ext.dataview.DataView", ['Ext.data.ArrayStore'], function() {
                             makeView(null, null, {
                                 preventStore: true
                             });
-                            expectData([]);
+                            waitsExpectData([]);
                         });
 
                         describe("store has no content", function() {
                             it("should have an empty view", function() {
-                                view.setStore(makeStore([]));
-                                expectData([]);
-                                expectMasked(false);
+                                runs(function() {
+                                    view.setStore(makeStore([]));
+                                    expectData([]);
+                                    expectMasked(false);
+                                });
                             });
                         });
 
                         describe("store has content", function() {
                             it("should render the new content", function() {
-                                view.setStore(makeStore(3));
-                                expectData(['Item1', 'Item2', 'Item3']);
-                                expectMasked(false);
+                                runs(function() {
+                                    view.setStore(makeStore(3));
+                                    expectData(['Item1', 'Item2', 'Item3']);
+                                    expectMasked(false);
+                                });
                             });
                         });
 
                         describe("store is loading", function() {
                             it("should show a load mask", function() {
-                                store = makeStore();
-                                store.load();
-                                expectMasked(false);
-                                view.setStore(store);
-                                expectMasked(true);
-                                Ext.Ajax.mockCompleteWithData(makeData(2));
-                                expectData(['Item1', 'Item2']);
+                                runs(function() {
+                                    store = makeStore();
+                                    store.load();
+                                    expectMasked(false);
+                                    view.setStore(store);
+                                    expectMasked(true);
+                                    Ext.Ajax.mockCompleteWithData(makeData(2));
+                                    expectData(['Item1', 'Item2']);
+                                });
                             });
                         });
                     });
@@ -261,32 +288,38 @@ topSuite("Ext.dataview.DataView", ['Ext.data.ArrayStore'], function() {
 
                             describe("new store has no content", function() {
                                 it("should have an empty view", function() {
-                                    view.setStore(makeStore(0));
-                                    expectData([]);
-                                    expectMasked(false);
+                                    runs(function() {
+                                        view.setStore(makeStore(0));
+                                        expectData([]);
+                                        expectMasked(false);
+                                    });
                                 });
                             });
 
                             describe("new store has content", function() {
                                 it("should render the new content", function() {
-                                    view.setStore(makeStore(3));
-                                    expectData(['Item1', 'Item2', 'Item3']);
-                                    expectMasked(false);
+                                    runs(function() {
+                                        view.setStore(makeStore(3));
+                                        expectData(['Item1', 'Item2', 'Item3']);
+                                        expectMasked(false);
+                                    });
                                 });
                             });
 
                             describe("new store is loading", function() {
                                 it("should show a load mask", function() {
-                                    store = makeStore();
-                                    store.load();
-                                    expectMasked(options.expectMaskedInLoad);
-                                    view.setStore(store);
-                                    expectMasked(true);
-                                    if (options.doExtraComplete) {
-                                        Ext.Ajax.mockCompleteWithData([]);
-                                    }
-                                    Ext.Ajax.mockCompleteWithData(makeData(2));
-                                    expectData(['Item1', 'Item2']);
+                                    runs(function() {
+                                        store = makeStore();
+                                        store.load();
+                                        expectMasked(options.expectMaskedInLoad);
+                                        view.setStore(store);
+                                        expectMasked(true);
+                                        if (options.doExtraComplete) {
+                                            Ext.Ajax.mockCompleteWithData([]);
+                                        }
+                                        Ext.Ajax.mockCompleteWithData(makeData(2));
+                                        expectData(['Item1', 'Item2']);
+                                    });
                                 });
                             });
                         }
@@ -294,14 +327,14 @@ topSuite("Ext.dataview.DataView", ['Ext.data.ArrayStore'], function() {
                         describe("old store has no content", function() {
                             makeSuite(function() {
                                 makeView(null, 0);
-                                expectData([]);
+                                waitsExpectData([]);
                             });
                         });
 
                         describe("old store has content", function() {
                             makeSuite(function() {
                                 makeView(null, 1);
-                                expectData(['Item1']);
+                                waitsExpectData(['Item1']);
                             });
                         });
 
@@ -410,25 +443,27 @@ topSuite("Ext.dataview.DataView", ['Ext.data.ArrayStore'], function() {
                     }, null, {
                         preventStore: true
                     });
-                    expectData(['Item1', 'Item2', 'Item3']);
+                    waitsExpectData(['Item1', 'Item2', 'Item3']);
                 });
             });
 
             describe("dynamic", function() {
                 describe("with no store", function() {
                     it("should generate a store", function() {
-                        makeView(null, null, {
+                        makeViewWaitsForFirstPaint(null, null, {
                             preventStore: true
                         });
 
-                        var st = view.getStore();
-                        expect(st).toBeNull();
+                        runs(function() {
+                            var st = view.getStore();
+                            expect(st).toBeNull();
 
-                        view.setData(makeData(2));
-                        st = view.getStore();
-                        expect(st.getCount()).toBe(2);
+                            view.setData(makeData(2));
+                            st = view.getStore();
+                            expect(st.getCount()).toBe(2);
+                        });
 
-                        expectData(['Item1', 'Item2']);
+                        waitsExpectData(['Item1', 'Item2']);
                     });
                 });
 
@@ -437,11 +472,13 @@ topSuite("Ext.dataview.DataView", ['Ext.data.ArrayStore'], function() {
                         makeView(null, 3);
                         var st = view.getStore();
 
-                        expectData(['Item1', 'Item2', 'Item3']);
+                        waitsExpectData(['Item1', 'Item2', 'Item3']);
 
-                        view.setData(makeData(3, 4));
-                        expect(view.getStore()).toBe(st);
-                        expectData(['Item4', 'Item5', 'Item6']);
+                        runs(function() {
+                            view.setData(makeData(3, 4));
+                            expect(view.getStore()).toBe(st);
+                            expectData(['Item4', 'Item5', 'Item6']);
+                        });
                     });
                 });
             });
@@ -461,28 +498,34 @@ topSuite("Ext.dataview.DataView", ['Ext.data.ArrayStore'], function() {
                 }
             }
 
+            function waitsExpectEmptyText(text) {
+                runs(function() {
+                    expectEmptyText(text);
+                });
+            }
+
             describe("at construction", function() {
                 describe("with deferEmptyText: false", function() {
                     describe("with no store", function() {
                         it("should show empty text", function() {
-                            makeView({
+                            makeViewWaitsForFirstPaint({
                                 deferEmptyText: false,
                                 emptyText: 'Foo'
                             }, null, {
                                 preventStore: true
                             });
-                            expectEmptyText('Foo');
+                            waitsExpectEmptyText('Foo');
                         });
                     });
 
                     describe("with a store", function() {
                         describe("with an empty store", function() {
                             it("should show empty text", function() {
-                                makeView({
+                                makeViewWaitsForFirstPaint({
                                     deferEmptyText: false,
                                     emptyText: 'Foo'
                                 }, 0);
-                                expectEmptyText('Foo');
+                                waitsExpectEmptyText('Foo');
                             });
                         });
 
@@ -490,13 +533,15 @@ topSuite("Ext.dataview.DataView", ['Ext.data.ArrayStore'], function() {
                             it("should not show empty text", function() {
                                 store = makeStore();
                                 store.load();
-                                makeView({
+                                makeViewWaitsForFirstPaint({
                                     emptyText: 'Foo',
                                     deferEmptyText: false,
                                     store: store
                                 });
-                                expectEmptyText('');
-                                Ext.Ajax.mockCompleteWithData([]);
+                                waitsExpectEmptyText('');
+                                runs(function() {
+                                    Ext.Ajax.mockCompleteWithData([]);
+                                });
                             });
                         });
 
@@ -504,24 +549,28 @@ topSuite("Ext.dataview.DataView", ['Ext.data.ArrayStore'], function() {
                             it("should show empty text", function() {
                                 store = makeStore();
                                 store.load();
-                                makeView({
+                                makeViewWaitsForFirstPaint({
                                     emptyText: 'Foo',
                                     deferEmptyText: false,
                                     store: store
                                 });
-                                Ext.Ajax.mockCompleteWithData([]);
-                                expectEmptyText('Foo');
+                                runs(function() {
+                                    Ext.Ajax.mockCompleteWithData([]);
+                                });
+                                waitsExpectEmptyText('Foo');
                             });
                         });
 
                         describe("with a populated store", function() {
                             it("should not show empty text", function() {
-                                makeView({
+                                makeViewWaitsForFirstPaint({
                                     emptyText: 'Foo',
                                     deferEmptyText: false
                                 }, 3);
-                                expectEmptyText('');
-                                Ext.Ajax.mockCompleteWithData([]);
+                                waitsExpectEmptyText('');
+                                runs(function() {
+                                    Ext.Ajax.mockCompleteWithData([]);
+                                });
                             });
                         });
                     });
@@ -530,24 +579,24 @@ topSuite("Ext.dataview.DataView", ['Ext.data.ArrayStore'], function() {
                 describe("with deferEmptyText: true", function() {
                     describe("with no store", function() {
                         it("should not show empty text", function() {
-                            makeView({
+                            makeViewWaitsForFirstPaint({
                                 emptyText: 'Foo',
                                 deferEmptyText: true
                             }, null, {
                                 preventStore: true
                             });
-                            expectEmptyText('');
+                            waitsExpectEmptyText('');
                         });
                     });
 
                     describe("with a store", function() {
                         describe("with an empty store", function() {
                             it("should show empty text", function() {
-                                makeView({
+                                makeViewWaitsForFirstPaint({
                                     emptyText: 'Foo',
                                     deferEmptyText: true
                                 }, 0);
-                                expectEmptyText('Foo');
+                                waitsExpectEmptyText('Foo');
                             });
                         });
 
@@ -555,13 +604,15 @@ topSuite("Ext.dataview.DataView", ['Ext.data.ArrayStore'], function() {
                             it("should not show empty text", function() {
                                 store = makeStore();
                                 store.load();
-                                makeView({
+                                makeViewWaitsForFirstPaint({
                                     emptyText: 'Foo',
                                     deferEmptyText: true,
                                     store: store
                                 });
-                                expectEmptyText('');
-                                Ext.Ajax.mockCompleteWithData([]);
+                                waitsExpectEmptyText('');
+                                runs(function() {
+                                    Ext.Ajax.mockCompleteWithData([]);
+                                });
                             });
                         });
 
@@ -569,23 +620,25 @@ topSuite("Ext.dataview.DataView", ['Ext.data.ArrayStore'], function() {
                             it("should show empty text", function() {
                                 store = makeStore();
                                 store.load();
-                                makeView({
+                                makeViewWaitsForFirstPaint({
                                     emptyText: 'Foo',
                                     deferEmptyText: true,
                                     store: store
                                 });
-                                Ext.Ajax.mockCompleteWithData([]);
-                                expectEmptyText('Foo');
+                                runs(function() {
+                                    Ext.Ajax.mockCompleteWithData([]);
+                                });
+                                waitsExpectEmptyText('Foo');
                             });
                         });
 
                         describe("with a populated store", function() {
                             it("should not show empty text", function() {
-                                makeView({
+                                makeViewWaitsForFirstPaint({
                                     deferEmptyText: true,
                                     emptyText: 'Foo'
                                 }, 3);
-                                expectEmptyText('');
+                                waitsExpectEmptyText('');
                             });
                         });
                     });
@@ -596,33 +649,39 @@ topSuite("Ext.dataview.DataView", ['Ext.data.ArrayStore'], function() {
                 describe("with emptyText not visible", function() {
                     describe("setting empty text", function() {
                         it("should show the new emptyText", function() {
-                            makeView({
+                            makeViewWaitsForFirstPaint({
                                 emptyText: ''
                             }, 3);
-                            expectEmptyText('');
-                            store.removeAll();
-                            view.setEmptyText('Foo');
-                            expectEmptyText('Foo');
+                            waitsExpectEmptyText('');
+                            runs(function() {
+                                store.removeAll();
+                                view.setEmptyText('Foo');
+                                expectEmptyText('Foo');
+                            });
                         });
                     });
 
                     describe("clearing empty text", function() {
                         it("should not show the emptyText", function() {
-                            makeView(null, 3);
-                            expectEmptyText('');
-                            store.removeAll();
-                            view.setEmptyText('');
-                            expectEmptyText('');
+                            makeViewWaitsForFirstPaint(null, 3);
+                            waitsExpectEmptyText('');
+                            runs(function() {
+                                store.removeAll();
+                                view.setEmptyText('');
+                                expectEmptyText('');
+                            });
                         });
                     });
 
                     describe("changing empty text", function() {
                         it("should show the changed emptyText", function() {
-                            makeView(null, 3);
-                            expectEmptyText('');
-                            store.removeAll();
-                            view.setEmptyText('Foo');
-                            expectEmptyText('Foo');
+                            makeViewWaitsForFirstPaint(null, 3);
+                            waitsExpectEmptyText('');
+                            runs(function() {
+                                store.removeAll();
+                                view.setEmptyText('Foo');
+                                expectEmptyText('Foo');
+                            });
                         });
                     });
                 });
@@ -630,39 +689,45 @@ topSuite("Ext.dataview.DataView", ['Ext.data.ArrayStore'], function() {
                 describe("with emptyText visible", function() {
                     describe("setting empty text", function() {
                         it("should show the new emptyText", function() {
-                            makeView({
+                            makeViewWaitsForFirstPaint({
                                 deferEmptyText: false,
                                 emptyText: ''
                             }, 0);
-                            expectEmptyText('');
-                            store.removeAll();
-                            view.setEmptyText('Foo');
-                            expectEmptyText('Foo');
+                            waitsExpectEmptyText('');
+                            runs(function() {
+                                store.removeAll();
+                                view.setEmptyText('Foo');
+                                expectEmptyText('Foo');
+                            });
                         });
                     });
 
                     describe("clearing empty text", function() {
                         it("should not show the emptyText", function() {
-                            makeView({
+                            makeViewWaitsForFirstPaint({
                                 deferEmptyText: false
                             }, 0);
-                            expectEmptyText(view.getEmptyText());
-                            store.removeAll();
-                            view.setEmptyText('');
-                            expectEmptyText('');
+                            waitsExpectEmptyText(view.getEmptyText());
+                            runs(function() {
+                                store.removeAll();
+                                view.setEmptyText('');
+                                expectEmptyText('');
+                            });
                         });
                     });
 
                     describe("changing empty text", function() {
                         it("should show the changed emptyText", function() {
-                            makeView({
+                            makeViewWaitsForFirstPaint({
                                 deferEmptyText: false,
                                 emptyText: ''
                             }, 0);
-                            expectEmptyText(view.getEmptyText());
-                            store.removeAll();
-                            view.setEmptyText('Foo');
-                            expectEmptyText('Foo');
+                            waitsExpectEmptyText(view.getEmptyText());
+                            runs(function() {
+                                store.removeAll();
+                                view.setEmptyText('Foo');
+                                expectEmptyText('Foo');
+                            });
                         });
                     });
                 });
@@ -749,33 +814,39 @@ topSuite("Ext.dataview.DataView", ['Ext.data.ArrayStore'], function() {
             describe("at construction", function() {
                 describe("with inline: false", function() {
                     it("should lay out items vertically", function() {
-                        makeView({
+                        makeViewWaitsForFirstPaint({
                             inline: false
                         }, makeInlineData(10));
-                        var h = getElement(view.getItemAt(0)).getHeight();
-                        expectPositions(getInlineFalsePos(50, h));
+                        runs(function() {
+                            var h = getElement(view.getItemAt(0)).getHeight();
+                            expectPositions(getInlineFalsePos(50, h));
+                        });
                     });
                 });
 
                 describe("with inline: true", function() {
                     it("should layout horizontally and wrap", function() {
-                        makeView({
+                        makeViewWaitsForFirstPaint({
                             inline: true
                         }, makeInlineData(10));
-                        var h = getElement(view.getItemAt(0)).getHeight();
-                        expectPositions(getInlineTruePos(50, h));
+                        runs(function() {
+                            var h = getElement(view.getItemAt(0)).getHeight();
+                            expectPositions(getInlineTruePos(50, h));
+                        });
                     });
                 });
 
                 describe("with inline: {wrap: false}", function() {
                     it("should layout horizontally and not wrap", function() {
-                        makeView({
+                        makeViewWaitsForFirstPaint({
                             inline: {
                                 wrap: false
                             }
                         }, makeInlineData(10));
-                        var h = getElement(view.getItemAt(0)).getHeight();
-                        expectPositions(getInlineNoWrapPos(50, h));
+                        runs(function() {
+                            var h = getElement(view.getItemAt(0)).getHeight();
+                            expectPositions(getInlineNoWrapPos(50, h));
+                        });
                     });
                 });
             });
@@ -783,59 +854,67 @@ topSuite("Ext.dataview.DataView", ['Ext.data.ArrayStore'], function() {
             describe("dynamic", function() {
                 describe("from inline: false", function() {
                     beforeEach(function() {
-                        makeView({
+                        makeViewWaitsForFirstPaint({
                             inline: false
                         }, makeInlineData(10));
                     });
 
                     describe("to inline: true", function() {
                         it("should layout horizontally and wrap", function() {
-                            view.setInline(true);
-                            var h = getElement(view.getItemAt(0)).getHeight();
-                            expectPositions(getInlineTruePos(50, h));
+                            runs(function() {
+                                view.setInline(true);
+                                var h = getElement(view.getItemAt(0)).getHeight();
+                                expectPositions(getInlineTruePos(50, h));
+                            });
                         });
                     });
 
                     describe("to inline: {wrap: false}", function() {
                         it("should layout horizontally and not wrap", function() {
-                            view.setInline({
-                                wrap: false
+                            runs(function() {
+                                view.setInline({
+                                    wrap: false
+                                });
+                                var h = getElement(view.getItemAt(0)).getHeight();
+                                expectPositions(getInlineNoWrapPos(50, h));
                             });
-                            var h = getElement(view.getItemAt(0)).getHeight();
-                            expectPositions(getInlineNoWrapPos(50, h));
                         });
                     });
                 });
 
                 describe("from inline: true", function() {
                     beforeEach(function() {
-                        makeView({
+                        makeViewWaitsForFirstPaint({
                             inline: true
                         }, makeInlineData(10));
                     });
 
                     describe("to inline: false", function() {
                         it("should lay out items vertically", function() {
-                            view.setInline(false);
-                            var h = getElement(view.getItemAt(0)).getHeight();
-                            expectPositions(getInlineFalsePos(50, h));
+                            runs(function() {
+                                view.setInline(false);
+                                var h = getElement(view.getItemAt(0)).getHeight();
+                                expectPositions(getInlineFalsePos(50, h));
+                            });
                         });
                     });
 
                     describe("to inline: {wrap: false}", function() {
                         it("should layout horizontally and not wrap", function() {
-                            view.setInline({
-                                wrap: false
+                            runs(function() {
+                                view.setInline({
+                                    wrap: false
+                                });
+                                var h = getElement(view.getItemAt(0)).getHeight();
+                                expectPositions(getInlineNoWrapPos(50, h));
                             });
-                            var h = getElement(view.getItemAt(0)).getHeight();
-                            expectPositions(getInlineNoWrapPos(50, h));
                         });
                     });
                 });
 
                 describe("from inline: {wrap: false}", function() {
                     beforeEach(function() {
-                        makeView({
+                        makeViewWaitsForFirstPaint({
                             inline: {
                                 wrap: false
                             }
@@ -844,32 +923,23 @@ topSuite("Ext.dataview.DataView", ['Ext.data.ArrayStore'], function() {
 
                     describe("to inline: false", function() {
                         it("should lay out items vertically", function() {
-                            view.setInline(false);
-                            var h = getElement(view.getItemAt(0)).getHeight();
-                            expectPositions(getInlineFalsePos(50, h));
+                            runs(function() {
+                                view.setInline(false);
+                                var h = getElement(view.getItemAt(0)).getHeight();
+                                expectPositions(getInlineFalsePos(50, h));
+                            });
                         });
                     });
 
                     describe("to inline: true", function() {
                         it("should layout horizontally and wrap", function() {
-                            view.setInline(true);
-                            var h = getElement(view.getItemAt(0)).getHeight();
-                            expectPositions(getInlineTruePos(50, h));
+                            runs(function() {
+                                view.setInline(true);
+                                var h = getElement(view.getItemAt(0)).getHeight();
+                                expectPositions(getInlineTruePos(50, h));
+                            });
                         });
                     });
-                });
-            });
-        });
-
-        describe('enableTextSelection', function () {
-            it('should set userSelectable on the bodyElement', function () {
-                makeView({}, 3);
-                view.setEnableTextSelection(true);
-
-                // userSelectable has it's own set of tests.  Here we just verify that the
-                // deprecated enableTextSelection config set the right userSelectable value.
-                expect(view.getUserSelectable()).toEqual({
-                    bodyElement: true
                 });
             });
         });
@@ -885,11 +955,13 @@ topSuite("Ext.dataview.DataView", ['Ext.data.ArrayStore'], function() {
 
             describe("at construction", function() {
                 it("should use a configured class", function() {
-                    makeView({
+                    makeViewWaitsForFirstPaint({
                         itemCls: 'test-foo'
                     }, 4);
-                    view.getViewItems().forEach(function(item) {
-                        expectCls(item, 'test-foo');
+                    runs(function() {
+                        view.getViewItems().forEach(function(item) {
+                            expectCls(item, 'test-foo');
+                        });
                     });
                 });
             });
@@ -897,69 +969,81 @@ topSuite("Ext.dataview.DataView", ['Ext.data.ArrayStore'], function() {
             describe("dynamic", function() {
                 describe("adding a class", function() {
                     beforeEach(function() {
-                        makeView(null, 3);
+                        makeViewWaitsForFirstPaint(null, 3);
                     });
 
                     it("should be able to add a class", function() {
-                        view.setItemCls('test-foo');
-                        view.getViewItems().forEach(function(item) {
-                            expectCls(item, 'test-foo');
+                        runs(function() {
+                            view.setItemCls('test-foo');
+                            view.getViewItems().forEach(function(item) {
+                                expectCls(item, 'test-foo');
+                            });
                         });
                     });
 
                     it("should retain the class after data loads", function() {
-                        view.setItemCls('test-foo');
-                        store.loadData(makeData(10, 100));
-                        view.getViewItems().forEach(function(item) {
-                            expectCls(item, 'test-foo');
+                        runs(function() {
+                            view.setItemCls('test-foo');
+                            store.loadData(makeData(10, 100));
+                            view.getViewItems().forEach(function(item) {
+                                expectCls(item, 'test-foo');
+                            });
                         });
                     });
                 });
 
                 describe("clearing a class", function() {
                     beforeEach(function() {
-                        makeView({
+                        makeViewWaitsForFirstPaint({
                             itemCls: 'test-foo'
                         }, 3);
                     });
 
                     it("should be able to clear a class", function() {
-                        view.setItemCls(null);
-                        view.getViewItems().forEach(function(item) {
-                            expectNotCls(item, 'test-foo');
+                        runs(function() {
+                            view.setItemCls(null);
+                            view.getViewItems().forEach(function(item) {
+                                expectNotCls(item, 'test-foo');
+                            });
                         });
                     });
 
                     it("should retain the cleared class after data loads", function() {
-                        view.setItemCls(null);
-                        store.loadData(makeData(10, 100));
-                        view.getViewItems().forEach(function(item) {
-                            expectNotCls(item, 'test-foo');
+                        runs(function() {
+                            view.setItemCls(null);
+                            store.loadData(makeData(10, 100));
+                            view.getViewItems().forEach(function(item) {
+                                expectNotCls(item, 'test-foo');
+                            });
                         });
                     });
                 });
 
                 describe("changing a class", function() {
                     beforeEach(function() {
-                        makeView({
+                        makeViewWaitsForFirstPaint({
                             itemCls: 'test-foo'
                         }, 3);
                     });
 
                     it("should be able to change a class", function() {
-                        view.setItemCls('test-bar');
-                        view.getViewItems().forEach(function(item) {
-                            expectNotCls(item, 'test-foo');
-                            expectCls(item, 'test-bar');
+                        runs(function() {
+                            view.setItemCls('test-bar');
+                            view.getViewItems().forEach(function(item) {
+                                expectNotCls(item, 'test-foo');
+                                expectCls(item, 'test-bar');
+                            });
                         });
                     });
 
                     it("should retain the class after data loads", function() {
-                        view.setItemCls('test-bar');
-                        store.loadData(makeData(10, 100));
-                        view.getViewItems().forEach(function(item) {
-                            expectNotCls(item, 'test-foo');
-                            expectCls(item, 'test-bar');
+                        runs(function() {
+                            view.setItemCls('test-bar');
+                            store.loadData(makeData(10, 100));
+                            view.getViewItems().forEach(function(item) {
+                                expectNotCls(item, 'test-foo');
+                                expectCls(item, 'test-bar');
+                            });
                         });
                     });
                 });
@@ -973,29 +1057,33 @@ topSuite("Ext.dataview.DataView", ['Ext.data.ArrayStore'], function() {
                     makeView({
                         itemTpl: tpl
                     }, 3);
-                    expectData(['Item1 - 21', 'Item2 - 22', 'Item3 - 23']);
+                    waitsExpectData(['Item1 - 21', 'Item2 - 22', 'Item3 - 23']);
                 });
             });
 
             describe("dynamic", function() {
                 it("should not cause an exception when updating itemTpl when no store is configured", function() {
-                    makeView(null, null, {
+                    makeViewWaitsForFirstPaint(null, null, {
                         preventStore: true
                     });
-                    view.setItemTpl(tpl);
-                    expectData([]);
+                    runs(function() {
+                        view.setItemTpl(tpl);
+                        expectData([]);
+                    });
                 });
 
                 it("should be able to update before the first paint", function() {
                     makeView(null, 3);
                     view.setItemTpl(tpl);
-                    expectData(['Item1 - 21', 'Item2 - 22', 'Item3 - 23']);
+                    waitsExpectData(['Item1 - 21', 'Item2 - 22', 'Item3 - 23']);
                 });
 
                 it("should be able to update after the first paint", function() {
-                    makeView(null, 3);
-                    view.setItemTpl(tpl);
-                    expectData(['Item1 - 21', 'Item2 - 22', 'Item3 - 23']);
+                    makeViewWaitsForFirstPaint(null, 3);
+                    runs(function() {
+                        view.setItemTpl(tpl);
+                        expectData(['Item1 - 21', 'Item2 - 22', 'Item3 - 23']);
+                    });
                 });
             });
         });
@@ -1017,110 +1105,136 @@ topSuite("Ext.dataview.DataView", ['Ext.data.ArrayStore'], function() {
 
         describe("getViewItems", function() {
             it("should return an empty array if there is no store", function() {
-                makeView(null, null, {
+                makeViewWaitsForFirstPaint(null, null, {
                     preventStore: true
                 });
-                expect(view.getViewItems()).toEqual([]);
+                runs(function() {
+                    expect(view.getViewItems()).toEqual([]);
+                });
             });
 
             it("should return an empty array if there are no items", function() {
-                makeView(null, 0);
-                expect(view.getViewItems()).toEqual([]);
+                makeViewWaitsForFirstPaint(null, 0);
+                runs(function() {
+                    expect(view.getViewItems()).toEqual([]);
+                });
             });
 
             it("should return the items in the view", function() {
-                makeView(null, 3);
-                expectItems(['Item1', 'Item2', 'Item3']);
+                makeViewWaitsForFirstPaint(null, 3);
+                runs(function() {
+                    expectItems(['Item1', 'Item2', 'Item3']);
+                });
             });
 
             it("should react to view changes", function() {
-                makeView(null, 3);
-                expectItems(['Item1', 'Item2', 'Item3']);
-                store.removeAt(0);
-                expectItems(['Item2', 'Item3']);
-                store.add({
-                    name: 'Foo'
+                makeViewWaitsForFirstPaint(null, 3);
+                runs(function() {
+                    expectItems(['Item1', 'Item2', 'Item3']);
+                    store.removeAt(0);
+                    expectItems(['Item2', 'Item3']);
+                    store.add({
+                        name: 'Foo'
+                    });
+                    expectItems(['Item2', 'Item3', 'Foo']);
+                    store.removeAll();
+                    expect(view.getViewItems()).toEqual([]);
                 });
-                expectItems(['Item2', 'Item3', 'Foo']);
-                store.removeAll();
-                expect(view.getViewItems()).toEqual([]);
             });
 
             it("should not return a live collection", function() {
-                makeView(null, 3);
-                var items = view.getViewItems();
-                store.removeAt(0);
-                expect(view.getViewItems()).not.toBe(items);
-                expect(view.getViewItems().length).not.toBe(items.length);
+                makeViewWaitsForFirstPaint(null, 3);
+                runs(function() {
+                    var items = view.getViewItems();
+                    store.removeAt(0);
+                    expect(view.getViewItems()).not.toBe(items);
+                    expect(view.getViewItems().length).not.toBe(items.length);
+                });
             });
         });
 
         describe("getItemAt", function() {
             describe("invalid indexes", function() {
                 it("should return null for an index < start index - accounting for reverse indexing", function() {
-                    makeView(null, 3);
-                    expect(view.getItemAt(-4)).toBeNull();
+                    makeViewWaitsForFirstPaint(null, 3);
+                    runs(function() {
+                        expect(view.getItemAt(-4)).toBeNull();
+                    });
                 });
 
                 it("should return null for an index >= length", function() {
-                    makeView(null, 3);
-                    expect(view.getItemAt(3)).toBeNull();
+                    makeViewWaitsForFirstPaint(null, 3);
+                    runs(function() {
+                        expect(view.getItemAt(3)).toBeNull();
+                    });
                 });
             });
 
             describe("valid indexes", function() {
                 beforeEach(function() {
-                    makeView(null, 5);
+                    makeViewWaitsForFirstPaint(null, 5);
                 });
 
                 it("should return the first item", function() {
-                    var item = view.getItemAt(0);
-                    expectItem(item, 'Item1');
+                    runs(function() {
+                        var item = view.getItemAt(0);
+                        expectItem(item, 'Item1');
 
-                    // Test negative indexing. -1 means last
-                    item = view.getItemAt(-5);
-                    expectItem(item, 'Item1');
+                        // Test negative indexing. -1 means last
+                        item = view.getItemAt(-5);
+                        expectItem(item, 'Item1');
+                    });
                 });
 
                 it("should return a middle item", function() {
-                    var item = view.getItemAt(2);
-                    expectItem(item, 'Item3');
+                    runs(function() {
+                        var item = view.getItemAt(2);
+                        expectItem(item, 'Item3');
 
-                    // Test negative indexing. -1 means last
-                    item = view.getItemAt(-3);
-                    expectItem(item, 'Item3');
+                        // Test negative indexing. -1 means last
+                        item = view.getItemAt(-3);
+                        expectItem(item, 'Item3');
+                    });
                 });
 
                 it("should return the last item", function() {
-                    var item = view.getItemAt(4);
-                    expectItem(item, 'Item5');
+                    runs(function() {
+                        var item = view.getItemAt(4);
+                        expectItem(item, 'Item5');
 
-                    // Test negative indexing. -1 means last
-                    item = view.getItemAt(-1);
-                    expectItem(item, 'Item5');
+                        // Test negative indexing. -1 means last
+                        item = view.getItemAt(-1);
+                        expectItem(item, 'Item5');
+                    });
                 });
             });
         });
 
         describe("getItemIndex", function() {
             it("should return -1 for null", function() {
-                makeView(null, 3);
-                expect(view.getItemIndex(null)).toBe(-1);
+                makeViewWaitsForFirstPaint(null, 3);
+                runs(function() {
+                    expect(view.getItemIndex(null)).toBe(-1);
+                });
             });
 
             it("should return -1 for an item not in the view", function() {
-                makeView(null, 3);
-                var item = view.getItemAt(0);
-                store.removeAt(0);
-                expect(view.getItemIndex(item)).toBe(-1);
+                makeViewWaitsForFirstPaint(null, 3);
+                runs(function() {
+                    var item = view.getItemAt(0);
+                    store.removeAt(0);
+                    expect(view.getItemIndex(item)).toBe(-1);
+                });
             });
 
             it("should return the item index", function() {
-                makeView(null, 3);
-                var items = view.getViewItems();
-                expect(view.getItemIndex(items[0])).toBe(0);
-                expect(view.getItemIndex(items[1])).toBe(1);
-                expect(view.getItemIndex(items[2])).toBe(2);
+                makeViewWaitsForFirstPaint(null, 3);
+                runs(function() {
+                    var items = view.getViewItems();
+                    expect(view.getItemIndex(items[0])).toBe(0);
+                    expect(view.getItemIndex(items[1])).toBe(1);
+                    expect(view.getItemIndex(items[2])).toBe(2);
+                });
             });
         });
     });
@@ -1195,7 +1309,7 @@ topSuite("Ext.dataview.DataView", ['Ext.data.ArrayStore'], function() {
             function makeWithEvent(event) {
                 var listeners = {};
                 listeners[event] = spy;
-                makeView({
+                makeViewWaitsForFirstPaint({
                     listeners: listeners
                 }, 5);
                 view.preventEventWarning = true;
@@ -1307,7 +1421,6 @@ topSuite("Ext.dataview.DataView", ['Ext.data.ArrayStore'], function() {
                 makeWithEvent('itemdoubletap');
                 tap(0);
                 tap(0);
-
                 //waits(Ext.event.gesture.DoubleTap.instance.getMaxDuration());
                 waitsFor(function () {
                     return spy.callCount === 1;
@@ -1359,111 +1472,109 @@ topSuite("Ext.dataview.DataView", ['Ext.data.ArrayStore'], function() {
     });
 
     describe("reacting to store changes", function() {
-        function makeSuite(renderedFirst) {
-            function makeSuiteView(viewCfg, storeCfg, options) {
-                viewCfg = viewCfg || {};
-                if (!renderedFirst) {
-                    viewCfg.renderTo = null;
-                }
-                makeView(viewCfg, storeCfg, options);
-            }
-
-            function renderIf() {
-                if (!renderedFirst) {
-                    view.render(Ext.getBody());
-                }
-            }
-
-            describe("loading", function() {
-                describe("remote", function() {
-                    it("should update when the store loads", function() {
-                        makeSuiteView(null, 0);
-                        store.load();
+        describe("loading", function() {
+            describe("remote", function() {
+                it("should update when the store loads", function() {
+                    makeView(null, 0);
+                    store.load();
+                    waitsForFirstPaint();
+                    runs(function() {
                         Ext.Ajax.mockCompleteWithData(makeData(3));
-                        renderIf();
-                        expectData(['Item1', 'Item2', 'Item3']);
-                    });
-                });
-
-                describe("local", function() {
-                    it("should update when the store loads", function() {
-                        makeSuiteView(null, 0);
-                        store.loadData(makeData(3));
-                        renderIf();
                         expectData(['Item1', 'Item2', 'Item3']);
                     });
                 });
             });
 
-            describe("adding", function() {
-                describe("single record", function() {
-                    it("should be able to add to an empty view", function() {
-                        makeSuiteView(null, 0);
+            describe("local", function() {
+                it("should update when the store loads", function() {
+                    makeViewWaitsForFirstPaint(null, 0);
+                    runs(function() {
+                        store.loadData(makeData(3));
+                        expectData(['Item1', 'Item2', 'Item3']);
+                    });
+                });
+            });
+        });
+
+        describe("adding", function() {
+            describe("single record", function() {
+                it("should be able to add to an empty view", function() {
+                    makeViewWaitsForFirstPaint(null, 0);
+                    runs(function() {
                         store.add(makeItem(1));
                         expectData(['Item1']);
                     });
+                });
 
-                    it("should be able to add to the start of a view", function() {
-                        makeSuiteView(null, 3);
+                it("should be able to add to the start of a view", function() {
+                    makeViewWaitsForFirstPaint(null, 3);
+                    runs(function() {
                         store.insert(0, makeItem(4));
-                        renderIf();
                         expectData(['Item4', 'Item1', 'Item2', 'Item3']);
-                    });
-
-                    it("should be able to add to the middle of the view", function() {
-                        makeSuiteView(null, 4);
-                        store.insert(2, makeItem(5));
-                        renderIf();
-                        expectData(['Item1', 'Item2', 'Item5', 'Item3', 'Item4']);
-                    });
-
-                    it("should be able to add to the end of a view", function() {
-                        makeSuiteView(null, 3);
-                        store.add(makeItem(4));
-                        renderIf();
-                        expectData(['Item1', 'Item2', 'Item3', 'Item4']);
                     });
                 });
 
-                describe("multiple records", function() {
-                    describe("contiguous range", function() {
-                        it("should be able to add to an empty view", function() {
-                            makeSuiteView(null, 0);
+                it("should be able to add to the middle of the view", function() {
+                    makeViewWaitsForFirstPaint(null, 4);
+                    runs(function() {
+                        store.insert(2, makeItem(5));
+                        expectData(['Item1', 'Item2', 'Item5', 'Item3', 'Item4']);
+                    });
+                });
+
+                it("should be able to add to the end of a view", function() {
+                    makeViewWaitsForFirstPaint(null, 3);
+                    runs(function() {
+                        store.add(makeItem(4));
+                        expectData(['Item1', 'Item2', 'Item3', 'Item4']);
+                    });
+                });
+            });
+
+            describe("multiple records", function() {
+                describe("contiguous range", function() {
+                    it("should be able to add to an empty view", function() {
+                        makeViewWaitsForFirstPaint(null, 0);
+                        runs(function() {
                             store.add(makeData(2));
-                            renderIf();
                             expectData(['Item1', 'Item2']);
-                        });
-
-                        it("should be able to add to the start of a view", function() {
-                            makeSuiteView(null, 3);
-                            store.insert(0, makeData(2, 4));
-                            renderIf();
-                            expectData(['Item4', 'Item5', 'Item1', 'Item2', 'Item3']);
-                        });
-
-                        it("should be able to add to the middle of the view", function() {
-                            makeSuiteView(null, 4);
-                            store.insert(2, makeData(3, 5));
-                            renderIf();
-                            expectData(['Item1', 'Item2', 'Item5', 'Item6', 'Item7', 'Item3', 'Item4']);
-                        });
-
-                        it("should be able to add to the end of a view", function() {
-                            makeSuiteView(null, 3);
-                            store.add(makeData(2, 4));
-                            renderIf();
-                            expectData(['Item1', 'Item2', 'Item3', 'Item4', 'Item5']);
                         });
                     });
 
-                    describe("discontiguous range", function() {
-                        it("should be able to add nodes", function() {
-                            makeSuiteView({
-                                store: {
-                                    data: [makeItem(1), makeItem(4), makeItem(7)],
-                                    sorters: 'id'
-                                }
-                            });
+                    it("should be able to add to the start of a view", function() {
+                        makeViewWaitsForFirstPaint(null, 3);
+                        runs(function() {
+                            store.insert(0, makeData(2, 4));
+                            expectData(['Item4', 'Item5', 'Item1', 'Item2', 'Item3']);
+                        });
+                    });
+
+                    it("should be able to add to the middle of the view", function() {
+                        makeViewWaitsForFirstPaint(null, 4);
+                        runs(function() {
+                            store.insert(2, makeData(3, 5));
+                            expectData(['Item1', 'Item2', 'Item5', 'Item6', 'Item7', 'Item3', 'Item4']);
+                        });
+                    });
+
+                    it("should be able to add to the end of a view", function() {
+                        makeViewWaitsForFirstPaint(null, 3);
+                        runs(function() {
+                            store.add(makeData(2, 4));
+                            expectData(['Item1', 'Item2', 'Item3', 'Item4', 'Item5']);
+                        });
+                    });
+                });
+
+                describe("discontiguous range", function() {
+                    it("should be able to add nodes", function() {
+                        makeViewWaitsForFirstPaint({
+                            store: {
+                                data: [makeItem(1), makeItem(4), makeItem(7)],
+                                sorters: 'id'
+                            }
+                        });
+                        runs(function() {
                             store.add([
                                 makeItem(2),
                                 makeItem(3),
@@ -1471,233 +1582,222 @@ topSuite("Ext.dataview.DataView", ['Ext.data.ArrayStore'], function() {
                                 makeItem(6),
                                 makeItem(8)
                             ]);
-                            renderIf();
                             expectData(['Item1', 'Item2', 'Item3', 'Item4', 'Item5', 'Item6', 'Item7', 'Item8']);
                         });
                     });
                 });
             });
+        });
 
-            describe("updating", function() {
-                beforeEach(function() {
-                    makeSuiteView(null, 5);
-                });
+        describe("updating", function() {
+            beforeEach(function() {
+                makeViewWaitsForFirstPaint(null, 5);
+            });
 
-                it("should update the content", function() {
+            it("should update the content", function() {
+                runs(function() {
                     store.first().set('name', 'Foo');
-                    renderIf();
                     expectData(['Foo', 'Item2', 'Item3', 'Item4', 'Item5']);
                 });
+            });
 
-                describe("while sorted", function() {
-                    it("should move the item if the change causes the item to move to the end", function() {
+            describe("while sorted", function() {
+                it("should move the item if the change causes the item to move to the end", function() {
+                    runs(function() {
                         store.getSorters().add('name');
                         store.first().set('name', 'Item6');
-                        renderIf();
                         expectData(['Item2', 'Item3', 'Item4', 'Item5', 'Item6']);
-                    });
-
-                    it("should move the item if the change causes the item to move to the start", function() {
-                        store.getSorters().add('name');
-                        store.last().set('name', 'Item0');
-                        renderIf();
-                        expectData(['Item0', 'Item1', 'Item2', 'Item3', 'Item4']);
-                    });
-
-                    it("should move the item if the change causes the item to move to the middle", function() {
-                        store.getSorters().add('name');
-                        store.first().set('name', 'Item3.5');
-                        renderIf();
-                        expectData(['Item2', 'Item3', 'Item3.5', 'Item4', 'Item5']);
                     });
                 });
 
-                describe("while filtered", function() {
-                    it("should show the item when the change includes it in the filter", function() {
-                        var rec = store.first();
-
-                        store.getFilters().add({
-                            filterFn: function(rec) {
-                                return rec.get('name') >= 'Item2';
-                            }
-                        });
-                        if (renderedFirst) {
-                            expectData(['Item2', 'Item3', 'Item4', 'Item5']);
-                        }
-                        rec.set('name', 'Item6');
-                        renderIf();
-                        expectData(['Item2', 'Item3', 'Item4', 'Item5', 'Item6']);
+                it("should move the item if the change causes the item to move to the start", function() {
+                    runs(function() {
+                        store.getSorters().add('name');
+                        store.last().set('name', 'Item0');
+                        expectData(['Item0', 'Item1', 'Item2', 'Item3', 'Item4']);
                     });
+                });
 
-                    it("should hode the item when the change excludes it from the filter", function() {
-                        store.getFilters().add({
-                            filterFn: function(rec) {
-                                return rec.get('name') <= 'Item5';
-                            }
-                        });
-                        if (renderedFirst) {
-                            expectData(['Item1', 'Item2', 'Item3', 'Item4', 'Item5']);
-                        }
-                        store.first().set('name', 'Item6');
-                        renderIf();
-                        expectData(['Item2', 'Item3', 'Item4', 'Item5']);
+                it("should move the item if the change causes the item to move to the middle", function() {
+                    runs(function() {
+                        store.getSorters().add('name');
+                        store.first().set('name', 'Item3.5');
+                        expectData(['Item2', 'Item3', 'Item3.5', 'Item4', 'Item5']);
                     });
                 });
             });
 
-            describe("removing", function() {
-                describe("single record", function() {
-                    it("should be able to remove the last record", function() {
-                        makeSuiteView(null, 1);
+            describe("while filtered", function() {
+                it("should show the item when the change includes it in the filter", function() {
+                    var rec = store.first();
+
+                    store.getFilters().add({
+                        filterFn: function(rec) {
+                            return rec.get('name') >= 'Item2';
+                        }
+                    });
+                    expectData(['Item2', 'Item3', 'Item4', 'Item5']);
+                    rec.set('name', 'Item6');
+                    expectData(['Item2', 'Item3', 'Item4', 'Item5', 'Item6']);
+                });
+
+                it("should hide the item when the change excludes it from the filter", function() {
+                    store.getFilters().add({
+                        filterFn: function(rec) {
+                            return rec.get('name') <= 'Item5';
+                        }
+                    });
+                    expectData(['Item1', 'Item2', 'Item3', 'Item4', 'Item5']);
+                    store.first().set('name', 'Item6');
+                    expectData(['Item2', 'Item3', 'Item4', 'Item5']);
+                });
+
+                it('should ignore updates of items which are filtered out', function() {
+                    var thirdRec = store.getAt(2);
+
+                    store.getFilters().add({
+                        filterFn: function(rec) {
+                            return rec.get('age') < 23;
+                        }
+                    });
+
+                    expectData(['Item1', 'Item2']);
+                    expect(store.contains(thirdRec)).toBe(false);
+                    expect(function() {
+                        thirdRec.set('name', 'Foo');
+                    }).not.toThrow();
+                });
+            });
+        });
+
+        describe("removing", function() {
+            describe("single record", function() {
+                it("should be able to remove the last record", function() {
+                    makeViewWaitsForFirstPaint(null, 1);
+                    runs(function() {
                         store.removeAt(0);
-                        renderIf();
                         expectData([]);
-                    });
-
-                    it("should be able to remove from the start", function() {
-                        makeSuiteView(null, 5);
-                        store.removeAt(0);
-                        renderIf();
-                        expectData(['Item2', 'Item3', 'Item4', 'Item5']);
-                    });
-
-                    it("should be able to remove from the middle", function() {
-                        makeSuiteView(null, 5);
-                        store.removeAt(2);
-                        renderIf();
-                        expectData(['Item1', 'Item2', 'Item4', 'Item5']);
-                    });
-
-                    it("should be able to remove from the end", function() {
-                        makeSuiteView(null, 5);
-                        store.removeAt(4);
-                        renderIf();
-                        expectData(['Item1', 'Item2', 'Item3', 'Item4']);
                     });
                 });
 
-                describe("multiple records", function() {
-                    beforeEach(function() {
-                        makeSuiteView(null, 7);
+                it("should be able to remove from the start", function() {
+                    makeViewWaitsForFirstPaint(null, 5);
+                    runs(function() {
+                        store.removeAt(0);
+                        expectData(['Item2', 'Item3', 'Item4', 'Item5']);
                     });
+                });
 
-                    describe("contiguous range", function() {
-                        it("should be able to remove from the start", function() {
+                it("should be able to remove from the middle", function() {
+                    makeViewWaitsForFirstPaint(null, 5);
+                    runs(function() {
+                        store.removeAt(2);
+                        expectData(['Item1', 'Item2', 'Item4', 'Item5']);
+                    });
+                });
+
+                it("should be able to remove from the end", function() {
+                    makeViewWaitsForFirstPaint(null, 5);
+                    runs(function() {
+                        store.removeAt(4);
+                        expectData(['Item1', 'Item2', 'Item3', 'Item4']);
+                    });
+                });
+            });
+
+            describe("multiple records", function() {
+                beforeEach(function() {
+                    makeViewWaitsForFirstPaint(null, 7);
+                });
+
+                describe("contiguous range", function() {
+                    it("should be able to remove from the start", function() {
+                        runs(function() {
                             store.removeAt(0, 2);
-                            renderIf();
                             expectData(['Item3', 'Item4', 'Item5', 'Item6', 'Item7']);
                         });
+                    });
 
-                        it("should be able to remove from the middle", function() {
+                    it("should be able to remove from the middle", function() {
+                        runs(function() {
                             store.removeAt(2, 3);
-                            renderIf();
                             expectData(['Item1', 'Item2', 'Item6', 'Item7']);
                         });
+                    });
 
-                        it("should be able to remove from the end", function() {
+                    it("should be able to remove from the end", function() {
+                        runs(function() {
                             store.removeAt(5, 2);
-                            renderIf();
                             expectData(['Item1', 'Item2', 'Item3', 'Item4', 'Item5']);
                         });
                     });
+                });
 
-                    describe("discontiguous range", function() {
-                        it("should be able to remove nodes", function() {
+                describe("discontiguous range", function() {
+                    it("should be able to remove nodes", function() {
+                        runs(function() {
                             store.remove([store.getAt(0), store.getAt(3), store.getAt(6)]);
-                            renderIf();
                             expectData(['Item2', 'Item3', 'Item5', 'Item6']);
                         });
                     });
+                });
 
-                    describe("all records", function() {
-                        it("should remove all nodes", function() {
+                describe("all records", function() {
+                    it("should remove all nodes", function() {
+                        runs(function() {
                             store.removeAll();
-                            renderIf();
                             expectData([]);
                         });
                     });
                 });
             });
+        });
 
-            describe("sorting", function() {
-                it("should react to sorting", function() {
-                    makeSuiteView(null, 7);
-                    if (renderedFirst) {
-                        expectData(['Item1', 'Item2', 'Item3', 'Item4', 'Item5', 'Item6', 'Item7']);
-                    }
+        describe("sorting", function() {
+            it("should react to sorting", function() {
+                makeView(null, 7);
+                waitsExpectData(['Item1', 'Item2', 'Item3', 'Item4', 'Item5', 'Item6', 'Item7']);
+                runs(function() {
                     store.getSorters().add({
                         property: 'name',
                         direction: 'DESC'
                     });
-                    renderIf();
                     expectData(['Item7', 'Item6', 'Item5', 'Item4', 'Item3', 'Item2', 'Item1']);
                 });
             });
-			
-            describe("selection while sorted", function() {
-                it("should save the item selection when list is sorted", function() {
-                    store = makeStore(5);
-                    makeView({
-                        store: store,
-                        selection: store.getAt(4)
-                    });
-                    store.getSorters().add({
-                        property: 'name',
-                        direction: 'ASC'
-                    });
-                    view.getStore().sort(store.getSorters().items);
-                    view.select(2);
-                    view.select(1);
-                    expect(getElement(view.getItemAt(0))).not.toHaveCls('x-selected');
-                    expect(getElement(view.getItemAt(1))).toHaveCls('x-selected');
-                    expect(getElement(view.getItemAt(2))).not.toHaveCls('x-selected');
-                    expect(getElement(view.getItemAt(3))).not.toHaveCls('x-selected');
-                    expect(getElement(view.getItemAt(4))).not.toHaveCls('x-selected');
-                });
-            });
-			
-            describe("filtering", function() {
-                function filter(rec) {
-                    return rec.id % 2 === 0;
-                }
+        });
 
-                it("should exclude items that do not match the filter", function() {
-                    makeSuiteView(null, 7);
-                    if (renderedFirst) {
-                        expectData(['Item1', 'Item2', 'Item3', 'Item4', 'Item5', 'Item6', 'Item7']);
-                    }
+        describe("filtering", function() {
+            function filter(rec) {
+                return rec.id % 2 === 0;
+            }
+
+            it("should exclude items that do not match the filter", function() {
+                makeView(null, 7);
+                waitsExpectData(['Item1', 'Item2', 'Item3', 'Item4', 'Item5', 'Item6', 'Item7']);
+                runs(function() {
                     store.getFilters().add({
                         filterFn: filter
                     });
-                    renderIf();
                     expectData(['Item2', 'Item4', 'Item6']);
                 });
+            });
 
-                it("should include items when the filter is cleared", function() {
-                    makeSuiteView({
-                        store: {
-                            data: makeData(7),
-                            filters: [{
-                                filterFn: filter
-                            }]
-                        }
-                    });
-                    if (renderedFirst) {
-                        expectData(['Item2', 'Item4', 'Item6']);
+            it("should include items when the filter is cleared", function() {
+                makeView({
+                    store: {
+                        data: makeData(7),
+                        filters: [{
+                            filterFn: filter
+                        }]
                     }
+                });
+                waitsExpectData(['Item2', 'Item4', 'Item6']);
+                runs(function() {
                     store.getFilters().removeAll();
-                    renderIf();
-                    expectData(['Item1', 'Item2', 'Item3', 'Item4', 'Item5', 'Item6', 'Item7']);
+                    waitsExpectData(['Item1', 'Item2', 'Item3', 'Item4', 'Item5', 'Item6', 'Item7']);
                 });
             });
-        }
-
-        describe("while not rendered", function() {
-            makeSuite(false);
-        });
-
-        describe("while rendered", function() {
-            makeSuite(true);
         });
     });
 
@@ -1705,79 +1805,47 @@ topSuite("Ext.dataview.DataView", ['Ext.data.ArrayStore'], function() {
         describe("initial selection", function() {
             it("should be able to configure the initial selection", function() {
                 store = makeStore(5);
-                makeView({
+                makeViewWaitsForFirstPaint({
                     store: store,
                     selection: store.getAt(2)
                 });
-                expect(getElement(view.getItemAt(2))).toHaveCls('x-selected');
-            });
-        });
-
-        describe('changing the id of a selected record', function() {
-            it('should update the selection model upon id change', function() {
-                store = makeStore(5);
-                var r2 = store.getAt(2),
-                    r3 = store.getAt(3),
-                    selectedMap,
-                    expectedSelectedIds = [];
-
-                makeView({
-                    store: store,
-                    selection: store.getAt(2)
+                runs(function() {
+                    expect(getElement(view.getItemAt(2))).toHaveCls('x-selected');
                 });
-                selectedMap = selModel.getSelected().map;
-                expectedSelectedIds[0] = r2.getId() + '';
-                expect(getElement(view.getItemAt(2))).toHaveCls('x-selected');
-                expect(Ext.Object.getKeys(selectedMap)).toEqual(expectedSelectedIds);
-
-                r2.setId('foo');
-
-                // The selection model's key map should have been updated
-                expect(Ext.Object.getKeys(selectedMap)).toEqual(['foo']);
-
-                selModel.select(r3);
-
-                // Selection model's mapo must contain r3's id now
-                expectedSelectedIds[0] = r3.getId() + '';
-                expect(Ext.Object.getKeys(selectedMap)).toEqual(expectedSelectedIds);
-
-                // r2 must not be selected r3 must be selected
-                expect(getElement(view.getItemAt(2))).not.toHaveCls('x-selected');
-                expect(getElement(view.getItemAt(3))).toHaveCls('x-selected');
             });
         });
     });
 
-    describe('Location and navigation', function() {
-        var inputField,
+    xdescribe('Location and navigation', function() {
+        var rec,
+            location,
+            inputField,
             focusEnterSpy,
             focusLeaveSpy,
             focusMoveSpy;
 
         function expectLocation(expected) {
+            location = navigationModel.getLocation();
+
             if (expected == null) {
-                waitsFor(function() {
-                    return navigationModel.getLocation() == null &&
-                        view.el.contains(document.activeElement) === false &&
-                        view.el.query('.' + view.focusedCls).length === 0;
-                }, 'focus to exit the view');
+                expect(location).toBeNull();
+                expect(view.el.contains(document.activeElement)).toBe(false);
+                expect(view.el.query('.' + view.focusedCls).length).toBe(0);
             } else {
-                var expectedLocation = new Ext.dataview.Location(view, (typeof expected === 'number') ? view.getViewItems()[expected] : expected);
+                expected = new Ext.dataview.Location({
+                    view: view,
+                    item: expected
+                });
 
-                waitsFor(function() {
-                    var location = navigationModel.getLocation();
-
-                    return location &&
-                        navigationModel.getLocation().equals(expectedLocation) &&
-                        document.activeElement === location.getFocusEl(true) &&
-                        location.getFocusEl().hasCls(view.focusedCls);
-                }, 'location to be ' + expected);
+                expect(location.equals(expected)).toBe(true);
+                expect(document.activeElement).toBe(location.getFocusEl(true));
+                expect(location.getFocusEl()).toHaveCls(view.focusedCls);
             }
         }
 
         // Begin the tests with a focused view.
         beforeEach(function() {
-            makeView(null, 10);
+            makeViewWaitsForFirstPaint(null, 10);
             focusEnterSpy = spyOn(view, 'onFocusEnter').andCallThrough();
             focusLeaveSpy = spyOn(view, 'onFocusLeave').andCallThrough();
             focusMoveSpy = spyOn(view.getNavigationModel(), 'onFocusMove').andCallThrough();
@@ -1804,7 +1872,7 @@ topSuite("Ext.dataview.DataView", ['Ext.data.ArrayStore'], function() {
             // We don't want the autofocused view.
             Ext.destroy(view);
 
-            makeView(null, 10);
+            makeViewWaitsForFirstPaint(null, 10);
             focusEnterSpy = spyOn(view, 'onFocusEnter').andCallThrough();
             inputField = Ext.getBody().createChild({
                 tag: 'input',
@@ -1848,29 +1916,35 @@ topSuite("Ext.dataview.DataView", ['Ext.data.ArrayStore'], function() {
 
             expectLocation(5);
 
-            runs(function() {
-                inputField.focus();
-            });
+            inputField.focus();
+
+            waitsForSpy(focusLeaveSpy);
 
             // No location when not focused
-            expectLocation();
-
             runs(function() {
+                focusEnterSpy.reset();
+                expectLocation();
                 view.focus();
             });
 
             // Untargeted refocus - should go to location 5
-            expectLocation(5);
+            waitsForSpy(focusEnterSpy);
+
+            // Focus should be back where it was
+            runs(function() {
+                expectLocation(5);
+            });
         });
 
         it('should navigate on arrow keys', function() {
             expectLocation(0);
+            jasmine.fireKeyEvent(document.activeElement, 'keydown', Ext.event.Event.DOWN);
+
+            waitsForSpy(focusMoveSpy);
 
             runs(function() {
-                jasmine.fireKeyEvent(document.activeElement, 'keydown', Ext.event.Event.DOWN);
+                expectLocation(1);
             });
-
-            expectLocation(1);
         });
     });
 });

@@ -51,43 +51,24 @@ Ext.define('Ext.data.virtual.Store', {
         totalCount: null,
         /**
          * @cfg {Number} leadingBufferZone
-         * The number of records to fetch beyond the active range in the direction of
-         * movement. If the range is advancing forward, the additional records are beyond
-         * `end`. If advancing backwards, they are before `begin`.
+         * The number of records to fetch beyond the active range in the direction of movement.
+         * If the range is advancing forward, the additional records are beyond `end`. If
+         * advancing backwards, they are before `begin`.
          */
         leadingBufferZone: 200,
 
         /**
          * @cfg {Number} trailingBufferZone
-         * The number of records to fetch beyond the active trailing the direction of
-         * movement. If the range is advancing forward, the additional records are before
-         * `begin`. If advancing backwards, they are beyond `end`.
+         * The number of records to fetch beyond the active trailing the direction of movement.
+         * If the range is advancing forward, the additional records are before `begin`. If
+         * advancing backwards, they are beyond `end`.
          */
         trailingBufferZone: 50
     },
 
-    /**
-     * @cfg remoteSort
-     * @inheritdoc
-     */
     remoteSort: true,
-    
-    /**
-     * @cfg remoteFilter
-     * @inheritdoc
-     */
     remoteFilter: true,
-    
-    /**
-     * @cfg sortOnLoad
-     * @inheritdoc
-     */
     sortOnLoad: false,
-    
-    /**
-     * @cfg trackRemoved
-     * @inheritdoc
-     */
     trackRemoved: false,
 
     constructor: function (config) {
@@ -117,7 +98,6 @@ Ext.define('Ext.data.virtual.Store', {
     //-----------------------------------------------------------------------
 
     /**
-     * @method contains
      * @inheritdoc
      */
     contains: function (record) {
@@ -142,7 +122,6 @@ Ext.define('Ext.data.virtual.Store', {
     },
 
     /**
-     * @method getAt
      * @inheritdoc
      */
     getAt: function (index) {
@@ -563,16 +542,6 @@ Ext.define('Ext.data.virtual.Store', {
 
             if (grouper) {
                 this.lockGroups(grouper, page);
-            }
-        },
-
-        onPageDestroy: function(page) {
-            var ranges = this.activeRanges,
-                len = ranges.length,
-                i;
-
-            for (i = 0; i < len; ++i) {
-                ranges[i].onPageDestroy(page);
             }
         },
 

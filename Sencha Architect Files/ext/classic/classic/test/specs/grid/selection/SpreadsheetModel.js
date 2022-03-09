@@ -3,7 +3,7 @@
 topSuite("Ext.grid.selection.SpreadsheetModel",
     ['Ext.grid.Panel', 'Ext.app.ViewModel', 'Ext.grid.plugin.Clipboard',
      'Ext.grid.plugin.CellEditing', 'Ext.grid.selection.Replicator',
-     'Ext.toolbar.Paging', 'Ext.button.Button', 'Ext.data.BufferedStore'],
+     'Ext.toolbar.Paging', 'Ext.button.Button'],
 function() {
     var itNotTouch = jasmine.supportsTouch ? xit : it,
         grid, view, store, selModel, colRef,
@@ -697,34 +697,6 @@ function() {
                 jasmine.fireMouseEvent(checkbox, 'click');
                 expect(grid.getSelectionModel().getCount()).toBe(0);
                 expect(count).toBe(0);
-            });
-            itNotTouch("should allow click/SHIFT click selection of rows when checkbox is clicked", function() {
-                var sel, checkbox5, checkbox7;
-                makeGrid(null, {
-                    selModel: {
-                        type: 'spreadsheet',
-                        checkboxSelect: true,
-                        checkboxColumnIndex: 1
-                    }
-                });
-
-                checkbox5 = findCell(5,1).querySelector('.x-grid-checkcolumn');
-                jasmine.fireMouseEvent(checkbox5, 'click');
-                expect(isRowSelected(5)).toBe(true);
-
-                checkbox7 = findCell(7,1).querySelector('.x-grid-checkcolumn');
-                jasmine.fireMouseEvent(checkbox7, 'click', null, null, null, true); // SHIFT/click
-
-                sel = selModel.getSelected();
-
-                // Click on checkbox for rows 5 and 7 should select all 3 rows
-                expect(sel.isRows).toBe(true);
-                expect(sel.getCount()).toBe(3);
-                expect(isRowSelected(5)).toBe(true);
-                expect(isRowSelected(6)).toBe(true);
-                expect(isRowSelected(7)).toBe(true);
-                expect(isRowSelected(0)).toBe(false);
-                expect(isRowSelected(8)).toBe(false);
             });
         });
     });

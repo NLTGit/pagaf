@@ -150,11 +150,11 @@ $progress-text-line-height-big: dynamic(32px);
  * @param {color} [$border-color=$progress-border-color]
  * The border-color of the ProgressBar
  *
- * @param {number} [$border-style=$progress-border-style]
- * The border-style of the ProgressBar
- *
  * @param {number} [$border-radius=$progress-border-radius]
  * The border-radius of the ProgressBar
+ *
+ * @param {number} [$border-style=$progress-border-style]
+ * The border-style of the ProgressBar
  *
  * @param {string} [$text-text-align=$progress-text-text-align]
  * The text-align of the ProgressBar's text
@@ -168,16 +168,13 @@ $progress-text-line-height-big: dynamic(32px);
  * @param {string} [$text-font-weight=$progress-text-font-weight]
  * The font-weight of the ProgressBar's text
  *
- * @param {string} [$text-font-family=$progress-font-family]
- * The font-family of the ProgressBar's text
- *
  * @param {number} [$text-line-height=$progress-text-line-height]
  * The line-height of the ProgressBar's text
  *
  * @param {number} [$text-line-height-big=$progress-text-line-height-big]
  * The line-height of the ProgressBar's text in the {@link Global_CSS#$enable-big big} sizing scheme
  *
- * @member Ext.Progress
+ * @member Ext.ProgressBar
  */
 @mixin progress-ui(
     $ui: null,

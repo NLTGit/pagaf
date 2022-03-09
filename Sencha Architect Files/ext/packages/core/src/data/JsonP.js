@@ -157,19 +157,9 @@ Ext.define('Ext.data.JsonP', {
         }
 
         me.setupErrorHandling(request);
-        me[callbackName] = me.bindResponse(request);
+        me[callbackName] = Ext.bind(me.handleResponse, me, [request], true);
         me.loadScript(request);
         return request;
-    },
-
-    bindResponse: function (request) {
-        var me = this;
-
-        return function (result) {
-            Ext.elevate(function () {
-                me.handleResponse(result, request);
-            });
-        };
     },
 
     /**
@@ -251,15 +241,16 @@ Ext.define('Ext.data.JsonP', {
      * @param {Object} request The request
      */
     handleResponse: function(result, request){
-        var success = true;
 
-        Ext.undefer(request.timeout);
+        var success = true,
+            globalEvents = Ext.GlobalEvents;
 
+        if (request.timeout) {
+            clearTimeout(request.timeout);
+        }
         delete this[request.callbackName];
         delete this.requests[request.id];
-
         this.cleanupErrorHandling(request);
-
         Ext.fly(request.script).destroy();
 
         if (request.errorType) {
@@ -268,8 +259,11 @@ Ext.define('Ext.data.JsonP', {
         } else {
             Ext.callback(request.success, request.scope, [result]);
         }
-
         Ext.callback(request.callback, request.scope, [success, result, request.errorType]);
+        if (globalEvents.hasListeners.idle) {
+            globalEvents.fireEvent('idle');
+        }
+
     },
 
     /**

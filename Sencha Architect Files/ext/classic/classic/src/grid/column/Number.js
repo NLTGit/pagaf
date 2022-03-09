@@ -60,7 +60,7 @@ Ext.define('Ext.grid.column.Number', {
      */
 
     /**
-     * @cfg producesHTML
+     * @cfg {Boolean} producesHTML
      * @inheritdoc
      */
     producesHTML: false,

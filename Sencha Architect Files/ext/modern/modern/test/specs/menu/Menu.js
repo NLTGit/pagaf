@@ -1,10 +1,12 @@
 /* global expect, jasmine, Ext, spyOn, xdescribe, describe, it */
 
-topSuite("Ext.menu.Menu", ['Ext.Button', 'Ext.field.Text', 'Ext.scroll.Scroller'], function() {
+topSuite("Ext.menu.Menu", ['Ext.Button', 'Ext.field.Text'], function() {
     var menu;
 
     function makeMenu(cfg) {
-        cfg = cfg || {};
+        cfg = Ext.apply({
+            floated: true
+        }, cfg);
         if (cfg.floated !== false) {
             cfg.x = cfg.y = 0;
         }
@@ -418,6 +420,8 @@ topSuite("Ext.menu.Menu", ['Ext.Button', 'Ext.field.Text', 'Ext.scroll.Scroller'
                 b.showMenu();
                 b.hideMenu();
 
+                delete menu.menuClickBuffer;
+
                 var other = new Ext.menu.Menu({
                     items: [{
                         text: 'Child',
@@ -444,6 +448,7 @@ topSuite("Ext.menu.Menu", ['Ext.Button', 'Ext.field.Text', 'Ext.scroll.Scroller'
         describe("moving from menu item to button", function() {
             it("should be able to show the menu", function() {
                 makeMenu({
+                    menuClickBuffer: 0,
                     items: [{
                         text: 'Foo'
                     }]
@@ -474,6 +479,7 @@ topSuite("Ext.menu.Menu", ['Ext.Button', 'Ext.field.Text', 'Ext.scroll.Scroller'
                     
                     other.hide();
                     b.setMenu(menu);
+                    delete menu.menuClickBuffer;
                     b.showMenu();
                     expect(menu.isVisible()).toBe(true);
                     Ext.destroy(other, b);
@@ -1524,103 +1530,25 @@ topSuite("Ext.menu.Menu", ['Ext.Button', 'Ext.field.Text', 'Ext.scroll.Scroller'
     });
     
     describe('document scrolling', function() {
-        (Ext.isiOS ? xit : it)('should not hide when the document scrolls', function() {
+        afterEach(function() {
+            Ext.scroll.Scroller.viewport = Ext.destroy(Ext.scroll.Scroller.viewport);
+        });
+        
+        it('should not hide when the document scrolls', function() {
             var stretcher = Ext.getBody().createChild({
                 style: 'position:absolute;height:1px;width:1px;top:10000px'
-            }), s = Ext.getViewportScroller();
+            });
 
             makeMenu();
             menu.show();
-            s.scrollBy(0, 1000);
+            Ext.scroll.Scroller.viewport.scrollBy(0, 1000);
 
             // We must wait for a possibly asynchronous scroll event to happen.
-            waitsForEvent(s, 'scrollend');
+            waitsForEvent(Ext.scroll.Scroller.viewport, 'scrollend');
 
             runs(function() {
                 expect(menu.isVisible()).toBe(true);
                 stretcher.destroy();
-            });
-        });
-    });
-
-    describe("hiding on scroll", function() {
-        var ct;
-
-        afterEach(function() {
-            ct = Ext.destroy(ct);
-        });
-        it("should not hide if the scroll occurs inside the menu", function() {
-            makeMenu({
-                items: [{
-                    xtype: 'component',
-                    height: 200,
-                    scrollable: true,
-                    html: '<div style="height: 500px; width: 50px;""></div>'
-                }]
-            });
-            menu.show();
-
-            var s = menu.items.first().getScrollable();
-            s.scrollBy(null, 100);
-            waitsForEvent(s, 'scrollend');
-            runs(function() {
-                expect(menu.isVisible()).toBe(true);
-            });
-        });
-
-        it("should not hide if the scroll occurs in an unrelated hierarchy", function() {
-            ct = new Ext.Component({
-                renderTo: Ext.getBody(),
-                width: 200,
-                height: 200,
-                scrollable: true,
-                html: '<div style="height: 500px; width: 50px;""></div>'
-            });
-
-            makeMenu({
-                items: [{
-                    text: 'Foo'
-                }]
-            });
-            menu.show();
-
-            var s = ct.getScrollable();
-            s.scrollBy(null, 100);
-            waitsForEvent(s, 'scrollend');
-            runs(function() {
-                expect(menu.isVisible()).toBe(true);
-            });
-        });
-
-        it("should hide if the menu is inside the scrolled hierarchy", function() {
-            ct = new Ext.Container({
-                renderTo: document.body,
-                width: 300,
-                height: 200,
-                scrollable: true,
-                items: [{
-                    xtype: 'button',
-                    menu: {
-                        items: [{
-                            text: 'Foo'
-                        }]
-                    }
-                }, {
-                    xtype: 'component',
-                    html: '<div style="height: 500px; width: 50px;""></div>'
-                }]
-            });
-
-            var b = ct.items.first(),
-                menu = b.getMenu();
-
-            b.showMenu();
-
-            var s = ct.getScrollable();
-            s.scrollBy(null, 100);
-            waitsForEvent(s, 'scrollend');
-            runs(function() {
-                expect(menu.isVisible()).toBe(false);
             });
         });
     });
@@ -1669,7 +1597,7 @@ topSuite("Ext.menu.Menu", ['Ext.Button', 'Ext.field.Text', 'Ext.scroll.Scroller'
     });
 
     // https://sencha.jira.com/browse/EXTJS-20962
-    describe("adding separator by shortcut to menu that has defaults", function () {
+    xdescribe("adding separator by shortcut to menu that has defaults", function () {
         beforeEach(function () {
             makeMenu({
                 defaults: {
@@ -1684,13 +1612,13 @@ topSuite("Ext.menu.Menu", ['Ext.Button', 'Ext.field.Text', 'Ext.scroll.Scroller'
         });
 
         it("should not apply defaults to separator", function () {
-            expect(menu.items.getAt(0).getIconCls()).toBe('x-fa fa-truck');
-            expect(menu.items.getAt(1).getIconCls).toBeUndefined();
-            expect(menu.items.getAt(2).getIconCls()).toBe('x-fa fa-truck');
+            expect(menu.items.getAt(0).iconCls).toBe('x-fa fa-truck');
+            expect(menu.items.getAt(1).iconCls).toBeUndefined();
+            expect(menu.items.getAt(2).iconCls).toBe('x-fa fa-truck');
         });
 
         it("should successfully add an instance of Ext.menu.Separator", function () {
-            expect(menu.items.getAt(1).xtype).toBe('menuseparator');
+            expect(menu.items.getAt(1).getXType()).toBe('menuseparator');
         });
     });
 

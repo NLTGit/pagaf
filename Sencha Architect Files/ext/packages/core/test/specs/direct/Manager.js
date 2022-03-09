@@ -615,36 +615,14 @@ topSuite("Ext.direct.Manager", ['Ext.direct.*'], function() {
                 });
                 
                 describe("failure", function() {
-                    var message,
-                        error;
-
-                    try{
-                        (function(){var a = nonexistent;})();
-                    } catch(e) {
-                        // Grab first line of stack trace to ascertain displayed message
-                        // IE < 10 do not support stack property
-                        if (e.stack) {
-                            message = e.stack.split(/\r|\n|\r\n/)[0];
-    
-                            // If stack doesn't contain error, the fallback will work.
-                            if (message.indexOf('Error:') === -1) {
-                                message = null;
-                            }
-                        }
-                    }
-
-                    // If would could not access the real message from the Error object,
-                    // fall back to hoping we know what the browser *really* is
-                    // (We test in emulation modes) and what the browser does.
-                    if (!message) {
-                        message = Ext.isIE8         ? "TypeError: 'nonexistent' is undefined" :
-                            Ext.isIE || Ext.isEdge  ? "ReferenceError: 'nonexistent' is undefined" :
-                            Ext.isSafari            ? "ReferenceError: Can't find variable: nonexistent" :
-                                                      "ReferenceError: nonexistent is not defined"
-                    }
-
-                    error = ['blerg', message];
-
+                    var error = [
+                            'blerg',
+                            Ext.isIE8    ? "TypeError: 'nonexistent' is undefined" :
+                            Ext.isIE || Ext.isEdge     ? "ReferenceError: 'nonexistent' is undefined" :
+                            Ext.isSafari ? "ReferenceError: Can't find variable: nonexistent" :
+                                           "ReferenceError: nonexistent is not defined"
+                        ];
+                    
                     beforeEach(function() {
                         Manager.onApiLoadSuccess({
                             url: 'blerg',

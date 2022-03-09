@@ -17,16 +17,9 @@ Ext.Number = (new function() { // jshint ignore:line
             wrap: true
         };
 
-    // polyfill
-    Number.MIN_SAFE_INTEGER = Number.MIN_SAFE_INTEGER || -(math.pow(2, 53) - 1);
-    Number.MAX_SAFE_INTEGER = Number.MAX_SAFE_INTEGER || math.pow(2, 53) - 1;
-
     Ext.apply(ExtNumber, {
-        MIN_SAFE_INTEGER: Number.MIN_SAFE_INTEGER,
-        MAX_SAFE_INTEGER: Number.MAX_SAFE_INTEGER,
-        // No good way to allow "9." w/o allowing "." alone but we use isNaN to reject that
-        floatRe: /^[-+]?(?:\d+|\d*\.\d*)(?:[Ee][+-]?\d+)?$/,
-        intRe: /^[-+]?\d+(?:[Ee]\+?\d+)?$/,
+        MIN_SAFE_INTEGER: Number.MIN_SAFE_INTEGER || -(math.pow(2, 53) - 1),
+        MAX_SAFE_INTEGER: Number.MAX_SAFE_INTEGER || math.pow(2, 53) - 1,
 
         Clip: {
             DEFAULT: ClipDefault,
@@ -42,52 +35,6 @@ Ext.Number = (new function() { // jshint ignore:line
             NOWRAP: Ext.applyIf({
                     wrap: false
                 }, ClipDefault)
-        },
-
-        /**
-         * Strictly parses the given value and returns the value as a number or `null` if
-         * the value is not a number or contains non-numeric pieces.
-         * @param {String} value
-         * @return {Number}
-         * @since 6.5.1
-         */
-        parseFloat: function (value) {
-            if (value === undefined) {
-                value = null;
-            }
-
-            if (value !== null && typeof value !== 'number') {
-                value = String(value);
-                value = ExtNumber.floatRe.test(value) ? +value : null;
-                if (isNaN(value)) {
-                    value = null;
-                }
-            }
-
-            return value;
-        },
-
-        /**
-         * Strictly parses the given value and returns the value as a number or `null` if
-         * the value is not an integer number or contains non-integer pieces.
-         * @param {String} value
-         * @return {Number}
-         * @since 6.5.1
-         */
-        parseInt: function (value) {
-            if (value === undefined) {
-                value = null;
-            }
-
-            if (typeof value === 'number') {
-                value = Math.floor(value);
-            }
-            else if (value !== null) {
-                value = String(value);
-                value = ExtNumber.intRe.test(value) ? +value : null;
-            }
-
-            return value;
         },
 
         binarySearch: function (array, value, begin, end) {
@@ -364,31 +311,11 @@ Ext.Number = (new function() { // jshint ignore:line
             interval = interval || 1;
             return interval * math.round(value / interval);
         },
-
-        /**
-         * Rounds a number to the specified precision.
-         * @param value
-         * @param precision
-         * @return {number}
-         */
+        
         roundToPrecision: function(value, precision) {
             var factor = math.pow(10, precision || 1);
 
             return math.round(value * factor) / factor;
-        },
-
-        /**
-         * Truncates a number to the specified precision,
-         * without rounding.
-         * @param value
-         * @param precision
-         * @return {number}
-         * @since 6.5.1
-         */
-        truncateToPrecision: function(value, precision) {
-            var factor = math.pow(10, precision || 1);
-
-            return parseInt(value * factor, 10) / factor;
         },
 
         /**
@@ -426,7 +353,7 @@ Ext.Number = (new function() { // jshint ignore:line
          * @param {Number} n1 First number.
          * @param {Number} n2 Second number.
          * @param {Number} epsilon Margin of precision.
-         * @return {Boolean} `true`, if numbers are equal. `false` otherwise.
+         * @returns {Boolean} `true`, if numbers are equal. `false` otherwise.
          */
         isEqual: function (n1, n2, epsilon) {
             //<debug>
@@ -439,10 +366,10 @@ Ext.Number = (new function() { // jshint ignore:line
 
         /**
          * Determines if the value passed is a number and also finite.
-         * This a Polyfill version of Number.isFinite(),differently than
+         * This a Polyfill version of Number.isFinite(),differently than 
          * the isFinite() function, this method doesn't convert the parameter to a number.
          * @param {Number} value Number to be tested.
-         * @return {Boolean} `true`, if the parameter is a number and finite, `false` otherwise.
+         * @returns {Boolean} `true`, if the parameter is a number and finite, `false` otherwise.
          * @since 6.2
          */
         isFinite: Number.isFinite || function (value) {
@@ -497,7 +424,7 @@ Ext.Number = (new function() { // jshint ignore:line
         randomInt: function (from, to) {
            return math.floor(math.random() * (to - from + 1) + from);
         },
-
+        
         /**
          * Corrects floating point numbers that overflow to a non-precise
          * value because of their floating nature, for example `0.1 + 0.2`

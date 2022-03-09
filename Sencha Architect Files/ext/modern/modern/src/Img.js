@@ -93,8 +93,8 @@ Ext.define('Ext.Img', {
 
     beforeInitialize: function() {
         var me = this;
-        me.onLoad = me.onLoad.bind(me);
-        me.onError = me.onError.bind(me);
+        me.onLoad = Ext.Function.bind(me.onLoad, me);
+        me.onError = Ext.Function.bind(me.onError, me);
     },
 
     initialize: function() {

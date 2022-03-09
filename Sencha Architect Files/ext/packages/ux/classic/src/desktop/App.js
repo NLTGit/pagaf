@@ -26,7 +26,7 @@ Ext.define('Ext.ux.desktop.App', {
         me.mixins.observable.constructor.call(this, config);
 
         if (Ext.isReady) {
-            Ext.defer(me.init, 10, me);
+            Ext.Function.defer(me.init, 10, me);
         } else {
             Ext.onReady(me.init, me);
         }

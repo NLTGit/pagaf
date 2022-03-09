@@ -1,11 +1,11 @@
-topSuite("Ext.field.Picker", ['Ext.Button', 'Ext.picker.Picker', 'Ext.form.Panel'], function() {
+topSuite("Ext.field.Picker", ['Ext.Button', 'Ext.picker.Picker'], function() {
     var oldPlatformTags, field, picker;
 
     jasmine.usesViewport();
 
     function makeField(cfg) {
         field = new Ext.field.Picker(cfg);
-
+        
         if (field.getFloated()) {
             field.show();
         }
@@ -15,7 +15,7 @@ topSuite("Ext.field.Picker", ['Ext.Button', 'Ext.picker.Picker', 'Ext.form.Panel
     }
 
     beforeEach(function () {
-        oldPlatformTags = Ext.merge({}, Ext.platformTags);
+        oldPlatformTags = Ext.platformTags;
     });
 
     afterEach(function() {
@@ -29,15 +29,15 @@ topSuite("Ext.field.Picker", ['Ext.Button', 'Ext.picker.Picker', 'Ext.form.Panel
             makeField({
                 createEdgePicker: function() {
                     return new Ext.Component({
-                        ownerField: this,
+                        ownerCmp: this,
                         isViewportMenu: true,
                         where: 'edge'
                     });
                 },
-
+                
                 createFloatedPicker: function() {
                     return new Ext.Component({
-                        ownerField: this,
+                        ownerCmp: this,
                         where: 'floated'
                     });
                 }
@@ -46,109 +46,20 @@ topSuite("Ext.field.Picker", ['Ext.Button', 'Ext.picker.Picker', 'Ext.form.Panel
 
         it("should choose edge picker on a phone", function() {
             Ext.platformTags.phone = true;
-
+            
             picker = field.getPicker();
-
+            
             expect(picker.where).toBe('edge');
             expect(field.pickerType).toBe('edge');
         });
-
+        
         it("should choose floated picker when not on a phone", function() {
             Ext.platformTags.phone = false;
-
+            
             picker = field.getPicker();
-
+            
             expect(picker.where).toBe('floated');
             expect(field.pickerType).toBe('floated');
-        });
-    });
-
-    describe('hidePicker', function() {
-        var cmp,
-            field,
-            oldPlatformTags = Ext.platformTags.phone;
-
-        beforeEach(function() {
-            Ext.platformTags.phone = true;
-
-            field = new Ext.field.Picker({
-                createEdgePicker: function() {
-                    return new Ext.picker.Picker({
-                        ownerField: this,
-                        isViewportMenu: true,
-                        where: 'edge',
-                        slots: [{
-                            name: 'name',
-                            data: [{
-                                text: 'Bar',
-                                value: 'bar'
-                            }, {
-                                text: 'Baz',
-                                value: 'baz'
-                            }, {
-                                text: 'Foo',
-                                value: 'foo'
-                            }]
-                        }]
-                    });
-                }
-            });
-            cmp = new Ext.form.Panel({
-                title: 'Form Panel',
-                renderTo: Ext.getBody(),
-                width: 300,
-                height: 300,
-                items: [
-                    field
-                ]
-            });
-
-        });
-
-        afterEach(function() {
-            Ext.platformTags.phone = oldPlatformTags;
-            cmp = field = Ext.destroy(cmp, field);
-        });
-
-        it("should hide picker when parent container is hidden", function() {
-            field.setValue('foo');
-            field.expand();
-            picker = field.getPicker();
-
-            expect(field.pickerType).toBe('edge');
-            expect(picker.getValue(true)).toEqual({
-                name: 'foo'
-            });
-            waitsFor(function() {
-                return field.expanded;
-            });
-            runs(function() {
-                cmp.hide();
-            });
-            waitsFor(function() {
-                return !field.expanded;
-            });
-        });
-
-        it("should destroy picker when parent container is destroyed", function() {
-            field.setValue('foo');
-            field.expand();
-            picker = field.getPicker();
-
-            expect(field.pickerType).toBe('edge');
-            expect(picker.getValue(true)).toEqual({
-                name: 'foo'
-            });
-            waitsFor(function() {
-                return field.expanded;
-            });
-            runs(function() {
-                cmp.destroy();
-                cmp = null;
-            });
-            waitsFor(function() {
-                return field.destroyed;
-            });
         });
     });
 
@@ -157,7 +68,7 @@ topSuite("Ext.field.Picker", ['Ext.Button', 'Ext.picker.Picker', 'Ext.form.Panel
             makeField({
                 createEdgePicker: function() {
                     return new Ext.picker.Picker({
-                        ownerField: this,
+                        ownerCmp: this,
                         slots: [{
                             name: 'name',
                             data: [{
@@ -192,67 +103,123 @@ topSuite("Ext.field.Picker", ['Ext.Button', 'Ext.picker.Picker', 'Ext.form.Panel
         });
     });
     
-    describe("readonly on first tap", function() {
-        var inputEl, button, expandSpy, collapseSpy;
+    describe("input veil", function() {
+        var veil, button, expandSpy, collapseSpy;
         
         beforeEach(function() {
             button = new Ext.Button({
                 text: 'foo',
                 renderTo: document.body
             });
-
+            
             expandSpy = jasmine.createSpy('expand');
             collapseSpy = jasmine.createSpy('collapse');
-
+            
             makeField({
                 createEdgePicker: function() {
                     return new Ext.Component({
-                        ownerField: this,
+                        ownerCmp: this,
                         where: 'edge'
                     });
                 },
-
+                
                 createFloatedPicker: function() {
                     return new Ext.Component({
-                        ownerField: this,
+                        ownerCmp: this,
                         where: 'floated'
                     });
                 },
-
+                
                 listeners: {
                     expand: expandSpy,
                     collapse: collapseSpy
                 }
             });
-
-            inputEl = field.inputElement;
-        });
-
-        afterEach(function() {
-            inputEl = button = expandSpy = collapseSpy = Ext.destroy(button);
+            
+            veil = field.inputVeilElement;
         });
         
-        (jasmine.supportsTouch ? describe : xdescribe)("Readonly on first tap", function() {
-            describe("tap on unfocused field", function() {
+        afterEach(function() {
+            veil = button = expandSpy = collapseSpy = Ext.destroy(button);
+        });
+        
+        (Ext.supports.Touch ? describe : xdescribe)("veiled input", function() {
+            it("should have veil element rendered", function() {
+                var el = field.inputWrapElement.down('.' + Ext.baseCSSPrefix + 'input-veil-el', true);
+                
+                expect(el.parentElement).toBe(field.inputWrapElement.dom);
+            });
+            
+            describe("veil tap", function() {
                 beforeEach(function() {
-                    Ext.testHelper.tap(inputEl, { pointerType: 'touch'});
+                    Ext.testHelper.tap(veil);
                 });
-
+                
+                it("should hide the veil", function() {
+                    expect(veil.isVisible()).toBe(false);
+                });
+                
                 it("should expand the picker", function() {
-                    inputEl.focus();
+                    expect(expandSpy).toHaveBeenCalled();
+                });
+            });
+            
+            describe("veiling up", function() {
+                it("should show the veil on focus out", function() {
+                    Ext.testHelper.tap(veil);
+                    
+                    waitForSpy(expandSpy);
+                    
+                    runs(function() {
+                        focusAndExpect(field.inputElement);
+                    });
+                    
+                    runs(function() {
+                        Ext.testHelper.tap(button.el);
+                        button.focus();
+                    });
+                    
+                    expectFocused(button);
+                    
+                    waitForSpy(collapseSpy);
+                    
+                    runs(function() {
+                        expect(veil.isVisible()).toBe(true);
+                    });
+                });
+                
+                it("should show the veil on collapse when input element was not focused", function() {
+                    focusAndExpect(button);
+                    
+                    runs(function() {
+                        Ext.testHelper.tap(veil);
+                    });
+                    
                     waitsForSpy(expandSpy);
+                    
+                    runs(function() {
+                        expect(veil.isVisible()).toBe(false);
+                        Ext.testHelper.tap(button.el);
+                    });
+                    
+                    waitsForSpy(collapseSpy);
+                    
+                    runs(function() {
+                        expect(veil.isVisible()).toBe(true);
+                    });
                 });
             });
         });
-
-        (jasmine.supportsTouch ? xdescribe : describe)("No touch focusing", function() {
-            it("should not set to readonly on mouse-induced focus", function() {
-                jasmine.fireMouseEvent(inputEl, 'mousedown');
-
-                // None of that game playing when using a mouse
-                expect(inputEl.dom.getAttribute('readonly')).toBe(null);
-
-                jasmine.fireMouseEvent(inputEl, 'mouseup');
+        
+        (Ext.supports.Touch ? xdescribe : describe)("non-veiled input", function() {
+            it("should not have veil element rendered", function() {
+                var el = field.inputWrapElement.down('.' + Ext.baseCSSPrefix + 'input-veil-el', true);
+                
+                expect(el).toBe(null);
+            });
+            
+            it("should not have inputVeil property", function() {
+                expect(field.inputVeilElement).not.toBeDefined();
             });
         });
     });

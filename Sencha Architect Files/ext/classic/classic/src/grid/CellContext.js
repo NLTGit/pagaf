@@ -140,9 +140,7 @@ Ext.define('Ext.grid.CellContext', {
             // row is a grid row, or Element wrapping row
             else if (row.tagName || row.isElement) {
                 me.record = me.view.getRecord(row);
-
-                // If it's a placeholder record for a collapsed group, index it correctly
-                me.rowIdx = me.record ? (me.record.isCollapsedPlaceholder ? dataSource.indexOfPlaceholder(me.record) : dataSource.indexOf(me.record)) : -1;
+                me.rowIdx = dataSource.indexOf(me.record);
             }
         }
         if (me.record !== oldRecord) {
@@ -186,7 +184,7 @@ Ext.define('Ext.grid.CellContext', {
      * Returns the cell object referenced *at the time of calling*. Note that grid DOM is transient, and 
      * the cell referenced may be removed from the DOM due to paging or buffered rendering or column or record removal.
      *
-     * @param {Boolean} returnDom Pass `true` to return a DOM object instead of an {@link Ext.dom.Element Element}.
+     * @param {Boolean} returnDom Pass `true` to return a DOM object instead of an {@link Ext.dom.Element Element).
      * @return {HTMLElement/Ext.dom.Element} The cell referenced by this context.
      */
     getCell: function(returnDom) {
@@ -197,7 +195,7 @@ Ext.define('Ext.grid.CellContext', {
      * Returns the row object referenced *at the time of calling*. Note that grid DOM is transient, and 
      * the row referenced may be removed from the DOM due to paging or buffered rendering or column or record removal.
      *
-     * @param {Boolean} returnDom Pass `true` to return a DOM object instead of an {@link Ext.dom.Element Element}.
+     * @param {Boolean} returnDom Pass `true` to return a DOM object instead of an {@link Ext.dom.Element Element).
      * @return {HTMLElement/Ext.dom.Element} The grid row referenced by this context.
      */
     getRow: function(returnDom) {
@@ -210,7 +208,7 @@ Ext.define('Ext.grid.CellContext', {
      * calling*. Note that grid DOM is transient, and the node referenced may be removed from the DOM due
      * to paging or buffered rendering or column or record removal.
      *
-     * @param {Boolean} returnDom Pass `true` to return a DOM object instead of an {@link Ext.dom.Element Element}.
+     * @param {Boolean} returnDom Pass `true` to return a DOM object instead of an {@link Ext.dom.Element Element).
      * @return {HTMLElement/Ext.dom.Element} The grid item referenced by this context.
      */
     getNode: function(returnDom) {

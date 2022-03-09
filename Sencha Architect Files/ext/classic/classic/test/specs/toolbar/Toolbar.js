@@ -472,8 +472,7 @@ function() {
             });
 
         });
-        
-        itNotTouch("should not hide button menu when trackMenus is false", function() {
+        itNotTouch('should not maintain menu active state when mouseovering sibling buttons when trackMenus is false', function() {
             createToolbar({
                 trackMenus: false,
                 items: [{
@@ -499,14 +498,12 @@ function() {
                     }
                 }]
             });
-
             var b1 = toolbar.down('#b1'),
                 b2 = toolbar.down('#b2'),
                 b3 = toolbar.down('#b3'),
                 m1 = b1.getMenu(),
-                m3 = b3.getMenu(),
-                i1 = m1.down('menuitem');
-            
+                m3 = b3.getMenu();
+
             jasmine.fireMouseEvent(b1.el, 'mouseover');
             jasmine.fireMouseEvent(b1.el, 'click');
 
@@ -515,37 +512,27 @@ function() {
                 return m1.isVisible(true);
             }, 'menu 1 to show');
 
-            // Exiting the button hides the menu when trackMenus is false,
-            // unless mouseover was to the menu itself
+            // Exiting the button hides the menu when trackMenus is false
             runs(function() {
                 jasmine.fireMouseEvent(b1.el, 'mouseout');
-                jasmine.fireMouseEvent(i1.el, 'mouseenter');
-                jasmine.fireMouseEvent(i1.el, 'mouseover');
+                jasmine.fireMouseEvent(b2.el, 'mouseover');
             });
-            
+
             waitsFor(function() {
-                return !!m1.containsFocus;
-            }, 'menu 1 to contain focus');
-            
-            // Timer is set to 50 ms, give it a bit of slack
-            waits(100);
-            
-            // Menu should not hide
+                return !m1.isVisible(true);
+            }, 'menu 1 to hide');
+
+            // Moving over a button with a menu should still do nothing
             runs(function() {
-                expect(m1.isVisible(true)).toBe(true);
-                
-                jasmine.fireMouseEvent(i1.el, 'mouseout');
-                jasmine.fireMouseEvent(m1.el, 'mouseout');
-                jasmine.fireMouseEvent(b3.el, 'mouseenter');
+                jasmine.fireMouseEvent(b2.el, 'mouseout');
                 jasmine.fireMouseEvent(b3.el, 'mouseover');
             });
-            
+
+            // Nothing must happen. We cannot wait for anything
             waits(100);
-            
-            // Nothing should have changed w/r/t menus
+
+            // No menus. We are not tracking the active state.
             runs(function() {
-                expect(b3.el).toHaveCls('x-btn-over');
-                expect(m1.isVisible(true)).toBe(true);
                 expect(m3.isVisible(true)).toBe(false);
             });
         });

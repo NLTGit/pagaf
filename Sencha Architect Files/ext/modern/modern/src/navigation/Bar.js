@@ -18,7 +18,7 @@ Ext.define('Ext.navigation.Bar', {
 
     config: {
         /**
-         * @cfg cls
+         * @cfg
          * @inheritdoc
          */
         cls: Ext.baseCSSPrefix + 'navigation-bar',
@@ -32,23 +32,22 @@ Ext.define('Ext.navigation.Bar', {
 
         /**
          * @cfg {String} title
-         * The title of the toolbar. You should NEVER set this, it is used internally.
-         * You set the title of the navigation bar by giving a navigation views children
-         * a title configuration.
+         * The title of the toolbar. You should NEVER set this, it is used internally. You set the title of the
+         * navigation bar by giving a navigation views children a title configuration.
          * @private
          * @accessor
          */
         title: null,
 
         /**
-         * @cfg defaultType
+         * @cfg
          * @hide
          * @accessor
          */
         defaultType: 'button',
 
         /**
-         * @cfg layout
+         * @cfg
          * @ignore
          * @accessor
          */
@@ -57,13 +56,12 @@ Ext.define('Ext.navigation.Bar', {
         },
 
         /**
-         * @cfg {Array/Object} items
-         * The child items to add to this NavigationBar. The {@link #cfg-defaultType} of
-         * a NavigationBar is {@link Ext.Button}, so you do not need to specify an
-         * `xtype` if you are adding buttons.
+         * @cfg {Array/Object} items The child items to add to this NavigationBar. The {@link #cfg-defaultType} of
+         * a NavigationBar is {@link Ext.Button}, so you do not need to specify an `xtype` if you are adding
+         * buttons.
          *
-         * You can also give items a `align` configuration which will align the item to
-         * the `left` or `right` of the NavigationBar.
+         * You can also give items a `align` configuration which will align the item to the `left` or `right` of
+         * the NavigationBar.
          * @hide
          * @accessor
          */
@@ -89,25 +87,22 @@ Ext.define('Ext.navigation.Bar', {
 
         /**
          * @cfg {Boolean} useTitleForBackButtonText
-         * Set to false if you always want to display the {@link #defaultBackButtonText}
-         * as the text on the back button. True if you want to use the previous views
-         * title.
+         * Set to false if you always want to display the {@link #defaultBackButtonText} as the text
+         * on the back button. True if you want to use the previous views title.
          * @private
          * @accessor
          */
         useTitleForBackButtonText: null,
 
         /**
-         * @cfg {Ext.navigation.View} view
-         * A reference to the navigation view this bar is linked to.
+         * @cfg {Ext.navigation.View} view A reference to the navigation view this bar is linked to.
          * @private
          * @accessor
          */
         view: null,
 
         /**
-         * @cfg {Boolean} android2Transforms
-         * Optionally enable CSS transforms on Android 2
+         * @cfg {Boolean} androidAnimation Optionally enable CSS transforms on Android 2
          * for NavigationBar animations.  Note that this may cause flickering if the
          * NavigationBar is hidden.
          * @accessor
@@ -115,8 +110,7 @@ Ext.define('Ext.navigation.Bar', {
         android2Transforms: false,
 
         /**
-         * @cfg {Ext.Button/Object} backButton
-         * The configuration for the back button
+         * @cfg {Ext.Button/Object} backButton The configuration for the back button
          * @private
          * @accessor
          */
@@ -127,10 +121,6 @@ Ext.define('Ext.navigation.Bar', {
         }
     },
 
-    /**
-     * @property baseCls
-     * @inheritdoc
-     */
     baseCls: Ext.baseCSSPrefix + 'toolbar',
 
     /**

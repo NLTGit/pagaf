@@ -57,7 +57,7 @@
     $error-message-font-family: $field-error-message-font-family
 );
 
-.#{$prefix}field:not(.#{$prefix}field-solo) {
+.#{$prefix}field {
     &.#{$prefix}layout-auto-item,
     &.#{$prefix}layout-vbox-item {
         // the bottom spacing is implemented as padding so that when you are using
@@ -88,6 +88,6 @@
 .#{$prefix}ripple-wrapper + .#{$prefix}field {
     &.#{$prefix}layout-auto-item,
     &.#{$prefix}layout-vbox-item {
-        margin-top: 0 !important;
+        margin-top: 0;
     }
 }

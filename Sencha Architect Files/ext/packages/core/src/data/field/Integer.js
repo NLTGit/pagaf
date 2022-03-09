@@ -1,21 +1,4 @@
 /**
- * A data field that automatically {@link #convert converts} its value to an integer.
- *
- * **Note:** As you can see in the example below, casting data as an integer
- * can result in a loss of precision. (5.1 is converted to 5).
- *
- *     @example
- *     Ext.define('User', {
- *         extend: 'Ext.data.Model',
- *         fields: [
- *             { name: 'age', type: 'integer' }
- *         ]
- *     });
- *
- *     var record = Ext.create('User', { age: "5.1" }),
- *         value = record.get('age');
- *
- *     Ext.toast("age is " + value);
  */
 Ext.define('Ext.data.field.Integer', {
     extend: 'Ext.data.field.Field',
@@ -37,7 +20,7 @@ Ext.define('Ext.data.field.Integer', {
             return this.getNumber(v);
         }
 
-        var empty = v == null || v === '',
+        var empty = v === undefined || v === null || v === '',
             allowNull = this.allowNull,
             out;
 

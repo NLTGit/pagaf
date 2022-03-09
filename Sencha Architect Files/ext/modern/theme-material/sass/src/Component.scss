@@ -25,11 +25,10 @@
     --highlight-color: export;
     --disabled-color: export;
     --divider-color: export;
-    --selected-background-color: export;
-    --hovered-background-color: export;
-    --header-background-color: export;
     --reverse-color: export;
+    --reverse-highlight-color: export;
     --reverse-disabled-color: export;
+    --reverse-divider-color: export;
     --background-color: export;
     --alt-background-color: export;
     --reverse-background-color: export;
@@ -123,5 +122,3 @@ html, body {
   font-family: 'Roboto', sans-serif;
   color: $color;
 }
-
-$loading-spinner-color: dynamic(#aaa);

@@ -18,71 +18,62 @@
  *
  * # Example usage:
  *
- *      @example
- *      Ext.create({
- *          fullscreen: true,
- *          xtype: 'container',
- *          padding: 50,
- *          layout: 'vbox',
- *          items: [{
- *              xtype: 'combobox',
- *              label: 'Choose State',
- *              queryMode: 'local',
- *              displayField: 'name',
- *              valueField: 'abbr',
+ *     @example
+ *     // The data store containing the list of states
+ *     var states = Ext.create('Ext.data.Store', {
+ *         fields: ['abbr', 'name'],
+ *         options : [
+ *             {"abbr":"AL", "name":"Alabama"},
+ *             {"abbr":"AK", "name":"Alaska"},
+ *             {"abbr":"AZ", "name":"Arizona"}
+ *         ]
+ *     });
  *
- *              store: [
- *                  { abbr: 'AL', name: 'Alabama' },
- *                  { abbr: 'AK', name: 'Alaska' },
- *                  { abbr: 'AZ', name: 'Arizona' }
- *              ]
- *          }]
- *      });
+ *     // Create the combo box, attached to the states data store
+ *     Ext.create('Ext.form.ComboBox', {
+ *         fieldLabel: 'Choose State',
+ *         store: states,
+ *         queryMode: 'local',
+ *         displayField: 'name',
+ *         valueField: 'abbr',
+ *         renderTo: Ext.getBody()
+ *     });
  *
  * # Events
  *
- * ComboBox fires a select event if an item is chosen from the associated list.  If
- * the ComboBox is configured with {@link #forceSelection}: true, an action event is fired
- * when the user has typed the ENTER key while editing the field, and a change event on
- * each keystroke.
+ * To do something when something in ComboBox is selected, bind to the selection property.
  *
  * ## Customized combobox
  *
- * Both the text shown in dropdown list and text field can be easily customized:
+ * Both the text shown in dropdown menu and text field can be easily customized:
  *
- *      @example
- *      Ext.create({
- *          fullscreen: true,
- *          xtype: 'container',
- *          padding: 50,
- *          layout: 'vbox',
- *          items: [{
- *              xtype: 'combobox',
- *              label: 'Choose State',
- *              queryMode: 'local',
- *              displayField: 'name',
- *              valueField: 'abbr',
+ *     @example
+ *     var states = Ext.create('Ext.data.Store', {
+ *         fields: ['abbr', 'name'],
+ *         options : [
+ *             {"abbr":"AL", "name":"Alabama"},
+ *             {"abbr":"AK", "name":"Alaska"},
+ *             {"abbr":"AZ", "name":"Arizona"}
+ *         ]
+ *     });
  *
- *              // For the dropdown list
- *              itemTpl: '<span role="option" class="x-boundlist-item">{abbr} - {name}</span>',
- *
- *              // For the content of the text field
- *              displayTpl: '{abbr} - {name}',
- *
- *              editable: false,  // disable typing in the text field
- *
- *              store: [
- *                  { abbr: 'AL', name: 'Alabama' },
- *                  { abbr: 'AK', name: 'Alaska' },
- *                  { abbr: 'AZ', name: 'Arizona' }
- *              ]
- *          }]
- *      });
+ *     Ext.create('Ext.form.ComboBox', {
+ *         fieldLabel: 'Choose State',
+ *         store: states,
+ *         queryMode: 'local',
+ *         valueField: 'abbr',
+ *         renderTo: Ext.getBody(),
+ *         // Template for the dropdown menu.
+ *         itemTpl: '<span role="option" class="x-boundlist-item">{abbr} - {name}</span>',
+ *         // template for the content inside text field
+ *         displayTpl: '{abbr} - {name}',
+ *         // So text feidl is not editable
+ *         editable: false
+ *     });
  *
  * See also the {@link #cfg!floatedPicker} and {@link #cfg!edgePicker} options for additional
- * configuration of the options list.
+ * configuration of the picker lit.
  *
- * @since 6.5.0
  */
 Ext.define('Ext.field.ComboBox', {
     extend: 'Ext.field.Select',
@@ -137,12 +128,12 @@ Ext.define('Ext.field.ComboBox', {
          * @cfg {String} queryMode
          * The mode in which the ComboBox uses the configured Store. Acceptable values are:
          *
-         *   - **`'local'`** : In this mode, the ComboBox assumes the store is fully loaded and will query it directly.
+         *   - **`'remote'`** :
          *
-         *   - **`'remote'`** : In this mode the ComboBox loads its Store dynamically based upon user interaction.
+         *     In `queryMode: 'remote'`, the ComboBox loads its Store dynamically based upon user interaction.
          *
          *     This is typically used for "autocomplete" type inputs, and after the user finishes typing, the Store is {@link
-         *     Ext.data.Store#method!load load}ed.
+            *     Ext.data.Store#method!load load}ed.
          *
          *     A parameter containing the typed string is sent in the load request. The default parameter name for the input
          *     string is `query`, but this can be configured using the {@link #cfg!queryParam} config.
@@ -153,11 +144,31 @@ Ext.define('Ext.field.ComboBox', {
          *
          *     Typically, in an autocomplete situation, {@link #cfg!hideTrigger} is configured `true` because it has no meaning for
          *     autocomplete.
+         *
+         *   - **`'local'`** :
+         *
+         *     ComboBox loads local data
+         *
+         *         var combo = new Ext.form.field.ComboBox({
+         *             renderTo: document.body,
+         *             queryMode: 'local',
+         *             store: new Ext.data.ArrayStore({
+         *                 id: 0,
+         *                 fields: [
+         *                     'myId',  // numeric value is the key
+         *                     'displayText'
+         *                 ],
+         *                 data: [[1, 'item1'], [2, 'item2']]  // data is local
+         *             }),
+         *             valueField: 'myId',
+         *             displayField: 'displayText',
+         *             triggerAction: 'all'
+         *         });
          */
         queryMode: 'remote',
 
         /**
-         * @cfg {Boolean} queryCaching
+         * @cfg {Boolean} [queryCaching=true]
          * When true, this prevents the combo from re-querying (either locally or remotely) when the current query
          * is the same as the previous query.
          */
@@ -165,8 +176,8 @@ Ext.define('Ext.field.ComboBox', {
 
         /**
          * @cfg {Number} queryDelay
-         * The length of time in milliseconds to delay between the start of typing and sending
-         * the query to filter the dropdown list.
+         * The length of time in milliseconds to delay between the start of typing and sending the query to filter the
+         * dropdown list.
          *
          * Defaults to `500` if `{@link #queryMode} = 'remote'` or `10` if `{@link #queryMode} = 'local'`
          */
@@ -174,31 +185,44 @@ Ext.define('Ext.field.ComboBox', {
 
         /**
          * @cfg {Number} minChars
-         * The minimum number of characters the user must type before autocomplete and
-         * {@link #typeAhead} activate.
+         * The minimum number of characters the user must type before autocomplete and {@link #typeAhead} activate.
          *
-         * Defaults to `4` if {@link #queryMode} is `'remote'` or `0` if {@link #queryMode}
-         * is `'local'`, does not apply if {@link Ext.form.field.Trigger#editable editable}
-         * is `false`.
+         * Defaults to `4` if `{@link #queryMode} = 'remote'` or `0` if `{@link #queryMode} = 'local'`,
+         * does not apply if `{@link Ext.form.field.Trigger#editable editable} = false`.
          */
-        minChars: null,
+        minChars: false,
 
         /**
-         * @cfg {Boolean} anyMatch
+         * @cfg {Boolean} [anyMatch=false]
          * * Only valid when {@link #cfg!queryMode} is `'local'`.*
          * Configure as `true` to cause the {@link #cfg!primaryFilter} to match the typed
-         * characters at any position in the {@link #displayField}'s value when filtering
-         * *locally*.
+         * characters at any position in the {@link #displayField}'s value when filtering *locally*.
          */
         anyMatch: false,
 
         /**
-         * @cfg {Boolean} caseSensitive
+         * @cfg {Boolean} [caseSensitive=false]
          * * Only valid when {@link #cfg!queryMode} is `'local'`.*
-         * Configure as `true` to cause the {@link #cfg!primaryFilter} to match with
-         * exact case matching.
+         * Configure as `true` to cause the {@link #cfg!primaryFilter} to match with exact case matching.
          */
         caseSensitive: false,
+
+        /**
+         * @cfg {Boolean} autoFocus
+         * `true` to automatically focus the first result gathered by the data store in the dropdown list when it is
+         * opened. A false value would cause nothing in the list to be highlighted automatically, so
+         * the user would have to manually highlight an item before pressing the enter or {@link #selectOnTab tab} key to
+         * select it (unless the value of ({@link #typeAhead}) were true), or use the mouse to select a value.
+         */
+        autoFocus: true,
+
+        /**
+         * @cfg {Boolean} [autoFocusLast=true] When `true`, the last selected record in the dropdown
+         * list will be re-selected upon {@link #autoFocus}. Set to `false` to always select the first
+         * record in the drop-down list.
+         * For accessible applications it is recommended to set this option to `false`.
+         */
+        autoFocusLast: true,
 
         /**
          * @cfg {Boolean} typeAhead
@@ -209,13 +233,12 @@ Ext.define('Ext.field.ComboBox', {
 
         /**
          * @cfg {Number} typeAheadDelay
-         * The length of time in milliseconds to wait until the typeahead text is displayed
-         * if {@link #typeAhead} is `true`.
+         * The length of time in milliseconds to wait until the typeahead text is displayed if `{@link #typeAhead} = true`
          */
         typeAheadDelay: 250,
 
         /**
-         * @cfg {String} triggerAction
+         * @cfg {String} [triggerAction=all]
          * The action to execute when the trigger is clicked.
          *
          *   - **`'all'`** :
@@ -235,34 +258,43 @@ Ext.define('Ext.field.ComboBox', {
         triggerAction: 'all',
 
         /**
-         * @cfg {String} allQuery
-         * The text query to use to filter the store when the trigger element is tapped
-         * (or expansion is requested by a keyboard gesture). By default, this is `null`
-         * causing no filtering to occur.
+         * @cfg {String} [allQuery=null]
+         * The text query to use to filter the store when the trigger element is tapped (or expansion is requested
+         * by a keyboard gesture). By default, this is `null` causing no filtering to occur.
+         *
+         * *Usually
          */
         allQuery: null,
+
+        /**
+         * @cfg {Boolean} [clearFilterOnBlur=true]
+         * *When {@link #queryMode} is `'local'` only*
+         *
+         * As text is entered, the underlying store is filtered to match the value. When this option is `true`,
+         * any filtering applied by this field will be cleared when focus is removed & reinstated on focus.
+         * If `false`, the filters will be left in place.
+         */
+        clearFilterOnBlur: true,
 
         /**
          * @cfg {Boolean} enableRegEx
          * *When {@link #queryMode} is `'local'` only*
          *
-         * Set to `true` to have the ComboBox use the typed value as a RegExp source to
-         * filter the store to get possible matches.
+         * Set to `true` to have the ComboBox use the typed value as a RegExp source to filter the store to get possible matches.
          * Invalid regex values will be ignored.
          */
         enableRegEx: null
     },
 
     /**
-     * @cfg {Boolean} autoSelect
-     * `true` to auto select the first value in the {@link #store} or {@link #options} when
-     * they are changed. Only happens when the {@link #value} is set to `null`.
+     * @cfg {Boolean} [autoSelect=false]
+     * `true` to auto select the first value in the {@link #store} or {@link #options} when they are changed. Only happens when
+     * the {@link #value} is set to `null`.
      */
     autoSelect: false,
 
     /**
-     * @cfg editable
-     * @inheritdoc Ext.field.Text#cfg-editable
+     * @inheritdoc Ext.field.Text#editable
      */
     editable: true,
 
@@ -301,24 +333,15 @@ Ext.define('Ext.field.ComboBox', {
      */
 
     /**
-     * @event select
-     * Fires when the user has selected an item from the associated picker.
-     * @param {Ext.field.ComboBox} this This field
-     * @param {Ext.data.Model} newValue The corresponding record for the new value
-     */
-
-    /**
      * @event change
-     * Fires when the field is changed, or if forceSelection is false, on keystroke.
+     * Fires when the value has changed.
      * @param {Ext.field.ComboBox} this This field
-     * @param {Ext.data.Model} newValue The new value
-     * @param {Ext.data.Model} oldValue The original value
+     * @param {String} newValue The new value
+     * @param {String} oldValue The original value
      */
 
     // Start with value on prototype.
     lastQuery: {},
-
-    picker: 'floated',
 
     onInput: function (e) {
         var me = this,
@@ -326,15 +349,14 @@ Ext.define('Ext.field.ComboBox', {
             value = me.inputElement.dom.value,
             filters = me.getStore().getFilters();
 
-        if (!me.getForceSelection() || (value === '' && !me.getRequired())) {
-            me.callParent([ e ]);
-        }
-        else {
-            // Keep our config up to date:
-            me._inputValue = value;
+        // Keep our config up to date:
+        me._inputValue = value;
 
-            me.syncEmptyState();
+        if (!me.getForceSelection()) {
+            me.setValue(value);
         }
+
+        me.syncDefaultTriggers();
 
         if (value.length) {
             if (!filterTask) {
@@ -354,12 +376,10 @@ Ext.define('Ext.field.ComboBox', {
      * Execute the query with the raw contents within the textfield.
      */
     doRawFilter: function () {
-        var me = this,
-            rawValue = me.inputElement.dom.value,
-            lastQuery = me.lastQuery.query,
-            isErase = lastQuery && lastQuery.length > rawValue.length;
+        var rawValue = this.inputElement.dom.value,
+            isErase = this.lastQuery.query && this.lastQuery.query.length > rawValue.length;
 
-        me.doFilter({
+        this.doFilter({
             query: rawValue,
             isErase: isErase
         });
@@ -369,7 +389,7 @@ Ext.define('Ext.field.ComboBox', {
      * @private
      * Show the dropdown based upon triggerAction and allQuery
      */
-    onExpandTap: function () {
+    onExpandTap: function (e) {
         var me = this,
             triggerAction = me.getTriggerAction();
 
@@ -399,6 +419,37 @@ Ext.define('Ext.field.ComboBox', {
         }
     },
 
+    setPickerLocation: function(fromKeyboard) {
+        var me = this,
+            store = me.getStore(),
+            picker = me.getConfig('picker', false, true),
+            selectable, location;
+
+        if (me.pickerType === 'floated' && picker && store.getCount() > 0) {
+            selectable = picker.getSelectable();
+
+            // If there's a selection, we always move focus to it
+            location = selectable.getLastSelected();
+
+            // If there's no selection, or the selection is not in the picker store,
+            // then autoFocusLast attempts to focus the last known focused location.
+            // And the fallback is autoFocus focusing record 0.
+            if (!location || !store.contains(location)) {
+                if (fromKeyboard || me.getAutoFocusLast()) {
+                    location = picker.getNavigationModel().lastLocation;
+                    if (location) {
+                        location = location.refresh();
+                    }
+                }
+                if (!location && (fromKeyboard || me.getAutoFocus())) {
+                    location = store.getAt(0);
+                }
+            }
+
+            picker.getNavigationModel().setLocation(location);
+        }
+    },
+
     clearValue: function () {
         var me = this,
             inputMask = me.getInputMask();
@@ -409,31 +460,38 @@ Ext.define('Ext.field.ComboBox', {
             // TODO make inputMask work
         } else {
             me.setValue(null);
-            me.setFieldDisplay();
+            me.setInputValue('');
         }
 
-        me.syncEmptyState();
+        me.syncDefaultTriggers();
+    },
+
+    transformValue: function (value) {
+        if (value == null) {
+            value = this.getForceSelection() ? null : '';
+        }
+
+        return value;
     },
 
     /**
-     * Executes a query to filter the dropdown list. Fires the {@link #beforequery} event
-     * prior to performing the query allowing the query action to be canceled if needed.
+     * Executes a query to filter the dropdown list. Fires the {@link #beforequery} event prior to performing the query
+     * allowing the query action to be canceled if needed.
      *
      * @param {Object} query An object containing details about the query to be executed.
-     * @param {String} [query.query] The query value to be used to match against the
-     * ComboBox's {@link #textField}. If not present, the primary {@link #cfg!textfield}
-     * filter is disabled.
-     * @param {Boolean} query.force If `true`, causes the query to be executed even if
-     * the {@link #cfg!minChars} threshold is not met.
+     * @param {String} [queryPlan.query] The query value to be used to match against the ComboBox's {@link #textField}.
+     * If not present, the primary {@link #cfg!textfield} filter is disabled.
+     * @param {Boolean} queryPlan.force If `true`, causes the query to be executed even if the {@link #cfg!minChars} threshold is not met.
      * @returns {Boolean} `true` if the query resulted in picker expansion.
      */
     doFilter: function (query) {
         var me = this,
             isLocal = me.getQueryMode() === 'local',
             lastQuery = me.lastQuery,
-            store = me.getStore() && me._pickerStore,
+            store = me.getStore(),
             filter = me.getPrimaryFilter(),
             filters = store.getFilters(),
+
             // Decide if, and how we are going to query the store
             queryPlan = me.beforeFilter(Ext.apply({
                 filterGeneration: filter.generation,
@@ -441,10 +499,11 @@ Ext.define('Ext.field.ComboBox', {
                 combo: me,
                 cancel: false
             }, query)),
-            picker;
+            shouldExpand;
 
         // Allow veto.
         if (store && queryPlan !== false && !queryPlan.cancel) {
+
             // User can be typing a regex in here, if it's invalid
             // just swallow the exception and move on
             if (me.getEnableRegEx()) {
@@ -459,20 +518,16 @@ Ext.define('Ext.field.ComboBox', {
             filter.setValue(queryPlan.query);
 
             // If we are not caching previous queries, or the filter has changed in any way
-            // (value, or matching criteria etc), or the force flag is different, then we
-            // must re-filter. Otherwise, we just drop through to expand.
-            if (!me.getQueryCaching() || filter.generation !== lastQuery.filterGeneration ||
-                    query.force) {
+            // (value, or matching criteria etc), or the force flag is different, then we must re-filter.
+            // Otherwise, we just drop through to expand.
+            if (!me.getQueryCaching() || filter.generation !== lastQuery.filterGeneration || query.force) {
+
                 // If there is a query string to filter against, enable the filter now and prime its value
                 // Filtering will occur when the store's FilterCollection broadcasts its endUpdate signal.
                 if (Ext.isEmpty(queryPlan.query)) {
                     filter.setDisabled(true);
                 } else {
                     filter.setDisabled(false);
-
-                    // If we are doing remote filtering, set a flag to
-                    // indicate to onStoreLoad that the load is the result of filering.
-                    me.isFiltering = !isLocal;
                 }
 
                 me.lastQuery = queryPlan;
@@ -483,29 +538,23 @@ Ext.define('Ext.field.ComboBox', {
                 filters.endUpdate();
             }
 
-            if (me.getTypeAhead()) {
-                me.doTypeAhead(queryPlan);
-            }
-
             // If the query result is non-zero length, or there is empty text to display
             // we must expand.
-            // Note that edge pickers do not have an emptyText config.
-            picker = me.getPicker();
+            shouldExpand = store.getCount() || me.getPicker().getEmptyText();
 
             // If it's a remote store, we must expand now, so that the picker will show its loading mask
             // to show that some activity is happening.
-            if (!isLocal || store.getCount() || (picker.getEmptyText && picker.getEmptyText())) {
+            if (shouldExpand || !isLocal) {
                 me.expand();
                 return true;
             }
             // The result of the filtering is no records and there's no emptyText...
             // if it's a local query, hide the picker. If it's remote, we do not
             // know the result size yet, so the loading mask must stay visible.
-            else {
+            else if (isLocal) {
                 me.collapse();
             }
         }
-
         return false;
     },
 
@@ -529,43 +578,54 @@ Ext.define('Ext.field.ComboBox', {
      *
      */
     beforeFilter: function (queryPlan) {
-        var me = this,
-            query = queryPlan.query,
-            len;
+        var me = this;
 
         // Allow beforequery event to veto by returning false
         if (me.fireEvent('beforequery', queryPlan) === false) {
             queryPlan.cancel = true;
         }
+
         // Allow beforequery event to veto by returning setting the cancel flag
         else if (!queryPlan.cancel) {
-            len = query && query.length;
+
             // If the minChars threshold has not been met, and we're not forcing a query, cancel the query
-            if (!queryPlan.force && len && len < me._getMinChars()) {
+            if (!queryPlan.force && queryPlan.query.length < me.getMinChars()) {
                 queryPlan.cancel = true;
             }
         }
-
         return queryPlan;
     },
 
-    completeEdit: function() {
+    onFocus: function(e) {
         var me = this,
-            inputValue = me.getInputValue();
+            filters;
 
-        // Don't want to callParent here, we need custom handling
+        me.callParent([e]);
 
+        // Reapply local filter on focus
+        if (me.getTriggerAction() !== 'all' && me.getQueryMode() === 'local' && me.getClearFilterOnBlur()) {
+            me.getPrimaryFilter().setDisabled(false);
+            filters = me.getStore().getFilters();
+            filters.beginUpdate();
+            filters.endUpdate();
+        }
+    },
+
+    completeEdit: function(e) {
+        var me = this,
+            filters;
+
+        me.callParent([e]);
         if (me.doFilterTask) {
             me.doFilterTask.cancel();
         }
 
-        if (inputValue) {
-            me.syncMode = 'input';
-            me.syncValue();
-        }
-
-        if (me.getTypeAhead()) {
-            me.select(inputValue ? inputValue.length : 0);
+        // Unfilter a locally loaded store on blur - it may be in use by other components.
+        if (me.getQueryMode() === 'local' && me.getClearFilterOnBlur()) {
+            me.getPrimaryFilter().setDisabled(true);
+            filters = me.getStore().getFilters();
+            filters.beginUpdate();
+            filters.endUpdate();
         }
     },
 
@@ -573,7 +633,7 @@ Ext.define('Ext.field.ComboBox', {
      * @private
      * Called when the internal {@link #store}'s data has changed.
      * This may be in response to filtering. At this point, if we are expanded, we must
-     * ensure that the List's NavigationModel is either focused on the first item that is
+     * ensure that the List's NavigationModel is either focsed on the first item that is
      * in the selection, or if no selections, on tgeh first item.
      */
     onStoreDataChanged: function (store) {
@@ -595,12 +655,18 @@ Ext.define('Ext.field.ComboBox', {
             selection = me.getSelection() || null,
             toRemove = [];
 
-        // If we are not in the middle of doing a primary filter, then prune no longer
-        // present value(s)
-        if (selection && !me.destroying && store && store.isLoaded() &&
-                me.getPrimaryFilter().getDisabled()) {
-            if (!selection.isEntered && !store.contains(selection)) {
-                toRemove.push(selection);
+        // If we are not in the middle of doing a primary filter, then prune no longer present value(s)
+        if (selection && !me.destroying && store && store.isLoaded() && me.getPrimaryFilter().getDisabled()) {
+            if (me.getMultiSelect()) {
+                Ext.Array.each(selection, function(record) {
+                    if (!store.contains(record)) {
+                        toRemove.push(record);
+                    }
+                });
+            } else {
+                if (!store.contains(selection)) {
+                    toRemove.push(selection);
+                }
             }
 
             // Prune out values which are no longer in the source store
@@ -614,17 +680,23 @@ Ext.define('Ext.field.ComboBox', {
 
     onListSelect: Ext.emptyFn,
 
+    applyMinChars: function (minChars) {
+        if (minChars == null) {
+            minChars = this.getQueryMode() === 'local' ? 0 : 4;
+        }
+        return minChars;
+    },
+
     applyQueryDelay: function (queryDelay) {
-        if (queryDelay === true) {
+        if (queryDelay == true) {
             queryDelay = this.getQueryMode() === 'local' ? 10 : 500;
         }
-
         return queryDelay;
     },
 
     applyPrimaryFilter: function (filter, oldFilter) {
         var me = this,
-            store = me.getStore() && me._pickerStore,
+            store = me.getStore(),
             isInstance = filter && filter.isFilter;
 
         // If we have to remove the oldFilter, or reconfigure it...
@@ -684,19 +756,12 @@ Ext.define('Ext.field.ComboBox', {
         this.callParent([options, oldOptions]);
     },
 
-    updatePicker: function(picker, oldPicker) {
-        if (picker) {
-            picker.getSelectable().ignoredFilter = this.getPrimaryFilter();
-        }
-
-        this.callParent([picker, oldPicker]);
-    },
-
     updateStore: function(store, oldStore) {
         var me = this,
             isRemote = me.getQueryMode() === 'remote',
             primaryFilter,
-            proxy, oldFilters;
+            filterCollection,
+            proxy;
 
         // Tweak the proxy to encode the primaryFilter's parameter as documented for ComboBox
         if (isRemote) {
@@ -709,28 +774,29 @@ Ext.define('Ext.field.ComboBox', {
             }
         }
 
-        // Superclass ensures that there's a ChainedStore in the _pickerStore
-        // property if we are going to be adding our own local filters to it.
-        me.callParent([store, oldStore]);
-
-        // The primaryFilter (Our typing filter) will add itself to the _pickerStore.
+        // is remove it from the outgoing store
         primaryFilter = me.getPrimaryFilter();
-
-        if (primaryFilter) {
-            // Remove primaryFilter from the outgoing store.
-            // It will only be there if the outgoing store was remoteFilter.
-            if (oldStore && !oldStore.destroyed) {
-                oldFilters = oldStore.getFilters();
-
-                // Filter collection might not exist.
-                oldFilters && oldFilters.remove(primaryFilter);
-            }
-
-            // Add the primary filter to the (possibly new, but possibly just
-            // re-attached to the incoming store) pickerStore.
-            // See Ext.field.Select#updateStore, and its call to updatePickerStore.
-            me._pickerStore.addFilter(primaryFilter, true);
+        if (primaryFilter && oldStore) {
+            // Relieve the outgoing store of our primary filter
+            oldStore.getFilters().remove(primaryFilter);
         }
+
+        // Ensure the new store owns the primary filter
+        filterCollection = store.getFilters();
+        if (!filterCollection.contains(primaryFilter)) {
+            filterCollection.beginUpdate();
+            filterCollection.add(primaryFilter);
+
+            // We do not want to trigger a remote autoLoad by mutating the filter collection
+            // so end update silently if remote.
+            if (isRemote) {
+                filterCollection.updating--;
+            } else {
+                filterCollection.endUpdate();
+            }
+        }
+
+        me.callParent([store, oldStore]);
 
         // If we are doing remote filtering, then mutating the store's filters should not
         // result in a re-evaluation of whether the current value(s) is/are still present in the store.
@@ -742,6 +808,7 @@ Ext.define('Ext.field.ComboBox', {
                 scope: me
             });
         }
+
     },
 
     /**
@@ -760,78 +827,7 @@ Ext.define('Ext.field.ComboBox', {
     },
 
     doDestroy: function() {
-        var me = this;
-
-        me.setPrimaryFilter(null);
-
-        if (me.typeAheadTask) {
-            me.typeAheadTask = me.typeAheadTask.cancel();
-        }
-
-        me.callParent();
-    },
-
-    doTypeAhead: function (queryPlan) {
-        var me = this;
-
-        if (!me.typeAheadTask) {
-            me.typeAheadTask = new Ext.util.DelayedTask(me.onTypeAhead, me);
-        }
-
-        // Only typeahead when user extends the query string, or it's a completely different query
-        // If user is erasing, re-extending with typeahead is not wanted.
-        if (
-            (!queryPlan.lastQuery.query || !queryPlan.query || 
-                queryPlan.query.length > queryPlan.lastQuery.query.length) ||
-            !Ext.String.startsWith(queryPlan.lastQuery.query, queryPlan.query)
-        ) {
-            me.typeAheadTask.delay(me.getTypeAheadDelay());
-        }
-    },
-
-    onTypeAhead: function () {
-        var me = this,
-            displayField = me.getDisplayField(),
-            inputEl = me.inputElement.dom,
-            rawValue = inputEl.value,
-            store = me.getStore(),
-            record = store.findRecord(displayField, rawValue),
-            newValue, len, selStart;
-
-        if (record) {
-            newValue = record.get(displayField);
-            len = newValue.length;
-            selStart = rawValue.length;
-
-            if (selStart !== 0 && selStart !== len) {
-                inputEl.value = me._inputValue = newValue;
-
-                me.select(selStart, len);
-            }
-        }
-    },
-
-    privates: {
-        _getMinChars: function() {
-            var result = this.getMinChars();
-
-            if (result == null) {
-                result = this.getQueryMode() === 'remote' ? 4 : 0;
-            }
-            return result;
-        },
-
-        setFieldDisplay: function (selection) {
-            var me = this,
-                inputValue;
-
-            me.callParent([ selection ]);
-
-            if (me.getTypeAhead()) {
-                inputValue = me.getInputValue();
-
-                me.select(inputValue ? inputValue.length : 0);
-            }
-        }
+        this.setPrimaryFilter(null);
+        this.callParent();
     }
 });

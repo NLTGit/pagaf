@@ -88,51 +88,15 @@ $tool-border-radius-big: dynamic(null);
 
 /**
  * @var {number}
- * Tool icon size
+ * Tool size
  */
 $tool-size: dynamic(16px);
 
 /**
  * @var {number}
- * Tool icon size in the {@link Global_CSS#$enable-big big} sizing scheme
+ * Tool size in the {@link Global_CSS#$enable-big big} sizing scheme
  */
 $tool-size-big: dynamic(24px);
-
-/**
- * @var {number}
- * Tool width
- */
-$tool-width: dynamic(null);
-
-/**
- * @var {number}
- * Tool width in the {@link Global_CSS#$enable-big big} sizing scheme
- */
-$tool-width-big: dynamic(null);
-
-/**
- * @var {number}
- * Tool height
- */
-$tool-height: dynamic(null);
-
-/**
- * @var {number}
- * Tool height in the {@link Global_CSS#$enable-big big} sizing scheme
- */
-$tool-height-big: dynamic(null);
-
-/**
- * @var {number}
- * Tool margin
- */
-$tool-margin: dynamic(null);
-
-/**
- * @var {number}
- * Tool margin in the {@link Global_CSS#$enable-big big} sizing scheme
- */
-$tool-margin-big: dynamic(null);
 
 /**
  * @var {number}
@@ -197,6 +161,7 @@ $tool-focused-outline-offset: dynamic(null);
 /**
  * @var {Map}
  * Parameters for the `itemheader` tool UI used for tools in a list item header
+ * @ui tool-ui
  */
 $tool-itemheader-ui: dynamic(null);
 
@@ -210,63 +175,23 @@ $tool-rowheader-ui: dynamic(null);
 /**
  * @var {Map}
  * Parameters for the `listitem` tool UI used for tools in a list item
+ * @ui tool-ui
  */
 $tool-listitem-ui: dynamic(null);
 
 /**
  * @var {Map}
  * Parameters for the `gridcell` tool UI used for tools in a grid cell
+ * @ui tool-ui
  */
 $tool-gridcell-ui: dynamic(null);
 
 /**
  * @var {Map}
  * Parameters for the `gridcolumn` tool UI used for tools in a grid column header
+ * @ui tool-ui
  */
 $tool-gridcolumn-ui: dynamic(null);
-
-/**
- * @var {Map}
- * Parameters for the `boxscroller` tool UI used for tools in any container using box scroller
- * @ui tool-ui
- */
-$tool-boxscroller-ui: dynamic((
-    width: 24px,
-    height: 24px,
-    width-big: 32px,
-    height-big: 32px
-));
-
-/**
- * @var {Map}
- * Parameters for the `boxscroller` tool UI used for tools in toolbar using box scroller
- * @ui tool-ui
- */
-$tool-boxscroller-toolbar-ui:  dynamic((
-    color: #fff,
-    opacity: .5,
-    hovered-opacity: .6,
-    pressed-opacity: .7
-));
-
-/**
- * @var {Map}
- * Parameters for the `boxscroller` tool UI used for tools in a menu using box scroller
- * @ui tool-ui
- */
-$tool-boxscroller-menu-ui: dynamic(null);
-
-/**
- * @var {Map}
- * Parameters for the `boxscroller` tool UI used for tools in a tabbar using box scroller
- * @ui tool-ui
- */
-$tool-boxscroller-tabbar-ui: dynamic((
-    color: #fff,
-    opacity: .5,
-    hovered-opacity: .6,
-    pressed-opacity: .7
-));
 
 /**
  * Creates a visual theme for a tool.
@@ -326,24 +251,6 @@ $tool-boxscroller-tabbar-ui: dynamic((
  * @param {number} $size-big
  * Tool icon size in the {@link Global_CSS#$enable-big big} sizing scheme
  *
- * @param {number} $width
- * Tool width
- *
- * @param {number} $width-big in the {@link Global_CSS#$enable-big big} sizing scheme
- * Tool width-big
- *
- * @param {number} $height
- * Tool height
- *
- * @param {number} $height-big in the {@link Global_CSS#$enable-big big} sizing scheme
- * Tool height-big
- *
- * @param {number} $margin
- * Tool margin
- *
- * @param {number} $margin-big in the {@link Global_CSS#$enable-big big} sizing scheme
- * Tool margin-big
- *
  * @param {number} $font-size
  * Tool icon font-size
  *
@@ -393,12 +300,6 @@ $tool-boxscroller-tabbar-ui: dynamic((
     $border-radius-big: null,
     $size: null,
     $size-big: null,
-    $width: null,
-    $width-big: null,
-    $height: null,
-    $height-big: null,
-    $margin: null,
-    $margin-big: null,
     $font-size: null,
     $font-size-big: null,
     $spacing: null,
@@ -413,17 +314,15 @@ $tool-boxscroller-tabbar-ui: dynamic((
     $ui-suffix: ui-suffix($ui);
 
     .#{$prefix}#{$xtype}#{$ui-suffix} {
-        width: $width;
-        height: $height;
-        margin: $margin;
+        width: $size;
+        height: $size;
         cursor: $cursor;
         border-radius: $border-radius;
 
         @if $enable-big {
             .#{$prefix}big & {
-                width: $width-big;
-                height: $height-big;
-                margin: $margin-big;
+                width: $size-big;
+                height: $size-big;
                 border-radius: $border-radius-big;
             }
         }
@@ -548,14 +447,9 @@ $tool-boxscroller-tabbar-ui: dynamic((
         }
 
         &.#{$prefix}disabled {
-            cursor: $disabled-cursor;
-        }
-
-        // Passive (purely decorative) Tools are set disabled, but they must not
-        // *appear* disabled.
-        &.#{$prefix}disabled:not(.#{$prefix}passive) {
             color: $disabled-color;
             background-color: $disabled-background-color;
+            cursor: $disabled-cursor;
 
             .#{$prefix}icon-el {
                 opacity: $disabled-opacity;
@@ -671,7 +565,6 @@ $tool-left-icon: dynamic($fa-var-caret-left $font-icon-font-family);
  * The "down" tool icon
  */
 $tool-down-icon: dynamic($fa-var-caret-down $font-icon-font-family);
-
 
 //# fashion replaces $panel-tool-up-icon
 /**
@@ -819,27 +712,3 @@ $tool-expand-right-icon: dynamic($fa-var-caret-right $font-icon-font-family);
  * The right "collapse" tool icon
  */
 $tool-collapse-right-icon: dynamic($fa-var-caret-right $font-icon-font-family);
-
-/**
- * @var {string/list}
- * The scroll up tool icon used by box scroller
- */
-$tool-scroll-up-icon: dynamic($fa-var-chevron-up $font-icon-font-family);
-
-/**
- * @var {string/list}
- * The scroll down tool icon used by box scroller
- */
-$tool-scroll-down-icon: dynamic($fa-var-chevron-down $font-icon-font-family);
-
-/**
- * @var {string/list}
- * The scroll left tool icon used by box scroller
- */
-$tool-scroll-left-icon: dynamic($fa-var-chevron-left $font-icon-font-family);
-
-/**
- * @var {string/list}
- * The scroll right tool icon used by box scroller
- */
-$tool-scroll-right-icon: dynamic($fa-var-chevron-right $font-icon-font-family);

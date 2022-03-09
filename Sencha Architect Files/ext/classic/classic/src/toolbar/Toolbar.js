@@ -298,8 +298,11 @@ Ext.define('Ext.toolbar.Toolbar', {
 
     /**
      * @cfg {Boolean} [trackMenus=true]
-     * If `true`, when a toolbar button has a menu open, then mousing over other
+     * By default, when a toolbar button has a menu open, then mouseing over other
      * toolbar buttons opens their menus.
+     *
+     * If `trackMenus` is set to `false`, then a toolbar button's menu is hidden
+     * when the mouse leaves the button, and no menu open state is maintained.
      */
     trackMenus: true,
 
@@ -368,21 +371,21 @@ Ext.define('Ext.toolbar.Toolbar', {
 
     afterFirstLayout: function(width, height) {
         var me = this,
-            el = me.layout.getRenderTarget().dom;
+            el = me.layout.getRenderTarget().dom,
+            overCmp;
 
         me.callParent([width, height]);
 
-        if (me.trackMenus) {
-            me.addPlugin({
-                ptype: 'mouseenter',
-                element: el,
-                delegate: function(e) {
-                    return e.parentNode === el;
-                },
-                handler: me.onItemOver,
-                scope: me
-            });
-        }
+        me.addPlugin({
+            ptype: 'mouseenter',
+            element: el,
+            delegate: function(e) {
+                return e.parentNode === el;
+            },
+            handler: me.onItemOver,
+            leaveHandler: me.onItemOut,
+            scope: me
+        });
     },
 
     getRefItems: function (deep) {
@@ -559,13 +562,22 @@ Ext.define('Ext.toolbar.Toolbar', {
             var btn = Ext.Component.from(target),
                 activeMenuBtn = this.activeMenuBtn;
 
-            if (activeMenuBtn && activeMenuBtn !== btn &&
-                btn.showMenu && btn.menu) {
+            // If we have mouseovered a button, and there is still one
+            // with an active menu, then we are tracking menus.
+            if (activeMenuBtn && activeMenuBtn !== btn && btn.showMenu && btn.menu) {
                 btn.focus();
                 btn.showMenu(e);
             }
         },
 
+        onItemOut: function (e, target) {
+            var btn = Ext.Component.from(target);
+
+            // If not tracking menus, mouseout of a button hides the menu
+            if (!this.trackMenus && btn.hideMenu) {
+                btn.hideMenu();
+            }
+        },
         /**
          * @private
          */

@@ -113,7 +113,7 @@
  *
  * ASP.net:
  *
- *     String jsonString = "{"success": true}";
+ *     String jsonString = "{success: true}";
  *     String cb = Request.Params.Get("callback");
  *     String responseString = "";
  *     if (!String.IsNullOrEmpty(cb)) {

@@ -100,7 +100,6 @@ Ext.define('Ext.draw.sprite.Rect', {
             path.arcTo(x + width, y + height, x, y + height, radius);
             path.arcTo(x, y + height, x, y, radius);
             path.arcTo(x, y, x + radius, y, radius);
-            path.closePath();
         }
     }
 });

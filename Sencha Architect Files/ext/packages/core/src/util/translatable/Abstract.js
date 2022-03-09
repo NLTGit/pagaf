@@ -160,22 +160,17 @@ Ext.define('Ext.util.translatable.Abstract', {
     },
 
     animate: function(easingX, easingY) {
-        var me = this;
+        this.activeEasingX = easingX;
+        this.activeEasingY = easingY;
 
-        me.activeEasingX = easingX;
-        me.activeEasingY = easingY;
+        this.isAnimating = true;
+        this.lastX = null;
+        this.lastY = null;
 
-        me.isAnimating = true;
-        if (me.ownerCmp) {
-            me.ownerCmp.isTranslating = true;
-        }
-        me.lastX = null;
-        me.lastY = null;
+        Ext.AnimationQueue.start(this.doAnimationFrame, this);
 
-        Ext.AnimationQueue.start(me.doAnimationFrame, me);
-
-        me.fireEvent('animationstart', me, me.x, me.y);
-        return me;
+        this.fireEvent('animationstart', this, this.x, this.y);
+        return this;
     },
 
     translateAnimated: function(x, y, animation) {
@@ -287,9 +282,6 @@ Ext.define('Ext.util.translatable.Abstract', {
         me.activeEasingY = null;
 
         me.isAnimating = false;
-        if (me.ownerCmp) {
-            me.ownerCmp.isTranslating = false;
-        }
 
         Ext.AnimationQueue.stop(me.doAnimationFrame, me);
         

@@ -1,7 +1,7 @@
 /* global Ext, jasmine, expect, spyOn */
 
 topSuite('grid-moving-columns',
-    [false, 'Ext.grid.Panel', 'Ext.data.ArrayStore', 'Ext.form.Label'],
+    [false, 'Ext.grid.Panel', 'Ext.data.ArrayStore'],
 function() {
     var transformStyleName = 'webkitTransform' in document.documentElement.style ? 'webkitTransform' : 'transform',
         GridModel = Ext.define(null, {
@@ -404,7 +404,7 @@ function() {
                 // For devices we know deal with focus, test that focus is preserved.
                 if (!jasmine.supportsTouch && !Ext.supports.AsyncFocusEvents) {
                     expect(Ext.Element.getActiveElement()).toBe(visibleColumns[1].el.dom);
-                }
+                };
             });
 
             // Wait for the mouse event blocking set during drags within the headerCt to be lifted.
@@ -456,59 +456,6 @@ function() {
             // [colChange, colMove]
             testSpies([2, 2]);
             testUI('4,5,1,2');
-
-            grid.destroy();
-        });
-
-        it('should move grouped columns with subitems to the end of the header container', function () {
-            makeGrid([{
-                header: 'Field1',
-                columns: [{
-                    dataIndex: 'field2',
-                    header: 'Field2',
-                    items: [{
-                        xtype: 'label',
-                        text: 'Foo'
-                    }]
-                },{
-                    dataIndex: 'field3',
-                    header: 'Field3',
-                    items: [{
-                        xtype: 'label',
-                        text: 'Bar'
-                    }]
-                }]
-            },{
-                dataIndex: 'field4',
-                header: 'Field4'
-            }, {
-                dataIndex: 'field5',
-                header: 'Field5'
-            }], null, {
-                enableColumnResize: false,
-                header: false
-            });
-
-            colChangeSpy = spyOnEvent(grid, 'columnschanged');
-            colMoveSpy = spyOnEvent(grid, 'columnmove');
-            headerCtMoveSpy = spyOnEvent(grid.headerCt, 'columnmove');
-
-            // Use mouse events to move the column *to the right* of column 3
-            expect(function() {
-                dragColumn(visibleColumns[0], visibleColumns[2], true);
-            }).not.toThrow();
-
-            // [colChange, colMove]
-            testSpies([1, 1]);
-            testUI('3,4,2,5');
-
-            // Use mouse events to move the column *to the right* of column 3
-            expect(function() {
-                dragColumn(visibleColumns[0], visibleColumns[2], true);
-            }).not.toThrow();
-            // [colChange, colMove]
-            testSpies([2, 2]);
-            testUI('4,2,3,5');
 
             grid.destroy();
         });

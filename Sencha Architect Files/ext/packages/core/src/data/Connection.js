@@ -123,13 +123,13 @@ Ext.define('Ext.data.Connection', {
         disableCachingParam: '_dc',
 
         /**
-         * @cfg {Number} [timeout=30000] The timeout in milliseconds to be used for
-         * requests.
+         * @cfg {Number} [timeout=30000] The timeout in milliseconds to be used for 
+         * requests.  
          * Defaults to 30000 milliseconds (30 seconds).
-         *
-         * When a request fails due to timeout the XMLHttpRequest response object will
+         * 
+         * When a request fails due to timeout the XMLHttpRequest response object will 
          * contain:
-         *
+         * 
          *     timedout: true
          */
         timeout: 30000,
@@ -186,7 +186,7 @@ Ext.define('Ext.data.Connection', {
      * @param {Ext.data.Connection} conn This Connection object.
      * @param {Object} options The options config object passed to the {@link #request} method.
      */
-
+    
     /**
      * @event requestcomplete
      * Fires if the request was successfully completed.
@@ -195,7 +195,7 @@ Ext.define('Ext.data.Connection', {
      * See [The XMLHttpRequest Object](http://www.w3.org/TR/XMLHttpRequest/) for details.
      * @param {Object} options The options config object passed to the {@link #request} method.
      */
-
+    
     /**
      * @event requestexception
      * Fires if an error HTTP status was returned from the server. This event may also
@@ -207,16 +207,15 @@ Ext.define('Ext.data.Connection', {
      * See [The XMLHttpRequest Object](http://www.w3.org/TR/XMLHttpRequest/) for details.
      * @param {Object} options The options config object passed to the {@link #request} method.
      */
-
+     
     constructor: function(config) {
         // Will call initConfig
         this.mixins.observable.constructor.call(this, config);
-
+        
         this.requests = {};
     },
 
     /**
-     * @method request
      * Sends an HTTP (Ajax) request to a remote server.
      *
      * **Important:** Ajax server requests are asynchronous, and this call will
@@ -297,13 +296,13 @@ Ext.define('Ext.data.Connection', {
      * draw values, then this also serves as the scope for those function calls. Defaults to the browser
      * window.
      *
-     * @param {Number} options.timeout The timeout in milliseconds to be used for this
-     * request.
+     * @param {Number} options.timeout The timeout in milliseconds to be used for this 
+     * request.  
      * Defaults to 30000 milliseconds (30 seconds).
-     *
-     * When a request fails due to timeout the XMLHttpRequest response object will
+     * 
+     * When a request fails due to timeout the XMLHttpRequest response object will 
      * contain:
-     *
+     * 
      *     timedout: true
      *
      * @param {Ext.Element/HTMLElement/String} options.form The `<form>` Element or the id of the `<form>`
@@ -316,29 +315,25 @@ Ext.define('Ext.data.Connection', {
      *
      * File uploads are not performed using normal "Ajax" techniques, that is they are **not**
      * performed using XMLHttpRequests. Instead the form is submitted in the standard manner with the
-     * DOM `&lt;form&gt;` element temporarily modified to have its
-     * [target](https://developer.mozilla.org/en-US/docs/Web/API/HTMLFormElement/target)
-     * set to refer to a dynamically generated, hidden `&lt;iframe&gt;` which is inserted
-     * into the document but removed after the return data has been gathered.
+     * DOM `<form>` element temporarily modified to have its [target][] set to refer to a dynamically
+     * generated, hidden `<iframe>` which is inserted into the document but removed after the return data
+     * has been gathered.
      *
      * The server response is parsed by the browser to create the document for the IFRAME. If the
-     * server is using JSON to send the return object, then the
-     * [Content-Type](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Type)
-     * header must be set to "text/html" in order to tell the browser to insert the text
-     * unchanged into the document body.
+     * server is using JSON to send the return object, then the [Content-Type][] header must be set to
+     * "text/html" in order to tell the browser to insert the text unchanged into the document body.
      *
      * The response text is retrieved from the document, and a fake XMLHttpRequest object is created
      * containing a `responseText` property in order to conform to the requirements of event handlers
      * and callbacks.
      *
-     * Be aware that file upload packets are sent with the content type
-     * [multipart/form](https://tools.ietf.org/html/rfc7233#section-4.1) and some server
+     * Be aware that file upload packets are sent with the content type [multipart/form][] and some server
      * technologies (notably JEE) may require some custom processing in order to retrieve parameter names
      * and parameter values from the packet content.
      *
-     *  - [target](http://www.w3.org/TR/REC-html40/present/frames.html#adef-target)
-     *  - [Content-Type](http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.17)
-     *  - [multipart/form](http://www.faqs.org/rfcs/rfc2388.html)
+     * [target]: http://www.w3.org/TR/REC-html40/present/frames.html#adef-target
+     * [Content-Type]: http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.17
+     * [multipart/form]: http://www.faqs.org/rfcs/rfc2388.html
      *
      * @param {Object} options.headers Request headers to set for the request.
      * The XHR will attempt to set an appropriate Content-Type based on the params/data passed
@@ -372,18 +367,18 @@ Ext.define('Ext.data.Connection', {
      */
     request: function(options) {
         options = options || {};
-
+        
         var me = this,
             requestOptions, request;
-
+        
         if (me.fireEvent('beforerequest', me, options) !== false) {
             requestOptions = me.setOptions(options, options.scope || Ext.global);
-
+            
             request = me.createRequest(options, requestOptions);
-
+            
             return request.start(requestOptions.data);
         }
-
+        
         // Reusing for response
         request = {
             status: -1,
@@ -399,17 +394,17 @@ Ext.define('Ext.data.Connection', {
         var me = this,
             type = options.type || requestOptions.type,
             request;
-
+        
         // If request type is not specified we have to deduce it
         if (!type) {
             type = me.isFormUpload(options) ? 'form' : 'ajax';
         }
-
+        
         // if autoabort is set, cancel the current transactions
         if (options.autoAbort || me.getAutoAbort()) {
             me.abort();
         }
-
+        
         // It is possible for the original options object to be mutated if somebody
         // had overridden Connection.setOptions method; it is also possible that such
         // override would do a sensible thing and mutate outgoing requestOptions instead.
@@ -424,10 +419,10 @@ Ext.define('Ext.data.Connection', {
             requestOptions: requestOptions,
             ownerConfig: me.getConfig()
         });
-
+        
         me.requests[request.id] = request;
         me.latestId = request.id;
-
+        
         return request;
     },
 
@@ -437,11 +432,11 @@ Ext.define('Ext.data.Connection', {
      */
     isFormUpload: function(options) {
         var form = this.getForm(options);
-
+        
         if (form) {
             return options.isUpload || this.enctypeRe.test(form.getAttribute('enctype'));
         }
-
+        
         return false;
     },
 
@@ -570,11 +565,11 @@ Ext.define('Ext.data.Connection', {
      */
     setupUrl: function(options, url) {
         var form = this.getForm(options);
-
+        
         if (form) {
             url = url || form.action;
         }
-
+        
         return url;
     },
 
@@ -588,12 +583,12 @@ Ext.define('Ext.data.Connection', {
     setupParams: function(options, params) {
         var form = this.getForm(options),
             serializedForm;
-
+        
         if (form && !this.isFormUpload(options)) {
             serializedForm = Ext.Element.serializeForm(form);
             params = params ? (params + '&' + serializedForm) : serializedForm;
         }
-
+        
         return params;
     },
 
@@ -608,7 +603,7 @@ Ext.define('Ext.data.Connection', {
         if (this.isFormUpload(options)) {
             return 'POST';
         }
-
+        
         return method;
     },
 
@@ -623,7 +618,7 @@ Ext.define('Ext.data.Connection', {
         if (!request) {
             request = this.getLatest();
         }
-
+        
         return request ? request.isLoading() : false;
     },
 
@@ -665,7 +660,7 @@ Ext.define('Ext.data.Connection', {
         if (id) {
             request = this.requests[id];
         }
-
+        
         return request || null;
     },
 
@@ -678,16 +673,16 @@ Ext.define('Ext.data.Connection', {
         if (!request) {
             request = this.getLatest();
         }
-
+        
         if (request) {
             request.clearTimer();
         }
     },
-
+    
     onRequestComplete: function(request) {
         delete this.requests[request.id];
     },
-
+    
     /**
      * @return {Boolean} `true` if the browser can natively post binary data.
      * @private

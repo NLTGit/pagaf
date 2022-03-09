@@ -1,6 +1,5 @@
 /**
- * Represents a single sorter that can be used as part of the sorters configuration in
- * Ext.mixin.Sortable.
+ * Represents a single sorter that can be used as part of the sorters configuration in Ext.mixin.Sortable.
  *
  * A common place for Sorters to be used are {@link Ext.data.Store Stores}. For example:
  *
@@ -42,8 +41,7 @@
  *           fields: ['firstName', 'spiritAnimal'],
  *            sorters: [
  *                {
- *                    // Sort by first letter of second word of spirit animal, in
- *                    // descending order
+ *                    // Sort by first letter of second word of spirit animal, in descending order
  *                    sorterFn: function(record1, record2) {
  *                        var name1 = record1.data.spiritAnimal.split(' ')[1].substr(0,1),
  *                            name2 = record2.data.spiritAnimal.split(' ')[1].substr(0,1);
@@ -56,7 +54,7 @@
  *         
  *           data: [
  *               { firstName: 'Mitch',  spiritAnimal: "Panda Bear"},
- *               { firstName: 'Seth',   spiritAnimal: "Rascally Rabbit"},
+ *               { firstName: 'Seth',   spiritAnimal: "Tina Belcher"},
  *               { firstName: 'Fred',   spiritAnimal: "Honey Badger"},
  *               { firstName: 'Israel', spiritAnimal: "Mysterious Capybara"},
  *               { firstName: 'Greg',   spiritAnimal: "Majestic Platypus"},
@@ -64,7 +62,7 @@
  *               { firstName: 'Brandon',spiritAnimal: "Pygmy Goat"},
  *               { firstName: 'Gary',   spiritAnimal: "Suri Alpaca"},
  *               { firstName: 'Scott',  spiritAnimal: "Ripe Armadillo"},
- *               { firstName: 'Pat',    spiritAnimal: "Wiley Coyote"}
+ *               { firstName: 'Pat',    spiritAnimal: "The Cougar"}
  *           ]
  *        });
  *        
@@ -84,17 +82,14 @@ Ext.define('Ext.util.Sorter', {
 
     config: {
         /**
-         * @cfg {String} property
-         * The property to sort by. Required unless `sorterFn` is provided
+         * @cfg {String} property The property to sort by. Required unless `sorterFn` is provided
          */
         property: null,
 
         /**
-         * @cfg {Function} sorterFn
-         * A specific sorter function to execute. Can be passed instead of {@link #property}.
-         * This function should compare the two passed arguments, returning -1, 0 or 1
-         * depending on if item 1 should be sorted before, at the same level, or after
-         * item 2.
+         * @cfg {Function} sorterFn A specific sorter function to execute. Can be passed instead of {@link #property}.
+         * This function should compare the two passed arguments, returning -1, 0 or 1 depending on if item 1 should be
+         * sorted before, at the same level, or after item 2.
          *
          *     sorterFn: function(person1, person2) {
          *         return (person1.age > person2.age) ? 1 : (person1.age === person2.age ? 0 : -1);

@@ -1,5 +1,4 @@
 @include menu-ui(
-    $background-color: $menu-background-color,
     $border-color: $menu-border-color,
     $border-width: $menu-border-width,
     $border-style: $menu-border-style,
@@ -34,7 +33,6 @@
     $header-padding-big: $menu-header-padding-big,
     $header-title-padding: $menu-header-title-padding,
     $header-title-padding-big: $menu-header-title-padding-big,
-    $header-title-opacity: $menu-header-title-opacity,
     $header-shadow: $menu-header-shadow,
     $header-z-index: $menu-header-z-index,
     $header-min-height: $menu-header-min-height,

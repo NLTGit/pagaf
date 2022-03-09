@@ -89,11 +89,6 @@
     border-radius: 10000px;
 }
 
-// ripples inside round buttons and FAB's need to have rounded corners to match
-.#{$prefix}splitButton-fab .#{$prefix}ripple-container, .#{$prefix}splitButton-round .#{$prefix}ripple-container {
-    border-radius: 10000px;
-}
-
 .#{$prefix}ripple {
   position: absolute;
   border-radius: 50%;

@@ -9,11 +9,10 @@
  *          xtype: 'list',
  *          fullscreen: true,
  *
- *          plugins: {
- *              pullrefresh: {
- *                  pullText: 'Pull down for more new Tweets!'
- *              }
- *          },
+ *          plugins: [{
+ *              type: 'pullrefresh',
+ *              pullText: 'Pull down for more new Tweets!'
+ *          }],
  *
  *          itemTpl: [
  *              '<img src="{img}" alt="{name} photo" />',
@@ -303,7 +302,6 @@ Ext.define('Ext.dataview.pullrefresh.PullRefresh', {
                 widget.setHidden(false);
                 me.$measuredHeight = widget.el.getHeight();
                 widget.setMinHeight(0);
-                widget.setHidden(true);
             }
 
             dy = e.deltaY;
@@ -465,7 +463,7 @@ Ext.define('Ext.dataview.pullrefresh.PullRefresh', {
         // widget
 
         applyWidget: function (config, existing) {
-            return Ext.updateWidget(existing, config, this, 'createWidget');
+            return Ext.Factory.widget.update(existing, config, this, 'createWidget');
         },
 
         updateWidget: function (widget) {

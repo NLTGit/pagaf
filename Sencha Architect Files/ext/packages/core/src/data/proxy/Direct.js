@@ -217,66 +217,63 @@ Ext.define('Ext.data.proxy.Direct', {
      */
 
     config: {
-        /**
-         * @cfg {String/String[]} paramOrder
-         * A list of params to be passed to server side Read function. Specify the params
-         * in the order in which they must be executed on the server-side as either (1)
-         * an Array of String values, or (2) a String of params delimited by either
-         * whitespace, comma, or pipe. For example, any of the following would be
-         * acceptable:
-         *
-         *     paramOrder: ['param1','param2','param3']
-         *     paramOrder: 'param1 param2 param3'
-         *     paramOrder: 'param1,param2,param3'
-         *     paramOrder: 'param1|param2|param'
-         */
+       /**
+        * @cfg {String/String[]} paramOrder
+        * A list of params to be passed to server side Read function. Specify the params
+        * in the order in which they must be executed on the server-side as either (1) an Array
+        * of String values, or (2) a String of params delimited by either whitespace, comma,
+        * or pipe. For example, any of the following would be acceptable:
+        *
+        *     paramOrder: ['param1','param2','param3']
+        *     paramOrder: 'param1 param2 param3'
+        *     paramOrder: 'param1,param2,param3'
+        *     paramOrder: 'param1|param2|param'
+        */
         paramOrder: undefined,
 
-        /**
-         * @cfg {Boolean} paramsAsHash
-         * Send Read function parameters as a collection of named arguments. Providing a
-         * {@link #paramOrder} nullifies this configuration.
-         */
+       /**
+        * @cfg {Boolean} paramsAsHash
+        * Send Read function parameters as a collection of named arguments. Providing a
+        * {@link #paramOrder} nullifies this configuration.
+        */
         paramsAsHash: true,
 
-        /**
-         * @cfg {Function/String} directFn
-         * Function to call when executing a request. `directFn` is a simple alternative
-         * to defining the api configuration parameter for Stores which will not
-         * implement a full CRUD api. The `directFn` may also be a string reference to
-         * the fully qualified name of the function, for example:
-         * `'MyApp.company.GetProfile'`. This can be useful when using dynamic loading.
-         * The string will be resolved before calling the function for the first time.
-         */
+       /**
+        * @cfg {Function/String} directFn
+        * Function to call when executing a request. `directFn` is a simple alternative to defining
+        * the api configuration parameter for Stores which will not implement a full CRUD api.
+        * The `directFn` may also be a string reference to the fully qualified name of the function,
+        * for example: `'MyApp.company.GetProfile'`. This can be useful when using dynamic loading.
+        * The string will be resolved before calling the function for the first time.
+        */
         directFn: undefined,
 
-        /**
-         * @cfg {Object} api
-         * The same as {@link Ext.data.proxy.Server#api}, however instead of providing
-         * urls you should provide a Direct function name for each CRUD method.
-         *
-         * Instead of providing fully qualified names for each function, you can use
-         * `prefix` property to provide a common prefix for all functions:
-         *
-         *   api: {
-         *       prefix: 'MyApp',
-         *       read: 'readRecords',
-         *       create: 'createRecords',
-         *       update: 'updateRecords',
-         *       destroy: 'destroyRecords'
-         *   }
-         *
-         * This way function names will be resolved to `'MyApp.readRecords'`, 
-         * `'MyApp.createRecords'`, etc. Note that using `prefix` and fully qualified
-         * function names is **not** supported, and prefix will be used for every
-         * function name when configured.
-         *
-         * See also {@link #directFn}.
-         */
+       /**
+        * @cfg {Object} api
+        * The same as {@link Ext.data.proxy.Server#api}, however instead of providing urls
+        * you should provide a Direct function name for each CRUD method.
+        *
+        * Instead of providing fully qualified names for each function, you can use `prefix`
+        * property to provide a common prefix for all functions:
+        *
+        *   api: {
+        *       prefix: 'MyApp',
+        *       read: 'readRecords',
+        *       create: 'createRecords',
+        *       update: 'updateRecords',
+        *       destroy: 'destroyRecords'
+        *   }
+        *
+        * This way function names will be resolved to `'MyApp.readRecords'`, `'MyApp.createRecords'`,
+        * etc. Note that using `prefix` and fully qualified function names is **not** supported,
+        * and prefix will be used for every function name when configured.
+        *
+        * See also {@link #directFn}.
+        */
         api: undefined,
         
         /**
-         * @cfg {Object/Array} metadata
+         * @cfg {Object/Array} [metadata]
          * Optional set of fixed parameters to send with every Proxy request, similar to
          * {@link #extraParams} but available with all CRUD requests. Also unlike
          * {@link #extraParams}, metadata is not mixed with the ordinary data but sent
@@ -439,7 +436,7 @@ Ext.define('Ext.data.proxy.Direct', {
     },
 
     /**
-     * @method applyEncoding
+     * @method
      * @inheritdoc
      */
     applyEncoding: Ext.identityFn,
@@ -457,7 +454,7 @@ Ext.define('Ext.data.proxy.Direct', {
     },
 
     /**
-     * @method extractResponseData
+     * @method
      * @inheritdoc
      */
     extractResponseData: function(response) {
@@ -465,7 +462,7 @@ Ext.define('Ext.data.proxy.Direct', {
     },
 
     /**
-     * @method setException
+     * @method
      * @inheritdoc
      */
     setException: function(operation, response) {
@@ -473,7 +470,7 @@ Ext.define('Ext.data.proxy.Direct', {
     },
 
     /**
-     * @method buildUrl
+     * @method
      * @inheritdoc
      */
     buildUrl: function() {

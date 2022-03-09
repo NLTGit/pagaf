@@ -197,16 +197,24 @@ Ext.define('Ext.chart.series.Radar', {
     getSprites: function () {
         var me = this,
             chart = me.getChart(),
-            sprites = me.sprites;
-
+            animation = me.getAnimation() || chart && chart.getAnimation(),
+            sprite = me.sprites[0],
+            marker;
+        
         if (!chart) {
-            return Ext.emptyArray;
+            return [];
         }
-        if (!sprites.length) {
-            me.createSprite();
+        if (!sprite) {
+            sprite = me.createSprite();
         }
-
-        return sprites;
+        if (animation) {
+            marker = sprite.getMarker('markers');
+            if (marker) {
+                marker.getTemplate().setAnimation(animation);
+            }
+            sprite.setAnimation(animation);
+        }
+        return me.sprites;
     },
 
     provideLegendInfo: function (target) {

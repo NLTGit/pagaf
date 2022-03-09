@@ -34,19 +34,17 @@ Ext.define('Ext.util.MixedCollection', {
 
     /**
      * @cfg {Boolean} allowFunctions
-     * Configure as `true` if the {@link #addAll} function should add function references
-     * to the collection.
+     * Configure as `true` if the {@link #addAll} function should add function references to the collection.
      */
 
     /**
      * Creates new MixedCollection.
      * @param {Object} config A configuration object.
-     * @param {Boolean} [config.allowFunctions=false] Specify `true` if the
-     * {@link #addAll} function should add function references to the collection.
-     * @param {Function} [config.getKey] A function that can accept an item of the
-     * type(s) stored in this MixedCollection and return the key value for that item.
-     * This is used when available to look up the key on items that were passed without
-     * an explicit key parameter to a MixedCollection method.  Passing this parameter is
+     *  @param {Boolean} [config.allowFunctions=false] Specify `true` if the {@link #addAll}
+     * function should add function references to the collection.
+     *  @param {Function} [config.getKey] A function that can accept an item of the type(s) stored in this MixedCollection
+     * and return the key value for that item.  This is used when available to look up the key on items that
+     * were passed without an explicit key parameter to a MixedCollection method.  Passing this parameter is
      * equivalent to overriding the {@link #method-getKey} method.
      */
     constructor: function() {
@@ -60,12 +58,11 @@ Ext.define('Ext.util.MixedCollection', {
 
     /**
      * @private
-     * Performs the actual sorting based on a direction and a sorting function.
-     * Internally, this creates a temporary array of all items in the MixedCollection,
-     * sorts it and then writes the sorted array data back into this.items and this.keys
+     * Performs the actual sorting based on a direction and a sorting function. Internally,
+     * this creates a temporary array of all items in the MixedCollection, sorts it and then writes
+     * the sorted array data back into this.items and this.keys
      * @param {String} property Property to sort by ('key', 'value', or 'index')
-     * @param {String} dir (optional) Direction to sort 'ASC' or 'DESC'. Defaults to
-     * 'ASC'.
+     * @param {String} dir (optional) Direction to sort 'ASC' or 'DESC'. Defaults to 'ASC'.
      * @param {Function} fn (optional) Comparison function that defines the sort order.
      * Defaults to sorting by numeric value.
      */
@@ -187,7 +184,6 @@ Ext.define('Ext.util.MixedCollection', {
     },
 
     /**
-     * @method reorder
      * @inheritdoc Ext.util.AbstractMixedCollection#method-reorder
      */
     reorder: function (mapping) {
@@ -197,8 +193,8 @@ Ext.define('Ext.util.MixedCollection', {
 
     /**
      * Sorts this collection by <b>key</b>s.
-     * @param {"ASC"/"DESC"} [dir="ASC"] 'ASC' or 'DESC'. Defaults to 'ASC'.
-     * @param {Function} [fn] Comparison function that defines the sort order.
+     * @param {String} direction (optional) 'ASC' or 'DESC'. Defaults to 'ASC'.
+     * @param {Function} fn (optional) Comparison function that defines the sort order.
      * Defaults to sorting by case insensitive string.
      */
     sortByKey : function(dir, fn){

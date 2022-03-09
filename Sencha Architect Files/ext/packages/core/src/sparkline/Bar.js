@@ -16,89 +16,70 @@ Ext.define('Ext.sparkline.Bar', {
     config: {
 
         /**
-         * @cfg {String} barColor
-         * The bar color for positive values.
+         * @cfg {String} [barColor=#3366cc] The bar color for positive values.
          */
         barColor: '#3366cc',
         
         /**
-         * @cfg {String} negBarColor
-         * The bar color for negative values.
+         * @cfg {String} [negBarColor=#f44] The bar color for negative values.
          */
         negBarColor: '#f44',
         
         /**
-         * @cfg {String[]} stackedBarColor
-         * An array of colours to use for stacked bar charts. The first series will use
-         * the first value in the array, the second series will use the second, etc. 
+         * @cfg {String[]} [stackedBarColor] An array of colours to use for stacked bar charts.
+         * The first series will use the first value in the array, the second series will use the second, etc. 
          */
         stackedBarColor: ['#3366cc', '#dc3912', '#ff9900', '#109618', '#66aa00', '#dd4477', '#0099c6', '#990099'],
         
         /**
-         * @cfg {String} zeroColor
-         * The bar color for zero values.
+         * @cfg {String} [zeroColor] The bar color for zero values.
          */
         zeroColor: null,
         
         /**
-         * @cfg {String} nullColor
-         * The bar color for null values. Usually null values are omitted and not
-         * plotted. Setting this config causes a very thin bar to be plotted with the
-         * special color in the case that null is a meaningful value in the series.
+         * @cfg {String} [nullColor] The bar color for null values. Usually null values are omitted and not plotted. Setting
+         * this config causes a very thin bar to be plotted with the special color in the case that null is a meaningful value in the series.
          */
         nullColor: null,
         
         /**
-         * @cfg {Boolean} zeroAxis
-         * Centers the Y axis at zero by default.
+         * @cfg {Boolean} [zeroAxis=true] Centers the Y axis at zero by default.
          */
         zeroAxis: true,
         
         /**
-         * @cfg {Number} barWidth
-         * The pixel width of bars.
+         * @cfg {Number} [barWidth=4] The pixel width of bars.
          */
         barWidth: 4,
         
         /**
-         * @cfg {Number} barSpacing
-         * The pixel spacing between bars.
+         * @cfg {Number} [barSpacing=1] The pixel spacing between bars.
          */
         barSpacing: 1,
         
         /**
-         * @cfg {Number} chartRangeMin
-         * The minimum value to use for the range of Y values of the chart - Defaults to
-         * the minimum value supplied.
+         * @cfg {Number} [chartRangeMin] The minimum value to use for the range of Y values of the chart - Defaults to the minimum value supplied.
          */
         chartRangeMin: null,
         
         /**
-         * @cfg {Number} chartRangeMax The maximum value to use for the range of Y values
-         * of the chart - Defaults to the minimum value supplied.
+         * @cfg {Number} [chartRangeMax] The maximum value to use for the range of Y values of the chart - Defaults to the minimum value supplied.
          */
         chartRangeMax: null,
         
         /**
-         * @cfg {Boolean} chartRangeClip
-         * If true then the y values supplied to plot will be clipped to fall between
-         * {@link #chartRangeMin} and {@link #chartRangeMax} - By default
-         * chartRangeMin/Max just ensure that the chart spans at least that range of
-         * values, but does not constrain it.
+         * @cfg {Boolean} chartRangeClip If true then the y values supplied to plot will be clipped to fall
+         * between {@link #chartRangeMin} and {@link #chartRangeMax} - By default chartRangeMin/Max just ensure that the chart
+         * spans at least that range of values, but does not constrain it.
          */
         chartRangeClip: false,
         
         /**
-         * @cfg colorMap
-         * @inheritdoc Ext.sparkline.TriState#cfg-colorMap
+         * @inheritdoc Ext.sparkline.TriState
          */
         colorMap: null
     },
 
-    /**
-     * @cfg tipTpl
-     * @inheritdoc
-     */
     tipTpl: '&#9679; {prefix}{value}{suffix}',
 
     remove: function (vals, filter) {

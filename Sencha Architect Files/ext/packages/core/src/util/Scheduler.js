@@ -475,7 +475,7 @@ Ext.define('Ext.util.Scheduler', {
         var me = this;
 
         if (!me.destroyed && !me.timer) {
-            me.timer = Ext.defer(me.onTick, me.getTickDelay(), me);
+            me.timer = Ext.Function.defer(me.onTick, me.getTickDelay(), me);
         }
     },
 

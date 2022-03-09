@@ -19,9 +19,9 @@
  *         title: 'DC Personnel',
  *         grouped: true,
  *         store: store,
- *         plugins: {
- *             rowexpander: true
- *         },
+ *         plugins: [{
+ *             type: 'rowexpander'
+ *         }],
  *         itemConfig: {
  *             body: {
  *                 tpl: '<img height="100" src="http://www.sencha.com/assets/images/sencha-avatar-64x64.png"/>'

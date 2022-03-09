@@ -231,7 +231,6 @@ Ext.define('Ext.draw.Container', {
      * @property {String} [defaultDownloadServerUrl="http://svg.sencha.io"]
      * The default URL used by the {@link #download} method if the {@link #downloadServerUrl}
      * config wasn't set.
-     * To override this globally, set the `Ext.draw.Container.prototype.defaultDownloadServerUrl`.
      */
     defaultDownloadServerUrl: 'http://svg.sencha.io',
 
@@ -266,12 +265,9 @@ Ext.define('Ext.draw.Container', {
         if (!url) {
             url = defaultUrl;
             //<debug>
-            // Skip this warning when unit testing.
-            if (!window.jasmine) {
-                Ext.log.warn('Using Sencha\'s download server could expose your data and pose a security risk. ' +
+            Ext.log.warn('Using Sencha\'s download server could expose your data and pose a security risk. ' +
                     'Please see Ext.draw.Container#download method docs for more info. (component id=' +
-                    this.getId() + ')');
-            }
+                         this.getId() + ')');
             //</debug>
         }
         return url;
@@ -409,7 +405,7 @@ Ext.define('Ext.draw.Container', {
      */
     stopResizeTimer: function () {
         if (this.resizeTimerId) {
-            Ext.undefer(this.resizeTimerId);
+            clearTimeout(this.resizeTimerId);
             this.resizeTimerId = 0;
         }
     },
@@ -425,11 +421,10 @@ Ext.define('Ext.draw.Container', {
      * This will automatically call the {@link #resizeHandler}. Which
      * means that, if no custom resize handler has been provided, the
      * surface will be sized to match the container.
-     * If the {@link #method!add} method is used, it is the responsibility
+     * If the {@link #add} method is used, it is the responsibility
      * of the user to call the {@link #handleResize} method, to update
      * the size of all added surfaces.
      * @param {String} [id="main"]
-     * @param {String} type
      * @return {Ext.draw.Surface}
      */
     getSurface: function (id, type) {
@@ -564,17 +559,15 @@ Ext.define('Ext.draw.Container', {
      * platform and browser specific. For more consistent results on mobile devices use
      * the {@link #preview} method instead. This method doesn't work in IE8.
      *
-     * Important: The default download mechanism sends image data to `http://svg.sencha.io`,
-     * which is a server operated by Sencha. This can be changed by setting
-     * the {@link #downloadServerUrl} config to the address of another server.
-     *
-     * You can deploy your own server by using the code from the `server` directory
-     * in the Charts package. The server is Node.js based and uses PhantomJS to
-     * generate images and PDFs from received data.
-     *
-     * The warning that the default download server is used can be suppressed
-     * by explicitly setting the value of the {@link #downloadServerUrl} config
-     * to `http://svg.sencha.io`.
+     * Important: the default download mechanism sends image data to `http://svg.sencha.io`,
+     *            which is a server operated by Sencha. This can be changed by setting
+     *            the {@link #downloadServerUrl} config to the address of another server.
+     *            You can deploy your own server by using the code from the `server` directory
+     *            in the Charts package. The server is Node.js based and uses PhantomJS to
+     *            generate images and PDFs from received data.
+     *            The warning that the default download server is used can be suppressed
+     *            by explicitly setting the value of the {@link #downloadServerUrl} config
+     *            to `http://svg.sencha.io`.
      *
      * @param {Object} [config] The following config options are supported:
      *

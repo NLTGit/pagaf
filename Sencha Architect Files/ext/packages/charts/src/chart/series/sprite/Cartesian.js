@@ -1,4 +1,7 @@
 /**
+ * @class Ext.chart.series.sprite.Cartesian
+ * @extends Ext.draw.sprite.Sprite
+ *
  * Cartesian sprite.
  */
 Ext.define('Ext.chart.series.sprite.Cartesian', {
@@ -62,7 +65,6 @@ Ext.define('Ext.chart.series.sprite.Cartesian', {
                 },
 
                 panzoom: function (attr) {
-                    // dx, dy are deltas between min & max of coordinated data values.
                     var dx = attr.visibleMaxX - attr.visibleMinX,
                         dy = attr.visibleMaxY - attr.visibleMinY,
                         innerWidth = attr.flipXY ? attr.innerHeight : attr.innerWidth,
@@ -70,22 +72,16 @@ Ext.define('Ext.chart.series.sprite.Cartesian', {
                         surface = this.getSurface(),
                         isRtl = surface ? surface.getInherited().rtl : false;
 
+                    if (isRtl && !attr.flipXY) {
+                        attr.translationX = innerWidth + attr.visibleMinX * innerWidth / dx;
+                    } else {
+                        attr.translationX = -attr.visibleMinX * innerWidth / dx;
+                    }
+                    attr.translationY = -attr.visibleMinY * innerHeight / dy;
+                    attr.scalingX = (isRtl && !attr.flipXY ? -1 : 1) * innerWidth / dx;
+                    attr.scalingY = innerHeight / dy;
                     attr.scalingCenterX = 0;
                     attr.scalingCenterY = 0;
-                    attr.scalingX = innerWidth / dx;
-                    attr.scalingY = innerHeight / dy;
-                    // (attr.visibleMinY * attr.scalingY) will be the vertical position of
-                    // our minimum data points, which we want to be at zero, so we offset
-                    // by this amount.
-                    attr.translationX = -(attr.visibleMinX * attr.scalingX);
-                    attr.translationY = -(attr.visibleMinY * attr.scalingY);
-
-                    if (isRtl && !attr.flipXY) {
-                        attr.scalingX *= -1;
-                        attr.translationX *= -1;
-                        attr.translationX += innerWidth;
-                    }
-
                     this.applyTransformations(true);
                 }
             }
@@ -147,10 +143,8 @@ Ext.define('Ext.chart.series.sprite.Cartesian', {
         // to surface coordinates.
         // This matrix is set (indirectly) by the 'panzoom' updater.
         // The sprite's `attr.inverseMatrix` does the opposite.
-        //
         // The `surface.matrix` of the 'series' surface of a cartesian chart flips the
-        // surface content vertically, so that y=0 is at the bottom (look for
-        // `surface.matrix.set` call in the CartesianChart.performLayout method).
+        // surface content vertically, so that y=0 is at the bottom.
         // This matrix is set in the 'performLayout' of the CartesianChart.
         // The `surface.inverseMatrix` flips the content back.
         //
@@ -243,6 +237,7 @@ Ext.define('Ext.chart.series.sprite.Cartesian', {
     },
 
     /**
+     * @method
      * Render the given visible clip range.
      * @param {Ext.draw.Surface} surface A draw container surface.
      * @param {CanvasRenderingContext2D} ctx A context object that is API compatible with the native
@@ -250,7 +245,6 @@ Ext.define('Ext.chart.series.sprite.Cartesian', {
      * @param {Number[]} dataClipRect The clip rect in data coordinates, roughly equivalent to
      * [attr.dataMinX, attr.dataMinY, attr.dataMaxX, attr.dataMaxY] for an untranslated/unscaled surface/sprite.
      * @param {Number[]} surfaceClipRect The clip rect in surface coordinates: [left, top, width, height].
-     * @method
      */
     renderClipped: Ext.emptyFn,
 
@@ -259,120 +253,38 @@ Ext.define('Ext.chart.series.sprite.Cartesian', {
      * @param {Number} x
      * @param {Number} y
      * @return {Number} The index
-     * @deprecated 6.5.2 Use {@link #getNearestDataPoint} instead.
      */
     getIndexNearPoint: function (x, y) {
-        var result = this.getNearestDataPoint(x, y);
-        return result ? result.index : -1;
-    },
-
-    /**
-     * Given a point in 'series' surface element coordinates, returns the `index` of the
-     * sprite's data point that is nearest to that point, along with the `distance`
-     * between points.
-     * If the `selectionTolerance` attribute of the sprite is not zero, only the data points
-     * that are within that pixel distance from the given point will be checked.
-     * In the event no such data points exist or the data is empty, `null` is returned.
-     *
-     * Notes:
-     * 1) given a mouse/pointer event object, the surface coordinates of the event can be
-     *    obtained with the `getEventXY` method of the chart;
-     * 2) using `selectionTolerance` of zero is useful for series with no visible markers,
-     *    such as the Area series, where this attribute becomes meaningless.
-     *
-     * @param {Number} x
-     * @param {Number} y
-     * @return {Object}
-     */
-    getNearestDataPoint: function (x, y) {
         var me = this,
-            attr = me.attr,
-            series = me.getSeries(),
-            surface = me.getSurface(),
-            items = me.boundMarkers.items,
-            matrix = attr.matrix,
-            dataX = attr.dataX,
-            dataY = attr.dataY,
-            selectionTolerance = attr.selectionTolerance,
-            minDistance = Infinity,
-            index = -1,
-            result = null,
-            distance, dx, dy,
-            xy, i, ln, end, inc;
+            matrix = me.attr.matrix,
+            dataX = me.attr.dataX,
+            dataY = me.attr.dataY,
+            selectionTolerance = me.attr.selectionTolerance,
+            dx = Infinity, dy = Infinity, index = -1,
+            inverseMatrix = matrix.clone().prependMatrix(me.surfaceMatrix).inverse(),
+            center = inverseMatrix.transformPoint([x, y]),
+            hitboxBL = inverseMatrix.transformPoint([x - selectionTolerance, y - selectionTolerance]),
+            hitboxTR = inverseMatrix.transformPoint([x + selectionTolerance, y + selectionTolerance]),
+            left = Math.min(hitboxBL[0], hitboxTR[0]),
+            right = Math.max(hitboxBL[0], hitboxTR[0]),
+            bottom = Math.min(hitboxBL[1], hitboxTR[1]),
+            top = Math.max(hitboxBL[1], hitboxTR[1]),
+            xi, yi, i, ln;
 
-        // Notes:
-        // Instead of converting the given point from surface coordinates to data coordinates
-        // and then measuring the distances between it and the data points, we have to
-        // convert all the data points to surface coordinates and measure the distances
-        // between them and the given point. This is because the data coordinates can use
-        // different scales, which makes distance measurement impossible.
-        // For example, if the x-axis is a `category` axis, the categories will be assigned
-        // indexes starting from 0, that's what the `attr.dataX` array will contain;
-        // and if the y-axis is a `numeric` axis, the `attr.dataY` array will simply contain
-        // the original values.
-        //
-        // Either 'items' or 'markers' will be highlighted. If a sprite has both (for example,
-        // 'bar' series with the 'marker' config, where the bars are 'items' and marker instances
-        // are 'markers'), only the 'items' (bars) will be highlighted.
-
-        if (items) {
-            ln = dataX.length;
-            if (series.reversedSpriteZOrder) {
-                i = ln - 1;
-                end = -1;
-                inc = -1;
-            } else {
-                i = 0;
-                end = ln;
-                inc = 1;
-            }
-            for (; i !== end; i += inc) {
-                var bbox = me.getMarkerBBox('items', i);
-                // Transform the given surface element coordinates to logical coordinates
-                // of the surface (the ones the bbox uses).
-                xy = surface.inverseMatrix.transformPoint([x, y]);
-                if (Ext.draw.Draw.isPointInBBox(xy[0], xy[1], bbox)) {
+        for (i = 0, ln = dataX.length; i < ln; i++) {
+            xi = dataX[i];
+            yi = dataY[i];
+            // Don't stop when the first matching point is found.
+            // Keep looking for the nearest point.
+            if (xi >= left && xi < right && yi >= bottom && yi < top) {
+                if (index === -1 || (Math.abs(xi - center[0]) < dx) && (Math.abs(yi - center[1]) < dy)) {
+                    dx = Math.abs(xi - center[0]);
+                    dy = Math.abs(yi - center[1]);
                     index = i;
-                    minDistance = 0;
-                    // Return the first item that contains our touch point.
-                    break;
-                }
-            }
-        } else { // markers
-            for (i = 0, ln = dataX.length; i < ln; i++) {
-                // Convert from data coordinates to coordinates within inner size rectangle.
-                // See `panzoom` method for more details.
-                xy = matrix.transformPoint([dataX[i], dataY[i]]);
-                // Flip back vertically and padding adjust (see `render` method comments).
-                xy = surface.matrix.transformPoint(xy);
-                // Essentially sprites go through the same two transformations when they render
-                // data points.
-
-                dx = x - xy[0];
-                dy = y - xy[1];
-
-                distance = Math.sqrt(dx * dx + dy * dy);
-
-                if (selectionTolerance && distance > selectionTolerance) {
-                    continue;
-                }
-
-                if (distance < minDistance) {
-                    minDistance = distance;
-                    index = i;
-                    // Keep looking for the nearest marker.
                 }
             }
         }
 
-        if (index > -1) {
-            result = {
-                index: index,
-                distance: minDistance
-            };
-        }
-
-        return result;
+        return index;
     }
-
 });

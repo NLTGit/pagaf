@@ -460,7 +460,7 @@ topSuite("Ext.direct.RemotingProvider", deps, function() {
                         ns.TestAction.echo('bar', Ext.emptyFn);
                     });
                 
-                    waitsFor(function() { return !!options; }, 'options never modified', Ext.isIE9m ? 100: 20);
+                    waitsFor(function() { return !!options; }, 'options never modified', 20);
                 
                     runs(function() {
                         expect(options.jsonData).toEqual([{

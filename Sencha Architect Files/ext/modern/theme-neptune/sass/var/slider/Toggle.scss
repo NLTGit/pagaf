@@ -154,9 +154,6 @@ $toggleslider-thumb-inset: dynamic(null);
  * @param {number} $disabled-opacity
  * Opacity of the toggle slider when disabled
  *
- * @param {number} $thumb-inset
- * Inset of thumb
- *
  * @member Ext.field.Toggle
  */
 @mixin toggleslider-ui(

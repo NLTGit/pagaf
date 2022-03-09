@@ -905,10 +905,6 @@ Ext.define('Ext.data.reader.Reader', {
     },
     
     defaultRecordCreator: function (data, Model) {
-        return new Model(data);
-    },
-
-    defaultRecordCreatorFromServer: function (data, Model) {
         var record = new Model(data);
         // If the server did not include an id in the response data, the Model constructor will mark the record as phantom.
         // We  need to set phantom to false here because records created from a server response using a reader by definition are not phantom records.

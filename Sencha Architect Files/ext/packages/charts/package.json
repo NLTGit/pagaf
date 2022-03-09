@@ -1,6 +1,6 @@
 {
     "name": "@extjs/ext-react-charts",
-    "version": "6.5.3.57",
+    "version": "6.5.0.775",
     "sencha": {
         "name": "charts",
         "namespace": "Ext",
@@ -15,7 +15,7 @@
         "creator": "Sencha",
         "summary": "Sencha Charts",
         "detailedDescription": "Sencha Charts is a package that allows to generate charts of different types (line, columns, scatter, radar, gauge, etc...). It also includes the Drawing library which provides an abstraction sitting on top of HTML Canvas, SVG and VML.",
-        "version": "6.5.3.57",
+        "version": "6.5.0",
         "compatVersion": "6.0.0",
         "format": "1",
         "sass": {

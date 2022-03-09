@@ -34,8 +34,6 @@
     }
 
     &:not(.#{$prefix}has-text):not(.#{$prefix}sorted) .#{$prefix}title-el {
-        // Maintainer: !important needed to override specific margin-top and margin-bottom
-        // settings in themes.
-        margin: 0!important;
+        margin: 0;
     }
 }

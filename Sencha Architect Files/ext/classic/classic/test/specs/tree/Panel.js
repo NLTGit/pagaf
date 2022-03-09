@@ -1,11 +1,8 @@
 /* global Ext, expect, jasmine, spyOn, MockAjaxManager */
 
-topSuite("Ext.tree.Panel", [
-    'Ext.grid.Panel',
-    'Ext.app.ViewModel',
-    'Ext.app.ViewController',
-    'Ext.grid.column.Widget'
-], function() {
+topSuite("Ext.tree.Panel",
+    ['Ext.grid.Panel', 'Ext.app.ViewModel', 'Ext.app.ViewController'],
+function() {
     var itNotTouch = jasmine.supportsTouch ? xit : it,
         TreeItem = Ext.define(null, {
         extend: 'Ext.data.TreeModel',
@@ -144,38 +141,6 @@ topSuite("Ext.tree.Panel", [
         MockAjaxManager.removeMethods();
     });
 
-    describe("widget column", function() {
-        it("should not garbage collect a widget after being collapsed", function() {
-            makeTree([{
-                id: 'a',
-                text: 'A',
-                expanded: true,
-                children: [{
-                    id: 'b',
-                    text: 'B'
-                }]
-            }], {
-                rootVisible: false,
-                columns: [{
-                    xtype: 'treecolumn',
-                    dataIndex: 'text'
-                }, {
-                    xtype: 'widgetcolumn',
-                    dataIndex: 'text',
-                    widget: {
-                        xtype: 'component'
-                    }
-                }]
-            });
-            var col = tree.getColumnManager().getColumns()[1],
-                widget = col.getWidget(rootNode.firstChild.firstChild);
-
-            rootNode.firstChild.collapse();
-            Ext.dom.GarbageCollector.collect();
-            expect(widget.el.destroyed).toBe(false);
-        });
-    });
-
     describe("scrolling", function() {
         function expectScroll(vertical, horizontal) {
             var dom = tree.getView().getEl().dom;
@@ -278,8 +243,7 @@ topSuite("Ext.tree.Panel", [
         var eventRec,
             record,
             row,
-            checkbox,
-            spy;
+            checkbox;
 
         function clickCheckboxId(id) {
             var checkbox = view.getRow(store.getById(id)).querySelector(view.checkboxSelector, true);
@@ -298,12 +262,10 @@ topSuite("Ext.tree.Panel", [
 
         beforeEach(function() {
             eventRec = null;
-            spy = jasmine.createSpy('spy');
             makeTree(testNodes, {
                 listeners: {
                     checkchange: function(rec) {
                         eventRec = rec;
-                        spy(rec);
                     }
                 }
             });
@@ -316,156 +278,124 @@ topSuite("Ext.tree.Panel", [
             checkbox = row.querySelector(view.checkboxSelector);
         });
 
-        describe("checkchange event", function() {
-            it("should fire the checkchange event", function() {
-                jasmine.fireMouseEvent(checkbox, 'click');
-                expect(eventRec).toBe(record);
-                expect(record.get('checked')).toBe(true);
+        it("should fire the checkchange event", function() {
+            jasmine.fireMouseEvent(checkbox, 'click');
+            expect(eventRec).toBe(record);
+            expect(record.get('checked')).toBe(true);
 
-                // Test that the default checkPropagation: 'none' is honoured.
-                expect(getCheckedCount()).toBe(1);
+            // Test that the default checkPropagation: 'none' is honoured.
+            expect(getCheckedCount()).toBe(1);
+        });
+        it("should veto checkchange if false is returned from a beforecheckchange handler", function() {
+            tree.on({
+                beforecheckchange: function(rec) {
+                    eventRec = rec;
+                    return false;
+                }
             });
+            jasmine.fireMouseEvent(checkbox, 'click');
+            expect(eventRec).toBe(record);
+            expect(record.get('checked')).toBe(false);
+        });
+        it("should sync parent node's check state with state of children on child check change when checkPropagation:'up'", function() {
+            tree.checkPropagation = 'up';
 
-            it("should veto checkchange if false is returned from a beforecheckchange handler", function() {
-                tree.on({
-                    beforecheckchange: function(rec) {
-                        eventRec = rec;
-                        return false;
-                    }
-                });
-                jasmine.fireMouseEvent(checkbox, 'click');
-                expect(eventRec).toBe(record);
-                expect(record.get('checked')).toBe(false);
-            });
+            // Both parent nodes start unchecked
+            expect(store.getById('I').get('checked')).toBe(false);
+            expect(store.getById('J').get('checked')).toBe(false);
 
-            describe("with checkPropagation", function() {
-                it("should sync parent node's check state with state of children on child check change when checkPropagation:'up'", function() {
-                    tree.checkPropagation = 'up';
+            clickCheckboxId('K');
 
-                    // Both parent nodes start unchecked
-                    expect(store.getById('I').get('checked')).toBe(false);
-                    expect(store.getById('J').get('checked')).toBe(false);
+            // K's parent node J should be checked now. K is the sole child.
+            expect(store.getById('J').get('checked')).toBe(true);
+            expect(store.getById('I').get('checked')).toBe(false);
 
-                    clickCheckboxId('K');
+            clickCheckboxId('L');
 
-                    // K's parent node J should be checked now. K is the sole child.
-                    expect(store.getById('J').get('checked')).toBe(true);
-                    expect(store.getById('I').get('checked')).toBe(false);
+            // All leaf nodes below I and J are now checked, so I and J should be
+            expect(store.getById('J').get('checked')).toBe(true);
+            expect(store.getById('I').get('checked')).toBe(true);
 
-                    clickCheckboxId('L');
+            // B only gets checked when both D and C are checked
+            expect(store.getById('B').get('checked')).toBe(false);
+            clickCheckboxId('D');
+            expect(store.getById('B').get('checked')).toBe(false);
+            clickCheckboxId('C');
+            expect(store.getById('B').get('checked')).toBe(true);
 
-                    // All leaf nodes below I and J are now checked, so I and J should be
-                    expect(store.getById('J').get('checked')).toBe(true);
-                    expect(store.getById('I').get('checked')).toBe(true);
+            // Now reverse that process and uncheck B
+            clickCheckboxId('D');
+            expect(store.getById('B').get('checked')).toBe(false);
+            clickCheckboxId('C');
+            expect(store.getById('B').get('checked')).toBe(false);
 
-                    // B only gets checked when both D and C are checked
-                    expect(store.getById('B').get('checked')).toBe(false);
-                    clickCheckboxId('D');
-                    expect(store.getById('B').get('checked')).toBe(false);
-                    clickCheckboxId('C');
-                    expect(store.getById('B').get('checked')).toBe(true);
+            // And finally, clicking a parent, should NOT propagate the checked
+            // state downwards with checkPropagation:'up'
+            clickCheckboxId('B');
+            expect(store.getById('C').get('checked')).toBe(false);
+            expect(store.getById('D').get('checked')).toBe(false);
+        });
+        it("should propagate a parent's checked state to child nodes when checkPropagation:'down'", function() {
+            tree.checkPropagation = 'down';
 
-                    // Now reverse that process and uncheck B
-                    clickCheckboxId('D');
-                    expect(store.getById('B').get('checked')).toBe(false);
-                    clickCheckboxId('C');
-                    expect(store.getById('B').get('checked')).toBe(false);
+            // Start with none checked
+            expect(getCheckedCount()).toBe(0);
 
-                    // And finally, clicking a parent, should NOT propagate the checked
-                    // state downwards with checkPropagation:'up'
-                    clickCheckboxId('B');
-                    expect(store.getById('C').get('checked')).toBe(false);
-                    expect(store.getById('D').get('checked')).toBe(false);
-                });
-                it("should propagate a parent's checked state to child nodes when checkPropagation:'down'", function() {
-                    tree.checkPropagation = 'down';
+            clickCheckboxId('A');
+            expect(store.getById('B').get('checked')).toBe(true);
+            expect(store.getById('C').get('checked')).toBe(true);
+            expect(store.getById('D').get('checked')).toBe(true);
+            expect(store.getById('E').get('checked')).toBe(true);
+            expect(store.getById('F').get('checked')).toBe(true);
+            expect(store.getById('G').get('checked')).toBe(true);
+            expect(store.getById('H').get('checked')).toBe(true);
 
-                    // Start with none checked
-                    expect(getCheckedCount()).toBe(0);
+            // Just A and its descendants should be checked.
+            expect(getCheckedCount()).toBe(8);
+        });
+        it("should propagate checked state both ways when checkPropagation:'both'", function() {
+            tree.checkPropagation = 'both';
 
-                    clickCheckboxId('A');
-                    expect(store.getById('B').get('checked')).toBe(true);
-                    expect(store.getById('C').get('checked')).toBe(true);
-                    expect(store.getById('D').get('checked')).toBe(true);
-                    expect(store.getById('E').get('checked')).toBe(true);
-                    expect(store.getById('F').get('checked')).toBe(true);
-                    expect(store.getById('G').get('checked')).toBe(true);
-                    expect(store.getById('H').get('checked')).toBe(true);
+            // Start with none checked
+            expect(getCheckedCount()).toBe(0);
 
-                    // Just A and its descendants should be checked.
-                    expect(getCheckedCount()).toBe(8);
-                });
-                it("should propagate checked state both ways when checkPropagation:'both'", function() {
-                    tree.checkPropagation = 'both';
+            clickCheckboxId('A');
+            expect(store.getById('B').get('checked')).toBe(true);
+            expect(store.getById('C').get('checked')).toBe(true);
+            expect(store.getById('D').get('checked')).toBe(true);
+            expect(store.getById('E').get('checked')).toBe(true);
+            expect(store.getById('F').get('checked')).toBe(true);
+            expect(store.getById('G').get('checked')).toBe(true);
+            expect(store.getById('H').get('checked')).toBe(true);
 
-                    // Start with none checked
-                    expect(getCheckedCount()).toBe(0);
+            // Just A and its descendants should be checked.
+            expect(getCheckedCount()).toBe(8);
 
-                    clickCheckboxId('A');
-                    expect(store.getById('B').get('checked')).toBe(true);
-                    expect(store.getById('C').get('checked')).toBe(true);
-                    expect(store.getById('D').get('checked')).toBe(true);
-                    expect(store.getById('E').get('checked')).toBe(true);
-                    expect(store.getById('F').get('checked')).toBe(true);
-                    expect(store.getById('G').get('checked')).toBe(true);
-                    expect(store.getById('H').get('checked')).toBe(true);
+            // And one more click should go back to zero
+            clickCheckboxId('A');
+            expect(getCheckedCount()).toBe(0);
 
-                    // Just A and its descendants should be checked.
-                    expect(getCheckedCount()).toBe(8);
+            // Should propagate up to F
+            clickCheckboxId('H');
+            expect(store.getById('F').get('checked')).toBe(true);
+            expect(store.getById('G').get('checked')).toBe(true);
+            expect(getCheckedCount()).toBe(3);
 
-                    // And one more click should go back to zero
-                    clickCheckboxId('A');
-                    expect(getCheckedCount()).toBe(0);
+            // This should restore the whole 'A' subtree to checkedness
+            clickCheckboxId('E');
+            clickCheckboxId('D');
+            clickCheckboxId('C');
 
-                    // Should propagate up to F
-                    clickCheckboxId('H');
-                    expect(store.getById('F').get('checked')).toBe(true);
-                    expect(store.getById('G').get('checked')).toBe(true);
-                    expect(getCheckedCount()).toBe(3);
+            expect(store.getById('B').get('checked')).toBe(true);
+            expect(store.getById('C').get('checked')).toBe(true);
+            expect(store.getById('D').get('checked')).toBe(true);
+            expect(store.getById('E').get('checked')).toBe(true);
+            expect(store.getById('F').get('checked')).toBe(true);
+            expect(store.getById('G').get('checked')).toBe(true);
+            expect(store.getById('H').get('checked')).toBe(true);
 
-                    // This should restore the whole 'A' subtree to checkedness
-                    clickCheckboxId('E');
-                    clickCheckboxId('D');
-                    clickCheckboxId('C');
-
-                    expect(store.getById('B').get('checked')).toBe(true);
-                    expect(store.getById('C').get('checked')).toBe(true);
-                    expect(store.getById('D').get('checked')).toBe(true);
-                    expect(store.getById('E').get('checked')).toBe(true);
-                    expect(store.getById('F').get('checked')).toBe(true);
-                    expect(store.getById('G').get('checked')).toBe(true);
-                    expect(store.getById('H').get('checked')).toBe(true);
-
-                    // Just A and its descendants should be checked.
-                    expect(getCheckedCount()).toBe(8);
-                });
-
-                it("should fire the checkevent only once when it has a parent and it's not changing the parent's status", function() {
-                    tree.checkPropagation = 'both';
-                    clickCheckboxId('C');
-
-                    // needs to be waits because we are waiting for something not to happen
-                    waits(100);
-
-                    runs(function() {
-                        expect(spy.callCount).toBe(1);
-                    });
-                });
-
-                it("should fire the checkevent an additional time if changing the parent's status", function() {
-                    tree.checkPropagation = 'both';
-                    clickCheckboxId('C');
-                    clickCheckboxId('D');
-
-                    waitsFor(function() {
-                        return spy.callCount === 3;
-                    });
-
-                    runs(function() {
-                        expect(spy.mostRecentCall.args[0].getId()).toBe('B');
-                    });
-                });
-            });
+            // Just A and its descendants should be checked.
+            expect(getCheckedCount()).toBe(8);
         });
     });
 
@@ -1818,99 +1748,6 @@ topSuite("Ext.tree.Panel", [
                     expect(store.getNodeById('F').isExpanded()).toBe(true);  
                     expect(store.getNodeById('G').isExpanded()).toBe(true);      
                 });  
-            });
-    
-            describe('expanded nodes', function () {
-                var ModelProxy, resp1, resp2, resp3;
-        
-                beforeEach(function () {
-                    var responses = [
-                        {
-                            id: 'root',
-                            text: 'Root',
-                            children: [{
-                                id: 2,
-                                text: 'node1',
-                                expanded: false
-                            }]
-                        },
-                        [{
-                            id: 3,
-                            text: 'child1',
-                            expanded: false
-                        }, {
-                            id: 4,
-                            text: 'child2',
-                            expanded: true
-                        }],
-                        [{
-                            id: 5,
-                            text: 'child2.1',
-                            expanded: false
-                        }, {
-                            id: 6,
-                            text: 'child2.2',
-                            expanded: false
-                        }]
-                    ];
-                    
-                    resp1 = responses[0];
-                    resp2 = responses[1];
-                    resp3 = responses[2];
-                    tree.destroy();
-                    ModelProxy = Ext.define(null, {
-                        extend: 'Ext.data.TreeModel',
-                        fields: ['id', 'text', 'secondaryId'],
-                        proxy: {
-                            type: 'ajax',
-                            url: 'fakeUrl'
-                        }
-                    });
-                });
-                
-                afterEach(function () {
-                    ModelProxy = Ext.destroy(ModelProxy);
-                });
-        
-                it('should expand nodes in the correct order', function () {
-                    var store, root;
-            
-                    makeTree(null, null, {
-                        model: ModelProxy
-                    });
-                    store = tree.getStore();
-                    root = store.getRoot();
-            
-                    // expand root and load response
-                    root.expand();
-                    Ext.Ajax.mockComplete({
-                        status: 200,
-                        responseText: Ext.encode(resp1)
-                    });
-            
-                    // expand node1 and load response
-                    store.getNodeById(2).expand();
-                    Ext.Ajax.mockComplete({
-                        status: 200,
-                        responseText: Ext.encode(resp2)
-                    });
-            
-                    // immediately load response for expanded child2
-                    Ext.Ajax.mockComplete({
-                        status: 200,
-                        responseText: Ext.encode(resp3)
-                    });
-    
-                    Ext.Array.forEach(view.getNodes(), function (node, index) {
-                        var id = view.getRecord(node).getId();
-        
-                        // each node, except for root, should have an ID that increments to
-                        // the index count
-                        if (id !== 'root') {
-                            expect(id).toEqual(++index);
-                        }
-                    });
-                });
             });
         });
         
@@ -3439,54 +3276,6 @@ topSuite("Ext.tree.Panel", [
                 
                 expect(row).not.toHaveAttr('aria-expanded');
             });
-        });
-    });
-    
-    describe("reloading child node", function () {
-        function getChildData(level) {
-            Ext.Ajax.mockComplete({
-                status: 200,
-                responseText: Ext.encode([{
-                    id: level,
-                    text: 'A node'
-                }])
-            });
-        }
-        
-        it("should correctly update the UI when reloading a child node directly", function () {
-            var node, cell;
-            
-            makeTree(null, {
-                store: new Ext.data.TreeStore({
-                    proxy: {
-                        type: 'ajax',
-                        url: 'fakeUrl'
-                    },
-                    root: {
-                        text: 'Ext JS',
-                        id: 'src'
-                    }
-                })
-            });
-            
-            tree.getRootNode().expand();
-            getChildData(1);
-            
-            node = tree.getStore().getNodeById(1);
-            // expand node to load data
-            node.expand();
-            // get remote data
-            getChildData(2);
-            // collapse the node
-            node.collapse();
-            
-            // now let's reload the node directly
-            tree.getStore().load({node: node});
-            getChildData(2);
-            
-            cell = view.getCell(1, 0).querySelector('.x-tree-expander');
-            // "plus" class should be applied
-            expect(cell).toHaveCls('x-tree-elbow-end-plus');
         });
     });
 });

@@ -51,16 +51,12 @@
  * Creates a background gradient for masked elements, based on the lightness of their background.
  *
  * @param {color} $bg-color Background color of element.
- * @param {percent} $contrast Contrast of the new gradient to its background.
+ * @param {percent} $percent Contrast of the new gradient to its background.
  * @param {percent} $style Gradient style of the gradient.
  *
  * See background-gradient mixin.
  */
-@mixin mask-by-background(
-    $bg-color,
-    $contrast: 100%,
-    $style: $base-background-gradient
-) {
+@mixin mask-by-background($bg-color, $contrast: 100%, $style: $base-background-gradient) {
     @if (lightness($bg-color) > 50) {
         @include background-gradient(darken($bg-color, $contrast), $style);
     } @else {

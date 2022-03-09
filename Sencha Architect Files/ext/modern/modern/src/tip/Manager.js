@@ -26,29 +26,16 @@
  * - `data-qautoHide`: {@link Ext.tip.ToolTip#autoHide}
  * - `data-qcls`: {@link Ext.tip.ToolTip#cls}
  * - `data-qalign`: {@link Ext.tip.ToolTip#align}
- * - `data-qalignDelegate`: {@link Ext.tip.ToolTip#alignDelegate}
  * - `data-qanchor`: {@link Ext.tip.ToolTip#anchor}
  * - `data-qanchorToTarget`: {@link Ext.tip.ToolTip#anchorToTarget}
- * - `data-qallowOver`: {@link Ext.tip.ToolTip#allowOver}
  * - `data-qshowDelay`: {@link Ext.tip.ToolTip#showDelay}
  * - `data-qhideDelay`: {@link Ext.tip.ToolTip#hideDelay}
  * - `data-qdismissDelay`: {@link Ext.tip.ToolTip#dismissDelay}
  * - `data-qtrackMouse`: {@link Ext.tip.ToolTip#trackMouse}
- * - `data-qoverfow`: Indicates that if the element's text is clipped
- * using the `text-overflow:ellipsis` style, the shared tip will be shown
- * containing the `innerHTML`.
  *
  * Example usage:
  *
  *     <div class="foo" data-qtip="Message goes here">Hover me</div>
- *     <p>
- *     <div data-qoverflow="true" data-qalign="b-t?" data-qanchor="true" style="width:100px;text-overflow:ellipsis">
- *         Hover Me! Lorem ipsum dolor sit amet, duis dicta solet
- *         et qui. Ut mea soleat mediocritatem, blandit democritum mea ex. His id nostro
- *         conceptam dissentiet, ignota discere id mea. Qui eu virtute invenire, an per
- *         ipsum invidunt senserit. Ne legendos expetenda mei. Ad homero percipit liberavisse
- *         quo, te quando vocibus usu.
- *     </div>
  */
 Ext.define('Ext.tip.Manager', {
 
@@ -62,32 +49,7 @@ Ext.define('Ext.tip.Manager', {
             anchorToTarget: false,
             anchor: false,
             closeAction: 'hide',
-            quickShowInterval: 0,
-            maxWidth: '80vw'
-        },
-
-        /**
-         * A configuration object to use when the shared tip instance is triggered by
-         * an text-clipped element tagged with the `data-qoverflow` attribute.
-         * For example, you could change the default {@link Ext.tip.ToolTip#dismissDelay dismissDelay}
-         * to be longer, to allow long content to be read, or set {@link Ext.tip.ToolTip#autoHide autoHide}
-         * to false by setting your application's {@link Ext.app.Application#quickTips quickTips} config.
-         *
-         *         quickTips: {
-         *             tooltip: {
-         *                 showOnTap: true
-         *             },
-         *             overflowTip: {
-         *                 dismissDelay: 10000
-         *             }
-         *         }
-         *
-         *
-         */
-        overflowTip: {
-            align: 'l-r?',
-            anchor: true,
-            showOnTap: true
+            quickShowInterval: 0
         }
     },
 
@@ -231,16 +193,8 @@ Ext.define('Ext.tip.Manager', {
                     prop: 'data-qcls',
                     parse: fn
                 },
-                axisLock : {
-                    prop: 'data-axislock',
-                    parse: fn
-                },
                 align : {
                     prop: 'data-qalign',
-                    parse: fn
-                },
-                alignDelegate : {
-                    prop: 'data-qaligndelegate',
                     parse: fn
                 },
                 anchor : {
@@ -267,26 +221,9 @@ Ext.define('Ext.tip.Manager', {
                     prop: 'data-qanchorToTarget',
                     parse: boolFn
                 },
-                allowOver: {
-                    prop: 'data-qallowover',
-                    parse: boolFn
-                },
                 closable: true
             };
         })(),
-
-        applyOverflowTip: function (config) {
-            var phone = Ext.platformTags.phone;
-
-            return Ext.apply({
-                // Less unexpected movement with axisLock
-                // But with limited space, a phone needs to try all other edges.
-                axisLock: !phone,
-
-                // Stop long overflowing text from sprawling.
-                maxWidth: phone ? '80vw' : 400
-            }, config);
-        },
 
         delegateQuickTip: function (dom) {
             var qtip = this.getTipConfig(dom, 'html');
@@ -343,23 +280,6 @@ Ext.define('Ext.tip.Manager', {
                             dom.removeAttribute('title');
                         }
                     }
-                } else if (dom.hasAttribute('data-qoverflow')) {
-                    text = fly.dom.innerHTML;
-
-                    // If we are not just being called as a delegate selector,
-                    // augment the tipDefaults that we are going to reconfigure with
-                    if (property !== 'html') {
-                        tipDefaults = Ext.apply({}, me.getOverflowTip(), tipDefaults);
-                    }
-
-                    // This is the beforeshow invocation which wants the full config
-                    if (!property) {
-                        // This element has text-overflow:ellipsis AND the overflowing text.
-                        // No overflow found, veto the show by returning false.
-                        if (!me.hasTextOverflow(dom)) {
-                            return false;
-                        }
-                    }
                 }
 
                 if (text) { // if there is no qtip text there is no tooltip
@@ -396,8 +316,6 @@ Ext.define('Ext.tip.Manager', {
                 }
             }
 
-            // No displaying configs set, now see if it's eligible for an overflow tip
-
             fly.detach();
 
             if (property && ret == null && property !== 'html') {
@@ -414,13 +332,6 @@ Ext.define('Ext.tip.Manager', {
 
             if (dom) {
                 data = me.getTipConfig(dom);
-
-                // If the config returns false, it means no show.
-                // data-qoverflow tips leave the decision this late to
-                // delay the expensive isStyle() an TextMetrics calls.
-                if (data === false) {
-                    return false;
-                }
 
                 // data could be undefined
                 if (!data) {
@@ -449,15 +360,6 @@ Ext.define('Ext.tip.Manager', {
                 }, this);
                 cfg.anchorToTarget = !!(cfg.align || cfg.anchor);
                 tip.setConfig(cfg);
-            }
-        },
-
-        hasTextOverflow: function(candidate) {
-            // Filter for only elements with text-overflow:ellipsis
-            if (Ext.fly(candidate).isStyle('text-overflow', 'ellipsis')) {
-                var textSize = Ext.util.TextMetrics.measure(candidate, candidate.innerHTML);
-
-                return (textSize.width > Ext.fly(candidate).getViewRegion().width);
             }
         }
     }

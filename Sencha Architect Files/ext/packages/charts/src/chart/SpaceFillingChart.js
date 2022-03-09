@@ -19,7 +19,7 @@ Ext.define('Ext.chart.SpaceFillingChart', {
 
         try {
             me.chartLayoutCount++;
-            me.suspendAnimation();
+            me.animationSuspendCount++;
             if (me.callParent() === false) {
                 // animationSuspendCount will still be decremented
                 return;
@@ -46,7 +46,7 @@ Ext.define('Ext.chart.SpaceFillingChart', {
             }
             me.redraw();
         } finally {
-            me.resumeAnimation();
+            me.animationSuspendCount--;
             me.chartLayoutCount--;
             me.checkLayoutEnd();
         }

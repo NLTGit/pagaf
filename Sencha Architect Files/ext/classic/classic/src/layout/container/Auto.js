@@ -561,7 +561,7 @@ Ext.define('Ext.layout.container.Auto', {
      * Returns the overflow-x style of the render target.
      * Note: If overflow is configured on a container using style or css class this method
      * will read the dom the first time it is called. It is therefore preferable for
-     * performance reasons to use the {@link Ext.Component#scrollable scrollable} config when
+     * performance reasons to use the {@link Ext.Component#scrollable scrollable config when
      * horizontal overflow is desired.
      * @protected
      * @param {Ext.layout.ContextItem} ownerContext
@@ -576,7 +576,7 @@ Ext.define('Ext.layout.container.Auto', {
      * Returns the overflow-y style of the render target.
      * Note: If overflow is configured on a container using style or css class this method
      * will read the dom the first time it is called. It is therefore preferable for
-     * performance reasons to use the {@link Ext.Component#scrollable scrollable} config when
+     * performance reasons to use the {@link Ext.Component#scrollable scrollable config when
      * vertical overflow is desired.
      * @protected
      * @param {Ext.layout.ContextItem} ownerContext

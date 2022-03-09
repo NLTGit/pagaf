@@ -4,7 +4,7 @@
  */
 Ext.define('Ext.grid.CellEditor', {
     extend: 'Ext.Editor',
-    alias: 'widget.celleditor',
+
     /**
      * @property {Boolean} isCellEditor
      * @readonly
@@ -65,11 +65,10 @@ Ext.define('Ext.grid.CellEditor', {
         var me = this,
             context = me.context,
             view = context.view;
-
+        
         // Focus restoration after a refresh may require realignment and correction
         // of the context because it could have been due to a or filter operation and
         // the context may have changed position.
-        me.reattachToBody();
         context.node = view.getNode(context.record);
         context.row = view.getRow(context.record);
         context.cell = context.getCell(true);
@@ -124,15 +123,12 @@ Ext.define('Ext.grid.CellEditor', {
                 return !!context.cancel;
             }
         }
-
         me.callParent([remainVisible]);
     },
 
     onEditComplete: function(remainVisible, canceling) {
         var me = this,
             activeElement = Ext.Element.getActiveElement(),
-            ctx = me.context, 
-            store = ctx && ctx.store,
             boundEl;
 
         me.editing = false;
@@ -160,33 +156,24 @@ Ext.define('Ext.grid.CellEditor', {
         // Inform it directly.
         if (canceling) {
             me.editingPlugin.cancelEdit(me);
-            // When expanding/collapsing a node, the editor will lose focus
-            // and cancel the editing, but at the same time the expand/collapse
-            // will call actionable#suspend that will cause this editor to remain visible
-            // and will prevent the element from being cached. So if remainVisible is true
-            // and we are expanding/collapsing we should always cache the element.
-            if (remainVisible && store && store.isExpandingOrCollapsing) {
-                me.cacheElement();
-            }
         } else {
             me.editingPlugin.onEditComplete(me, me.getValue(), me.startValue);
         }
     },
 
-    cacheElement: function(force) {
-        if ((!this.editing || force) && !this.destroyed) {
-            this.detachFromBody();
+    cacheElement: function() {
+        if (!this.editing && !this.destroyed) {
+            Ext.getDetachedBody().dom.appendChild(this.el.dom);
         }
     },
 
     /**
      * @private
+     * We should do nothing.
      * Hiding blurs, and blur will terminate the edit.
-     * We must not allow superclass Editor to terminate the edit and make
-     * sure the element has been cached.
+     * Must not allow superclass Editor to terminate the edit.
      */
     onHide: function() {
-        this.cacheElement(true);
         Ext.Editor.superclass.onHide.apply(this, arguments);
     },
 

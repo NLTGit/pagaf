@@ -296,10 +296,6 @@ Ext.define('Ext.layout.Carousel', {
         return this.getLayoutItems()[index];
     },
 
-    cancelAnimation: function() {
-        Ext.destroy(this.activeAnim);
-    },
-
     move: function(increment, animate) {
         return this.setFrontItem(this.getMoveItem(increment), animate);
     },

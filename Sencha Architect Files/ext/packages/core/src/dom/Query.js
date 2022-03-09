@@ -619,7 +619,7 @@ Ext.define('Ext.dom.Query', function() {
         /**
          * Compiles a selector/xpath query into a reusable function. The returned function
          * takes one parameter "root" (optional), which is the context node from where the query should start.
-         * @param {String} path The selector/xpath query
+         * @param {String} selector The selector/xpath query
          * @param {String} [type="select"] Either "select" or "simple" for a simple selector match
          * @return {Function}
          */
@@ -714,9 +714,8 @@ Ext.define('Ext.dom.Query', function() {
          * Selects an array of DOM nodes using JavaScript-only implementation.
          *
          * Use {@link #select} to take advantage of browsers built-in support for CSS selectors.
-         * @param {String} path The selector/xpath query (can be a comma separated list of selectors)
+         * @param {String} selector The selector/xpath query (can be a comma separated list of selectors)
          * @param {HTMLElement/String} [root=document] The start of the query.
-         * @param type
          * @return {HTMLElement[]} An Array of DOM elements which match the selector. If there are
          * no matches, and empty Array is returned.
          */
@@ -820,7 +819,7 @@ Ext.define('Ext.dom.Query', function() {
 
         /**
          * Selects a single element.
-         * @param {String} path The selector/xpath query
+         * @param {String} selector The selector/xpath query
          * @param {HTMLElement} [root=document] The start of the query.
          * @return {HTMLElement} The DOM element which matched the selector.
          */
@@ -830,7 +829,7 @@ Ext.define('Ext.dom.Query', function() {
 
         /**
          * Selects the value of a node, optionally replacing null with the defaultValue.
-         * @param {String} path The selector/xpath query
+         * @param {String} selector The selector/xpath query
          * @param {HTMLElement} [root=document] The start of the query.
          * @param {String} [defaultValue] When specified, this is return as empty value.
          * @return {String}
@@ -882,7 +881,7 @@ Ext.define('Ext.dom.Query', function() {
         /**
          * Selects the value of a node, parsing integers and floats.
          * Returns the defaultValue, or 0 if none is specified.
-         * @param {String} path The selector/xpath query
+         * @param {String} selector The selector/xpath query
          * @param {HTMLElement} [root=document] The start of the query.
          * @param {Number} [defaultValue] When specified, this is return as empty value.
          * @return {Number}
@@ -895,7 +894,7 @@ Ext.define('Ext.dom.Query', function() {
         /**
          * Returns true if the passed element(s) match the passed simple selector
          * @param {String/HTMLElement/HTMLElement[]} el An element id, element or array of elements
-         * @param {String} ss The simple selector to test
+         * @param {String} selector The simple selector to test
          * @return {Boolean}
          */
         is: function(el, ss) {
@@ -909,8 +908,8 @@ Ext.define('Ext.dom.Query', function() {
 
         /**
          * Filters an array of elements to only include matches of a simple selector
-         * @param {HTMLElement[]} els An array of elements to filter
-         * @param {String} ss The simple selector to test
+         * @param {HTMLElement[]} el An array of elements to filter
+         * @param {String} selector The simple selector to test
          * @param {Boolean} nonMatches If true, it returns the elements that DON'T match the selector instead of the
          * ones that match
          * @return {HTMLElement[]} An Array of DOM elements which match the selector. If there are no matches, and empty

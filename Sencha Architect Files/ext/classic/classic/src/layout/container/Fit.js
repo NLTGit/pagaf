@@ -37,7 +37,6 @@ Ext.define('Ext.layout.container.Fit', {
     /* End Definitions */
 
     /**
-     * @cfg itemCls
      * @inheritdoc Ext.layout.container.Container#cfg-itemCls
      */
     itemCls: Ext.baseCSSPrefix + 'fit-item',

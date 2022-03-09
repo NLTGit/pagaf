@@ -591,7 +591,7 @@ Ext.env.Ready = {
                 window.detachEvent('onload', Ready.onReadyEvent);
 
                 if (Ext.isNumber(Ready.scrollTimer)) {
-                    Ext.undefer(Ready.scrollTimer);
+                    clearTimeout(Ready.scrollTimer);
                     Ready.scrollTimer = null;
                 }
             },

@@ -253,47 +253,29 @@ topSuite("Ext.menu.CheckItem", ['Ext.menu.Menu', 'Ext.app.ViewModel', 'Ext.app.V
             });
             
             describe("veto", function() {
-                it("Programmatic checkchange is not vetoed when beforecheckchange returns false", function() {
+                it("should not trigger a change if beforecheckchange returns false", function() {
                     makeItem();
                     c.on('beforecheckchange', function() {
                         return false;
                     });
                     c.setChecked(true);
-                    expect(c.getChecked()).toBe(true);
-                });
-                it("should not trigger a change on item tap if beforecheckchange returns false", function() {
-                    makeItem();
-                    c.on('beforecheckchange', function() {
-                        return false;
-                    });
-                    Ext.testHelper.tap(c.ariaEl);
                     expect(c.getChecked()).toBe(false);
                 });
             });
             
             describe("params", function() {
-                it("should not fire beforecheckchange with the item and the new checked state when checked programatically", function() {
-                    var correct = true;
-                    makeItem();
-                    c.on('beforecheckchange', function(arg1, arg2) {
-                        correct = false;
-                    });
-                    c.setChecked(true);
-                    expect(correct).toBe(true);
-                });
-
-                it("should fire beforecheckchange with the item and the new checked state when tapped", function() {
+                it("should fire beforecheckchange with the item and the new checked state", function() {
                     var comp, state;
                     makeItem();
                     c.on('beforecheckchange', function(arg1, arg2) {
                         comp = arg1;
                         state = arg2;
                     });
-                    Ext.testHelper.tap(c.ariaEl);
+                    c.setChecked(true);
                     expect(comp).toBe(c);
                     expect(state).toBe(true);
-                });
-
+                });  
+                
                 it("should fire checkchange with the item and the new checked state", function() {
                     var comp, state;
                     makeItem();
@@ -332,7 +314,7 @@ topSuite("Ext.menu.CheckItem", ['Ext.menu.Menu', 'Ext.app.ViewModel', 'Ext.app.V
                     });
                     
                     it("should use a passed scope", function() {
-                        var o = {},
+                        var o = new (function() {})(), 
                             scope;
 
                         makeItem({
@@ -427,7 +409,7 @@ topSuite("Ext.menu.CheckItem", ['Ext.menu.Menu', 'Ext.app.ViewModel', 'Ext.app.V
         });
 
         it("should use a passed scope", function() {
-            var o = {},
+            var o = new (function() {})(),
                 scope;
 
             makeItem({
@@ -489,12 +471,15 @@ topSuite("Ext.menu.CheckItem", ['Ext.menu.Menu', 'Ext.app.ViewModel', 'Ext.app.V
     });
     
     describe("pointer interaction", function() {
+        beforeEach(function() {
+            makeItem();
+            
+            menu.show();
+        });
+        
         // Tests here are asynchronous because we want to catch focus flip-flops,
         // and these tender animals are easily scared
         it("should not close the menu when clicked on textEl", function() {
-            makeItem();
-            menu.show();
-
             runs(function() {
                 clickIt();
             });
@@ -508,9 +493,6 @@ topSuite("Ext.menu.CheckItem", ['Ext.menu.Menu', 'Ext.app.ViewModel', 'Ext.app.V
         });
         
         it("should not close the menu when clicked on checkboxElement", function() {
-            makeItem();
-            menu.show();
-
             runs(function() {
                 clickIt();
             });
@@ -520,16 +502,6 @@ topSuite("Ext.menu.CheckItem", ['Ext.menu.Menu', 'Ext.app.ViewModel', 'Ext.app.V
             runs(function() {
                 expect(c.isVisible()).toBe(true);
             });
-        });
-
-        it("should not change the checked state when disabled", function() {
-            makeItem({
-                disabled: true
-            });
-            menu.show();
-
-            clickIt();
-            expect(c.getChecked()).toBe(false);
         });
     });
 });

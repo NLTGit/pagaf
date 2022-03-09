@@ -313,20 +313,17 @@ Ext.define('Ext.chart.interactions.PanZoom', {
     onPanGestureStart: function (e) {
         if (!e || !e.touches || e.touches.length < 2) { //Limit drags to single touch
             var me = this,
-                chart = me.getChart(),
-                rect = chart.getInnerRect(),
-                xy = chart.element.getXY();
+                rect = me.getChart().getInnerRect(),
+                xy = me.getChart().element.getXY();
 
             e.claimGesture();
-            chart.suspendAnimation();
 
             me.startX = e.getX() - xy[0] - rect[0];
             me.startY = e.getY() - xy[1] - rect[1];
             me.oldVisibleRanges = null;
             me.hideLabels();
-            chart.suspendThicknessChanged();
+            me.getChart().suspendThicknessChanged();
             me.lockEvents(me.getPanGesture());
-
             return false;
         }
     },
@@ -337,9 +334,8 @@ Ext.define('Ext.chart.interactions.PanZoom', {
             isZoomOnPan = isMouse && me.getZoomOnPan();
 
         if (me.getLocks()[me.getPanGesture()] === me) { // Limit drags to single touch.
-            var chart = me.getChart(),
-                rect = chart.getInnerRect(),
-                xy = chart.element.getXY();
+            var rect = me.getChart().getInnerRect(),
+                xy = me.getChart().element.getXY();
 
             if (isZoomOnPan) {
                 me.transformAxesBy(
@@ -355,24 +351,19 @@ Ext.define('Ext.chart.interactions.PanZoom', {
                     1, 1);
             }
             me.sync();
-
             return false;
         }
     },
 
     onPanGestureEnd: function (e) {
         var me = this,
-            pan = me.getPanGesture(),
-            chart;
+            pan = me.getPanGesture();
 
         if (me.getLocks()[pan] === me) {
-            chart = me.getChart();
-            chart.resumeThicknessChanged();
+            me.getChart().resumeThicknessChanged();
             me.showLabels();
             me.sync();
             me.unlockEvents(pan);
-            chart.resumeAnimation();
-
             return false;
         }
     },
@@ -380,9 +371,8 @@ Ext.define('Ext.chart.interactions.PanZoom', {
     onZoomGestureStart: function (e) {
         if (e.touches && e.touches.length === 2) {
             var me = this,
-                chart = me.getChart(),
-                xy = chart.element.getXY(),
-                rect = chart.getInnerRect(),
+                xy = me.getChart().element.getXY(),
+                rect = me.getChart().getInnerRect(),
                 x = xy[0] + rect[0],
                 y = xy[1] + rect[1],
                 newPoints = [
@@ -393,8 +383,8 @@ Ext.define('Ext.chart.interactions.PanZoom', {
                 yDistance = Math.max(44, Math.abs(newPoints[3] - newPoints[1]));
 
             e.claimGesture();
-            chart.suspendAnimation();
-            chart.suspendThicknessChanged();
+
+            me.getChart().suspendThicknessChanged();
             me.lastZoomDistances = [xDistance, yDistance];
             me.lastPoints = newPoints;
             me.oldVisibleRanges = null;
@@ -408,9 +398,8 @@ Ext.define('Ext.chart.interactions.PanZoom', {
     onZoomGestureMove: function (e) {
         var me = this;
         if (me.getLocks()[me.getZoomGesture()] === me) {
-            var chart = me.getChart(),
-                rect = chart.getInnerRect(),
-                xy = chart.element.getXY(),
+            var rect = me.getChart().getInnerRect(),
+                xy = me.getChart().element.getXY(),
                 x = xy[0] + rect[0],
                 y = xy[1] + rect[1],
                 abs = Math.abs,
@@ -437,17 +426,13 @@ Ext.define('Ext.chart.interactions.PanZoom', {
 
     onZoomGestureEnd: function (e) {
         var me = this,
-            zoom = me.getZoomGesture(),
-            chart;
+            zoom = me.getZoomGesture();
 
         if (me.getLocks()[zoom] === me) {
-            chart = me.getChart();
-            chart.resumeThicknessChanged();
+            me.getChart().resumeThicknessChanged();
             me.showLabels();
             me.sync();
             me.unlockEvents(zoom);
-            chart.resumeAnimation();
-
             return false;
         }
     },

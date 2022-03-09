@@ -77,12 +77,6 @@ Ext.define('Ext.grid.Location', {
      */
     rowBody: null,
 
-    /**
-     * @property {Boolean} [isTreeLocation]
-     * `true` if this is a {@link Ext.grid.cell.Tree tree cell} location.
-     */
-    isTreeLocation: false,
-
     inheritableStatics: {
         /**
          * @private
@@ -175,7 +169,6 @@ Ext.define('Ext.grid.Location', {
                 me.column = column = cell.getColumn();
                 columns = columns || view.getVisibleColumns();
                 me.columnIndex = columns.indexOf(column);
-                me.isTreeLocation = !!cell.isTreeCell;
             } else {
                 me.rowBody = view.mapToRowBody(source);
             }
@@ -193,7 +186,7 @@ Ext.define('Ext.grid.Location', {
     clone: function(options) {
         var me = this,
             ret = me.callParent(),
-            record, column, cell;
+            record, column;
 
         if (options) {
             if (options.record !== undefined) {
@@ -218,10 +211,9 @@ Ext.define('Ext.grid.Location', {
         if (column) {
             ret._setColumn(column);
         } else {
-            ret.cell = cell = me.cell;
+            ret.cell = me.cell;
             ret.column = me.column;
             ret.columnIndex = me.columnIndex;
-            me.isTreeLocation = !!(cell && cell.isTreeCell);
         }
 
         return ret;
@@ -289,19 +281,9 @@ Ext.define('Ext.grid.Location', {
     },
 
     getFocusEl: function(as) {
-        var cell = this.get(),
-            ret;
+        var ret = this.actionable ? this.sourceElement : this.get().el.dom;
 
-        if (this.actionable) {
-            ret = this.sourceElement;
-        } else {
-            ret = cell && !cell.destroyed && cell.el.dom;
-        }
-
-        // Only return the element if it is still in the document.
-        return Ext.getBody().contains(ret) ?
-            (as === 'dom' || as === true) ? ret : Ext.get(ret) :
-            null;
+        return (as === 'dom' || as === true) ? ret : Ext.get(ret);
     },
 
     /**
@@ -494,7 +476,7 @@ Ext.define('Ext.grid.Location', {
             // this is an actionable location.
             //
             // For example, a floated menu or any focusable thing popped up by a widget inside a cell.
-            if (target && (!cell || cell.destroyed || cell.element.dom !== target)) {
+            if (target && (!cell || cell.element.dom !== target)) {
                 actionable = Ext.fly(target).isFocusable(true);
             }
 
@@ -516,16 +498,13 @@ Ext.define('Ext.grid.Location', {
                 len = actionables && actionables.length,
                 candidate = me.clone(),
                 previousCandidate = me.clone(),
-                testEl,
                 visitOptions = {
                     callback: function(el) {
-                        testEl = Ext.fly(el);
-                        if (!testEl.$isFocusTrap && testEl.isFocusable()) {
+                        if (Ext.fly(el).isFocusable()) {
                             component = Ext.Component.from(el);
 
-                            // If it's the focusEl of a disabled component, or the
-                            // focusTrap of a PickerField, skip it
-                            if (!component || !component.getDisabled()) {
+                            // If it's the focusEl of a disabled component, skip it
+                            if (!(component && component.getDisabled())) {
                                 focusables.push(el);
                             }
                         }
@@ -556,9 +535,9 @@ Ext.define('Ext.grid.Location', {
                     // vertically to bring that into view, then scroll the activeEl into view (which
                     // will most likely do nothing unless it's a horizontal scroll needed)
                     if (candidate.child) {
-                        scrollable.ensureVisible(candidate.child.el);
+                        scrollable.scrollIntoView(candidate.child.el);
                     }
-                    scrollable.ensureVisible(activeEl);
+                    scrollable.scrollIntoView(activeEl, true);
                     activeEl.focus();
                 }
 
@@ -615,9 +594,9 @@ Ext.define('Ext.grid.Location', {
                 // vertically to bring that into view, then scroll the activeEl into view (which
                 // will most likely do nothing unless it's a horizontal scroll needed)
                 if (candidate.child) {
-                    scrollable.ensureVisible(candidate.child.el);
+                    scrollable.scrollIntoView(candidate.child.el);
                 }
-                scrollable.ensureVisible(activeEl);
+                scrollable.scrollIntoView(activeEl, true);
                 activeEl.focus();
             }
 
@@ -759,10 +738,7 @@ Ext.define('Ext.grid.Location', {
             me.column = column;
             me.columnIndex = index;
             me.cell = me.row && me.row.getCellByColumn(column);
-            if (me.cell) {
-                me.isTreeLocation = !!me.cell.isTreeCell;
-                me.sourceElement = me.cell.el.dom;
-            }
+            me.sourceElement = me.cell && me.cell.el.dom;
 
             return me;
         }

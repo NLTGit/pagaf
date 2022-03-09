@@ -27,7 +27,7 @@ Ext.define('Ext.draw.Draw', {
     pi2: Math.PI * 2,
 
     /**
-     * @deprecated 6.5.0 Please use the {@link Ext#identityFn} instead.
+     * @deprecated Please use the {@link Ext#identityFn} instead.
      * Function that returns its first element.
      * @param {Mixed} a
      * @return {Mixed}

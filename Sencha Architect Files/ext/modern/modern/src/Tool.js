@@ -55,7 +55,6 @@ Ext.define('Ext.Tool', {
     isTool: true,
 
     focusable: true,
-    tabIndex: 0,
     focusEl: 'element',
     ariaEl: 'element',
 
@@ -64,7 +63,6 @@ Ext.define('Ext.Tool', {
     classCls: Ext.baseCSSPrefix + 'tool',
     pressedCls: Ext.baseCSSPrefix + 'pressed',
     hoveredCls: Ext.baseCSSPrefix + 'hovered',
-    passiveCls: Ext.baseCSSPrefix + 'passive',
 
     element: {
         reference: 'element',
@@ -144,14 +142,7 @@ Ext.define('Ext.Tool', {
          * - <img style="vertical-align:sub;margin-right:4px;" width="16" height="16" title="" alt="" src="data:image/gif;base64,R0lGODlhEAAQAIABAGZmZv///yH/C1hNUCBEYXRhWE1QPD94cGFja2V0IGJlZ2luPSLvu78iIGlkPSJXNU0wTXBDZWhpSHpyZVN6TlRjemtjOWQiPz4gPHg6eG1wbWV0YSB4bWxuczp4PSJhZG9iZTpuczptZXRhLyIgeDp4bXB0az0iQWRvYmUgWE1QIENvcmUgNS41LWMwMjEgNzkuMTU1NzcyLCAyMDE0LzAxLzEzLTE5OjQ0OjAwICAgICAgICAiPiA8cmRmOlJERiB4bWxuczpyZGY9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkvMDIvMjItcmRmLXN5bnRheC1ucyMiPiA8cmRmOkRlc2NyaXB0aW9uIHJkZjphYm91dD0iIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtbG5zOnhtcE1NPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvbW0vIiB4bWxuczpzdFJlZj0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL3NUeXBlL1Jlc291cmNlUmVmIyIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ0MgMjAxNCAoTWFjaW50b3NoKSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDozNTFFNEY4MDlBQTYxMUU0OEVCNUNFMTgyMDM3Mzc3MSIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDozNTFFNEY4MTlBQTYxMUU0OEVCNUNFMTgyMDM3Mzc3MSI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOjM1MUU0RjdFOUFBNjExRTQ4RUI1Q0UxODIwMzczNzcxIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjM1MUU0RjdGOUFBNjExRTQ4RUI1Q0UxODIwMzczNzcxIi8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+Af/+/fz7+vn49/b19PPy8fDv7u3s6+rp6Ofm5eTj4uHg397d3Nva2djX1tXU09LR0M/OzczLysnIx8bFxMPCwcC/vr28u7q5uLe2tbSzsrGwr66trKuqqainpqWko6KhoJ+enZybmpmYl5aVlJOSkZCPjo2Mi4qJiIeGhYSDgoGAf359fHt6eXh3dnV0c3JxcG9ubWxramloZ2ZlZGNiYWBfXl1cW1pZWFdWVVRTUlFQT05NTEtKSUhHRkVEQ0JBQD8+PTw7Ojk4NzY1NDMyMTAvLi0sKyopKCcmJSQjIiEgHx4dHBsaGRgXFhUUExIREA8ODQwLCgkIBwYFBAMCAQAAIfkEAQAAAQAsAAAAABAAEAAAAh+EHakbh8wcgNHRJW/UvDcPQlNIflTGodP6SaOGwk4BADs=" /> expand
          * - <img style="vertical-align:sub;margin-right:4px;" width="16" height="14" title="" alt="" src="data:image/gif;base64,R0lGODlhEAAOAIABAGZmZv///yH/C1hNUCBEYXRhWE1QPD94cGFja2V0IGJlZ2luPSLvu78iIGlkPSJXNU0wTXBDZWhpSHpyZVN6TlRjemtjOWQiPz4gPHg6eG1wbWV0YSB4bWxuczp4PSJhZG9iZTpuczptZXRhLyIgeDp4bXB0az0iQWRvYmUgWE1QIENvcmUgNS41LWMwMjEgNzkuMTU1NzcyLCAyMDE0LzAxLzEzLTE5OjQ0OjAwICAgICAgICAiPiA8cmRmOlJERiB4bWxuczpyZGY9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkvMDIvMjItcmRmLXN5bnRheC1ucyMiPiA8cmRmOkRlc2NyaXB0aW9uIHJkZjphYm91dD0iIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtbG5zOnhtcE1NPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvbW0vIiB4bWxuczpzdFJlZj0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL3NUeXBlL1Jlc291cmNlUmVmIyIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ0MgMjAxNCAoTWFjaW50b3NoKSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDozNTFFNEY4NDlBQTYxMUU0OEVCNUNFMTgyMDM3Mzc3MSIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDozNTFFNEY4NTlBQTYxMUU0OEVCNUNFMTgyMDM3Mzc3MSI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOjM1MUU0RjgyOUFBNjExRTQ4RUI1Q0UxODIwMzczNzcxIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjM1MUU0RjgzOUFBNjExRTQ4RUI1Q0UxODIwMzczNzcxIi8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+Af/+/fz7+vn49/b19PPy8fDv7u3s6+rp6Ofm5eTj4uHg397d3Nva2djX1tXU09LR0M/OzczLysnIx8bFxMPCwcC/vr28u7q5uLe2tbSzsrGwr66trKuqqainpqWko6KhoJ+enZybmpmYl5aVlJOSkZCPjo2Mi4qJiIeGhYSDgoGAf359fHt6eXh3dnV0c3JxcG9ubWxramloZ2ZlZGNiYWBfXl1cW1pZWFdWVVRTUlFQT05NTEtKSUhHRkVEQ0JBQD8+PTw7Ojk4NzY1NDMyMTAvLi0sKyopKCcmJSQjIiEgHx4dHBsaGRgXFhUUExIREA8ODQwLCgkIBwYFBAMCAQAAIfkEAQAAAQAsAAAAABAADgAAAhyEHakbh8wcAq1SSeGSuvsPhmLkgNyHWWqKll8BADs=" /> collapse
          */
-        type: null,
-
-        /**
-         * @cfg {Boolean} [passive=false]
-         * If set to `true` this Tool is display-only. It does not respond to mouseovers,
-         * mousedowns, or clicks. It is not focusable, and calls no handlers.
-         */
-        passive: null
+        type: null
     },
 
     /**
@@ -160,10 +151,21 @@ Ext.define('Ext.Tool', {
      */
     stopEvent: true,
     
+    //ariaRole: 'button',
+    //focusable: true,
+    //tabIndex: 0,
+    //
+    //keyHandlers: {
+    //    SPACE: 'onClick',
+    //    ENTER: 'onClick'
+    //},
+
     weight: 10,
 
     updateIconCls: function (iconCls, oldValue) {
-        this.iconElement.replaceCls(oldValue, iconCls);
+        var iconElement = this.iconElement;
+
+        iconElement.replaceCls(oldValue, iconCls);
     },
 
     updateType: function (type, oldType) {
@@ -174,25 +176,6 @@ Ext.define('Ext.Tool', {
         me.type = type;
         iconElement.replaceCls(oldType && (baseCls + '-type-' + oldType),
                           type && (baseCls + '-type-' + type));
-    },
-
-    updateDisabled: function (disabled, oldDisabled) {
-        this.callParent([ disabled, oldDisabled ]);
-
-        this.el.removeCls([ this.hoveredCls, this.pressedCls ]);
-    },
-
-    updatePassive: function (passive) {
-        var me = this;
-
-        me.setDisabled(passive);
-        me.el.toggleCls(me.passiveCls, passive);
-        me.el.setTabIndex(passive ? null : me.getTabIndex());
-        me.focusable = !passive;
-    },
-
-    shouldRipple: function(e) {
-        return !this.getPassive() && this.callParent();
     },
 
     privates: {
@@ -286,26 +269,21 @@ Ext.define('Ext.Tool', {
          * @private
          */
         onMouseDown: function(e) {
-            var me = this;
-            if (!me.focusable) {
-                e.preventDefault();
-            }
-
-            if (me.getDisabled()) {
+            if (this.getDisabled()) {
                 return false;
             }
 
-            me.addCls(me.pressedCls);
-            Ext.GlobalEvents.setPressedComponent(me, e);
+            this.el.addCls(this.pressedCls);
+            Ext.GlobalEvents.setPressedComponent(this, e);
         },
 
         /**
-         * Called by {@link Ext.GlobalEvents#setPressedComponent} when the global
+         * @called by {@link Ext.GlobalEvents#setPressedComponent} when the global
          * mouseup event fires and there's a registered pressed component.
          * @private
          */
         onRelease: function() {
-            this.removeCls(this.pressedCls);
+            this.el.removeCls(this.pressedCls);
         },
 
         /**
@@ -317,7 +295,7 @@ Ext.define('Ext.Tool', {
             if (this.getDisabled()) {
                 return false;
             }
-            this.addCls(this.hoveredCls);
+            this.el.addCls(this.hoveredCls);
         },
 
         /**
@@ -326,7 +304,7 @@ Ext.define('Ext.Tool', {
          * @private
          */
         onMouseOut: function() {
-            this.removeCls(this.hoveredCls);
+            this.el.removeCls(this.hoveredCls);
         }
     }
 });

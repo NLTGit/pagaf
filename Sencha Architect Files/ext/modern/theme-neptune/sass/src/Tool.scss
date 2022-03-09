@@ -14,12 +14,6 @@
     $border-radius: $tool-border-radius,
     $size: $tool-size,
     $size-big: $tool-size-big,
-    $width: $tool-width,
-    $width-big: $tool-width-big,
-    $height: $tool-height,
-    $height-big: $tool-height-big,
-    $margin: $tool-margin,
-    $margin-big: $tool-margin-big,
     $font-size: $tool-font-size,
     $font-size-big: $tool-font-size-big,
     $spacing: $tool-spacing,
@@ -51,22 +45,6 @@
 
     @if $tool-gridcolumn-ui {
         @include tool-ui(map-merge((ui: gridcolumn), $tool-gridcolumn-ui)...);
-    }
-
-    @if $tool-boxscroller-ui {
-        @include tool-ui(map-merge((ui: boxscroller), $tool-boxscroller-ui)...);
-    }
-
-    @if $tool-boxscroller-toolbar-ui {
-        @include tool-ui(map-merge((ui: boxscroller-toolbar), $tool-boxscroller-toolbar-ui)...);
-    }
-
-    @if $tool-boxscroller-menu-ui {
-        @include tool-ui(map-merge((ui: boxscroller-menu), $tool-boxscroller-menu-ui)...);
-    }
-
-    @if $tool-boxscroller-tabbar-ui {
-        @include tool-ui(map-merge((ui: boxscroller-tabbar), $tool-boxscroller-tabbar-ui)...);
     }
 }
 
@@ -212,20 +190,4 @@
 
 .#{$prefix}tool-type-collapse-right {
     @include icon($tool-collapse-right-icon);
-}
-
-.#{$prefix}tool-type-scroll-right {
-    @include icon($tool-scroll-right-icon);
-}
-
-.#{$prefix}tool-type-scroll-left {
-    @include icon($tool-scroll-left-icon);
-}
-
-.#{$prefix}tool-type-scroll-down {
-    @include icon($tool-scroll-down-icon);
-}
-
-.#{$prefix}tool-type-scroll-up {
-    @include icon($tool-scroll-up-icon);
 }

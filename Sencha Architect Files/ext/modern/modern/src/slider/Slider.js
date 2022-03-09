@@ -1,59 +1,5 @@
 /**
- * The slider component utilized by `Ext.field.Slider`.
- *
- * The slider is a way to allow the user to select a value from a given numerical range.
- * You might use it for choosing a percentage, combine two of them to get min and max
- * values, or use three of them to specify the hex values for a color.
- *
- * Each slider contains a single 'thumb' that can be dragged along the slider's length to
- * change the value.
- *
- * ## Simple Slider
- *
- *     @example
- *     Ext.create({
- *         xtype: 'container',
- *         fullscreen: true,
- *         padding: 20,
- *
- *         items: [{
- *             xtype: 'slider',
- *             value: 42
- *         }]
- *     });
- *
- * ## Slider with Bound Value
- *
- * This slider does not incorporate two-way binding by default.  Please utilize `publishes` or
- * `twoWayBindable` in order to publish bound values.  You can also use Ext.field.Slider
- * directly for a more feature-rich component.
- *
- *     @example
- *     Ext.create({
- *         xtype: 'container',
- *         fullscreen: true,
- *         padding: 20,
- *
- *         layout: {
- *             type: 'hbox',
- *             pack: 'center'
- *         },
- *         
- *         viewModel: {
- *             data: {
- *                 value: 42
- *             }
- *         },
- *
- *         items: [{
- *             xtype: 'slider',
- *             value: '{value}'
- *         }, {
- *             xtype: 'label',
- *             bind: '{value}'
- *         }]
- *     })
- *
+ * Slider component used by Ext.field.Slider.
  */
 Ext.define('Ext.slider.Slider', {
     extend: 'Ext.Component',
@@ -99,10 +45,10 @@ Ext.define('Ext.slider.Slider', {
     * @param {Ext.event.Event} e
     */
     config: {
-        // @cmd-auto-dependency { defaultType: "Ext.slider.Thumb", aliasPrefix:'widget.',typeProperty: 'xtype' }
         /**
          * @cfg {Object} thumbDefaults The config object to factory {@link Ext.slider.Thumb} instances
          * @accessor
+         * @cmd-auto-dependency { defaultType: "Ext.slider.Thumb", aliasPrefix:'widget.',typeProperty: 'xtype' }
          */
         thumbDefaults: {
             xtype: 'thumb',
@@ -179,11 +125,6 @@ Ext.define('Ext.slider.Slider', {
         readOnly: false
     },
 
-    defaultBindProperty: 'value',
-    twoWayBindable: {
-        value: 1
-    },
-
     /**
      * @cfg {Number/Number[]} values Alias to {@link #value}
      */
@@ -226,27 +167,29 @@ Ext.define('Ext.slider.Slider', {
      * @private
      */
     initialize: function() {
-        this.callParent();
-        this.element.on('tap', 'onTap', this);
-    },
+        var element = this.element;
 
-    onRender: function() {
         this.callParent();
-        this.whenVisible('refreshSizes');
+
+        element.on({
+            scope: this,
+            tap: 'onTap'
+        });
     },
 
     applyThumbDefaults: function (defaults) {
-        return Ext.apply({
-            slider: this,
-            ownerCmp: this
-        }, defaults);
+        defaults.slider = this;
+
+        return defaults;
     },
 
     /**
      * @private
      */
     factoryThumb: function() {
-        var thumb = Ext.create(this.getThumbDefaults());
+        var thumb = Ext.factory(this.getThumbDefaults(), Ext.slider.Thumb);
+
+        thumb.ownerCmp = this;
 
         thumb.doInheritUi();
 
@@ -362,13 +305,6 @@ Ext.define('Ext.slider.Slider', {
         me.refreshAdjacentThumbConstraints(thumb);
     },
 
-    onChange: function(thumb, newValue, oldValue) {
-        var me = this;
-        if (me.hasListeners.change) {
-            me.fireEvent('change', me, thumb, newValue, oldValue);
-        }
-    },
-
     onThumbDragEnd: function (thumb, e) {
         var me = this,
             index = me.getThumbIndex(thumb),
@@ -378,7 +314,7 @@ Ext.define('Ext.slider.Slider', {
         me.snapThumbPosition(thumb, newValue);
         me.fireEvent('dragend', me, thumb, me.getArrayValues(), e);
         if (oldValue !== newValue) {
-            me.onChange(thumb, newValue, oldValue);
+            me.fireEvent('change', me, thumb, newValue, oldValue);
         }
     },
 
@@ -390,6 +326,7 @@ Ext.define('Ext.slider.Slider', {
         var me = this,
             offsetX = thumb.getLeft(),
             thumbs = me.thumbs,
+            thumbWidth = me.thumbWidth,
             index = me.getThumbIndex(thumb),
             previousThumb = thumbs[index - 1],
             nextThumb = thumbs[index + 1],
@@ -451,7 +388,7 @@ Ext.define('Ext.slider.Slider', {
         me.setIndexValue(closestIndex, value, me.getAnimation());
 
         if (oldValue !== value) {
-            me.onChange(thumb, value, oldValue);
+            me.fireEvent('change', me, thumb, value, oldValue);
         }
     },
 
@@ -566,7 +503,7 @@ Ext.define('Ext.slider.Slider', {
         var me = this,
             thumbs = me.thumbs,
             thumbsCount = thumbs.length,
-            i, thumb;
+            i, ln, thumb;
 
         while (count < thumbs.length) {
             thumb = thumbs.pop();
@@ -715,17 +652,6 @@ Ext.define('Ext.slider.Slider', {
 
             thumbs[0].setDragMin(0);
             thumbs[len - 1].setDragMax(me.elementWidth - thumbWidth);
-        },
-
-        refreshSizes: function() {
-            var me = this,
-                thumb = me.thumbs[0];
-
-            me.elementWidth = me.element.measure('w');
-            if (thumb) {
-                me.thumbWidth = thumb.element.measure('w');
-            }
-            me.refresh();
         },
 
         snapThumbPosition: function(thumb, value) {

@@ -183,7 +183,7 @@ $include-tag-field-default-ui: dynamic($include-text-field-default-ui);
 /**
  * Creates a visual theme for tag fields.  Note this mixin only provides styling
  * for the tag field's items, The label and error are styled by {@link #extjs-label-ui},
- * and the field body is styled by {@link #extjs-text-field-ui}
+ * and the field body is styled by {@link extjs-text-field-ui}
  *
  * @param {string} $ui
  * The name of the UI being created. Can not included spaces or special punctuation

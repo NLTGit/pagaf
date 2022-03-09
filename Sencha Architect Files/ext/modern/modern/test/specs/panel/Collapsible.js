@@ -68,46 +68,4 @@ topSuite("Ext.panel.Collapsible", [
             expect(panel.element.getHeight()).toBeLessThan(400);
         });
     });
-    
-    describe('events', function () {
-        function expandCollapse(collapse) {
-            var action = collapse ? 'collapse' : 'expand',
-                event  = 'before' + action,
-                spy;
-            
-            describe(event, function () {
-                it('should prevent ' + action + ' if returning false', function (done) {
-                    makePanel({
-                        collapsible : true,
-                        collapsed   : !collapse
-                    });
-                    
-                    spy = spyOnEvent(panel, event).andReturn(false);
-                    panel.toggleCollapsed(collapse).then(function () {
-                        expect(spy).toHaveBeenCalled();
-                        expect(panel.getCollapsed()).toBe(!collapse);
-                    }).then(done).done();
-                });
-                
-                it('should not prevent ' + action + ' if nothing is returned', function (done) {
-                    makePanel({
-                        collapsible : true,
-                        collapsed   : !collapse
-                    });
-                    
-                    spy = spyOnEvent(panel, event).andCallThrough();
-                    panel.toggleCollapsed(collapse).then(function () {
-                        expect(spy).toHaveBeenCalled();
-                        expect(panel.getCollapsed()).toBe(collapse);
-                    }).then(done).done();
-                });
-            });
-        }
-        
-        // beforecollapse
-        expandCollapse(true);
-        
-        // beforeexpand
-        expandCollapse(false);
-    });
 });

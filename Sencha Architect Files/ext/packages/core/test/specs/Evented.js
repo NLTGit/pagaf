@@ -215,10 +215,6 @@ topSuite("Ext.Evented", function () {
                             },
                             onBeforeFooChange: function(cmp, newValue, oldValue, controller) {
                                 controller.pause();
-                                
-                                // Use native setTimeout not the one injected by Jazzman
-                                var setTimeout = jasmine._setTimeout;
-                                
                                 setTimeout(function () {
                                     controller.resume();
                                     expect(cmp.updateFoo.callCount).toBe(1);

@@ -112,18 +112,6 @@ topSuite("Ext.util.Positionable", 'Ext.Component', function() {
                     });
                 });
             });
-
-            it("should respect scrolling when align to body", function() {
-                var positions = positionable.el.getAlignToRegion(Ext.getBody()),
-                    positionsAfter;
-
-                alignToEl.setHeight(2000);
-                Ext.getViewportScroller().scrollBy(0, 100);
-
-                positionsAfter = positionable.el.getAlignToRegion(Ext.getBody());
-
-                expect(positions.top).toBe(positionsAfter.top - 100);
-            });
         });
 
         describe("aligning " + suiteType + ' with "?" constraining', function() {

@@ -1,9 +1,8 @@
 /**
  * A menu object. This is the container to which you may add {@link Ext.menu.Item menu items}.
  *
- * Menus may contain either {@link Ext.menu.Item menu items}, or general
- * {@link Ext.Component Components}. Menus may also contain docked items because it
- * extends {@link Ext.Panel}.
+ * Menus may contain either {@link Ext.menu.Item menu items}, or general {@link Ext.Component Components}.
+ * Menus may also contain docked items because it extends {@link Ext.Panel}.
  *
  * By default, Menus are absolutely positioned, floated Components. By configuring a
  * Menu with `{@link #cfg-floated}: false`, a Menu may be used as a child of a 
@@ -26,18 +25,19 @@
  *             }]
  *         }
  *     });
- *
- * @since 6.5.0
  */
 Ext.define('Ext.menu.Menu', {
     extend: 'Ext.Panel',
-    xtype: 'menu',
-
+    alias: 'widget.menu',
     requires: [
         'Ext.menu.Item',
         'Ext.menu.Manager',
         'Ext.layout.VBox'
     ],
+
+    floated: true,
+
+    nameHolder: true,
 
     /**
      * @property {Boolean} isMenu
@@ -45,14 +45,37 @@ Ext.define('Ext.menu.Menu', {
      */
     isMenu: true,
 
+    /**
+     * @cfg {Boolean} [ignoreParentClicks=false]
+     * True to ignore clicks on any item in this menu that is a parent item (displays a submenu)
+     * so that the submenu is not dismissed when clicking the parent item.
+     */
+    ignoreParentClicks: false,
+
+    /**
+     * @cfg {Number} [mouseLeaveDelay]
+     * The delay in ms as to how long the framework should wait before firing a mouseleave event.
+     * This allows submenus not to be collapsed while hovering other menu items.
+     *
+     * Defaults to 50
+     */
+     mouseLeaveDelay: 50,
+
+    /**
+    * @cfg {Boolean} [allowOtherMenus=false]
+    * True to allow multiple menus to be displayed at the same time.
+    */
+    allowOtherMenus: false,
+
     config: {
         /**
-         * @cfg {String} align
+         * @cfg {String} [align]
+         * @inheritdoc Ext.Panel#align
          */
-        align: 'tl-bl?', // TODO: Override in RTL
+         align: 'tl-bl?', // TODO: Override in RTL
 
         /**
-         * @cfg {Boolean} indented
+         * @cfg {Boolean}
          * By default menu items reserve space at their start for an icon.  Set indented
          * to `false` to remove this space.  This behavior can be overridden at the level
          * of an individual menu item using the item's {@link Ext.menu.Item#indented} config.
@@ -73,82 +96,10 @@ Ext.define('Ext.menu.Menu', {
          * @cfg {Boolean} [autoHide=true]
          * `false` to prevent the menu from auto-hiding when focus moves elsewhere
          */
-        autoHide: null,
-
-        /**
-         * @cfg {Object} groups
-         * This object is a dictionary of {@link Ext.menu.RadioItem#cfg!group radio group}
-         * keys and {@link Ext.menu.RadioItem#cfg!value values}. This map is maintained by
-         * the individual radio items in this menu but can also be useful for data binding.
-         *
-         * For example:
-         *
-         *      @example
-         *      Ext.Viewport.add({
-         *          xtype: 'container',
-         *          items: [{
-         *              xtype: 'button',
-         *              bind: 'Call {menuGroups.option}',
-         *               
-         *              viewModel: {
-         *                  data: {
-         *                      menuGroups: {
-         *                          option: 'home'
-         *                      }
-         *                  }
-         *              },
-         *               
-         *              menu: {
-         *                  bind: {
-         *                      groups: '{menuGroups}'
-         *                  },
-         *                  items: [{
-         *                      text: 'Home',
-         *                      group: 'option',
-         *                      value: 'home'
-         *                  }, {
-         *                      text: 'Work',
-         *                      group: 'option',
-         *                      value: 'work'
-         *                  }, {
-         *                      text: 'Mobile',
-         *                      group: 'option',
-         *                      value: 'mobile'
-         *                  }]
-         *              }
-         *          }]
-         *      });
-         *
-         * The presence of the `group` property in the configuration of the above
-         * {@link Ext.menu.Menu menu} causes the menu to create a
-         * {@link Ext.menu.RadioItem RadioItem} instances.
-         */
-        groups: null
+        autoHide: null
     },
-
-    /**
-     * @cfg {Boolean} allowOtherMenus
-     * True to allow multiple menus to be displayed at the same time.
-     */
-    allowOtherMenus: false,
-
-    /**
-     * @cfg {Boolean} ignoreParentClicks
-     * True to ignore clicks on any item in this menu that is a parent item (displays a submenu)
-     * so that the submenu is not dismissed when clicking the parent item.
-     */
-    ignoreParentClicks: false,
-
-    /**
-     * @cfg {Number} mouseLeaveDelay
-     * The delay in ms as to how long the framework should wait before firing a mouseleave event.
-     * This allows submenus not to be collapsed while hovering other menu items.
-     */
-    mouseLeaveDelay: 50,
     
     defaultType: 'menuitem',
-
-    autoSize: null,
 
     keyMap: {
         scope: 'this',
@@ -170,44 +121,21 @@ Ext.define('Ext.menu.Menu', {
     hasSeparatorCls: Ext.baseCSSPrefix + 'has-separator',
     nonMenuItemCls: Ext.baseCSSPrefix + 'non-menuitem',
 
-    // We need to focus disabled menu items when navigating as per WAI-ARIA:
-    // http://www.w3.org/TR/wai-aria-practices/#menu
-    allowFocusingDisabledChildren: true,
-
     border: true,
 
-    // When a Menu is used as a carrier to float some focusable Component such as a
-    // DatePicker or ColorPicker. This will be used to delegate focus to its focusable
-    // child. In normal usage, a Menu is a FocusableContainer, and this will not be
-    // consulted.
-    defaultFocus: ':focusable',
-
-    floated: true,
+    focusableContainer: true,
 
     // May be asked to focus, will delegate down to its first focusable child
     focusable: true,
 
-    focusableContainer: true,
+    // When a Menu is used as a carrier to float some focusable Component such as a DatePicker or ColorPicker
+    // This will be used to delegate focus to its focusable child.
+    // In normal usage, a Menu is a FocusableContainer, and this will not be consulted.
+    defaultFocus: ':focusable',
 
-    nameHolder: true,
-    weighted: true,
-
-    /**
-     * @event groupchange
-     * Fires when a child {@link Ext.menu.RadioItem radio item} in a menu
-     * {@link Ext.menu.RadioItem#cfg!group group} changes {@link Ext.menu.RadioItem#cfg!checked}
-     * state, and the group's value therefore changes.
-     *
-     * The value changes to the {@link Ext.menu.RadioItem#cfg!value} of the sole checked
-     * member of the group, or `null` if all members have become
-     * {@link Ext.menu.RadioItem#cfg!allowUncheck unchecked}.
-     *
-     * @param {Ext.menu.Menu} menu The menu firing this event.
-     * @param {String} groupName The name of the group of items.
-     * @param {Object} newValue The new value of the group.
-     * @param {Object} oldValue The old value of the group.
-     * @since 6.5.1
-     */
+    // We need to focus disabled menu items when navigating as per WAI-ARIA:
+    // http://www.w3.org/TR/wai-aria-practices/#menu
+    allowFocusingDisabledChildren: true,
 
     initialize: function() {
         var me = this,
@@ -223,6 +151,10 @@ Ext.define('Ext.menu.Menu', {
             listeners.pointerdown = me.onMouseOver;
         }
         me.element.on(listeners);
+        me.on({
+            beforeshow: me.onBeforeShow,
+            scope: me
+        });
 
         // Child item mouseovers are handled on a delay so that
         // rapid movement down a menu does not activate/deactivate during mouse motion.
@@ -290,6 +222,16 @@ Ext.define('Ext.menu.Menu', {
         
         if (this.getAutoHide() !== false) {
             this.hide();
+        }
+    },
+
+    onBeforeShow: function() {
+        // Do not allow show immediately after a hide
+        // This is because clicking a button shows a button's menu.
+        // But then mousedowning on that button blurs and therefore hides its menu, and the subsequent click
+        // gesture should not then reshow the menu - it was intended to be a click to hide gesture.
+        if (Ext.Date.getElapsed(this.lastHide) < this.menuClickBuffer) {
+            return false;
         }
     },
 
@@ -383,7 +325,8 @@ Ext.define('Ext.menu.Menu', {
     },
 
     updateIndented: function(indented) {
-        var me = this;
+        var me = this,
+            bodyElement = me.bodyElement;
 
         if (!me.isConfiguring) {
             me.bodyElement.toggleCls(me.hasSeparatorCls, !!(indented && me.getSeparator()));
@@ -411,39 +354,6 @@ Ext.define('Ext.menu.Menu', {
             }
 
             return item;
-        },
-
-        applyGroups: function (groups, oldGroups) {
-            var me = this,
-                currentGroups = Ext.apply({}, oldGroups),
-                isConfiguring = me.isConfiguring,
-                groupName, members, len, i, item, value, oldValue;
-
-            if (groups) {
-                for (groupName in groups) {
-                    oldValue = currentGroups[groupName];
-                    currentGroups[groupName] = value = groups[groupName];
-
-                    if (!isConfiguring) {
-                        members = me.lookupName(groupName);
-                        for (i = 0, len = members.length; i < len; i++) {
-                            item = members[i];
-
-                            // Set checked state depending on whether the value is the group's value
-                            item.setChecked(item.getValue() === value);
-                        }
-                        me.fireEvent('groupchange', me, groupName, value, oldValue);
-                    }
-                }
-
-                // Creates a bindable updater on first call after configuration is done.
-                // We only want one if this menu *has* RadioItem groups.
-                if (!isConfiguring) {
-                    me.addBindableUpdater('groups');
-                }
-            }
-
-            return currentGroups;
         },
 
         processFocusableContainerKeyEvent: function(e) {
@@ -486,7 +396,7 @@ Ext.define('Ext.menu.Menu', {
         onSpaceKey: function(e) {
             var clickedItem = this.getItemFromEvent(e);
 
-            if (clickedItem && clickedItem.isMenuItem) {
+            if (clickedItem) {
                 clickedItem.onSpace(e);
             }
         },

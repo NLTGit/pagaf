@@ -21,13 +21,7 @@
     $line-height-big: $gridcell-line-height-big,
     $font-family: $gridcell-font-family,
     $padding: $gridcell-padding,
-    $padding-big: $gridcell-padding-big,
-    $dirty-icon: $gridcell-dirty-icon,
-    $dirty-icon-color: $gridcell-dirty-icon-color,
-    $dirty-icon-size: $gridcell-dirty-icon-size,
-    $dirty-icon-size-big: $gridcell-dirty-icon-size-big,
-    $dirty-icon-font-size: $gridcell-dirty-icon-font-size,
-    $dirty-icon-font-size-big: $gridcell-dirty-icon-font-size-big
+    $padding-big: $gridcell-padding-big
 );
 
 @if $enable-default-uis {

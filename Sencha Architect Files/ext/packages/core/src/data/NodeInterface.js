@@ -149,14 +149,14 @@ Ext.define('Ext.data.NodeInterface', {
      */
 
     /**
-     * @cfg iconCls
-     * @inheritdoc Ext.panel.Header#cfg-iconCls
+     * @cfg {String} iconCls
+     * @inheritdoc Ext.panel.Header#iconCls
      * @localdoc Use {@link #icon} to set the icon src path directly.
      */
 
     /**
-     * @cfg icon
-     * @inheritdoc Ext.panel.Header#cfg-icon
+     * @cfg {String} icon
+     * @inheritdoc Ext.panel.Header#icon
      */
 
     /**
@@ -2252,17 +2252,17 @@ Ext.define('Ext.data.NodeInterface', {
                 },
 
                 /**
-                 * Fires the specified event with the passed parameters (minus the event name, plus the `options` object passed
-                 * to {@link Ext.mixin.Observable#addListener addListener}).
-                 *
-                 * An event may be set to bubble up an Observable parent hierarchy (See {@link Ext.Component#getBubbleTarget}) by
-                 * calling {@link Ext.mixin.Observable#enableBubble enableBubble}.
-                 *
-                 * @param {String} eventName The name of the event to fire.
-                 * @param {Object...} args Variable number of parameters are passed to handlers.
-                 * @return {Boolean} returns `false` if any of the handlers return `false` otherwise it returns `true`.
-                 */
-                fireEvent: function (eventName) {
+                * Fires the specified event with the passed parameters (minus the event name, plus the `options` object passed
+                * to {@link Ext.mixin.Observable#addListener addListener}).
+                *
+                * An event may be set to bubble up an Observable parent hierarchy (See {@link Ext.Component#getBubbleTarget}) by
+                * calling {@link Ext.mixin.Observable#enableBubble enableBubble}.
+                *
+                * @param {String} eventName The name of the event to fire.
+                * @param {Object...} arguments Variable number of parameters are passed to handlers.
+                * @return {Boolean} returns false if any of the handlers return false otherwise it returns true.
+                */
+                fireEvent: function(eventName) {
                     return this.fireBubbledEvent(eventName, Ext.Array.slice(arguments, 1));
                 },
 

@@ -14,7 +14,6 @@ Ext.define('Ext.dataview.SimpleListItem', {
     xtype: 'simplelistitem',
 
     mixins: [
-        'Ext.dataview.Disclosable', // must come before Toolable
         'Ext.mixin.Toolable',
         'Ext.dataview.GenericItem',
         'Ext.dataview.Pinnable'
@@ -37,6 +36,18 @@ Ext.define('Ext.dataview.SimpleListItem', {
         }]
     }],
 
+    toolDefaults: {
+        ui: 'listitem'
+    },
+
+    toolAnchorName: 'innerElement',
+
+    tools: {
+        disclosure: {
+            weight: 100
+        }
+    },
+
     doDestroy: function() {
         this.mixins.toolable.doDestroy.call(this);
         this.callParent();
@@ -46,6 +57,10 @@ Ext.define('Ext.dataview.SimpleListItem', {
     // It is a slave of the NavigationModel
     handleFocusEvent: Ext.emptyFn,
 
+    getDisclosure: function () {
+        return this.lookupTool('disclosure');
+    },
+
     updateRecord: function (record) {
         if (this.destroying || this.destroyed) {
             return;
@@ -53,11 +68,16 @@ Ext.define('Ext.dataview.SimpleListItem', {
 
         var me = this,
             dataview = me.parent,
-            data = dataview && dataview.gatherData(record);
+            disclosure = me.getDisclosure(),
+            data;
+
+        data = dataview && dataview.gatherData(record);
 
         me.updateData(data);
 
-        me.syncDisclosure(record);
+        if (disclosure) {
+            disclosure.setHidden(dataview.shouldHideDisclosure(record));
+        }
     },
 
     updateHtml: function(html, oldHtml) {
@@ -69,12 +89,18 @@ Ext.define('Ext.dataview.SimpleListItem', {
             return this.innerElement;
         },
 
-        invokeToolHandler: function (tool, handler, scope, args, e) {
-            if (this.invokeDisclosure(tool, handler, e)) {
-                return false;
+        invokeToolHandler: function (tool, handler, scope, args, ev) {
+            if (tool.type === 'disclosure' && !handler) {
+                var me = this,
+                    parent = me.parent;
+
+                if (parent && parent.onItemDisclosureTap) {
+                    parent.onItemDisclosureTap(ev);
+                    return false;
+                }
             }
 
-            return tool.invokeToolHandler(tool, handler, scope, args, e);
+            return tool.invokeToolHandler(tool, handler, scope, args, ev);
         }
     }
 });

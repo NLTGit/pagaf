@@ -214,7 +214,7 @@ function() {
                     var ed = colRef[2].getEditor();
 
                     // normal view context 0, 0 yields colRef[2] because 1st 2 coliumns are locked
-                    focusAndWait(ed, undefined, 'column 0 editor to gain focus');
+                    waitsForFocus(ed, 'column 0 editor to gain focus');
                     
                     runs(function() {
                         // The editor should be in the right container
@@ -225,7 +225,7 @@ function() {
                     });
 
                     // Wait for async focusing to untangle.
-                    focusAndWait(ed, undefined, 'focus to return to the editor field after the column was locked');
+                    waitsForFocus(ed, 'focus to return to the editor field after the column was locked');
 
                     runs(function() {
                         expect(plugin.editing).toBe(true);
@@ -369,7 +369,7 @@ function() {
                     // Cannot call getPosition immediately because this kills partner synching.
                     // TOOD: Revisit when https://sencha.jira.com/browse/EXTJS-23182 is closed.
                     waitsFor(function() {
-                        var viewX = view.getScrollable().getScrollElement().dom.scrollLeft;
+                        var viewX = view.getScrollable().getScrollElement().dom.scrollLeft
                         return viewX >= 200 &&
                                view.grid.headerCt.getScrollable().getScrollElement().dom.scrollLeft === viewX;
                     });

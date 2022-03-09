@@ -842,7 +842,9 @@ function makeObservableSuite(isMixin) {
                         waitsForSpy(bufferFn, "bufferFn to be called");
 
                         runs(function() {
-                            expect(bufferFn.calls[0].args[0]).toBe("buffer 3");
+                            expect(bufferFn).toHaveBeenCalledWith("buffer 3", {
+                                buffer: 5
+                            });
                         });
                     });
 
@@ -908,7 +910,9 @@ function makeObservableSuite(isMixin) {
                         waitsForSpy(delayFn, "delayFn to be called");
 
                         runs(function() {
-                            expect(delayFn.calls[0].args[0]).toBe("delay");
+                            expect(delayFn).toHaveBeenCalledWith("delay", {
+                                delay: 5
+                            });
                         });
                     });
 

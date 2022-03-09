@@ -85,13 +85,13 @@ Ext.define('Ext.dd.DragDropManager', {
      * `true` to invoke `stopPropagation()` on all events during a drag (may be
      * mouse, touch, or pointer events depending on the platform).
      *
-     * @deprecated 6.2.0 This property is deprecated
+     * @deprecated 6.2.0
      */
     stopPropagation: false,
 
     /**
      * Internal flag that is set to true when drag and drop has been
-     * initialized
+     * intialized
      * @property initialized
      * @private
      */
@@ -425,8 +425,7 @@ Ext.define('Ext.dd.DragDropManager', {
     /**
      * Utility function to determine if a given element has been
      * registered as a drag drop handle for the given Drag Drop object.
-     * @param {String} sDDId the element id to check
-     * @param {String} sHandleId
+     * @param {String} id the element id to check
      * @return {Boolean} true if this element is a DragDrop handle, false
      * otherwise
      */
@@ -438,7 +437,6 @@ Ext.define('Ext.dd.DragDropManager', {
     /**
      * Returns the DragDrop instance for a given id
      * @param {String} id the id of the DragDrop object
-     * @param {Boolean} force
      * @return {Ext.dd.DragDrop} the drag drop object, null if it is not found
      */
     getDDById: function(id, force) {
@@ -559,7 +557,7 @@ Ext.define('Ext.dd.DragDropManager', {
             current = me.dragCurrent,
             dragEl;
 
-        Ext.undefer(me.clickTimeout);
+        clearTimeout(me.clickTimeout);
 
         if (Ext.quickTipsActive){
             Ext.tip.QuickTipManager.ddDisable();
@@ -607,7 +605,7 @@ Ext.define('Ext.dd.DragDropManager', {
             document.releaseCapture();
         }
 
-        Ext.undefer(me.clickTimeout);
+        clearTimeout(me.clickTimeout);
 
         if (me.dragThreshMet) {
             me.fireEvents(e, true);
@@ -1152,7 +1150,6 @@ Ext.define('Ext.dd.DragDropManager', {
      * Checks the cursor location to see if it over the target
      * @param {Ext.util.Point} pt The point to evaluate
      * @param {Ext.dd.DragDrop} oTarget the DragDrop object we are inspecting
-     * @param intersect
      * @return {Boolean} true if the mouse is over the target
      * @private
      */
@@ -1259,7 +1256,7 @@ Ext.define('Ext.dd.DragDropManager', {
      * @param {String} id the id of the element to get
      * @return {Ext.dd.DragDropManager.ElementWrapper} the wrapped element
      * @private
-     * @deprecated 6.5.0 This method is deprecated.
+     * @deprecated This wrapper isn't that useful
      */
     getElWrapper: function(id) {
         var oWrapper = this.elementCache[id];
@@ -1274,7 +1271,7 @@ Ext.define('Ext.dd.DragDropManager', {
      * Returns the actual DOM element
      * @param {String} id the id of the elment to get
      * @return {Object} The element
-     * @deprecated 6.5.0 Use Ext.lib.Ext.getDom() instead.
+     * @deprecated use Ext.lib.Ext.getDom instead
      */
     getElement: function(id) {
         return Ext.getDom(id);
@@ -1283,7 +1280,7 @@ Ext.define('Ext.dd.DragDropManager', {
     /**
      * Returns the style property for the DOM element (i.e.,
      * document.getElById(id).style)
-     * @param {String} id the id of the element to get
+     * @param {String} id the id of the elment to get
      * @return {Object} The style property of the element
      */
     getCss: function(id) {
@@ -1295,7 +1292,7 @@ Ext.define('Ext.dd.DragDropManager', {
      * @class Ext.dd.DragDropManager.ElementWrapper
      * Deprecated inner class for cached elements.
      * @private
-     * @deprecated 6.5.0 This class is deprecated
+     * @deprecated This wrapper isn't that useful
      */
     ElementWrapper: function(el) {
         /** The element */
@@ -1425,10 +1422,9 @@ Ext.define('Ext.dd.DragDropManager', {
 
     /**
      * Recursively searches the immediate parent and all child nodes for
-     * the handle element in order to determine whether or not it was
+     * the handle element in order to determine wheter or not it was
      * clicked.
      * @param {HTMLElement} node the html element to inspect
-     * @param {string} id
      */
     handleWasClicked: function(node, id) {
         if (this.isHandle(id, node.id)) {

@@ -152,7 +152,6 @@ Ext.define('Ext.grid.selection.Cells', {
         /**
          * Used during drag/shift+downarrow range selection on start.
          * @param {Ext.grid.CellContext} startCell The start cell of the cell drag selection.
-         * @param {Ext.grid.CellContext} endCell The end cell of the cell drag selection.
          * @private
          */
         setRangeStart: function (startCell, endCell) {

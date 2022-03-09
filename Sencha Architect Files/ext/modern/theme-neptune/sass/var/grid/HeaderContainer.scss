@@ -44,9 +44,6 @@ $headercontainer-background-color: dynamic($neutral-light-color);
  *
  * @param {color} $border-color
  * Header container border-color
- *
- * @param {color} $background-color
- * Header container $background-color
  */
 @mixin headercontainer-ui(
     $ui: null,

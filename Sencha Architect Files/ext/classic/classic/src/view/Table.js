@@ -639,6 +639,7 @@ Ext.define('Ext.view.Table', {
       * @param {HTMLElement} nextRow Table row that is going to be focused and activated.
       * @param {Boolean} forward `true` if we're navigating forward (Tab), `false` if
       * navigating backward (Shift-Tab).
+      * @cancelable
       */
 
     constructor: function(config) {
@@ -1210,7 +1211,7 @@ Ext.define('Ext.view.Table', {
         if (scroller) {
             scroller.resumePartnerSync();
         }
-        // A buffered renderer should also not respond to that scroll.
+        // A buffered rendere should also not respond to that scroll.
         if (bufferedRenderer) {
             bufferedRenderer.enable();
         }
@@ -1568,7 +1569,6 @@ Ext.define('Ext.view.Table', {
      * returns the HTML markup for a single row.
      *
      * @param {Ext.data.Model} record The record to render.
-     * @param {Number} rowIdx The index of the row
      * @param {String[]} [out] A string array onto which to append the resulting HTML string. If omitted,
      * the resulting HTML string is returned.
      * @return {String} **only when the out parameter is omitted** The resulting HTML string.
@@ -1649,7 +1649,6 @@ Ext.define('Ext.view.Table', {
      * Emits the HTML representing a single grid cell into the passed output stream (which is an array of strings).
      *
      * @param {Ext.grid.column.Column} column The column definition for which to render a cell.
-     * @param {Ext.data.Model} record The record
      * @param {Number} recordIndex The row index (zero based within the {@link #store}) for which to render the cell.
      * @param {Number} rowIndex The row index (zero based within this view for which to render the cell.
      * @param {Number} columnIndex The column index (zero based) for which to render the cell.
@@ -2053,9 +2052,9 @@ Ext.define('Ext.view.Table', {
     // specifically: "Once focus has been moved inside the grid, subsequent tab presses that re-enter the grid shall return focus to the cell that last held focus."
     //
     // If an interior element is being focused, then if it is a cell, we enter navigable mode at that cell.
-    // If an interior element *within* a cell is being focused, we enter actionable mode at that cell and focus that element.
+    // If an interior element *wthin* a cell is being focused, we enter actionable mode at that cell and focus that element.
     // If just the view itself is being focused we focus the lastFocused CellContext. This is the last cell position which
-    // the user navigated to in any mode, actionable or navigable. It is maintained during navigation in navigable mode.
+    // the user navigated to in any mode, actinoable or navigable. It is maintained during navigation in navigable mode.
     // It is set upon focus leave if focus left during actionable mode - set to actionPosition.
     // actionPosition is cleared when actionable mode is exited.
     //
@@ -2071,7 +2070,7 @@ Ext.define('Ext.view.Table', {
         // If a mousedown listener has synchronously focused an internal element
         // from outside and proceeded to process focus consequences, then the impending focusenter
         // MUST NOT process focus consequences.
-        // See Ext.grid.NavigationModel#onCellMouseDown
+        // See Ext.grid.NagivationModel#onCellMouseDown
         if (me.containsFocus) {
             return Ext.Component.prototype.onFocusEnter.call(me, e);
         }
@@ -2114,10 +2113,7 @@ Ext.define('Ext.view.Table', {
                 // situation.
                 // See Ext.view.navigationModel for this being set.
                 if (me.lastFocused === 'scrollbar') {
-                    if (e.relatedTarget) {
-                        e.relatedTarget.focus();
-                    }
-                    
+                    e.relatedTarget.focus();
                     return;
                 }
 
@@ -2217,8 +2213,8 @@ Ext.define('Ext.view.Table', {
             isLeavingGrid = !me.lockingPartner || !e.toComponent || (e.toComponent !== me.lockingPartner && !me.lockingPartner.isAncestor(e.toComponent));
             
             // Ignore this event if we do not actually contain focus.
-            // CellEditors are rendered into the view's encapsulating element,
-            // So focusleave will fire when they are programmatically blurred.
+            // CellEditors are rendered into the view's encapculating element,
+            // So focusleave will fire when they are programatically blurred.
             // We will not have focus at that point.
             if (me.cellFocused) {
 
@@ -2257,12 +2253,12 @@ Ext.define('Ext.view.Table', {
 
     // GridSelectionModel invokes onRowFocus to 'highlight'
     // the last row focused
-    onRowFocus: function(rowIdx, highlight, suppressFocus) {
+    onRowFocus: function(rowIdx, highlight, supressFocus) {
         var me = this;
 
         if (highlight) {
             me.addItemCls(rowIdx, me.focusedItemCls);
-            if (!suppressFocus) {
+            if (!supressFocus) {
                 me.focusRow(rowIdx);
             }
             //this.el.dom.setAttribute('aria-activedescendant', row.id);
@@ -2303,6 +2299,7 @@ Ext.define('Ext.view.Table', {
 
     // Override the version in Ext.view.View because the focusable elements are the grid cells.
     /**
+     * @override Ext.view.View
      * Focuses a particular row and brings it into view. Will fire the rowfocus event.
      * @param {HTMLElement/String/Number/Ext.data.Model} row An HTMLElement template node, index of a template node, the id of a template node or the
      * @param {Boolean/Number} [delay] Delay the focus this number of milliseconds (true for 10 milliseconds).
@@ -2321,7 +2318,7 @@ Ext.define('Ext.view.Table', {
 
     /**
      * Focuses a particular cell and brings it into view. Will fire the rowfocus event.
-     * @param {Ext.grid.CellContext} position The cell to select
+     * @param {Ext.grid.CellContext} pos The cell to select
      * @param {Boolean/Number} [delay] Delay the focus this number of milliseconds (true for 10 milliseconds).
      */
     focusCell: function(position, delay) {
@@ -2463,10 +2460,7 @@ Ext.define('Ext.view.Table', {
         var scroller = this.getScrollable();
 
         if (scroller) {
-            scroller.ensureVisible(el, {
-                animation: animate,
-                x: hscroll
-            });
+            scroller.scrollIntoView(el, hscroll, animate);
         }
     },
 
@@ -2534,23 +2528,33 @@ Ext.define('Ext.view.Table', {
     },
 
     handleUpdate: function(store, record, operation, changedFieldNames, info, allColumns) {
-        
+        operation = operation || Ext.data.Model.EDIT;
         var me = this,
             recordIndex = me.store.indexOf(record),
             rowTpl = me.rowTpl,
             markDirty = me.markDirty,
             dirtyCls = me.dirtyCls,
+            clearDirty = operation !== Ext.data.Model.EDIT,
             columnsToUpdate = [],
             hasVariableRowHeight = me.variableRowHeight,
             updateTypeFlags = 0,
             ownerCt = me.ownerCt,
             cellFly = me.cellFly || (me.self.prototype.cellFly = new Ext.dom.Fly()),
-            oldItemDom, oldDataRow, newItemDom, newAttrs, attLen, attName, attrIndex,
-            overItemCls, columns, column, len, i, cellUpdateFlag, cell, fieldName, value,
-            clearDirty, defaultRenderer, scope, elData, emptyValue;
-        
-        operation = operation || Ext.data.Model.EDIT;
-        clearDirty = operation !== Ext.data.Model.EDIT;
+            oldItemDom, oldDataRow,
+            newItemDom,
+            newAttrs, attLen, attName, attrIndex,
+            overItemCls,
+            columns,
+            column,
+            len, i,
+            cellUpdateFlag,
+            cell,
+            fieldName,
+            value,
+            defaultRenderer,
+            scope,
+            elData,
+            emptyValue;
 
         if (me.viewReady) {
             // Some features might need to know that we're updating
@@ -2668,7 +2672,7 @@ Ext.define('Ext.view.Table', {
                     // If we have columns which may *need* updating (think locked side of lockable grid with all columns unlocked)
                     // and the changed record is within our view, then update the view.
                     if (columns.length && (oldDataRow = me.getRow(oldItemDom))) {
-                        me.updateColumns(oldDataRow, newItemDom.querySelector(me.rowSelector), columnsToUpdate, record);
+                        me.updateColumns(oldDataRow, newItemDom.querySelector(me.rowSelector), columnsToUpdate);
                     }
 
                     // Loop thru all of rowTpls asking them to sync the content they are responsible for if any.
@@ -2817,7 +2821,7 @@ Ext.define('Ext.view.Table', {
         }
     },
 
-    updateColumns: function(oldRow, newRow, columnsToUpdate, record) {
+    updateColumns: function(oldRow, newRow, columnsToUpdate) {
         var me = this,
             newAttrs, attLen, attName, attrIndex,
             colCount = columnsToUpdate.length,
@@ -2853,7 +2857,7 @@ Ext.define('Ext.view.Table', {
             column = columnsToUpdate[colIndex];
 
             // Pluck out cells using the column's unique cell selector.
-            // Because in a wrapped row, there may be several TD elements.
+            // Becuse in a wrapped row, there may be several TD elements.
             cellSelector = me.getCellSelector(column);
             oldCell = oldRow.querySelector(cellSelector);
             newCell = newRow.querySelector(cellSelector);
@@ -2876,10 +2880,6 @@ Ext.define('Ext.view.Table', {
 
             // Carefully replace just the *contents* of the content bearing inner element.
             me.oldCellFly.attach(oldCell.querySelector(me.innerSelector)).syncContent(newCell.querySelector(me.innerSelector));
-
-            if (record && column.onItemAdd) {
-                column.onItemAdd([record]);
-            }
         }
     },
 
@@ -2896,12 +2896,10 @@ Ext.define('Ext.view.Table', {
 
     /**
      * Refreshes the grid view. Sets the sort state and focuses the previously focused row.
-     *
-     * **Note:** This method should only be used when `bufferedRenderer` is set to `false`.  BufferedRender
-     * has its own methods for managing its data's state.
      */
     refresh: function() {
-        var me = this;
+        var me = this,
+            scroller;
 
         if (me.destroying) {
             return;
@@ -2918,7 +2916,6 @@ Ext.define('Ext.view.Table', {
             if (me.refreshCounter) {
                 me.clearViewEl(true);
             }
-            me.addEmptyText();
         }
     },
 
@@ -3106,7 +3103,7 @@ Ext.define('Ext.view.Table', {
 
     /**
      * Expands a particular header to fit the max content width.
-     * @deprecated 6.5.0 Use {@link #autoSizeColumn} instead.
+     * @deprecated Use {@link #autoSizeColumn} instead.
      */
     expandToFit: function(header) {
         this.autoSizeColumn(header);
@@ -3213,7 +3210,7 @@ Ext.define('Ext.view.Table', {
     },
 
     /**
-     * @param {Ext.grid.CellContext} pos The current navigation position.
+     * @param {Ext.grid.CellContext} position The current navigation position.
      * @param {String} direction 'up', 'down', 'right' and 'left'
      * @param {Function} [verifierFn] A function to verify the validity of the calculated position.
      * When using this function, you must return true to allow the newPosition to be returned.
@@ -3317,7 +3314,7 @@ Ext.define('Ext.view.Table', {
      * If no row is visible in the specified direction, returns the input row index unchanged.
      * @param {Number} startRow The zero-based row index to start from.
      * @param {Number} distance The distance to move the row by. May be +ve or -ve.
-     * @deprecated 6.5.0 This method is deprecated.
+     * @deprecated 5.5.0
      * @private
      */
     walkRows: function(startRow, distance) {
@@ -3467,7 +3464,7 @@ Ext.define('Ext.view.Table', {
     },
 
     /** 
-     * @private
+     * @private.
      * Respond to store replace event which is fired by GroupStore group expand/collapse operations.
      * This saves a layout because a remove and add operation are coalesced in this operation.
      */
@@ -3574,9 +3571,7 @@ Ext.define('Ext.view.Table', {
 
         // The navModel may return a position that is in a locked partner, so check that
         // the focusPosition's cell contains the focus before going forward.
-        // The skipSaveFocusState is set by Actionables which actively control
-        // focus destination. See CellEditing#activateCell.
-        if (!me.skipSaveFocusState && focusCell && focusCell.contains(activeElement)) {
+        if (focusCell && focusCell.contains(activeElement)) {
             // Separate this from the instance that the nav model is using.
             focusPosition = focusPosition.clone();
 
@@ -3591,7 +3586,7 @@ Ext.define('Ext.view.Table', {
             if (actionableMode && focusCell.dom !== activeElement.dom) {
                 me.suspendActionableMode();
             }
-            // Clear position, otherwise the setPosition on the other side
+            // Clear position, otherwise the setPosition onthe other side
             // will be rejected as a no-op if the resumption position is logically
             // equivalent.
             else {
@@ -3600,45 +3595,36 @@ Ext.define('Ext.view.Table', {
             }
 
             // Do not leave the element in tht state in case refresh fails, and restoration
-            // closure not called.
+            // closeure not called.
             activeElement.resumeFocusEvents();
-            
-            // if the store is expanding or collapsing, we should never scroll the view.
-            if (store.isExpandingOrCollapsing) {
-                return Ext.emptyFn;
-            }
 
             // The following function will attempt to refocus back in the same mode to the same cell
-            // as it was at before based upon the previous record (if it's still in the store), or the row index.
+            // as it was at before based upon the previous record (if it's still inthe store), or the row index.
             return function() {
-                var all;
                 // May have changed due to reconfigure
                 store = me.dataSource;
 
                 // If we still have data, attempt to refocus in the same mode.
                 if (store.getCount()) {
-                    all = me.all;
+
                     // Adjust expectations of where we are able to refocus according to what kind of destruction
                     // might have been wrought on this view's DOM during focus save.
-                    refocusRow = Math.min(Math.max(focusPosition.rowIdx, all.startIndex), all.endIndex);
+                    refocusRow = Math.min(focusPosition.rowIdx, me.all.getCount() - 1);
                     refocusCol = Math.min(focusPosition.colIdx, me.getVisibleColumnManager().getColumns().length - 1);
                     record = focusPosition.record;
 
                     focusPosition = new Ext.grid.CellContext(me).setPosition(
-                        record && store.contains(record) && !record.isCollapsedPlaceholder ? record : refocusRow, refocusCol
+                            record && store.contains(record) && !record.isCollapsedPlaceholder ? record : refocusRow, refocusCol
                     );
 
-                    // Maybe there are no cells. eg: all groups collapsed.
-                    if (focusPosition.getCell(true)) {
-                        if (actionableMode) {
-                            me.resumeActionableMode(focusPosition);
-                        } else {
-                            // Pass "preventNavigation" as true so that that does not cause selection.
-                            navModel.setPosition(focusPosition, null, null, null, true);
+                    if (actionableMode) {
+                        me.resumeActionableMode(focusPosition);
+                    } else {
+                        // Pass "preventNavigation" as true so that that does not cause selection.
+                        navModel.setPosition(focusPosition, null, null, null, true);
 
-                            if (!navModel.getPosition()) {
-                                focusPosition.column.focus();
-                            }
+                        if (!navModel.getPosition()) {
+                            focusPosition.column.focus();
                         }
                     }
                 }
@@ -3778,7 +3764,7 @@ Ext.define('Ext.view.Table', {
             // No mode change.
             // ownerGrid's call will NOT fire mode change event upon false return.
             if (me.actionableMode === enabled) {
-                // If we're not actionable already, or (we are actionable already at that position) return false.
+                // If we're not actinoable already, or (we are actionable already at that position) return false.
                 // Test using mandatory passed position because we may not have an actionPosition if we are 
                 // the lockingPartner of an actionable view that contained the action position.
                 //
@@ -3831,7 +3817,7 @@ Ext.define('Ext.view.Table', {
                     activeEl = Ext.fly(Ext.Element.getActiveElement());
                     
                     // If that focus triggered handlers (eg CellEditor after edit handlers) which
-                    // programmatically moved focus somewhere, and the target cell has been unfocused, defer to that,
+                    // programatically moved focus somewhere, and the target cell has been unfocused, defer to that,
                     // null out position, so that we do not navigate to that cell below.
                     // See EXTJS-20395
                     if (!(me.el.contains(activeEl) && activeEl.is(me.getCellSelector()))) {
@@ -3921,10 +3907,6 @@ Ext.define('Ext.view.Table', {
                 for (i = 0; i < len; i++) {
                     isActionable = isActionable || actionables[i].activateCell(position, null, true);
                 }
-
-                // In case any of the activations called external handlers which
-                // caused view DOM churn, reacquire the cell.
-                focusCell = Ext.fly(position.getCell(true));
             }
 
             // If we have a lockingPartner that is actionable
@@ -4034,22 +4016,29 @@ Ext.define('Ext.view.Table', {
             var me = this,
                 direction = forward ? 'nextSibling' : 'previousSibling',
                 lockingPartner = me.lockingPartner,
-                rowIdx;
+                rowIdx, cellIdx;
 
             if (lockingPartner && lockingPartner.grid.isVisible()) {
                 rowIdx = me.all.indexOf(prevRow);
 
                 // TAB out of right side of view
                 if (forward) {
+                    cellIdx = 0;
+
                     // If normal side go to next row in locked side
                     if (me.isNormalView) {
                         rowIdx++;
                     }
                 }
+
                 // TAB out of left side of view
-                // If locked side go to previous row in normal side
-                else if (me.isLockedView) {
-                    rowIdx--;
+                else {
+                    cellIdx = lockingPartner.getVisibleColumnManager().getColumns().length - 1;
+
+                    // If locked side go to previous row in normal side
+                    if (me.isLockedView) {
+                        rowIdx--;
+                    }
                 }
 
                 // We've switched sides.
@@ -4141,7 +4130,7 @@ Ext.define('Ext.view.Table', {
                     // Keep actionPosition synched
                     me.actionPosition = me.getNavigationModel().actionPosition = position;
 
-                    // If an async focus platform we must wait for the blur
+                    // If an async focus platformm we must wait for the blur
                     // from the deactivate to clear before we can focus the next.
                     Ext.fly(focusTarget).focus(Ext.asyncFocus ? 1 : 0);
 
@@ -4184,7 +4173,7 @@ Ext.define('Ext.view.Table', {
              * This is used when a table view is used in a lockable assembly.
              * Y scrolling is handled by an element which contains both grid views.
              * So each view has to be stretched to the full dataset height.
-             * Setting the element height does not attain the maximum possible height.
+             * Setting the element height does not attain the maximim possible height.
              * Maximum content height is attained by adding "stretcher" elements
              * which have large margin-top values.
              */

@@ -73,44 +73,9 @@ topSuite("Ext.util.TSV", function() {
                 TSV.encode([[Ext.global]]);
             }).toThrow();
         });
-        
-        it("should allow overriding quote char via arguments", function() {
-            var result = TSV.encode(
-                [['3', 'Deal with "High" priority items', '23 days', '10/31/2017 9:00']],
-                undefined, null
-            );
-            
-            expect(result).toBe('3\tDeal with "High" priority items\t'+
-                                '23 days\t10/31/2017 9:00');
-        });
-        
-        it("should allow overriding quote char via config", function() {
-            var TSV = new Ext.util.TsvDecoder({
-                quote: null
-            });
-            
-            var result = TSV.encode(
-                [['3', 'Deal with "High" priority items', '23 days', '10/31/2017 9:00']]
-            );
-            
-            expect(result).toBe('3\tDeal with "High" priority items\t'+
-                                '23 days\t10/31/2017 9:00');
-        });
     });
 
     describe("decode", function() {
-        it('should decode TSV with hostile string in the middle', function() {
-            var result = TSV.decode('Normal String\t' +
-                    hostileEnc + '\t2010-01-01T21:45:32.004Z' +
-                    TSV.lineBreak +
-                    '3.141592653589793\t1\tfalse');
-
-            expect(result).toEqual([
-                [ 'Normal String', hostile, '2010-01-01T21:45:32.004Z' ],
-                [ '3.141592653589793', '1', 'false' ]
-            ]);
-        });
-        
         it('should decode TSV back into an array of string arrays', function() {
             var result = TSV.decode(
                     hostileEnc + '\tNormal String\t2010-01-01T21:45:32.004Z' +
@@ -120,28 +85,6 @@ topSuite("Ext.util.TSV", function() {
             expect(result).toEqual([
                 [ hostile, 'Normal String', '2010-01-01T21:45:32.004Z' ],
                 [ '3.141592653589793', '1', 'false' ]
-            ]);
-        });
-
-        it("should should support non-quoted format via config", function() {
-            var TSV = new Ext.util.TsvDecoder({
-                quote: null
-            });
-            
-            var result = TSV.decode('3\tDeal with "High" priority items\t'+
-                                    '23 days\t10/31/2017 9:00\n');
-            
-            expect(result).toEqual([
-                ['3', 'Deal with "High" priority items', '23 days', '10/31/2017 9:00']
-            ]);
-        });
-
-        it("should should support non-quoted format via argument", function() {
-            var result = TSV.decode('3\tDeal with "High" priority items\t'+
-                                    '23 days\t10/31/2017 9:00\n', undefined, null);
-            
-            expect(result).toEqual([
-                ['3', 'Deal with "High" priority items', '23 days', '10/31/2017 9:00']
             ]);
         });
 

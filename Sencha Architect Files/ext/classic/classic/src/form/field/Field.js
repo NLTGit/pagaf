@@ -401,11 +401,6 @@ Ext.define('Ext.form.field.Field', {
             me.publishState('value', me.getValue());
         }
     },
-    
-    /**
-     * @cfg [publishes='value']
-     * @inheritdoc Ext.mixin.Bindable#cfg-publishes
-     */
 
     /**
      * Returns true if the value of this Field has been changed from its {@link #originalValue}.

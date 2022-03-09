@@ -21,8 +21,6 @@
     $sort-icon-font-size: $gridcolumn-sort-icon-font-size,
     $sort-icon-font-size-big: $gridcolumn-sort-icon-font-size-big,
     $sort-icon-color: $gridcolumn-sort-icon-color,
-    $sort-secondary-icon-color: $gridcolumn-sort-secondary-icon-color,
-    $sort-aux-icon-color: $gridcolumn-sort-aux-icon-color,
     $sort-asc-icon: $gridcolumn-sort-asc-icon,
     $sort-desc-icon: $gridcolumn-sort-desc-icon,
     $trigger-width: $gridcolumn-trigger-width,
@@ -50,8 +48,4 @@
 
 .#{$prefix}headermenu-columns-icon {
     @include icon($gridcolumn-menu-columns-icon);
-}
-
-.#{$prefix}headermenu-group-by-this {
-    @include icon($gridcolumn-menu-group-by-this-icon);
 }

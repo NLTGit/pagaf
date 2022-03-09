@@ -1232,7 +1232,6 @@ function() {
     });
 
     describe("remove", function() {
-        var a, b, c;
 
         function makeContainer(items) {
             ct = new Ext.container.Container({
@@ -1241,17 +1240,21 @@ function() {
             });
         }
 
-        beforeEach(function() {
+        var a, b, c;
+        beforeEach(function(){
             a = new Ext.Component({
                 itemId: 'item1'
             });
-            
             b = new Ext.Component();
             c = new Ext.Component();
         });
 
-        afterEach(function() {
-            a = b = c = Ext.destroy(a, b, c);
+        afterEach(function(){
+            a.destroy();
+            b.destroy();
+            c.destroy();
+            a = b = c = null;
+
         });
 
         describe("and reAttaching later", function() {
@@ -1489,82 +1492,6 @@ function() {
 
             ct.remove('text1');
             expect(Ext.cache['foo']).toBe(undefined);
-        });
-        
-        // Newer API with second argument being object with flags instead of boolean
-        describe("disposition object", function() {
-            beforeEach(function() {
-                makeContainer();
-                ct.render(Ext.getBody());
-            });
-            
-            describe("destroy option", function() {
-                it("should destroy child when set to true", function() {
-                    ct.remove(a, { destroy: true });
-                    
-                    expect(a.destroyed).toBe(true);
-                });
-                
-                it("should not destroy child when set to false", function() {
-                    ct.remove(a, { destroy: false });
-                    
-                    expect(a.destroyed).toBe(false);
-                    expect(ct.items.indexOf(a)).toBe(-1);
-                });
-                
-                it("should default to autoDestroy:true when omitted", function() {
-                    ct.remove(a, {});
-                    
-                    expect(a.destroyed).toBe(true);
-                });
-                
-                it("should not destroy child when omitted and autoDestroy == false", function() {
-                    ct.autoDestroy = false;
-                    ct.remove(a, {});
-                    
-                    expect(a.destroyed).toBe(false);
-                    expect(ct.items.indexOf(a)).toBe(-1);
-                });
-            });
-            
-            describe("detach option", function() {
-                beforeEach(function() {
-                    ct.autoDestroy = false;
-                });
-                
-                it("should detach child when set to true", function() {
-                    ct.remove(a, { detach: true });
-                    
-                    expect(a.destroyed).toBe(false);
-                    expect(ct.items.indexOf(a)).toBe(-1);
-                    expect(a.el.dom.parentElement).toBe(Ext.getDetachedBody().dom);
-                });
-                
-                it("should not detach child when set to false", function() {
-                    ct.remove(a, { detach: false });
-                    
-                    expect(a.destroyed).toBe(false);
-                    expect(ct.items.indexOf(a)).toBe(-1);
-                    expect(a.el.dom.parentElement).toBe(b.el.dom.parentElement);
-                });
-                
-                it("should default to detachOnRemove:true when omitted", function() {
-                    ct.remove(a, {});
-                    
-                    expect(a.destroyed).toBe(false);
-                    expect(ct.items.indexOf(a)).toBe(-1);
-                    expect(a.el.dom.parentElement).toBe(Ext.getDetachedBody().dom);
-                });
-                
-                it("should not detach child when omitted and detachOnRemove == false", function() {
-                    ct.detachOnRemove = false;
-                    ct.remove(a, {});
-
-                    expect(a.destroyed).toBe(false);
-                    expect(ct.items.indexOf(a)).toBe(-1);
-                    expect(a.el.dom.parentElement).toBe(b.el.dom.parentElement);
-                });
-            });
         });
     });
 
@@ -2281,12 +2208,12 @@ function() {
         afterEach(function() {
             Ext.undefine('spec.Custom');
             a1 = a2 = a3 = b1 = b2 = b3 = a = b = c = disableFn = null;
-        });
+        }); 
 
         function makeDisableCt(cfg) {
             cfg = Ext.apply({
                 defaultType: 'custom'
-            }, cfg);
+            }, cfg)
             ct = new CT(cfg);
             a = ct.down('#a');
             b = ct.down('#b');
@@ -4861,29 +4788,6 @@ function() {
 
                 vp.destroy();
             });
-
-            describe("with a controller", function() {
-                it("should mark the container as a referenceHolder", function() {
-                    makeContainer({
-                        controller: 'controller',
-                        items: [{
-                            reference: 'child'
-                        }]
-                    });
-                    expect(ct.referenceHolder).toBe(true);
-                    var c = ct.lookup('child');
-                    expect(ct.items.first()).toBe(c);
-
-                    ct.remove(c);
-
-                    expect(ct.lookup('child')).toBeNull();
-
-                    c = ct.add({
-                        reference: 'child'
-                    });
-                    expect(ct.lookup('child')).toBe(c);
-                });
-            });
         });
     });
     
@@ -5399,24 +5303,6 @@ function() {
                 
                 expect(focusEl).toBe(undefined);
             });
-        });
-    });
-
-    describe("layout configuration", function() {
-        it("should not mutate the initial configuration", function() {
-            makeContainer({
-                layout: {
-                    type: 'vbox',
-                    align: 'stretch'
-                }
-            });
-
-            var l = ct.initialConfig.layout;
-            expect(l).toEqual({
-                type: 'vbox',
-                align: 'stretch'
-            });
-            expect(l.owner).toBeUndefined();
         });
     });
 });

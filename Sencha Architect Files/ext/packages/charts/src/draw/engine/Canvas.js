@@ -241,10 +241,6 @@ Ext.define('Ext.draw.engine.Canvas', {
      */
     toSave: ['fillGradient', 'strokeGradient'],
 
-    /**
-     * @property element
-     * @inheritdoc
-     */
     element: {
         reference: 'element',
         children: [{
@@ -380,7 +376,6 @@ Ext.define('Ext.draw.engine.Canvas', {
             originalCtx = ctx.constructor.prototype;
 
         /**
-         * @cfg {Object} precisionOverrides
          * @ignore
          */
         var precisionOverrides = {
@@ -787,7 +782,6 @@ Ext.define('Ext.draw.engine.Canvas', {
     },
 
     /**
-     * @method clearTransform
      * @inheritdoc
      */
     clearTransform: function () {
@@ -823,7 +817,7 @@ Ext.define('Ext.draw.engine.Canvas', {
     },
 
     /**
-     * @method renderSprite
+     * @private
      * @inheritdoc
      */
     renderSprite: function (sprite) {
@@ -939,7 +933,6 @@ Ext.define('Ext.draw.engine.Canvas', {
     },
 
     /**
-     * @method clear
      * @inheritdoc
      */
     clear: function () {

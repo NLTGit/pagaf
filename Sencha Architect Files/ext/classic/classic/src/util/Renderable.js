@@ -411,6 +411,13 @@ Ext.define('Ext.util.Renderable', {
             me.flushRenderConfigs();
         }
 
+        if (me.reference) {
+            // If we have no "reference" config then we do not publish our state to the
+            // viewmodel. This needs to happen after the beforeRenderConfig block is
+            // processed because that is what creates the viewModel.
+            me.publishState();
+        }
+
         if (cls) {
             me.addCls(cls);
         }
@@ -1190,9 +1197,8 @@ Ext.define('Ext.util.Renderable', {
                 // Get the singleton frame style proxy with our el class name stamped into it.
                 styleEl = Ext.fly(me.getStyleProxy(cls), 'frame-style-el');
                 info = styleEl.getStyle('font-family');
-                info = info && info.split('-');
 
-                if (info && info.length >= 5) {
+                if (info) {
                     // The framing data is encoded as
                     //
                     //         D=div|T=table
@@ -1210,20 +1216,21 @@ Ext.define('Ext.util.Renderable', {
                     // The 3 sets of TRBL 4-tuples are the CSS3 values for border-radius,
                     // border-width and padding, respectively.
                     //
+                    info = info.split('-');
 
                     frameTop          = parseInt(info[1], 10);
                     frameRight        = parseInt(info[2], 10);
                     frameBottom       = parseInt(info[3], 10);
                     frameLeft         = parseInt(info[4], 10);
 
-                    borderTopWidth    = parseInt(info[5], 10) || 0;
-                    borderRightWidth  = parseInt(info[6], 10) || 0;
-                    borderBottomWidth = parseInt(info[7], 10) || 0;
-                    borderLeftWidth   = parseInt(info[8], 10) || 0;
-                    paddingTop        = parseInt(info[9], 10) || 0;
-                    paddingRight      = parseInt(info[10], 10) || 0;
-                    paddingBottom     = parseInt(info[11], 10) || 0;
-                    paddingLeft       = parseInt(info[12], 10) || 0;
+                    borderTopWidth    = parseInt(info[5], 10);
+                    borderRightWidth  = parseInt(info[6], 10);
+                    borderBottomWidth = parseInt(info[7], 10);
+                    borderLeftWidth   = parseInt(info[8], 10);
+                    paddingTop        = parseInt(info[9], 10);
+                    paddingRight      = parseInt(info[10], 10);
+                    paddingBottom     = parseInt(info[11], 10);
+                    paddingLeft       = parseInt(info[12], 10);
 
                     frameInfo = {
                         table: info[0].charAt(0) === 't',

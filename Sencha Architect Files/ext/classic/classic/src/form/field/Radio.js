@@ -271,23 +271,21 @@ Ext.define('Ext.form.field.Radio', {
         // Standard compliant browsers only fire change event on the radio button
         // that became checked so we need to update other buttons in the group.
         // See also IE8 override.
-        if (!me.$groupChange) {
-            if (newVal) {
-                radios = me.getManager().getByName(me.name, me.getFormId()).items;
-                rLen = radios.length;
-    
-                for (r = 0; r < rLen; r++) {
-                    radio = radios[r];
-    
-                    if (radio !== me) {
-                        radio.updateValueFromDom();
-                    }
+        if (newVal) {
+            radios = me.getManager().getByName(me.name, me.getFormId()).items;
+            rLen = radios.length;
+
+            for (r = 0; r < rLen; r++) {
+                radio = radios[r];
+
+                if (radio !== me) {
+                    radio.updateValueFromDom();
                 }
             }
-    
-            if (ownerCt && ownerCt.isRadioGroup && ownerCt.simpleValue) {
-                ownerCt.checkChange();
-            }
+        }
+
+        if (ownerCt && ownerCt.isRadioGroup && ownerCt.simpleValue) {
+            ownerCt.checkChange();
         }
     },
 

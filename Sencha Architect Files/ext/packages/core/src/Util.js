@@ -77,49 +77,9 @@ Ext.apply(Ext, {
         var namedScope = (scope in Ext._namedScopes);
         
         if (callback.charAt) { // if (isString(fn))
-            // Custom components cannot often use declarative method resolution when
-            // they need to allow the user to supply declarative method names that can
-            // reach the user's controller. The "up" callback syntax can help with that:
-            //
-            //      xtype: 'button',
-            //      handler: 'up.onFoo',
-            //
-            // When Ext.callback('up.onFoo',..., button) is called, we can perform a
-            // "button.up('[onFoo]')" search for the handler. Thus we have a declarative
-            // way to dispatch such handlers that will work even if the user can supply
-            // such handlers.
-            //
-            if (callback[2] === '.') { // callback = 'up.foo'
-                //<debug>
-                if (callback.substr(0,2) !== 'up') {
-                    Ext.raise('Invalid callback method name "' + callback + '"');
-                }
-                if (scope) {
-                    Ext.raise('Callback "up" syntax is incompatible with scopes');
-                }
-                if (!caller || !Ext.isFunction(caller.up)) {
-                    Ext.raise('Callback "up" syntax requires a caller with "up" method');
-                }
-                //</debug>
-
-                callback = callback.substr(3);
-
-                // A good bit cheaper then caller.up('[' + callback + ']')
-                for (scope = caller.up(); scope && !scope[callback]; scope = scope.up()) {
-                    // empty
-                }
-
-                //<debug>
-                if (!scope || !Ext.isFunction(scope[callback])) {
-                    Ext.raise('No such method "' + callback + '" found up() from ' +
-                        scope.getId ? scope.getId() : scope.id);
-                }
-                //</debug>
-            }
-            else if ((!scope || namedScope) && caller) {
+            if ((!scope || namedScope) && caller) {
                 scope = caller.resolveListenerScope(namedScope ? scope : defaultScope);
             }
-
             //<debug>
             if (!scope || !Ext.isObject(scope)) {
                 Ext.raise('Named method "' + callback + '" requires a scope object');
@@ -141,11 +101,14 @@ Ext.apply(Ext, {
 
         if (callback && Ext.isFunction(callback)) {
             scope = scope || Ext.global;
-
             if (delay) {
                 Ext.defer(callback, delay, scope, args);
+            } else if (Ext.elevateFunction) {
+                ret = Ext.elevateFunction(callback, scope, args);
+            } else if (args) {
+                ret = callback.apply(scope, args);
             } else {
-                ret = args ? callback.apply(scope, args) : callback.call(scope);
+                ret = callback.call(scope);
             }
         }
 
@@ -766,7 +729,6 @@ Ext.apply(Ext, {
      *
      * @param {Object} items An object containing config objects keyed by `itemId`.
      * @param {String} [defaultProperty="xtype"] The property to set for string items.
-     * @param functionProperty
      * @return {Object[]}
      * @member Ext
      * @since 6.5.0
@@ -833,26 +795,6 @@ Ext.apply(Ext, {
      */
     weightSortFn: function (lhs, rhs) {
         return (lhs.weight || 0) - (rhs.weight || 0);
-    },
-
-    /**
-     * Concatenate 2 arrays. If either argument is `null` or `undefined` then it's not
-     * concatenated.
-     *
-     * @param {Object/Object[]} a
-     * @param {Object/Object[]} b
-     * @return {Object[]}
-     * @member Ext
-     * @private
-     * @since 6.5.1
-     */
-    concat: function(a, b) {
-        var noB = b == null,
-            E = Ext.emptyArray;
-
-        return (a == null) ?
-            (noB ? a : E.concat(b)) :
-            (noB ? E.concat(a) : E.concat(a, b));
     },
 
     /**

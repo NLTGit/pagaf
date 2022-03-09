@@ -268,7 +268,7 @@ Ext.define('Ext.util.Animate', {
      * size. If dynamic updating of the Window's child Components is required, then configure the animation with
      * `dynamic: true` and the two child items will maintain their proportions during the animation.
      *
-     * @param {Object} animObj  Configuration for {@link Ext.fx.Anim}.
+     * @param {Object} config  Configuration for {@link Ext.fx.Anim}.
      * Note that the {@link Ext.fx.Anim#to to} config is required.
      * @return {Object} this
      */
@@ -327,10 +327,9 @@ Ext.define('Ext.util.Animate', {
     /**
      * Stops any running effects and clears this object's internal effects queue if it contains any additional effects
      * that haven't started yet.
-     * @param {Boolean} suppressEvent (private)
      * @return {Ext.dom.Element} The Element
      */
-    stopAnimation: function(suppressEvent) {
+    stopAnimation: function(/* private */ suppressEvent) {
         Ext.fx.Manager.stopAnimation(this.id, suppressEvent);
         return this;
     },
@@ -360,9 +359,9 @@ Ext.define('Ext.util.Animate', {
     },
 
     /**
-     * @method hasActiveFx
      * @deprecated 4.0 Replaced by {@link #getActiveAnimation}
-     * @inheritdoc Ext.util.Animate#method-getActiveAnimation
+     * @inheritdoc Ext.util.Animate#getActiveAnimation
+     * @method
      */
     hasActiveFx: Ext.Function.alias(Ext.util.Animate, 'getActiveAnimation'),
 

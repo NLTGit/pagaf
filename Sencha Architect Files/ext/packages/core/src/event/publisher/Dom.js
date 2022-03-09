@@ -554,7 +554,7 @@ Ext.define('Ext.event.publisher.Dom', {
             me.reEnterCountAdjusted = false;
             me.reEnterCount++;
             me.fire(el, e.type, e, true, capture);
-
+            
             // Gesture publisher deals with exceptions in recognizers
             if (!me.reEnterCountAdjusted) {
                 me.reEnterCount--;
@@ -615,8 +615,8 @@ Ext.define('Ext.event.publisher.Dom', {
             self.lastTouchEndTime = Ext.now();
         }
 
-        if (!this.reEnterCount && !GlobalEvents.idleEventMask[type]) {
-            Ext.fireIdle();
+        if (!this.reEnterCount && GlobalEvents.hasListeners.idle && !GlobalEvents.idleEventMask[type]) {
+            GlobalEvents.fireEvent('idle');
         }
     },
 
@@ -722,8 +722,6 @@ Ext.define('Ext.event.publisher.Dom', {
         // both reset flags on the same object.
         var self = Ext.event.publisher.Dom;
 
-        this.reEnterCount = 0;
-
         // set to undefined, not null, because that is the initial state of these vars and
         // undefined/null return different results when used in math operations
         // (see isEventBlocked)
@@ -747,7 +745,6 @@ Ext.define('Ext.event.publisher.Dom', {
         prototype.target = doc;
     } else {
         /**
-         * @member Ext.event.publisher.Dom
          * @property {Object} target the DOM target to which listeners are attached for
          * delegated events.
          * @private

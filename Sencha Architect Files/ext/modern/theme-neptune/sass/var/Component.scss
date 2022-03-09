@@ -5,7 +5,7 @@ $touch-theme-neptune: true;
  */
 
 /**
- * @var {boolean} $include-default-uis
+ * @var {boolean} $enable-default-uis
  * Decides whether or not to include the default UIs for all components.
  */
 $include-default-uis: dynamic(true); //legacy fallback < 6.1
@@ -20,7 +20,7 @@ $include-highlights: dynamic(true);
 $enable-highlights: dynamic($include-highlights); // Can disable all theme-generated gradients, text-shadows, and box-shadows.
 
 /**
- * @var {boolean} $include-border-radius
+ * @var {boolean} $enable-border-radius
  * Optionally disable all border-radius. Useful for CSS debugging, non-performant browsers, or minimalist designs.
  */
 $include-border-radius: dynamic(true); //legacy fallback < 6.1
@@ -174,7 +174,7 @@ $global-list-height: dynamic(46px);
  * @var {color} $loading-spinner-color
  * Background-color for the bars in the loading spinner.
  */
-$loading-spinner-color: dynamic(#333);
+$loading-spinner-color: dynamic(#aaa);
 
 /**
  * @var {boolean}
@@ -196,22 +196,22 @@ $font-weight-normal: dynamic(normal);
  */
 $font-weight-bold: dynamic(bold);
 
-//# fashion replaces $include-css-variables
 /**
- * @var {boolean} $enable-css-variables
+ * @var {boolean} enable-css-variables
  * When true will reference CSS variables for all exported variables
  * used in the theme. Otherwise normal sass conversion will apply.
  */
-$enable-css-variables: dynamic(true);
+$include-css-variables: dynamic(true); //legacy fallback < 6.1
+$enable-css-variables: dynamic($include-css-variables);
 
 /**
- * @var {string} $css-variable-selector
- * Selector to determine where CSS variables are inserted
+ @var {string} $css-variable-selector
+ Selector to determine where CSS variables are inserted
  */
 $css-variable-selector: dynamic(':root');
 
 /**
- * @var {number} $default-calc-value
+ * @var {number} default-calc-value
  * Number that is used to replace null values in calc formulas
  * @private
  */

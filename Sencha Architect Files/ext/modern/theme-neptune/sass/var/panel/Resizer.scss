@@ -158,13 +158,13 @@ $panelresizer-splitter-proxy-border-color: dynamic($panelresizer-splitter-border
  * @param {color} $splitter-background-color
  * Panel resizer splitter background color.
  *
- * @param {number/list} $splitter-border-width
+ * @apram {number/list} $splitter-border-width
  * Panel resizer splitter border width.
  *
- * @param {string} $splitter-border-style
+ * @apram {string} $splitter-border-style
  * Panel resizer splitter border style.
  *
- * @param {color} $splitter-border-color
+ * @apram {color} $splitter-border-color
  * Panel resizer splitter border color.
  *
  * @param {color} $splitter-proxy-background-color
@@ -301,7 +301,7 @@ $panelresizer-splitter-proxy-border-color: dynamic($panelresizer-splitter-border
         }
     }
 
-    .#{$prefix}panel#{$ui-suffix}.#{$prefix}split-north {
+    .#{$prefix}panel#{$ui-suffix}-split-north {
         padding-top: $splitter-size;
         @if $enable-big {
             .#{$prefix}big & {
@@ -310,7 +310,7 @@ $panelresizer-splitter-proxy-border-color: dynamic($panelresizer-splitter-border
         }
     }
 
-    .#{$prefix}panel#{$ui-suffix}.#{$prefix}split-east {
+    .#{$prefix}panel#{$ui-suffix}-split-east {
         padding-right: $splitter-size;
         @if $enable-big {
             .#{$prefix}big & {
@@ -319,7 +319,7 @@ $panelresizer-splitter-proxy-border-color: dynamic($panelresizer-splitter-border
         }
     }
 
-    .#{$prefix}panel#{$ui-suffix}.#{$prefix}split-south {
+    .#{$prefix}panel#{$ui-suffix}-split-south {
         padding-bottom: $splitter-size;
         @if $enable-big {
             .#{$prefix}big & {
@@ -328,7 +328,7 @@ $panelresizer-splitter-proxy-border-color: dynamic($panelresizer-splitter-border
         }
     }
 
-    .#{$prefix}panel#{$ui-suffix}.#{$prefix}split-west {
+    .#{$prefix}panel#{$ui-suffix}-split-west {
         padding-left: $splitter-size;
         @if $enable-big {
             .#{$prefix}big & {

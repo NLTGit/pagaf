@@ -41,36 +41,16 @@ Ext.define('Ext.chart.interactions.Rotate', {
 
     type: 'rotate',
 
-    alternateClassName: 'Ext.chart.interactions.RotatePie3D',
-
-    alias: [
-        'interaction.rotate',
-        'interaction.rotatePie3d'
-    ],
+    alias: 'interaction.rotate',
 
     /**
      * @event rotate
-     * Fires on every tick of the rotation.
+     * Fires on every tick of the rotation
      * @param {Ext.chart.interactions.Rotate} this This interaction.
      * @param {Number} angle The new current rotation angle.
      */
 
     /**
-     * @event rotatestart
-     * Fires when a user initiates the rotation.
-     * @param {Ext.chart.interactions.Rotate} this This interaction.
-     * @param {Number} angle The new current rotation angle.
-     */
-
-    /**
-     * @event rotateend
-     * Fires after a user finishes the rotation.
-     * @param {Ext.chart.interactions.Rotate} this This interaction.
-     * @param {Number} angle The new current rotation angle.
-     */
-
-    /**
-     * @deprecated 6.5.1 Use the 'rotateend' event instead.
      * @event rotationEnd
      * Fires after a user finishes the rotation
      * @param {Ext.chart.interactions.Rotate} this This interaction.
@@ -87,6 +67,8 @@ Ext.define('Ext.chart.interactions.Rotate', {
         gesture: 'rotate',
 
         gestures: {
+            rotate: 'onRotate',
+            rotateend: 'onRotate',
             dragstart: 'onGestureStart',
             drag: 'onGesture',
             dragend: 'onGestureEnd'
@@ -102,7 +84,7 @@ Ext.define('Ext.chart.interactions.Rotate', {
 
     oldRotations: null,
 
-    getAngle: function (e) {
+    getAngle: function(e) {
         var me = this,
             chart = me.getChart(),
             xy = chart.getEventXY(e),
@@ -114,21 +96,37 @@ Ext.define('Ext.chart.interactions.Rotate', {
         );
     },
 
-    onGestureStart: function (e) {
-        var me = this;
+    getRadius: function (e) {
+        return this.getChart().getRadius();
+    },
+
+    getEventRadius: function(e) {
+        var me = this,
+            chart = me.getChart(),
+            xy = chart.getEventXY(e),
+            center = chart.getCenter(),
+            dx = xy[0] - center[0],
+            dy = xy[1] - center[1];
+
+        return Math.sqrt(dx * dx + dy * dy);
+    },
+
+    onGestureStart: function(e) {
+        var me = this,
+            radius = me.getRadius(e),
+            eventRadius = me.getEventRadius(e);
 
         e.claimGesture();
 
-        me.lockEvents('drag');
-        me.angle = me.getAngle(e);
-        me.oldRotations = {};
-        me.getChart().suspendAnimation();
-        me.fireEvent('rotatestart', me, me.getRotation());
-
-        return false;
+        if (radius >= eventRadius) {
+            me.lockEvents('drag');
+            me.angle = me.getAngle(e);
+            me.oldRotations = {};
+            return false;
+        }
     },
 
-    onGesture: function (e) {
+    onGesture: function(e) {
         var me = this,
             angle = me.getAngle(e) - me.angle;
 
@@ -141,33 +139,35 @@ Ext.define('Ext.chart.interactions.Rotate', {
     /**
      * @private
      */
-    doRotateTo: function (angle, relative) {
+    doRotateTo: function(angle, relative, animate) {
         var me = this,
             chart = me.getChart(),
             axes = chart.getAxes(),
-            seriesList = chart.getSeries(),
+            series = chart.getSeries(),
             oldRotations = me.oldRotations,
             rotation, oldRotation,
-            axis, series, id,
+            axis, seriesItem,
             i, ln;
+
+        if (!animate) {
+            chart.suspendAnimation();
+        }
 
         for (i = 0, ln = axes.length; i < ln; i++) {
             axis = axes[i];
-            id = axis.getId();
-            oldRotation = oldRotations[id] || (oldRotations[id] = axis.getRotation());
+            oldRotation = oldRotations[axis.getId()] || (oldRotations[axis.getId()] = axis.getRotation());
             rotation = angle + (relative ? oldRotation : 0);
 
             axis.setRotation(rotation);
         }
 
-        for (i = 0, ln = seriesList.length; i < ln; i++) {
-            series = seriesList[i];
-            id = series.getId();
-            oldRotation = oldRotations[id] || (oldRotations[id] = series.getRotation());
+        for (i = 0, ln = series.length; i < ln; i++) {
+            seriesItem = series[i];
+            oldRotation = oldRotations[seriesItem.getId()] || (oldRotations[seriesItem.getId()] = seriesItem.getRotation());
             // Unline axis's 'rotation', Polar series' 'rotation' is a public config and in degrees.
             rotation = Ext.draw.Draw.degrees( angle + (relative ? oldRotation : 0) );
 
-            series.setRotation(rotation);
+            seriesItem.setRotation(rotation);
         }
 
         me.setRotation(rotation);
@@ -175,6 +175,9 @@ Ext.define('Ext.chart.interactions.Rotate', {
         me.fireEvent('rotate', me, me.getRotation());
 
         me.sync();
+        if (!animate) {
+            chart.resumeAnimation();
+        }
     },
 
     /**
@@ -184,33 +187,23 @@ Ext.define('Ext.chart.interactions.Rotate', {
      * @param {Boolean} [animate=false] Whether to animate the rotation or not.
      */
     rotateTo: function (angle, relative, animate) {
-        var me = this,
-            chart = me.getChart();
-
-        if (!animate) {
-            chart.suspendAnimation();
-        }
-
-        me.doRotateTo(angle, relative, animate);
-        me.oldRotations = {};
-
-        if (!animate) {
-            chart.resumeAnimation();
-        }
+        this.doRotateTo(angle, relative, animate);
+        this.oldRotations = {};
     },
 
-    onGestureEnd: function (e) {
+    onGestureEnd: function(e) {
         var me = this;
-
         if (me.getLocks().drag === me) {
             me.onGesture(e);
             me.unlockEvents('drag');
-            me.getChart().resumeAnimation();
-            me.fireEvent('rotateend', me, me.getRotation());
+
             me.fireEvent('rotationEnd', me, me.getRotation());
 
             return false;
         }
-    }
+    },
 
+    onRotate: function(e) {
+
+    }
 });

@@ -34,7 +34,6 @@ Ext.define('Ext.plugin.Manager', {
      * @param {Object} config A configuration object for the Plugin you wish to create.
      * @param {Function} defaultType (optional) The constructor to provide the default Plugin type if the config object does not
      * contain a `ptype`. (Optional if the config contains a `ptype`).
-     * @param {String} host
      * @return {Ext.Component} The newly instantiated Plugin.
      */
     create : function(config, defaultType, host) {

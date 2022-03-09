@@ -360,24 +360,6 @@ Ext.define('Ext.event.Event', {
             }
             result.push(this.specialKeyGlyphs[rawKey] || rawKey);
             return result.join('');
-        },
-        
-        /**
-         * @private
-         */
-        globalTabKeyDown: function(e) {
-            if (e.keyCode === 9) {
-                Ext.event.Event.forwardTab = !e.shiftKey;
-            }
-        },
-        
-        /**
-         * @private
-         */
-        globalTabKeyUp: function(e) {
-            if (e.keyCode === 9) {
-                delete Ext.event.Event.forwardTab;
-            }
         }
     },
 
@@ -470,9 +452,7 @@ Ext.define('Ext.event.Event', {
             pointerType = self.pointerTypeMap[event.pointerType] ||
                 (((Ext.now() - Ext.event.publisher.Dom.lastTouchEndTime) < 1000) ? 'touch' : 'mouse');
         } else if (self.pointerEvents[type]) {
-            // In electron the mousemove event when the mouse first enters the document
-            // can have a pointerType of "", so default it to mouse if not found in the map.
-            pointerType = self.pointerTypeMap[event.pointerType] || 'mouse';
+            pointerType = self.pointerTypeMap[event.pointerType];
         } else if (self.touchEvents[type]) {
             pointerType = 'touch';
         }
@@ -559,7 +539,7 @@ Ext.define('Ext.event.Event', {
             r = e.which;
 
         if (r == null) {
-            if (me.self.keyEventRe.test(e.type)) {
+            if (me.keyEventRe.test(e.type)) {
                 r = e.charCode || e.keyCode;
             }
             else if ((r = e.button) !== undefined) {
@@ -569,39 +549,6 @@ Ext.define('Ext.event.Event', {
         }
 
         return r;
-    },
-
-    /**
-     * If this is an event of {@link #type} `paste`, this returns the clipboard data
-     * of the pasesd mime type.
-     *
-     * @param {String} [type='text/plain'] The mime type of the data to extract from the
-     * clipabord.
-     *
-     * Note that this uses non-standard browaer APIs and may not work reliably on all
-     * platforms.
-     * @return {Mixed} The clipboard data.
-     * @since 6.5.1
-     */
-    getClipboardData: function(type) {
-        var clipboardData = this.browserEvent.clipboardData,
-            clipIE = Ext.global.clipboardData, // IE
-            result = null,
-            typeIE;
-
-        type = type || 'text/plain';
-
-        if (clipboardData && clipboardData.getData) {
-            result = clipboardData.getData(type);
-        }
-        else if (clipIE && clipIE.getData) {
-            typeIE = this.ieMimeType[type];
-            if (typeIE) {
-                result = clipIE.getData(typeIE);
-            }
-        }
-
-        return result;
     },
 
     /**
@@ -1035,12 +982,6 @@ Ext.define('Ext.event.Event', {
         return Ext.fly(el).contains(t);
     },
 
-    privates: {
-        ieMimeType: {
-            "text/plain": 'Text'
-        }
-    },
-
     deprecated: {
         '4.0': {
             methods: {
@@ -1186,8 +1127,6 @@ Ext.define('Ext.event.Event', {
             /** Key constant @type Number */
             Z: 90,
             /** Key constant @type Number */
-            META: 91,       // Command key on mac, left window key on Windows
-            /** Key constant @type Number */
             CONTEXT_MENU: 93,
             /** Key constant @type Number */
             NUM_ZERO: 96,
@@ -1313,14 +1252,7 @@ Ext.define('Ext.event.Event', {
 
     Event.keyCodes = prototype.keyCodes = keyCodes;
     
-    // Classic Event override will install this handler in IE9-
-    if (!Ext.isIE9m) {
-        document.addEventListener('keydown', Event.globalTabKeyDown, true);
-        document.addEventListener('keyup',   Event.globalTabKeyUp,   true);
-    }
-    
     /**
-     * @member Ext.event.Event
      * @private
      * Returns the X and Y coordinates of this event without regard to any RTL
      * direction settings.
@@ -1406,7 +1338,7 @@ Ext.define('Ext.event.Event', {
         }
 
         prototype.key = function () {
-            var k = keys[this.browserEvent.which || this.keyCode];
+            var k = keys[this.which || this.keyCode];
 
             if (k && typeof k !== 'string') {
                 k = k[+this.shiftKey];

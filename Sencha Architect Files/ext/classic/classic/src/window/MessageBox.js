@@ -975,10 +975,10 @@ Ext.define('Ext.window.MessageBox', {
      * @param {Object} [scope=window] The scope (`this` reference) in which the callback is executed.
      * @return {Ext.window.MessageBox} this
      */
-    confirm: function(title, message, fn, scope) {
-        if (Ext.isString(title)) {
-            title = {
-                title: title,
+    confirm: function(cfg, message, fn, scope) {
+        if (Ext.isString(cfg)) {
+            cfg = {
+                title: cfg,
                 icon: this.QUESTION,
                 message: message,
                 buttons: this.YESNO,
@@ -986,7 +986,7 @@ Ext.define('Ext.window.MessageBox', {
                 scope: scope
             };
         }
-        return this.show(title);
+        return this.show(cfg);
     },
 
     /**
@@ -1095,10 +1095,6 @@ Ext.define('Ext.window.MessageBox', {
             };
         }
         return this.show(title);
-    },
-    
-    privates: {
-        syncHeaderConfigs: Ext.privateFn
     }
 }, function(MessageBox) {
     /**

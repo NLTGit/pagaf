@@ -136,6 +136,7 @@
                             "userConfig": {
                                 "fn": "onButtonClick",
                                 "implHandler": [
+                                    "Ext.getCmp('startOverBtn').setVisible(false);",
                                     "Ext.Loader.loadScript(\"js/farms.js\");",
                                     "Ext.getCmp(\"mainCardPanel\").getLayout().setActiveItem('inSeasonNMgmt');"
                                 ],

@@ -259,11 +259,6 @@ $include-tip-form-invalid-ui: dynamic($include-default-uis);
  *
  * @param {number} [$ui-tip-anchor-width=$tip-anchor-width]
  * The width (in all orientations) of the anchor triangle.
- *
- * @param {string} $ui-label
- * This is deprecated, please use $ui instead.
- *
- * @member Ext.tip.Tip
  */
 @mixin extjs-tip-ui(
     $ui: null,

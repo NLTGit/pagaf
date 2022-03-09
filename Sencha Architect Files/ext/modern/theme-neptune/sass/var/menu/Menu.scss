@@ -4,12 +4,6 @@
 
 /**
  * @var {color/list}
- * Menu background-color
- */
-$menu-background-color: dynamic(null);
-
-/**
- * @var {color/list}
  * Menu border-color
  */
 $menu-border-color: dynamic($neutral-color);
@@ -42,7 +36,7 @@ $menu-border-radius-big: dynamic($menu-border-radius);
  * @var {color}
  * Menu body background-color
  */
-$menu-body-background-color: dynamic($menu-background-color);
+$menu-body-background-color: dynamic(null);
 
 /**
  * @var {color}
@@ -212,12 +206,6 @@ $menu-header-title-padding: dynamic(null);
  * Menu Header Title padding in the {@link Global_CSS#$enable-big big} sizing scheme
  */
 $menu-header-title-padding-big: dynamic(null);
-
-/**
- * @var {number}
- * Menu Header Title opacity
- */
-$menu-header-title-opacity: dynamic(null);
 
 /**
  * @var {shadow}
@@ -698,9 +686,6 @@ $menu-component-margin-big: dynamic(3px $menu-text-spacing-big);
  * @param {number/list} $header-title-padding-big
  * Menu Header Title padding in the {@link Global_CSS#$enable-big big} sizing scheme
  *
- * @param {number/list} $header-title-opacity
- * Menu Header Title opacity
- *
  * @param {shadow} $header-shadow
  * Menu Header Shadow
  *
@@ -925,7 +910,6 @@ $menu-component-margin-big: dynamic(3px $menu-text-spacing-big);
     $header-padding-big: null,
     $header-title-padding: null,
     $header-title-padding-big: null,
-    $header-title-opacity: null,
     $header-shadow: null,
     $header-z-index: null,
     $header-min-height: null,

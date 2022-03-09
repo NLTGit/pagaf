@@ -1271,7 +1271,7 @@ Ext.define('Ext.data.schema.Schema', {
             });
 
             if (!timer) {
-                me.timer = timer = Ext.defer(me.processKeyChecks, me.getKeyCheckDelay(), me);
+                me.timer = timer = Ext.Function.defer(me.processKeyChecks, me.getKeyCheckDelay(), me);
             }
         },
 

@@ -171,8 +171,6 @@ Ext.define('Ext.navigation.View', {
         var me     = this,
             navBar = me.getNavigationBar();
 
-        me.callParent();
-
         //add a listener onto the back button in the navigationbar
         if (navBar) {
             navBar.on({

@@ -49,16 +49,22 @@ Ext.define('Ext.grid.CellEditor', {
      * @param {Ext.grid.Location} location Where to start editing
      * @param {*} [value] The value to place in the editor.
      * @param {Boolean} [doFocus] `true` to focus the editor.
-     * @return {Ext.grid.Location} The location where actionable mode was successfully started.
      */
     startEdit: function(location, value, doFocus) {
         var me = this,
-            cell, el, row, grid, result;
+            cell, el, row, grid;
 
         if (location) {
             cell = location.cell;
             el = cell.el;
             value = value != null ? value : location.record.get(cell.dataIndex);
+
+            me.$activeLocation = location;
+            me.$activeRow = row = location.row;
+            me.$activeGrid = grid = row.getGrid();
+            me.editingPlugin.editing = true;
+            me.editingPlugin.location = location;
+            me.editingPlugin.activeEditor = me;
 
             // VERY important for focus management.
             // We must have an upward ownership link so that onFocusLeave
@@ -66,37 +72,20 @@ Ext.define('Ext.grid.CellEditor', {
             // This link must never be severed - it just is updated on each edit.
             me.ownerCmp = cell;
 
+            grid.stickItem(row, { autoPin: me.getAutoPin() });
+
             // CellEditors are positioned and fitted within the cell using their CSS rules.
             me.render(el);
 
             me.callParent([el, value, doFocus]);
-
-            // Superclass events may veto edit start.
-            // If we are editing, set up our context.
-            if (me.editing) {
-                me.$activeRow = row = location.row;
-                me.$activeGrid = grid = row.getGrid();
-                me.editingPlugin.editing = true;
-                me.editingPlugin.location = me.$activeLocation = result = new Ext.grid.Location(grid, me.getField().getFocusEl());
-                me.editingPlugin.activeEditor = me;
-                grid.stickItem(row, { autoPin: me.getAutoPin() });
-            }
         }
-
-        return result;
     },
 
     onFocusLeave: function(e) {
         // FocusLeave result of destruction. Must not do anything.
         if (!this.editingPlugin.getGrid().destroying) {
-            if (this.isCancelling) {
-                this.cancelEdit();
-            } else {
-                this.completeEdit(false);
-            }
+            this.completeEdit(false);
         }
-
-        this.isCancelling = false;
     },
 
     onFocusEnter: function(e) {
@@ -116,13 +105,18 @@ Ext.define('Ext.grid.CellEditor', {
     },
 
     onSpecialKey: function(field, event) {
-        var me = this;
+        var me = this,
+            location = me.$activeLocation,
+            record, dataIndex;
 
-        // Allow the NavigationModel handles the actual navigation.
-        // When the CellEditing#activateCell finds this still active
-        // it will complete the edit if the cancelling flag is not set
-        if (event.getKey() === event.ESC) {
-            me.isCancelling = true;
+        // TAB off updates the record
+        // The NavigationModel handles the actual navigation.
+        if (event.getKey() === event.TAB) {
+            record = location.record;
+            dataIndex = location.cell.dataIndex;
+            if (record) {
+                record.set(dataIndex, me.getValue());
+            }
         } else {
             me.callParent([field, event]);
         }
@@ -137,25 +131,19 @@ Ext.define('Ext.grid.CellEditor', {
         me.callParent([remainVisible, cancelling]);
 
         if (location) {
-            grid = location.row.getGrid();
-
-            // If we are not coming from a cancelEdit, and the field's changed
-            // then update the record.
-            if (!cancelling && value !== me.startValue) {
+            if (value !== me.startValue) {
                 record = location.record;
                 dataIndex = location.cell.dataIndex;
 
                 if (record) {
                     record.set(dataIndex, value);
-
-                    // The row may change due to auto sorting, so bring it into view ans refresh the location
-                    grid.ensureVisible(location.record);
-                    location.refresh();
                 }
             }
 
             if (!remainVisible) {
                 row = location.row;
+                grid = row.getGrid();
+
                 grid.stickItem(row, null);
 
                 me.$stickyVisibility = me.$activeLocation = me.$activeRow = me.$activeGrid = null;

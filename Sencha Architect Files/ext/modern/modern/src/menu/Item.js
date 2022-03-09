@@ -163,8 +163,6 @@ Ext.define('Ext.menu.Item', {
     hasArrowCls: Ext.baseCSSPrefix + 'has-arrow',
     hasHrefCls: Ext.baseCSSPrefix + 'has-href',
 
-    isMenuOwner: true,
-
     template: [{
         reference: 'bodyElement',
         tag: 'a',
@@ -326,21 +324,25 @@ Ext.define('Ext.menu.Item', {
         this.textElement.dom.firstChild.data = text;
     },
 
-    applyMenu: function (menu) {
+    applyMenu: function (menu, oldMenu) {
         var me = this,
             ariaDom = me.ariaEl.dom;
 
-        if (menu) {
-            if (menu.isMenu) {
-                menu.setConstrainAlign(Ext.getBody());
-                menu.ownerCmp = me;
+        if (oldMenu) {
+            if (me.destroyMenu) {
+                Ext.destroy(oldMenu);
             } else {
-                menu = Ext.menu.Menu.create(menu, {
-                    ownerCmp: me,
-                    $initParent: me,
-                    constrainAlign: Ext.getBody()
-                });
+                oldMenu.parentMenu = null;
             }
+        }
+        if (menu) {
+            menu = Ext.menu.Menu.create(menu, {
+                ownerCmp: me,
+                $initParent: me,
+                focusOnToFront: false,
+                constrainAlign: document.body,
+                nameHolder: false
+            });
 
             ariaDom.setAttribute('aria-haspopup', true);
             ariaDom.setAttribute('aria-owns', menu.id);
@@ -354,14 +356,7 @@ Ext.define('Ext.menu.Item', {
         return menu;
     },
 
-    updateMenu: function(menu, oldMenu) {
-        if (oldMenu) {
-            if (this.destroyMenu) {
-                Ext.destroy(oldMenu);
-            } else {
-                oldMenu.parentMenu = null;
-            }
-        }
+    updateMenu: function(menu) {
         // A property which will only exist when the Menu has been instantiated.
         this.menu = menu;
     },
@@ -372,7 +367,7 @@ Ext.define('Ext.menu.Item', {
     },
 
     updateTarget: function (target) {
-        this.bodyElement.dom.target = target;
+        this.el.dom.target = target;
     },
 
     updateIcon: function (icon) {
@@ -507,21 +502,17 @@ Ext.define('Ext.menu.Item', {
             }
         },
 
-        hasIcon: function() {
-            return !!(this.getIconCls() || this.getIcon());
-        },
-
         syncHasIconCls: function() {
             var me = this,
                 rightCls = me.hasRightIconCls,
                 leftCls = me.hasLeftIconCls,
                 iconAlign = me.getIconAlign();
 
-            if (me.hasIcon()) {
+            if ((me.getIconCls() || me.getIcon())) {
                 if (iconAlign === 'left') {
-                    me.replaceCls(rightCls, leftCls);
+                    me.replaceCls(rightCls, leftCls)
                 } else if (iconAlign === 'right') {
-                    me.replaceCls(leftCls, rightCls);
+                    me.replaceCls(leftCls, rightCls)
                 }
             } else {
                 me.removeCls([leftCls, rightCls]);

@@ -19,13 +19,11 @@ Ext.define('Ext.chart.axis.layout.Continuous', {
     },
 
     /**
-     * @method snapEnds
      * @inheritdoc
      */
     snapEnds: function (context, min, max, estStepSize) {
         var segmenter = context.segmenter,
             axis = this.getAxis(),
-            noAnimation = !axis.spriteAnimationCount,
             majorTickSteps = axis.getMajorTickSteps(),
             // if specific number of steps requested and the segmenter supports such segmentation
             bucket = majorTickSteps && segmenter.exactStep ?
@@ -51,11 +49,7 @@ Ext.define('Ext.chart.axis.layout.Continuous', {
         // [0, 10, 20, 30, 40, 50], because the data points are already perfectly
         // spaced, so the ticks can be exactly at the data points without runing the
         // aesthetics.
-        //
-        // The 'noAnimation' check is required to prevent EXTJS-25413 from happening.
-        // The segmentation described above is ideal for a static chart, but produces
-        // unwanted effects during animation.
-        if (majorTickSteps || (noAnimation && +segmenter.add(min, diffSteps, unit) === max)) {
+        if (majorTickSteps || +segmenter.add(min, diffSteps, unit) === max) {
             from = min;
         } else {
             from = segmenter.align(min, step, unit);

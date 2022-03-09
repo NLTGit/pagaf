@@ -41,14 +41,6 @@ Ext.define('Ext.grid.cell.Text', {
         zeroValue: null
     },
 
-    getTemplate: function() {
-        var template = this.callParent();
-
-        template[0]["data-qoverflow"] = true;
-
-        return template;
-    },
-
     formatValue: function (v) {
         var me = this,
             context = me.refreshContext,
@@ -125,24 +117,17 @@ Ext.define('Ext.grid.cell.Text', {
 
     updateValue: function () {
             var me = this,
-                was = me.refreshContext,
-                row = me.row;
-
-        // We may be called by binding after the store has already been nullified.
-        // This can happen when binding to an association store if the parent record
-        // is dropped.  If that is the case the row will have been removed from the grid
-        // and cached for later use, so we can skip updating the dom.
-        if (row && row.parent) {
-            // We can be called by refresh() or directly such as when binding.
-            // Make sure we have a context spun up...
-            if (!was) {
-                me.refreshContext = me.beginRefresh();
-            }
-
-            me.writeValue();
-
-            me.refreshContext = was;
+                was = me.refreshContext;
+    
+        // We can be called by refresh() or directly such as when binding.
+        // Make sure we have a context spun up...
+        if (!was) {
+            me.refreshContext = me.beginRefresh();
         }
+
+        me.writeValue();
+
+        me.refreshContext = was;
     },
 
     updateZeroValue: function () {

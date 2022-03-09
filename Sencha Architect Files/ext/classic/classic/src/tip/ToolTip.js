@@ -247,7 +247,13 @@ Ext.define('Ext.tip.ToolTip', {
      *   halfway down the right edge of the target item. This allows more flexibility
      *   and also describes which two edges are considered adjacent when positioning a tip pointer. 
      *
-     * Following are all of the supported predefined anchor positions:
+     * By default, tooltips are constrained to the viewport, but if {@link #constrain}
+     * is configured as `false`, the position parameter also supports the "?"
+     * character. If "?" is passed at the end of the position string, the element will
+     * attempt to align as specified, but the position will be adjusted to constrain to
+     * the viewport if necessary. Note that the element being aligned might be swapped to
+     * align to a different position than that specified in order to enforce the viewport
+     * constraints. Following are all of the supported anchor positions:
      *
      *      Value  Description
      *      -----  -----------------------------
@@ -260,12 +266,6 @@ Ext.define('Ext.tip.ToolTip', {
      *      bl     The bottom left corner
      *      b      The center of the bottom edge
      *      br     The bottom right corner
-     *
-     * You can put a '?' at the end of the alignment string to constrain the positioned element to the
-     * {@link Ext.Viewport Viewport}. The element will attempt to align as specified, but the position
-     * will be adjusted to constrain to the viewport if necessary. Note that the element being aligned
-     * might be swapped to align to a different position than that specified in order to enforce the viewport
-     * constraints.
      *
      * Example Usage:
      *
@@ -280,7 +280,7 @@ Ext.define('Ext.tip.ToolTip', {
      *
      *     // align the 25% point on the bottom edge of this tooltip
      *     // with the 75% point on the top edge of its target.
-     *     defaultAlign: 'b25-t75'
+     *     defaultAlign: 'b25-c75'
      */
     defaultAlign: 'bl-tl',
 
@@ -691,7 +691,7 @@ Ext.define('Ext.tip.ToolTip', {
             timer = me[propName];
 
         if (timer) {
-            Ext.undefer(timer);
+            clearTimeout(timer);
             me[propName] = null;
 
             // We were going to show against the target, but now not.

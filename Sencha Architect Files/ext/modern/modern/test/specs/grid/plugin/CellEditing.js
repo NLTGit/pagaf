@@ -41,11 +41,7 @@ function() {
 
         function startEditing(row, column, skipWait) {
             var cell = findCell(row, column),
-                navigateSpy = spyOnEvent(grid, 'navigate'),
-                triggerEvent = plugin.getTriggerEvent(),
-                double = Ext.String.startsWith(triggerEvent, 'dbl') || Ext.String.startsWith(triggerEvent, 'double'),
-                focusSpy = jasmine.createSpy(),
-                editor;
+                navigateSpy = spyOnEvent(grid, 'navigate');
 
             runs(function() {
                 // Must focus the cell with first. Jasmine does this on mousedown.
@@ -66,31 +62,22 @@ function() {
             waitsForSpy(navigateSpy, 'navigation to occur');
 
             runs(function() {
-                column = navigationModel.location.column;
-
-                if (!skipWait) {
-                    editor = column.getEditor();
-                    if (editor) {
-                        editor.on('focus', focusSpy);
-                    }
-                }
-
                 if (jasmine.supportsTouch) {
                     Ext.testHelper.tap(cell);
-                    if (double) {
-                        Ext.testHelper.tap(cell);
-                    }
+                    Ext.testHelper.tap(cell);
                 } else {
-                    if (double) {
-                        jasmine.fireMouseEvent(cell, 'dblclick');
-                    } else {
-                        jasmine.fireMouseEvent(cell, 'click');
-                    }
+                    jasmine.fireMouseEvent(cell, 'dblclick');
                 }
             });
-
+            
             if (!skipWait) {
-                waitsForSpy(focusSpy, 'editing to start', 500);
+                waitsFor(function() {
+                    return !!plugin.activeEditor;
+                }, 'editing to start', 2000);
+
+                runs(function() {
+                    jasmine.waitForFocus(plugin.getActiveEditor().getField());
+                });
             }
         }
 
@@ -119,7 +106,7 @@ function() {
             return store.getAt(index);
         }
         
-        function makeGrid(columns, pluginCfg, gridCfg, dataSize) {
+        function makeGrid(columns, pluginCfg, gridCfg) {
             var data = [],
                 defaultCols = [],
                 i;
@@ -138,7 +125,7 @@ function() {
                 }
             }
                 
-            for (i = 1; i <= (dataSize || 10); ++i) {
+            for (i = 1; i <= 10; ++i) {
                 data.push({
                     field1: i + '.' + 1,
                     field2: i + '.' + 2,
@@ -310,14 +297,7 @@ function() {
                 }]);
                 store.first().set('field1', undefined);
                 triggerCellMouseEvent('dblclick', 0, 0);
-
-                waitsFor(function() {
-                    return !!plugin.getActiveEditor();
-                });
-
-                runs(function() {
-                    expect(plugin.getActiveEditor().getField().getValue()).toBe('');
-                });
+                expect(plugin.getActiveEditor().getField().getValue()).toBe('');
             });
         });
 
@@ -398,21 +378,15 @@ function() {
                     col0Editor;
 
                 triggerCellMouseEvent('dblclick', 0, 0);
+                col0Editor = plugin.getActiveEditor();
+                expect(col0Editor.isVisible()).toBe(true);
 
-                waitsFor(function() {
-                    return !!(col0Editor = plugin.getActiveEditor());
-                });
+                grid.getHeaderContainer().remove(col0, false);
 
-                runs(function() {
-                    expect(col0Editor.isVisible()).toBe(true);
+                // That editor must no longer be in the document.
+                expect(Ext.getBody().contains(col0Editor.el)).toBe(false);
 
-                    grid.getHeaderContainer().remove(col0, false);
-
-                    // That editor must no longer be in the document.
-                    expect(Ext.getBody().contains(col0Editor.el)).toBe(false);
-
-                    Ext.destroy(col0);
-                });
+                Ext.destroy(col0);
             });
 
             it("should cancel editing on destruction of a column", function() {
@@ -463,16 +437,12 @@ function() {
                 triggerCellMouseEvent('dblclick', 0, 0);
 
                 // Editing must have started.
-                waitsFor(function() {
-                    return plugin.editing === true &&
-                        plugin.getActiveEditor().isVisible() === true &&
-                        plugin.getActiveEditor().getField().getValue() === '1.1';
-                });
+                expect(plugin.editing).toBe(true); 
+                expect(plugin.getActiveEditor().isVisible()).toBe(true);    
+                expect(plugin.getActiveEditor().getField().getValue()).toBe('1.1');    
 
-                runs(function() {
-                    // No refresh the grid
-                    grid.refresh();
-                });
+                // No refresh the grid
+                grid.refresh();
 
                 // Wait for *sometimes* asynchronous blur/focus events to get done
                 waits(100);
@@ -483,54 +453,6 @@ function() {
                     expect(plugin.getActiveEditor().isVisible()).toBe(true);    
                     expect(plugin.getActiveEditor().getField().getValue()).toBe('1.1');    
                 });
-            });
-
-            it("should not cancel the SPACE key", function() {
-                triggerCellMouseEvent('dblclick', 0, 1);
-                expect(plugin.getActiveEditor().getField().getValue()).toBe('1.2');
-
-                var e = document.createEvent("Events");
-                e.initEvent('keydown', true, true);
-                Ext.apply(e, {
-                    keyCode: 32
-                });
-
-                plugin.getActiveEditor().getField().inputElement.dom.dispatchEvent(e);
-                expect(e.defaultPrevented).toBe(false);
-            });
-            
-            it("should not cancel Home key", function() {
-                var event;
-                
-                grid.el.on('keydown', function(e) {
-                    event = e;
-                });
-                
-                triggerCellMouseEvent('dblclick', 0, 1);
-                
-                var field = plugin.getActiveEditor().getField();
-                expect(field.getValue()).toBe('1.2');
-                
-                jasmine.syncPressKey(field.inputElement, 'home');
-                
-                expect(event.browserEvent.defaultPrevented).toBe(false);
-            });
-            
-            it("should not cancel End key", function() {
-                var event;
-                
-                grid.el.on('keydown', function(e) {
-                    event = e;
-                });
-                
-                triggerCellMouseEvent('dblclick', 0, 1);
-                
-                var field = plugin.getActiveEditor().getField();
-                expect(field.getValue()).toBe('1.2');
-                
-                jasmine.syncPressKey(field.inputElement, 'end');
-                
-                expect(event.browserEvent.defaultPrevented).toBe(false);
             });
         });
 
@@ -1679,40 +1601,17 @@ function() {
                            plugin.location.record === getRec(1);
                });
             });
-
+            
             it("should complete the edit on enter", function() {
                 startEditing(1, 1);
-
+                
                 runs(function() {
                     plugin.getActiveEditor().getField().setValue('foo');
                     plugin.getActiveEditor().specialKeyDelay = 0;
-
+                    
                     triggerEditorKey(ENTER);
-
+                    
                     expect(getRec(1).get('field2')).toBe('foo');
-                });
-            });
-
-            it("should complete the edit on focus leave of the editor", function() {
-                var toolbar = grid.add({
-                        docked:'top', 
-                        xtype: 'toolbar', 
-                        items: {
-                            itemId: 'focusButton', 
-                            text: 'Foo'
-                        }
-                    }),
-                    button = toolbar.down('#focusButton');
-
-                startEditing(1, 1);
-
-                runs(function() {
-                    plugin.getActiveEditor().getField().setValue('foo');
-                    button.focus();
-                });
-
-                waitsFor(function() {
-                    return getRec(1).get('field2') === 'foo';
                 });
             });
 
@@ -2351,8 +2250,6 @@ function() {
 
         describe("with combos", function() {
             it("should retain the value when tabbing and not modifying the value after reusing the editor", function() {
-                var field;
-
                 makeGrid([{
                     dataIndex: 'field1',
                     editor: {
@@ -2360,30 +2257,19 @@ function() {
                         options: ['Foo', 'Bar', 'Baz']
                     }
                 }]);
-                startEditing(0, 0);
-
+                plugin.startEdit(0, 0);
+                var field = plugin.getActiveEditor().getField();
+                jasmine.waitForFocus(field, 'combobox to focus for the first time');
                 runs(function() {
-                    field = plugin.getActiveEditor().getField();
-
                     // Trigger combo to expand, then down to last value
                     jasmine.fireKeyEvent(field.inputElement, 'keydown', DOWN);
                     jasmine.fireKeyEvent(field.inputElement, 'keydown', DOWN);
                     jasmine.fireKeyEvent(field.inputElement, 'keydown', DOWN);
-                    jasmine.fireKeyEvent(field.inputElement, 'keydown', TAB);
+                    fireTabAndWait(field.inputElement, field, 'combobox to focus for the second time');
                 });
 
-                // Wait store has been updated by the TAB gesture and the new edit has started.
-                waitsFor(function() {
-                    var activeEditor = plugin.getActiveEditor();
-
-                    return activeEditor &&
-                        store.getAt(0).get('field1') === 'Baz' &&
-                        activeEditor.getField().getValue() === '2.1' &&
-                        activeEditor.containsFocus;
-
-                }, "next cell's editor to be focused");
-
                 runs(function() {
+                    expect(store.getAt(0).get('field1')).toBe('Baz');
                     jasmine.fireKeyEvent(field.inputElement, 'keydown', TAB);
                     expect(store.getAt(1).get('field1')).toBe('2.1');
                 });
@@ -2391,24 +2277,7 @@ function() {
         });
 
         describe('autosort', function() {
-            var oldOnError = window.onerror;
-
-            afterEach(function() {
-                window.onerror = oldOnError;
-            });
-
             it('should TAB to the correct cell on modification of the sorted field', function() {
-                var onErrorSpy = jasmine.createSpy();
-
-                window.onerror = onErrorSpy.andCallFake(function() {
-                    if (oldOnError) {
-                        oldOnError();
-                    }
-                });
-
-                // Make a 100 row grid.
-                // We must test editing resumption when the row's new position
-                // after we have edited is outside the currently rendered block.
                 makeGrid([{
                     dataIndex: 'field1',
                     editor: 'textfield'
@@ -2418,7 +2287,7 @@ function() {
                 }, {
                     dataIndex: 'field3',
                     editor: 'textfield'
-                }], undefined, null, 100);
+                }]);
                 store.sort('field1');
                 plugin.startEdit(0, 0);
                 var field = plugin.getActiveEditor().getField();
@@ -2435,102 +2304,12 @@ function() {
                     jasmine.fireKeyEvent(field.inputElement, 'keydown', Ext.event.Event.TAB);
                 });
 
-                // The change to "zzzzzz" should have moved the record to row 99, and then
+                // The change to "zzzzzz" should have moved to row 9, and then
                 // TAB moves to column 1.
+                // TODO: The ensureVisible does not work for this yet.
                 waitsFor(function() {
-                    return isEditing(99, 1);
-                }, 'editing to resume at 99, 1 after TAB');
-
-                // Must not have thrown an error
-                expect(onErrorSpy).not.toHaveBeenCalled();
-            });
-        });
-
-        describe('selectOnEdit', function() {
-            it('should select the edited cell', function() {
-                makeGrid(null, {
-                    selectOnEdit: true
-                }, {
-                    selectable: {
-                        cells: true,
-                        rows: false
-                    }
-                });
-                var selModel = grid.getSelectable();
-
-                plugin.startEdit(2, 2);
-                plugin.getActiveEditor().completeEdit();
-
-                // The cell is selected for easy onward navigation
-                expect(selModel.isCellSelected(2, 2)).toBe(true);
-            });
-        });
-
-        describe('triggerEvent', function () {
-            var columns = [
-                {
-                    name: 'F1',
-                    dataIndex: 'field1',
-                    editor: {
-                        xtype: 'textfield',
-                        id: 'field1',
-                        name: 'field1'
-                    }
-                },
-                {
-                    name: 'F2',
-                    dataIndex: 'field2',
-                    editor: {
-                        xtype: 'selectfield',
-                        id: 'field2',
-                        name: 'field2',
-                        picker: 'floated', //so we don't have to create Ext.Viewport for this one test
-                        options: [
-                            { text: '1.2' },
-                            { text: '2.2' },
-                            { text: '3.2' },
-                            { text: '4.2' },
-                            { text: '5.2' },
-                            { text: '6.2' },
-                            { text: '7.2' },
-                            { text: '8.2' },
-                            { text: '9.2' },
-                            { text: '10.2' }
-                        ]
-                    }
-                }
-            ];
-
-            describe('tap', function () {
-                it('should start editing on single tap', function () {
-                    makeGrid(columns, {
-                        triggerEvent: 'tap'
-                    });
-
-                    startEditing(0, 0);
-                });
-
-                it('should show picker on expander click', function () {
-                    makeGrid(columns, {
-                        triggerEvent: 'tap'
-                    });
-
-                    startEditing(0, 1);
-
-                    runs(function () {
-                        var target = plugin.getActiveEditor().getField().getTriggers().expand.el;
-
-                        jasmine.fireMouseEvent(target, 'click');
-                    });
-
-                    waitsFor(function () {
-                        return plugin.getActiveEditor().getField().expanded;
-                    });
-
-                    runs(function () {
-                        expect(plugin.getActiveEditor().getField().expanded).toBe(true);
-                    });
-                });
+                    return isEditing(9, 1);
+                }, 'editing to resume at 9,1 after TAB');
             });
         });
     });

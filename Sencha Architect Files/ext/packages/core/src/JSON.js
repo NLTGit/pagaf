@@ -203,7 +203,7 @@ var me = this,
      *         return Ext.Date.format(d, '"Y-m-d"');
      *     };
      *
-     * @param {Date} o The Date to encode
+     * @param {Date} d The Date to encode
      * @return {String} The string literal to use in a JSON string.
      */
     me.encodeDate = function(o) {

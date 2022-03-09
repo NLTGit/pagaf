@@ -11,15 +11,13 @@ Ext.define('Ext.util.LruCache', {
 
     config: {
         /** 
-         * @cfg {Number} maxSize
-         * The maximum size the cache is allowed to grow to before further additions
-         * cause removal of the least recently used entry.
-         */
+        * @cfg {Number} maxSize The maximum size the cache is allowed to grow to before further additions cause
+        * removal of the least recently used entry.
+        */
        maxSize: null
    },
 
     /**
-     * @method add
      * @inheritdoc
      */
     add: function(key, newValue) {
@@ -93,7 +91,6 @@ Ext.define('Ext.util.LruCache', {
     },
 
     /**
-     * @method get
      * @inheritdoc
      */
     get: function(key) {
@@ -117,11 +114,9 @@ Ext.define('Ext.util.LruCache', {
     },
 
     /**
-     * @method clear
      * @inheritdoc
-     * @param initial (private)
      */
-    clear: function(initial) {
+    clear: function(/* private */ initial) {
         this.first = this.last = null;
         return this.callParent([initial]);
     },

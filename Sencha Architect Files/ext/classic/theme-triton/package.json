@@ -1,6 +1,6 @@
 {
     "name": "@extjs/ext-react-classic-theme-triton",
-    "version": "6.5.3.57",
+    "version": "6.5.0.775",
     "sencha": {
         "name": "theme-triton",
         "namespace": "Ext",
@@ -15,7 +15,7 @@
         "creator": "Sencha",
         "summary": "Ext JS Triton Theme",
         "detailedDescription": "The Triton theme provides a flat simple look and feel, and uses font icons in place of background images.",
-        "version": "6.5.3.57",
+        "version": "6.5.0",
         "compatVersion": "6.0.0",
         "format": "1",
         "output": "${workspace.subpkg.prefix}/${package.name}",

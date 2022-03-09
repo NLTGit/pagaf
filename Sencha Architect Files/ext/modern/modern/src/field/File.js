@@ -79,26 +79,15 @@ Ext.define('Ext.field.File', {
         me.fireEvent('change', this, value, startValue);
     },
 
-    applyName: function (name) {
-        var multiple;
-
-        if (name) {
-            if (multiple && name.substr(-2, 2) !== "[]") {
-                name += "[]";
-            } else if ((!multiple) && name.substr(-2, 2) === "[]") {
-                name = name.substr(0, name.length - 2)
-            }
+    applyName: function (value) {
+        var multiple = this.getFileButton().getMultiple();
+        if (multiple && value.substr(-2, 2) !== "[]") {
+            value += "[]";
+        } else if ((!multiple) && value.substr(-2, 2) === "[]") {
+            value = value.substr(0, value.length - 2)
         }
-        return name;
-    },
 
-    updateName: function (name) {
-        var fileTrigger = this.getTriggers().file,
-            inputElement = fileTrigger && fileTrigger.getComponent().buttonElement.dom;
-
-        if (name && inputElement) {
-            inputElement.name = name;
-        }
+        return value;
     },
 
     updateMultiple: function () {
@@ -124,22 +113,6 @@ Ext.define('Ext.field.File', {
     },
 
     /**
-     * Resets the fileField values & input values
-     * Along with fileButton dom files.
-     */
-    reset: function() {
-        var me = this, 
-            original = me.originalValue;
-
-        if (original == null) {
-            me.setInputValue('');
-            me._value = '';
-        }
-        
-        me.getFileButton().buttonElement.dom.value = '';
-    },
-
-    /**
      * Returns the field files.
      * @return {FileList} List of the files selected.
      */
@@ -149,19 +122,6 @@ Ext.define('Ext.field.File', {
 
     privates: {
         onFileButtonChange: function(fileButton, value) {
-            var buttonElement = fileButton.buttonElement.dom,
-                files = buttonElement.files,
-                len, i, file;
-
-            if (files) {
-                value = [];
-                for (i = 0, len = files.length; i < len; i++) {
-                    file = files[i];
-                    value.push(file.name);
-                }
-                value = value.join(', ');
-            }
-
             this.setValue(value);
         }
     }

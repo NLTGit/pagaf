@@ -138,7 +138,6 @@ Ext.define('Ext.drag.Item', {
         },
 
         /**
-         * @method
          * Gets any listeners to attach for the current element.
          * @return {Object} The listeners for thie element.
          *

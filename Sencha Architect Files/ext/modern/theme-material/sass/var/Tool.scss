@@ -6,31 +6,6 @@ $tool-itemheader-ui: dynamic((
     color: material-color('grey', '600')
 ));
 
-$tool-boxscroller-ui: dynamic((
-    size: 24px,
-    size-big: 24px,
-    width: 32px,
-    height: 32px,
-    width-big: 44px,
-    height-big: 44px,
-));
-
-$tool-boxscroller-toolbar-ui: dynamic((
-    color: $reverse-background-color,
-    opacity: 1,
-    disabled-opacity: 0,
-    hovered-opacity: .6,
-    pressed-opacity: .7
-));
-
-$tool-boxscroller-tabbar-ui: dynamic((
-    color: $background-color,
-    opacity: 1,
-    disabled-opacity: 0,
-    hovered-opacity: .6,
-    pressed-opacity: .7
-));
-
 //--------------------------------
 // Tool icons
 
@@ -47,11 +22,6 @@ $tool-toggle-down-icon: dynamic('arrow_drop_down' $font-icon-font-family);
 $tool-gear-icon: dynamic('settings' $font-icon-font-family);
 $tool-prev-icon: dynamic('arrow_back' $font-icon-font-family);
 $tool-next-icon: dynamic('arrow_forward' $font-icon-font-family);
-
-$tool-scroll-up-icon: dynamic('keyboard_arrow_up' $font-icon-font-family);
-$tool-scroll-down-icon: dynamic('keyboard_arrow_down' $font-icon-font-family);
-$tool-scroll-left-icon: dynamic('keyboard_arrow_left' $font-icon-font-family);
-$tool-scroll-right-icon: dynamic('keyboard_arrow_right' $font-icon-font-family);
 
 $tool-pin-icon: dynamic($fa-var-thumb-tack 'FontAwesome');
 $tool-unpin-icon: dynamic($ext-var-unpin ExtJS);

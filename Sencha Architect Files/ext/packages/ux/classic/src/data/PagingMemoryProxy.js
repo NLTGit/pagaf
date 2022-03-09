@@ -78,7 +78,7 @@ Ext.define('Ext.ux.data.PagingMemoryProxy', {
         operation.setCompleted();
         operation.setSuccessful();
 
-        Ext.defer(function () {
+        Ext.Function.defer(function () {
             Ext.callback(callback, scope, [operation]);
         }, 10);
     }

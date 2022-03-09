@@ -1,6 +1,5 @@
 {
    "name": "pagaf",
-   "namespace": "pagaf",
    "version": "1.0.0.0",
    "framework": "ext",
    "toolkit": "classic",
@@ -9,12 +8,11 @@
       "font-awesome"
    ],
    "indexHtmlPath": "index.html",
-   "classpath": "${app.dir}/app,${app.dir}/js/",
+   "classpath": "${app.dir}/app,${app.dir}/./ExtCode/",
    "overrides": [
       "overrides"
    ],
    "fashion": {
-      "missingParameters": "error",
       "inliner": {
          "enable": false
       }
@@ -131,5 +129,5 @@
    "ignore": [
       "(^|/)CVS(/?$|/.*?$)"
    ],
-   "id": "f4fd7b8c-dc8b-41d8-bd40-26e9004b45a5"
+   "id": "39d269e5-f21c-466d-976b-c34f8732f5ea"
 }

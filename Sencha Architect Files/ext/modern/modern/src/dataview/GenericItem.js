@@ -41,10 +41,6 @@ Ext.define('Ext.dataview.GenericItem', {
     },
 
     privates: {
-        $dirty: false,
-
-        dirtyCls: Ext.baseCSSPrefix + 'dirty',
-
         augmentToolHandler: function (tool, args) {
             // args = [ dataitem, tool, ev ]   ==>   [ dataitem, info ]
             var me = this;
@@ -70,17 +66,6 @@ Ext.define('Ext.dataview.GenericItem', {
             }
         
             return html;
-        },
-
-        syncDirty: function(record) {
-            var me = this,
-                dirty = record.dirty;
-
-            if (dirty !== me.$dirty) {
-                me.toggleCls(me.dirtyCls, dirty);
-
-                me.$dirty = dirty;
-            }
         }
     }
 });

@@ -180,7 +180,7 @@ Ext.define('Ext.grid.plugin.RowOperations', {
     // operation
 
     applyOperation: function (config, button) {
-        return Ext.updateWidget(button, config, this, 'createOperation');
+        return Ext.Factory.widget.update(button, config, this, 'createOperation');
     },
 
     createOperation: function (config) {
@@ -221,7 +221,7 @@ Ext.define('Ext.grid.plugin.RowOperations', {
     // selectButton
 
     applySelectButton: function (config, button) {
-        return Ext.updateWidget(button, config, this, 'createSelectButton');
+        return Ext.Factory.widget.update(button, config, this, 'createSelectButton');
     },
 
     createSelectButton: function (config) {

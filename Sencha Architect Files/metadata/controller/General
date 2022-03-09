@@ -37,7 +37,8 @@
                     "//window.tPagafWindow = Ext.widget('pagafappwindow');",
                     "",
                     "//window.tPagafWindow.show();",
-                    "//window.tPagafWindow.center();"
+                    "//window.tPagafWindow.center();",
+                    ""
                 ]
             },
             "configAlternates": {

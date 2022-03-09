@@ -4085,16 +4085,13 @@ topSuite("Ext.Widget", ['Ext.app.ViewController', 'Ext.Container'], function() {
             });
 
             widget.addUi('def ghi jkl');
-            widget.addUi(['mno', 'pqr']);
 
-            expect(widget.getUi()).toBe('abc def ghi jkl mno pqr');
+            expect(widget.getUi()).toBe('abc def ghi jkl');
 
             expect(widget.element).toHaveCls('foo-abc');
             expect(widget.element).toHaveCls('foo-def');
             expect(widget.element).toHaveCls('foo-ghi');
             expect(widget.element).toHaveCls('foo-jkl');
-            expect(widget.element).toHaveCls('foo-mno');
-            expect(widget.element).toHaveCls('foo-pqr');
         });
 
         it("should remove UIs", function() {
@@ -4104,11 +4101,10 @@ topSuite("Ext.Widget", ['Ext.app.ViewController', 'Ext.Container'], function() {
             });
 
             widget = new Foo({
-                ui: 'abc def ghi jkl mno pqr'
+                ui: 'abc def ghi jkl'
             });
 
             widget.removeUi('def jkl');
-            widget.removeUi(['mno', 'pqr']);
 
             expect(widget.getUi()).toBe('abc ghi');
 
@@ -4116,37 +4112,6 @@ topSuite("Ext.Widget", ['Ext.app.ViewController', 'Ext.Container'], function() {
             expect(widget.element).not.toHaveCls('foo-def');
             expect(widget.element).toHaveCls('foo-ghi');
             expect(widget.element).not.toHaveCls('foo-jkl');
-            expect(widget.element).not.toHaveCls('foo-mno');
-            expect(widget.element).not.toHaveCls('foo-pqr');
-        });
-
-        it("should add UIs provided as an Array", function() {
-            var Foo = Ext.define(null, {
-                extend: 'Ext.Widget',
-                classCls: 'foo'
-            });
-
-            widget = new Foo({
-                ui: ['abc', 'def']
-            });
-
-            expect(widget.element).toHaveCls('foo-abc');
-            expect(widget.element).toHaveCls('foo-def');
-        });
-
-        it("should normalize the UIs to a String", function() {
-            var Foo = Ext.define(null, {
-                extend: 'Ext.Widget',
-                classCls: 'foo'
-            });
-
-            widget = new Foo({
-                ui: ['abc', 'def']
-            });
-            expect(widget.getUi()).toBe('abc def');
-
-            widget.setUi('ghi jkl');
-            expect(widget.getUi()).toBe('ghi jkl');
         });
     });
 
@@ -4522,188 +4487,6 @@ topSuite("Ext.Widget", ['Ext.app.ViewController', 'Ext.Container'], function() {
 
             widget.onKeyMapEvent(f2);
             expect(log).toEqual(['onEscape', 'esc2', 'F2']);
-        });
-    });
-
-    describe('Ext.updateWidget', function () {
-        var creator, instance;
-
-        beforeEach(function () {
-            defineWidget(true, {
-                xtype: 'test-base',
-
-                config: {
-                    foo: null
-                },
-
-                isTestBase: true
-            });
-
-            Ext.define('spec.TestWidget', {
-                extend: 'Ext.Widget',
-                xtype: 'test-config',
-
-                config: {
-                    defaults: null,
-                    foo: null
-                },
-
-                isTestConfig: true,
-
-                createInstance: function (config) {
-                    return Ext.apply({
-                        foo: 'bar'
-                    }, config);
-                }
-            });
-        });
-
-        afterEach(function () {
-            Ext.undefine('spec.TestWidget');
-
-            creator = instance = Ext.destroy(creator, instance);
-        });
-
-        describe('create tests', function () {
-            it('should create a new instance', function () {
-                widget = Ext.updateWidget(null, {
-                    xclass: 'spec.Widget'
-                });
-
-                expect(widget.isTestBase).toBe(true);
-            });
-
-            it('should create new instance passing a string as config', function () {
-                widget = Ext.updateWidget(null, 'test-base');
-
-                expect(widget.isTestBase).toBe(true);
-            });
-
-            it('should create new instance with xclass mismatch', function () {
-                widget = new spec.Widget();
-
-                instance = Ext.updateWidget(widget, {
-                    xclass: 'spec.TestWidget',
-                    foo: 'baz'
-                });
-
-                expect(instance).not.toBe(widget);
-                expect(instance.isTestConfig).toBe(true);
-                expect(instance.getFoo()).toBe('baz');
-            });
-
-            it('should create new instance with type mismatch', function () {
-                widget = new spec.Widget();
-
-                instance = Ext.updateWidget(widget, {
-                    xtype: 'test-config',
-                    foo: 'baz'
-                });
-
-                expect(instance).not.toBe(widget);
-                expect(instance.isTestConfig).toBe(true);
-                expect(instance.getFoo()).toBe('baz');
-            });
-
-            describe('creator', function () {
-                it('should use defaults from creator', function () {
-                    creator = new spec.TestWidget({
-                        defaults: {
-                            foo: 'bar'
-                        }
-                    });
-
-                    widget = Ext.updateWidget(null, {
-                        xtype: 'test-config'
-                    }, creator, null, 'defaults');
-
-                    expect(widget.isTestConfig).toBe(true);
-                    expect(widget.getFoo()).toBe('bar');
-                });
-
-                it('should use defaults from creator but favor own config', function () {
-                    creator = new spec.TestWidget({
-                        defaults: {
-                            foo: 'bar'
-                        }
-                    });
-
-                    widget = Ext.updateWidget(null, {
-                        xtype: 'test-config',
-                        foo: 'baz'
-                    }, creator, null, 'defaults');
-
-                    expect(widget.isTestConfig).toBe(true);
-                    expect(widget.getFoo()).toBe('baz');
-                });
-
-                it('should use a creator method', function () {
-                    creator = new spec.TestWidget();
-                    widget = Ext.updateWidget(null, {
-                        xtype: 'test-config'
-                    }, creator, 'createInstance');
-
-                    expect(widget.isTestConfig).toBe(true);
-                    expect(widget.getFoo()).toBe('bar');
-                });
-
-                it('should use a creator method but favor own config', function () {
-                    creator = new spec.TestWidget();
-                    widget = Ext.updateWidget(null, {
-                        xtype: 'test-config',
-                        foo: 'baz'
-                    }, creator, 'createInstance');
-
-                    expect(widget.isTestConfig).toBe(true);
-                    expect(widget.getFoo()).toBe('baz');
-                });
-            });
-        });
-
-        describe('update tests', function () {
-            it('should update existing instance', function () {
-                widget = new spec.Widget({
-                    foo: 'bar'
-                });
-
-                instance = Ext.updateWidget(widget, {
-                    xclass: 'spec.Widget',
-                    foo: 'baz'
-                });
-
-                expect(instance).toBe(widget);
-                expect(instance.getFoo()).toBe('baz');
-            });
-        });
-
-        describe('destroy tests', function () {
-            it('should destroy old instance', function () {
-                widget = new spec.Widget();
-
-                instance = Ext.updateWidget(widget);
-
-                expect(widget.destroyed).toBe(true);
-                expect(instance).toBeUndefined();
-            });
-
-            it('should not destroy instance passing as config also', function () {
-                widget = new spec.Widget();
-
-                instance = Ext.updateWidget(widget, widget);
-
-                expect(widget.destroyed).toBe(false);
-                expect(instance).toBe(instance);
-            });
-
-            it('should destroy old instance passing an instance as config', function () {
-                widget = new spec.Widget();
-                instance = new spec.Widget();
-
-                var test = Ext.updateWidget(widget, instance);
-
-                expect(widget.destroyed).toBe(true);
-                expect(test).toBe(instance);
-            });
         });
     });
 });

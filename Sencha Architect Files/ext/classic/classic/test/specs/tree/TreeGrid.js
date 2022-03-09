@@ -246,76 +246,7 @@ function() {
             expect(createRowSpy).not.toHaveBeenCalled();
         });
     });
-    
-    describe('locking and variableRowHeight', function () {
-        beforeEach(function () {
-            makeTreeGrid({
-                preciseHeight: true,
-                rootVisible: false,
-                lockedGridConfig: {
-                    syncRowHeight: true
-                },
-                width: 500,
-                height: 250,
-                columns: [{
-                    xtype: 'treecolumn',
-                    text: 'F1',
-                    dataIndex: 'f1',
-                    locked: true
-                }, {
-                    locked: true,
-                    variableRowHeight: true,
-                    dataIndex: 'f1',
-                    renderer: function(v) {
-                        return "<img height='24' width='24' src='resources/images/foo.gif' />" + v;
-                    }
-                },{
-                    text: 'F2',
-                    dataIndex: 'f2',
-                    variableRowHeight: true
-                }]
-            });
-            tree.expandAll();
-        });
-        
-        it('should synchronize row heights', function () {
-            function getRectHeight(el) {
-                var rect = el.getBoundingClientRect();
-                return rect.height || (rect.bottom - rect.top);
-            }
-            
-            var lockedTree = tree.lockedGrid,
-                normalGrid = tree.normalGrid,
-                lockedView = lockedTree.view,
-                normalView = normalGrid.view,
-                scrollable = lockedView.getScrollable().getLockingScroller(),
-                store = tree.getStore(),
-                record, regNode, lockedNode,
-                regNodeHeight, lockedNodeHeight;
-                
-            record = store.findRecord('f1', '3.3');
-            regNode = normalView.getNode(record);
-            lockedNode = lockedView.getNode(record);
 
-            scrollable.ensureVisible(regNode);
-
-            waits(50);
-            runs(function () {
-                regNodeHeight = getRectHeight(regNode);
-                lockedNodeHeight = getRectHeight(lockedNode);
-    
-                // This may be calculated differently between different rows that are
-                // actually the "same height" despite deviation of a few thousandths
-                // of a pixel, specifically in IE/Edge. Fix the value so it's within
-                // 1/10th of a pixel.
-                regNodeHeight = Ext.Number.toFixed(regNodeHeight, 1);
-                lockedNodeHeight = Ext.Number.toFixed(lockedNodeHeight, 1);
-                
-                expect(regNodeHeight).toBe(lockedNodeHeight);
-            });
-        });
-    });
-    
     describe('autoloading', function() {
         it('should not autoload the store if the root is visible', function() {
             var loadCount = 0;
@@ -640,7 +571,7 @@ function() {
             });
         });
     });
-
+    
     describe('reconfigure', function() {
         it('should allow reconfigure', function() {
             var cols = [{

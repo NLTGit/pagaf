@@ -28,9 +28,6 @@
  * Since the pseudo element is rendered inside the borders, the border-width needs to be
  * included in the $offset calculation
  *
- * @param {number/list} $border-radius
- * The border radius of the of pseudo element.
- *
  * @private
  */
 @mixin outline(
@@ -40,10 +37,9 @@
     $offset: null,
     $pseudo: after,
     $z-index: null,
-    $border-width: null,
-    $border-radius: null
+    $border-width: null
 ) {
-    @if ($border-radius == null and ($offset == null or $offset == 0 or $pseudo == false)) {
+    @if ($offset == null or $offset == 0 or $pseudo == false) {
         @if $width != null and $style != null and $color != null {
             outline: $width $style $color;
         } @else {
@@ -68,7 +64,6 @@
             left: -$width - $offset;
             pointer-events: none;
             @include border($width, $style, $color);
-            border-radius: $border-radius;
             z-index: $z-index;
             // use negative margins to account for parent border-width instead of including
             // border-width in the calculation for top/right/bottom/left.

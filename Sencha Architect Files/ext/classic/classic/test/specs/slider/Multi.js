@@ -97,15 +97,11 @@ topSuite("Ext.slider.Multi", function() {
 
             describe("if there is an array of values in configuration", function() {
                 describe("with values [0, 10, 20, 30]", function() {
-                    var values = [0, 10, 20, 30],
-                        spy = jasmine.createSpy();
+                    var values = [0, 10, 20, 30];
                     
                     beforeEach(function() {
                         createSlider({
-                            values: values,
-                            listeners: {
-                                change: spy
-                            }
+                            values: values
                         });
                     });
                     
@@ -113,14 +109,6 @@ topSuite("Ext.slider.Multi", function() {
                         it("should set the thumb " + property + " value to " + value, function() {
                             expect(slider.thumbs[property].value).toEqual(value);
                         });
-                    });
-
-                    it("should not fire the change event", function() {
-                        expect(spy).not.toHaveBeenCalled();
-                    });
-
-                    it("should not be marked as dirty", function() {
-                        expect(slider.isDirty()).toBe(false);
                     });
                 });
             });

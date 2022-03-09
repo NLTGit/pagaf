@@ -5,16 +5,16 @@ Ext.define('Ext.field.SingleSlider', {
     extend: 'Ext.field.Slider',
     xtype: 'singlesliderfield',
 
-    /**
-     * @cfg twoWayBindable
-     * @inheritdoc
-     */
     twoWayBindable: {
         value: 1
     },
 
+    publishes: {
+        value: 1
+    },
+
     /**
-     * @event change
+     * @event dragchange
      * Fires when the value changes.
      * @param {Ext.field.Slider} me
      * @param {Number} newValue The new value.
@@ -60,21 +60,13 @@ Ext.define('Ext.field.SingleSlider', {
     */
    
     /**
-     * @cfg value
-     * @inheritdoc Ext.slider.Slider#cfg-value
+     * @inheritdoc Ext.slider.Slider#value
+     * @cfg {Number} value
      * @accessor
      */
    
-    /**
-     * @property defaultBindProperty
-     * @inheritdoc
-     */
     defaultBindProperty: 'value',
 
-    /**
-     * @cfg publishes
-     * @inheritdoc
-     */
     publishes: {
         value: 1
     },

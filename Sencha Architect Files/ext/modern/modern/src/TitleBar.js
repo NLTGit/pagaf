@@ -82,10 +82,6 @@ Ext.define('Ext.TitleBar', {
         'Ext.Spacer'
     ],
 
-    /**
-     * @property defaultBindProperty
-     * @inheritdoc
-     */
     defaultBindProperty: 'title',
 
     /**
@@ -93,21 +89,13 @@ Ext.define('Ext.TitleBar', {
      */
     isToolbar: true,
 
-    /**
-     * @property classCls
-     * @inheritdoc
-     */
     classCls: Ext.baseCSSPrefix + 'titlebar',
 
-    /**
-     * @property inheritUi
-     * @inheritdoc
-     */
     inheritUi: true,
 
     config: {
         /**
-         * @cfg cls
+         * @cfg
          * @inheritdoc
          */
         cls: Ext.baseCSSPrefix + 'navigation-bar',
@@ -156,35 +144,25 @@ Ext.define('Ext.TitleBar', {
         },
 
         /**
-         * @cfg {Array/Object} items
-         * The child items to add to this TitleBar. The {@link #defaultType} of a
-         * TitleBar is {@link Ext.Button}, so you do not need to specify an `xtype` if
-         * you are adding buttons.
+         * @cfg {Array/Object} items The child items to add to this TitleBar. The {@link #defaultType} of
+         * a TitleBar is {@link Ext.Button}, so you do not need to specify an `xtype` if you are adding
+         * buttons.
          *
-         * You can also give items a `align` configuration which will align the item to
-         * the `left` or `right` of the TitleBar.
+         * You can also give items a `align` configuration which will align the item to the `left` or `right` of
+         * the TitleBar.
          * @accessor
          */
         items: [],
 
         /**
-         * @cfg {String} maxButtonWidth
-         * The maximum width of the button by percentage
+         * @cfg {String} maxButtonWidth The maximum width of the button by percentage
          * @accessor
          */
         maxButtonWidth: '40%'
     },
 
-    /**
-     * @cfg autoSize
-     * @inheritdoc
-     */
     autoSize: null,
 
-    /**
-     * @cfg border
-     * @inheritdoc
-     */
     border: false,
 
     beforeInitialize: function () {
@@ -194,8 +172,6 @@ Ext.define('Ext.TitleBar', {
     initialize: function () {
         var me = this;
 
-        me.callParent();
-
         delete me.applyItems;
 
         me.add(me.initialItems);
@@ -204,7 +180,8 @@ Ext.define('Ext.TitleBar', {
         me.on({
             scope: me,
             painted: 'refreshTitlePosition',
-            single: true
+            single: true,
+            scope: this
         });
     },
 

@@ -410,7 +410,7 @@ TestAction.multiply(
             action: action,
             method: method.name,
             data: data,
-            callback: scope && Ext.isFunction(callback) ? callback.bind(scope) : callback
+            callback: scope && Ext.isFunction(callback) ? Ext.Function.bind(callback, scope) : callback
         });
 
         if (me.fireEvent('beforecall', me, transaction, method) !== false) {

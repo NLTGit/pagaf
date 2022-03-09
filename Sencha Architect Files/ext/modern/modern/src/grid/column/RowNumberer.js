@@ -24,8 +24,6 @@ Ext.define('Ext.grid.column.RowNumberer', {
     menu: null,
 
     align: 'right',
-    hideable: false,
-    ignore: true,
     ignoreExport: true,
     sortable: false,
     text: '',
@@ -42,16 +40,12 @@ Ext.define('Ext.grid.column.RowNumberer', {
 
         grid = me.getGrid();
 
-        me.gridListeners = grid.on({
-            storechange: 'attachStoreListeners',
-            scope: me,
-            destroyable: true
-        });
+        grid.on('storechange', 'attachStoreListeners', me);
         me.attachStoreListeners(grid.getStore());
     },
 
     onRemoved: function(destroying) {
-        Ext.destroy(this.gridListeners, this.storeListeners);
+        Ext.destroy(this.gridListener, this.storeListeners);
         this.callParent([destroying]);
     },
 
@@ -62,7 +56,6 @@ Ext.define('Ext.grid.column.RowNumberer', {
             if (store) {
                 this.storeListeners = store.on({
                     datachanged: 'checkWidth',
-                    totalcountchange: 'checkWidth',
                     scope: this,
                     destroyable: true
                 });
@@ -93,10 +86,7 @@ Ext.define('Ext.grid.column.RowNumberer', {
                     cell.addUi(gridUi);
                 }
 
-                // Scratch cell must be in document to acquire style.
-                document.body.appendChild(cell.el.dom);
                 textWidth = Ext.util.TextMetrics.measure(cell.bodyElement, text).width;
-                document.body.removeChild(cell.el.dom);
 
                 me._charWidth = charWidth = textWidth / text.length;
             }
@@ -105,30 +95,13 @@ Ext.define('Ext.grid.column.RowNumberer', {
         },
 
         checkWidth: function() {
-            var me = this;
-
-            // If the app renders a grid on load, we must wait until fonts have loaded before
-            // we measure if we have the CSS Font Loading API
-            if (document.fonts) {
-                document.fonts.ready.then(function() {
-                    if (!me.destroyed) {
-                        me.doCheckWidth();
-                    }
-                });
-            } else {
-                me.doCheckWidth();
-            }
-        },
-
-        doCheckWidth: function() {
             var me = this,
                 store = me.getGrid().getStore(),
                 charLen = 1,
                 charWidth = me.getCharWidth();
 
-            if (store && store.getTotalCount()) {
-                // Ensure we measure the *formatted* length of the largest row number
-                charLen = me.getScratchCell().printValue(store.getTotalCount()).length;
+            if (store && store.isLoaded()) {
+                charLen = String(store.getCount()).length;
             }
 
             me.textElement.setStyle('min-width', Math.ceil(charLen * charWidth) + 'px');

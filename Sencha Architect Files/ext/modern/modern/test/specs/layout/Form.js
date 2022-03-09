@@ -91,7 +91,7 @@ describe('Ext.layout.Form', function() {
                 label: 'B'
             }, {
                 xtype: 'checkboxfield',
-                label: 'Really really really very very very super uber ultra mega bigly long label text',
+                label: 'C',
                 boxLabel: '<div style="display:inline-block;width:50px;background:yellow;">D</div>'
             }]
         });
@@ -270,67 +270,67 @@ describe('Ext.layout.Form', function() {
         });
 
         it('should not allow labelAlign: top', function() {
-            container = Ext.create({
-                xtype: 'container',
-                layout: 'form'
-            });
+            expect(function() {
+                container = Ext.create({
+                    xtype: 'container',
+                    layout: 'form'
+                });
 
-            field = Ext.create({
-                xtype: 'textfield',
-                labelAlign: 'top'
-            });
+                field = Ext.create({
+                    xtype: 'textfield',
+                    labelAlign: 'top'
+                });
 
-            container.add(field);
-
-            expect(field.getLabelAlign()).toBe('left');
+                container.add(field);
+            }).toThrow("labelAlign: 'top' is not allowed in a form layout");
         });
 
         it('should not allow labelAlign: right', function() {
-            container = Ext.create({
-                xtype: 'container',
-                layout: 'form'
-            });
+            expect(function () {
+                container = Ext.create({
+                    xtype: 'container',
+                    layout: 'form'
+                });
 
-            field = Ext.create({
-                xtype: 'textfield',
-                labelAlign: 'right'
-            });
+                field = Ext.create({
+                    xtype: 'textfield',
+                    labelAlign: 'right'
+                });
 
-            container.add(field);
-
-            expect(field.getLabelAlign()).toBe('left');
+                container.add(field);
+            }).toThrow("labelAlign: 'right' is not allowed in a form layout");
         });
 
         it('should not allow labelAlign: bottom', function() {
-            container = Ext.create({
-                xtype: 'container',
-                layout: 'form'
-            });
+            expect(function () {
+                container = Ext.create({
+                    xtype: 'container',
+                    layout: 'form'
+                });
 
-            field = Ext.create({
-                xtype: 'textfield',
-                labelAlign: 'bottom'
-            });
+                field = Ext.create({
+                    xtype: 'textfield',
+                    labelAlign: 'bottom'
+                });
 
-            container.add(field);
-
-            expect(field.getLabelAlign()).toBe('left');
+                container.add(field);
+            }).toThrow("labelAlign: 'bottom' is not allowed in a form layout");
         });
 
         it('should not allow errorTarget: under', function() {
-            container = Ext.create({
-                xtype: 'container',
-                layout: 'form'
-            });
+            expect(function () {
+                container = Ext.create({
+                    xtype: 'container',
+                    layout: 'form'
+                });
 
-            field = Ext.create({
-                xtype: 'textfield',
-                errorTarget: 'under'
-            });
+                field = Ext.create({
+                    xtype: 'textfield',
+                    errorTarget: 'under'
+                });
 
-            container.add(field);
-
-            expect(field.getErrorTarget()).toBe('side');
+                container.add(field);
+            }).toThrow("errorTarget: 'under' is not allowed in a form layout");
         });
     });
 

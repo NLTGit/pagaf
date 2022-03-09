@@ -97,10 +97,9 @@ Ext.define('Ext.picker.Date', {
     minText: 'This date is before the minimum date',
 
     /**
-     * @cfg {String} ariaMinText
-     * The text that will be announced by Assistive Technologies such as screen readers
-     * when user is navigating to the cell which date is less than
-     * {@link #cfg-minDate minDate}.
+     * @cfg {String} ariaMinText The text that will be announced by Assistive Technologies
+     * such as screen readers when user is navigating to the cell which date is less than
+     * {@link #minDate}.
      * @locale
      */
     ariaMinText: "This date is before the minimum date",
@@ -113,10 +112,9 @@ Ext.define('Ext.picker.Date', {
     maxText: 'This date is after the maximum date',
 
     /**
-     * @cfg {String} ariaMaxText
-     * The text that will be announced by Assistive Technologies such as screen readers
-     * when user is navigating to the cell which date is later than
-     * {@link #cfg-maxDate maxDate}.
+     * @cfg {String} ariaMaxText The text that will be announced by Assistive Technologies
+     * such as screen readers when user is navigating to the cell which date is later than
+     * {@link #maxDate}.
      * @locale
      */
     ariaMaxText: "This date is after the maximum date",
@@ -135,9 +133,8 @@ Ext.define('Ext.picker.Date', {
     disabledDaysText: 'Disabled',
 
     /**
-     * @cfg {String} ariaDisabledDaysText
-     * The text that Assistive Technologies such as screen readers will announce when the
-     * date falls on a disabled day of week.
+     * @cfg {String} ariaDisabledDaysText The text that Assistive Technologies such as screen readers
+     * will announce when the date falls on a disabled day of week.
      * @locale
      */
     ariaDisabledDaysText: "This day of week is disabled",
@@ -150,9 +147,8 @@ Ext.define('Ext.picker.Date', {
     disabledDatesText: 'Disabled',
 
     /**
-     * @cfg {String} ariaDisabledDatesText
-     * The text that Assistive Technologies such as screen readers will announce when the
-     * date falls on a disabled date.
+     * @cfg {String} ariaDisabledDatesText The text that Assistive Technologies such as screen readers
+     * will announce when the date falls on a disabled date.
      * @locale
      */
     ariaDisabledDatesText: "This date is disabled",
@@ -160,13 +156,13 @@ Ext.define('Ext.picker.Date', {
     /**
      * @cfg {String[]} monthNames
      * An array of textual month names which can be overriden for localization support (defaults to Ext.Date.monthNames)
-     * @deprecated 6.5.0 This config is deprecated. In future the month names will be retrieved from {@link Ext.Date}
+     * @deprecated This config is deprecated. In future the month names will be retrieved from {@link Ext.Date}
      */
 
     /**
      * @cfg {String[]} dayNames
      * An array of textual day names which can be overriden for localization support (defaults to Ext.Date.dayNames)
-     * @deprecated 6.5.0 This config is deprecated. In future the day names will be retrieved from {@link Ext.Date}
+     * @deprecated This config is deprecated. In future the day names will be retrieved from {@link Ext.Date}
      */
 
     /**
@@ -223,13 +219,6 @@ Ext.define('Ext.picker.Date', {
      * Maximum allowable date (JavaScript date object)
      */
 
-     /**
-     * @cfg {Date} [defaultValue=new Date()]
-     * @since 6.5.1
-     * A default date for this picker, only used when a value is not set. (JavaScript date object)
-     * Note: This value with be constrained to the minDate/maxDate if they are specified.
-     */
-
     /**
      * @cfg {Number[]} [disabledDays=null]
      * An array of days to disable, 0-based. For example, [0, 6] disables Sunday and Saturday.
@@ -265,8 +254,8 @@ Ext.define('Ext.picker.Date', {
     disableAnim: false,
 
     /**
-     * @cfg baseCls
-     * @inheritdoc
+     * @cfg {String} [baseCls='x-datepicker']
+     * The base CSS class to apply to this components element.
      */
     baseCls: Ext.baseCSSPrefix + 'datepicker',
 
@@ -301,39 +290,17 @@ Ext.define('Ext.picker.Date', {
     footerButtonUI: 'default',
 
     isDatePicker: true,
-    
-    /**
-     * @cfg alignOnScroll
-     * @inheritdoc
-     */
     alignOnScroll: false,
     
-    /**
-     * @property ariaRole
-     * @inheritdoc
-     */
     ariaRole: 'region',
-    
-    /**
-     * @property focusable
-     * @inheritdoc
-     */
     focusable: true,
 
-    /**
-     * @cfg childEls
-     * @inheritdoc
-     */
     childEls: [
         'innerEl', 'eventEl', 'prevEl', 'nextEl', 'middleBtnEl', 'footerEl'
     ],
     
-    /**
-     * @cfg border
-     * @inheritdoc
-     */
     border: true,
-
+    
     /**
      * @cfg renderTpl
      * @inheritdoc
@@ -420,7 +387,6 @@ Ext.define('Ext.picker.Date', {
         me.cellCls = me.baseCls + '-cell';
         me.nextCls = me.baseCls + '-prevday';
         me.todayCls = me.baseCls + '-today';
-        me.defaultValue = Ext.isDate(me.defaultValue) ? me.defaultValue : new Date();
         
         if (!me.format) {
             me.format = Ext.Date.defaultFormat;
@@ -438,7 +404,7 @@ Ext.define('Ext.picker.Date', {
 
         me.callParent();
 
-        me.value = me.value ? clearTime(me.value, true) : clearTime(me.defaultValue);
+        me.value = me.value ? clearTime(me.value, true) : clearTime(new Date());
 
         me.initDisabledDays();
     },
@@ -542,7 +508,6 @@ Ext.define('Ext.picker.Date', {
     },
 
     /**
-     * @method onRender
      * @inheritdoc
      * @private
      */
@@ -569,7 +534,6 @@ Ext.define('Ext.picker.Date', {
     },
 
     /**
-     * @method initEvents
      * @inheritdoc
      * @private
      */
@@ -633,13 +597,7 @@ Ext.define('Ext.picker.Date', {
         if (me.disabled) {
             me.syncDisabled(true, true);
         }
-
-        if (me.minDate && me.minDate > me.value) {
-            me.value = me.minDate;
-        } else if (me.maxDate && me.maxDate < me.value) {
-            me.value = me.maxDate;
-        }
-
+        
         me.update(me.value);
     },
 
@@ -725,7 +683,7 @@ Ext.define('Ext.picker.Date', {
 
     /**
      * Replaces any existing disabled dates with new values and refreshes the DatePicker.
-     * @param {String[]/RegExp} dd An array of date strings (see the {@link #disabledDates} config for
+     * @param {String[]/RegExp} disabledDates An array of date strings (see the {@link #disabledDates} config for
      * details on supported values), or a JavaScript regular expression used to disable a pattern of dates.
      * @return {Ext.picker.Date} this
      */
@@ -749,28 +707,28 @@ Ext.define('Ext.picker.Date', {
      * on supported values.
      * @return {Ext.picker.Date} this
      */
-    setDisabledDays: function (disabledDays) {
-        this.disabledDays = disabledDays;
+    setDisabledDays: function(dd) {
+        this.disabledDays = dd;
         return this.update(this.value, true);
     },
 
     /**
      * Replaces any existing {@link #minDate} with the new value and refreshes the DatePicker.
-     * @param {Date} minDate The minimum date that can be selected
+     * @param {Date} value The minimum date that can be selected
      * @return {Ext.picker.Date} this
      */
-    setMinDate: function(minDate) {
-        this.minDate = minDate;
+    setMinDate: function(dt) {
+        this.minDate = dt;
         return this.update(this.value, true);
     },
 
     /**
      * Replaces any existing {@link #maxDate} with the new value and refreshes the DatePicker.
-     * @param {Date} maxDate The maximum date that can be selected
+     * @param {Date} value The maximum date that can be selected
      * @return {Ext.picker.Date} this
      */
-    setMaxDate: function(maxDate) {
-        this.maxDate = maxDate;
+    setMaxDate: function(dt) {
+        this.maxDate = dt;
         return this.update(this.value, true);
     },
 
@@ -781,7 +739,7 @@ Ext.define('Ext.picker.Date', {
      */
     setValue: function(value) {
         // If passed a null value just pass in a new date object.
-        this.value = Ext.Date.clearTime(value || this.defaultValue, true);
+        this.value = Ext.Date.clearTime(value || new Date(), true);
         return this.update(this.value);
     },
 
@@ -803,7 +761,6 @@ Ext.define('Ext.picker.Date', {
     },
 
     /**
-     * @method onEnable
      * @inheritdoc
      * @private
      */
@@ -817,7 +774,6 @@ Ext.define('Ext.picker.Date', {
     },
 
     /**
-     * @method onShow
      * @inheritdoc
      * @private
      */
@@ -832,7 +788,6 @@ Ext.define('Ext.picker.Date', {
     },
     
     /**
-     * @method onHide
      * @inheritdoc
      * @private
      */
@@ -842,7 +797,6 @@ Ext.define('Ext.picker.Date', {
     },
 
     /**
-     * @method onDisable
      * @inheritdoc
      * @private
      */
@@ -893,11 +847,6 @@ Ext.define('Ext.picker.Date', {
             picker = me.monthPicker;
 
         if (picker && picker.isVisible()) {
-            // The animated hide causes focus movement to the wrap el
-            // from the soon to be focused button (Button focuses in a delay)
-            // Controlling the focus now will prevent both erroneous
-            // focus movements.
-            me.focus();
             if (me.shouldAnimate(animate)) {
                 me.runAnimation(true);
             } else {
@@ -1526,7 +1475,6 @@ Ext.define('Ext.picker.Date', {
         /**
          * Set the disabled state of various internal components
          * @param {Boolean} disabled
-         * @param {Boolean} doButton
          * @private
          */
         syncDisabled: function (disabled, doButton) {

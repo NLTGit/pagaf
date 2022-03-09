@@ -1,7 +1,6 @@
 /**
  * @class Ext.Panel
  */
-
 Ext.define('Ext.panel.Resizable', {
     override: 'Ext.Panel',
 

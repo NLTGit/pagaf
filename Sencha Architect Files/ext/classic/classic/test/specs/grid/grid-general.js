@@ -198,35 +198,7 @@ function() {
                     }, undefined, false);
 
                     expect(grid.getScrollable()).not.toBe(true);
-                });
 
-                it("should keep scroll position when adding a scrolled grid to a container", function() {
-                    var scrollable;
-                    var win = Ext.create('Ext.window.Window',{
-                        width: 500,
-                        height: 500,
-                        title: 'Foo',
-                        layout: 'fit',
-                        x: 0,
-                        y: 0
-                    }).show();
-
-                    makeGrid(undefined, 100, {
-                        scrollable: true
-                    }, undefined, false);
-
-                    scrollable = grid.getScrollable();
-                    scrollable.scrollTo(null, 1000);
-
-                    waitsFor(function() {
-                        return scrollable.getPosition().y === 1000;
-                    });
-
-                    runs(function() {
-                        win.add(grid);
-                        expect(scrollable.getPosition().y).toBe(1000);
-                        win.destroy();
-                    });
                 });
                 
                 // EXTJS-14858
@@ -725,16 +697,6 @@ function() {
                         expect(getEmpty()).not.toBeNull();
                     });
 
-                    it("should display on first refresh with deferEmptyText: false and not columns defined", function() {
-                        makeGrid([], null, {
-                            viewConfig: {
-                                emptyText: 'Foo',
-                                deferEmptyText: false
-                            }
-                        });
-                        expect(getEmpty()).not.toBeNull();
-                    });
-
                     it("should not display on first refresh with deferEmptyText: true", function() {
                         makeGrid(null, null, {
                             viewConfig: {
@@ -1088,48 +1050,16 @@ function() {
                 });
 
                 describe("with overflow", function() {
-                    it("should size the columns to fit within the grid body, inside the scrollbar", function() {
+                    beforeEach(function() {
                         makeGrid(null, data, {
                             forceFit: true,
                             width: 400,
                             height: 200
                         });
-                        expect(grid.headerCt.getTableWidth()).toBe(grid.body.getWidth() - grid.body.getBorderWidth('lr') - Ext.getScrollbarSize().width);
                     });
 
-                    it("should not change the column sizes after updateLayout when width is not specified", function() {
-                        var w1 = [],
-                            w2 = [],
-                            i;
-
-                        makeGrid([{
-                            dataIndex: 'field1',
-                            text: 'col1'
-                        },{
-                            dataIndex: 'field2',
-                            text: 'col2'
-                        },{
-                            dataIndex: 'field3',
-                            text: 'col3'
-                        }], 10, {
-                            fullScreen: true,
-                            forceFit: true,
-                            width: '100%'
-                        });
-
-                        colRef[0].autoSize();
-
-                        for (i = 0; i < colRef.length; i++) {
-                            w1.push(colRef[i].getWidth());
-                        }
-
-                        grid.updateLayout();
-
-                        for (i = 0; i < colRef.length; i++) {
-                            w2.push(colRef[i].getWidth());
-                        }
-
-                        expect(w1).toEqual(w2);
+                    it('should size the columns to fit within the grid body, inside the scrollbar', function() {
+                        expect(grid.headerCt.getTableWidth()).toBe(grid.body.getWidth() - grid.body.getBorderWidth('lr') - Ext.getScrollbarSize().width);
                     });
                 });
             });
@@ -5365,7 +5295,7 @@ function() {
                                 i;
 
                             for (i = 0; i < len; ++i) {
-                                expect(columns[i].getWidth()).toBeApprox(sizes[i], 1);
+                                expect(columns[i].getWidth()).toBe(sizes[i]);
                             }
 
                         }
@@ -5610,7 +5540,7 @@ function() {
                                         flex: 1
                                     }], scrollRowSize);
                                     expectScroll(true, false);
-                                    expectColumnWidths(scrollbarsTakeSpace ? [200, 260, 260, 260] : [200, 266, 267, 267]);
+                                    expectColumnWidths(scrollbarsTakeSpace ? [200, 260, 260, 260]: [200, 267, 267, 266]);
                                 });
                             });
                         });

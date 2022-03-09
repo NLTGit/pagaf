@@ -56,11 +56,11 @@ Ext.define('Ext.grid.property.HeaderContainer', {
      * @param {Ext.grid.property.Grid} grid The grid this store will be bound to
      * @param {Object} source The source data config object
      */
-    constructor : function(grid, source) {
+    constructor : function(grid, store) {
         var me = this;
 
         me.grid = grid;
-        me.store = source;
+        me.store = store;
         me.callParent([{
             isRootHeader: true,
             enableColumnResize: Ext.isDefined(grid.enableColumnResize) ? grid.enableColumnResize : me.enableColumnResize,

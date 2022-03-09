@@ -189,31 +189,6 @@ function() {
 
             expect(c4.zIndexManager.mask.getZIndex()).toBeLessThan(c4.el.getZIndex());
         });
-
-        it('should maintain stacking order upon close os topmost window', function() {
-            c1.showAt(0, 0);
-            c2.showAt(20, 20);
-            c3.showAt(40, 40);
-            c4.showAt(60, 60);
-
-            jasmine.fireMouseEvent(c4.tools.close.el, 'mousedown');
-
-            expect(c2.el.getZIndex()).toBeGreaterThan(c1.el.getZIndex());
-            expect(c3.el.getZIndex()).toBeGreaterThan(c2.el.getZIndex());
-            expect(c4.el.getZIndex()).toBeGreaterThan(c3.el.getZIndex());
-
-            jasmine.fireMouseEvent(c4.tools.close.el, 'mouseup');
-            jasmine.fireMouseEvent(c4.tools.close.el, 'click');
-
-            waitsFor(function() {
-                return c4.destroyed;
-            });
-
-            runs(function() {
-                expect(c2.el.getZIndex()).toBeGreaterThan(c1.el.getZIndex());
-                expect(c3.el.getZIndex()).toBeGreaterThan(c2.el.getZIndex());
-            });
-        });
     });
 
     describe("modal masking", function() {

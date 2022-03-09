@@ -2,8 +2,8 @@
  *
  */
 Ext.define('Ext.ux.DataView.LabelEditor', {
+
     extend: 'Ext.Editor',
-    alias: 'plugin.dataviewlabeleditor',
 
     alignment: 'tl-tl',
 

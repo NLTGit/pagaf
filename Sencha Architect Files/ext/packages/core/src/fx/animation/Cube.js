@@ -8,7 +8,7 @@ Ext.define('Ext.fx.animation.Cube', {
 
     config: {
         /**
-         * @cfg before
+         * @cfg
          * @inheritdoc
          */
         before: {
@@ -18,8 +18,7 @@ Ext.define('Ext.fx.animation.Cube', {
         after: {},
 
         /**
-         * @cfg {String} direction
-         * The direction of which the slide animates
+         * @cfg {String} direction The direction of which the slide animates
          * @accessor
          */
         direction: 'right',

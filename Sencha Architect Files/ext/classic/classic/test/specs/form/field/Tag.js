@@ -324,15 +324,6 @@ function() {
                 expectValue([2, 4, 6, 8]);
                 expectChange([2, 4, 6, 8], [1, 3, 5, 7]);
             });
-
-
-            it("should accept an array and use the last value if multiSelect: false", function () {
-                makeField({multiSelect: false});
-                tagField.setValue([1, 2]);
-
-                // multiSelect: false should return just value, not an Array
-                expect(tagField.getValue()).toEqual([2]);
-            });
         });
 
         describe("addValue", function() {
@@ -543,25 +534,6 @@ function() {
                     expect(tagField.getValue()).toEqual([1]);
                     expect(tagField.inputEl.dom.value).toBe('Foo');
                 });
-            });
-        });
-
-        describe("emptyText", function () {
-            it("should display empty text upon rendering with no value", function () {
-                makeField();
-                expect(tagField.inputEl).toHaveCls(tagField.emptyCls);
-            });
-
-            it("should not display empty text with a value when multiSelect: false", function () {
-               makeField({multiSelect: false});
-               tagField.setValue(1);
-               expect(tagField.inputEl).not.toHaveCls(tagField.emptyCls);
-            });
-
-            it("should not display empty text with a value when multiSelect: true", function () {
-                makeField({multiSelect: false});
-                tagField.setValue([1, 2]);
-                expect(tagField.inputEl).not.toHaveCls(tagField.emptyCls);
             });
         });
     });
@@ -1323,24 +1295,6 @@ function() {
                 expect(v[3]).toBe('200');
             });
         });
-
-        it("should keep values in order when adding and selecting", function() {
-                makeField({
-                    createNewOnEnter: true,
-                    filterPickList: true
-                });
-
-                clickListItem(store.getAt(0));
-                jasmine.focusAndWait(tagField.inputEl);
-
-                runs(function() {
-                    tagField.inputEl.dom.value = 'foo';
-                    jasmine.fireKeyEvent(tagField.inputEl.dom, 'keyup', Ext.event.Event.ENTER);
-                    clickListItem(store.getAt(7));
-
-                    expect(tagField.getValue()).toEqual([1, 'foo', 9]);
-                });
-            });
     });
 
     describe("allowBlank: false", function() {

@@ -5,10 +5,6 @@ topSuite("Ext.menu.Item", ['Ext.menu.Menu', 'Ext.app.ViewModel', 'Ext.app.ViewCo
         menu, item;
 
     function makeMenu(itemCfg, menuCfg) {
-        if (!Ext.isArray(itemCfg)) {
-            itemCfg = [itemCfg];
-        }
-
         menu = Ext.widget(Ext.apply({
             mouseLeaveDelay: 0,
             xtype: 'menu',
@@ -83,7 +79,7 @@ topSuite("Ext.menu.Item", ['Ext.menu.Menu', 'Ext.app.ViewModel', 'Ext.app.ViewCo
                 });
 
                 it("should used the passed scope", function() {
-                    var o = {};
+                    var o = new (function(){})();
                     makeMenu({
                         text: 'Foo',
                         scope: o,
@@ -267,19 +263,19 @@ topSuite("Ext.menu.Item", ['Ext.menu.Menu', 'Ext.app.ViewModel', 'Ext.app.ViewCo
                     makeMenu({
                         text: 'Foo',
                         menu: {
-                            items: [{
+                            items: {
                                 text: 'Bar',
                                 menu: {
-                                    items: [{
+                                    items: {
                                         text: 'Baz',
                                         menu: {
-                                            items: [{
+                                            items: {
                                                 text: 'Qux'
-                                            }]
+                                            }
                                         }
-                                    }]
+                                    }
                                 }
-                            }]
+                            }
                         }
                     });
 
@@ -329,15 +325,6 @@ topSuite("Ext.menu.Item", ['Ext.menu.Menu', 'Ext.app.ViewModel', 'Ext.app.ViewCo
                 runs(function () {
                     expect(location.hash).toBe('#ledzep');
                 });
-            });
-
-            it("should be able to assign the href target", function() {
-                makeMenu([{
-                    text: 'Foo',
-                    href: '#someAnchor',
-                    target: '_blank'
-                }]);
-                expect(item.bodyElement.dom.target).toBe('_blank');
             });
             
             // TODO This test does not work properly due to events being translated
@@ -532,186 +519,130 @@ topSuite("Ext.menu.Item", ['Ext.menu.Menu', 'Ext.app.ViewModel', 'Ext.app.ViewCo
         });
         
         describe("with submenu", function() {
-            function makeSuite(menuCreator) {
-                describe("at config time", function() {
-                    beforeEach(function() {
+            describe("via config", function() {
+                beforeEach(function() {
+                    makeMenu({
+                        text: 'submenu',
+                        menu: {
+                            items: [{
+                                text: 'sub-item'
+                            }]
+                        }
+                    });
+                    
+                    menu.show();
+                });
+                
+                it("should have aria-haspopup", function() {
+                    expect(item).toHaveAttr('aria-haspopup', 'true');
+                });
+                
+                it("should have aria-owns", function() {
+                    expect(item).toHaveAttr('aria-owns', item.getMenu().id);
+                });
+
+                it('should throw an error if configured with a Menu instance as a menu', function() {
+                    // We call makeMenu with a custom config, so the beforeEach one has to go
+                    Ext.destroy(menu);
+
+                    var m = new Ext.menu.Menu();
+                    expect(function() {
                         makeMenu({
-                            text: 'Root Level',
-                            menu: menuCreator()
+                            text: "This is invalid",
+                            menu: m
+                        })
+                    }).toThrow();
+
+                    m.destroy();
+                })
+            });
+            
+            describe("adding via setMenu", function() {
+                beforeEach(function() {
+                    makeMenu({
+                        text: 'submenu'
+                    });
+                });
+                
+                describe("before rendering", function() {
+                    beforeEach(function() {
+                        item.setMenu({
+                            items: [{
+                                text: 'sub-item'
+                            }]
                         });
+                        
                         menu.show();
                     });
-
+                    
                     it("should have aria-haspopup", function() {
                         expect(item).toHaveAttr('aria-haspopup', 'true');
                     });
-
+                    
                     it("should have aria-owns", function() {
                         expect(item).toHaveAttr('aria-owns', item.getMenu().id);
                     });
-
-                    it("should have the arrow class", function() {
-                        expect(item).toHaveCls(Ext.baseCSSPrefix + 'has-arrow');
-                    });
-
-                    it("should show the submenu", function() {
-                        item.expandMenu();
-                        expect(item.getMenu().isVisible()).toBe(true);
-                    });
                 });
-
-                describe("via setMenu", function() {
+                
+                describe("after rendering", function() {
                     beforeEach(function() {
-                        makeMenu({
-                            text: 'Root Level'
+                        menu.show();
+                        
+                        item.setMenu({
+                            items: [{
+                                text: 'sub-item'
+                            }]
                         });
                     });
-
-                    describe("before rendering", function() {
-                        beforeEach(function() {
-                            item.setMenu(menuCreator());
-                            menu.show();
-                        });
-
-                        it("should have aria-haspopup", function() {
-                            expect(item).toHaveAttr('aria-haspopup', 'true');
-                        });
-
-                        it("should have aria-owns", function() {
-                            expect(item).toHaveAttr('aria-owns', item.getMenu().id);
-                        });
-
-                        it("should have the arrow class", function() {
-                            expect(item).toHaveCls(Ext.baseCSSPrefix + 'has-arrow');
-                        });
-
-                        it("should show the submenu", function() {
-                            item.expandMenu();
-                            expect(item.getMenu().isVisible()).toBe(true);
-                        });
+                    
+                    it("should have aria-haspopup", function() {
+                        expect(item).toHaveAttr('aria-haspopup', 'true');
                     });
-
-                    describe("after rendering", function() {
-                        beforeEach(function() {
-                            menu.show();
-
-                            item.setMenu(menuCreator());
-                        });
-
-                        it("should have aria-haspopup", function() {
-                            expect(item).toHaveAttr('aria-haspopup', 'true');
-                        });
-
-                        it("should have aria-owns", function() {
-                            expect(item).toHaveAttr('aria-owns', item.getMenu().id);
-                        });
-
-                        it("should have the arrow class", function() {
-                            expect(item).toHaveCls(Ext.baseCSSPrefix + 'has-arrow');
-                        });
-
-                        it("should show the submenu", function() {
-                            item.expandMenu();
-                            expect(item.getMenu().isVisible()).toBe(true);
-                        });
+                    
+                    it("should have aria-owns", function() {
+                        expect(item).toHaveAttr('aria-owns', item.getMenu().id);
                     });
-                });
-
-                describe("removing via setMenu", function() {
-                    var child;
-
-                    beforeEach(function() {
-                        makeMenu({
-                            text: 'Root Level',
-                            menu: menuCreator()
-                        });
-                        child = item.getMenu();
-                    });
-
-                    afterEach(function() {
-                        child = null;
-                    });
-
-                    describe("before rendering", function() {
-                        it("should not have aria-haspopup", function() {
-                            item.setMenu(null);
-                            expect(item).not.toHaveAttr('aria-haspopup');
-                        });
-
-                        it("should have no aria-owns", function() {
-                            item.setMenu(null);
-                            expect(item).not.toHaveAttr('aria-owns');
-                        });
-
-                        it("should not have the arrow cls", function() {
-                            item.setMenu(null);
-                            expect(item).not.toHaveCls(Ext.baseCSSPrefix + 'has-arrow');
-                        });
-
-                        it("should destroy the menu", function() {
-                            item.setMenu(null);
-                            expect(child.destroyed).toBe(true);
-                        });
-
-                        it("should not destroy with destroyMenu: false", function() {
-                            item.destroyMenu = false;
-                            item.setMenu(null);
-                            expect(child.destroyed).toBe(false);
-                            child.destroy();
-                        });
-                    });
-
-                    describe("after rendering", function() {
-                        beforeEach(function() {
-                            menu.show();
-                        });
-
-                        it("should not have aria-haspopup", function() {
-                            item.setMenu(null);
-                            expect(item).not.toHaveAttr('aria-haspopup');
-                        });
-
-                        it("should have no aria-owns", function() {
-                            item.setMenu(null);
-                            expect(item).not.toHaveAttr('aria-owns');
-                        });
-
-                        it("should not have the arrow cls", function() {
-                            item.setMenu(null);
-                            expect(item).not.toHaveCls(Ext.baseCSSPrefix + 'has-arrow');
-                        });
-
-                        it("should destroy the menu", function() {
-                            item.setMenu(null);
-                            expect(child.destroyed).toBe(true);
-                        });
-
-                        it("should not destroy with destroyMenu: false", function() {
-                            item.destroyMenu = false;
-                            item.setMenu(null);
-                            expect(child.destroyed).toBe(false);
-                            child.destroy();
-                        });
-                    });
-                });
-            }
-
-            describe("with a menu config", function() {
-                makeSuite(function() {
-                    return {
-                        items: [{
-                            text: 'Sub Menu Item'
-                        }]
-                    };
                 });
             });
-
-            describe("with a menu instance", function() {
-                makeSuite(function() {
-                    return new Ext.menu.Menu({
-                        items: [{
-                            text: 'Sub Menu Item'
-                        }]
+            
+            describe("removing via setMenu", function() {
+                beforeEach(function() {
+                    makeMenu({
+                        text: 'submenu',
+                        menu: {
+                            items: [{
+                                text: 'sub-item'
+                            }]
+                        }
+                    });
+                });
+                
+                describe("before rendering", function() {
+                    beforeEach(function() {
+                        item.setMenu(null);
+                    });
+                    
+                    it("should not have aria-haspopup", function() {
+                        expect(item).not.toHaveAttr('aria-haspopup');
+                    });
+                    
+                    it("should have no aria-owns", function() {
+                        expect(item).not.toHaveAttr('aria-owns');
+                    });
+                });
+                
+                describe("after rendering", function() {
+                    beforeEach(function() {
+                        menu.show();
+                        item.setMenu(null);
+                    });
+                    
+                    it("should not have aria-haspopup", function() {
+                        expect(item).not.toHaveAttr('aria-haspopup');
+                    });
+                    
+                    it("should not have aria-owns", function() {
+                        expect(item).not.toHaveAttr('aria-owns');
                     });
                 });
             });

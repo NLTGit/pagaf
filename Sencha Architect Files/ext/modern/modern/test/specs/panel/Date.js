@@ -24,17 +24,27 @@ topSuite("Ext.panel.Date", function() {
         
         jasmine.fireMouseEvent(cell, type || 'click');
     }
-
+    
+    function tapCell(date, type) {
+        var cell = Ext.isDate(date) ? panel.getCellByDate(date) : date;
+        
+        if (!cell) {
+            throw new Error("Cannot find cell for date " + date);
+        }
+        
+        Ext.testHelper.tap(cell);
+    }
+    
     function clickButton(btn, event) {
         if (typeof btn === 'string') {
             if (btn === 'today') {
-                btn = panel.lookup('footer').isHidden() ? 'headerTodayButton' : 'footerTodayButton';
+                btn = panel.down('#footer').isHidden() ? 'headerTodayButton' : 'footerTodayButton';
             }
             else {
                 btn = btn + 'Button';
             }
             
-            btn = panel.lookup(btn);
+            btn = panel.down('#' + btn);
         }
         
         if (btn) {
@@ -191,11 +201,25 @@ topSuite("Ext.panel.Date", function() {
         });
 
         describe('cell click', function () {
-            it('should handle clicking on inner cell', function () {
-                makePanel();
+            beforeEach(function() {
+                makePanel({
+                    autoConfirm: true
+                });
+            });
 
+            it('should handle clicking on td cell', function () {
+                var cell = panel.getCellByDate(yesterday);
+
+                clickCell(cell);
+
+                waitsForEvent(cell, 'focus');
+
+                expect(panel.getValue()).toEqual(yesterday);
+            });
+
+            it('should handle clicking on inner cell', function () {
                 var cell = panel.getCellByDate(yesterday),
-                    inner = Ext.fly(cell).child('.x-inner');
+                    inner = cell.child('.x-inner');
 
                 clickCell(inner);
 
@@ -203,72 +227,10 @@ topSuite("Ext.panel.Date", function() {
 
                 expect(panel.getValue()).toEqual(yesterday);
             });
-
-            it('should prevent clicking on disabled day', function () {
-                makePanel({
-                    autoConfirm: true,
-                    disabledDays: [0, 6],
-                    value: new Date(2010, 0, 13)
-                });
-
-                var cell = panel.getCellByDate(new Date(2010, 0, 16)),
-                    inner = Ext.fly(cell).child('.x-inner'),
-                    spy = jasmine.createSpy();
-
-                panel.on('select', spy);
-                clickCell(inner);
-
-                expect(panel.getValue()).toEqual(new Date(2010, 0, 13));
-                expect(spy).not.toHaveBeenCalled();
-            });
-        });
-        
-        describe("year picker", function() {
-            var picker, showSpy;
-            
-            beforeEach(function() {
-                showSpy = jasmine.createSpy('picker show');
-                makePanel();
-                picker = panel.getYearPicker();
-                picker.on('show', showSpy);
-            });
-            
-            afterEach(function() {
-                showSpy = picker = null;
-            });
-            
-            it("should open year picker when clicked on the year", function() {
-                jasmine.fireMouseEvent(panel.getHeader().getTitle().yearElement, 'click');
-                
-                waitForSpy(showSpy);
-                
-                runs(function() {
-                    expect(picker.isVisible(true)).toBe(true);
-                });
-            });
-            
-            it("should set the year and close picker when picker item is clicked", function() {
-                panel.toggleYearPicker(true);
-                
-                waitForSpy(showSpy);
-                
-                runs(function() {
-                    var wantYear = today.getFullYear() + 1,
-                        rec, item;
-                    
-                    rec = picker.getStore().find('year', wantYear);
-                    item = picker.getItem(rec);
-                    
-                    jasmine.fireMouseEvent(item.el, 'click');
-                    
-                    expect(panel.getValue().getFullYear()).toBe(wantYear);
-                    expect(picker.isVisible(true)).toBe(false);
-                });
-            });
         });
     });
     
-    (jasmine.supportsTouch ? describe : xdescribe)("touch interaction", function() {
+    (Ext.supports.Touch ? describe : xdescribe)("touch interaction", function() {
         beforeEach(function() {
             makePanel();
         });
@@ -276,7 +238,7 @@ topSuite("Ext.panel.Date", function() {
         it("should focus the tapped cell", function() {
             var cell = panel.getCellByDate(yesterday);
             
-            clickCell(cell);
+            tapCell(cell);
             waitsForEvent(cell, 'focus');
         });
     });

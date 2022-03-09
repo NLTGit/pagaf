@@ -32,10 +32,9 @@ Ext.define('Ext.app.bind.Binding', {
     /**
      * Destroys this binding. No further calls will be made to the callback method. No
      * methods should be called on this binding after calling this method.
-     * @param {Boolean} [fromParent] (private)
      * @since 5.0.0
      */
-    destroy: function (fromParent) {
+    destroy: function (/* private */ fromParent) {
         var me = this,
             stub = me.stub;
 

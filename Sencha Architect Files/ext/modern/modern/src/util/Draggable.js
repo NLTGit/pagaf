@@ -70,8 +70,7 @@ Ext.define('Ext.util.Draggable', {
         translatable: {},
 
         /**
-         * @cfg {Ext.Component} component
-         * The component being dragged.
+         * @cfg {Ext.Component} The component being dragged.
          */
         component: null
     },

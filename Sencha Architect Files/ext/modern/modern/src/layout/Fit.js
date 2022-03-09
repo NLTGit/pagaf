@@ -26,11 +26,8 @@
  */
 Ext.define('Ext.layout.Fit', {
     extend: 'Ext.layout.Auto',
-    alias: 'layout.fit',
-
     isFit: true,
-
+    alias: 'layout.fit',
     cls: Ext.baseCSSPrefix + 'layout-fit',
-
     itemCls: Ext.baseCSSPrefix + 'layout-fit-item'
 });

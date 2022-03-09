@@ -46,7 +46,9 @@ topSuite("Ext.data.virtual.Store", function() {
     }
 
     function makeRange(cfg) {
-        range = store.createActiveRange(cfg);
+        range = store.createActiveRange(Ext.apply({
+            delay: 0
+        }, cfg));
     }
 
     function completeWithData (data, extraData) {
@@ -123,25 +125,6 @@ topSuite("Ext.data.virtual.Store", function() {
     afterEach(function() {
         idBase = dataMaker = pageMap = proxySpy = range = pageSize = total = store = Ext.destroy(store);
         MockAjaxManager.removeMethods();
-    });
-
-    describe("misc", function() {
-        it("should handle a goto of a smaller range in totalcountchange after a reload", function() {
-            pageSize = 300;
-            makeStore();
-            makeRange({
-                prefetch: true
-            });
-            range.goto(0, 300);
-            store.reload();
-            store.on('totalcountchange', function() {
-                range.goto(0, 42);
-                flushAllLoads();
-            });
-            completeLatest();
-            expect(store.getAt(0).id).toBe(1);
-            expect(store.getAt(299).id).toBe(300);
-        });
     });
 
     describe("reload", function() {

@@ -19,9 +19,8 @@
  * - {@link Ext.data.proxy.Direct Direct} - uses {@link Ext.direct.Manager} to send requests
  *
  * Proxies operate on the principle that all operations performed are either Create, Read, Update or Delete. These four
- * operations are mapped to the methods {@link #method!create}, {@link #method!read},
- * {@link #method!update} and {@link #method!erase} respectively. Each Proxy subclass
- * implements these functions.
+ * operations are mapped to the methods {@link #create}, {@link #read}, {@link #update} and {@link #erase}
+ * respectively. Each Proxy subclass implements these functions.
  *
  * The CRUD methods each expect an {@link Ext.data.operation.Operation Operation} object as the sole argument. The Operation
  * encapsulates information about the action the Store wishes to perform, the {@link Ext.data.Model model} instances
@@ -333,11 +332,7 @@ Ext.define('Ext.data.proxy.Proxy', {
             batch = new Ext.data.Batch(options.batch);
         }
 
-        // Use single so that the listener gets removed upon completion.
-        batch.on('complete', Ext.bind(me.onBatchComplete, me, [options], 0), null, {
-            single: true,
-            priority: 1000
-        });
+        batch.on('complete', Ext.bind(me.onBatchComplete, me, [options], 0));
 
         actions = me.getBatchOrder().split(',');
         aLen    = actions.length;

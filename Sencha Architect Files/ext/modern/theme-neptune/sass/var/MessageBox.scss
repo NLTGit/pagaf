@@ -209,12 +209,6 @@ $messagebox-header-title-padding: dynamic(null);
 $messagebox-header-title-padding-big: dynamic(null);
 
 /**
- * @var {number/list}
- * MessageBox Header Title opacity
- */
-$messagebox-header-title-opacity: dynamic(null);
-
-/**
  * @var {shadow}
  * MessageBox Header Shadow
  */
@@ -630,9 +624,6 @@ $messagebox-min-width-big: dynamic(null);
  * @param {number/list} $header-title-padding-big
  * MessageBox Header Title padding in the {@link Global_CSS#$enable-big big} sizing scheme
  *
- * @param {number} $header-title-opacity
- * MessageBox Header Title opacity
- *
  * @param {shadow} $header-shadow
  * MessageBox Header Shadow
  *
@@ -821,7 +812,6 @@ $messagebox-min-width-big: dynamic(null);
     $header-padding-big: null,
     $header-title-padding: null,
     $header-title-padding-big: null,
-    $header-title-opacity: null,
     $header-shadow: null,
     $header-z-index: null,
     $header-min-height: null,

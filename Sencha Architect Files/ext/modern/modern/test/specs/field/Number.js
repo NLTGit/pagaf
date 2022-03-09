@@ -1,14 +1,14 @@
 topSuite("Ext.field.Number", function() {
     var field;
-
+    
     function createField(config) {
         if (field) {
             field.destroy();
         }
-
+        
         config = Ext.apply({
         }, config);
-
+        
         field = new Ext.field.Number(config);
     }
 
@@ -27,142 +27,263 @@ topSuite("Ext.field.Number", function() {
             field.destroy();
         }
     });
-
+    
     describe("configurations", function() {
-        describe("minValue text", function() {
+        describe("minValue", function() {
             var defaultConfig = {
-                minValue: 10,
-                inputType: 'text'
+                minValue: 10
             };
+            describe("configuration", function() {
+                it('should create number input', function () {
+                    createField();
+
+                    var inputEl = field.inputElement;
+
+                    expect(inputEl.getAttribute('type')).toBe('number');
+                });
+
+                it("should add the min attribute to the inputEl", function() {
+                    createField(defaultConfig);
+                    render();
+                    
+                    expect(field).toHaveAttribute('min', 10);
+                });
+            });
+
+            describe("method", function() {
+                describe("setting", function() {
+                    describe("before render", function() {
+                        it("should add the min attribute to the inputEl", function() {
+                            createField();
+                            field.setMinValue(10);
+                            render();
+
+                            expect(field).toHaveAttribute('min', 10);
+                        });
+                    });
+
+                    describe("after render", function() {
+                        it("should add the min attribute to the inputEl", function() {
+                            createField();
+                            render();
+                            field.setMinValue(10);
+
+                            expect(field).toHaveAttribute('min', 10);
+                        });
+                    });
+                });
+
+                describe("removing", function() {
+                    describe("before render", function() {
+                        it("should remove the min attribute from the inputEl", function() {
+                            createField(defaultConfig);
+                            field.setMinValue(null);
+                            render();
+
+                            expect(field).not.toHaveAttribute('min');
+                        });
+                    });
+
+                    describe("after render", function() {
+                        it("should remove the min attribute from the inputEl", function() {
+                            createField(defaultConfig);
+                            render();
+                            field.setMinValue(null);
+
+                            expect(field).not.toHaveAttribute('min');
+                        });
+                    });
+                });
+            });
 
             describe('setValue', function () {
-                it('should use minValue if value below minValue', function () {
+                it('should transform value if above minValue', function () {
                     createField(defaultConfig);
                     render();
 
                     field.setValue(5);
 
-                    expect(field.getValue()).toBe(5);
-                    expect(field.inputElement.dom.value).toBe('5');
-                    expect(field.validate()).not.toBe(true);
+                    expect(field.getValue()).toBe(10);
+                    expect(field.inputElement.dom.value).toBe('10');
                 });
-            });
-        });
 
-        describe("minValue number", function() {
-            var defaultConfig = {
-                minValue: 10,
-                inputType: 'number'
-            };
-
-            describe('setValue', function () {
-                it('should use minValue if value below minValue', function () {
+                it('should update inputElement when value parsed to minValue', function () {
                     createField(defaultConfig);
                     render();
 
                     field.setValue(5);
 
-                    expect(field.getValue()).toBe(5);
-                    expect(field.inputElement.dom.value).toBe('5');
-                    expect(field.validate()).not.toBe(true);
+                    expect(field.getValue()).toBe(10);
+                    expect(field.inputElement.dom.value).toBe('10');
+
+                    field.inputElement.dom.value = 0;
+
+                    field.setValue(0);
+
+                    expect(field.getValue()).toBe(10);
+                    expect(field.inputElement.dom.value).toBe('10');
                 });
-            });
-
-            it('should allow typing negative value if minValue is negative', function () {
-                createField({
-                    minValue: -10
-                });
-                render();
-
-                // Allow setting to minvalid values for a type="number" field for the sake
-                // of exercising the code.
-                field.inputElement.dom.removeAttribute('type');
-
-                Ext.testHelper.doTyping(field.inputElement, '-');
-
-                expect(field.getValue()).toBe(null);
-                expect(field.inputElement.dom.value).toBe('-');
-
-                Ext.testHelper.doTyping(field.inputElement, '5');
-
-                expect(field.getValue()).toBe(-5);
-                expect(field.inputElement.dom.value).toBe('-5');
-            });
-
-            it('should not throw when typing into a selected value', function () {
-                var errorSpy = spyOn(window, 'onerror');
-
-                createField({
-                    minValue: -10,
-                    value: 3
-                });
-                render();
-                focusAndWait(field);
-
-                runs(function() {
-                    Ext.testHelper.select(field.inputElement);
-
-                    jasmine.fireKeyEvent(field.inputElement, 'keydown', Ext.event.Event.ONE);
-
-                    expect(errorSpy).not.toHaveBeenCalled();
-                });
-            });
-
-            it('should not enforce non-negative if minValue is not configured', function() {
-                createField({
-                    value: -123.45
-                });
-                expect(field.isValid()).toBe(true);
             });
         });
 
-        describe("maxValue number", function() {
+        describe("maxValue", function() {
             var defaultConfig = {
-                maxValue: 10,
-                inputType: 'number'
+                maxValue: 10
             };
 
+            describe("configuration", function() {
+                it("should add the max attribute to the inputEl", function() {
+                    createField(defaultConfig);
+                    render();
+                    
+                    expect(field).toHaveAttribute('max', 10);
+                });
+            });
+
+            describe("method", function() {
+                describe("setting", function() {
+                    describe("before render", function() {
+                        it("should add the max attribute to the inputEl", function() {
+                            createField();
+                            field.setMaxValue(10);
+                            render();
+
+                            expect(field).toHaveAttribute('max', 10);
+                        });
+                    });
+
+                    describe("after render", function() {
+                        it("should add the max attribute to the inputEl", function() {
+                            createField();
+                            render();
+                            field.setMaxValue(10);
+
+                            expect(field).toHaveAttribute('max', 10);
+                        });
+                    });
+                });
+
+                describe("removing", function() {
+                    describe("before render", function() {
+                        it("should remove the max attribute from the inputEl", function() {
+                            createField(defaultConfig);
+                            field.setMaxValue(null);
+                            render();
+
+                            expect(field).not.toHaveAttribute('max');
+                        });
+                    });
+
+                    describe("after render", function() {
+                        it("should remove the max attribute from the inputEl", function() {
+                            createField(defaultConfig);
+                            render();
+                            field.setMaxValue(null);
+
+                            expect(field).not.toHaveAttribute('max');
+                        });
+                    });
+                });
+            });
+
             describe('setValue', function () {
-                it('should use maxValue if value above maxValue', function () {
+                it('should transform value if above maxValue', function () {
                     createField(defaultConfig);
                     render();
 
                     field.setValue(20);
 
-                    expect(field.getValue()).toBe(20);
-                    expect(field.inputElement.dom.value).toBe('20');
-                    expect(field.validate()).not.toBe(true);
+                    expect(field.getValue()).toBe(10);
+                    expect(field.inputElement.dom.value).toBe('10');
                 });
-            });
-        });
 
-        describe("maxValue text", function() {
-            var defaultConfig = {
-                maxValue: 10,
-                inputType: 'text'
-            };
-
-            describe('setValue', function () {
-                it('should use maxValue if value above maxValue', function () {
+                it('should update inputElement when value parsed to maxValue', function () {
                     createField(defaultConfig);
                     render();
 
                     field.setValue(20);
 
-                    expect(field.getValue()).toBe(20);
-                    expect(field.inputElement.dom.value).toBe('20');
-                    expect(field.validate()).not.toBe(true);
+                    expect(field.getValue()).toBe(10);
+                    expect(field.inputElement.dom.value).toBe('10');
+
+                    field.inputElement.dom.value = 15;
+
+                    field.setValue(15);
+
+                    expect(field.getValue()).toBe(10);
+                    expect(field.inputElement.dom.value).toBe('10');
+                });
+            });
+        });
+
+        describe("stepValue", function() {
+            var defaultConfig = {
+                stepValue: 10
+            };
+
+            describe("configuration", function() {
+                it("should add the step attribute to the inputEl", function() {
+                    createField(defaultConfig);
+                    render();
+                    
+                    expect(field).toHaveAttribute('step', 10);
+                });
+            });
+
+            describe("method", function() {
+                describe("setting", function() {
+                    describe("before render", function() {
+                        it("should add the step attribute to the inputEl", function() {
+                            createField();
+                            field.setStepValue(10);
+                            render();
+
+                            expect(field).toHaveAttribute('step', 10);
+                        });
+                    });
+
+                    describe("after render", function() {
+                        it("should add the step attribute to the inputEl", function() {
+                            createField();
+                            render();
+                            field.setStepValue(10);
+
+                            expect(field).toHaveAttribute('step', 10);
+                        });
+                    });
+                });
+
+
+                describe("removing", function() {
+                    describe("before render", function() {
+                        it("should remove the step attribute from the inputEl", function() {
+                            createField(defaultConfig);
+                            field.setStepValue(null);
+                            render();
+
+                            expect(field).not.toHaveAttribute('step');
+                        });
+
+                    });
+
+                    describe("after render", function() {
+                        it("should remove the step attribute from the inputEl", function() {
+                            createField(defaultConfig);
+                            render();
+                            field.setStepValue(null);
+
+                            expect(field).not.toHaveAttribute('step');
+                        });
+                    });
                 });
             });
         });
     });
 
-    describe("getValue number", function() {
+    describe("getValue", function() {
         describe("when value is null", function() {
             beforeEach(function() {
-                createField({
-                    inputType: 'number'
-                });
+                createField();
             });
 
             it("should return null", function() {
@@ -173,8 +294,7 @@ topSuite("Ext.field.Number", function() {
         describe("when value is a number", function() {
             beforeEach(function() {
                 createField({
-                    value: 123,
-                    inputType: 'number'
+                    value: 123
                 });
             });
 
@@ -186,8 +306,7 @@ topSuite("Ext.field.Number", function() {
         describe("when value is 0", function() {
             beforeEach(function() {
                 createField({
-                    value: 0,
-                    inputType: 'number'
+                    value: 0
                 });
             });
 
@@ -199,8 +318,7 @@ topSuite("Ext.field.Number", function() {
         describe("when value is -123", function() {
             beforeEach(function() {
                 createField({
-                    value: -123,
-                    inputType: 'number'
+                    value: -123
                 });
             });
 
@@ -212,8 +330,7 @@ topSuite("Ext.field.Number", function() {
         describe("when value is a string", function() {
             beforeEach(function() {
                 createField({
-                    value: '123',
-                    inputType: 'number'
+                    value: '123'
                 });
             });
 
@@ -223,78 +340,10 @@ topSuite("Ext.field.Number", function() {
         });
     });
 
-    describe("getValue text", function() {
-        describe("when value is null", function() {
-            beforeEach(function() {
-                createField({
-                    inputType: 'text'
-                });
-            });
-
-            it("should return null", function() {
-                expect(field.getValue()).toBeNull();
-            });
-        });
-
-        describe("when value is a number", function() {
-            beforeEach(function() {
-                createField({
-                    value: 123,
-                    inputType: 'text'
-                });
-            });
-
-            it("should return 123", function() {
-                expect(field.getValue()).toEqual(123);
-            });
-        });
-
-        describe("when value is 0", function() {
-            beforeEach(function() {
-                createField({
-                    value: 0,
-                    inputType: 'text'
-                });
-            });
-
-            it("should return 0", function() {
-                expect(field.getValue()).toEqual(0);
-            });
-        });
-
-        describe("when value is -123", function() {
-            beforeEach(function() {
-                createField({
-                    value: -123,
-                    inputType: 'text'
-                });
-            });
-
-            it("should return -123", function() {
-                expect(field.getValue()).toEqual(-123);
-            });
-        });
-
-        describe("when value is a string", function() {
-            beforeEach(function() {
-                createField({
-                    value: '123',
-                    inputType: 'text'
-                });
-            });
-
-            it("should return 123", function() {
-                expect(field.getValue()).toEqual(123);
-            });
-        });
-    });
-
-    describe("setValue input type number", function() {
+    describe("setValue", function() {
         describe("null value", function() {
             beforeEach(function() {
-                createField({
-                    inputType: 'number'
-                });
+                createField();
             });
 
             describe("when value is a number", function() {
@@ -340,123 +389,16 @@ topSuite("Ext.field.Number", function() {
             });
         });
     });
-
-    describe("setValue input type text", function() {
-        describe("null value", function() {
-            beforeEach(function() {
-                createField({
-                    inputType: 'text'
-                });
-            });
-
-            describe("when value is a number", function() {
-                it("should set the value to 123", function() {
-                    field.setValue(123);
-                    expect(field.getValue()).toEqual(123);
-                });
-            });
-
-            describe("when value is a string", function() {
-                it("should set the value to 123", function() {
-                    field.setValue('123');
-                    expect(field.getValue()).toEqual(123);
-                });
-            });
-
-            describe("when value is a negative value", function() {
-                it("should set the value to -123", function() {
-                    field.setValue(-123);
-                    expect(field.getValue()).toEqual(-123);
-                });
-            });
-
-            describe("when value is a negative value as as tring", function() {
-                it("should set the value to -123", function() {
-                    field.setValue('-123');
-                    expect(field.getValue()).toEqual(-123);
-                });
-            });
-
-            describe("when value is 0", function() {
-                it("should set the value to 0", function() {
-                    field.setValue(0);
-                    expect(field.getValue()).toEqual(0);
-                });
-            });
-
-            describe("when value is 0 as string", function() {
-                it("should set the value to 0", function() {
-                    field.setValue('0');
-                    expect(field.getValue()).toEqual(0);
-                });
-            });
-        });
-    });
-
+    
     describe("decimals", function() {
-        it("should round the value to configured decimal precision / number", function() {
-            createField({
-                inputType: 'number',
-                decimals: 1
-            });
+        beforeEach(function() {
+            createField();
+        });
+        
+        it("should round the value to configured decimal precision", function() {
             field.setValue(0.1 + 0.2);
-
+            
             expect(field.inputElement.dom.value).toBe('0.3');
-        });
-        it("should round the value to configured decimal precision / text", function() {
-            createField({
-                inputType: 'text',
-                decimals: 1
-            });
-            field.setValue(0.1 + 0.2);
-
-            expect(field.inputElement.dom.value).toBe('0.3');
-        });
-    });
-
-    describe("typing", function() {
-        it("should allow a decimal point", function() {
-            createField({
-                minValue: -10
-            });
-            render();
-
-            // Allow setting to minvalid values for a type="number" field for the sake
-            // of exercising the code.
-            field.inputElement.dom.removeAttribute('type');
-            field.focus();
-
-            Ext.testHelper.doTyping(field.inputElement, '1');
-
-            expect(field.getValue()).toBe(1);
-            expect(field.inputElement.dom.value).toBe('1');
-
-            Ext.testHelper.doTyping(field.inputElement, '.');
-
-            expect(field.getValue()).toBe(1);
-            expect(field.inputElement.dom.value).toBe('1.');
-
-            Ext.testHelper.doTyping(field.inputElement, '3');
-
-            expect(field.getValue()).toBe(1.3);
-            expect(field.inputElement.dom.value).toBe('1.3');
-        });
-    });
-
-    describe("empty value", function() {
-        it("should be able to clear the value", function() {
-            createField({
-                value: 100
-            });
-
-            // Simulate selecting the text and backspacing it out
-            // Firing key events for backspace don't end up triggering
-            // onInput
-            field.inputElement.dom.value = '';
-            field.onInput({});
-
-            expect(field.getValue()).toBeNull();
-            expect(field.inputElement.dom.value).toBe('');
         });
     });
 });

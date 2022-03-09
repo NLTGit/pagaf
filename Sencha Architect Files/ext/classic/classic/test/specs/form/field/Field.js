@@ -64,7 +64,8 @@ function () {
         });
 
         it("should create a validation error icon to the right of the field", function() {
-            createForm();
+            createForm(); 
+            //debugger
             tf.validate();
             expect(tf.errorEl.dom.firstChild).toBeNull();
             tf.allowBlank = false;

@@ -1,7 +1,7 @@
 $dataview-item-background-color: dynamic($background-color);
-$dataview-item-hovered-background-color: dynamic($hovered-background-color);
+$dataview-item-hovered-background-color: dynamic(material-color('grey', '200'));
 $dataview-item-selected-color: dynamic($color);
-$dataview-item-selected-background-color: dynamic($selected-background-color);
+$dataview-item-selected-background-color: dynamic(if($dark-mode, material-color($base-color-name, '700'), material-color('grey', '300')));
 $dataview-item-pressed-color: dynamic($dataview-item-selected-color);
 $dataview-item-pressed-background-color: dynamic($dataview-item-selected-background-color);
 

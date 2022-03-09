@@ -26,7 +26,7 @@ Ext.define('Ext.grid.RowContext', {
         }
     },
 
-    free: function(view) {
+    free: function() {
         var me = this,
             widgets = me.widgets,
             widgetId,
@@ -44,10 +44,6 @@ Ext.define('Ext.grid.RowContext', {
         // and moved into the detached body to save them from garbage collection.
         for (widgetId in widgets) {
             widget = widgets[widgetId];
-            // if the view is being refresh only remove widgets owned by this view
-            if (view && view.refreshing && !view.el.contains(widget.el)) {
-                continue;
-            }
 
             // Focusables in a grid must not be tabbable by default when they get put back in.
             focusEl = widget.getFocusEl();
@@ -148,7 +144,8 @@ Ext.define('Ext.grid.RowContext', {
     },
 
     handleWidgetViewChange: function(view, ownerId) {
-        var widget = this.widgets[ownerId];
+        var widgets = this.widgets,
+            widget = this.widgets[ownerId];
 
         if (widget) {
             // In this particular case poking the ownerCmp doesn't really have any significance here

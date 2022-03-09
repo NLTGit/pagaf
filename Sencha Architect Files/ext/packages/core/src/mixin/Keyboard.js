@@ -279,7 +279,7 @@ Ext.define('Ext.mixin.Keyboard', function (Keyboard) { return {
 
             for (i = 0; i < len && result !== false; i++) {
                 entry = entries[i];
-                result = Ext.callback(entry.handler, entry.scope, [e, this], 0, this);
+                result = Ext.callback(entry.handler, entry.scope, [e, this], 0, this)
             }
             return result;
         },
@@ -420,29 +420,8 @@ Ext.define('Ext.mixin.Keyboard', function (Keyboard) { return {
             },
 
             getKeyName: function (event) {
-                var keyCode;
-
-                if (event.isEvent) {
-                    keyCode = event.keyCode || event.charCode;
-                    event = event.browserEvent;
-
-                    // If it's the combination code, 229, then use the W3C code property.
-                    // https://developer.mozilla.org/en/docs/Web/API/KeyboardEvent/code
-                    if (keyCode === 229 && 'code' in event) {
-                        if (Ext.String.startsWith(event.code, 'Key')) {
-                            return event.key.substr(3);
-                        }
-                        if (Ext.String.startsWith(event.code, 'Digit')) {
-                            return event.key.substr(5);
-                        }
-                    }
-                }
-                else {
-                    keyCode = event;
-                }
-
-                // We are in a position of having a numeric key code, attempt to translate it to a name.
-                return Ext.event.Event.keyCodes[keyCode] || String.fromCharCode(keyCode);
+                var code = event.isEvent ? event.keyCode || event.charCode : event;
+                return Ext.event.Event.keyCodes[code] || String.fromCharCode(code);
             },
 
             matchEntry: function (entry, e) {

@@ -9,9 +9,9 @@ topSuite("Ext.data.virtual.Range", [
         extend: 'Ext.data.Model'
     });
 
-    function completeWithData (data, theTotal) {
+    function completeWithData (data) {
         Ext.Ajax.mockCompleteWithData({
-            total: theTotal === undefined ? total : theTotal,
+            total: total,
             data: data
         });
     }
@@ -131,7 +131,7 @@ topSuite("Ext.data.virtual.Range", [
         for (i = start; i <= end; ++i) {
             pages.push(i);
         }
-
+        
         if (reverse) {
             pages.reverse();
         }
@@ -950,19 +950,6 @@ topSuite("Ext.data.virtual.Range", [
                 range.goto(25, 50);
                 flushAllLoads();
                 expectProxyPages([2]);
-            });
-        });
-
-        describe("changing range size", function() {
-            it("should correct the range size when the initial size is smaller than the preflight", function() {
-                makeRange();
-                range.goto(0, 100);
-                flushNextLoad();
-                completeWithData(makeData(9), 9);
-                expect(Ext.Ajax.mockGetAllRequests().length).toBe(0);
-                expect(function() {
-                    range.goto(0, 9);
-                }).not.toThrow();
             });
         });
     });
@@ -2056,19 +2043,6 @@ topSuite("Ext.data.virtual.Range", [
                     expect(proxySpy).not.toHaveBeenCalled();
                     flushAllLoads();
                 });
-            });
-        });
-
-        describe("changing range size", function() {
-            it("should correct the range size when the initial size is smaller than the preflight", function() {
-                makeRange();
-                range.goto(0, 100);
-                flushNextLoad();
-                completeWithData(makeData(9), 9);
-                expect(Ext.Ajax.mockGetAllRequests().length).toBe(0);
-                expect(function() {
-                    range.goto(0, 9);
-                }).not.toThrow();
             });
         });
     });

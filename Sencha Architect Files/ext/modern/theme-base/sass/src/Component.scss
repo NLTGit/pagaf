@@ -14,68 +14,12 @@
     &, *, :after, :before {
         box-sizing: border-box;
     }
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
 }
 
-html.#{$prefix}has-viewport,
-.#{$prefix}has-viewport > body {
+html.#{$prefix}root,
+.#{$prefix}root > body {
     margin: 0;
-    width: 100%;
     height: 100%;
-}
-
-html.#{$prefix}fixed-viewport,
-.#{$prefix}fixed-viewport > body {
-    // position: fixed serves a couple of purposes:
-    //
-    // 1. on iOS it prevents elastic overscroll of the viewport but it can only be used
-    // when the viewport is not scalable, i.e. user-scalable=no, because the viewport will
-    // not size correctly if the body is "position: fixed" and zoom level != 1
-    //
-    // 2. On android it prevents the url bar from scrolling out of view.  This is necessary
-    // to ensure the viewport sizes correctly when zoomed in.
-    // https://sencha.jira.com/browse/EXTJS-26132
-    position: fixed;
-}
-
-@media print {
-    // If the body is position: fixed it will only print the first page.
-    // https://sencha.jira.com/browse/EXTJS-25494
-    html.#{$prefix}has-unscalable-viewport,
-    .#{$prefix}has-unscalable-viewport > body {
-        position: static;
-    }
-}
-
-.#{$prefix}user-selectable-all {
-    -webkit-user-select: all;
-    -moz-user-select: all;
-    -ms-user-select: all;
-    user-select: all;
-}
-
-.#{$prefix}user-selectable-auto {
-    -webkit-user-select: auto;
-    -moz-user-select: auto;
-    -ms-user-select: text;
-    user-select: auto;
-}
-
-.#{$prefix}user-selectable-none {
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-}
-
-.#{$prefix}user-selectable-text {
-    -webkit-user-select: text;
-    -moz-user-select: text;
-    -ms-user-select: text;
-    user-select: text;
 }
 
 .#{$prefix}focused {

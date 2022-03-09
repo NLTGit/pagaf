@@ -190,24 +190,6 @@ $textfield-input-font-family: dynamic($font-family);
 $textfield-placeholder-color: dynamic($neutral-medium-dark-color);
 
 /**
- * @var {color}
- * Text Field {@link #placeholder} color when focused
- */
-$textfield-focused-placeholder-color: dynamic(null);
-
-/**
- * @var {color}
- * Text Field {@link #placeholder} color when invalid
- */
-$textfield-invalid-placeholder-color: dynamic(null);
-
-/**
- * @var {color}
- * Text Field {@link #placeholder} color when disabled
- */
-$textfield-disabled-placeholder-color: dynamic(null);
-
-/**
  * @var {number}
  * Text Field body width
  */
@@ -254,14 +236,12 @@ $textfield-animate-underline-duration: dynamic(.45s);
  */
 $textfield-alt-ui: dynamic((
     input-background-color: rgba(255, 255, 255, .2),
-    focused-input-background-color: rgba(255, 255, 255, .15),
     input-color: rgba(255, 255, 255, .6),
     focused-input-color: rgba(255, 255, 255, .6),
     input-padding: 7px 7px 7px 0,
     input-padding-big: 7px 7px 7px 0,
     input-border-width: 0,
     placeholder-color: rgba(255, 255, 255, .6),
-    focused-placeholder-color: rgb(255, 255, 255),
     border-radius: 3px
 ));
 
@@ -272,14 +252,12 @@ $textfield-alt-ui: dynamic((
  */
 $textfield-faded-ui: dynamic((
     input-background-color: rgba(0, 0, 0, .1),
-    focused-input-background-color: rgba(0, 0, 0, .15),
     input-color: rgba(0, 0, 0, .4),
     focused-input-color: rgba(0, 0, 0, .4),
     input-padding: 7px 7px 7px 0,
     input-padding-big: 7px 7px 7px 0,
     input-border-width: 0,
     placeholder-color: rgba(0, 0, 0, .4),
-    focused-placeholder-color: #333,
     border-radius: 3px
 ));
 
@@ -320,6 +298,54 @@ $textfield-solo-ui: dynamic((
  *
  * @param {color} $disabled-background-color
  * Disabled Text Field background color
+ *
+ * @param {color} $label-color
+ * Text Field label color
+ *
+ * @param {color} $focused-label-color
+ * Focused Text Field label color
+ *
+ * @param {color} $invalid-label-color
+ * Invalid Text Field label color
+ *
+ * @param {color} $disabled-label-color
+ * Disabled Text Field label color
+ *
+ * @param {color} $label-background-color
+ * Text Field Label background color
+ *
+ * @param {color} $focused-label-background-color
+ * Focused Text Field Label background color
+ *
+ * @param {color} $invalid-label-background-color
+ * Invalid Text Field Label background color
+ *
+ * @param {color} $disabled-label-background-color
+ * Disabled Text Field Label background color
+ *
+ * @param {Number} $label-padding
+ * Text Field label padding
+ *
+ * @param {Number} $label-padding-big
+ * Text Field label padding in the {@link Global_CSS#$enable-big big} sizing scheme
+ *
+ * @param {Number} $label-font-weight
+ * Text Field label font weight
+ *
+ * @param {Number} $label-font-size
+ * Text Field label font size
+ *
+ * @param {Number} $label-font-size-big
+ * Text Field label font size in the {@link Global_CSS#$enable-big big} sizing scheme
+ *
+ * @param {Number} $label-line-height
+ * Text Field label line height
+ *
+ * @param {Number} $label-line-height-big
+ * Text Field label line height in the {@link Global_CSS#$enable-big big} sizing scheme
+ *
+ * @param {String} $label-font-family
+ * Text Field label font family
  *
  * @param {Number} $disabled-opacity
  * Text Field disabled opacity
@@ -435,15 +461,6 @@ $textfield-solo-ui: dynamic((
  * @param {color} $placeholder-color
  * Text Field {@link #placeholder} color
  *
- * @param {color} $focused-placeholder-color
- * Text Field {@link #placeholder} color when focused
- *
- * @param {color} $invalid-placeholder-color
- * Text Field {@link #placeholder} color when invalid
- *
- * @param {color} $disabled-placeholder-color
- * Text Field {@link #placeholder} color when disabled
- *
  * @param {number} $border-radius
  * The border radius of the text field
  *
@@ -463,6 +480,22 @@ $textfield-solo-ui: dynamic((
     $focused-background-color: null,
     $invalid-background-color: null,
     $disabled-background-color: null,
+    $label-color: null,
+    $focused-label-color: null,
+    $invalid-label-color: null,
+    $disabled-label-color: null,
+    $label-background-color: null,
+    $focused-label-background-color: null,
+    $invalid-label-background-color: null,
+    $disabled-label-background-color: null,
+    $label-padding: null,
+    $label-padding-big: null,
+    $label-font-weight: null,
+    $label-font-size: null,
+    $label-font-size-big: null,
+    $label-line-height: null,
+    $label-line-height-big: null,
+    $label-font-family: null,
     $disabled-opacity: null,
     $required-indicator-font-weight: null,
     $required-indicator-font-size: null,
@@ -501,9 +534,6 @@ $textfield-solo-ui: dynamic((
     $input-line-height-big: null,
     $input-font-family: null,
     $placeholder-color: null,
-    $focused-placeholder-color: null,
-    $invalid-placeholder-color: null,
-    $disabled-placeholder-color: null,
     $border-radius: null,
     $body-width: null,
     $body-width-big: null,
@@ -587,21 +617,6 @@ $textfield-solo-ui: dynamic((
                 background-color: $focused-input-background-color;
                 color: $focused-input-color;
             }
-
-            .#{$prefix}input-el {
-                // when using vendor prefixes, the selectors need to be separated into their own
-                // rule for each prefix because when encountering an unsupported vendor prefix,
-                // CSS parsing engines will consider the entire rule invalid.
-                &::-webkit-input-placeholder {
-                    color: $focused-placeholder-color;
-                }
-                &::-moz-placeholder {
-                    color: $focused-placeholder-color;
-                }
-                &:-ms-input-placeholder {
-                    color: $focused-placeholder-color;
-                }
-            }
         }
 
         &.#{$prefix}invalid {
@@ -618,21 +633,6 @@ $textfield-solo-ui: dynamic((
                 background-color: $invalid-input-background-color;
                 color: $invalid-input-color;
             }
-
-            .#{$prefix}input-el {
-                // when using vendor prefixes, the selectors need to be separated into their own
-                // rule for each prefix because when encountering an unsupported vendor prefix,
-                // CSS parsing engines will consider the entire rule invalid.
-                &::-webkit-input-placeholder {
-                    color: $invalid-placeholder-color;
-                }
-                &::-moz-placeholder {
-                    color: $invalid-placeholder-color;
-                }
-                &:-ms-input-placeholder {
-                    color: $invalid-placeholder-color;
-                }
-            }
         }
 
         &.#{$prefix}disabled {
@@ -642,21 +642,6 @@ $textfield-solo-ui: dynamic((
                 background-color: $disabled-input-background-color;
                 border-color: $disabled-input-border-color;
                 color: $disabled-input-color;
-            }
-
-            .#{$prefix}input-el {
-                // when using vendor prefixes, the selectors need to be separated into their own
-                // rule for each prefix because when encountering an unsupported vendor prefix,
-                // CSS parsing engines will consider the entire rule invalid.
-                &::-webkit-input-placeholder {
-                    color: $disabled-placeholder-color;
-                }
-                &::-moz-placeholder {
-                    color: $disabled-placeholder-color;
-                }
-                &:-ms-input-placeholder {
-                    color: $disabled-placeholder-color;
-                }
             }
         }
     }

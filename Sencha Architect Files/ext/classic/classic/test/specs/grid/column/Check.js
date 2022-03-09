@@ -4,13 +4,13 @@ topSuite("Ext.grid.column.Check", ['Ext.grid.Panel', 'Ext.grid.column.Template']
     var itNotIE9 = Ext.isIE9 ? xit : it,
         grid, view, store, col, invert = false;
 
-    function getColCfg(cfg) {
-        return Ext.apply({
+    function getColCfg() {
+        return {
             xtype: 'checkcolumn',
             text: 'Checked',
             dataIndex: 'val',
             invert: invert
-        }, cfg);
+        };
     }
     
     function makeGrid(columns, data, gridCfg) {
@@ -454,128 +454,6 @@ topSuite("Ext.grid.column.Check", ['Ext.grid.Panel', 'Ext.grid.column.Template']
             waitsFor(function() {
                 return col.el.hasCls(col.headerCheckedCls) === true;
             }, 'column header to be checked');
-        });
-    });
-
-    describe("aria", function() {
-        it("should not throw when committing", function() {
-            var cfg = getColCfg();
-            cfg.useAriaElements = true;
-            makeGrid([cfg]);
-            var rec = store.first(),
-                cell;
-
-            rec.commit();
-            cell = grid.getView().getCell(rec, col);
-            expect(cell.getAttribute('aria-describedby')).toBe(col.id + '-cell-description-selected');
-            rec.set('val', false);
-            cell = grid.getView().getCell(rec, col);
-            expect(cell.getAttribute('aria-describedby')).toBe(col.id + '-cell-description-not-selected');
-        });
-    });
-
-    describe("tips", function() {
-        function getTipEl(row) {
-            row = grid.getView().getRow(row);
-            return Ext.fly(row).down('.x-grid-cell', true);
-        }
-
-        describe("no tips", function() {
-            it("should not have tips during render", function() {
-                makeGrid(null, [{ val: true }, { val: false }]);
-                expect(getTipEl(0).hasAttribute('data-qtip')).toBe(false);
-                expect(getTipEl(1).hasAttribute('data-qtip')).toBe(false);
-            });
-
-            it("should not have tips after modifying values", function() {
-                makeGrid(null, [{ val: true }, { val: false }]);
-                store.getAt(0).set('val', false);
-                store.getAt(1).set('val', true);
-                expect(getTipEl(0).hasAttribute('data-qtip')).toBe(false);
-                expect(getTipEl(1).hasAttribute('data-qtip')).toBe(false);
-            });
-        });
-
-        describe("tooltip only", function() {
-            it("should only have tips on unchecked cells during render", function() {
-                makeGrid([getColCfg({
-                    tooltip: 'foo'
-                })], [{ val: true }, { val: false }]);
-                expect(getTipEl(0).hasAttribute('data-qtip')).toBe(false);
-                expect(getTipEl(1).getAttribute('data-qtip')).toBe('foo');
-            });
-
-            it("should only have tips on unchecked cells after modifying values", function() {
-                makeGrid([getColCfg({
-                    tooltip: 'foo'
-                })], [{ val: true }, { val: false }]);
-                store.getAt(0).set('val', false);
-                store.getAt(1).set('val', true);
-                expect(getTipEl(0).getAttribute('data-qtip')).toBe('foo');
-                expect(getTipEl(1).hasAttribute('data-qtip')).toBe(false);
-            });
-        });
-
-        describe("checkedTooltip only", function() {
-            it("should only have tips on checked cells during render", function() {
-                makeGrid([getColCfg({
-                    checkedTooltip: 'foo'
-                })], [{ val: true }, { val: false }]);
-                expect(getTipEl(0).getAttribute('data-qtip')).toBe('foo');
-                expect(getTipEl(1).hasAttribute('data-qtip')).toBe(false);
-            });
-
-            it("should only have tips on checked cells after modifying values", function() {
-                makeGrid([getColCfg({
-                    checkedTooltip: 'foo'
-                })], [{ val: true }, { val: false }]);
-                store.getAt(0).set('val', false);
-                store.getAt(1).set('val', true);
-                expect(getTipEl(0).hasAttribute('data-qtip')).toBe(false);
-                expect(getTipEl(1).getAttribute('data-qtip')).toBe('foo');
-            });
-        });
-
-        describe("both tips", function() {
-            it("should have tips on both cell types during render", function() {
-                makeGrid([getColCfg({
-                    tooltip: 'foo',
-                    checkedTooltip: 'bar'
-                })], [{ val: true }, { val: false }]);
-                expect(getTipEl(0).getAttribute('data-qtip')).toBe('bar');
-                expect(getTipEl(1).getAttribute('data-qtip')).toBe('foo');
-            });
-
-            it("should html encode tips during render", function() {
-                makeGrid([getColCfg({
-                    tooltip: '<span>no</span>',
-                    checkedTooltip: '<span>yes</span>'
-                })], [{ val: true }, { val: false }]);
-                expect(getTipEl(0).getAttribute('data-qtip')).toBe('<span>yes</span>');
-                expect(getTipEl(1).getAttribute('data-qtip')).toBe('<span>no</span>');
-            });
-
-            it("should have cells on both cell types after modifying values", function() {
-                makeGrid([getColCfg({
-                    tooltip: 'foo',
-                    checkedTooltip: 'bar'
-                })], [{ val: true }, { val: false }]);
-                store.getAt(0).set('val', false);
-                store.getAt(1).set('val', true);
-                expect(getTipEl(0).getAttribute('data-qtip')).toBe('foo');
-                expect(getTipEl(1).getAttribute('data-qtip')).toBe('bar');
-            });
-
-            it("should html encode tips after modifying values", function() {
-                makeGrid([getColCfg({
-                    tooltip: '<span>no</span>',
-                    checkedTooltip: '<span>yes</span>'
-                })], [{ val: true }, { val: false }]);
-                store.getAt(0).set('val', false);
-                store.getAt(1).set('val', true);
-                expect(getTipEl(0).getAttribute('data-qtip')).toBe('<span>no</span>');
-                expect(getTipEl(1).getAttribute('data-qtip')).toBe('<span>yes</span>');
-            });
         });
     });
 });

@@ -63,8 +63,8 @@ Ext.define('Ext.panel.Tool', {
 
     config: {
         /**
-         * @cfg glyph
-         * @inheritdoc Ext.panel.Header#cfg-glyph
+         * @cfg {Number/String} glyph
+         * @inheritdoc Ext.panel.Header#glyph
          */
         glyph: null
     },
@@ -75,16 +75,7 @@ Ext.define('Ext.panel.Tool', {
      */
     isTool: true,
     
-    /**
-     * @cfg baseCls
-     * @inheritdoc
-     */
     baseCls: Ext.baseCSSPrefix + 'tool',
-    
-    /**
-     * @cfg disabledCls
-     * @inheritdoc
-     */
     disabledCls: Ext.baseCSSPrefix + 'tool-disabled',
     
     /**
@@ -98,22 +89,14 @@ Ext.define('Ext.panel.Tool', {
      */
     toolOverCls: Ext.baseCSSPrefix + 'tool-over',
     /**
-     * @cfg iconCls
+     * @cfg {String} iconCls
      * @inheritdoc Ext.panel.Header#cfg-iconCls
      */
 
-    /**
-     * @cfg childEls
-     * @inheritdoc
-     */
     childEls: [
         'toolEl'
     ],
 
-    /**
-     * @cfg renderTpl
-     * @inheritdoc
-     */
     renderTpl: [
         '<div id="{id}-toolEl" data-ref="toolEl" class="{className} {childElCls}" role="presentation"' +
         '<tpl if="glyph">' +
@@ -137,14 +120,12 @@ Ext.define('Ext.panel.Tool', {
     toolOwner: null,
 
     /**
-     * @cfg {Function/String} callback
-     * A function to execute when the tool is clicked.  The callback is passed the
-     * following params:
-     * @param {Ext.Component} owner The logical owner of the tool. In a typical
+     * @cfg {Function/String} callback A function to execute when the tool is clicked.
+     * @cfg {Ext.Component} callback.owner The logical owner of the tool. In a typical
      * `Ext.panel.Panel`, this is set to the owning panel. This value comes from the
      * `toolOwner` config.
-     * @param {Ext.panel.Tool} callback.tool The tool that is calling
-     * @param {Ext.event.Event} callback.event The click event
+     * @cfg {Ext.panel.Tool} callback.tool The tool that is calling.
+     * @cfg {Ext.event.Event} callback.event The click event.
      * @since 4.2
      * @controllable
      */
@@ -267,28 +248,10 @@ Ext.define('Ext.panel.Tool', {
      */
     stopEvent: true,
     
-    /**
-     * @property ariaRole
-     * @inheritdoc
-     */
     ariaRole: 'button',
-    
-    /**
-     * @property focusable
-     * @inheritdoc
-     */
     focusable: true,
-    
-    /**
-     * @cfg tabIndex
-     * @inheritdoc
-     */
     tabIndex: 0,
     
-    /**
-     * @cfg keyMap
-     * @inheritdoc
-     */
     keyMap: {
         scope: 'this',
         SPACE: 'onClick',
@@ -492,7 +455,7 @@ Ext.define('Ext.panel.Tool', {
 
     /**
      * Sets the icon class. Allows the icon to be changed.
-     * @param {String} iconCls The new icon class. See the {@link #type} config.
+     * @param {String} type The new icon class. See the {@link #type} config.
      * @return {Ext.panel.Tool} this
      */
     setIconCls: function(iconCls) {

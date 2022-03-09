@@ -1,5 +1,4 @@
 @include panel-ui(
-    $background-color: $panel-background-color,
     $border-color: $panel-border-color,
     $border-width: $panel-border-width,
     $border-style: $panel-border-style,
@@ -34,7 +33,6 @@
     $header-padding-big: $panel-header-padding-big,
     $header-title-padding: $panel-header-title-padding,
     $header-title-padding-big: $panel-header-title-padding-big,
-    $header-title-opacity: $panel-header-title-opacity,
     $header-shadow: $panel-header-shadow,
     $header-z-index: $panel-header-z-index,
     $header-min-height: $panel-header-min-height,

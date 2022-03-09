@@ -1,3 +1,6 @@
+/**
+ * Makes the element text overflow to use ellipsis.
+ */
 @mixin ellipsis {
     white-space: nowrap;
     overflow: hidden;

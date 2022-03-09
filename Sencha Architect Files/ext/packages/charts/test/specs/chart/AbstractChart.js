@@ -566,63 +566,6 @@ topSuite("Ext.chart.AbstractChart", ['Ext.chart.*', 'Ext.data.ArrayStore'], func
         });
     });
 
-    describe('processData', function () {
-        it('should refresh legend store', function () {
-            var layoutEnd, processDataSpy;
-
-            runs(function () {
-                chart = new Ext.chart.PolarChart({
-                    animation: false,
-                    renderTo: document.body,
-                    width: 400,
-                    height: 400,
-                    legend: {
-                        docked: 'right'
-                    },
-                    store: {
-                        data: [{
-                            "name": "A",
-                            "data1": 1
-                        }, {
-                            "name": "B",
-                            "data1": 2
-                        }]
-                    },
-                    series: {
-                        type: 'pie3d',
-                        angleField: 'data1',
-                        label: {
-                            field: 'name'
-                        }
-                    },
-                    listeners: {
-                        layout: function () {
-                            layoutEnd = true;
-                        }
-                    }
-                });
-            });
-            waitsFor(function () {
-                return layoutEnd;
-            });
-            runs(function () {
-                layoutEnd = false;
-
-                expect(chart.getLegend().getStore().getAt(0).get('name')).toBe('A');
-                processDataSpy = spyOn(chart, 'processData').andCallThrough();
-                chart.getStore().loadData([{
-                    name: 'X',
-                    data1: 24
-                }, {
-                    name: 'Y',
-                    data1: 25
-                }]);
-                expect(processDataSpy).toHaveBeenCalled();
-                expect(chart.getLegend().getStore().getAt(0).get('name')).toBe('X');
-            });
-        });
-    });
-
     describe("update gradients", function () {
         beforeEach(function () {
             makeStore(3);

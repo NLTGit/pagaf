@@ -5,3 +5,10 @@
 // are properly set up as soon as possible.
 
 Ext.platformTags.classic = !(Ext.platformTags.modern = Ext.isModern = true);
+
+/**
+ * An immutable empty array.
+ * @property {Array} emptyArray
+ * @member Ext
+ */
+Ext.emptyArray = Object.freeze([]);

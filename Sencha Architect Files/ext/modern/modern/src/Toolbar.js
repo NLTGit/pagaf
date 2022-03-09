@@ -180,12 +180,14 @@ Ext.define('Ext.Toolbar', {
     constructor: function(config) {
         config = config || {};
 
-        if (config.docked == 'left' || config.docked == 'right') {
-            config.layout = Ext.apply({
-                type: 'box',
-                align: 'stretch',
-                vertical: true
-            }, config.layout);
+        if (!config.layout) {
+            if (config.docked == "left" || config.docked == "right") {
+                config.layout = {
+                    type: 'box',
+                    align: 'stretch',
+                    vertical: true
+                };
+            }
         }
 
         this.callParent([config]);

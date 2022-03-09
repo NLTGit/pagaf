@@ -64,7 +64,7 @@ Ext.define('Ext.event.gesture.DoubleTap', {
 
             me.startTime = e.time;
 
-            Ext.undefer(me.singleTapTimer);
+            clearTimeout(me.singleTapTimer);
         }
 
         return ret;
@@ -141,7 +141,7 @@ Ext.define('Ext.event.gesture.DoubleTap', {
     reset: function() {
         var me = this;
 
-        Ext.undefer(me.singleTapTimer);
+        clearTimeout(me.singleTapTimer);
 
         me.startTime = me.lastTapTime = 0;
  

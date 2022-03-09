@@ -920,43 +920,6 @@ function() {
                     });
                 });
             });
-            
-            describe("revertFocus", function() {
-                var fooCmp, barCmp;
-                
-                beforeEach(function() {
-                    makeContainer({
-                        defaultFocus: '#foo',
-                        items: [{
-                            xtype: 'container',
-                            itemId: 'fooContainer',
-                            defaultFocus: '#foo',
-                            items: [
-                                childComponent({ itemId: 'foo' })
-                            ]
-                        }, {
-                            xtype: 'container',
-                            itemId: 'barContainer',
-                            items: [
-                                childComponent({ itemId: 'bar' })
-                            ]
-                        }]
-                    });
-                    
-                    fooCmp = container.down('#foo');
-                    barCmp = container.down('#bar');
-                });
-                
-                it("should work when target is a focus delegate", function() {
-                    focusAndWait(barCmp);
-                    
-                    runs(function() {
-                        barCmp.hide();
-                    });
-                    
-                    expectFocused(fooCmp);
-                });
-            });
         
             // TODO https://sencha.jira.com/browse/EXT-68
             (isModern ? xdescribe : describe)("Focus and state changes", function() {

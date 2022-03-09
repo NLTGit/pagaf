@@ -20,14 +20,6 @@
     height: $grid-selmodel-handle-height;
     width: $grid-selmodel-handle-width;
     background-color: $grid-selmodel-handle-color;
-
-    @if $enable-big {
-        // Maintainer: We add one to keep sizes odd so it can be centered on a 1px line intersection.
-        .#{$prefix}big & {
-            height: $grid-selmodel-handle-height * 2 + 1;
-            width: $grid-selmodel-handle-width * 2 + 1;
-        }
-    }
 }
 
 .#{$prefix}selmodel-extender-mask {

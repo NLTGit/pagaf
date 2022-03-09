@@ -109,7 +109,12 @@ Ext.define('Ext.tip.ToolTip', {
          *   halfway down the right edge of the target item. This allows more flexibility
          *   and also describes which two edges are considered adjacent when positioning a tip pointer. 
          *
-         * Following are all of the supported predefined anchor positions:
+         * In addition to the anchor points, the position parameter also supports the "?"
+         * character. If "?" is passed at the end of the position string, the element will
+         * attempt to align as specified, but the position will be adjusted to constrain to
+         * the viewport if necessary. Note that the element being aligned might be swapped to
+         * align to a different position than that specified in order to enforce the viewport
+         * constraints. Following are all of the supported anchor positions:
          *
          *      Value  Description
          *      -----  -----------------------------
@@ -122,12 +127,6 @@ Ext.define('Ext.tip.ToolTip', {
          *      bl     The bottom left corner
          *      b      The center of the bottom edge
          *      br     The bottom right corner
-         *
-         * You can put a '?' at the end of the alignment string to constrain the positioned element to the
-         * {@link Ext.Viewport Viewport}. The element will attempt to align as specified, but the position
-         * will be adjusted to constrain to the viewport if necessary. Note that the element being aligned
-         * might be swapped to align to a different position than that specified in order to enforce the viewport
-         * constraints.
          *
          * Example Usage:
          *
@@ -143,17 +142,14 @@ Ext.define('Ext.tip.ToolTip', {
          *
          *     // align the 25% point on the bottom edge of this tooltip
          *     // with the 75% point on the top edge of its target.
-         *     align: 'b25-t75'
+         *     align: 'b25-c75'
          */
         align: 'l-r?',
 
         /**
          * @cfg {String} [alignDelegate]
-         * A selector which identifies a child element, or an ancestor element of the
-         * {@link #currentTarget} to align to upon show.
-         *
-         * It will look for the first matching child first, and if none found, look for a
-         * matching ancestor.
+         * A selector which identifies child elements of the  {@link #currentTarget} to
+         * align to upon show.
          */
         alignDelegate: null,
 
@@ -193,7 +189,7 @@ Ext.define('Ext.tip.ToolTip', {
 
         /**
          * @cfg {String} [delegate]
-         * A DOM querySelector which identifies child elements of the target which trigger showing
+         * A selector which identifies child elements of the target which trigger showing
          * this ToolTip. The {@link #currentTarget} property is set to the triggering
          * element.
          */
@@ -256,10 +252,6 @@ Ext.define('Ext.tip.ToolTip', {
         /**
          * @cfg {Ext.Component/Ext.dom.Element} target
          * The target that should trigger showing this ToolTip.
-         *
-         * If the specified target is a Component, then the lifecycle of this ToolTip
-         * is bound to the lifecycle of its target. This ToolTip will be destroyed when
-         * the target Component is destroyed.
          */
         target: null,
 
@@ -295,6 +287,8 @@ Ext.define('Ext.tip.ToolTip', {
         this.currentTarget = new Ext.dom.Fly();
 
         this.callParent([config]);
+
+        this.attachTargetListeners();
     },
 
     getRefOwner: function() {
@@ -348,30 +342,15 @@ Ext.define('Ext.tip.ToolTip', {
     updateTarget: function(target, oldTarget) {
         var me = this;
 
-        if (oldTarget) {
-            oldTarget.un('destroy', me.destroy, me);
+        if (!me.isConfiguring) {
+            me.targetListeners = Ext.destroy(me.targetListeners);
+            me.attachTargetListeners();
         }
-
-        if (target) {
-            if (target.isComponent) {
-                me.targetElement = target.element;
-
-                // If we're taking care of one component, we die with it.
-                // And we attach listeners to its element.
-                target.on('destroy', me.destroy, me);
-            } else {
-                me.targetElement = Ext.get(target);
-            }
-        } else {
-            me.targetElement = null;
-        }
-
-        me.attachTargetListeners();
     },
 
     updateTrackMouse: function(trackMouse) {
         // If tracking mouse, allow mouse to enter the tooltip without triggering dismiss
-        if (trackMouse) {
+        if (!this.getAnchor()) {
             this.setAllowOver(trackMouse);
         }
     },
@@ -407,7 +386,6 @@ Ext.define('Ext.tip.ToolTip', {
 
     showBy: function(target, alignment, passedOptions) {
         var me = this,
-            alignTarget = target,
             alignDelegate = me.getAlignDelegate();
 
         // If we are trackMouse: true, we will be asked to show by a pointer event
@@ -421,12 +399,7 @@ Ext.define('Ext.tip.ToolTip', {
             } else if (target.nodeType) {
                 me.updateCurrentTarget(target);
             }
-            // Use the alignDelegate to find a matching descendant, or a matching ancestor.
-            if (alignDelegate) {
-                target = Ext.fly(target);
-                alignTarget = target.down(alignDelegate, true) || target.up(alignDelegate, me.targetElement, true);
-            }
-            me.callParent([alignTarget, alignment || me.getAlign(), passedOptions]);
+            me.callParent([alignDelegate ? target.child(alignDelegate, true) : target, alignment || me.getAlign(), passedOptions]);
         }
     },
 
@@ -440,7 +413,7 @@ Ext.define('Ext.tip.ToolTip', {
             // A call to show with no alignment specified should align to the target
             if (!options.alignment && (me.pointerEvent || me.getTarget())) {
                 options.alignment = {
-                    component: me.targetElement,
+                    component: me.getElFromTarget(),
                     alignment: me.getAlign(),
                     options: {
                         overlap: me.getTrackMouse() && !me.getAnchor()
@@ -452,10 +425,15 @@ Ext.define('Ext.tip.ToolTip', {
     },
 
     afterShow: function() {
-        var me = this;
+        var me = this,
+            dismissDelay = me.getDismissDelay();
 
         me.callParent(arguments);
-        me.postprocessShow();
+        me.clearTimer('show');
+        if (dismissDelay && me.getAutoHide()) {
+            me.dismissTimer = Ext.defer(me.hide, dismissDelay, me);
+        }
+        me.toFront();
         me.mousedownListener = Ext.on({
             mousedown: 'onDocMouseDown',
             scope: me,
@@ -501,7 +479,7 @@ Ext.define('Ext.tip.ToolTip', {
             // Only respond to the mousedown if it's not on this tip, and it's not on a target.
             // If it's on a target, onTargetTap will handle it.
             else if (!me.getClosable()) {
-                if (e.within(me.targetElement) && (!delegate || e.getTarget(delegate, me.targetElement))) {
+                if (e.within(me.getElFromTarget()) && (!delegate || e.getTarget(delegate))) {
                     me.delayHide();
                 } else {
                     me.disable();
@@ -512,7 +490,7 @@ Ext.define('Ext.tip.ToolTip', {
 
         onTargetOver: function(e) {
             var me = this,
-                myTarget = me.targetElement,
+                myTarget = me.getElFromTarget(),
                 delegate = me.getDelegate(),
                 currentTarget = me.currentTarget,
                 newTarget;
@@ -531,7 +509,7 @@ Ext.define('Ext.tip.ToolTip', {
                 if (currentTarget.contains(e.target)) {
                     return;
                 }
-                newTarget = e.getTarget(delegate, myTarget);
+                newTarget = e.getTarget(delegate);
 
                 // Mouseovers while within a target do nothing
                 if (newTarget && e.getRelatedTarget(delegate) === newTarget) {
@@ -570,7 +548,6 @@ Ext.define('Ext.tip.ToolTip', {
             // consult it. If it returns a veto, then we do in fact hide.
             // Under normal circumstances we continue with no delay into
             // showByTarget in a visible state.
-            // We must handle the post show tasks like starting the autoHide timer etc.
             if (me.isVisible()) {
                 if (myListeners.beforeshow && me.fireEvent('beforeshow', me) === false) {
                     return me.hide();
@@ -581,21 +558,9 @@ Ext.define('Ext.tip.ToolTip', {
                 if (myListeners.show) {
                     me.fireEvent('show', me);
                 }
-                me.postprocessShow();
             } else {
                 me.delayShow(newTarget);
             }
-        },
-
-        postprocessShow: function() {
-            var me = this,
-                dismissDelay = me.getDismissDelay();
-
-            me.clearTimer('show');
-            if (dismissDelay && me.getAutoHide()) {
-                me.dismissTimer = Ext.defer(me.hide, dismissDelay, me);
-            }
-            me.toFront();
         },
 
         onTargetTap: function(e) {
@@ -610,11 +575,7 @@ Ext.define('Ext.tip.ToolTip', {
         onTargetOut: function(e) {
             // We have exited the current target
             if (this.currentTarget.dom && !this.currentTarget.contains(e.relatedTarget)) {
-
-                // If we haven't moved into the tip with allowOver set, then kick off ths hide timer
-                if (!this.getAllowOver() && e.within(this.el, true)) {
-                    this.handleTargetOut();
-                }
+                this.handleTargetOut();
             }
         },
 
@@ -635,11 +596,11 @@ Ext.define('Ext.tip.ToolTip', {
             this.clearTimer('dismiss');
         },
 
-        onTipOut: function(e) {
+        onTipOut: function() {
             // A mouseout of the tip itself is only a mouseout if the pointer has already moved
             // outside the target and we have no current target, or the mouseout point is outside
             // of the target.
-            if (!this.currentTarget.dom || !e.getPoint().isContainedBy(this.currentTarget.getRegion())) {
+            if (!this.currentTarget.dom || !this.pointerEvent.getPoint().isContainedBy(this.currentTarget.getRegion())) {
                 this.handleTargetOut();
             }
         },
@@ -749,7 +710,7 @@ Ext.define('Ext.tip.ToolTip', {
                 timer = me[propName];
 
             if (timer) {
-                Ext.undefer(timer);
+                clearTimeout(timer);
                 me[propName] = null;
 
                 // We were going to show against the target, but now not.
@@ -813,22 +774,26 @@ Ext.define('Ext.tip.ToolTip', {
             }
         },
 
+        getElFromTarget: function() {
+            var target = this.getTarget();
+            if (target) {
+                if (target.isComponent) {
+                    target = target.element;
+                }
+            }
+            return target;
+        },
+
         attachTargetListeners: function(target) {
             var me = this,
                 listeners;
 
-            me.targetListeners = Ext.destroy(me.targetListeners);
-
-            // The only time the target argument is passed is as null
-            // to remove listeners on disable.
-            // In all other cases, it's not passed, and we use our target.
-            if (target === null) {
-                return;
+            if (target !== null) {
+                target = me.getElFromTarget();
             }
 
-            // The target argument is not passed when we are being
-            // asked to attach listeners.
-            target = me.targetElement;
+            me.targetListeners = Ext.destroy(me.targetListeners);
+
             if (target) {
                 listeners = {
                     mouseover: 'onTargetOver',

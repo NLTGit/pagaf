@@ -504,6 +504,7 @@ function() {
 
         it('should display the row editor for the locked grid in editing mode', function () {
             node = grid.lockedGrid.view.getNode(0);
+
             jasmine.fireMouseEvent(Ext.fly(node).down('.x-grid-cell-inner', true), 'dblclick');
 
             plugin = grid.findPlugin('rowediting');
@@ -521,38 +522,6 @@ function() {
 
             expect(plugin.editor !== null).toBe(true);
             expect(plugin.editing).toBe(true);
-        });
-
-        describe('locking and unlocking columns', function() {
-            it("should move the editor from the locked to the normal side after unlocking a column", function() {
-                node = grid.lockedGrid.view.getNode(0);
-                jasmine.fireMouseEvent(Ext.fly(node).down('.x-grid-cell-inner', true), 'dblclick');
-                plugin = grid.findPlugin('rowediting');
-
-                expect(grid.columns[0].getEditor().ownerCt).toBe(plugin.editor.lockedColumnContainer);
-                plugin.cancelEdit();
-
-                grid.unlock(grid.columns[0], 0);
-                node = grid.normalGrid.view.getNode(0);
-                jasmine.fireMouseEvent(Ext.fly(node).down('.x-grid-cell-inner', true), 'dblclick');
-                
-                expect(grid.columns[0].getEditor().ownerCt).toBe(plugin.editor.normalColumnContainer);
-            });
-
-            it("should move the editor from the normal to the locked side after locking a column", function() {
-                node = grid.normalGrid.view.getNode(0);
-                jasmine.fireMouseEvent(Ext.fly(node).down('.x-grid-cell-inner', true), 'dblclick');
-                plugin = grid.findPlugin('rowediting');
-
-                expect(grid.columns[1].getEditor().ownerCt).toBe(plugin.editor.normalColumnContainer);
-                plugin.cancelEdit();
-
-                grid.lock(grid.columns[1], 0);
-                node = grid.lockedGrid.view.getNode(0);
-                jasmine.fireMouseEvent(Ext.fly(node).down('.x-grid-cell-inner', true), 'dblclick');
-                
-                expect(grid.columns[0].getEditor().ownerCt).toBe(plugin.editor.lockedColumnContainer);
-            });
         });
 
         describe('with grouping feature', function () {

@@ -9,6 +9,8 @@
  * directly with the Router as the Controllers manage everything automatically. See the
  * {@link Ext.Controller Controller documentation} for more information on specifying
  * routes.
+ *
+ * @private
  */
 Ext.define('Ext.route.Router', {
     singleton : true,
@@ -36,16 +38,6 @@ Ext.define('Ext.route.Router', {
      * @param {String[]} tokens An array of individual tokens in the hash.
      */
 
-    /**
-     * @event routereject
-     * @member Ext.GlobalEvents
-     *
-     * Fires when a route was rejected from either a before action, {@link Ext.GlobalEvents#beforeroutes} event
-     * or {@link Ext.GlobalEvents#beforeroute} event.
-     *
-     * @param {Ext.route.Route} route The route which had it's execution rejected.
-     */
-
     config: {
         /**
          * @cfg {Boolean} hashBang Sets {@link Ext.util.History#hashbang} to enable/disable
@@ -68,10 +60,6 @@ Ext.define('Ext.route.Router', {
     /**
      * @property {Object} routes The connected {@link Ext.route.Route}
      * instances.
-     */
-
-    /**
-     * @property {Boolean} isSuspended `true` if the router is currently suspended.
      */
 
     constructor: function () {
@@ -128,7 +116,7 @@ Ext.define('Ext.route.Router', {
      * `false` is returned can prevent any routes from executing.
      *
      * @private
-     * @param {String[]} tokens The individual tokens that were split from the hash
+     * @param {String[]} tokens The individual tokens that was split from the hash
      * using {@link #multipleToken}.
      */
     handleBefore: function (tokens) {
@@ -149,7 +137,7 @@ Ext.define('Ext.route.Router', {
      * to any other route.
      *
      * @private
-     * @param {String[]} tokens The individual tokens that were split from the hash
+     * @param {String[]} tokens The individual tokens that was split from the hash
      * using {@link #multipleToken}.
      */
     handleBeforeRoute: function (tokens) {
@@ -171,13 +159,12 @@ Ext.define('Ext.route.Router', {
      * and then exeucte the routes.
      *
      * @private
-     * @param {String[]} tokens The individual tokens that were split from the hash
+     * @param {String[]} tokens The individual tokens that was split from the hash
      * using {@link #multipleToken}.
      */
     doRun: function (tokens) {
-        var me = this,
-            app = me.application,
-            routes = me.routes,
+        var app = this.application,
+            routes = this.routes,
             i = 0,
             length = tokens.length,
             matched = {},
@@ -200,9 +187,7 @@ Ext.define('Ext.route.Router', {
                         // The document fragment may have changed but the token
                         // part that the route recognized did not change. Therefore
                         // is was matched but we should not execute the route again.
-                        route
-                            .execute(token, recognize)
-                            .then(null, Ext.bind(me.onRouteRejection, me, [route]));
+                        route.execute(token, recognize);
                     }
 
                     Ext.Array.remove(unmatched, route);
@@ -231,20 +216,13 @@ Ext.define('Ext.route.Router', {
         for (; i < length; i++) {
             route = unmatched[i];
 
-
-             // Need to reset route's `lastToken` so that when a token
-             // is added to the document fragment it will not be falsely
-             // matched.
+            /**
+             * Need to reset route's `lastToken` so that when a token
+             * is added to the document fragment it will not be falsely
+             * matched.
+             */
             route.lastToken = null;
         }
-    },
-
-    /**
-     * @private
-     * Called when a route was rejected.
-     */
-    onRouteRejection: function (route) {
-        Ext.fireEvent('routereject', route);
     },
 
     /**
@@ -387,18 +365,22 @@ Ext.define('Ext.route.Router', {
 
     /**
      * Resets the connected routes' last token they were executed on.
-     * @param {String} [token] If passed, only clear matching routes.
      * @private
      */
-    clearLastTokens: function (token) {
+    clearLastTokens: function () {
         var routes = this.routes,
-            name, route;
+            name, arr, i, length;
 
         for (name in routes) {
-            route = routes[name];
+            arr    = routes[name];
+            length = arr && arr.length;
 
-            if (!token || route.recognize(token)) {
-                route.lastToken = null;
+            if (length) {
+                i = 0;
+
+                for (; i < length; i++) {
+                    arr[i].lastToken = null;
+                }
             }
         }
     },
@@ -420,7 +402,7 @@ Ext.define('Ext.route.Router', {
     /**
      * Suspends the handling of tokens (see {@link #resume}).
      *
-     * @param {Boolean} [trackTokens] `false` to prevent any tokens to be
+     * @param {Boolean} trackTokens `false` to prevent any tokens to be
      * queued while being suspended.
      */
     suspend: function (trackTokens) {
@@ -434,7 +416,7 @@ Ext.define('Ext.route.Router', {
     /**
      * Resumes the execution of routes (see {@link #suspend}).
      *
-     * @param {Boolean} [discardQueue] `true` to prevent any previously queued
+     * @param {Boolean} discardQueue `true` to prevent any previously queued
      * tokens from being enacted on.
      */
     resume: function (discardQueue) {

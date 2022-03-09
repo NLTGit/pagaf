@@ -1,56 +1,11 @@
 /**
- * Enables reactive actions to handle changes in the hash by using the
- * {@link Ext.route.Mixin#routes routes} configuration in a controller.
- * An example configuration would be:
+ * Represents a mapping between a url and a controller/action pair. May also contain
+ * additional params.
  *
- *     Ext.define('MyApp.view.main.MainController', {
- *         extend: 'Ext.app.ViewController',
- *         alias: 'controller.app-main',
+ * This is a private internal class that should not need to be used by end-developer code.
+ * Its API and existence are subject to change so use at your own risk.
  *
- *         routes: {
- *             'user/:id': 'onUser'
- *         },
- *
- *         onUser: function (id) {
- *             // ...
- *         }
- *     });
- *
- * The `routes` object can also receive an object to further configure
- * the route, for example you can configure a `before` action that will
- * be executed before the `action` or can cancel the route execution:
- *
- *     Ext.define('MyApp.view.main.MainController', {
- *         extend: 'Ext.app.ViewController',
- *         alias: 'controller.app-main',
- *
- *         routes: {
- *             'user/:id': {
- *                 action: 'onUser',
- *                 before: 'onBeforeUser'
- *             }
- *         },
- *
- *         onBeforeUser: function (id) {
- *             return new Ext.Promise(function (resolve, reject) {
- *                 Ext.Ajax
- *                     .request({
- *                         url: '/check/permission',
- *                         params: {
- *                             route: 'user',
- *                             meta: {
- *                                 id: id
- *                             }
- *                         }
- *                     })
- *                     .then(resolve, reject);
- *             });
- *         },
- *
- *         onUser: function (id) {
- *             // ...
- *         }
- *     });
+ * @private
  */
 Ext.define('Ext.route.Route', {
     requires: [
@@ -97,49 +52,15 @@ Ext.define('Ext.route.Route', {
         caseInsensitive: false,
 
         /**
-         * @private
-         * @cfg {Object[]} [handler=[]] The array of connected handlers to this route. Each handler
-         * must defined a `scope` and can define an `action`, `before` and/or `exit` handler:
+         * @cfg {Object[]} [handler=[]] The array of connected handlers to this route. Each object
+         * should specify a function and scope:
          *
          *     handlers: [{
-         *         action: function() {
-         *             //...
-         *         },
-         *         scope: {}
-         *     }, {
-         *         action: function() {
-         *             //...
-         *         },
-         *         before: function() {
-         *             //...
-         *         },
-         *         scope: {}
-         *     }, {
-         *         exit: function() {
-         *             //...
-         *         },
+         *         fn: function() {},
          *         scope: {}
          *     }]
          *
-         * The `action`, `before` and `exit` handlers can be a string that will be resolved
-         * from the `scope`:
-         *
-         *     handlers: [{
-         *         action: 'onAction',
-         *         before: 'onBefore',
-         *         exit: 'onExit',
-         *         scope: {
-         *             onAction: function () {
-         *                 //...
-         *             },
-         *             onBefore: function () {
-         *                 //...
-         *             },
-         *             onExit: function () {
-         *                 //...
-         *             }
-         *         }
-         *     }]
+         * If the `fn` is a string, the function will be resolved from the `scope`.
          */
         handlers: []
     },
@@ -245,7 +166,6 @@ Ext.define('Ext.route.Route', {
      * The method to execute the action using the configured before function which will
      * kick off the actual {@link #actions} on the {@link #controller}.
      *
-     * @param token
      * @param {Object} argConfig The object from the {@link Ext.route.Route}'s
      * recognize method call.
      * @return {Ext.promise.Promise}

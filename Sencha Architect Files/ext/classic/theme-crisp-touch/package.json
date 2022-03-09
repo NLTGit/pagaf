@@ -1,6 +1,6 @@
 {
     "name": "@extjs/ext-react-classic-theme-crisp-touch",
-    "version": "6.5.3.57",
+    "version": "6.5.0.775",
     "sencha": {
         "name": "theme-crisp-touch",
         "namespace": "Ext",
@@ -17,7 +17,7 @@
         "creator": "Sencha",
         "summary": "Ext JS Crisp Touch Theme",
         "detailedDescription": "Adds touch-friendly sizing to the Crisp Theme",
-        "version": "6.5.3.57",
+        "version": "6.5.0",
         "compatVersion": "6.0.0",
         "format": "1",
         "output": "${workspace.subpkg.prefix}/${package.name}",

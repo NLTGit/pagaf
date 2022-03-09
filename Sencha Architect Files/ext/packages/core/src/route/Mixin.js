@@ -263,7 +263,7 @@ Ext.define('Ext.route.Mixin', {
      *         }
      *     }
      *
-     * If you pass in a hash of `#foo/bar|baz/1`, each route will execute in response. If you want to change only the `baz`
+     * If you pass in a hash of `#foo/bar|baz/1`, each route will exeucte in response. If you want to change only the `baz`
      * route but leave the `foo/bar` route in the hash, you can pass only the `baz` key in an object:
      *
      *     this.redirectTo({
@@ -295,9 +295,9 @@ Ext.define('Ext.route.Mixin', {
             currentHash = Ext.util.History.getToken(),
             Router      = Ext.route.Router,
             delimiter   = Router.getMultipleToken(),
-            tokens      = currentHash ? currentHash.split(delimiter) : [],
-            length      = tokens.length,
-            force, i, name, obj, route, token, match;
+            force,
+            i, tokens, length,
+            name, obj, route, token, match;
 
         if (hash === -1) {
             return Ext.util.History.back();
@@ -306,6 +306,10 @@ Ext.define('Ext.route.Mixin', {
         } else if (hash.isModel) {
             hash = hash.toUrl();
         } else if (Ext.isObject(hash)) {
+            i      = 0;
+            tokens = currentHash ? currentHash.split(delimiter) : [];
+            length = tokens.length;
+
             //Passing an object attempts to replace a token in the hash.
             for (name in hash) {
                 obj = hash[name];
@@ -320,9 +324,10 @@ Ext.define('Ext.route.Mixin', {
                     route = Router.getByName(name);
 
                     if (route) {
+                        i = 0;
                         match = false;
 
-                        for (i = 0; i < length; i++) {
+                        for (; i < length; i++) {
                             token = tokens[i];
 
                             if (route.matcherRegex.test(token)) {
@@ -366,23 +371,29 @@ Ext.define('Ext.route.Mixin', {
             }
 
             hash = tokens.join(delimiter);
+        } else {
+            Router.clearLastTokens();
         }
 
+        //for backwards compatibility
         if (opt === true) {
-            //for backwards compatibility
             force = opt;
             opt = null;
-        } else if (opt) {
-            force = opt.force;
         }
 
-        length = tokens.length;
+        if (force) {
+            i = 0;
 
-        if (force && length) {
-            for (i = 0; i < length; i++) {
-                token = tokens[i];
+            if (length) {
+                for (; i < length; i++) {
+                    token = tokens[i];
+                    route = Router.getRoute(token);
 
-                Router.clearLastTokens(token);
+                    if (route) {
+                        //clear lastToken to force recognition
+                        route.lastToken = null;
+                    }
+                }
             }
         }
 

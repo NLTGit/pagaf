@@ -1,6 +1,7 @@
 // @define Ext.draw.engine.excanvas
 /**
  * @private
+ * @define Ext.draw.engine.excanvas
  */
 Ext.draw || (Ext.draw = {});
 Ext.draw.engine || (Ext.draw.engine = {});
@@ -58,9 +59,9 @@ if (!document.createElement('canvas').getContext) {
 
   var IE_VERSION = +navigator.userAgent.match(/MSIE ([\d.]+)?/)[1];
 
-  /*
-   * @method getContext
-   * This function is assigned to the <canvas></canvas> elements as element.getContext().
+  /**
+   * This funtion is assigned to the <canvas></canvas> elements as element.getContext().
+   * @this {HTMLElement}
    * @return {CanvasRenderingContext2D_}
    */
   function getContext() {
@@ -70,8 +71,7 @@ if (!document.createElement('canvas').getContext) {
 
   var slice = Array.prototype.slice;
 
-  /*
-   * @method bind
+  /**
    * Binds a function to an object. The returned function will always use the
    * passed in {@code obj} as {@code this}.
    *
@@ -140,7 +140,7 @@ if (!document.createElement('canvas').getContext) {
       }
     },
 
-    /*
+    /**
      * Public initializes a canvas element so that it can be used as canvas
      * element from now on. This is called automatically before the page is
      * loaded but if you are creating elements using createElement you need to
@@ -572,7 +572,7 @@ if (!document.createElement('canvas').getContext) {
     return lineCapMap[lineCap] || 'square';
   }
 
-  /*
+  /**
    * This class implements CanvasRenderingContext2D interface as described by
    * the WHATWG.
    * @param {HTMLElement} canvasElement The element that the 2D context should
@@ -1186,7 +1186,7 @@ if (!document.createElement('canvas').getContext) {
     setM(this, m, true);
   };
 
-  /*
+  /**
    * The text drawing function.
    * The maxWidth argument isn't taken in account, since no browser supports
    * it yet.
@@ -1304,7 +1304,7 @@ if (!document.createElement('canvas').getContext) {
     return {width: this.textMeasureEl_.offsetWidth};
   };
 
-  /* STUBS */
+  /******** STUBS ********/
   contextPrototype.clip = function() {
     // TODO: Implement
   };

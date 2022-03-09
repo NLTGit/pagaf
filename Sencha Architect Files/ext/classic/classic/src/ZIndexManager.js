@@ -138,6 +138,11 @@ Ext.define('Ext.ZIndexManager', {
         return this.onCollectionSort();
     },
 
+    /**
+     * @private
+     * Called whenever the zIndexStack is sorted.
+     * That happens in reaction to the activeCounter time being set, or the alwaysOnTop config being set.
+     */
     onCollectionSort: function() {
         var me = this,
             oldFront = me.front,
@@ -150,7 +155,7 @@ Ext.define('Ext.ZIndexManager', {
         me.sortCount++;
         for (i = 0; i < len; i++) {
             comp = a[i];
-
+            
             if (comp.destroying || comp.destroyed) {
                 continue;
             }
@@ -181,14 +186,14 @@ Ext.define('Ext.ZIndexManager', {
                 // Unfocusable things like tooltips and toasts may be above it
                 // but they do not matter, the topmost *focusable* must be focused.
                 if (doFocus && (comp.isFocusable(true) &&
-                        (comp.modal || comp.focusOnToFront))) {
+                         (comp.modal || (comp.focusOnToFront && !comp.preventFocusOnActivate)))) {
                     topFocusable = comp;
                 }
             }
         }
 
         // Sort resulted in a different topmost focusable.
-        if (topFocusable && topFocusable !== oldFront && !topFocusable.preventFocusOnActivate) {
+        if (topFocusable && topFocusable !== oldFront) {
             topFocusable.onFocusTopmost();
         }
 
@@ -596,7 +601,7 @@ Ext.define('Ext.ZIndexManager', {
             // Responsive will request animation frame on browser window resize event,
             // we do likewise here to minimize flicker.
             if (!this.containerResizeTimer) {
-                this.containerResizeTimer = Ext.raf(this.onContainerResize, this);
+                this.containerResizeTimer = Ext.Function.requestAnimationFrame(this.onContainerResize, this);
             }
         },
 

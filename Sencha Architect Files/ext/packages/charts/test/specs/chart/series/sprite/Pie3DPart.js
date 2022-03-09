@@ -123,49 +123,4 @@ topSuite("Ext.chart.series.sprite.Pie3DPart", ['Ext.chart.*', 'Ext.data.ArraySto
             chart.destroy();
         });
     });
-
-    describe("renderer", function () {
-        var chart;
-
-        afterEach(function () {
-            chart = Ext.destroy(chart);
-        });
-
-        it("should be called with a proper slice index", function () {
-            var layoutDone;
-            runs(function () {
-                chart = new Ext.chart.PolarChart({
-                    animation: false,
-                    renderTo: document.body,
-                    width: 200,
-                    height: 200,
-                    store: {
-                        fields: ['x'],
-                        data: [
-                            { x: 1 },
-                            { x: 2 },
-                            { x: 3 }
-                        ]
-                    },
-                    series: {
-                        type: 'pie3d',
-                        angleField: 'x',
-                        renderer: function (sprite, config, data, index) {
-                            var delta = sprite.attr.endAngle - sprite.attr.startAngle;
-                            expect(delta).toBeCloseTo(Math.PI * 2 / 6 * data.store.getAt(index).get(data.angleField), 8);
-                            return {};
-                        }
-                    },
-                    listeners: {
-                        layout: function () {
-                            layoutDone = true;
-                        }
-                    }
-                });
-            });
-            waitsFor(function () {
-                return layoutDone;
-            });
-        });
-    });
 });

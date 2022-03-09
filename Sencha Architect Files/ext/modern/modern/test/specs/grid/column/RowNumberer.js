@@ -2,29 +2,14 @@
 
 topSuite("Ext.grid.column.RowNumberer",
     ['Ext.grid.Grid', 'Ext.data.ArrayStore', 'Ext.layout.Fit',
-     'Ext.app.ViewModel', 'Ext.app.ViewController', 'Ext.data.TreeStore', 'Ext.grid.Tree'],
+     'Ext.app.ViewModel', 'Ext.app.ViewController'],
 function() {
-    var panel, store, container,
+    var panel, store,
         synchronousLoad = true,
         proxyStoreLoad = Ext.data.ProxyStore.prototype.load,
         loadStore;
 
-    function doItemMouseover(item) {
-        var targetEl = item.ariaEl,
-            x, y;
-
-        if (jasmine.supportsTouch) {
-            x = targetEl.getX() + targetEl.getWidth() / 2;
-            y = targetEl.getY() + targetEl.getHeight() / 2;
-
-            Ext.testHelper.touchStart(targetEl, { x: x, y: y });
-            Ext.testHelper.touchEnd(targetEl, { x: x, y: y });
-        } else {
-            jasmine.fireMouseEvent(targetEl, 'mouseover');
-        }
-    }
-
-    function createGrid(gridCfg, storeCfg, rowNumbererConfig) {
+    function createGrid(gridCfg, storeCfg) {
         store = new Ext.data.Store(Ext.apply({
             fields: ['name', 'email', 'phone'],
             data: [
@@ -39,10 +24,10 @@ function() {
         panel = new Ext.grid.Grid(Ext.apply({
             store: store,
             columns: [
-                Ext.apply({ xtype: 'rownumberer'}, rowNumbererConfig),
-                { text: 'Name',  dataIndex: 'name', width: 100 },
-                { text: 'Email', dataIndex: 'email', width: 100 },
-                { text: 'Phone', dataIndex: 'phone', width: 100 }
+                { xtype: 'rownumberer'},
+                { header: 'Name',  dataIndex: 'name', width: 100 },
+                { header: 'Email', dataIndex: 'email', width: 100 },
+                { header: 'Phone', dataIndex: 'phone', width: 100 }
             ],
             height: 200,
             width: 400
@@ -73,7 +58,7 @@ function() {
             }
         }, storeCfg));
 
-        panel = new Ext.grid.Tree(Ext.apply({
+        panel = new Ext.tree.Panel(Ext.apply({
             width: 200,
             height: 150,
             store: store,
@@ -87,11 +72,13 @@ function() {
                 flex: 1
             }]
         }, treeCfg));
+        container = panel.container;
+        panel.onContainerResize(container, { height: container.element.getHeight() });
     }
     
     function getCell(row, column) {
         if (typeof row === 'number') {
-            row = panel.itemFromRecord(row);
+            row = panel.getItem(store.getAt(row));
         }
         return row.getCellByColumn(panel.getColumns()[column]);
     }
@@ -138,80 +125,10 @@ function() {
                 rec.commit();
             }).not.toThrow();
         });
-
-        it('should be able to measure styled text', function() {
-            var data = [],
-                i, rowNumber, cellBody;
-
-            for (i = 0; i < 100; i++) {
-                rowNumber = i + 1;
-                data.push({
-                    name: 'Name ' + rowNumber,
-                    email: 'name' + rowNumber + '@foo.com',
-                    name: '555 123 ' + rowNumber
-                });
-            }
-            Ext.util.CSS.createStyleSheet('.row-numberer-test {font-size:20px}', 'row-numberer-test');
-            createGrid({
-                renderTo: Ext.getBody()
-            }, {
-                data: data
-            }, {
-                cell: {
-                    cls: 'row-numberer-test'
-                }
-            });
-
-            // Scroll to the end to expose the overflowing cell "100"
-            jasmine.waitsForScroll(panel.getScrollable(), function(scroller, x, y) {
-                scroller.scrollBy(0, 10000);
-                return panel.renderInfo.atEnd && panel;
-            });
-
-            runs(function() {
-                cellBody = getCell(99, 0).bodyElement.dom;
-            });
-
-            // The RowNumberer column must eliminate overflow in its own asynchronous time.
-            waitsFor(function() {
-                return cellBody.offsetWidth >= cellBody.scrollWidth;
-            }, 1000, 'RowNumberer to calculate the correct column width');
-        });
-
-        it('should not show in columns menu', function () {
-            createGrid({
-                renderTo: Ext.getBody()
-            });
-
-            var columns = panel.getColumns(),
-                column = columns[1],
-                menuItem = panel.getColumnsMenuItem(),
-                menu = menuItem.getMenu();
-
-            Ext.testHelper.tap(column.triggerElement);
-
-            waitsFor(function () {
-                return menuItem.rendered;
-            });
-
-            runs(function () {
-                doItemMouseover(menuItem);
-            });
-
-            waitsFor(function () {
-                return menu.rendered;
-            });
-
-            runs(function () {
-                var items = menu.getItems();
-
-                expect(items.length).toBe(3);
-                expect(items.getAt(0).getText()).toBe('Name');
-            });
-        });
     });
 
-    describe('trees', function () {
+    // TODO: Enable this when Tree is implemented.
+    xdescribe('trees', function () {
         it('should create numbered rows', function () {
             createTree({
                 renderTo: Ext.getBody()
@@ -220,6 +137,17 @@ function() {
             expect(getCell(0, 0).el).toHaveCls('x-rownumberercell');
             expect(getCell(0, 0).el.down('.x-body-el', true).innerHTML).toBe('1');
             expect(getCell(1, 0).el.down('.x-body-el', true).innerHTML).toBe('2');
+        });
+
+        describe('beforeRender method', function () {
+            it('should lookup up the rowbody feature by tablepanel', function () {
+                // See EXTJSIV-11504.
+                createTree();
+
+                expect(function () {
+                    panel.columns[0].beforeRender();
+                }).not.toThrow();
+            });
         });
     });
 });

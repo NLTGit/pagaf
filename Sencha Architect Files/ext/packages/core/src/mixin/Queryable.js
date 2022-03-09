@@ -109,7 +109,7 @@ Ext.define('Ext.mixin.Queryable', {
      *
      * @param {Object} selector A ComponentQuery selector used to filter candidate nodes before calling the function.
      * An empty string matches any node.
-     * @param {Function} fn The function to call. Return `false` to abort the traverse.
+     * @param {Function} fn The function to call. Return `false` to aborl the traverse.
      * @param {Object} fn.node The node being visited.
      * @param {Object} [scope] The context (`this` reference) in which the function is executed.
      * @param {Array} [extraArgs] A set of arguments to be appended to the function's argument list to pass down extra data known to the caller
@@ -130,7 +130,7 @@ Ext.define('Ext.mixin.Queryable', {
      *
      * @param {Object} selector A ComponentQuery selector used to filter candidate nodes before calling the function.
      * An empty string matches any node.
-     * @param {Function} fn The function to call. Return `false` to abort the traverse.
+     * @param {Function} fn The function to call. Return `false` to aborl the traverse.
      * @param {Object} fn.node The node being visited.
      * @param {Object} [scope] The context (`this` reference) in which the function is executed.
      * @param {Array} [extraArgs] A set of arguments to be appended to the function's argument list to pass down extra data known to the caller

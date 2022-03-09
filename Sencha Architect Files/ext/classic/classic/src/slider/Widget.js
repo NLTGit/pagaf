@@ -387,7 +387,6 @@ Ext.define('Ext.slider.Widget', {
      * for each thumb in the slider.
      * @param {Number} value The value to set the slider to. (This will be constrained within minValue and maxValue)
      * @param {Boolean} [animate=true] Turn on or off animation
-     * @param {Boolean} changeComplete
      * @return {Ext.slider.Multi} this
      */
     setThumbValue: function(index, value, animate, changeComplete) {
@@ -499,7 +498,7 @@ Ext.define('Ext.slider.Widget', {
     /**
      * @private
      * Returns a snapped, constrained value when given a desired value
-     * @param {Number} v Raw number value
+     * @param {Number} value Raw number value
      * @return {Number} The raw value rounded to the correct d.p. and constrained within the set max and min values
      */
     normalizeValue: function(v) {

@@ -511,35 +511,37 @@ topSuite("Ext.drag.Manager", ['Ext.drag.*', 'Ext.dom.Element', 'Ext.scroll.Scrol
 
         describe("scroll", function() {
             it("should match targets when the document is scrolled", function() {
-                var stretcher, s;
+                var Scroller = Ext.scroll.Scroller,
+                    stretcher;
 
                 makeDragEl(405, 405);
                 makeDropEl(450, 450);
 
                 setup();
-                s = Ext.getViewportScroller();
+                if (Scroller && Scroller.viewport) {
+                    stretcher = Ext.getBody().createChild({
+                        style: {
+                            width: '5000px',
+                            height: '5000px',
+                            border: '1px solid red'
+                        }
+                    });
+                    Scroller.viewport.scrollTo(0, 400);
 
-                stretcher = Ext.getBody().insertFirst({
-                    style: {
-                        width: '5000px',
-                        height: '5000px',
-                        border: '1px solid red'
-                    }
-                });
+                    waitsForEvent(Scroller.viewport, 'scrollend');
 
-                s.scrollTo(0, 400);
-
-                waitsForEvent(s, 'scrollend');
-
-                startDrag();
-                moveBy(50, 50);
-                runsExpectCallCount(enterSpy, 1);
-                moveBy(-20, -20);
-                runsExpectCallCount(leaveSpy, 1);
-                endDrag();
-                runs(function() {
-                    stretcher.remove();
-                });
+                    startDrag();
+                    moveBy(50, 50);
+                    runsExpectCallCount(enterSpy, 1);
+                    moveBy(-20, -20);
+                    runsExpectCallCount(leaveSpy, 1);
+                    endDrag();
+                    runs(function() {
+                        stretcher.remove();
+                        
+                        Scroller.viewport = Ext.destroy(Scroller.viewport);
+                    });
+                }
             });
         });
     });

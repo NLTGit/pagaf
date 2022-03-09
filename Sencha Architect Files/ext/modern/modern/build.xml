@@ -155,34 +155,6 @@
         </for>
     </target>
 
-    <target name="calendar" depends="init">
-        <x-compile refid="${compiler.ref.id}">
-            <![CDATA[
-            classpath
-                +new
-                -name=calendar
-                -path=${framework.dir}/../packages/calendar/modern/src
-            and
-            classpath
-                -name=calendar
-                -path=${framework.dir}/../packages/calendar/src
-            and
-            classpath
-                -name=calendar
-                -path=${framework.dir}/../packages/calendar/modern/overrides
-                -tags=overrides
-            and
-            classpath
-                -name=calendar
-                -path=${framework.dir}/../packages/calendar/overrides
-                -tags=overrides
-            and
-            include
-                -all
-        ]]>
-        </x-compile>
-    </target>
-
     <target name="charts" depends="init">
         <x-compile refid="${compiler.ref.id}">
             <![CDATA[
@@ -239,53 +211,25 @@
         </x-compile>
     </target>
 
-    <target name="d3" depends="init">
-        <x-compile refid="${compiler.ref.id}">
-            <![CDATA[
-            classpath
-                +new
-                -name=d3
-                -path=${framework.dir}/../packages/d3/modern/src
-            and
-            classpath
-                -name=d3
-                -path=${framework.dir}/../packages/d3/src
-            and
-            classpath
-                -name=d3
-                -path=${framework.dir}/../packages/d3/modern/overrides
-                -tags=overrides
-            and
-            classpath
-                -name=d3
-                -path=${framework.dir}/../packages/d3/overrides
-                -tags=overrides
-            and
-            include
-                -all
-        ]]>
-        </x-compile>
-    </target>
-
     <target name="exporter" depends="init">
         <x-compile refid="${compiler.ref.id}">
             <![CDATA[
             classpath
                 +new
-                -name=exporter
+                -name=ux
                 -path=${framework.dir}/../packages/exporter/modern/src
             and
             classpath
-                -name=exporter
+                -name=ux
                 -path=${framework.dir}/../packages/exporter/src
             and
             classpath
-                -name=exporter
+                -name=ux
                 -path=${framework.dir}/../packages/exporter/modern/overrides
                 -tags=overrides
             and
             classpath
-                -name=exporter
+                -name=ux
                 -path=${framework.dir}/../packages/exporter/overrides
                 -tags=overrides
             and
@@ -300,49 +244,21 @@
             <![CDATA[
             classpath
                 +new
-                -name=pivot
+                -name=ux
                 -path=${framework.dir}/../packages/pivot/modern/src
             and
             classpath
-                -name=pivot
+                -name=ux
                 -path=${framework.dir}/../packages/pivot/src
             and
             classpath
-                -name=pivot
+                -name=ux
                 -path=${framework.dir}/../packages/pivot/modern/overrides
                 -tags=overrides
             and
             classpath
-                -name=pivot
+                -name=ux
                 -path=${framework.dir}/../packages/pivot/overrides
-                -tags=overrides
-            and
-            include
-                -all
-        ]]>
-        </x-compile>
-    </target>
-
-    <target name="pivot-d3" depends="init,pivot,d3">
-        <x-compile refid="${compiler.ref.id}">
-            <![CDATA[
-            classpath
-                +new
-                -name=pivot-d3
-                -path=${framework.dir}/../packages/pivot-d3/modern/src
-            and
-            classpath
-                -name=pivot-d3
-                -path=${framework.dir}/../packages/pivot-d3/src
-            and
-            classpath
-                -name=pivot-d3
-                -path=${framework.dir}/../packages/pivot-d3/modern/overrides
-                -tags=overrides
-            and
-            classpath
-                -name=pivot-d3
-                -path=${framework.dir}/../packages/pivot-d3/overrides
                 -tags=overrides
             and
             include
@@ -453,6 +369,6 @@ Ext.Boot.loadSyncBasePrefix([
 
     <target name="bootstrap"
             description="*** Regenerate files needed by standalone examples and unit tests ***"
-            depends="calendar,charts,ux,exporter,d3,pivot,pivot-d3,core-bootstrap,test-bootstrap"/>
+            depends="charts,ux,pivot,exporter,core-bootstrap,test-bootstrap"/>
 
 </project>

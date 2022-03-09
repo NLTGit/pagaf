@@ -2,12 +2,12 @@
     "name": "pagaf",
     "settings": {
         "cmd": {
+            "cmdVersion": "6.5.0.180",
             "license": "commercial",
-            "cmdVersion": "6.6.0.13",
-            "frameworkVersion": "6.5.3.57"
+            "frameworkVersion": "6.5.0.775"
         },
         "urlPrefixTemplate": "http://localhost:{port}/{path}",
-        "urlPrefix": "http://localhost:51054/",
+        "urlPrefix": "http://localhost:41371/",
         "canvasControls": {
             "viewportSize": {
                 "name": "Auto Expand",
@@ -16,20 +16,20 @@
                 "width": null
             }
         },
-        "exportPath": "",
+        "exportPath": "C:/Users/nltadmin/Documents/GitHub/nltpagafrepo/siteOut/pub",
         "spacesToIndent": 4,
         "sdkPath": "",
         "lineEnding": "CRLF",
         "genTimestamps": false,
         "cacheBust": false,
         "buildShouldOverwriteIndex": false,
-        "generateArchitectVersion": true,
+        "generateArchitectVersion": false,
+        "installStatus": "Not Installed",
         "lastBuildSelection": {
             "value": "webBuild",
             "display": "Build web app",
             "buildPlatform": false
-        },
-        "installStatus": "Not Installed"
+        }
     },
     "xdsVersion": "4.2.1",
     "xdsBuild": 224,

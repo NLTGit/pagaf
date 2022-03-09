@@ -98,7 +98,6 @@ Ext.define('Ext.dataview.Location', {
     attach: function(source) {
         var me = this,
             view = me.view,
-            store = view.store,
             record, child, sourceElement;
 
         //<debug>
@@ -123,9 +122,7 @@ Ext.define('Ext.dataview.Location', {
         if (typeof source === 'number') {
             child = view.itemFromRecord(source);
             me.recordIndex = source;
-
-            // If the view is not yet bound to a store, we cannot find the record
-            record = store && store.getAt(source);
+            record = view.store.getAt(source);
         } else {
             if (source.isModel) {
                 record = source;
@@ -133,9 +130,7 @@ Ext.define('Ext.dataview.Location', {
                 record = view.mapToRecord(source);
             }
             child = view.mapToItem(source);
-
-            // If the view is not yet bound to a store, we cannot find the record
-            me.recordIndex = store ? store.indexOf(record) : -1;
+            me.recordIndex = view.store.indexOf(record);
         }
 
         if (child && !sourceElement) {
@@ -201,7 +196,7 @@ Ext.define('Ext.dataview.Location', {
         }
 
         if (item) {
-            ret = (as === 'dom' || as === true) ? Ext.getDom(item) : Ext.get(item);
+            ret = (as === 'dom' || as === true) ? item.dom : item;
         }
 
         return ret;

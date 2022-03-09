@@ -43,7 +43,7 @@ Ext.define('Ext.form.field.Time', {
     alternateClassName: ['Ext.form.TimeField', 'Ext.form.Time'],
 
     /**
-     * @cfg {String} triggerCls
+     * @cfg {String} [triggerCls='x-form-time-trigger']
      * An additional CSS class used to style the trigger button. The trigger will always get the {@link Ext.form.trigger.Trigger#baseCls}
      * by default and triggerCls will be **appended** if specified.
      */
@@ -83,7 +83,7 @@ Ext.define('Ext.form.field.Time', {
     invalidText: "{0} is not a valid time",
 
     /**
-     * @cfg {String} format
+     * @cfg {String} [format=undefined]
      * The default time format string which can be overridden for localization support. 
      * The format must be valid according to {@link Ext.Date#parse}.
      *
@@ -117,7 +117,7 @@ Ext.define('Ext.form.field.Time', {
     formatText: 'Expected time format HH:MM space AM or PM',
 
     /**
-     * @cfg {Number} increment
+     * @cfg {Number} [increment=15]
      * The number of minutes between each time value in the list.
      *
      * Note that this only affects the *list of suggested times.*
@@ -140,7 +140,7 @@ Ext.define('Ext.form.field.Time', {
     selectOnTab: true,
 
     /**
-     * @cfg {Boolean} snapToIncrement
+     * @cfg {Boolean} [snapToIncrement=false]
      * Specify as `true` to enforce that only values on the {@link #increment} boundary are accepted.
      *
      * Typed values will be coerced to the nearest {@link #increment} point on blur.
@@ -148,7 +148,7 @@ Ext.define('Ext.form.field.Time', {
     snapToIncrement: false,
 
     /**
-     * @cfg valuePublishEvent
+     * @cfg {String[]} valuePublishEvent
      * @inheritdoc
      */
     valuePublishEvent: ['select', 'blur'],
@@ -163,22 +163,10 @@ Ext.define('Ext.form.field.Time', {
     initDateParts: [2008, 0, 1],
     initDateFormat: 'j/n/Y',
 
-    /**
-     * @cfg queryMode
-     * @inheritdoc
-     */
     queryMode: 'local',
 
-    /**
-     * @cfg displayField
-     * @inheritdoc
-     */
     displayField: 'disp',
 
-    /**
-     * @cfg valueField
-     * @inheritdoc
-     */
     valueField: 'date',
 
     initComponent: function() {

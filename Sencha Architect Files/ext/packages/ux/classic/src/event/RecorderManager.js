@@ -149,7 +149,7 @@ Ext.define('Ext.ux.event.RecorderManager', {
 
             if (ignoredEvents[name]) {
                 sub[sub.length - 1].checked = false;
-                Ext.defer(function () {
+                Ext.Function.defer(function () {
                     delete eventsToRec[name];
                 }, 1);
             }

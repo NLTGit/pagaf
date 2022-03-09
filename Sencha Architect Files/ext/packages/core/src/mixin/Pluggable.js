@@ -43,36 +43,7 @@ Ext.define('Ext.mixin.Pluggable', function (Pluggable) { return {
          *          plugins: 'listpaging'
          *      });
          *
-         * In the above examples, the string "listpaging" is the type alias for
-         * `Ext.dataview.plugin.ListPaging`. The full alias includes the "plugin." prefix
-         * (i.e., 'plugin.listpaging').
-         *
-         * The preferred form for multiple plugins or to configure plugins is the
-         * keyed-object form (new in version 6.5):
-         *
-         *      var list = Ext.create({
-         *          xtype: 'list',
-         *          itemTpl: '<div class="item">{title}</div>',
-         *          store: 'Items',
-         *
-         *          plugins: {
-         *              pullrefresh: true,
-         *              listpaging: {
-         *                  autoPaging: true,
-         *                  weight: 10
-         *              }
-         *          }
-         *      });
-         *
-         * The object keys are the `id`'s as well as the default type alias. This form
-         * allows the value of the `plugins` to be merged from base class to derived class
-         * and finally with the instance configuration. This allows classes to define a
-         * set of plugins that derived classes or instantiators can further configure or
-         * disable. This merge behavior is a feature of the
-         * {@link Ext.Class#cfg!config config system}.
-         *
-         * The `plugins` config can also be an array of plugin aliases (arrays are not
-         * merged so this form does not respect plugins defined by the class author):
+         * It can also be an array of plugin aliases:
          *
          *      var list = Ext.create({
          *          xtype: 'list',
@@ -95,6 +66,33 @@ Ext.define('Ext.mixin.Pluggable', function (Pluggable) { return {
          *              autoPaging: true
          *          }]
          *      });
+         *
+         * A final, yet very useful form (new in version 6.5) is the keyed-object form:
+         *
+         *      var list = Ext.create({
+         *          xtype: 'list',
+         *          itemTpl: '<div class="item">{title}</div>',
+         *          store: 'Items',
+         *
+         *          plugins: {
+         *              pullrefresh: true,
+         *              listpaging: {
+         *                  autoPaging: true,
+         *                  weight: 10
+         *              }
+         *          }
+         *      });
+         *
+         * In this last form, the keys are `id`'s as well as the default type alias. The
+         * advantage of this form is that the value of the `plugins` is merged by base
+         * class to derived class and finally to the instance configuration. This allows
+         * classes to define a set of plugins and allow derived classes or instantiators
+         * to configure or disable these plugins. This merge behavior is a feature of the
+         * {@link Ext.Class#cfg!config config system}.
+         *
+         * In the above examples, the string "listpaging" is the type alias for
+         * `Ext.dataview.plugin.ListPaging`. The full alias includes the "plugin." prefix
+         * (i.e., 'plugin.listpaging').
          */
         plugins: null
     },

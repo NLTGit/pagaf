@@ -236,7 +236,7 @@ Ext.define('Ext.data.writer.Writer', {
     /**
      * @property {Boolean} isWriter
      * `true` in this class to identify an object as an instantiated Writer, or subclass thereof.
-     */
+     **/
     isWriter: true,
 
     /**

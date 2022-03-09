@@ -49,30 +49,21 @@ Ext.define('Ext.Img', {
         'Ext.Glyph'
     ],
 
-    /**
-     * @cfg autoEl
-     * @inheritdoc
-     */
     autoEl: 'img',
 
-    /**
-     * @cfg baseCls
-     * @inheritdoc
-     */
     baseCls: Ext.baseCSSPrefix + 'img',
 
     config: {
         /**
-         * @cfg {String} src
-         * The source of this image. See {@link Ext#resolveResource} for details on
-         * locating application resources.
+         * @cfg {String} src The source of this image. See {@link Ext#resolveResource} for
+         * details on locating application resources.
          * @accessor
          */
         src: null,
 
         /**
-         * @cfg glyph
-         * @inheritdoc Ext.panel.Header#cfg-glyph
+         * @cfg {Number/String} glyph
+         * @inheritdoc Ext.panel.Header#glyph
          */
         glyph: null
     },
@@ -85,7 +76,7 @@ Ext.define('Ext.Img', {
 
     /**
      * @cfg {String} title
-     * Specifies additional information about the image.
+     * Specifies addtional information about the image.
      */
     title: '',
 
@@ -105,10 +96,6 @@ Ext.define('Ext.Img', {
      * the `@` symbol. For example '65@My Font Family'.
      */
     
-    /**
-     * @property maskOnDisable
-     * @inheritdoc
-     */
     maskOnDisable: false,
 
     applySrc: function (src) {

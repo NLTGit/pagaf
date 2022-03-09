@@ -6337,22 +6337,6 @@ function() {
                 ct.destroy();
             });
         });
-
-        describe("floating", function() {
-            it("should not destroy a previous align target", function() {
-                var el = Ext.getBody().createChild();
-                makeComponent({
-                    floating: true,
-                    width: 100,
-                    height: 100
-                });
-                c.show();
-                c.alignTo(el);
-                c.destroy();
-                expect(el.dom.parentNode).toBe(Ext.getBody().dom);
-                el.destroy();
-            });
-        });
     });
 
     describe("afterRender", function() {
@@ -7171,7 +7155,7 @@ function() {
             });
 
             // This is still due
-            waitsForSpy(endSpy);
+            waitsForSpy(endSpy)
         });
 
         it("should call onScrollMove during scrolling", function() {
@@ -7199,16 +7183,16 @@ function() {
             c.scrollTo(10, 20);
 
             waitsFor(function() {
-                return endSpy.callCount === 1;
-            }, 'endSpy to fire the first time', 1000);
+                return moveSpy.callCount === 1;
+            }, 'moveSpy to fire', 1000);
 
             runs(function() {
                 c.scrollTo(20, 30);
             });
 
             waitsFor(function() {
-                return endSpy.callCount === 2;
-            }, 'endSpy to fire the second time', 1000);
+                return endSpy.callCount === 1;
+            }, 'endSpy to fire', 1000);
 
             runs(function() {
                 expect(endSpy.mostRecentCall.args).toEqual([20, 30]);
@@ -9015,7 +8999,7 @@ function() {
 
                 jasmine.fireMouseEvent(foo.childEl, 'mousedown');
 
-                expect(result).toEqual(['pdc', 'cdc', 'cd', 'pd', 'pc', 'cc', 'c', 'p']);
+                expect(result).toEqual(['pdc', 'cdc', 'cd', 'pd', 'pc', 'cc', 'c', 'p'])
                 
                 // Finish off active gestures
                 jasmine.fireMouseEvent(foo.childEl, 'mouseup');

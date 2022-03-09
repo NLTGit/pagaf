@@ -34,24 +34,12 @@ Ext.define('Ext.picker.Month', {
     
     isMonthPicker: true,
     
-    /**
-     * @property focusable
-     * @inheritdoc
-     */
     focusable: true,
 
-    /**
-     * @cfg childEls
-     * @inheritdoc
-     */
     childEls: [
         'bodyEl', 'prevEl', 'nextEl', 'monthEl', 'yearEl', 'buttons'
     ],
 
-    /**
-     * @cfg renderTpl
-     * @inheritdoc
-     */
     renderTpl: [
         '<div id="{id}-bodyEl" data-ref="bodyEl" class="{baseCls}-body">',
           '<div id="{id}-monthEl" data-ref="monthEl" class="{baseCls}-months">',
@@ -104,7 +92,7 @@ Ext.define('Ext.picker.Month', {
     cancelText: 'Cancel',
 
     /**
-     * @cfg {String} baseCls
+     * @cfg {String} [baseCls='x-monthpicker']
      * The base CSS class to apply to the picker element.
      */
     baseCls: Ext.baseCSSPrefix + 'monthpicker',
@@ -116,7 +104,7 @@ Ext.define('Ext.picker.Month', {
     showButtons: true,
 
     /**
-     * @property {String} selectedCls
+     * @property {String} [selectedCls='x-monthpicker-selected']
      * The class to be added to selected items in the picker.
      * @readonly
      */
@@ -144,11 +132,6 @@ Ext.define('Ext.picker.Month', {
     totalYears: 10,
     yearOffset: 5, // 10 years in total, 2 per row
     monthOffset: 6, // 12 months, 2 per row
-    
-    /**
-     * @cfg alignOnScroll
-     * @inheritdoc
-     */
     alignOnScroll: false,
 
     /**
@@ -200,7 +183,6 @@ Ext.define('Ext.picker.Month', {
      */
 
     /**
-     * @method initComponent
      * @inheritdoc
      * @private
      */
@@ -234,7 +216,6 @@ Ext.define('Ext.picker.Month', {
     },
 
     /**
-     * @method beforeRender
      * @inheritdoc
      * @private
      */
@@ -283,7 +264,6 @@ Ext.define('Ext.picker.Month', {
     },
 
     /**
-     * @method afterRender
      * @inheritdoc
      * @private
      */

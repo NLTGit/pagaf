@@ -75,10 +75,6 @@ Ext.define('Ext.form.field.File', {
     
     needArrowKeys: false,
 
-    /**
-     * @cfg triggers
-     * @inheritdoc
-     */
     triggers: {
         filebutton: {
             type: 'component',
@@ -159,21 +155,17 @@ Ext.define('Ext.form.field.File', {
     inputCls: Ext.baseCSSPrefix + 'form-text-file',
 
     /**
-     * @cfg {Boolean} readOnly
+     * @cfg {Boolean} [readOnly=true]
      * Unlike with other form fields, the readOnly config defaults to true in File field.
      */
     readOnly: true,
 
     /**
-     * @cfg editable
+     * @cfg {Boolean} editable
      * @inheritdoc
      */
     editable: false,
 
-    /**
-     * @cfg submitValue
-     * @inheritdoc
-     */
     submitValue: false,
 
     /**
@@ -339,7 +331,7 @@ Ext.define('Ext.form.field.File', {
     },
 
     /**
-     * @method isFileUpload
+     * @method
      * @inheritdoc
      */
     isFileUpload: Ext.returnTrue,

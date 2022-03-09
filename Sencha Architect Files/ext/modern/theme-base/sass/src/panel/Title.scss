@@ -55,8 +55,7 @@
             -webkit-writing-mode: vertical-lr;
             writing-mode: vertical-lr;
 
-            .#{$prefix}safari & {
-                // Safari displays horizontal ellipsis even when text is vertically rotated.
+            .#{$prefix}safari9 & {
                 text-overflow: clip;
             }
         }

@@ -252,11 +252,6 @@ Ext.define('Ext.menu.CheckItem', {
             ariaDom.setAttribute('aria-label', Ext.String.formatEncode(me.submenuText, text));
         }
     },
-    
-    /**
-     * @cfg [publishes='checked']
-     * @inheritdoc
-     */
 
     /**
      * Sets the checked state of the item

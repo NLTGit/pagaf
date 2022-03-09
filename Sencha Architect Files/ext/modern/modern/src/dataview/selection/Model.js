@@ -9,7 +9,7 @@
  * {@link Ext.util.Collection} to use to store the selected records. This can be useful when
  * other objects need access to the current selection. In particular, ComboBox uses this
  * technique to track which records are selected and form the value of the ComboBox field.
- * @since 6.5.0
+ * @private
  */
 Ext.define('Ext.dataview.selection.Model', {
     extend: 'Ext.Evented',
@@ -130,11 +130,6 @@ Ext.define('Ext.dataview.selection.Model', {
         }
     },
 
-    /**
-     * @cfg [publishes='checked']
-     * @inheritdoc Ext.mixin.Bindable#cfg-publishes
-     */
-
     modes: {
         single: true,
         simple: true,
@@ -168,8 +163,7 @@ Ext.define('Ext.dataview.selection.Model', {
                 priority: 1000
             },
             load: 'onSelectionStoreLoad',
-            refresh: 'refreshSelection',
-            idchanged: 'onIdChanged'
+            refresh: 'refreshSelection'
         };
     },
 
@@ -228,13 +222,7 @@ Ext.define('Ext.dataview.selection.Model', {
      * @private
      */
     applyMode: function(mode) {
-        var view = this.getView(),
-            el = view.getRenderTarget();
-
         mode = mode ? mode.toLowerCase() : 'single';
-
-        el.toggleCls(view.multiSelectCls, mode === 'multi');
-
         // set to mode specified unless it doesnt exist, in that case
         // use single.
         return this.modes[mode] ? mode : 'single';
@@ -258,7 +246,11 @@ Ext.define('Ext.dataview.selection.Model', {
             }, me.getStoreListeners());
 
         if (oldStore && Ext.isObject(oldStore) && oldStore.isStore) {
-            oldStore.un(bindEvents);
+            if (oldStore.autoDestroy) {
+                oldStore.destroy();
+            } else {
+                oldStore.un(bindEvents);
+            }
         }
 
         if (newStore) {
@@ -284,6 +276,7 @@ Ext.define('Ext.dataview.selection.Model', {
      */
     selectAll: function(suppressEvent) {
         this.select(this.getStore().getRange(), true, suppressEvent);
+        this.allSelected = true;
     },
 
     /**
@@ -364,8 +357,18 @@ Ext.define('Ext.dataview.selection.Model', {
             me.selectRange(start, record, ctrl);
         }
 
-        else {
+        // CTRL+Navigate, toggle selected state
+        else if (ctrl) {
             me[isSelected ? 'deselect' : 'select'](record, true);
+        }
+        // Simple click on a selected item.
+        // clears the selection
+        else if (isSelected && !shift && !ctrl) {
+            me.getSelection().clear();
+        }
+        // Replace the selection
+        else if (!isSelected) {
+            me.select(record, false);
         }
     },
 
@@ -399,8 +402,8 @@ Ext.define('Ext.dataview.selection.Model', {
     /**
      * Adds the given records to the currently selected set if not {@link #cfg!disabled}..
      * @param {Ext.data.Model/Array/Number} records The records to select.
-     * @param {Boolean} [keepExisting] If `true`, the existing selection will be added to (if not, the old selection is replaced).
-     * @param {Boolean} [suppressEvent] If `true`, the `select` event will not be fired.
+     * @param {Boolean} keepExisting If `true`, the existing selection will be added to (if not, the old selection is replaced).
+     * @param {Boolean} suppressEvent If `true`, the `select` event will not be fired.
      */
     select: function(records, keepExisting, suppressEvent) {
         var me = this,
@@ -487,7 +490,7 @@ Ext.define('Ext.dataview.selection.Model', {
             view = me.getView(),
             records = chunk.items;
 
-        me.getSelection().allSelected = this.allSelected = false;
+        me.getSelection().allSelected = false;
 
         // Keep selection up to date unless there's an upcoming add due.
         // If there's a replacement, onCollectionAdd will do it.
@@ -515,7 +518,7 @@ Ext.define('Ext.dataview.selection.Model', {
         if (view.destroyed) {
             return;
         }
-        selection.allSelected = this.allSelected = selection.getCount() === view.getStore().getCount();
+        selection.allSelected = selection.getCount() === view.getStore().getCount();
 
         // Keep selection up to date
         me.setSelectedRecord(selectedCollection.last() || null);
@@ -616,14 +619,6 @@ Ext.define('Ext.dataview.selection.Model', {
 
         // Only destroy the selected Collection if we own it.
         Ext.destroy(me.selection, me.destroySelected ? me.selected : null);
-    },
-
-    onIdChanged: function(store, rec, oldId, newId) {
-        var selected = this.getSelected();
-
-        if (selected) {
-            selected.updateKey(rec, oldId);
-        }
     },
 
     onSelectionStoreAdd: Ext.emptyFn,

@@ -2,203 +2,22 @@
 
 topSuite("Ext.Component",
     ['Ext.Container', 'Ext.app.ViewModel', 'Ext.layout.HBox',
-     'Ext.layout.VBox', 'Ext.Mask', 'Ext.MessageBox'],
+     'Ext.layout.VBox', 'Ext.Mask'],
 function() {
     var component;
 
     function makeComponent(config) {
-        component = new Ext.Component(config);
-        return component;
+        return component = new Ext.Component(config);
     }
+
+    var elHasCls = function(cls) {
+        var el = component.element;
+
+        return el.hasCls(cls);
+    };
 
     afterEach(function() {
         component = Ext.destroy(component);
-    });
-
-
-    describe("userSelectable", function() {
-        var userSelect,
-            userSelectAuto = 'text';
-
-        beforeAll(function() {
-            var el = document.createElement('div'),
-                style = el.style;
-
-            Ext.each([
-                'user-select', '-moz-user-select', '-ms-user-select', '-webkit-user-select'
-            ], function (name) {
-                if (style[name] !== undefined) {
-                    userSelect = name;
-                    return false;
-                }
-            });
-            if (userSelect === '-moz-user-select' || (userSelect === 'user-select' && !Ext.os.is.Android)) {
-                userSelectAuto = 'auto';
-            }
-            else if (userSelect === '-ms-user-select') {
-                userSelectAuto = 'text';
-            }
-        });
-
-        it("should default userSelectable off", function() {
-            makeComponent({
-                renderTo: Ext.getBody()
-            });
-            expect(component.el.getStyle(userSelect)).toBe('none');
-        });
-        it("should allow userSelectable configured as a boolean on main element", function() {
-            makeComponent({
-                renderTo: Ext.getBody(),
-                userSelectable: true
-            });
-
-            expect(component.el.getStyle(userSelect)).toBe(userSelectAuto);
-        });
-        it("should allow userSelectable configured as an object with element prop", function() {
-            makeComponent({
-                renderTo: Ext.getBody(),
-                userSelectable: {
-                    element: true
-                }
-            });
-            expect(component.el.getStyle(userSelect)).toBe(userSelectAuto);
-        });
-        it("should allow userSelectable configured as an object with reference element prop", function() {
-            component = new Ext.Container({
-                referenceHolder: true,
-                renderTo: Ext.getBody(),
-                userSelectable: {
-                    bodyElement: true
-                }
-            });
-
-            expect(component.bodyElement.getStyle(userSelect)).toBe(userSelectAuto);
-            expect(component.element.getStyle(userSelect)).toBe('none');
-
-        });
-        it("should pass userSelectable to child component via inheritance", function() {
-            component = new Ext.Container({
-                userSelectable: true,
-                renderTo: Ext.getBody(),
-                items: [
-                    {
-                        html: 'foo'
-                    }
-                ]
-            });
-
-            expect(component.el.getStyle(userSelect)).toBe(userSelectAuto);
-        });
-        it("should allow child component to override userSelectable of parent", function() {
-            component = new Ext.Container({
-                userSelectable: true,
-                renderTo: Ext.getBody(),
-                items: [
-                    {
-                        userSelectable: false,
-                        html: 'foo'
-                    }
-                ]
-            });
-
-            expect(component.element.getStyle(userSelect)).toBe(userSelectAuto);
-            expect(component.items.items[0].element.getStyle(userSelect)).toBe('none');
-
-        });
-    });
-
-    describe("animation", function() {
-        var oldOnError = window.onerror;
-
-        afterEach(function() {
-            window.onerror = oldOnError;
-        });
-
-        // This spec fails around 50% of the time locally in Chrome, going
-        // to disable it until it can be made more stable
-        xit("should allow show twice in succession while animating", function() {
-            var onErrorSpy = jasmine.createSpy();
-            window.onerror = onErrorSpy.andCallFake(function() {
-                if (oldOnError) {
-                    oldOnError();
-                }
-            });
-
-            Ext.Msg.confirm('Title', 'question', Ext.emptyFn);
-            waitsFor(function() {
-                return !Ext.Msg.getHidden();
-            }, 'MessageBox to be shown');
-            runs(function() {
-                Ext.Msg.hide();
-                Ext.Msg.confirm('Title2', 'question2', Ext.emptyFn);
-            });
-            waitsFor(function() {
-                return !Ext.Msg.getHidden();
-            }, 'MessageBox2 to be shown');
-            // this bit to cleanup modal mask - don't want to exit test with it showing
-            runs(function() {
-                Ext.Msg.hide();
-                expect(onErrorSpy).not.toHaveBeenCalled();
-                Ext.Msg.hideModalMask();
-            });
-        });
-
-        it("should be visible during hide animation until hidden", function() {
-            var spy = jasmine.createSpy();
-
-            makeComponent({
-                renderTo: Ext.getBody(),
-                hideAnimation: {
-                    type: 'fadeOut',
-                    duration: 300
-                },
-                listeners: {
-                    hide: spy
-                }
-            });
-            component.hide();
-            waits(100);
-            runs(function() {
-                expect(spy).not.toHaveBeenCalled();
-                expect(component.isVisible()).toBe(true);
-            });
-            waitsFor(function() {
-                return spy.callCount > 0;
-            });
-            runs(function() {
-                expect(spy.callCount).toBe(1);
-                expect(component.isVisible()).toBe(false);
-            });
-        });
-
-        it("should be visible during show animation as soon as it's visible", function() {
-            var spy = jasmine.createSpy();
-
-            makeComponent({
-                renderTo: Ext.getBody(),
-                hidden: true,
-                showAnimation: {
-                    type: 'fadeIn',
-                    duration: 300
-                },
-                listeners: {
-                    show: spy
-                }
-            });
-            component.show();
-            waits(100);
-            runs(function() {
-                expect(spy).not.toHaveBeenCalled();
-                expect(component.isVisible()).toBe(true);
-            });
-            waitsFor(function() {
-                return spy.callCount > 0;
-            });
-            runs(function() {
-                expect(spy.callCount).toBe(1);
-                expect(component.isVisible()).toBe(true);
-            });
-        });
     });
 
     describe('configuration', function() {
@@ -1818,489 +1637,608 @@ function() {
         });
     });
 
-    describe('tpl/data call', function() {
-        function makeTplComponent(cfg) {
-            makeComponent(Ext.apply({
-                renderTo: Ext.getBody()
-            }, cfg));
-        }
-
-        describe("at construction", function() {
-            it("should be able to configure just a tpl", function() {
-                makeTplComponent({
-                    tpl: '{foo}'
-                });
-                expect(component.getInnerHtmlElement()).toHaveHtml('');
+    describe('setData call', function() {
+        it("should convert a string into an array", function () {
+            makeComponent({
+                tpl : 'first name is {fname}'
             });
 
-            it("should be able to configure just data", function() {
-                makeTplComponent({
-                    data: {
-                        foo: 1
-                    }
-                });
-                expect(component.getInnerHtmlElement()).toHaveHtml('');
+            component.setData({
+                fname : null
             });
 
-            it("should be able to configure tpl and data", function() {
-                makeTplComponent({
-                    tpl: '{foo}',
-                    data: {
-                        foo: 1
-                    }
-                });
-                expect(component.getInnerHtmlElement()).toHaveHtml('1');
-            });
-
-            it("should accept an array tpl", function() {
-                makeTplComponent({
-                    tpl: ['{foo}', '{bar}'],
-                    data: {
-                        foo: 1,
-                        bar: 2
-                    }
-                });
-                expect(component.getInnerHtmlElement()).toHaveHtml('12');
-            });
-        });
-
-        describe("dynamic", function() {
-            describe("tpl", function() {
-                describe("setting a tpl", function() {
-                    describe("with no data", function() {
-                        it("should be empty", function() {
-                            makeTplComponent();
-                            component.setTpl('{foo}');
-                            expect(component.getInnerHtmlElement()).toHaveHtml('');
-                        });
-                    });
-
-                    describe("with data", function() {
-                        it("should render the data with the new tpl", function() {
-                            makeTplComponent({
-                                data: {
-                                    foo: 1
-                                }
-                            });
-                            component.setTpl('{foo}');
-                            expect(component.getInnerHtmlElement()).toHaveHtml('1');
-                        });
-                    });
-                });
-
-                describe("clearing a tpl", function() {
-                    describe("with no data", function() {
-                        it("should be empty", function() {
-                            makeTplComponent({
-                                tpl: '{foo}'
-                            });
-                            component.setTpl(null);
-                            expect(component.getInnerHtmlElement()).toHaveHtml('');
-                        });
-                    });
-
-                    describe("with data", function() {
-                        it("should be empty", function() {
-                            makeTplComponent({
-                                tpl: '{foo}',
-                                data: {
-                                    foo: 1
-                                }
-                            });
-                            component.setTpl(null);
-                            expect(component.getInnerHtmlElement()).toHaveHtml('');
-                        });
-                    });
-                });
-
-                describe("changing a tpl", function() {
-                    describe("with no data", function() {
-                        it("should be empty", function() {
-                            makeTplComponent({
-                                tpl: '{foo}'
-                            });
-                            component.setTpl('{bar}');
-                            expect(component.getInnerHtmlElement()).toHaveHtml('');
-                        });
-                    });
-
-                    describe("with data", function() {
-                        it("should render the data with the new tpl", function() {
-                            makeTplComponent({
-                                tpl: '{foo}',
-                                data: {
-                                    foo: 1,
-                                    bar: 2
-                                }
-                            });
-                            component.setTpl('{bar}');
-                            expect(component.getInnerHtmlElement()).toHaveHtml('2');
-                        });
-                    });
-                });
-            });
-
-            describe("data", function() {
-                describe("setting data", function() {
-                    describe("with no tpl", function() {
-                        it("should be empty", function() {
-                            makeTplComponent();
-                            component.setData({
-                                foo: 1
-                            });
-                            expect(component.getInnerHtmlElement()).toHaveHtml('');
-                        });
-                    });
-
-                    describe("with a tpl", function() {
-                        it("should render the data", function() {
-                            makeTplComponent({
-                                tpl: '{foo}'
-                            });
-                            component.setData({
-                                foo: 1
-                            });
-                            expect(component.getInnerHtmlElement()).toHaveHtml('1');
-                        });
-                    });
-                });
-
-                describe("clearing data", function() {
-                    describe("with no tpl", function() {
-                        it("should be empty", function() {
-                            makeTplComponent({
-                                data: {
-                                    foo: 1
-                                }
-                            });
-                            component.setData(null);
-                            expect(component.getInnerHtmlElement()).toHaveHtml('');
-                        });
-                    });
-
-                    describe("with a tpl", function() {
-                        it("should be empty", function() {
-                            makeTplComponent({
-                                tpl: '{foo}',
-                                data: {
-                                    foo: 1
-                                }
-                            });
-                            component.setData(null);
-                            expect(component.getInnerHtmlElement()).toHaveHtml('');
-                        });
-                    });
-                });
-
-                describe("changing data", function() {
-                    describe("with no tpl", function() {
-                        it("should be empty", function() {
-                            makeTplComponent({
-                                data: {
-                                    foo: 1
-                                }
-                            });
-                            component.setData({
-                                foo: 2
-                            });
-                            expect(component.getInnerHtmlElement()).toHaveHtml('');
-                        });
-                    });
-
-                    describe("with a tpl", function() {
-                        it("should be empty", function() {
-                            makeTplComponent({
-                                tpl: '{foo}',
-                                data: {
-                                    foo: 1
-                                }
-                            });
-                            component.setData({
-                                foo: 2
-                            });
-                            expect(component.getInnerHtmlElement()).toHaveHtml('2');
-                        });
-                    });
-                });
-            });
-
-            describe("tplWriteMode", function() {
-                it("should respect the tplWriteMode", function() {
-                    makeComponent({
-                        tpl: '{foo}',
-                        data: {
-                            foo: 1
-                        }
-                    });
-                    expect(component.getInnerHtmlElement()).toHaveHtml('1');
-                    component.setData({
-                        foo: 2
-                    });
-                    expect(component.getInnerHtmlElement()).toHaveHtml('2');
-                    component.setTplWriteMode('append');
-                    component.setData({
-                        foo: 3
-                    });
-                    expect(component.getInnerHtmlElement()).toHaveHtml('23');
-                    component.setTpl('a{foo}');
-                    expect(component.getInnerHtmlElement()).toHaveHtml('23a3');
-                    component.setTplWriteMode('insertFirst');
-                    component.setData({
-                        foo: 4
-                    });
-                    expect(component.getInnerHtmlElement()).toHaveHtml('a423a3');
-                });
-            });
+            expect(component.innerHtmlElement.dom.innerHTML).toEqual('first name is ');
         });
     });
 
     describe('responding to resizing', function() {
-        var container, onResizeSpy, resizeEventSpy;
+        var container, onResizeSpy, resizeEventSpy, prevWidth, prevHeight;
 
         beforeEach(function() {
             onResizeSpy = jasmine.createSpy();
             resizeEventSpy = jasmine.createSpy();
         });
-
         afterEach(function() {
             container = Ext.destroy(container);
         });
 
-        function getInfo(flag) {
-            return {
-                flag: flag,  // w = 0x01, h = 0x02
-                width: component.element.measure('w'),
-                height: component.element.measure('h'),
-                contentWidth: component.el.dom.offsetWidth,
-                contentHeight: component.el.dom.offsetHeight
-            };
-        }
-
-        function waitsForCalls(n) {
-            waitsFor(function() {
-                return onResizeSpy.callCount === n &&
-                       resizeEventSpy.callCount === n;
-            });
-        }
-
-        function expectSizeCalls(flag, w, h, oldW, oldH) {
-            var info = getInfo(flag);
-
-            oldW = oldW || null;
-            oldH = oldH || null;
-
-            expect(onResizeSpy.mostRecentCall.args).toEqual(
-                [ w, h, oldW, oldH, info ]);
-
-            expect(resizeEventSpy.mostRecentCall.args.slice(0, 6)).toEqual(
-                [ component, w, h, oldW, oldH, info ]);
-
-            // onResize is called first - its element resize listener is at priority 1000
-            expect(onResizeSpy.callSequence).toBeLessThan(resizeEventSpy.callSequence);
-        }
-
-        function makeSizeComponent(cfg) {
-            makeComponent(Ext.apply(cfg, {
-                renderTo: Ext.getBody(),
-                listeners: {
-                    resize: resizeEventSpy
-                }
-            }));
-            component.onResize = onResizeSpy;
-
-            waitsForCalls(1);
-
-            runs(function() {
-                expectSizeCalls(3, component.el.getWidth(), component.el.getHeight());
-            });
-
-            return component;
-        }
-
-        function makeSizeContainer(ctCfg, cfg) {
-            ctCfg.items = ctCfg.items || [];
-
-            ctCfg.items.push(Ext.apply({
-                xtype: 'component',
-                listeners: {
-                    resize: resizeEventSpy
-                }
-            }, cfg));
-
-            container = new Ext.Container(Ext.apply({
-                renderTo: Ext.getBody()
-            }, ctCfg));
-            component = container.items.last();
-            component.onResize = onResizeSpy;
-
-            waitsForCalls(1);
-
-            runs(function() {
-                expectSizeCalls(3, component.el.getWidth(), component.el.getHeight());
-            });
-        }
-
         describe('shrinkWrap', function() {
             it('should respond to content size changes', function() {
-                makeSizeComponent({
-                    style: 'position: absolute;',
-                    html: '<div class="foo" style="height: 100px; width: 100px;">Foo</div><div style="height: 70px; width: 50px;">Bar</div>'
+                makeComponent({
+                    html: '<p>Foo</p><p>bar</p><p>bletch</p>',
+                    onResize: onResizeSpy,
+                    listeners: {
+                        resize: resizeEventSpy
+                    },
+                    renderTo: document.body
+                });
+                component.el.down('p').destroy();
+
+                waitsFor(function() {
+                    return onResizeSpy.callCount === 1 &&
+                        resizeEventSpy.callCount === 1;
                 });
 
+                // The event is asynchronous, and is fired opn the tail of a browser layout.
+                // We have only paused for one layout, so it will be the result of the DOM
+                // removal, and there will be no "old" size values.
                 runs(function() {
-                    component.el.down('.foo').destroy();
-                });
-                waitsForCalls(2);
-                runs(function() {
-                    expectSizeCalls(3, 50, 70, 100, 170);
+                    var w = component.el.dom.offsetWidth,
+                        h = component.el.dom.offsetHeight,
+                        info = {
+                            flag: 3,  // w = 0x01, h = 0x02
+                            width: w,
+                            height: h,
+                            contentWidth: w,
+                            contentHeight: h
+                        };
+
+                    expect(onResizeSpy.mostRecentCall.args).toEqual(
+                        [ w, h, null, null, info ]);
+
+                    expect(resizeEventSpy.mostRecentCall.args.slice(0, 6)).toEqual(
+                        [ component, w, h, null, null, info ]);
+
+                    // onResize is called first - its element resize listener is at priority 1000
+                    expect(onResizeSpy.callSequence).toBeLessThan(resizeEventSpy.callSequence);
                 });
             });
         });
 
         describe('Auto sizing', function() {
             it('should respond to changes in relative sizing values', function() {
-                makeSizeContainer({
+                container = new Ext.Container({
                     layout: 'hbox',
                     height: 100,
-                    width: 100
-                }, {
-                    width: '50%',
-                    height: 100
+                    width: 100,
+                    items: [makeComponent({
+                        width: '50%',
+                        onResize: onResizeSpy,
+                        listeners: {
+                            resize: resizeEventSpy
+                        }
+                    })],
+                    renderTo: document.body
                 });
 
+                waitsFor(function() {
+                    return onResizeSpy.callCount === 1 &&
+                        resizeEventSpy.callCount === 1;
+                }, 'first resize', 1000);
+
+                // Wait for the resize event mechanism to flush all its timers
+                waits(100);
+
+                // Wait for the layout and the async event to run on the tail end of a browser layout
                 runs(function() {
+                    var w = component.el.dom.offsetWidth,
+                        h = component.el.dom.offsetHeight,
+                        info = {
+                            flag: 3,  // w = 0x01, h = 0x02
+                            width: w,
+                            height: h,
+                            contentWidth: w,
+                            contentHeight: h
+                        };
+
+                    expect(onResizeSpy.mostRecentCall.args).toEqual([
+                        50, h, null, null, info
+                    ]);
+                    expect(resizeEventSpy.mostRecentCall.args.slice(0, 6)).toEqual([
+                        component, 50, h, null, null, info
+                    ]);
+
+                    // onResize is called first - its element resize listener is at priority 1000
+                    expect(onResizeSpy.callSequence).toBeLessThan(resizeEventSpy.callSequence);
+
                     component.setWidth('70%');
-                });
-
-                waitsForCalls(2);
-                runs(function() {
-                    expectSizeCalls(1, 70, 100, 50, 100);
-
-                    // Now widen the container
-                    container.setWidth(200);
-                    // Force a repaint
                     component.el.dom.offsetWidth;
                 });
 
-                waitsForCalls(3);
+                // Wait for the resize event mechanism to flush all its timers
+                waits(100);
+
+                waitsFor(function() {
+                    return onResizeSpy.callCount === 2 &&
+                        resizeEventSpy.callCount === 2;
+                }, 'second resize', 1000);
+
+                // Wait for the layout and the async event to run on the tail end of a browser layout
                 runs(function() {
-                    expectSizeCalls(1, 140, 100, 70, 100);
+                    var w = component.el.dom.offsetWidth,
+                        h = component.el.dom.offsetHeight,
+                        info = {
+                            flag: 1,  // w = 0x01
+                            width: w,
+                            height: h,
+                            contentWidth: w,
+                            contentHeight: h
+                        };
+
+                    // width:50% -> width:70% should mean 70px width
+                    expect(w).toEqual(70);
+
+                    expect(onResizeSpy.mostRecentCall.args).toEqual([
+                        70, h, 50, h, info
+                    ]);
+                    expect(resizeEventSpy.mostRecentCall.args.slice(0, 6)).toEqual([
+                        component, 70, h, 50, h, info
+                    ]);
+
+                    // onResize is called first - its element resize listener is at priority 1000
+                    expect(onResizeSpy.callSequence).toBeLessThan(resizeEventSpy.callSequence);
+
+                    // Now widen the container
+                    container.setWidth(200);
+                    component.el.dom.offsetWidth;
+                });
+
+                // Wait for the resize event mechanism to flush all its timers
+                waits(100);
+
+                waitsFor(function() {
+                    return onResizeSpy.callCount === 3 &&
+                        resizeEventSpy.callCount === 3;
+                }, 'third resize', 1000);
+
+                // Wait for the layout and the async event to run on the tail end of a browser layout
+                runs(function() {
+                    var w = component.el.dom.offsetWidth,
+                        h = component.el.dom.offsetHeight,
+                        info = {
+                            flag: 1,
+                            width: w,
+                            height: h,
+                            contentWidth: w,
+                            contentHeight: h
+                        };
+
+                    // Doubled container width, so double the component's width
+                    expect(component.el.dom.offsetWidth).toEqual(140);
+
+                    expect(onResizeSpy.mostRecentCall.args).toEqual([
+                        140, h, 70, h, info
+                    ]);
+                    expect(resizeEventSpy.mostRecentCall.args.slice(0, 6)).toEqual([
+                        component, 140, h, 70, h, info
+                    ]);
+
+                    // onResize is called first - its element resize listener is at priority 1000
+                    expect(onResizeSpy.callSequence).toBeLessThan(resizeEventSpy.callSequence);
                 });
             });
         });
 
         describe('Layout sizing', function() {
             it('should respond to layout-induced changes', function() {
-                makeSizeContainer({
+                container = new Ext.Container({
                     layout: 'hbox',
                     height: 100,
                     width: 100,
                     items: [{
                         flex: 1
-                    }]
-                }, {
-                    flex: 1,
-                    height: 100
+                    }, makeComponent({
+                        flex: 1,
+                        onResize: onResizeSpy,
+                        listeners: {
+                            resize: resizeEventSpy
+                        }
+                    })],
+                    renderTo: document.body
                 });
 
-                runs(function() {
-                    component.setFlex(3);
+                waitsFor(function() {
+                    return onResizeSpy.callCount === 1 &&
+                        resizeEventSpy.callCount === 1;
                 });
-
-                waitsForCalls(2);
-                runs(function() {
-                    expectSizeCalls(1, 75, 100, 50, 100);
-
-                    container.setWidth(200);
-                });
-
-                waitsForCalls(3);
 
                 // Wait for the layout and the async event to run on the tail end of a browser layout
                 runs(function() {
-                    expectSizeCalls(1, 150, 100, 75, 100);
+                    var w = component.el.dom.offsetWidth,
+                        h = component.el.dom.offsetHeight,
+                        info = {
+                            flag: 3,  // w = 0x01, h = 0x02
+                            width: w,
+                            height: h,
+                            contentWidth: w,
+                            contentHeight: h
+                        };
+
+                    expect(onResizeSpy.mostRecentCall.args).toEqual([
+                        50, h, null, null, info ]);
+                    expect(resizeEventSpy.mostRecentCall.args.slice(0, 6)).toEqual([
+                        component, 50, h, null, null, info ]);
+
+                    // onResize is called first - its element resize listener is at priority 1000
+                    expect(onResizeSpy.callSequence).toBeLessThan(resizeEventSpy.callSequence);
+
+                    component.setFlex(2);
+                });
+
+                waitsFor(function() {
+                    return onResizeSpy.callCount === 2 &&
+                        resizeEventSpy.callCount === 2;
+                });
+
+                // Wait for the layout and the async event to run on the tail end of a browser layout
+                runs(function() {
+                    var w = component.el.dom.offsetWidth,
+                        h = component.el.dom.offsetHeight,
+                        info = {
+                            flag: 1,  // w = 0x01, h = 0x02
+                            width: w,
+                            height: h,
+                            contentWidth: w,
+                            contentHeight: h
+                        };
+
+                    // flex:1 -> flex:2 should mean ~67px width
+                    expect(w).toBeGreaterThan(50);
+                    prevWidth = w;
+
+                    expect(onResizeSpy.mostRecentCall.args).toEqual([ w, h, 50, h, info ]);
+
+                    expect(resizeEventSpy.mostRecentCall.args.slice(0, 6)).toEqual([
+                        component, w, h, 50, h, info ]);
+
+                    // onResize is called first - its element resize listener is at priority 1000
+                    expect(onResizeSpy.callSequence).toBeLessThan(resizeEventSpy.callSequence);
+
+                    // Now widen the container
+                    container.setWidth(200);
+                });
+
+                waits(100);
+
+                // Wait for the layout and the async event to run on the tail end of a browser layout
+                runs(function() {
+                    var w = component.el.getWidth(),
+                        ow = component.el.dom.offsetWidth,
+                        h = component.el.dom.offsetHeight,
+                        info = {
+                            flag: 1,  // w = 0x01, h = 0x02
+                            width: w,
+                            height: h,
+                            contentWidth: ow,
+                            contentHeight: h
+                        };
+
+                    // Double container width should mean ~(67 * 2)px width
+                    expect(ow).toBeGreaterThan(prevWidth);
+
+                    expect(onResizeSpy.mostRecentCall.args).toEqual([
+                        w, h, prevWidth, h, info ]);
+
+                    expect(resizeEventSpy.mostRecentCall.args.slice(0, 6)).toEqual([
+                        component, w, h, prevWidth, h, info ]);
+
+                    // onResize is called first - its element resize listener is at priority 1000
+                    expect(onResizeSpy.callSequence).toBeLessThan(resizeEventSpy.callSequence);
                 });
             });
         });
 
         describe('Constraints', function() {
-            function makeSuite(cfgName) {
-                var vertical = Ext.String.endsWith(cfgName, 'Height'),
-                    isMin = Ext.String.startsWith(cfgName, 'min'),
-                    setter = Ext.Config.get(cfgName).names.set,
-                    flag = vertical ? 2 : 1,
-                    size = isMin ? 60 : 40;
-
-                function makeCt(doSet) {
-                    var o = {
+            it('should respond to releasing the maxWidth constraint', function() {
+                container = new Ext.Container({
+                    layout: 'hbox',
+                    height: 100,
+                    width: 100,
+                    items: [{
                         flex: 1
+                    }, makeComponent({
+                        flex: 1,
+                        maxWidth: 40,
+                        onResize: onResizeSpy,
+                        listeners: {
+                            resize: resizeEventSpy
+                        }
+                    })],
+                    renderTo: document.body
+                });
+
+                waitsFor(function() {
+                    return onResizeSpy.callCount === 1 &&
+                        resizeEventSpy.callCount === 1;
+                });
+
+                // Wait for the layout and the async event to run on the tail end of a browser layout
+                runs(function() {
+                    var w = component.el.dom.offsetWidth,
+                        h = component.el.dom.offsetHeight,
+                        info = {
+                            flag: 3,  // w = 0x01, h = 0x02
+                            width: w,
+                            height: h,
+                            contentWidth: w,
+                            contentHeight: h
+                        };
+
+                    expect(onResizeSpy.mostRecentCall.args).toEqual([ 40, h, null, null, info ]);
+                    expect(resizeEventSpy.mostRecentCall.args.slice(0, 6)).toEqual([
+                        component, 40, h, null, null, info ]);
+
+                    // onResize is called first - its element resize listener is at priority 1000
+                    expect(onResizeSpy.callSequence).toBeLessThan(resizeEventSpy.callSequence);
+
+                    // Release the maxWidth: 40 constraint
+                    component.setMaxWidth(null);
+                });
+
+                waitsFor(function() {
+                    return onResizeSpy.callCount === 2 &&
+                        resizeEventSpy.callCount === 2;
+                });
+
+                // Wait for the layout and the async event to run on the tail end of a browser layout
+                runs(function() {
+                    var w = component.el.dom.offsetWidth,
+                        h = component.el.dom.offsetHeight,
+                        info = {
+                            flag: 1,  // w = 0x01, h = 0x02
+                            width: w,
+                            height: h,
+                            contentWidth: w,
+                            contentHeight: h
+                        };
+
+                    // Releasing the constraint moves to obeying flex: 1
+                    expect(onResizeSpy.mostRecentCall.args).toEqual([ 50, h, 40, h, info ]);
+                    expect(resizeEventSpy.mostRecentCall.args.slice(0, 6)).toEqual([
+                        component, 50, h, 40, h, info ]);
+
+                    // onResize is called first - its element resize listener is at priority 1000
+                    expect(onResizeSpy.callSequence).toBeLessThan(resizeEventSpy.callSequence);
+                });
+            });
+        });
+
+        it('should respond to releasing the minWidth constraint', function() {
+            container = new Ext.Container({
+                layout: 'hbox',
+                height: 100,
+                width: 100,
+                items: [{
+                    flex: 1
+                }, makeComponent({
+                    flex: 1,
+                    minWidth: 60,
+                    onResize: onResizeSpy,
+                    listeners: {
+                        resize: resizeEventSpy
+                    }
+                })],
+                renderTo: document.body
+            });
+
+            waitsFor(function() {
+                return onResizeSpy.callCount === 1 &&
+                    resizeEventSpy.callCount === 1;
+            });
+
+            // Wait for the layout and the async event to run on the tail end of a browser layout
+            runs(function() {
+                var w = component.el.dom.offsetWidth,
+                    h = component.el.dom.offsetHeight,
+                    info = {
+                        flag: 3,  // w = 0x01, h = 0x02
+                        width: w,
+                        height: h,
+                        contentWidth: w,
+                        contentHeight: h
                     };
 
-                    if (doSet) {
-                        o[cfgName] = size;
+                expect(onResizeSpy.mostRecentCall.args).toEqual([
+                    60, h, null, null, info ]);
+
+                expect(resizeEventSpy.mostRecentCall.args.slice(0, 6)).toEqual([
+                    component, 60, h, null, null, info ]);
+
+                // onResize is called first - its element resize listener is at priority 1000
+                expect(onResizeSpy.callSequence).toBeLessThan(resizeEventSpy.callSequence);
+
+                // Release the minWidth: 60 constraint
+                component.setMinWidth(null);
+            });
+
+            waitsFor(function() {
+                return onResizeSpy.callCount === 2 &&
+                    resizeEventSpy.callCount === 2;
+            });
+
+            // Wait for the layout and the async event to run on the tail end of a browser layout
+            runs(function() {
+                var w = component.el.dom.offsetWidth,
+                    h = component.el.dom.offsetHeight,
+                    info = {
+                        flag: 1,  // w = 0x01, h = 0x02
+                        width: w,
+                        height: h,
+                        contentWidth: w,
+                        contentHeight: h
+                    };
+
+                expect(onResizeSpy.callCount).toBe(2);
+
+                // Releasing the constraint moves to obeying flex: 1
+                expect(onResizeSpy.mostRecentCall.args).toEqual([
+                    50, h, 60, h, info ]);
+                expect(resizeEventSpy.mostRecentCall.args.slice(0, 6)).toEqual([
+                    component, 50, h, 60, h, info ]);
+
+                // onResize is called first - its element resize listener is at priority 1000
+                expect(onResizeSpy.callSequence).toBeLessThan(resizeEventSpy.callSequence);
+            });
+        });
+
+        it('should respond to releasing the maxHeight constraint', function() {
+            container = new Ext.Container({
+                layout: 'vbox',
+                height: 100,
+                width: 100,
+                items: [{
+                    flex: 1
+                }, makeComponent({
+                    flex: 1,
+                    maxHeight: 40,
+                    onResize: onResizeSpy,
+                    listeners: {
+                        resize: resizeEventSpy
                     }
+                })],
+                renderTo: document.body
+            });
 
-                    makeSizeContainer({
-                        layout: {
-                            type: vertical ? 'vbox' : 'hbox',
-                            align: 'stretch'
-                        },
-                        height: 100,
-                        width: 100,
-                        items: [{
-                            flex: 1
-                        }]
-                    }, o);
-                }
+            waitsFor(function() {
+                return onResizeSpy.callCount === 1 &&
+                    resizeEventSpy.callCount === 1;
+            });
 
-                describe(cfgName, function() {
-                    it("should react to setting " + cfgName, function() {
-                        makeCt(false);
-                        runs(function() {
-                            component[setter](size);
-                        });
+            // Wait for the layout and the async event to run on the tail end of a browser layout
+            runs(function() {
+                var w = component.el.dom.offsetWidth,
+                    h = component.el.dom.offsetHeight,
+                    info = {
+                        flag: 3,  // w = 0x01, h = 0x02
+                        width: w,
+                        height: h,
+                        contentWidth: w,
+                        contentHeight: h
+                    };
 
-                        waitsForCalls(2);
+                expect(onResizeSpy.mostRecentCall.args).toEqual([
+                    w, 40, null, null, info ]);
 
-                        runs(function() {
-                            var w = vertical ? 100 : size,
-                                h = !vertical ? 100 : size,
-                                oldW = vertical ? 100 : 50,
-                                oldH = !vertical ? 100 : 50;
+                expect(resizeEventSpy.mostRecentCall.args.slice(0, 6)).toEqual([
+                    component, w, 40, null, null, info ]);
 
-                            expectSizeCalls(flag, w, h, oldW, oldH);
-                        });
-                    });
+                // onResize is called first - its element resize listener is at priority 1000
+                expect(onResizeSpy.callSequence).toBeLessThan(resizeEventSpy.callSequence);
 
-                    it("should react to clearing " + cfgName, function() {
-                        makeCt(true);
-                        runs(function() {
-                            component[setter](null);
-                        });
+                // Release the maxHeight: 40 constraint
+                component.setMaxHeight(null);
+            });
 
-                        waitsForCalls(2);
+            waitsFor(function() {
+                return onResizeSpy.callCount === 2 &&
+                    resizeEventSpy.callCount === 2;
+            });
 
-                        runs(function() {
-                            var w = vertical ? 100 : 50,
-                                h = !vertical ? 100 : 50,
-                                oldW = vertical ? 100 : size,
-                                oldH = !vertical ? 100 : size;
+            // Wait for the layout and the async event to run on the tail end of a browser layout
+            runs(function() {
+                var w = component.el.dom.offsetWidth,
+                    h = component.el.dom.offsetHeight,
+                    info = {
+                        flag: 2,  // w = 0x01, h = 0x02
+                        width: w,
+                        height: h,
+                        contentWidth: w,
+                        contentHeight: h
+                    };
 
-                            expectSizeCalls(flag, w, h, oldW, oldH);
-                        });
-                    });
-                });
-            }
+                // Releasing the constraint moves to obeying flex: 1
+                expect(onResizeSpy.mostRecentCall.args).toEqual([ w, 50, w, 40, info ]);
+                expect(resizeEventSpy.mostRecentCall.args.slice(0, 6)).toEqual([
+                    component, w, 50, w, 40, info ]);
 
-            makeSuite('maxHeight');
-            makeSuite('maxWidth');
+                // onResize is called first - its element resize listener is at priority 1000
+                expect(onResizeSpy.callSequence).toBeLessThan(resizeEventSpy.callSequence);
+            });
+        });
 
-            // IE has known issue with flex-basis: auto and containers with
-            // different types of sizing set (this case auto and minHeight/minWidth)
-            if (!Ext.isIE11) {
-                makeSuite('minHeight');
-                makeSuite('minWidth');
-            }
+        it('should respond to releasing the minHeight constraint', function() {
+            container = new Ext.Container({
+                layout: 'vbox',
+                height: 100,
+                width: 100,
+                items: [{
+                    flex: 1
+                }, makeComponent({
+                    flex: 1,
+                    minHeight: 60,
+                    onResize: onResizeSpy,
+                    listeners: {
+                        resize: resizeEventSpy
+                    }
+                })],
+                renderTo: document.body
+            });
+
+            waitsFor(function() {
+                return onResizeSpy.callCount === 1 &&
+                    resizeEventSpy.callCount === 1;
+            });
+
+            // Wait for the layout and the async event to run on the tail end of a browser layout
+            runs(function() {
+                var w = component.el.dom.offsetWidth,
+                    h = component.el.dom.offsetHeight,
+                    info = {
+                        flag: 3,  // w = 0x01, h = 0x02
+                        width: w,
+                        height: h,
+                        contentWidth: w,
+                        contentHeight: h
+                    };
+
+                expect(onResizeSpy.mostRecentCall.args).toEqual([ w, 60, null, null, info ]);
+                expect(resizeEventSpy.mostRecentCall.args.slice(0, 6)).toEqual([
+                    component, w, 60, null, null, info ]);
+
+                // onResize is called first - its element resize listener is at priority 1000
+                expect(onResizeSpy.callSequence).toBeLessThan(resizeEventSpy.callSequence);
+
+                // Release the minHeight: 60 constraint
+                component.setMinHeight(null);
+            });
+
+            waitsFor(function() {
+                return onResizeSpy.callCount === 2 &&
+                    resizeEventSpy.callCount === 2;
+            });
+
+            // Wait for the layout and the async event to run on the tail end of a browser layout
+            runs(function() {
+                var w = component.el.dom.offsetWidth,
+                    h = component.el.dom.offsetHeight,
+                    info = {
+                        flag: 2,  // w = 0x01, h = 0x02
+                        width: w,
+                        height: h,
+                        contentWidth: w,
+                        contentHeight: h
+                    };
+
+                expect(onResizeSpy.callCount).toBe(2);
+
+                // Releasing the constraint moves to obeying flex: 1
+                expect(onResizeSpy.mostRecentCall.args).toEqual([ w, 50, w, 60, info ]);
+                expect(resizeEventSpy.mostRecentCall.args.slice(0, 6)).toEqual([
+                    component, w, 50, w, 60, info ]);
+
+                // onResize is called first - its element resize listener is at priority 1000
+                expect(onResizeSpy.callSequence).toBeLessThan(resizeEventSpy.callSequence);
+            });
         });
     });
 
@@ -2321,13 +2259,13 @@ function() {
             var cmp = makeComponent({
                     showAnimation: {
                         type: 'slideIn',
-                        duration: 5,
+                        duration: 250,
                         easing: 'ease-out'
                     },
     
                     hideAnimation: {
                         type: 'slideOut',
-                        duration: 5,
+                        duration: 250,
                         easing: 'ease-in'
                     },
                     modal: true,
@@ -2340,28 +2278,15 @@ function() {
             hideAnim = cmp.getHideAnimation();
 
             cmp.show();
+            cmp.hide();
 
-            waitsFor(function () {
-                return !cmp.activeAnimation;
-            });
-
-            runs(function () {
-                cmp.hide();
-            });
-
-            waitsFor(function () {
-                return !cmp.activeAnimation;
-            });
-
-            runs(function () {
-                var showAnimSpy = spyOn(showAnim, 'destroy').andCallThrough();
-                var hideAnimSpy = spyOn(hideAnim, 'destroy').andCallThrough();
-
-                cmp.destroy();
-
-                expect(showAnimSpy).toHaveBeenCalled();
-                expect(hideAnimSpy).toHaveBeenCalled();
-            });
+            var showAnimSpy = spyOn(showAnim, 'destroy').andCallThrough();
+            var hideAnimSpy = spyOn(hideAnim, 'destroy').andCallThrough();
+            
+            cmp.destroy();
+            
+            expect(showAnimSpy).toHaveBeenCalled();
+            expect(hideAnimSpy).toHaveBeenCalled();
         });
     });
 
@@ -2425,312 +2350,4 @@ function() {
         });
     });
 
-    describe('destroyable element listeners', function() {
-        it('should remove a destroyable element listener when destroyed', function() {
-            component = new Ext.Component({
-                style: 'height:100px;width:200px',
-                renderTo: document.body
-            });
-
-            var called = false,
-                myListeners = component.on({
-                    element: 'element',
-                    destroyable: true,
-                    tap: function() {
-                        called = true;
-                        Ext.destroy(myListeners);
-                    }
-                });
-
-            Ext.testHelper.tap(component.element);
-            expect(called).toBe(true);
-
-            // The listener should have been destroyed and removed.
-            called = false;
-            Ext.testHelper.tap(component.element);
-            expect(called).toBe(false);
-        });
-        it('should remove a destroyable element listener when destroyed - multi arg form', function() {
-            component = new Ext.Component({
-                style: 'height:100px;width:200px',
-                renderTo: document.body
-            });
-
-            var called = false,
-                myListeners = component.on('tap', function() {
-                    called = true;
-                    Ext.destroy(myListeners);
-                }, null, {
-                    element: 'element',
-                    destroyable: true
-                });
-
-            Ext.testHelper.tap(component.element);
-            expect(called).toBe(true);
-
-            // The listener should have been destroyed and removed.
-            called = false;
-            Ext.testHelper.tap(component.element);
-            expect(called).toBe(false);
-        });
-    });
-
-    describe("whenVisible", function() {
-        var Cls = Ext.define(null, {
-            extend: 'Ext.Component',
-            fn1: Ext.emptyFn,
-            fn2: Ext.emptyFn
-        }), ct;
-
-        function makeCls(hidden, preventRender) {
-            component = new Cls({
-                renderTo: preventRender ? null : Ext.getBody(),
-                hidden: hidden
-            });
-        }
-
-        afterEach(function() {
-            ct = Ext.destroy(ct);
-        });
-
-        describe("when component is visible", function() {
-            it("should run the passed function", function() {
-                makeCls();
-                spyOn(component, 'fn1');
-                component.whenVisible('fn1');
-                expect(component.fn1.callCount).toBe(1);
-            });
-
-            it("should not pass args by default", function() {
-                makeCls();
-                spyOn(component, 'fn1');
-                component.whenVisible('fn1');
-                expect(component.fn1).toHaveBeenCalledWith();
-            });
-
-            it("should use the passed args", function() {
-                makeCls();
-                spyOn(component, 'fn1');
-                component.whenVisible('fn1', ['a', 'b']);
-                expect(component.fn1).toHaveBeenCalledWith('a', 'b');
-            });
-
-            describe("with a show pending", function() {
-                it("should trigger any existing calls", function() {
-                    var spy = jasmine.createSpy();
-
-                    makeCls(true);
-
-                    component.setShowAnimation({});
-                    component.on('show', spy);
-
-                    spyOn(component, 'fn1');
-                    spyOn(component, 'fn2');
-
-                    component.whenVisible('fn1');
-                    component.show();
-                    component.whenVisible('fn2');
-                    expect(component.fn1.callCount).toBe(1);
-                    expect(component.fn2.callCount).toBe(1);
-
-                    waitsFor(function() {
-                        // Wait for the animation to complete
-                        return spy.callCount === 1;
-                    });
-                    runs(function() {
-                        expect(component.fn1.callCount).toBe(1);
-                        expect(component.fn2.callCount).toBe(1);
-                    });
-                });
-            });
-
-            describe("clearing", function() {
-                it("should not cause an exception", function() {
-                    makeCls();
-                    component.clearWhenVisible('fn1');
-                    expect(component.isVisible()).toBe(true);
-                });
-
-                it("should not prevent future functions from running", function() {
-                    makeCls();
-                    spyOn(component, 'fn1');
-                    component.clearWhenVisible('fn1');
-                    expect(component.fn1).not.toHaveBeenCalled();
-                    component.whenVisible('fn1');
-                    expect(component.fn1.callCount).toBe(1);
-                });
-            });
-        });
-
-        describe("when component is not visible", function() {
-            describe("not nested", function() {
-                it("should be able to call multiple methods", function() {
-                    makeCls(true);
-                    spyOn(component, 'fn1');
-                    spyOn(component, 'fn2');
-
-                    component.whenVisible('fn1');
-                    component.whenVisible('fn2');
-
-                    component.show();
-                    expect(component.fn1.callCount).toBe(1);
-                    expect(component.fn2.callCount).toBe(1);
-                });
-
-                it("should replace existing calls", function() {
-                    makeCls(true);
-                    spyOn(component, 'fn1');
-
-                    component.whenVisible('fn1', ['a']);
-                    component.whenVisible('fn1', ['b']);
-
-                    component.show();
-                    expect(component.fn1.callCount).toBe(1);
-                    expect(component.fn1).toHaveBeenCalledWith('b');
-                });
-
-                it("should be able to clear a call", function() {
-                    makeCls(true);
-                    spyOn(component, 'fn1');
-                    spyOn(component, 'fn2');
-
-                    component.whenVisible('fn1');
-                    component.whenVisible('fn2');
-
-                    component.clearWhenVisible('fn1');
-
-                    component.show();
-                    expect(component.fn1).not.toHaveBeenCalled();
-                    expect(component.fn2.callCount).toBe(1);
-                });
-
-                it("should not be called when a component in another hierarchy is shown", function() {
-                    var other = new Ext.Component({
-                        renderTo: Ext.getBody(),
-                        hidden: true
-                    });
-                    makeCls(true);
-                    spyOn(component, 'fn1');
-
-                    component.whenVisible('fn1');
-                    other.show();
-                    expect(component.fn1).not.toHaveBeenCalled();
-
-                    other.destroy();
-                });
-
-                it("should only fire once", function() {
-                    makeCls(true);
-                    spyOn(component, 'fn1');
-
-                    component.whenVisible('fn1');
-                    component.show();
-
-                    expect(component.fn1.callCount).toBe(1);
-                    component.fn1.reset();
-                    component.hide();
-                    component.show();
-                    expect(component.fn1).not.toHaveBeenCalled();
-                });
-            });
-
-            describe("nested", function() {
-                describe("showing container", function() {
-                    describe("when component is hidden", function() {
-                        it("should not fire", function() {
-                            makeCls(true, true);
-                            ct = new Ext.Container({
-                                renderTo: Ext.getBody(),
-                                hidden: true,
-                                items: [component]
-                            });
-                            spyOn(component, 'fn1');
-
-                            component.whenVisible('fn1');
-                            ct.show();
-
-                            expect(component.fn1).not.toHaveBeenCalled();
-                        });
-                    });
-
-                    describe("when component is visible", function() {
-                        it("should fire", function() {
-                            makeCls(false, true);
-                            ct = new Ext.Container({
-                                renderTo: Ext.getBody(),
-                                hidden: true,
-                                items: [component]
-                            });
-                            spyOn(component, 'fn1');
-
-                            component.whenVisible('fn1');
-                            ct.show();
-
-                            expect(component.fn1.callCount).toBe(1);
-                        });
-                    });
-                });
-
-                describe("showing component", function() {
-                    describe("when container is hidden", function() {
-                        it("should not fire", function() {
-                            makeCls(true, true);
-                            ct = new Ext.Container({
-                                renderTo: Ext.getBody(),
-                                hidden: true,
-                                items: [component]
-                            });
-                            spyOn(component, 'fn1');
-
-                            component.whenVisible('fn1');
-                            component.show();
-
-                            expect(component.fn1).not.toHaveBeenCalled();
-                        });
-                    });
-
-                    describe("when container is visible", function() {
-                        it("should fire", function() {
-                            makeCls(true, true);
-                            ct = new Ext.Container({
-                                renderTo: Ext.getBody(),
-                                items: [component]
-                            });
-                            spyOn(component, 'fn1');
-
-                            component.whenVisible('fn1');
-                            component.show();
-
-                            expect(component.fn1.callCount).toBe(1);
-                        });
-                    });
-                });
-            });
-
-            describe("when a component in another hierarchy is shown", function() {
-                it("should not fire", function() {
-                    makeCls(false, true);
-                    ct = new Ext.Container({
-                        renderTo: Ext.getBody(),
-                        hidden: true,
-                        items: [component]
-                    });
-                    spyOn(component, 'fn1');
-
-                    component.whenVisible('fn1');
-
-                    var other = new Ext.Component({
-                        renderTo: Ext.getBody(),
-                        hidden: true
-                    });
-
-                    other.show();
-                    expect(component.fn1).not.toHaveBeenCalled();
-                    other.destroy();
-                    ct.show();
-                    expect(component.fn1.callCount).toBe(1);
-                });
-            });
-        });
-    });
 });

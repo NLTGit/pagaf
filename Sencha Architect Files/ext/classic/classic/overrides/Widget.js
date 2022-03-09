@@ -1,7 +1,6 @@
 /**
  * @class Ext.Widget
  */
-
 Ext.define('Ext.overrides.Widget', {
     override: 'Ext.Widget',
 

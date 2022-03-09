@@ -9,8 +9,7 @@ Ext.define('Ext.dataview.NavigationModel', {
     alias: 'navmodel.dataview',
 
     mixins: [
-        'Ext.mixin.Factoryable',
-        'Ext.mixin.Bufferable'
+        'Ext.mixin.Factoryable'
     ],
 
     requires: [
@@ -29,12 +28,6 @@ Ext.define('Ext.dataview.NavigationModel', {
         view: null,
 
         disabled: false
-    },
-
-    bufferableMethods: {
-        // buffer response to view's triggerEvent when that event is a focusing gesture
-        // to allow focus to be processed before we go into selection.
-        handleChildTrigger: 1
     },
 
     /**
@@ -67,14 +60,12 @@ Ext.define('Ext.dataview.NavigationModel', {
      * @param {Object} [options]
      * @param {Object} [options.event] The UI event which caused the navigation if any.
      * @param {Object} [options.select] Pass as `true` to also select the location.
-     * @param {Object} [options.animation] Pass as `true` or an animation config to animate to the location.
      */
     setLocation: function(location, options) {
         var me = this,
             view = me.getView(),
             oldLocation = me.location,
-            animation = options && options.animation,
-            scroller, child, record, itemContainer, childFloatStyle;
+            scroller, child, record, itemContainer;
 
         if (location == null) {
             return me.clearLocation();
@@ -93,9 +84,7 @@ Ext.define('Ext.dataview.NavigationModel', {
             // If the record is not rendered, ask to scroll to it and try again
             if (record && !child) {
                 // TODO: column?
-                return view.ensureVisible(record, {
-                    animation: animation
-                }).then(function() {
+                return view.ensureVisible(record).then(function() {
                     if (!me.destroyed) {
                         me.setLocation({
                             record: record,
@@ -105,37 +94,31 @@ Ext.define('Ext.dataview.NavigationModel', {
                 });
             }
 
+
             // Work out if they are using any of the ways to get the items
             // to flow inline. In which case, moving up requires extra work.
-            if (child && me.floatingItems == null) {
-                child = child.isComponent ? child.el : Ext.fly(child);
+            if (me.floatingItems == null) {
+                child = child.el;
                 itemContainer = child.up();
-                childFloatStyle = child.getStyleValue('float');
-
                 me.floatingItems = (
                     view.getInline && view.getInline()) ||
                     child.isStyle('display', 'inline-block') ||
-                    childFloatStyle === 'left' || childFloatStyle === 'right' ||
+                    !child.isStyle('float', 'none') ||
                     (itemContainer.isStyle('display', 'flex') && itemContainer.isStyle('flex-direction', 'row')
                 );
             }
 
             // Use explicit scrolling rather than relying on the browser's focus behaviour.
-            // Scroll on focus overscrolls. ensureVisible scrolls exactly correctly.
+            // Scroll on focus overscrolls. scrollIntoView scrolls exactly correctly.
             scroller = view.getScrollable();
             if (scroller) {
-                scroller.ensureVisible(location.sourceElement, {
-                    animation: options && options.animation
-                });
+                scroller.scrollIntoView(location.sourceElement);
             }
             // Handling the impending focus event is separated because it also needs to
             // happen in case of a focus move caused by assistive technologies.
             me.handleLocationChange(location, options);
 
-            // Event handlers may have destroyed the view (and this)
-            if (!me.destroyed) {
-                me.doFocus();
-            }
+            me.doFocus();
         }
     },
 
@@ -145,8 +128,8 @@ Ext.define('Ext.dataview.NavigationModel', {
 
         if (me.location) {
             me.previousLocation = me.location;
-            targetElement = me.location.getFocusEl();
-            if (targetElement && !targetElement.destroyed) {
+            targetElement = me.location.sourceElement;
+            if (targetElement) {
                 Ext.fly(targetElement).removeCls(me.focusedCls);
             }
             me.location = null;
@@ -213,26 +196,23 @@ Ext.define('Ext.dataview.NavigationModel', {
 
         updateView: function (view) {
             var me = this,
-                keyNavCfg = me.getKeyNavCfg(view);
+                triggerEvent = view.getTriggerEvent(),
+                viewListeners = {
+                    childtouchstart: 'onChildTouchStart',
+                    scope: me
+                };
 
             me.focusedCls = view.focusedCls;
 
             // Drive the KeyNav off the View's itemkeydown event so that beforeitemkeydown listeners may veto.
             // By default KeyNav uses defaultEventAction: 'stopEvent', and this is required for movement keys
             // which by default affect scrolling.
-            if (keyNavCfg) {
-                me.keyNav = new Ext.util.KeyNav(keyNavCfg);
+            me.keyNav = new Ext.util.KeyNav(me.getKeyNavCfg(view));
+
+            if (triggerEvent) {
+                viewListeners[triggerEvent] = 'onChildTrigger';
             }
-
-            me.viewListeners = view.on(me.getViewListeners(view));
-        },
-
-        getViewListeners: function(view) {
-            var result = {
-                scope: this
-            };
-            result[view.getTriggerEvent()] = 'onChildTrigger';
-            return result;
+            me.viewListeners = view.on(viewListeners);
         },
 
         // We ignore input fields.
@@ -304,43 +284,40 @@ Ext.define('Ext.dataview.NavigationModel', {
             me.previousLocation = oldLocation;
             if (oldLocation) {
                 me.lastLocation = oldLocation;
-
-                // getFocusEl returns the focusEl.
-                // So for navigation mode, that's the navigation level element, ie
-                // dataview item or grid cell.
-                // For actionable mode, that's the focused sub-element.
-                // It may have been destroyed (eg 31 when month switches from Jan to Feb).
-                target = oldLocation.getFocusEl();
-                if (target && !target.destroyed) {
-                    Ext.fly(target).removeCls(me.focusedCls);
-                }
             }
 
             me.location = location;
 
+            // getFocusEl returns the focusEl.
+            // So for navigation mode, that's the navigation level element, ie
+            // dataview item or grid cell.
+            // For actionable mode, that's the focused sub-element.
+            target = oldLocation && oldLocation.getFocusEl();
+            if (target) {
+                Ext.fly(target).removeCls(me.focusedCls);
+            }
+
             // If we are navigating to one of our navigable items, add our focused class to it.
-            target = location && location.getFocusEl('dom');
+            target = location && location.getFocusEl();
             if (target) {
                 item = location.get();
-                if (item) {
-                    if (item.isWidget) {
-                        item = item.el;
-                    } else {
-                        item = Ext.get(item);
-                    }
-                    if (item && target === item.dom) {
-                        item.addCls(me.focusedCls);
-                    }
-
-                    if (options && (options.event || options.select) && options.navigate !== false) {
-                        me.onNavigate(options.event);
-                    }
+                if (item && target === item.el) {
+                    item.el.addCls(me.focusedCls);
                 }
             }
 
-            // Event handlers may destroy the view
-            if (!view.destroyed) {
-                view.fireEvent('navigate', view, location, oldLocation);
+            if (options && (options.event || options.select) && options.navigate !== false) {
+                me.onNavigate(options.event);
+            }
+            view.fireEvent('navigate', view, location, oldLocation);
+        },
+
+        onChildTouchStart: function(view, location) {
+            if (this.getLocation()) {
+                this.setLocation(location, {
+                    event: location.event,
+                    navigate: this.getView().getTriggerEvent() === 'childtouchstart'
+                });
             }
         },
 
@@ -405,7 +382,7 @@ Ext.define('Ext.dataview.NavigationModel', {
         },
 
         onKeyTab: function(e) {
-            return !this.location.actionable;
+            return false;
         },
 
         onKeyPageDown: function(e) {
@@ -415,7 +392,7 @@ Ext.define('Ext.dataview.NavigationModel', {
             if (!this.location.actionable && !this.floatingItems) {
                 var me = this,
                     view = me.getView(),
-                    y = (view.infinite ? view.getItemTop(me.location.child) : me.location.child.el.dom.offsetTop) + view.el.getClientRegion().height,
+                    y = view.infinite ? view.getItemTop(me.location.child) : me.location.child.el.dom.offsetTop + view.getVisibleHeight(),
                     candidate = me.createLocation(view.getItemFromPoint(0, y));
 
                 // Might have landed on a non-focusable item.
@@ -437,7 +414,7 @@ Ext.define('Ext.dataview.NavigationModel', {
             if (!this.location.actionable && !this.floatingItems) {
                 var me = this,
                     view = me.getView(),
-                    y = (view.infinite ? view.getItemTop(me.location.child) : me.location.child.el.dom.offsetTop) - view.el.getClientRegion().height,
+                    y = view.infinite ? view.getItemTop(me.location.child) : me.location.child.el.dom.offsetTop - view.getVisibleHeight(),
                     candidate = me.createLocation(view.getItemFromPoint(0, y));
 
                 // Might have landed on a non-focusable item.
@@ -478,16 +455,7 @@ Ext.define('Ext.dataview.NavigationModel', {
         },
 
         onSelectAllKeyPress: function(e) {
-            var view = this.getView(),
-                selModel = view.getSelectable();
-
-            // If there are items to select, select them, and do not allow any other
-            // consequences to flow from CTRL/A, it would be confusing to the user.
-            if (selModel && view.getStore().getCount()) {
-                selModel[selModel.allSelected ? 'deselectAll' : 'selectAll']();
-                e.preventDefault();
-                return false;
-            }
+            this.onNavigate(e);
         },
 
         // For use with inline DataViews, such as the KS.
@@ -506,7 +474,7 @@ Ext.define('Ext.dataview.NavigationModel', {
 
             // Nothing above us, move to first, unless we are first, in which case,
             // wrap to last.
-            if (!item || !item.isFocusable()) {
+            if (!item) {
                 item = location.isFirst() ? view.getLastItem() : view.getFirstItem();
             }
             if (item) {
@@ -531,7 +499,7 @@ Ext.define('Ext.dataview.NavigationModel', {
             item = view.getItemFromPagePoint(bottomCentre[0], bottomCentre[1]);
 
             // If we're on the last line, above blank space, go to last
-            if (!item || !item.isFocusable()) {
+            if (!item) {
                 item = location.isLast() ? view.getFirstItem() : view.getLastItem();
             }
             if (item) {
@@ -564,43 +532,14 @@ Ext.define('Ext.dataview.NavigationModel', {
         },
 
         onChildTrigger: function(view, location) {
-            var e = location.event,
-                isFocusingEvent = (e.pointerType === 'touch') ? e.type ==='tap' : e.type ==='touchstart';
-
-            // The selection event handler must run after any navigation caused by the
-            // event has been processed.
-            // For mouse click events this won't have an effect, mousedown will have focused and
-            // navigated before the click. If the triggerEvent is ever configured to 'childtouchstart'
-            // then on a mousedown event, focus will not have moved, so this will become important.
-            // For touch gestures, its's the tap that focuses, so we must wait until
-            // the impending focusMove notification has done the navigation.
-            if (isFocusingEvent) {
-                this.handleChildTrigger(view, location);
+            var e = location.event;
+            // If the view is non-focusable, then location must be set now.
+            // We must have a location to inform the SelectionModel of navigation
+            if (this.location) {
+                this.onNavigate(e);
             } else {
-                this.doHandleChildTrigger(view, location);
-            }
-        },
-
-        doHandleChildTrigger: function(view, location) {
-            var myLocation = this.location,
-                event = location.event,
-                compareMethod = location.isGridLocation ? 'equalCell' : 'equals';
-
-            // This is the selection gesture for the view.
-            // We do not navigate on this gesture, navigation is driven by response to focus.
-            // If that gesture results in fous, well and good - it will find the
-            // location already selected.
-            // We just call onNavigate which is how we go into selection
-            // in response to navigation. Unless we have navigated already to this
-            // location.
-            if (myLocation && myLocation[compareMethod](location)) {
-                this.onNavigate(event);
-            }
-            // If we ever get here and there has been no focus-driven navigation
-            // navigate now. Synthetic events can do this.
-            else {
                 this.setLocation(location, {
-                    event: event
+                    event: e
                 });
             }
         },
@@ -624,15 +563,10 @@ Ext.define('Ext.dataview.NavigationModel', {
         },
 
         updateDisabled: function(disabled) {
-            // If the view is not focusable, (or, in the case of a BoundList, if it does
-            // not have access to its ownerField - eg unit tests) then there will be no key event source
-            // and so no keyNav.
-            if (this.keyNav) {
-                if (disabled) {
-                    this.keyNav.disable();
-                } else {
-                    this.keyNav.enable();
-                }
+            if (disabled) {
+                this.keyNav.disable();
+            } else {
+                this.keyNav.enable();
             }
         }
     }

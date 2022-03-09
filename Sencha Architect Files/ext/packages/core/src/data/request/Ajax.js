@@ -74,7 +74,7 @@ Ext.define('Ext.data.request.Ajax', {
 
         if (me.async) {
             if (!isXdr) {
-                xhr.onreadystatechange = me.bindStateChange();
+                xhr.onreadystatechange = Ext.Function.bind(me.onStateChange, me);
             }
         }
 
@@ -353,8 +353,8 @@ Ext.define('Ext.data.request.Ajax', {
 
         request.contentType = request.options.contentType || me.defaultXdrContentType;
 
-        xhr.onload = me.bindStateChange(true);
-        xhr.onerror = xhr.ontimeout = me.bindStateChange(false);
+        xhr.onload = Ext.Function.bind(me.onStateChange, me, [true]);
+        xhr.onerror = xhr.ontimeout = Ext.Function.bind(me.onStateChange, me, [false]);
     },
 
     processXdrResponse: function(response, xhr) {
@@ -370,19 +370,10 @@ Ext.define('Ext.data.request.Ajax', {
         response.contentType = xhr.contentType || this.defaultXdrContentType;
     },
 
-    bindStateChange: function (xdrResult) {
-        var me = this;
-
-        return function () {
-            Ext.elevate(function () {
-                me.onStateChange(xdrResult);
-            });
-        };
-    },
-
     onStateChange: function(xdrResult) {
         var me = this,
-            xhr = me.xhr;
+            xhr = me.xhr,
+            globalEvents = Ext.GlobalEvents;
 
         // Using CORS with IE doesn't support readyState so we fake it.
         if ((xhr && xhr.readyState == 4) || me.isXdr) {
@@ -391,6 +382,10 @@ Ext.define('Ext.data.request.Ajax', {
             me.onComplete(xdrResult);
             
             me.cleanup();
+            
+            if (globalEvents.hasListeners.idle) {
+                globalEvents.fireEvent('idle');
+            }
         }
     },
     

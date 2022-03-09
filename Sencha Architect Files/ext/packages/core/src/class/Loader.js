@@ -94,7 +94,7 @@
  *      });
  *
  * This form of creation can be useful if the type to create (`window` in the above) is
- * not known statically. Internally, `{@link Ext#method!create}` may need to *synchronously*
+ * not known statically. Internally, `{@link Ext#create}` may need to *synchronously*
  * load the desired class and its requirements. Doing this will generate a warning in
  * the console:
  * 
@@ -104,7 +104,7 @@
  * appropriate `requires` array (as above) or make an `{@link Ext#require}` call.
  * 
  * 
- * **Note** Using `{@link Ext#method!create}` has some performance overhead and is best reserved
+ * **Note** Using `{@link Ext#create}` has some performance overhead and is best reserved
  * for cases where the target class is not known until run-time.
  * 
  * @class Ext.Loader

@@ -5,10 +5,6 @@
 .#{$prefix}button {
     display: inline-flex;
     position: relative;
-    // min-width/min-height of 0 allows the button to be flex-shrunk by an owning box
-    // layout to a size that's smaller than the button's content-size
-    min-width: 0;
-    min-height: 0;
 
     .#{$prefix}inner-el {
         overflow: hidden;
@@ -18,7 +14,6 @@
     }
 
     .#{$prefix}body-el {
-        overflow: hidden;
         margin: auto;
         display: flex;
         align-items: center;
@@ -48,13 +43,6 @@
 
     &.#{$prefix}has-text .#{$prefix}text-el {
         display: block;
-    }
-
-    &.#{$prefix}icon-align-top,
-    &.#{$prefix}icon-align-bottom {
-         .#{$prefix}text-el {
-             max-width: 100%;
-         }
     }
 
     .#{$prefix}arrow-el {
@@ -121,28 +109,19 @@
         margin-right: 0;
     }
 
-    .#{$prefix}ie11 &:not(.#{$prefix}has-text) .#{$prefix}body-el {
-        flex-direction: column;
-    }
-
     &.#{$prefix}arrow-align-right .#{$prefix}inner-el {
         flex-direction: row;
         align-items: center;
     }
 
-    &.#{$prefix}arrow-align-bottom {
-        .#{$prefix}inner-el {
-            flex-direction: column;
-            justify-content: flex-start;
-        }
+    &.#{$prefix}arrow-align-bottom .#{$prefix}inner-el {
+        flex-direction: column;
+        justify-content: center;
 
-        .#{$prefix}body-el {
+        .#{$prefix}ie11 & .#{$prefix}body-el {
+            margin-top: 0;
             margin-bottom: 0;
-            max-width: 100%;
-        }
-        
-        .#{$prefix}arrow-el {
-            margin-top: auto;
+            flex: 1 1 auto;
         }
     }
 

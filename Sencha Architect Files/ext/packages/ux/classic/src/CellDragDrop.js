@@ -5,17 +5,17 @@
  * using {@link Ext.panel.Table viewConfig}:
  *
  *      viewConfig: {
- *          plugins: {
- *              celldragdrop: {
- *                  // Remove text from source cell and replace with value of emptyText.
- *                  applyEmptyText: true,
+ *          plugins: [{
+ *              ptype: 'celldragdrop',
  *
- *                  //emptyText: Ext.String.htmlEncode('<<foo>>'),
+ *              // Remove text from source cell and replace with value of emptyText.
+ *              applyEmptyText: true,
  *
- *                  // Will only allow drops of the same type.
- *                  enforceType: true
- *              }
- *          }
+ *              //emptyText: Ext.String.htmlEncode('<<foo>>'),
+ *
+ *              // Will only allow drops of the same type.
+ *              enforceType: true
+ *          }]
  *      }
  */
 Ext.define('Ext.ux.CellDragDrop', {

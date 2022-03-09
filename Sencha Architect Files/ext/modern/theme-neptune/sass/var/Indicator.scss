@@ -89,7 +89,7 @@ $indicator-dark-ui: dynamic((
  *
  * @param {string} $ui The name of the UI being created.
  *   Can not included spaces or special punctuation (used in class names)
- * @param {number} $xtype The xtype of the UI being created.
+ * @param {number} xtype The xtype of the UI being created.
  * @param {number} $margin The margin between the indicator dots.
  * @param {number} $border-radius The border radius of the indicator dots.
  * @param {number} $track-size The size of the track the indicator dots are in.

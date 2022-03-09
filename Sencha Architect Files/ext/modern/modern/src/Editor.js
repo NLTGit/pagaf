@@ -1,6 +1,6 @@
 /**
  * The Editor class is used to provide inline editing for elements on the page. The editor
- * is backed by a {@link Ext.field.Field} that will be displayed to edit the underlying content.
+ * is backed by a {@link Ext.form.field.Field} that will be displayed to edit the underlying content.
  * The editor is a floating Component, when the editor is shown it is automatically aligned to
  * display over the top of the bound element it is editing. The Editor contains several options
  * for how to handle key presses:
@@ -28,7 +28,7 @@
  *             html: 'Double-Click on the header title, this, or the field label to edit',
  *             height:30
  *         },{
- *             label: 'First Name',
+ *             fieldLabel: 'First Name',
  *             name: 'firstname',
  *             xtype: 'textfield'
  *         }]

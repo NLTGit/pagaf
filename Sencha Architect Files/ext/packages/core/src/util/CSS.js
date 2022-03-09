@@ -184,7 +184,7 @@ Ext.define('Ext.util.CSS', function() {
          * Gets an an individual CSS rule by selector(s)
          * @param {String/String[]} selector The CSS selector or an array of selectors to try. The first selector that is found is returned.
          * @param {Boolean} refreshCache true to refresh the internal cache if you have recently updated any rules or added styles dynamically
-         * @param rawCache The CSS rule or null if one is not found
+         * @return {CSSStyleRule} The CSS rule or null if one is not found
          */
         getRule: function(selector, refreshCache, rawCache) {
             var i, result;
@@ -211,7 +211,7 @@ Ext.define('Ext.util.CSS', function() {
          * Creates a rule.
          * @param {CSSStyleSheet} styleSheet The StyleSheet to create the rule in as returned from {@link #createStyleSheet}.
          * @param {String} selector The selector to target the rule.
-         * @param {String} cssText The cssText specification eg `"color:red;font-weight:bold;text-decoration:underline"`
+         * @param {String} property The cssText specification eg `"color:red;font-weight:bold;text-decoration:underline"`
          * @return {CSSStyleRule} The created rule
          */
         createRule: function(styleSheet, selector, cssText) {

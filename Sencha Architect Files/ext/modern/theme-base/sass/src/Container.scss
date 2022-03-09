@@ -9,7 +9,7 @@
     overflow: hidden;
     flex: 1;
 
-    .#{$prefix}safari10m &,
+    .#{$prefix}safari &,
     .#{$prefix}ie11 & {
         // Allows align: stretch to align items to the height of the tallest item
         // in an auto-heighted hbox layout.

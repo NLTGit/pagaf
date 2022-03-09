@@ -82,6 +82,11 @@ Ext.define('Ext.carousel.Carousel', {
          */
         direction: 'horizontal',
 
+        /**
+         * @cfg {Boolean} [directionLock=false]
+         * Locks a card's scroller to avoid triggering carousel card changes.
+         */
+
         animation: {
             duration: 250,
             easing: {
@@ -109,11 +114,7 @@ Ext.define('Ext.carousel.Carousel', {
          */
         ui: 'dark',
 
-        itemConfig: {
-            translatable: {
-                type: 'csstransform'
-            }
-        },
+        itemConfig: {},
 
         bufferSize: 1,
 
@@ -189,6 +190,24 @@ Ext.define('Ext.carousel.Carousel', {
         }
 
         this.getTranslatable().setActiveIndex(size);
+    },
+
+    getRefItems: function (deep) {
+        var ret = this.callParent([deep]),
+            carouselItems = this.carouselItems,
+            n = carouselItems.length,
+            i, item;
+
+        for (i = 0; i < n; ++i) {
+            item = carouselItems[i];
+            ret.push(item);
+
+            if (deep && item.getRefItems) {
+                ret.push.apply(ret, item.getRefItems(deep));
+            }
+        }
+
+        return ret;
     },
 
     onSizeChange: function() {

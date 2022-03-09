@@ -16,7 +16,7 @@ Ext.define('Ext.view.BoundList', {
     ],
 
     /**
-     * @cfg {Number} pageSize
+     * @cfg {Number} [pageSize=0]
      * If greater than `0`, a {@link Ext.toolbar.Paging} is displayed at the bottom of the list and store
      * queries will execute with page {@link Ext.data.operation.Read#start start} and
      * {@link Ext.data.operation.Read#limit limit} parameters.
@@ -34,81 +34,29 @@ Ext.define('Ext.view.BoundList', {
      * than zero and the BoundList has been rendered.
      */
 
-    /**
-     * @cfg baseCls
-     * @inheritdoc
-     */
     baseCls: Ext.baseCSSPrefix + 'boundlist',
-    
-    /**
-     * @cfg itemCls
-     * @inheritdoc
-     */
     itemCls: Ext.baseCSSPrefix + 'boundlist-item',
     listItemCls: '',
-    
-    /**
-     * @cfg shadow
-     * @inheritdoc
-     */
     shadow: false,
-    
-    /**
-     * @cfg trackOver
-     * @inheritdoc
-     */
     trackOver: true,
 
-    /**
-     * @cfg preserveScrollOnRefresh
-     * @inheritdoc
-     */
     preserveScrollOnRefresh: true,
     enableInitialSelection: false,
     refreshSelmodelOnRefresh: true,
 
-    /**
-     * @cfg componentLayout
-     * @inheritdoc
-     */
     componentLayout: 'boundlist',
 
-    /**
-     * @cfg navigationModel
-     * @inheritdoc
-     */
     navigationModel: 'boundlist',
 
-    /**
-     * @cfg scrollable
-     * @inheritdoc
-     */
     scrollable: true,
     
-    /**
-     * @property ariaEl
-     * @inheritdoc
-     */
     ariaEl: 'listEl',
-    
-    /**
-     * @cfg tabIndex
-     * @inheritdoc
-     */
     tabIndex: -1,
 
-    /**
-     * @cfg childEls
-     * @inheritdoc
-     */
     childEls: [
         'listWrap', 'listEl'
     ],
     
-    /**
-     * @cfg renderTpl
-     * @inheritdoc
-     */
     renderTpl: [
         '<div id="{id}-listWrap" data-ref="listWrap"',
                 ' class="{baseCls}-list-ct ', Ext.dom.Element.unselectableCls, '">',
@@ -174,16 +122,7 @@ Ext.define('Ext.view.BoundList', {
      // retains focus so that typing may narrow the list.
      // Only when the show is triggered by a touch does the BoundList
      // get explicitly focused so that the keyboard does not appear.
-    /**
-     * @cfg focusOnToFront
-     * @inheritdoc
-     */
     focusOnToFront: false,
-    
-    /**
-     * @cfg alignOnScroll
-     * @inheritdoc
-     */
     alignOnScroll: false,
 
     initComponent: function() {
@@ -344,7 +283,7 @@ Ext.define('Ext.view.BoundList', {
      *            return '{[values.name.replace(this.field.getRawValue(), "<b>" + this.field.getRawValue() + "</b>")]}';
      *        }
      *    }
-     * @param {String} displayField The {@link #cfg!displayField} for the BoundList.
+     * @param {String} displayField The {@link #displayField} for the BoundList.
      * @return {String} The inner template
      */
     getInnerTpl: function(displayField) {
@@ -460,8 +399,7 @@ Ext.define('Ext.view.BoundList', {
     },
 
     privates: {
-        /**
-         * @method getNodeContainer
+        /*
          * @private
          * @inheritdoc
          */

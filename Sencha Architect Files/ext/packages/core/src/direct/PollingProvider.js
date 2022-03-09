@@ -54,7 +54,8 @@ Ext.define('Ext.direct.PollingProvider', {
      * The url which the PollingProvider should contact with each request. This can also be
      * an imported Ext Direct method which will be passed baseParams as named arguments.
      *
-     * @deprecated 5.1.0 Using Function `url` is deprecated, please use {@link #pollFn} instead
+     * *Note* that using Function `url` is deprecated, use {@link #pollFn} instead.
+     * @deprecated 5.1.0
      */
     
     /**

@@ -234,34 +234,6 @@ var Ext = Ext || {};
         <property name="skip.post.compress" value="1"/>
     </target>
 
-    <target name="calendar" depends="init">
-        <x-compile refid="${compiler.ref.id}">
-            <![CDATA[
-            classpath
-                +new
-                -name=calendar
-                -path=${framework.dir}/../packages/calendar/classic/src
-            and
-            classpath
-                -name=calendar
-                -path=${framework.dir}/../packages/calendar/src
-            and
-            classpath
-                -name=calendar
-                -path=${framework.dir}/../packages/calendar/classic/overrides
-                -tags=overrides
-            and
-            classpath
-                -name=calendar
-                -path=${framework.dir}/../packages/calendar/overrides
-                -tags=overrides
-            and
-            include
-                -all
-        ]]>
-        </x-compile>
-    </target>
-
     <target name="charts" depends="init">
         <x-compile refid="${compiler.ref.id}">
             <![CDATA[
@@ -351,20 +323,20 @@ var Ext = Ext || {};
             <![CDATA[
             classpath
                 +new
-                -name=exporter
+                -name=ux
                 -path=${framework.dir}/../packages/exporter/classic/src
             and
             classpath
-                -name=exporter
+                -name=ux
                 -path=${framework.dir}/../packages/exporter/src
             and
             classpath
-                -name=exporter
+                -name=ux
                 -path=${framework.dir}/../packages/exporter/classic/overrides
                 -tags=overrides
             and
             classpath
-                -name=exporter
+                -name=ux
                 -path=${framework.dir}/../packages/exporter/overrides
                 -tags=overrides
             and
@@ -379,49 +351,21 @@ var Ext = Ext || {};
             <![CDATA[
             classpath
                 +new
-                -name=pivot
+                -name=ux
                 -path=${framework.dir}/../packages/pivot/classic/src
             and
             classpath
-                -name=pivot
+                -name=ux
                 -path=${framework.dir}/../packages/pivot/src
             and
             classpath
-                -name=pivot
+                -name=ux
                 -path=${framework.dir}/../packages/pivot/classic/overrides
                 -tags=overrides
             and
             classpath
-                -name=pivot
+                -name=ux
                 -path=${framework.dir}/../packages/pivot/overrides
-                -tags=overrides
-            and
-            include
-                -all
-        ]]>
-        </x-compile>
-    </target>
-
-    <target name="pivot-d3" depends="init,pivot,d3">
-        <x-compile refid="${compiler.ref.id}">
-            <![CDATA[
-            classpath
-                +new
-                -name=pivot-d3
-                -path=${framework.dir}/../packages/pivot-d3/classic/src
-            and
-            classpath
-                -name=pivot-d3
-                -path=${framework.dir}/../packages/pivot-d3/src
-            and
-            classpath
-                -name=pivot-d3
-                -path=${framework.dir}/../packages/pivot-d3/classic/overrides
-                -tags=overrides
-            and
-            classpath
-                -name=pivot-d3
-                -path=${framework.dir}/../packages/pivot-d3/overrides
                 -tags=overrides
             and
             include
@@ -502,5 +446,5 @@ Ext.Boot.loadSyncBasePrefix([
 
     <target name="bootstrap"
             description="*** Regenerate files needed by standalone examples and unit tests ***"
-            depends="calendar,charts,d3,ux,exporter,pivot,pivot-d3,core-bootstrap,test-bootstrap"/>
+            depends="charts,d3,ux,exporter,pivot,core-bootstrap,test-bootstrap"/>
 </project>

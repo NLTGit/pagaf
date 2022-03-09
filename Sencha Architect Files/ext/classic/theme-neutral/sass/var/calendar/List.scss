@@ -2,9 +2,6 @@
  * @class Ext.calendar.List
  */
 
-/**
- * @var $calendar-list-item-margin
- */
 $calendar-list-item-margin: dynamic(0 0 5px 0);
 
 $calendar-list-item-height: dynamic($line-height);
@@ -42,12 +39,6 @@ $calendar-list-item-hidden-opacity: dynamic(0.5);
 
         .#{$prefix}calendar-list-text {
             padding-left: $item-height + $item-icon-spacing;
-        }
-        @if $include-rtl {
-            &.#{$prefix}rtl .#{$prefix}calendar-list-text {
-                padding-right: $item-height + $item-icon-spacing;
-                padding-left: 0;
-            }
         }
     }
 }

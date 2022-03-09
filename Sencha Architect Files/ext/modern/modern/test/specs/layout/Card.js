@@ -9,7 +9,8 @@ describe("Ext.layout.Card", function() {
 
     function createContainer(cfg) {
         cfg = cfg || {};
-        cfg = Ext.apply({
+
+        ct = Ext.create(Ext.apply({
             xtype: 'container',
             layout: {
                 type: 'card',
@@ -22,10 +23,7 @@ describe("Ext.layout.Card", function() {
                 width: 100,
                 height: 100
             }]
-
-        }, cfg);
-
-        ct = Ext.create(cfg);
+        }, cfg));
         layout = ct.getLayout();
         animation = layout.getAnimation();
     }
@@ -35,359 +33,264 @@ describe("Ext.layout.Card", function() {
         animation = layout.getAnimation();
     }
 
-    describe("deferRender", function() {
-        var fields;
+    it("shouldn't create animation if animation config is falsy", function() {
+        createContainer();
+        expect(animation).toBe(null);
+    });
 
-        function makeDeferredForm(deferred) {
-            createContainer({
-                xtype: 'formpanel',
-                title: 'test',
-                viewModel: {
-                    data: {
-                        field1: 'abc',
-                        field2: 'def',
-                        field3: 'ghi'
-                    }
-                },
-                layout: {
-                    type: 'card',
-                    deferRender: deferred
-                },
-                items: [
-                    {
-                        items: [
-                            {
-                                xtype: 'textfield',
-                                label: 'card1',
-                                name: 'card1',
-                                required: true,
-                                bind: '{field1}'
-                            }
-                        ]
-                    },
-                    {
-                        items: [
-                            {
-                                xtype: 'textfield',
-                                required: true,
-                                label: 'card2',
-                                name: 'card2',
-                                bind: '{field2}'
-                            }
-                        ]
-
-                    },
-                    {
-                        items: [
-                            {
-                                xtype: 'textfield',
-                                required: true,
-                                label: 'card3',
-                                name: 'card3',
-                                bind: '{field3}'
-                            }
-                        ]
-
-                    }
-                ]
-            });
-            fields = ct.getFields();
-        }
-
-        it("should defer binding if deferRender is true", function() {
-            makeDeferredForm(true);
-
-            waitsFor(function() {
-                return ct.items.items[0].innerItems[0].inputElement.dom.value !== '';
-            });
-
-            runs(function() {
-                ct.validate();
-                expect(ct.isValid()).toBe(false);    // it really is valid but the bindings aren't done; deferRender
-                expect(fields.card1.isValid()).toBe(true);
-                expect(fields.card2.isValid()).toBe(false);
-                expect(fields.card3.isValid()).toBe(false);
-            });
+    it("should default animation direction to null", function() {
+        createContainer({
+            layout: {
+                type: 'card',
+                animation: 'slide'
+            }
         });
+        expect(animation).not.toBe(null);
+        expect(animation.getDirection()).toBe(null);
+        expect(layout.autoDirection).toBe('horizontal');
+    });
 
-        it("should  bind immediately if deferRender is false", function() {
-            makeDeferredForm(false);
+    it("should honor configured direction", function() {
+        createContainer({
+            layout: {
+                type: 'card',
+                animation: {
+                    type: 'slide',
+                    direction: 'left'
+                }
+            }
+        });
+        expect(animation).not.toBe(null);
+        expect(animation.getDirection()).toBe('left');
+        expect(layout.autoDirection).toBe(null);
+    });
 
-            waitsFor(function() {
-                return ct.items.items[0].innerItems[0].inputElement.dom.value !== '';
-            });
+    it("should honor configured direction horizontal", function() {
+        createContainer({
+            layout: {
+                type: 'card',
+                animation: {
+                    type: 'slide',
+                    direction: 'horizontal'
+                }
+            }
+        });
+        expect(animation).not.toBe(null);
+        expect(animation.getDirection()).toBe(null);
+        expect(layout.autoDirection).toBe('horizontal');
+    });
 
-            runs(function() {
-                ct.validate();
-                expect(ct.isValid()).toBe(true);    // it really is valid, the bindings are already done
-                expect(fields.card1.isValid()).toBe(true);
-                expect(fields.card2.isValid()).toBe(true);
-                expect(fields.card3.isValid()).toBe(true);
-            });
+    it("should honor configured direction vertical", function() {
+        createContainer({
+            layout: {
+                type: 'card',
+                animation: {
+                    type: 'slide',
+                    direction: 'vertical'
+                }
+            }
+        });
+        expect(animation).not.toBe(null);
+        expect(animation.getDirection()).toBe(null);
+        expect(layout.autoDirection).toBe('vertical');
+    });
+
+    it("should automatically choose correct direction when animating card change", function() {
+        createContainer({
+            layout: {
+                type: 'card',
+                animation: 'slide'
+            },
+            items: [{
+                html: 'card 1'
+            }, {
+                html: 'card 2'
+            }]
+        });
+        expect(animation.isAnimating).toBe(false);
+        ct.setActiveItem(1);
+        expect(animation.isAnimating).toBe(true);
+        expect(animation.getDirection()).toBe('left');
+        waitsFor(function() {
+            return !animation.isAnimating;
+        });
+        runs(function() {
+            expect(animation.getDirection()).toBe('left');
+            ct.setActiveItem(0);
+            expect(animation.getDirection()).toBe('right');
+        });
+        waitsFor(function() {
+            return !animation.isAnimating;
+        });
+        runs(function() {
+            expect(animation.getDirection()).toBe('right');
         });
     });
 
-    describe("Animations", function() {
-
-        it("shouldn't create animation if animation config is falsy", function() {
-            createContainer();
-            expect(animation).toBe(null);
-        });
-
-        it("should default animation direction to null", function() {
-            createContainer({
-                layout: {
-                    type: 'card',
-                    animation: 'slide'
+    it("should automatically choose correct direction when animating card change, horizontal", function() {
+        createContainer({
+            layout: {
+                type: 'card',
+                animation: {
+                    type: 'slide',
+                    direction: 'horizontal'
                 }
-            });
-            expect(animation).not.toBe(null);
-            expect(animation.getDirection()).toBe(null);
-            expect(layout.autoDirection).toBe('horizontal');
+            },
+            items: [{
+                html: 'card 1'
+            }, {
+                html: 'card 2'
+            }]
         });
-
-        it("should honor configured direction", function() {
-            createContainer({
-                layout: {
-                    type: 'card',
-                    animation: {
-                        type: 'slide',
-                        direction: 'left'
-                    }
-                }
-            });
-            expect(animation).not.toBe(null);
+        expect(animation.isAnimating).toBe(false);
+        ct.setActiveItem(1);
+        expect(animation.isAnimating).toBe(true);
+        expect(animation.getDirection()).toBe('left');
+        waitsFor(function() {
+            return !animation.isAnimating;
+        });
+        runs(function() {
             expect(animation.getDirection()).toBe('left');
-            expect(layout.autoDirection).toBe(null);
-        });
-
-        it("should honor configured direction horizontal", function() {
-            createContainer({
-                layout: {
-                    type: 'card',
-                    animation: {
-                        type: 'slide',
-                        direction: 'horizontal'
-                    }
-                }
-            });
-            expect(animation).not.toBe(null);
-            expect(animation.getDirection()).toBe(null);
-            expect(layout.autoDirection).toBe('horizontal');
-        });
-
-        it("should honor configured direction vertical", function() {
-            createContainer({
-                layout: {
-                    type: 'card',
-                    animation: {
-                        type: 'slide',
-                        direction: 'vertical'
-                    }
-                }
-            });
-            expect(animation).not.toBe(null);
-            expect(animation.getDirection()).toBe(null);
-            expect(layout.autoDirection).toBe('vertical');
-        });
-
-        it("should automatically choose correct direction when animating card change", function() {
-            createContainer({
-                layout: {
-                    type: 'card',
-                    animation: 'slide'
-                },
-                items: [{
-                    html: 'card 1'
-                }, {
-                    html: 'card 2'
-                }]
-            });
-            expect(animation.isAnimating).toBe(false);
-            ct.setActiveItem(1);
-            expect(animation.isAnimating).toBe(true);
-            expect(animation.getDirection()).toBe('left');
-            waitsFor(function() {
-                return !animation.isAnimating;
-            });
-            runs(function() {
-                expect(animation.getDirection()).toBe('left');
-                ct.setActiveItem(0);
-                expect(animation.getDirection()).toBe('right');
-            });
-            waitsFor(function() {
-                return !animation.isAnimating;
-            });
-            runs(function() {
-                expect(animation.getDirection()).toBe('right');
-            });
-        });
-
-        it("should automatically choose correct direction when animating card change, horizontal", function() {
-            createContainer({
-                layout: {
-                    type: 'card',
-                    animation: {
-                        type: 'slide',
-                        direction: 'horizontal'
-                    }
-                },
-                items: [{
-                    html: 'card 1'
-                }, {
-                    html: 'card 2'
-                }]
-            });
-            expect(animation.isAnimating).toBe(false);
-            ct.setActiveItem(1);
-            expect(animation.isAnimating).toBe(true);
-            expect(animation.getDirection()).toBe('left');
-            waitsFor(function() {
-                return !animation.isAnimating;
-            });
-            runs(function() {
-                expect(animation.getDirection()).toBe('left');
-                ct.setActiveItem(0);
-                expect(animation.getDirection()).toBe('right');
-            });
-            waitsFor(function() {
-                return !animation.isAnimating;
-            });
-            runs(function() {
-                expect(animation.getDirection()).toBe('right');
-            });
-        });
-
-        it("should automatically choose correct direction when animating card change, vertical", function() {
-            createContainer({
-                layout: {
-                    type: 'card',
-                    animation: {
-                        type: 'slide',
-                        direction: 'vertical'
-                    }
-                },
-                items: [{
-                    html: 'card 1'
-                }, {
-                    html: 'card 2'
-                }]
-            });
-            expect(animation.isAnimating).toBe(false);
-            ct.setActiveItem(1);
-            expect(animation.isAnimating).toBe(true);
-            expect(animation.getDirection()).toBe('down');
-            waitsFor(function() {
-                return !animation.isAnimating;
-            });
-            runs(function() {
-                expect(animation.getDirection()).toBe('down');
-                ct.setActiveItem(0);
-                expect(animation.getDirection()).toBe('up');
-            });
-            waitsFor(function() {
-                return !animation.isAnimating;
-            });
-            runs(function() {
-                expect(animation.getDirection()).toBe('up');
-            });
-        });
-
-        it("should not automatically choose direction when setAnimation(null) called", function() {
-            createContainer({
-                layout: {
-                    type: 'card',
-                    animation: 'slide'
-                },
-                items: [{
-                    html: 'card 1'
-                }, {
-                    html: 'card 2'
-                }]
-            });
-            expect(animation.isAnimating).toBe(false);
-            setAnimation(null);
-            ct.setActiveItem(1);
-            expect(layout.getAnimation()).toBe(null);
-            expect(ct.getActiveItem().getHtml()).toBe('card 2');
             ct.setActiveItem(0);
-            expect(layout.getAnimation()).toBe(null);
-            expect(ct.getActiveItem().getHtml()).toBe('card 1');
+            expect(animation.getDirection()).toBe('right');
         });
-
-        it("should automatically choose direction when setAnimation() called", function() {
-            createContainer({
-                layout: {
-                    type: 'card'
-                },
-                items: [{
-                    html: 'card 1'
-                }, {
-                    html: 'card 2'
-                }]
-            });
-            expect(animation).toBe(null);
-            setAnimation({
-                type: 'slide'
-            });
-            expect(animation).not.toBe(null);
-            expect(animation.getDirection()).toBe(null);
-            expect(animation.isAnimating).toBe(false);
-            ct.setActiveItem(1);
-            expect(animation.isAnimating).toBe(true);
-            expect(animation.getDirection()).toBe('left');
-            waitsFor(function() {
-                return !animation.isAnimating;
-            });
-            runs(function() {
-                expect(animation.getDirection()).toBe('left');
-                ct.setActiveItem(0);
-                expect(animation.getDirection()).toBe('right');
-            });
-            waitsFor(function() {
-                return !animation.isAnimating;
-            });
-            runs(function() {
-                expect(animation.getDirection()).toBe('right');
-            });
+        waitsFor(function() {
+            return !animation.isAnimating;
         });
+        runs(function() {
+            expect(animation.getDirection()).toBe('right');
+        });
+    });
 
-        it("should honor direction when setAnimation() called", function() {
-            createContainer({
-                layout: {
-                    type: 'card'
-                },
-                items: [{
-                    html: 'card 1'
-                }, {
-                    html: 'card 2'
-                }]
-            });
-            expect(animation).toBe(null);
-            setAnimation({
-                type: 'slide',
-                direction: 'left'
-            });
-            expect(animation).not.toBe(null);
+    it("should automatically choose correct direction when animating card change, vertical", function() {
+        createContainer({
+            layout: {
+                type: 'card',
+                animation: {
+                    type: 'slide',
+                    direction: 'vertical'
+                }
+            },
+            items: [{
+                html: 'card 1'
+            }, {
+                html: 'card 2'
+            }]
+        });
+        expect(animation.isAnimating).toBe(false);
+        ct.setActiveItem(1);
+        expect(animation.isAnimating).toBe(true);
+        expect(animation.getDirection()).toBe('down');
+        waitsFor(function() {
+            return !animation.isAnimating;
+        });
+        runs(function() {
+            expect(animation.getDirection()).toBe('down');
+            ct.setActiveItem(0);
+            expect(animation.getDirection()).toBe('up');
+        });
+        waitsFor(function() {
+            return !animation.isAnimating;
+        });
+        runs(function() {
+            expect(animation.getDirection()).toBe('up');
+        });
+    });
+
+    it("should not automatically choose direction when setAnimation(null) called", function() {
+        createContainer({
+            layout: {
+                type: 'card',
+                animation: 'slide'
+            },
+            items: [{
+                html: 'card 1'
+            }, {
+                html: 'card 2'
+            }]
+        });
+        expect(animation.isAnimating).toBe(false);
+        setAnimation(null);
+        ct.setActiveItem(1);
+        expect(layout.getAnimation()).toBe(null);
+        expect(ct.getActiveItem().getHtml()).toBe('card 2');
+        ct.setActiveItem(0);
+        expect(layout.getAnimation()).toBe(null);
+        expect(ct.getActiveItem().getHtml()).toBe('card 1');
+    });
+
+    it("should automatically choose direction when setAnimation() called", function() {
+        createContainer({
+            layout: {
+                type: 'card'
+            },
+            items: [{
+                html: 'card 1'
+            }, {
+                html: 'card 2'
+            }]
+        });
+        expect(animation).toBe(null);
+        setAnimation({
+            type: 'slide'
+        });
+        expect(animation).not.toBe(null);
+        expect(animation.getDirection()).toBe(null);
+        expect(animation.isAnimating).toBe(false);
+        ct.setActiveItem(1);
+        expect(animation.isAnimating).toBe(true);
+        expect(animation.getDirection()).toBe('left');
+        waitsFor(function() {
+            return !animation.isAnimating;
+        });
+        runs(function() {
             expect(animation.getDirection()).toBe('left');
-            expect(animation.isAnimating).toBe(false);
-            ct.setActiveItem(1);
-            expect(animation.isAnimating).toBe(true);
+            ct.setActiveItem(0);
+            expect(animation.getDirection()).toBe('right');
+        });
+        waitsFor(function() {
+            return !animation.isAnimating;
+        });
+        runs(function() {
+            expect(animation.getDirection()).toBe('right');
+        });
+    });
+
+    it("should honor direction when setAnimation() called", function() {
+        createContainer({
+            layout: {
+                type: 'card'
+            },
+            items: [{
+                html: 'card 1'
+            }, {
+                html: 'card 2'
+            }]
+        });
+        expect(animation).toBe(null);
+        setAnimation({
+            type: 'slide',
+            direction: 'left'
+        });
+        expect(animation).not.toBe(null);
+        expect(animation.getDirection()).toBe('left');
+        expect(animation.isAnimating).toBe(false);
+        ct.setActiveItem(1);
+        expect(animation.isAnimating).toBe(true);
+        expect(animation.getDirection()).toBe('left');
+        waitsFor(function() {
+            return !animation.isAnimating;
+        });
+        runs(function() {
             expect(animation.getDirection()).toBe('left');
-            waitsFor(function() {
-                return !animation.isAnimating;
-            });
-            runs(function() {
-                expect(animation.getDirection()).toBe('left');
-                ct.setActiveItem(0);
-                expect(animation.getDirection()).toBe('left');
-            });
-            waitsFor(function() {
-                return !animation.isAnimating;
-            });
-            runs(function() {
-                expect(animation.getDirection()).toBe('left');
-            });
+            ct.setActiveItem(0);
+            expect(animation.getDirection()).toBe('left');
+        });
+        waitsFor(function() {
+            return !animation.isAnimating;
+        });
+        runs(function() {
+            expect(animation.getDirection()).toBe('left');
         });
     });
 

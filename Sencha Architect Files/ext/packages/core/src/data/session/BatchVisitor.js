@@ -41,7 +41,7 @@ Ext.define('Ext.data.session.BatchVisitor', {
                         records = bucket[operationType];
                         for (i = 0, len = records.length; i < len; ++i) {
                             operation = proxy.createOperation(operationType, {
-                                records: [records[i]]
+                                records: records[i]
                             });
                             operation.entityType = entity;
                             batch.add(operation);

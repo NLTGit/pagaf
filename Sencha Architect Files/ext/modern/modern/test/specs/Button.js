@@ -910,6 +910,7 @@ topSuite("Ext.Button", [
             });
         });
 
+
         describe("badgeText", function() {
             describe("configuration", function() {
                 beforeEach(function() {
@@ -971,6 +972,7 @@ topSuite("Ext.Button", [
             });
         });
 
+
         describe("text", function() {
             describe("configuration", function() {
                 beforeEach(function() {
@@ -991,18 +993,6 @@ topSuite("Ext.Button", [
                     it("should create a textEl", function() {
                         expect(button.textElement).not.toBeNull();
                     });
-                });
-            });
-
-            describe("configuration using html as text", function() {
-                beforeEach(function() {
-                    createButton({
-                        html: '<u>test</u>'
-                    });
-                });
-
-                it("should set the html", function() {
-                    expect(button.textElement.dom.innerHTML.toLowerCase()).toEqual('<u>test</u>');
                 });
             });
 
@@ -1034,6 +1024,7 @@ topSuite("Ext.Button", [
                 });
             });
         });
+
 
         describe("icon", function() {
             describe("configuration", function() {
@@ -1106,6 +1097,7 @@ topSuite("Ext.Button", [
                 });
             });
         });
+
 
         describe("iconCls", function() {
             describe("configuration", function() {
@@ -1183,6 +1175,7 @@ topSuite("Ext.Button", [
                 });
             });
         });
+
 
         describe("iconAlign", function() {
             var value = 'right',
@@ -1490,267 +1483,7 @@ topSuite("Ext.Button", [
 
                     button.onTap();
 
-                    var menu = button.getMenu();
-
-                    expect(menu.getDisplayed()).toBe(true);
-
-                    waitsFor(function () {
-                        return !menu.isAnimating;
-                    });
-
-                    runs(function () {
-                        expect(menu.getDisplayed()).toBe(true);
-                        menu.hide();
-                    });
-
-                    waitsFor(function () {
-                        return !menu.isAnimating;
-                    });
-                });
-            });
-
-            describe("stretchMenu", function() {
-                function getMenuWidth() {
-                    button.showMenu();
-                    return button.getMenu().element.getWidth();
-                }
-
-                describe("configuration", function() {
-                    describe("stretchMenu: false", function() {
-                        it("should not stretch", function() {
-                            makeButton({
-                                width: 800,
-                                stretchMenu: false,
-                                menu: {
-                                    items: [{
-                                        text: 'Small'
-                                    }]
-                                }
-                            });
-                            expect(getMenuWidth()).toBeLessThan(100);
-                        });
-
-                        it("should respect a passed minWidth", function() {
-                            makeButton({
-                                width: 800,
-                                stretchMenu: false,
-                                menu: {
-                                    minWidth: 200,
-                                    items: [{
-                                        text: 'Small'
-                                    }]
-                                }
-                            });
-                            expect(getMenuWidth()).toBe(200);
-                        });
-                    });
-
-                    describe("stretchMenu: true", function() {
-                        it("should stretch", function() {
-                            makeButton({
-                                width: 800,
-                                stretchMenu: true,
-                                menu: {
-                                    items: [{
-                                        text: 'Small'
-                                    }]
-                                }
-                            });
-                            expect(getMenuWidth()).toBe(800);
-                        });
-
-                        it("should respect a minWidth", function() {
-                            makeButton({
-                                width: 800,
-                                stretchMenu: true,
-                                menu: {
-                                    minWidth: 400,
-                                    items: [{
-                                        text: 'Small'
-                                    }]
-                                }
-                            });
-                            expect(getMenuWidth()).toBe(400);
-                        });
-                    });
-                });
-
-                describe("dynamic", function() {
-                    describe("from true -> false", function() {
-                        it("should not stretch the menu", function() {
-                            makeButton({
-                                width: 800,
-                                stretchMenu: true,
-                                menu: {
-                                    items: [{
-                                        text: 'Small'
-                                    }]
-                                }
-                            });
-                            button.showMenu();
-                            button.getMenu().hide();
-                            button.setStretchMenu(false);
-                            expect(getMenuWidth()).toBeLessThan(100);
-                        });
-
-                        it("should respect a minWidth", function() {
-                            makeButton({
-                                width: 800,
-                                stretchMenu: true,
-                                menu: {
-                                    minWidth: 400,
-                                    items: [{
-                                        text: 'Small'
-                                    }]
-                                }
-                            });
-                            button.showMenu();
-                            button.getMenu().hide();
-                            button.setStretchMenu(false);
-                            window.foo = 1;
-                            expect(getMenuWidth()).toBe(400);
-                            delete window.foo;
-                        });
-                    });
-
-                    describe("from false -> true", function() {
-                        it("should not stretch the menu", function() {
-                            makeButton({
-                                width: 800,
-                                stretchMenu: false,
-                                menu: {
-                                    items: [{
-                                        text: 'Small'
-                                    }]
-                                }
-                            });
-                            button.showMenu();
-                            button.getMenu().hide();
-                            button.setStretchMenu(true);
-                            expect(getMenuWidth()).toBe(800);
-                        });
-
-                        it("should respect a minWidth", function() {
-                            makeButton({
-                                width: 800,
-                                stretchMenu: false,
-                                menu: {
-                                    minWidth: 400,
-                                    items: [{
-                                        text: 'Small'
-                                    }]
-                                }
-                            });
-                            button.showMenu();
-                            button.getMenu().hide();
-                            button.setStretchMenu(true);
-                            expect(getMenuWidth()).toBe(400);
-                        });
-                    });
-                });
-            });
-
-            describe('press button', function () {
-                it('should press button on menu show', function () {
-                    makeButton({
-                        menu: [{
-                            text: 'Small'
-                        }]
-                    });
-
-                    button.showMenu();
-
-                    expect(button.getPressed()).toBeTruthy();
-                });
-
-                it('should unpress button on menu hide', function () {
-                    makeButton({
-                        menu: [{
-                            text: 'Small'
-                        }]
-                    });
-
-                    button.showMenu();
-
-                    expect(button.getPressed()).toBeTruthy();
-
-                    button.getMenu().hide();
-
-                    expect(button.getPressed()).toBeFalsy();
-                });
-
-                it('should unpress button when hiding menu', function () {
-                    makeButton({
-                        menu: [{
-                            text: 'Small'
-                        }]
-                    });
-
-                    var menu = button.getMenu();
-
-                    jasmine.fireMouseEvent(button.el, 'click');
-
-                    waitsFor(function () {
-                        return menu.isVisible();
-                    });
-
-                    runs(function () {
-                        expect(button.getPressed()).toBeTruthy();
-
-                        jasmine.fireMouseEvent(button.el, 'click');
-                    });
-
-                    waitsFor(function () {
-                        return !menu.isVisible();
-                    });
-
-                    runs(function () {
-                        expect(button.getPressed()).toBeFalsy();
-                    });
-                });
-
-                it('should not unpress a pressed button on menu hide', function () {
-                    makeButton({
-                        pressed: true,
-                        menu: [{
-                            text: 'Small'
-                        }]
-                    });
-
-                    expect(button.getPressed()).toBeTruthy();
-
-                    button.showMenu();
-
-                    expect(button.getPressed()).toBeTruthy();
-
-                    button.getMenu().hide();
-
-                    expect(button.getPressed()).toBeTruthy();
-                });
-
-                it('should not press button for viewport menu', function () {
-                    makeButton({
-                        menu: {
-                            xtype: 'actionsheet',
-                            items: [{
-                                text: 'Delete draft',
-                                ui: 'decline'
-                            }, {
-                                text: 'Save draft'
-                            }, {
-                                text: 'Cancel',
-                                ui: 'confirm'
-                            }]
-                        }
-                    });
-
-                    button.showMenu();
-
-                    expect(button.getPressed()).toBeFalsy();
-
-                    button.getMenu().hide();
-
-                    expect(button.getPressed()).toBeFalsy();
+                    expect(button.getMenu().getDisplayed()).toBe(true);
                 });
             });
         });
@@ -1841,25 +1574,7 @@ topSuite("Ext.Button", [
                 
                 expect(button.getMenu().isVisible()).toBe(false);
             });
-
-            it('should show and hide a menu', function () {
-                var menu = button.getMenu();
-
-                jasmine.fireMouseEvent(button.el, 'click');
-
-                waitsFor(function () {
-                    return menu.isVisible();
-                });
-
-                runs(function () {
-                    jasmine.fireMouseEvent(button.el, 'click');
-                });
-
-                waitsFor(function () {
-                    return !menu.isVisible();
-                });
-            });
-
+            
             it("should not fire the handler", function() {
                 button.doTap(button);
                 

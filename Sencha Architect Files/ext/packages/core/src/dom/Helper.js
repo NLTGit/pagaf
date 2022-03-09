@@ -1,7 +1,5 @@
 /**
  * @alternateClassName Ext.DomHelper
- * @alternateClassName Ext.core.DomHelper
- *
  * @singleton
  *
  * The DomHelper class provides a layer of abstraction from DOM and transparently supports creating elements via DOM or
@@ -356,8 +354,7 @@ Ext.define('Ext.dom.Helper', function() {
         /**
          * Creates new DOM element(s) without inserting them to the document.
          * @param {Object/String} o The DOM object spec (and children) or raw HTML blob
-         * @param {HTMLElement} parentNode
-         * @return {HTMLElement} The new un-inserted node
+         * @return {HTMLElement} The new uninserted node
          */
         createDom: function(o, parentNode){
             var me = this,
@@ -529,7 +526,7 @@ Ext.define('Ext.dom.Helper', function() {
         /**
          * Creates new DOM element(s) and overwrites the contents of el with them.
          * @param {String/HTMLElement/Ext.dom.Element} el The context element
-         * @param {Object/String} html The DOM object spec (and children) or raw HTML blob
+         * @param {Object/String} o The DOM object spec (and children) or raw HTML blob
          * @param {Boolean} [returnElement=false] true to return an Ext.Element
          * @return {HTMLElement/Ext.dom.Element} The new node
          */
@@ -597,7 +594,7 @@ Ext.define('Ext.dom.Helper', function() {
         /**
          * @method createHtml
          * Alias for {@link #markup}.
-         * @deprecated 5.0.0 Please use {@link #markup} instead.
+         * @deprecated 5.0.0
          */
         createHtml: function(spec) {
             return this.markup(spec);

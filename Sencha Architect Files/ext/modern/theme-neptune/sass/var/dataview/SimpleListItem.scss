@@ -188,30 +188,6 @@ $listitem-font-size: dynamic($dataitem-font-size);
  */
 $listitem-font-size-big: dynamic($dataitem-font-size-big);
 
-/**
- * @var {number}
- * ListItem font-size when selected
- */
-$listitem-selected-font-size: dynamic(null);
-
-/**
- * @var {number}
- * ListItem font-size when selected in the {@link Global_CSS#$enable-big big} sizing scheme
- */
-$listitem-selected-font-size-big: dynamic(null);
-
-/**
- * @var {number}
- * ListItem font-size when pressed
- */
-$listitem-pressed-font-size: dynamic(null);
-
-/**
- * @var {number}
- * ListItem font-size when pressed in the {@link Global_CSS#$enable-big big} sizing scheme
- */
-$listitem-pressed-font-size-big: dynamic(null);
-
 //# fashion replaces $list-item-line-height
 /**
  * @var {number}
@@ -338,18 +314,6 @@ $listitem-padding-big: dynamic(7px 15px);
  * @param {number} $font-size-big
  * ListItem font-size in the {@link Global_CSS#$enable-big big} sizing scheme
  *
- * @param {number} $selected-font-size
- * ListItem font-size when selected
- *
- * @param {number} $selected-font-size-big
- * ListItem font-size when selected in the {@link Global_CSS#$enable-big big} sizing scheme
- *
- * @param {number} $pressed-font-size
- * ListItem font-size when pressed
- *
- * @param {number} $pressed-font-size-big
- * ListItem font-size when pressed in the {@link Global_CSS#$enable-big big} sizing scheme
- *
  * @param {number} $line-height
  * ListItem line-height
  *
@@ -395,10 +359,6 @@ $listitem-padding-big: dynamic(7px 15px);
     $font-weight: null,
     $font-size: null,
     $font-size-big: null,
-    $selected-font-size: null,
-    $selected-font-size-big: null,
-    $pressed-font-size: null,
-    $pressed-font-size-big: null,
     $line-height: null,
     $line-height-big: null,
     $font-family: null,
@@ -413,24 +373,6 @@ $listitem-padding-big: dynamic(7px 15px);
         @include listitem-base($arguments...);
 
         @include font($font-weight, $font-size, $line-height, $font-family);
-
-        &.#{$prefix}selected {
-            font-size: $selected-font-size;
-            @if $enable-big {
-                .#{$prefix}big & {
-                    font-size: $selected-font-size-big;
-                }
-            }
-        }
-
-        &.#{$prefix}pressed {
-            font-size: $pressed-font-size;
-            @if $enable-big {
-                .#{$prefix}big & {
-                    font-size: $pressed-font-size-big;
-                }
-            }
-        }
 
         @if $enable-big {
             .#{$prefix}big & {

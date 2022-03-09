@@ -139,24 +139,20 @@ Ext.define('Ext.field.Slider', {
         tabIndex: -1,
 
         /**
-         * @cfg readOnly
          * Will make this field read only, meaning it cannot be changed with used interaction.
+         * @cfg {Boolean} readOnly
          * @accessor
          */
         readOnly: false,
 
         /**
-         * @cfg value
-         * @inheritdoc Ext.slider.Slider#cfg-value
+         * @inheritdoc Ext.slider.Slider#value
+         * @cfg {Number/Number[]} value
          * @accessor
          */
         value: 0
     },
 
-    /**
-     * @property classCls
-     * @inheritdoc
-     */
     classCls: Ext.baseCSSPrefix + 'sliderfield',
 
     proxyConfig: {
@@ -181,30 +177,17 @@ Ext.define('Ext.field.Slider', {
         ]
     },
 
-    /**
-     * @cfg bodyAlign
-     * @inheritdoc
-     */
     bodyAlign: 'stretch',
 
-    /**
-     * @property defaultBindProperty
-     * @inheritdoc
-     */
     defaultBindProperty: 'value',
-    
-    /**
-     * @cfg twoWayBindable
-     * @inheritdoc
-     */
     twoWayBindable: {
         values: 1,
         value: 1
     },
 
     /**
-     * @cfg values
-     * @inheritdoc Ext.slider.Slider#cfg-values
+     * @inheritdoc Ext.slider.Slider#values
+     * @cfg {Number/Number[]} values
      */
 
     constructor: function(config) {

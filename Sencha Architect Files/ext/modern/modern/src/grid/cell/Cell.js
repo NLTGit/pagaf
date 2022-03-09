@@ -118,11 +118,8 @@ Ext.define('Ext.grid.cell.Cell', {
         scope: null
     },
 
-    friendly: null,
-
     updateColumn: function (column, oldColumn) {
         var me = this,
-            friendly = true,
             tpl, renderer, formatter;
 
         me.callParent([ column, oldColumn ]);
@@ -132,26 +129,22 @@ Ext.define('Ext.grid.cell.Cell', {
             so that a ViewModel can be used for cells to change these configs dynamically.
             If `formatter` is changed dynamically then performance will decrease since
             expressions need to be parsed for each cell.
-        */
+         */
 
         if (column) {
             tpl = column.getTpl();
             renderer = column.getRenderer();
             formatter = column.getFormatter();
 
-            if (renderer !== null) {
-                me.setRenderer(renderer);
-                friendly = (typeof renderer === 'function') && renderer.length === 1;
-            }
             if (tpl !== null) {
                 me.setTpl(tpl);
-                friendly = false;
+            }
+            if (renderer !== null) {
+                me.setRenderer(renderer);
             }
             if (formatter !== null) {
                 me.setFormatter(formatter);
             }
-
-            me.friendly = friendly;
         }
     },
 
@@ -225,13 +218,9 @@ Ext.define('Ext.grid.cell.Cell', {
 
                     if (typeof renderer === 'string') {
                         raw = Ext.callback(renderer, scope, [ v, context ], 0, column);
-                        me.friendly = false;
                     }
                     else {
                         raw = renderer.call(scope || me, v, context);
-                        if (renderer.length > 1) {
-                            me.friendly = false;
-                        }
                     }
                 }
 
@@ -278,29 +267,5 @@ Ext.define('Ext.grid.cell.Cell', {
         }
 
         return raw;
-    },
-
-    privates: {
-        bound: function (fields) {
-            var me = this,
-                bound = !!fields[me.dataIndex],
-                column, depends, i;
-
-            if (!bound) {
-                column = me.getColumn();
-                depends = column && column.getDepends();
-
-                if (depends) {
-                    for (i = depends.length; !bound && i-- > 0; ) {
-                        bound = !!fields[depends[i]];
-                    }
-                }
-                else if (!me.friendly) {
-                    bound = true;
-                }
-            }
-
-            return bound;
-        }
     }
 });

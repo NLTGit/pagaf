@@ -93,36 +93,5 @@ topSuite('Ext.tab.Panel', ['Ext.Panel'], function() {
 
             expect(panel.getActiveItem()).toBe(panel.getInnerItems()[1]);
         });
-
-        it("should be able to set the active item from a selector", function() {
-            makePanel({
-                activeItem: '#bar'
-            });
-
-            expect(panel.getActiveItem()).toBe(panel.getInnerItems()[1]);
-        });
-
-        it("should be able to set the active item from a component instance", function() {
-            makePanel({
-                activeItem: 0
-            });
-
-            var item = panel.getInnerItems()[1];
-            panel.setActiveItem(item);
-
-            expect(panel.getActiveItem()).toBe(item);
-        });
-    });
-    
-    describe("closable tabs", function() {
-        it("should support creating with closable child panel", function() {
-            makePanel(null, {
-                xtype: 'panel',
-                title: 'foo',
-                closable: true
-            });
-            
-            expect(panel.getActiveItem()).toBe(panel.getInnerItems()[0]);
-        });
     });
 });

@@ -1,0 +1,3 @@
+body[aria-busy] > * { display: none; }
+body[aria-busy] > .loading-spinner { display: block; }
+.loading-spinner { display: none; }

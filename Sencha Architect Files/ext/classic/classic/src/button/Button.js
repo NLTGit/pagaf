@@ -160,27 +160,27 @@ Ext.define('Ext.button.Button', {
         iconAlign: 'left',
 
         /**
-         * @cfg {String} text
+         * @cfg {String}
          * The button text to be used as innerHTML (html tags are accepted).
          */
         text: null,
 
         /**
-         * @cfg {String} textAlign
+         * @cfg {String}
          * The text alignment for this button (center, left, right).
          */
         textAlign: 'center',
 
         /**
-         * @cfg {Boolean} arrowVisible
+         * @cfg {Boolean}
          * `false` to hide the button arrow.  Only applicable for {@link Ext.button.Split
          * Split Buttons} and buttons configured with a {@link #cfg-menu}.
          */
         arrowVisible: true,
 
         /**
-         * @cfg glyph
-         * @inheritdoc Ext.panel.Header#cfg-glyph
+         * @cfg {Number/String} glyph
+         * @inheritdoc Ext.panel.Header#glyph
          */
         glyph: null
 
@@ -189,14 +189,14 @@ Ext.define('Ext.button.Button', {
     /* End Definitions */
 
     /**
-     * @property {Boolean} isButton
+     * @property {Boolean}
      * `true` in this class to identify an object as an instantiated Button, or subclass thereof.
      */
     isButton: true,
 
     //<feature legacyBrowser>
     /**
-     * @property {Boolean} _syncFrameHeight
+     * @property {Boolean}
      * @private
      * `true` to keep height of the frame's "MC" element in sync.  This is needed in IE8
      * so that the button's inner element(s) can use height:100% to fill the button when
@@ -233,8 +233,8 @@ Ext.define('Ext.button.Button', {
     pressed: false,
 
     /**
-     * @cfg icon
-     * @inheritdoc Ext.panel.Header#cfg-icon
+     * @cfg {String} icon
+     * @inheritdoc Ext.panel.Header#icon
      */
 
     /**
@@ -305,7 +305,7 @@ Ext.define('Ext.button.Button', {
      */
 
     /**
-     * @cfg {Boolean} enableToggle
+     * @cfg {Boolean} [enableToggle=false]
      * True to enable pressed/not pressed toggling. If a {@link #toggleGroup} is specified, this
      * option will be set to true.
      */
@@ -347,7 +347,7 @@ Ext.define('Ext.button.Button', {
      */
 
     /**
-     * @cfg iconCls
+     * @cfg {String} iconCls
      * @inheritdoc Ext.panel.Header#cfg-iconCls
      */
 
@@ -379,7 +379,7 @@ Ext.define('Ext.button.Button', {
     tooltipType: 'qtip',
 
     /**
-     * @cfg {String} baseCls
+     * @cfg {String} [baseCls='x-btn']
      * The base CSS class to add to all buttons.
      */
     baseCls: Ext.baseCSSPrefix + 'btn',
@@ -401,14 +401,14 @@ Ext.define('Ext.button.Button', {
      */
 
     /**
-      * @cfg {String} hrefTarget
+      * @cfg {String} [hrefTarget="_blank"]
       * The target attribute to use for the underlying anchor. Only used if the {@link #href}
       * property is specified.
       */
      hrefTarget: '_blank',
 
      /**
-     * @cfg {Boolean} destroyMenu
+     * @cfg {Boolean} [destroyMenu=true]
      * Whether or not to destroy any associated menu when this button is destroyed.
      * In addition, a value of `true` for this config will destroy the currently bound menu when a new
      * menu is set in {@link #setMenu} unless overridden by that method's destroyMenu function argument.
@@ -431,22 +431,9 @@ Ext.define('Ext.button.Button', {
      * The value of this button.  Only applicable when used as an item of a {@link Ext.button.Segmented Segmented Button}.
      */
 
-    /**
-     * @property focusable
-     * @inheritdoc
-     */
     focusable: true,
-    
-    /**
-     * @property ariaRole
-     * @inheritdoc
-     */
     ariaRole: 'button',
 
-    /**
-     * @cfg keyMap
-     * @inheritdoc
-     */
     keyMap: {
         scope: 'this',
         SPACE: 'onEnterKey',
@@ -454,24 +441,12 @@ Ext.define('Ext.button.Button', {
         DOWN: 'onDownKey'
     },
 
-    /**
-     * @property defaultBindProperty
-     * @inheritdoc
-     */
     defaultBindProperty: 'text',
 
-    /**
-     * @cfg childEls
-     * @inheritdoc
-     */
     childEls: [
         'btnEl', 'btnWrap', 'btnInnerEl', 'btnIconEl', 'arrowEl'
     ],
 
-    /**
-     * @cfg publishes
-     * @inheritdoc
-     */
     publishes: {
         pressed: 1
     },
@@ -488,10 +463,6 @@ Ext.define('Ext.button.Button', {
     _noTextCls: Ext.baseCSSPrefix + 'btn-no-text',
     _hasIconCls: Ext.baseCSSPrefix + 'btn-icon',
     _pressedCls: Ext.baseCSSPrefix + 'btn-pressed',
-    /**
-     * @cfg overCls
-     * @inheritdoc
-     */
     overCls: Ext.baseCSSPrefix + 'btn-over',
     _disabledCls: Ext.baseCSSPrefix + 'btn-disabled',
     _menuActiveCls: Ext.baseCSSPrefix + 'btn-menu-active',
@@ -502,10 +473,6 @@ Ext.define('Ext.button.Button', {
     // We have to keep "unselectable" attribute on all elements because it's not inheritable.
     // Without it, clicking anywhere on a button disrupts current selection and cursor position
     // in HtmlEditor.
-    /**
-     * @cfg renderTpl
-     * @inheritdoc
-     */
     renderTpl:
         '<span id="{id}-btnWrap" data-ref="btnWrap" role="presentation" unselectable="on" style="{btnWrapStyle}" ' +
                 'class="{btnWrapCls} {btnWrapCls}-{ui} {splitCls}{childElCls}">' +
@@ -609,28 +576,12 @@ Ext.define('Ext.button.Button', {
      * option.
      */
 
-    /**
-     * @property maskOnDisable
-     * @inheritdoc
-     */
     maskOnDisable: false,
 
-    /**
-     * @cfg shrinkWrap
-     * @inheritdoc
-     */
     shrinkWrap: 3,
 
-    /**
-     * @cfg frame
-     * @inheritdoc
-     */
     frame: true,
 
-    /**
-     * @cfg autoEl
-     * @inheritdoc
-     */
     autoEl: {
         tag: 'a',
         hidefocus: 'on',
@@ -896,9 +847,8 @@ Ext.define('Ext.button.Button', {
      *
      * @param {Ext.menu.Menu/String/Object/null} menu Accepts a menu component, a menu id or a menu config.
      * @param {Boolean} destroyMenu By default, will destroy the previous set menu and remove it from the menu manager. Pass `false` to prevent the destroy.
-     * @param {Boolean} [initial] (private)
      */
-    setMenu: function (menu, destroyMenu, initial) {
+    setMenu: function (menu, destroyMenu, /* private */ initial) {
         var me = this,
             oldMenu = me.menu,
             ariaDom = me.isSplitButton ? me.arrowEl && me.arrowEl.dom : me.ariaEl.dom,
@@ -1337,7 +1287,6 @@ Ext.define('Ext.button.Button', {
      *   - **String** : A string to be used as innerHTML (html tags are accepted) to show in a tooltip
      *   - **Object** : A configuration object for {@link Ext.tip.QuickTipManager#register}.
      *
-     * @param initial
      * @return {Ext.button.Button} this
      */
     setTooltip: function(tooltip, initial) {
@@ -1439,7 +1388,7 @@ Ext.define('Ext.button.Button', {
             menu = me.menu;
         
         if (me.deferFocusTimer) {
-            Ext.undefer(me.deferFocusTimer);
+            clearTimeout(me.deferFocusTimer);
             me.deferFocusTimer = null;
         }
 
@@ -1930,26 +1879,22 @@ Ext.define('Ext.button.Button', {
      * @private
      */
     onMouseDown: function(e) {
-        var me = this,
-            activeEl;
+        var me = this;
 
         if (Ext.isIE || e.pointerType === 'touch') {
             // In IE the use of unselectable on the button's elements causes the element
             // to not receive focus, even when it is directly clicked.
             // On Touch devices, we need to explicitly focus on touchstart.
             if (me.deferFocusTimer) {
-                Ext.undefer(me.deferFocusTimer);
+                clearTimeout(me.deferFocusTimer);
             }
-
-            activeEl = Ext.Element.getActiveElement();
+            
             me.deferFocusTimer = Ext.defer(function() {
                 var focusEl;
                 
                 me.deferFocusTimer = null;
-
-                // We can't proceed if we've been destroyed, or the app has since controlled
-                // the focus, or if we are no longer focusable.
-                if (me.destroying || me.destroyed || (Ext.Element.getActiveElement() !== activeEl) || !me.canFocus()) {
+                
+                if (me.destroying || me.destroyed) {
                     return;
                 }
                 

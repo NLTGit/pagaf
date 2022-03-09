@@ -29,7 +29,7 @@
         isWebView = false,
         edgeRE = /(Edge\/)([\w.]+)/,
         ripple = '',
-        i, prefix, name;
+        i, prefix, mode, name, maxIEVersion;
 
     /**
      * @property {String}
@@ -352,15 +352,16 @@
     if (userAgent.match(/FB/) && browserName === 'Other') {
         browserName = browserNames.safari;
         engineName = engineNames.webkit;
-    // Detect chrome first as Chrome in Android 8.0 introduced OPR in the user agent
-    } else if (userAgent.match(/Android.*Chrome/g)) {
+    }
+
+    if (userAgent.match(/Android.*Chrome/g)) {
         browserName = 'ChromeMobile';
-    } else {
+    }
+
+    if (userAgent.match(/OPR/)) {
+        browserName = 'Opera';
         browserMatch = userAgent.match(/OPR\/(\d+.\d+)/);
-        if (browserMatch) {
-            browserName = 'Opera';
-            browserVersion = new Ext.Version(browserMatch[1]);
-        }
+        browserVersion = new Ext.Version(browserMatch[1]);
     }
 
     Ext.apply(this, {
@@ -374,17 +375,43 @@
 
     if (browserVersion) {
         majorVer = browserVersion.getMajor() || '';
-
         //<feature legacyBrowser>
         if (me.is.IE) {
-            majorVer = document.documentMode || parseInt(majorVer, 10);
+            majorVer = parseInt(majorVer, 10);
+            mode = document.documentMode;
 
-            for (i = 7; i <= 11; ++i) {
-                prefix = 'isIE' + i;
-                
-                Ext[prefix] = majorVer === i;
-                Ext[prefix + 'm'] = majorVer <= i;
-                Ext[prefix + 'p'] = majorVer >= i;
+            // IE's Developer Tools allows switching of Browser Mode (userAgent) and
+            // Document Mode (actual behavior) independently. While this makes no real
+            // sense, the bottom line is that document.documentMode holds the key to
+            // getting the proper "version" determined. That value is always 5 when in
+            // Quirks Mode.
+
+            if (mode === 7 || (majorVer === 7 && mode !== 8 && mode !== 9 && mode !== 10)) {
+                majorVer = 7;
+            } else if (mode === 8 || (majorVer === 8 && mode !== 8 && mode !== 9 && mode !== 10)) {
+                majorVer = 8;
+            } else if (mode === 9 || (majorVer === 9 && mode !== 7 && mode !== 8 && mode !== 10)) {
+                majorVer = 9;
+            } else if (mode === 10 || (majorVer === 10 && mode !== 7 && mode !== 8 && mode !== 9)) {
+                majorVer = 10;
+            } else if (mode === 11 || (majorVer === 11 && mode !== 7 && mode !== 8 && mode !== 9 && mode !== 10)) {
+                majorVer = 11;
+            }
+
+            maxIEVersion = Math.max(majorVer, Ext.Boot.maxIEVersion);
+            for (i = 7; i <= maxIEVersion; ++i) {
+                prefix = 'isIE' + i; 
+                if (majorVer <= i) {
+                    Ext[prefix + 'm'] = true;
+                }
+
+                if (majorVer === i) {
+                    Ext[prefix] = true;
+                }
+
+                if (majorVer >= i) {
+                    Ext[prefix + 'p'] = true;
+                }
             }
         }
 

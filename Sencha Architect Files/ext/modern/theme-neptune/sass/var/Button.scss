@@ -499,7 +499,7 @@ $button-badge-border-radius: dynamic(3px);
  * @var {number}
  * The min-width of the button's {@link #badgeText badge}
  */
-$button-badge-min-width: dynamic(null);
+$button-badge-min-width: dynamic(26px);
 
 /**
  * @var {number}
@@ -517,13 +517,13 @@ $button-badge-font-weight: dynamic(null);
  * @var {number}
  * The font-size of the button's {@link #badgeText badge}
  */
-$button-badge-font-size: dynamic(12px);
+$button-badge-font-size: dynamic($font-size);
 
 /**
  * @var {number}
  * The font-size of the button's {@link #badgeText badge} in the {@link Global_CSS#$enable-big big} sizing scheme
  */
-$button-badge-font-size-big: dynamic(13px);
+$button-badge-font-size-big: dynamic($font-size-big);
 
 /**
  * @var {string}
@@ -535,13 +535,13 @@ $button-badge-font-family: dynamic($button-font-family);
  * @var {number}
  * The line-height of the button's {@link #badgeText badge}
  */
-$button-badge-line-height: dynamic(14px);
+$button-badge-line-height: dynamic($button-line-height);
 
 /**
  * @var {number}
  * The line-height of the button's {@link #badgeText badge} in the {@link Global_CSS#$enable-big big} sizing scheme
  */
-$button-badge-line-height-big: dynamic(16px);
+$button-badge-line-height-big: dynamic($button-line-height-big);
 
 /**
  * @var {number}
@@ -972,27 +972,6 @@ $button-raised-ui: dynamic((
  *
  * @param {number} $badge-padding-big
  * The padding of the button's {@link #badgeText badge} in the {@link Global_CSS#$enable-big big} sizing scheme
- *
- * @param {boolean} [$derive-colors=true]
- * Private
- *
- * @param {boolean} [$derive-border-colors=true]
- * Private
- *
- * @param {boolean} [$derive-outline-colors=true]
- * Private
- *
- * @param {boolean} [$derive-background-colors=true]
- * Private
- *
- * @param {boolean} [$derive-background-gradients=true]
- * Private
- *
- * @param {boolean} [$derive-icon-colors=true]
- * Private
- *
- * @param {boolean} [$derive-arrow-colors=true]
- * Private
  */
 @mixin button-ui(
     $ui: null,
@@ -1519,11 +1498,7 @@ $button-raised-ui: dynamic((
  * @member Ext.Button
  * @deprecated 6.0 Use {@link #button-ui} instead
  */
-@mixin sencha-button-ui(
-    $ui-label,
-    $color,
-    $gradient: $button-background-gradient
-) {
+@mixin sencha-button-ui($ui-label, $color, $gradient: $button-background-gradient) {
     @include button-ui(
         $ui: $ui-label,
         $background-color: $color,

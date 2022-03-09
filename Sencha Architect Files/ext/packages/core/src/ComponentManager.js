@@ -17,12 +17,8 @@
  */
 Ext.define('Ext.ComponentManager', {
     alternateClassName: 'Ext.ComponentMgr',
-
+    
     singleton: true,
-
-    mixins: [
-        'Ext.mixin.Bufferable'
-    ],
 
     count: 0,
 
@@ -31,10 +27,6 @@ Ext.define('Ext.ComponentManager', {
     referenceRepairs: 0,
     
     typeName: 'xtype',
-
-    bufferableMethods: {
-        handleDocumentMouseDown: 'asap'
-    },
 
     /**
      * @private
@@ -249,7 +241,7 @@ Ext.define('Ext.ComponentManager', {
      * @param {Object} scope The scope to execute in. Defaults to `this`.
      */
     each: function(fn, scope){
-        Ext.Object.each(this.all, fn, scope);
+        return Ext.Object.each(this.all, fn, scope);
     },
 
     /**
@@ -282,8 +274,8 @@ Ext.define('Ext.ComponentManager', {
     onGlobalFocus: function(e) {
         var me = this,
             event = e.event,
-            toComponent = event.toComponent = e.toComponent = Ext.Component.from(e.toElement),
-            fromComponent = event.fromComponent = e.fromComponent = Ext.Component.from(e.fromElement),
+            toComponent = event.toComponent = Ext.Component.from(e.toElement),
+            fromComponent = event.fromComponent = Ext.Component.from(e.fromElement),
             commonAncestor = me.getCommonAncestor(fromComponent, toComponent),
             targetComponent;
 
@@ -334,39 +326,6 @@ Ext.define('Ext.ComponentManager', {
     },
     
     privates: {
-        /**
-         * This method reorders the DOM structure of floated components to arrange that the
-         * clicked element is last of its siblings, and therefore on the visual "top" of
-         * the floated component stack.
-         *
-         * This is a Bufferable ASAP method invoked directly from Ext.GlobalEvents.
-         *
-         * We need to use ASAP, not a low priority listener because we need it
-         * to run *after* the browser's default response to the event has been
-         * processed, ie focus consequences.
-         * For example, a Dialog contains a picker field, and the picker field has
-         * its floated picker open and focused.
-         * The user mousedowns on another field in the dialog. The resulting
-         * immediate DOM shuffle to bring the dialog above the picker results
-         * in focus being silently lost.
-         * @param {type} e The mousedown event
-         * @private
-         */
-        doHandleDocumentMouseDown: function(e) {
-            var floatedSelector = Ext.Widget.prototype.floatedSelector,
-                targetFloated;
-
-            // If mousedown/pointerdown/touchstart is on a floated Component, ask it to sync
-            // its place in the hierarchy.
-            if (floatedSelector) {
-                targetFloated = Ext.Component.from(e.getTarget(floatedSelector, Ext.getBody()));
-                // If the mousedown is in a floated, move it to top.
-                if (targetFloated) {
-                    targetFloated.toFront(true);
-                }
-            }
-        },
-
         installFocusListener: function() {
             var me = this;
             

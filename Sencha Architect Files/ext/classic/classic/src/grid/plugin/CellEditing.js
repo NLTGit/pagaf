@@ -51,11 +51,10 @@
  *             {header: 'Phone', dataIndex: 'phone'}
  *         ],
  *         selModel: 'cellmodel',
- *         plugins: {
- *             cellediting: {
- *                 clicksToEdit: 1
- *             }
- *         },
+ *         plugins: [{
+ *             ptype: 'cellediting',
+ *             clicksToEdit: 1
+ *         }],
  *         height: 200,
  *         width: 400,
  *         renderTo: Ext.getBody()
@@ -295,9 +294,13 @@ Ext.define('Ext.grid.plugin.CellEditing', {
         var me = this,
             record = position.record,
             column = position.column,
+            context,
+            contextGeneration,
+            cell,
+            editor,
             prevEditor = me.getActiveEditor(),
-            view = me.view,
-            context, contextGeneration, cell, editor, p, editValue, abortEdit;
+            p,
+            editValue;
 
         context = me.getEditingContext(record, column);
         if (!context || !column.getEditor(record)) {
@@ -309,7 +312,7 @@ Ext.define('Ext.grid.plugin.CellEditing', {
         if (prevEditor && prevEditor.editing) {
             // Silently drop actionPosition in case completion of edit causes
             // and view refreshing which would attempt to restore actionable mode
-            view.actionPosition = null;
+            me.view.actionPosition = null;
 
             contextGeneration = context.generation;
             if (prevEditor.completeEdit() === false) {
@@ -326,19 +329,7 @@ Ext.define('Ext.grid.plugin.CellEditing', {
         if (!skipBeforeCheck) {
             // Allow vetoing, or setting a new editor *before* we call getEditor
             contextGeneration = context.generation;
-
-            // Disable focus restoration in any of the before edit handling.
-            // We are going to be doing that below
-            if (view.actionableMode) {
-                view.skipSaveFocusState = true;
-            }
-
-            abortEdit = me.beforeEdit(context) === false || me.fireEvent('beforeedit', me, context) === false || context.cancel;
-
-            // Clear temporary flag
-            view.skipSaveFocusState = false;
-
-            if (abortEdit) {
+            if (me.beforeEdit(context) === false || me.fireEvent('beforeedit', me, context) === false || context.cancel) {
                 return;
             }
 
@@ -554,8 +545,7 @@ Ext.define('Ext.grid.plugin.CellEditing', {
                 // Apply the field's editorCfg to the CellEditor config.
                 // See Editor#createColumnField. A Column's editor config may
                 // be used to specify the CellEditor config if it contains a field property.
-                editor = Ext.widget(Ext.apply({
-                    xtype: 'celleditor',
+                editor = new Ext.grid.CellEditor(Ext.apply({
                     floating: true,
                     editorId: editorId,
                     field: editor

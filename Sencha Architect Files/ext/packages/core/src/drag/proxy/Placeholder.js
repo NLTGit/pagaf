@@ -43,7 +43,6 @@ Ext.define('Ext.drag.proxy.Placeholder', {
     placeholderCls: Ext.baseCSSPrefix + 'drag-proxy-placeholder',
 
     /**
-     * @method cleanup
      * @inheritdoc
      */
     cleanup: function() {
@@ -51,7 +50,6 @@ Ext.define('Ext.drag.proxy.Placeholder', {
     },
 
     /**
-     * @method getElement
      * @inheritdoc
      */
     getElement: function() {
@@ -70,7 +68,6 @@ Ext.define('Ext.drag.proxy.Placeholder', {
     },
 
     /**
-     * @method update
      * @inheritdoc
      */
     update: function(info) {
@@ -123,7 +120,6 @@ Ext.define('Ext.drag.proxy.Placeholder', {
 
     privates: {
         /**
-         * @method adjustCursorOffset
          * @inheritdoc
          */
         adjustCursorOffset: function(info, xy) {

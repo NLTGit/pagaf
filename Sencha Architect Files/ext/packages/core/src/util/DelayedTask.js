@@ -44,22 +44,23 @@ Ext.util.DelayedTask = function(fn, scope, args, cancelOnDelay, fireIdleEvent) {
 // @uses Ext.GlobalEvents
     var me = this,
         delay,
+        globalEvents = Ext.GlobalEvents,
         call = function() {
             me.id = null;
             
             if (!(scope && scope.destroyed)) {
-                args ? fn.apply(scope, args) : fn.call(scope);
+                fn.apply(scope, args || []);
             }
             
-            if (fireIdleEvent === false) {
-                Ext._suppressIdle = true;
+            if (fireIdleEvent !== false && globalEvents.hasListeners.idle) {
+                globalEvents.fireEvent('idle');
             }
         };
     
     //<debug>
     // DelayedTask can be called with no function upfront
     if (fn) {
-        call.$origFn = fn.$origFn || fn;
+        call.$origFn = fn.$origFn ? fn.$origFn : fn;
         call.$skipTimerCheck = call.$origFn.$skipTimerCheck;
     }
     //</debug>
@@ -103,16 +104,16 @@ Ext.util.DelayedTask = function(fn, scope, args, cancelOnDelay, fireIdleEvent) {
         
         //<debug>
         if (fn) {
-            call.$origFn = fn.$origFn || fn;
+            call.$origFn = fn.$origFn ? fn.$origFn : fn;
             call.$skipTimerCheck = call.$origFn.$skipTimerCheck;
         }
         //</debug>
         
         if (!me.id) {
             if (delay === -1) {
-                me.id = Ext.raf(call);
+                me.id = Ext.Function.requestAnimationFrame(call);
             } else {
-                me.id = Ext.defer(call, delay || 1);  // 0 == immediate call
+                me.id = Ext.defer(call, delay);
             }
         }
         
@@ -125,9 +126,9 @@ Ext.util.DelayedTask = function(fn, scope, args, cancelOnDelay, fireIdleEvent) {
     me.cancel = function () {
         if (me.id) {
             if (me.delayTime === -1) {
-                Ext.unraf(me.id);
+                Ext.Function.cancelAnimationFrame(me.id);
             } else {
-                Ext.undefer(me.id);
+                clearTimeout(me.id);
             }
             me.id = null;
         }
@@ -136,15 +137,7 @@ Ext.util.DelayedTask = function(fn, scope, args, cancelOnDelay, fireIdleEvent) {
     me.flush = function () {
         if (me.id) {
             me.cancel();
-
-            // we're not running on our own timer so don't mess with whatever thread
-            // is calling us...
-            var was = fireIdleEvent;
-            fireIdleEvent = true;
-
             call();
-
-            fireIdleEvent = was;
         }
     };
     

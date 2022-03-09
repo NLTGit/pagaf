@@ -6,7 +6,7 @@
  * @var {transition} $ripple-transition
  * Transition used for ripple effects
  */
-$ripple-transition: dynamic(background-color .15s 0.2s cubic-bezier(0.4, 0, 0.2, 1), color .15s 0.2s cubic-bezier(0.4, 0, 0.2, 1));
+$ripple-transition: dynamic(background-color .15s 0.28s cubic-bezier(0.4, 0, 0.2, 1), color .15s 0.28s cubic-bezier(0.4, 0, 0.2, 1));
 
 /**
  * @var {color} $ripple-background-color

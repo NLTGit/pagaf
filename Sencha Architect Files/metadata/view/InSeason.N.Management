@@ -116,6 +116,9 @@
                         "maxWidth": 600,
                         "minValue": 0,
                         "minWidth": 600,
+                        "value": [
+                            "0"
+                        ],
                         "width": 600
                     },
                     "configAlternates": {
@@ -126,7 +129,8 @@
                         "maxWidth": "number",
                         "minWidth": "number",
                         "id": "string",
-                        "minValue": "number"
+                        "minValue": "number",
+                        "value": "object"
                     },
                     "name": "MyNumberField",
                     "designerId": "0d913cd5-7063-4365-a822-a9987c0d5257"
@@ -204,6 +208,7 @@
                                         "fn": "onButtonClick",
                                         "implHandler": [
                                             "Ext.getCmp('selectbtn').setText('Download');",
+                                            "Ext.getCmp('startOverBtn').setVisible(true);",
                                             "",
                                             "var t = Ext.getCmp('isnm_management');",
                                             "t.setDisabled(true);",

@@ -143,7 +143,8 @@ Ext.define('Ext.panel.Header', {
     inheritUi: true,
 
     addTools: function (tools) {
-        var items = Ext.Array.from(tools);
+        var items = Ext.Array.from(tools),
+            defaultWeights, i, n;
 
         if (items && items.length) {
             items = this.add(items);
@@ -193,7 +194,7 @@ Ext.define('Ext.panel.Header', {
         me.callParent([item, index]);
 
         if (item.isTool) {
-            item.addCls((itemWeight < titleWeight) ? me.toolStartCls : me.toolEndCls);
+            item.addCls((itemWeight < titleWeight) ? me.toolStartCls : me.toolEndCls)
         }
     },
 

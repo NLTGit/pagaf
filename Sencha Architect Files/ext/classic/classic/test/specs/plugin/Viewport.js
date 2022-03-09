@@ -273,6 +273,7 @@ function() {
 
                 afterEach(function() {
                     document.documentElement.style.height = document.documentElement.style.overflow = '';
+                    Ext.scroll.Scroller.viewport = Ext.destroy(Ext.scroll.Scroller.viewport);
                     Ext.un('scroll', incrementFn);
                 });
                 

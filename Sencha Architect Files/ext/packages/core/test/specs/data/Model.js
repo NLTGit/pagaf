@@ -5,8 +5,7 @@ topSuite("Ext.data.Model", [
     'Ext.data.identifier.*',
     'Ext.data.validator.*', 
     'Ext.data.summary.*',
-    'Ext.data.Session',
-    'Ext.data.proxy.*'
+    'Ext.data.Session'
 ], function() {
     
     beforeEach(function() {
@@ -87,16 +86,6 @@ topSuite("Ext.data.Model", [
                 expect(orders.getAt(1).$className).toBe('spec.Order');
                 expect(orders.getAt(1).id).toBe(102);
                 expect(orders.getAt(1).get('discountCode')).toBe('xyz');
-            });
-
-            it("should maintain phantom state based on id", function() {
-                var a = create({
-                    id: 1
-                });
-                expect(a.phantom).toBe(false);
-
-                var b = create({});
-                expect(b.phantom).toBe(true);
             });
         });
 
@@ -233,7 +222,6 @@ topSuite("Ext.data.Model", [
                 model: Ext.data.Model,
                 data: data
             });
-            data = store.getProxy().getData();
 
             // The raw data object should be inported directly as the records' data objects
             expect(store.getAt(0).data).toEqual(data[0]);
@@ -1038,49 +1026,6 @@ topSuite("Ext.data.Model", [
                 defineA('custom');
                 expect(A.getProxy().getReader().$className).toBe('spec.CustomReader');
                 Ext.undefine('spec.CustomReader');
-                Ext.undefine('spec.CustomProxy');
-            });
-
-            it("should inherit the type from the proxy instance and url from the schema", function() {
-                Ext.define('spec.CustomProxy', {
-                    extend: 'Ext.data.proxy.Rest',
-                    alias: 'proxy.custom'
-                });
-
-                defineA('custom');
-                expect(A.getProxy() instanceof Ext.data.proxy.Rest).toBe(true);
-                expect(A.getProxy().getUrl()).toBe('/A');
-                Ext.undefine('spec.CustomProxy');
-            });
-    
-            it("should inherit the type and url from the proxy instance when the schema isn't used", function() {
-                Ext.define('spec.CustomProxy', {
-                    extend: 'Ext.data.proxy.Rest',
-                    alias: 'proxy.custom',
-                    url: 'foo.bar'
-                });
-        
-                defineA({
-                    type: 'custom',
-                    schema: false
-                });
-                expect(A.getProxy() instanceof Ext.data.proxy.Rest).toBe(true);
-                expect(A.getProxy().getUrl()).toBe('foo.bar');
-                Ext.undefine('spec.CustomProxy');
-            });
-    
-            it("should only inherit the type from the proxy when the schema is used", function() {
-                Ext.define('spec.CustomProxy', {
-                    extend: 'Ext.data.proxy.Rest',
-                    alias: 'proxy.custom',
-                    url: 'foo.bar'
-                });
-        
-                defineA({
-                    type: 'custom'
-                });
-                expect(A.getProxy() instanceof Ext.data.proxy.Rest).toBe(true);
-                expect(A.getProxy().getUrl()).toBe('/A');
                 Ext.undefine('spec.CustomProxy');
             });
             
@@ -8018,12 +7963,8 @@ topSuite("Ext.data.Model", [
         });
 
         describe("the legacy Errors object", function() {
-            var V = Ext.data.validator,
+            var Val = Ext.data.validator.Validator.all,
                 errors;
-
-            function getMessage(T) {
-                return T.prototype.config.message;
-            }
 
             beforeEach(function() {
                 instance = new User({
@@ -8075,22 +8016,22 @@ topSuite("Ext.data.Model", [
 
             it("should have the correct bad format message", function() {
                 var error = errors.getByField('formatField')[0];
-                expect(error.message).toEqual(getMessage(V.Format));
+                expect(error.message).toEqual(Val.format.config.message);
             });
 
             it("should have the correct non-inclusion message", function() {
                 var error = errors.getByField('color')[0];
-                expect(error.message).toEqual(getMessage(V.Inclusion));
+                expect(error.message).toEqual(Val.inclusion.config.message);
             });
 
             it("should have the correct non-exclusion message", function() {
                 var error = errors.getByField('first')[0];
-                expect(error.message).toEqual(getMessage(V.Exclusion));
+                expect(error.message).toEqual(Val.exclusion.config.message);
             });
 
             it("should have the correct bad email format message", function() {
                 var error = errors.getByField('email')[0];
-                expect(error.message).toEqual(getMessage(V.Email));
+                expect(error.message).toEqual(Val.email.config.message);
             });
 
             it("should allow user-defined error messages", function() {
@@ -8167,12 +8108,8 @@ topSuite("Ext.data.Model", [
         });
 
         describe("the Errors object", function() {
-            var V = Ext.data.validator,
+            var Val = Ext.data.validator.Validator.all,
                 errors;
-
-            function getMessage(T) {
-                return T.prototype.config.message;
-            }
 
             // NOTE: Ext.data.validator.Validator is new to v5 but we need to consult it
             // to see if the proper results are being returned from the legacy API.
@@ -8226,22 +8163,22 @@ topSuite("Ext.data.Model", [
 
             it("should have the correct bad format message", function() {
                 var error = errors.getByField('formatField')[0];
-                expect(error.message).toEqual(getMessage(V.Format));
+                expect(error.message).toEqual(Val.format.config.message);
             });
 
             it("should have the correct non-inclusion message", function() {
                 var error = errors.getByField('color')[0];
-                expect(error.message).toEqual(getMessage(V.Inclusion));
+                expect(error.message).toEqual(Val.inclusion.config.message);
             });
 
             it("should have the correct non-exclusion message", function() {
                 var error = errors.getByField('first')[0];
-                expect(error.message).toEqual(getMessage(V.Exclusion));
+                expect(error.message).toEqual(Val.exclusion.config.message);
             });
 
             it("should have the correct bad email format message", function() {
                 var error = errors.getByField('email')[0];
-                expect(error.message).toEqual(getMessage(V.Email));
+                expect(error.message).toEqual(Val.email.config.message);
             });
 
             it("should allow user-defined error messages", function() {

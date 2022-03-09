@@ -3,12 +3,6 @@
  */
 
 /**
- * @var {color}
- * Panel background-color
- */
-$panel-background-color: dynamic($background-color);
-
-/**
  * @var {color/list}
  * Panel border-color
  */
@@ -42,7 +36,7 @@ $panel-border-radius-big: dynamic($panel-border-radius);
  * @var {color}
  * Panel body background-color
  */
-$panel-body-background-color: dynamic($panel-background-color);
+$panel-body-background-color: dynamic($background-color);
 
 /**
  * @var {color}
@@ -212,12 +206,6 @@ $panel-header-title-padding: dynamic(7px 0);
  * Panel Header Title padding in the {@link Global_CSS#$enable-big big} sizing scheme
  */
 $panel-header-title-padding-big: dynamic(9px 0);
-
-/**
- * @var {number}
- * Panel Header Title opacity.
- */
-$panel-header-title-opacity: dynamic(null);
 
 /**
  * @var {shadow}
@@ -640,9 +628,6 @@ $panel-light-ui: dynamic((
  * @param {number/list} $header-title-padding-big
  * Panel Header Title padding in the {@link Global_CSS#$enable-big big} sizing scheme
  *
- * @param {number} $header-title-opacity
- * Panel Header Title opacity
- *
  * @param {shadow} $header-shadow
  * Panel Header Shadow
  *
@@ -825,7 +810,6 @@ $panel-light-ui: dynamic((
     $header-padding-big: null,
     $header-title-padding: null,
     $header-title-padding-big: null,
-    $header-title-opacity: null,
     $header-shadow: null,
     $header-z-index: null,
     $header-min-height: null,
@@ -964,16 +948,6 @@ $panel-light-ui: dynamic((
         }
     }
 
-    // When a boxscroller is present we move the body border to the boxscroller element so
-    // that it surrounds the items and tools
-    .#{$prefix}#{$xtype}#{$ui-suffix}-boxscroller {
-        @include border($body-border-width, $body-border-style, $body-border-color);
-
-        > .#{$prefix}boxscroller-body > .#{$prefix}body-el {
-            border: 0;
-        }
-    }
-
     @if $manage-borders {
         @include border-management(
             $parent-cls: #{$xtype}#{$ui-suffix},
@@ -1012,7 +986,6 @@ $panel-light-ui: dynamic((
         $font-family: $header-font-family,
         $padding: $header-title-padding,
         $padding-big: $header-title-padding-big,
-        $opacity: $header-title-opacity,
         $icon-color: $header-icon-color,
         $icon-size: $header-icon-size,
         $icon-size-big: $header-icon-size-big,

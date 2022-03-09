@@ -1,5 +1,7 @@
 /** @class Ext.pivot.Grid */
 
+$ext-pivot-trial: false !default; // Updated automatically by the build script.
+
 /**
  * @var {color}
  * The text color of group header titles
@@ -29,5 +31,3 @@ $pivot-grid-grand-total-color: dynamic($pivot-grid-group-title-color);
  * The cursor of group headers
  */
 $pivot-grid-group-header-cursor: dynamic(pointer);
-
-$ext-pivot-trial: false !default; // Updated automatically by the build script.

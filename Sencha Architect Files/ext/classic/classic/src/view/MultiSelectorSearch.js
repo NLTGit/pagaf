@@ -63,46 +63,13 @@ Ext.define('Ext.view.MultiSelectorSearch', {
 
     xtype: 'multiselector-search',
 
-    /**
-     * @cfg layout
-     * @inheritdoc
-     */
     layout: 'fit',
 
-    /**
-     * @cfg floating
-     * @inheritdoc
-     */
     floating: true,
-    
-    /**
-     * @cfg alignOnScroll
-     * @inheritdoc
-     */
     alignOnScroll: false,
-    
-    /**
-     * @cfg minWidth
-     * @inheritdoc
-     */
     minWidth: 200,
-    
-    /**
-     * @cfg minHeight
-     * @inheritdoc
-     */
     minHeight: 200,
-    
-    /**
-     * @cfg border
-     * @inheritdoc
-     */
     border: true,
-    
-    /**
-     * @cfg keyMap
-     * @inheritdoc
-     */
     keyMap: {
         scope: 'this',
         ESC: 'hide'
@@ -124,16 +91,7 @@ Ext.define('Ext.view.MultiSelectorSearch', {
         }
     },
 
-    /**
-     * @cfg defaultListenerScope
-     * @inheritdoc
-     */
     defaultListenerScope: true,
-    
-    /**
-     * @cfg referenceHolder
-     * @inheritdoc
-     */
     referenceHolder: true,
 
     /**
@@ -143,7 +101,7 @@ Ext.define('Ext.view.MultiSelectorSearch', {
 
     /**
      * @cfg store
-     * @inheritdoc Ext.panel.Table#cfg-store
+     * @inheritdoc Ext.panel.Table#store
      */
 
     /**
@@ -249,7 +207,6 @@ Ext.define('Ext.view.MultiSelectorSearch', {
             dock: 'top',
             hideFieldLabel: true,
             emptyText: this.searchText,
-            cls: Ext.baseCSSPrefix + 'multiselector-search-input',
             triggers: {
                 clear: {
                     cls: Ext.baseCSSPrefix + 'form-clear-trigger',
@@ -271,7 +228,7 @@ Ext.define('Ext.view.MultiSelectorSearch', {
         if (event.getKey() === event.TAB && event.shiftKey) {
             event.preventDefault();
             this.owner.searchTool.focus();
-        }
+        };
     },
 
     makeItems: function () {

@@ -30,7 +30,7 @@ Ext.define('Ext.util.sizemonitor.Abstract', {
     constructor: function(config) {
         var me = this;
 
-        me.refresh = me.refresh.bind(me);
+        me.refresh = Ext.Function.bind(me.refresh, me);
 
         me.info = {
             width: 0,
@@ -90,9 +90,8 @@ Ext.define('Ext.util.sizemonitor.Abstract', {
         }
 
         var me = this,
-            size = element.measure(),
-            width = size.width,
-            height = size.height,
+            width = element.getWidth(),
+            height = element.getHeight(),
             contentWidth = me.getContentWidth(),
             contentHeight = me.getContentHeight(),
             currentContentWidth = me.contentWidth,
@@ -122,22 +121,14 @@ Ext.define('Ext.util.sizemonitor.Abstract', {
         return resized;
     },
 
-    refresh: function() {
+    refresh: function(force) {
         if (this.destroying || this.destroyed) {
             return;
         }
-
-        this.refreshSize();
-
-        // We should always refresh the monitors regardless of whether or not refreshSize
-        // resulted in a new size.  This avoids race conditions in situations such as
-        // panel placeholder expand where we layout the panel in its expanded state momentarily
-        // just so we can measure its animation destination, then immediately collapse it.
-        // In such a scenario refreshSize() will be acting on the original size since it
-        // is asynchronous, so it will not detect a size change, but we still need to
-        // ensure that the monitoring elements are in sync, or else the next resize event
-        // will not fire.
-        Ext.TaskQueue.requestWrite('refreshMonitors', this);
+        
+        if (this.refreshSize() || force) {
+            Ext.TaskQueue.requestWrite('refreshMonitors', this);
+        }
     },
 
     destroy: function() {

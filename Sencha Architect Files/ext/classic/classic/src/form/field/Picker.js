@@ -409,7 +409,7 @@ Ext.define('Ext.form.field.Picker', {
      * @protected
      * @param {Ext.form.field.Picker} field This field instance.
      * @param {Ext.form.trigger.Trigger} trigger This field's picker trigger.
-     * @param {Ext.event.Event} e The event that generated this call.
+     * @param {Ext.event.Event} event The event that generated this call.
      */
     onTriggerClick: function(field, trigger, e) {
         var me = this;
@@ -439,9 +439,8 @@ Ext.define('Ext.form.field.Picker', {
 
     privates: {
         onGlobalScroll: function (scroller) {
-            var scrollEl = scroller.getElement();
             // Collapse if the scroll is anywhere but inside the picker
-            if (!this.picker.owns(scrollEl) && scrollEl.isAncestor(this.el)) {
+            if (!this.picker.owns(scroller.getElement())) {
                 this.collapse();
             }
         }

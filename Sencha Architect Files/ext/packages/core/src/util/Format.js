@@ -108,7 +108,7 @@ Ext.define('Ext.util.Format', function () {
         currencySign: '$',
 
         /**
-         * @property {String} currencySpacer
+         * @property {String} [currencySpacer='']
          * True to add a space between the currency and the value
          *
          * This may be overridden in a locale file.
@@ -245,7 +245,7 @@ Ext.define('Ext.util.Format', function () {
         /**
          * Format a number as a currency.
          * @param {Number/String} value The numeric value to format
-         * @param {String} [currencySign] The currency sign to use (defaults to {@link #currencySign})
+         * @param {String} [sign] The currency sign to use (defaults to {@link #currencySign})
          * @param {Number} [decimals] The number of decimals to use for the currency
          * (defaults to {@link #currencyPrecision})
          * @param {Boolean} [end] True if the currency sign should be at the end of the string
@@ -800,72 +800,72 @@ Ext.define('Ext.util.Format', function () {
         },
 
         /**
-         * @method capitalize
-         * @inheritdoc Ext.String#method-capitalize
          * Alias for {@link Ext.String#capitalize}.
+         * @method
+         * @inheritdoc Ext.String#capitalize
          */
         capitalize: Ext.String.capitalize,
 
         /**
-         * @method uncapitalize
-         * @inheritdoc Ext.String#method-uncapitalize
          * Alias for {@link Ext.String#uncapitalize}.
+         * @method
+         * @inheritdoc Ext.String#uncapitalize
          */
         uncapitalize: Ext.String.uncapitalize,
 
         /**
-         * @method ellipsis
-         * @inheritdoc Ext.String#method-ellipsis
          * Alias for {@link Ext.String#ellipsis}.
+         * @method
+         * @inheritdoc Ext.String#ellipsis
          */
         ellipsis: Ext.String.ellipsis,
 
         /**
-         * @method escape
-         * @inheritdoc Ext.String#method-escape
          * Alias for {@link Ext.String#escape}.
+         * @method
+         * @inheritdoc Ext.String#escape
          */
         escape: Ext.String.escape,
 
         /**
-         * @method escapeRegex
-         * @inheritdoc Ext.String#method-escapeRegex
          * Alias for {@link Ext.String#escapeRegex}.
+         * @method
+         * @inheritdoc Ext.String#escapeRegex
          */
         escapeRegex : Ext.String.escapeRegex,
 
         /**
-         * @method htmlDecode
-         * @inheritdoc Ext.String#method-htmlDecode
          * Alias for {@link Ext.String#htmlDecode}.
+         * @method
+         * @inheritdoc Ext.String#htmlDecode
          */
         htmlDecode: Ext.String.htmlDecode,
 
         /**
-         * @method htmlEncode
-         * @inheritdoc Ext.String#method-htmlEncode
          * Alias for {@link Ext.String#htmlEncode}.
+         * @method
+         * @inheritdoc Ext.String#htmlEncode
          */
         htmlEncode: Ext.String.htmlEncode,
 
         /**
-         * @method leftPad
-         * @inheritdoc Ext.String#method-leftPad
          * Alias for {@link Ext.String#leftPad}.
+         * @method
+         * @inheritdoc Ext.String#leftPad
          */
         leftPad: Ext.String.leftPad,
 
         /**
-         * @method toggle
-         * @inheritdoc Ext.String#method-toggle
          * Alias for {@link Ext.String#toggle}.
+         * @method
+         * @inheritdoc Ext.String#toggle
          */
         toggle: Ext.String.toggle,
 
         /**
-         * @method trim
-         * @inheritdoc Ext.String#method-trim
          * Alias for {@link Ext.String#trim}.
+         * @method
+         * @inheritdoc Ext.String#trim
          */
         trim : Ext.String.trim,
 

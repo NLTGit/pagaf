@@ -34,12 +34,6 @@ $tab-focused-background-color: dynamic(null);
 
 /**
  * @var {color}
- * Tab background-color when active and focused
- */
-$tab-active-focused-background-color: dynamic(null);
-
-/**
- * @var {color}
  * Tab background-color when disabled
  */
 $tab-disabled-background-color: dynamic(null);
@@ -73,12 +67,6 @@ $tab-active-box-shadow: dynamic(null);
  * Tab box-shadow when focused
  */
 $tab-focused-box-shadow: dynamic(null);
-
-/**
- * @var {list}
- * Tab box-shadow when active and focused
- */
-$tab-active-focused-box-shadow: dynamic(null);
 
 /**
  * @var {list}
@@ -123,13 +111,6 @@ $tab-focused-background-gradient: dynamic(none);
 
 /**
  * @var {string/list}
- * Tab background-gradient when active and focused.  Can be either the name of a gradient
- * defined by {@link Global_CSS#background-gradient} or a list of color stops.
- */
-$tab-active-focused-background-gradient: dynamic(none);
-
-/**
- * @var {string/list}
  * Tab background-gradient when disabled.  Can be either the name of a gradient
  * defined by {@link Global_CSS#background-gradient} or a list of color stops.
  */
@@ -167,12 +148,6 @@ $tab-focused-color: dynamic($tab-color);
 
 /**
  * @var {color}
- * Tab text color when active and focused
- */
-$tab-active-focused-color: dynamic($tab-active-color);
-
-/**
- * @var {color}
  * Tab color when disabled
  */
 $tab-disabled-color: dynamic($tab-color);
@@ -206,12 +181,6 @@ $tab-active-border-color: dynamic(null);
  * Tab border-color when focused
  */
 $tab-focused-border-color: dynamic(null);
-
-/**
- * @var {color/list}
- * Tab border-color when active and focused
- */
-$tab-active-focused-border-color: dynamic(null);
 
 /**
  * @var {color/list}
@@ -389,12 +358,6 @@ $tab-focused-icon-color: dynamic($tab-focused-color);
 
 /**
  * @var {color}
- * Tab icon color when active and focused
- */
-$tab-active-focused-icon-color: dynamic($tab-active-icon-color);
-
-/**
- * @var {color}
  * Tab icon color when disabled
  */
 $tab-disabled-icon-color: dynamic($tab-disabled-color);
@@ -493,12 +456,6 @@ $tab-focused-arrow-icon-color: dynamic($tab-focused-icon-color);
 
 /**
  * @var {color}
- * Tab arrow icon color when active and focused
- */
-$tab-active-focused-arrow-icon-color: dynamic($tab-active-arrow-icon-color);
-
-/**
- * @var {color}
  * Tab arrow icon color when disabled
  */
 $tab-disabled-arrow-icon-color: dynamic($tab-disabled-icon-color);
@@ -588,7 +545,7 @@ $tab-badge-border-radius: dynamic(3px);
  * @var {number}
  * The min-width of the tab's {@link #badgeText badge}
  */
-$tab-badge-min-width: dynamic($button-badge-min-width);
+$tab-badge-min-width: dynamic(26px);
 
 /**
  * @var {number}
@@ -606,13 +563,13 @@ $tab-badge-font-weight: dynamic(null);
  * @var {number}
  * The font-size of the tab's {@link #badgeText badge}
  */
-$tab-badge-font-size: dynamic($button-badge-font-size);
+$tab-badge-font-size: dynamic($font-size);
 
 /**
  * @var {number}
  * The font-size of the tab's {@link #badgeText badge} in the {@link Global_CSS#$enable-big big} sizing scheme
  */
-$tab-badge-font-size-big: dynamic($button-badge-font-size-big);
+$tab-badge-font-size-big: dynamic($font-size-big);
 
 /**
  * @var {string}
@@ -624,13 +581,13 @@ $tab-badge-font-family: dynamic($tab-font-family);
  * @var {number}
  * The line-height of the tab's {@link #badgeText badge}
  */
-$tab-badge-line-height: dynamic($button-badge-line-height);
+$tab-badge-line-height: dynamic($tab-line-height);
 
 /**
  * @var {number}
  * The line-height of the tab's {@link #badgeText badge} in the {@link Global_CSS#$enable-big big} sizing scheme
  */
-$tab-badge-line-height-big: dynamic($button-badge-line-height-big);
+$tab-badge-line-height-big: dynamic($tab-line-height-big);
 
 /**
  * @var {number}
@@ -846,9 +803,6 @@ $tab-close-icon-spacing-big: dynamic(20px);
  * @param {color} $focused-background-color
  * Tab background-color when focused
  *
- * @param {color} $active-focused-background-color
- * Tab background-color when active and focused
- *
  * @param {color} $disabled-background-color
  * Tab background-color when disabled
  *
@@ -866,9 +820,6 @@ $tab-close-icon-spacing-big: dynamic(20px);
  *
  * @param {list} $focused-box-shadow
  * Tab box-shadow when focused
- *
- * @param {list} $active-focused-box-shadow
- * Tab box-shadow when active and focused
  *
  * @param {list} $disabled-box-shadow
  * Tab box-shadow when disabled
@@ -893,10 +844,6 @@ $tab-close-icon-spacing-big: dynamic(20px);
  * Tab background-gradient when focused.  Can be either the name of a gradient
  * defined by {@link Global_CSS#background-gradient} or a list of color stops.
  *
- * @param {string/list} $active-focused-background-gradient
- * Tab background-gradient when active and focused.  Can be either the name of a gradient
- * defined by {@link Global_CSS#background-gradient} or a list of color stops.
- *
  * @param {string/list} $disabled-background-gradient
  * Tab background-gradient when disabled.  Can be either the name of a gradient
  * defined by {@link Global_CSS#background-gradient} or a list of color stops.
@@ -916,9 +863,6 @@ $tab-close-icon-spacing-big: dynamic(20px);
  * @param {color} $focused-color
  * Tab text color when focused
  *
- * @param {color} $active-focused-color
- * Tab text color when active and focused
- *
  * @param {color} $disabled-color
  * Tab color when disabled
  *
@@ -936,9 +880,6 @@ $tab-close-icon-spacing-big: dynamic(20px);
  *
  * @param {color/list} $focused-border-color
  * Tab border-color when focused
- *
- * @param {color/list} $active-focused-border-color
- * Tab border-color when active and focused
  *
  * @param {color/list} $disabled-border-color
  * Tab border-color when disabled
@@ -980,10 +921,10 @@ $tab-close-icon-spacing-big: dynamic(20px);
  * Tab font-size in the {@link Global_CSS#$enable-big big} sizing scheme
  *
  * @param {number} $stacked-font-size
- * Tab font-size when {@link #iconAlign} is `'top'` or `'bottom'`
+ * Tab stacked font-size
  *
  * @param {number} $stacked-font-size-big
- * Tab font-size in the {@link Global_CSS#$enable-big big} sizing scheme when {@link #iconAlign} is `'top'` or `'bottom'`
+ * Tab stacked font-size in the {@link Global_CSS#$enable-big big} sizing scheme
  *
  * @param {number} $line-height
  * Tab line-height
@@ -1026,9 +967,6 @@ $tab-close-icon-spacing-big: dynamic(20px);
  *
  * @param {color} $focused-icon-color
  * Tab icon color when focused
- *
- * @param {color} $active-focused-icon-color
- * Tab icon color when active and focused
  *
  * @param {color} $disabled-icon-color
  * Tab icon color when disabled
@@ -1079,9 +1017,6 @@ $tab-close-icon-spacing-big: dynamic(20px);
  *
  * @param {color} $focused-arrow-icon-color
  * Tab arrow icon color when focused
- *
- * @param {color} $active-focused-arrow-icon-color
- * Tab arrow icon color when active and focused
  *
  * @param {color} $disabled-arrow-icon-color
  * Tab arrow icon color when disabled
@@ -1233,9 +1168,9 @@ $tab-close-icon-spacing-big: dynamic(20px);
  * @param {number} $close-icon-font-size-big
  * Tab close icon font-size in the {@link Global_CSS#$enable-big big} sizing scheme
  *
- * @param {number/list} $close-icon-margin
- * Tab close icon margin.
- * Used to position the close icon relative to the top right corner of the tab.
+ * @param {number} $close-icon-margin
+ * Tab close icon margin
+ * Used to position the close icon relative to the top right corner of the tab
  *
  * @param {number/list} $close-icon-margin-big
  * Tab close icon margin in the {@link Global_CSS#$enable-big big} sizing scheme.
@@ -1256,35 +1191,30 @@ $tab-close-icon-spacing-big: dynamic(20px);
     $pressed-background-color: null,
     $active-background-color: null,
     $focused-background-color: null,
-    $active-focused-background-color: null,
     $disabled-background-color: null,
     $box-shadow: null,
     $hovered-box-shadow: null,
     $pressed-box-shadow: null,
     $active-box-shadow: null,
     $focused-box-shadow: null,
-    $active-focused-box-shadow: null,
     $disabled-box-shadow: null,
     $background-gradient: null,
     $hovered-background-gradient: null,
     $pressed-background-gradient: null,
     $active-background-gradient: null,
     $focused-background-gradient: null,
-    $active-focused-background-gradient: null,
     $disabled-background-gradient: null,
     $color: null,
     $hovered-color: null,
     $pressed-color: null,
     $active-color: null,
     $focused-color: null,
-    $active-focused-color: null,
     $disabled-color: null,
     $border-color: null,
     $hovered-border-color: null,
     $pressed-border-color: null,
     $active-border-color: null,
     $focused-border-color: null,
-    $active-focused-border-color: null,
     $disabled-border-color: null,
     $focused-outline-color: null,
     $active-focused-outline-color: null,
@@ -1314,7 +1244,6 @@ $tab-close-icon-spacing-big: dynamic(20px);
     $pressed-icon-color: null,
     $active-icon-color: null,
     $focused-icon-color: null,
-    $active-focused-icon-color: null,
     $disabled-icon-color: null,
     $icon-size: null,
     $icon-size-big: null,
@@ -1331,7 +1260,6 @@ $tab-close-icon-spacing-big: dynamic(20px);
     $pressed-arrow-icon-color: null,
     $active-arrow-icon-color: null,
     $focused-arrow-icon-color: null,
-    $active-focused-arrow-icon-color: null,
     $disabled-arrow-icon-color: null,
     $arrow-icon-size: null,
     $arrow-icon-size-big: null,
@@ -1448,6 +1376,13 @@ $tab-close-icon-spacing-big: dynamic(20px);
                 color: $active-arrow-icon-color;
             }
 
+
+            &.#{$prefix}focused:after {
+                .#{$prefix}keyboard-mode & {
+                    border-color: $active-focused-outline-color;
+                }
+            }
+
             .#{$prefix}active-indicator-el  {
                 background-color: $active-indicator-background-color;
                 height: $active-indicator-height;
@@ -1465,30 +1400,6 @@ $tab-close-icon-spacing-big: dynamic(20px);
                 &:active {
                     color: $active-close-icon-pressed-color;
                     background-color: $active-close-icon-pressed-background-color;
-                }
-            }
-        }
-
-        &.#{$prefix}active.#{$prefix}focused {
-            color: $active-focused-color;
-            box-shadow: $active-focused-box-shadow;
-
-            .#{$prefix}inner-el {
-                border-color: $active-focused-border-color;
-                @include background-gradient($active-focused-background-color, $active-focused-background-gradient);
-            }
-
-            .#{$prefix}icon-el {
-                color: $active-focused-icon-color;
-            }
-
-            .#{$prefix}arrow-el {
-                color: $active-focused-arrow-icon-color;
-            }
-
-            &:after {
-                .#{$prefix}keyboard-mode & {
-                    border-color: $active-focused-outline-color;
                 }
             }
         }

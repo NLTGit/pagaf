@@ -228,7 +228,6 @@ function () {
         sizeModel = sizeModelsArray[i];
 
         /**
-         * @member Ext.layout.SizeModel
          * An array of objects indexed by the {@link #ordinal} of a height `SizeModel` on
          * a width `SizeModel` to yield an object describing both height and width size
          * models.

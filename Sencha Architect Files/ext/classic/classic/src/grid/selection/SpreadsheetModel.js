@@ -216,7 +216,7 @@ Ext.define('Ext.grid.selection.SpreadsheetModel', {
      * @method getCount
      * This method is not supported by SpreadsheetModel.
      *
-     * To interrogate the selection use {@link #cfg!selected}'s getter, which will return an instance of one
+     * To interrogate the selection use {@link #getSelected} which will return an instance of one
      * of the three selection types, or `null` if no selection.
      *
      * The three selection types are:
@@ -250,7 +250,7 @@ Ext.define('Ext.grid.selection.SpreadsheetModel', {
      * @method isRangeSelected
      * This method is not supported by SpreadsheetModel.
      *
-     * To interrogate the selection use {@link #cfg!selected}'s getter, which will return an instance of one
+     * To interrogate the selection use {@link #getSelected} which will return an instance of one
      * of the three selection types, or `null` if no selection.
      *
      * The three selection types are:
@@ -511,8 +511,6 @@ Ext.define('Ext.grid.selection.SpreadsheetModel', {
      * @param {Ext.panel.Table} grid
      * @param {Ext.data.Store} store
      * @param {Object[]} columns
-     * @param {Ext.data.Store} oldStore
-     * @param {Object[]} oldColumns
      * @private
      */
     onBeforeReconfigure: function(grid, store, columns, oldStore, oldColumns) {
@@ -1252,7 +1250,7 @@ Ext.define('Ext.grid.selection.SpreadsheetModel', {
         /**
          * Selects range based on mouse movements
          * @param e
-         * @param target
+         * @param cell
          * @param opts
          * @private
          */
@@ -1359,7 +1357,7 @@ Ext.define('Ext.grid.selection.SpreadsheetModel', {
             var me = this,
                 view = opts.view,
                 lastPos = me.lastOverRecord && new Ext.grid.CellContext(view).setPosition(me.lastOverRecord, me.lastOverColumn),
-                changedCell = lastPos && !lastPos.isEqual(me.mousedownPosition),
+                changedCell = !lastPos || !lastPos.isEqual(me.mousedownPosition),
                 cell, record;
 
             me.checkCellClicked = null;
@@ -1442,7 +1440,7 @@ Ext.define('Ext.grid.selection.SpreadsheetModel', {
                 ctrlKey = keyEvent.ctrlKey,
                 shiftKey = keyEvent.shiftKey,
                 keyCode = keyEvent.getKey(),
-                selectionChanged, rowRangeStart, lastRecord;
+                selectionChanged;
 
             // if there's no position then the user might have clicked outside a cell
             if (!pos) {
@@ -1492,15 +1490,7 @@ Ext.define('Ext.grid.selection.SpreadsheetModel', {
                         }
                         // First shift
                         if (!sel.getRangeSize()) {
-                            rowRangeStart = navigateEvent.previousRecordIndex;
-
-                            if (rowRangeStart == null) {
-                                // previousRecordIndex could be empty due to BufferedRenderer de-rendering the last selected row.
-                                // In that case we need to select the last selected record or start from 0.
-                                lastRecord = me.getLastSelected();
-                                rowRangeStart = lastRecord ? me.store.indexOf(lastRecord) : 0;
-                            }
-                            sel.setRangeStart(rowRangeStart);
+                            sel.setRangeStart(navigateEvent.previousRecordIndex || 0);
                         }
                         sel.setRangeEnd(navigateEvent.recordIndex);
                         sel.addRange();
@@ -1553,7 +1543,6 @@ Ext.define('Ext.grid.selection.SpreadsheetModel', {
                     } else {
                         sel.clear();
                         sel.add(record);
-                        sel.setRangeStart(pos.rowIdx, true);
                     }
                     selectionChanged = true;
                 }
@@ -1597,9 +1586,6 @@ Ext.define('Ext.grid.selection.SpreadsheetModel', {
                 if (sel.isRows) {
                     me.updateHeaderState();
                 }
-                // this will give continuity between keyboard selection and mouse selection
-                me.lastOverRecord = record;
-                me.lastOverColumn = pos.column;
                 me.fireSelectionChange();
             }
         },

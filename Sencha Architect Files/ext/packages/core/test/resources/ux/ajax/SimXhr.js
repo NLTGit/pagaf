@@ -19,7 +19,7 @@ Ext.define('Ext.ux.ajax.SimXhr', {
         var me = this;
 
         if (me.timer) {
-            Ext.undefer(me.timer);
+            clearTimeout(me.timer);
             me.timer = null;
         }
         me.aborted = true;

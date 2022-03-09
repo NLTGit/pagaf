@@ -25,7 +25,7 @@ function() {
         oldGetOrientation = Ext.dom.Element.getOrientation;
         oldGetViewWidth = Ext.dom.Element.getViewportWidth;
         oldGetViewHeight = Ext.dom.Element.getViewportHeight;
-
+        
         oldResponsiveContext = Responsive.context;
 
         Ext.dom.Element.getOrientation = function () {
@@ -45,7 +45,7 @@ function() {
         Ext.dom.Element.getOrientation = oldGetOrientation;
         Ext.dom.Element.getViewportWidth = oldGetViewWidth;
         Ext.dom.Element.getViewportHeight = oldGetViewHeight;
-
+        
         Responsive.context = oldResponsiveContext;
 
         expect(Responsive.active).toBe(false);
@@ -53,7 +53,7 @@ function() {
     });
 
     describe('responsive border region', function () {
-        var child, panel, plugin;
+        var panel;
 
         beforeEach(function () {
             env = environments.ipad.landscape;
@@ -64,10 +64,10 @@ function() {
             };
         });
         afterEach(function () {
-            child = panel = plugin = Ext.destroy(panel, child, plugin);
+            panel = Ext.destroy(panel);
         });
 
-        function createPanel (pluginCfg) {
+        function createPanel (plugin) {
             panel = Ext.create({
                 xtype: 'panel',
                 layout: 'border',
@@ -79,7 +79,7 @@ function() {
                 items: [{
                     reference: 'child',
                     title: 'Some Title',
-                    plugins: pluginCfg,
+                    plugins: plugin,
 
                     responsiveFormulas: {
                         narrow: function (state) {
@@ -107,16 +107,12 @@ function() {
                     region: 'center'
                 }]
             });
-
-            child = panel.lookupReference('child');
-            plugin = child.findPlugin('responsive');
         }
 
         it('respond to size change', function () {
             createPanel('responsive');
 
-            expect(plugin).not.toBeUndefined();
-
+            var child = panel.lookupReference('child');
             expect(child.region).toBe('west');
             expect(child.title).toBe('Title - Not Narrow');
 
@@ -133,8 +129,7 @@ function() {
                     ptype: 'responsive'
                 });
 
-                expect(plugin).not.toBeUndefined();
-
+                var child = panel.lookupReference('child');
                 expect(child.region).toBe('west');
             });
 
@@ -143,37 +138,8 @@ function() {
                     ptype: 'responsive'
                 }]);
 
-                expect(plugin).not.toBeUndefined();
-
+                var child = panel.lookupReference('child');
                 expect(child.region).toBe('west');
-            });
-
-            it('should be created using object form', function () {
-                createPanel({
-                    responsive: true
-                });
-
-                expect(plugin).not.toBeUndefined();
-
-                // tests to make sure plugin didn't set plugin configs
-                // onto the component see EXTJS-25719
-                expect(child.getId()).not.toBe('responsive');
-            });
-
-            it('should be created using object form passing a config object', function () {
-                createPanel({
-                    responsive: {
-                        foo: 'bar'
-                    }
-                });
-
-                expect(plugin).not.toBeUndefined();
-
-                // tests to make sure plugin didn't set plugin configs
-                // onto the component see EXTJS-25719
-                expect(panel.getId()).not.toBe('responsive');
-
-                expect(plugin.foo).toBe('bar');
             });
         });
     });

@@ -1,5 +1,4 @@
 @include tooltip-ui(
-    $background-color: $tooltip-background-color,
     $border-color: $tooltip-border-color,
     $border-width: $tooltip-border-width,
     $border-style: $tooltip-border-style,
@@ -33,7 +32,6 @@
     $header-padding-big: $tooltip-header-padding-big,
     $header-title-padding: $tooltip-header-title-padding,
     $header-title-padding-big: $tooltip-header-title-padding-big,
-    $header-title-opacity: $tooltip-header-title-opacity,
     $header-shadow: $tooltip-header-shadow,
     $header-z-index: $tooltip-header-z-index,
     $header-min-height: $tooltip-header-min-height,

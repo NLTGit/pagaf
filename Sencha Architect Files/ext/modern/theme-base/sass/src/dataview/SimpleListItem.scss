@@ -32,12 +32,6 @@
                 z-index: 10;
             }
         }
-
-        .#{$prefix}keyboard-mode .#{$prefix}no-row-lines &:after {
-            // We use negative margins on the focus border element to account for row borders.
-            // These margins must be suppressed when there are no rowLines.
-            margin: 0;
-        }
     }
 
     &.#{$prefix}pinned {

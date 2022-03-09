@@ -180,7 +180,7 @@ Ext.define('Ext.field.Field', {
          * * A regexp - if the field fails to match the regexp, it is invalid.
          * * A function - the function will be called to validate the field; it should return false if invalid.`
          * * An object - an object with a member fn that is a function to be called to validate the field.
-         * * An instantiated Validator {@link  Ext.data.validator.Validator}
+         * * An instantiated Validator (@link  Ext.data.validator)
          */
         validators: null,
 
@@ -238,7 +238,7 @@ Ext.define('Ext.field.Field', {
 
         /**
          * @cfg {String} errorMessage
-         * The field's error message to display as {@link #cfg!errorTarget specified}.
+         * The field's error message to display as {@link #cfg!errorTarget specified).
          * This message must already be properly formatted and encoded as appropriate
          * for the `errorTarget`.
          * @since 6.5.0
@@ -788,7 +788,7 @@ Ext.define('Ext.field.Field', {
      *
      * @return {Ext.field.Field} this
      */
-    reset: function() {
+    reset: function () {
         this.setValue(this.originalValue);
 
         return this;
@@ -864,14 +864,33 @@ Ext.define('Ext.field.Field', {
      */
     applyValidators: function (validators) {
         var me = this,
-            i, len, ret;
+            fn, i, len, ret, type, validator;
 
         validators = (validators && !Ext.isArray(validators)) ? [validators] : validators;
         len = validators && validators.length;
         ret = len ? [] : null;
 
         for (i = 0; i < len; ++i) {
-            ret.push(me.decodeValidator(validators[i]));
+            type = Ext.typeOf(validator = validators[i]);
+            fn = validator.fn;
+
+            if (type === 'function') {
+                fn = me.wrapValidatorFn(validator);
+            }
+            else if (type === 'regexp') {
+                fn = Ext.Factory.validator({
+                    type: 'format',
+                    matcher: validator
+                });
+            }
+            else if (type === 'object' && fn && !validator.isValidator) {
+                fn = me.wrapValidatorFn(fn, validator);
+            }
+            else {
+                fn = Ext.Factory.validator(validator);
+            }
+
+            ret.push(fn);
         }
 
         return ret;
@@ -886,45 +905,41 @@ Ext.define('Ext.field.Field', {
         });
     },
 
-    /**
-     * This method is called by {@link #method!validate validate} if the value is both
-     * non-empty (not `null`, `undefined` or `''`) and if the value can be parsed by the
-     * {@link #method!parseValue parseValue} method. This parsing concern is technically
-     * only in play for `Ext.field.Text` and derived classes (such as `Ext.field.Date` and
-     * `Ext.field.Number`) but the guarantee here is that the `value` will be a parsed
-     * value and not the raw string and if the value cannot be parsed, this method will
-     * not be called.
-     *
-     * @param {Mixed} value The (parsed) value
-     * @param {String[]} errors The array of validation errors
-     * @param {Boolean} [skipLazy] `false` (the default) to run all validators.
-     * @private
-     */
     doValidate: function (value, errors, skipLazy) {
-        var validators = this.getValidators(),
-            len = validators && validators.length,
-            i, result, validator;
+        var me = this,
+            field = me._validationField,
+            record = me._validationRecord,
+            validators = me.getValidators(),
+            isEmpty = value === '' || value == null,
+            validator, i, len, result;
 
-        for (i = 0; i < len; ++i) {
-            validator = validators[i];
+        if (isEmpty && me.getRequired()) {
+            errors.push(me.getRequiredMessage());
+        } else {
+            if (field && record) {
+                field.validate(value, null, errors, record);
+            }
 
-            if (!skipLazy || !validator.lazy) {
-                result = validator.validate(value);
+            if (!isEmpty) {
+                for (i = 0, len = validators && validators.length; i < len; ++i) {
+                    validator = validators[i];
 
-                if (result !== true) {
-                    //<debug>
-                    if (!result || typeof result !== 'string') {
-                        Ext.raise('Validator did not return a valid result.');
+                    if (!skipLazy || !validator.lazy) {
+                        result = validator.validate(value);
+
+                        if (result !== true) {
+                            //<debug>
+                            if (!result || typeof result !== 'string') {
+                                Ext.raise('Validator did not return a valid result.');
+                            }
+                            //</debug>
+                            errors.push(result);
+                        }
                     }
-                    //</debug>
-
-                    errors.push(result);
                 }
             }
         }
     },
-
-    parseValue: Ext.identityFn, // documented on textfield
 
     /**
      * Validate the field and return it's validity state. 
@@ -936,7 +951,7 @@ Ext.define('Ext.field.Field', {
      */
     validate: function (skipLazy) {
         var me = this,
-            empty, errors, field, record, validity, value;
+            errors;
 
         // If we are in configuration and not validating any values, skip out of here
         if (me.isConfiguring && me.validateOnInit === 'none') {
@@ -946,51 +961,7 @@ Ext.define('Ext.field.Field', {
         // if field is disabled and cfg not set to validate if disabled, skip out of here
         if (!me.getDisabled() || me.getValidateDisabled()) {
             errors = [];
-
-            // If we are a textual input field, get the input element's value.
-            // Check the DOM validity state first in case a type="number"
-            // check has failed.
-            if (me.isInputField && !me.isSelectField) {
-                value = me.getInputValue();
-                empty = !value;
-                validity = empty && me.inputElement.dom.validity;
-
-                if (validity && validity.badInput) {
-                    errors.push(me.badFormatMessage);
-                    empty = false;
-                }
-            }
-            else {
-                value = me.getValue();
-                empty = value === '' || value == null;
-            }
-
-            if (empty && me.getRequired()) {
-                errors.push(me.getRequiredMessage());
-            }
-            else if (!errors.length) {
-                if (!empty) {
-                    // Pass non-empty values along to parseValue to handle things like
-                    // datefield and numberfield. Technically this concern is more of a
-                    // textfield family issue, but it is awkward to leap out of this
-                    // sequence in such a way as to make a surgical override practical...
-                    // So we simply provide identityFn as the default parseValue impl
-                    value = me.parseValue(value, errors);
-                }
-
-                if (!errors.length) {
-                    field = me._validationField;
-                    record = me._validationRecord;
-
-                    if (field && record) {
-                        field.validate(value, null, errors, record);
-                    }
-
-                    if (!empty) {
-                        me.doValidate(value, errors, skipLazy);
-                    }
-                }
-            }
+            me.doValidate(me.getValue(), errors, skipLazy);
 
             if (errors.length) {
                 me.setError(errors);
@@ -1014,7 +985,9 @@ Ext.define('Ext.field.Field', {
     onAdded: function(parent, instanced) {
         this.callParent([parent, instanced]);
         this.syncFormLayoutHeight();
+        //<debug>
         this.validateLayout();
+        //</debug>
     },
 
     onRemoved: function(destroying) {
@@ -1035,20 +1008,23 @@ Ext.define('Ext.field.Field', {
             me.bodyElement.setHeight(height);
         },
 
+        //<debug>
         validateLayout: function () {
-            var errorTarget = this.getErrorTarget(),
+            var labelAlign = this.getLabelAlign(),
+                errorTarget = this.getErrorTarget(),
                 parent = this.parent;
 
             if (this.isInner && parent && parent.getLayout().isFormLayout) {
-                // Form layout only supports left aligned labels
-                this.setLabelAlign('left');
+                if (labelAlign === 'top' || labelAlign === 'right' || labelAlign === 'bottom') {
+                    Ext.raise("labelAlign: '" + labelAlign + "' is not allowed in a form layout");
+                }
 
-                // Form layout does not support "under" error target
                 if (errorTarget === 'under') {
-                    this.setErrorTarget('side');
+                    Ext.raise("errorTarget: '" + errorTarget + "' is not allowed in a form layout");
                 }
             }
         },
+        //</debug>
 
         applyBind: function (bind, currentBindings) {
             var me = this,
@@ -1087,29 +1063,6 @@ Ext.define('Ext.field.Field', {
         setValidationField: function (field, record) {
             this._validationField = field;
             this._validationRecord = record;
-        },
-
-        decodeValidator: function(validator) {
-            var type = Ext.typeOf(validator),
-                result = validator.fn;
-
-            if (type === 'function') {
-                result = this.wrapValidatorFn(validator);
-            }
-            else if (type === 'regexp') {
-                result = Ext.Factory.validator({
-                    type: 'format',
-                    matcher: validator
-                });
-            }
-            else if (type === 'object' && result && !validator.isValidator) {
-                result = this.wrapValidatorFn(result, validator);
-            }
-            else {
-                result = Ext.Factory.validator(validator);
-            }
-
-            return result;
         }
     }
 });

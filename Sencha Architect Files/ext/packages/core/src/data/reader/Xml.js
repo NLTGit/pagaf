@@ -306,15 +306,21 @@ Ext.define('Ext.data.reader.Xml', {
             };
         }
         else {
-            // The generated field accessor is a *very* hot code path in XML reader,
-            // so we try hard to optimize away any checks and lessen run time penalty.
-            // We also try hard to use native code where possible, since Ext.DomQuery
-            // is slow and very CPU intensive.
-            // querySelector and getNodeValue break on namespaces so we can't use them
-            if (autoMapping && !namespace && Ext.supports.XmlQuerySelector) {
-                result = function(raw, self) {
-                    return self.getNodeValue(raw.querySelector(selector));
-                };
+            // querySelector and getNodeValue break on namespaces
+            if (autoMapping && !namespace) {
+                // IE9m doesn't support querySelector on XML nodes, but it does support
+                // selectSingleNode() which is more or less the same for our purposes.
+                if (Ext.isIE9m) {
+                    result = function(raw, self) {
+                        return self.getNodeValue(raw.selectSingleNode(selector));
+                    };
+                }
+                // querySelector breaks on namespaces
+                else if (Ext.supports.XmlQuerySelector) {
+                    result = function(raw, self) {
+                        return self.getNodeValue(raw.querySelector(selector));
+                    };
+                }
             }
             
             if (!result) {

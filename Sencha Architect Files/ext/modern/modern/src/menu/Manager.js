@@ -54,7 +54,8 @@ Ext.define('Ext.menu.Manager', {
         onGlobalScroll: function (scroller) {
             var allMenus = this.visible,
                 len = allMenus.length,
-                i, menu;
+                i, menu,
+                scrollerEl = scroller.getElement();
 
             // Scrolling document should not hide menus.
             // The will move along with the document.
@@ -63,9 +64,9 @@ Ext.define('Ext.menu.Manager', {
                 allMenus = allMenus.slice();
                 for (i = 0; i < len; ++i) {
                     menu = allMenus[i];
-                    // If the scroller logically "owns" (the menu, or any parents),
-                    // then it will impact alignment so we need to hide the menu.
-                    if (scroller.contains(menu)) {
+                    // Hide the menu if:
+                    //      The menu does not own scrolling element
+                    if (!menu.alignOnScroll && menu.hideOnScroll !== false && !menu.owns(scrollerEl)) {
                         menu.hide();
                     }
                  }
@@ -83,12 +84,10 @@ Ext.define('Ext.menu.Manager', {
                 allMenus = allMenus.slice();
                 for (i = 0; i < len; ++i) {
                     menu = allMenus[i];
-
                     // Hide the menu if:
                     //      The menu does not own the clicked upon element AND
-                    //      The menu is not the child menu of a clicked upon component AND
-                    //          that component is not a menu owner (which will manage the hiding).
-                    if (!(menu.owns(e) || (mousedownCmp && mousedownCmp.isMenuOwner && mousedownCmp.getMenu() === menu))) {
+                    //      The menu is not the child menu of a clicked upon MenuItem
+                    if (!(menu.owns(e) || (mousedownCmp && mousedownCmp.isMenuItem && mousedownCmp.getMenu() === menu))) {
                         menu.hide();
                     }
                  }
@@ -123,14 +122,14 @@ Ext.define('Ext.menu.Manager', {
             // Use the global mousedown event that gets fired even if propagation is stopped
             Ext.on({
                 mousedown: me.checkActiveMenus,
-                scrollstart: me.onGlobalScroll,
+                scroll: me.onGlobalScroll,
                 scope: me
             });
             //<debug>
             //These persistent listeners must be tolerated in unit tests
             if (window.jasmine && jasmine.addAllowedListener) {
                 jasmine.addAllowedListener('mousedown');
-                jasmine.addAllowedListener('scrollstart');
+                jasmine.addAllowedListener('scroll');
             }
             //</debug>
         }

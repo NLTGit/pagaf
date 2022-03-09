@@ -168,10 +168,6 @@ Ext.define('Ext.grid.locking.View', {
         me.rendered = true;
         me.fireEvent('render', me);
 
-        // Here we should set the maskElement to scrollBody so the loadMask cover both views
-        // but not the headers and grid title bar.
-        me.ownerGrid.maskElement = 'scrollBody';
-
         if (mask) {
             // either a config object 
             if (Ext.isObject(mask)) {
@@ -279,7 +275,7 @@ Ext.define('Ext.grid.locking.View', {
      * @param {Ext.data.Store} store The store to bind to this view
      * @since 3.4.0
      */
-    onBindStore : function(store) {
+    onBindStore : function(store, initial, propName) {
         var me = this,
             lockedView = me.lockedView,
             normalView = me.normalView;
@@ -339,6 +335,7 @@ Ext.define('Ext.grid.locking.View', {
     onDataRefresh: function() {
         Ext.suspendLayouts();
         this.relayFn('onDataRefresh', arguments);
+        this.ownerGrid.view.refreshView();
         Ext.resumeLayouts(true);
     },
 
@@ -363,7 +360,6 @@ Ext.define('Ext.grid.locking.View', {
     /**
      * Toggles ARIA actionable mode on/off
      * @param {Boolean} enabled
-     * @param {Ext.grid.CellContext} position
      * @return {Boolean} Returns `false` if the request failed.
      * @private
      */

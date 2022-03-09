@@ -7,11 +7,11 @@
     "codeClass": null,
     "userConfig": {
         "defaultListenerScope": true,
-        "designer|initialView": true,
         "designer|userAlias": "appmain",
         "designer|userClassName": "appmain",
         "layout": "fit",
-        "scrollable": true
+        "scrollable": "vertical",
+        "width": "1440px"
     },
     "configAlternates": {
         "defaultListenerScope": "boolean",
@@ -19,7 +19,8 @@
         "designer|userAlias": "string",
         "designer|userClassName": "string",
         "layout": "string",
-        "scrollable": "auto"
+        "scrollable": "auto",
+        "width": "auto"
     },
     "name": "MyViewport",
     "designerId": "72735961-0636-438a-aafe-e855d21f155f",
@@ -35,7 +36,7 @@
             "codeClass": null,
             "userConfig": {
                 "layout": "fit",
-                "scrollable": true
+                "scrollable": "vertical"
             },
             "configAlternates": {
                 "layout": "string",
@@ -53,7 +54,7 @@
                     "codeClass": null,
                     "userConfig": {
                         "height": "200px",
-                        "html": "<div id=\"header\"> <span id=\"logo\"><h1>Precision AG for American Farmers</h1></span><span class=\"demo\">Demo <a href=\"https://github.com/NLTGit/pagaf/wiki\">About</a></span> <div id=\"topright\"> <button id=\"logout\" class=\"organization\">Log Out</button> <button id=\"organization\" class=\"organization\"></button> </div> </div>",
+                        "html": "<div id=\"header\"><div class=\"height100p center container_8\"><div class=\"grid_3\"><a href=\"https://pagaf.nltmso.com/index.html\"><img src=\"./resources/images/logos/FinalPAGAF2022_01.svg\" class=\"logo\"></a></div><div class=\"grid_5\"><div class=\"navLink green\"><a href=\"https://pagaf.nltmso.com/index.html#Technology\" class=\"green\">Technology</a></div><div class=\"navLink green\"><a href=\"https://pagaf.nltmso.com/index.html#Story\" class=\"green\">Our Story</a></div><div class=\"navLink green\"><a href=\"https://pagaf.nltmso.com/index.html#Blog\" class=\"green\">Blog</a></div><div class=\"navLink green\"><a href=\"https://pagaf.nltmso.com/index.html#Support\" class=\"green\">Support</a></div><div id=\"topright\"><button id=\"logout\" class=\"organization\">Log Out</button> <button id=\"organization\" class=\"organization\"></button></div></div></div> </div>",
                         "maxHeight": 200,
                         "minHeight": 200,
                         "width": "100%"
@@ -119,6 +120,12 @@
                                         "type": "array"
                                     },
                                     "codeClass": null,
+                                    "userConfig": {
+                                        "hidden": true
+                                    },
+                                    "configAlternates": {
+                                        "hidden": "boolean"
+                                    },
                                     "name": "home.topmenu2",
                                     "designerId": "844e61a6-84d8-4b32-82e0-1449da9599a1",
                                     "masterInstanceId": "63edfbea-0bbd-449b-8302-715eb7301189"
@@ -591,7 +598,7 @@
                     "codeClass": null,
                     "userConfig": {
                         "height": "200px",
-                        "html": "<div id=\"footer\"><div id=\"footerimg\"></div><div id=\"social\" /></div><div id=\"tag\">PAGAF: Precision Agriculture for all American Farmers. Copyright (C) 2020, New Light Technologies. <a href=\"https://github.com/NLTGit/pagaf/wiki#legal\">Legal</a></div></div>",
+                        "html": "<div id=\"footer\"> <div class=\"center container_8\"> <div class=\"grid_3 leftPadding\"> <img src=\"./resources/images/logos/FinalPAGAF2022_01.svg\" class=\"footerPagaf\"> <h5 class=\"green clearBoth footerTalk \">Talk to us at:</h5> <p class=\"noMargins\"><a href=\"mailto:info@nltpagaf.ai\" class=\"gray clearBoth\">info@nltpagaf.ai</a></p> <a href=\"https://github.com/NLTGit/\"><img src=\"./resources/images/logos/github.png\" class=\"socialMedia\"></a> <a href=\"https://www.linkedin.com/in/newlighttechnologies\"><img src=\"./resources/images/logos/linkedin.png\" class=\"socialMediaNext\"></a> <a href=\"https://www.facebook.com/NewLightTechnologies/\"><img src=\"./resources/images/logos/facebook.png\" class=\"socialMediaNext\"></a> <a href=\"https://twitter.com/newlighttech\"><img src=\"./resources/images/logos/twitter.png\" class=\"socialMediaNext\"></a> </div> <div class=\"grid_1 footerMenu\"> <h4 class=\"green\">Product</h4> <a href=\"#\" class=\"gray footerSubMenu\">Team</a> <a href=\"#\" onclick=\"show('technology');\" class=\"gray footerSubMenu\">Technology</a> <a href=\"#\" class=\"gray footerSubMenu\">For Investors</a> </div> <div class=\"grid_1 footerMenu\"> <h4 class=\"green\">About Us</h4> <a href=\"#\" class=\"gray footerSubMenu\">NLT</a> <a href=\"#\" onclick=\"show('blog');\" class=\"gray footerSubMenu\">Blog</a> </div> <div class=\"grid_1 footerMenu\"> <h4 class=\"green\">Support</h4> <a href=\"#\" class=\"gray footerSubMenu\">Product Improvements</a> <a href=\"#\" class=\"gray footerSubMenu\">Updates</a> </div> <div class=\"grid_8 space100\"></div> <div class=\"grid_8\"> <span class=\"poweredByFooter gray noMargins\">Powered By</span> <a href=\"https://nltgis.com&quot;\"><img src=\"./resources/images/logos/nltlogo.png\" class=\"poweredByFooterNLT\"></a> </div> </div> </div>",
                         "maxHeight": 200,
                         "minHeight": 200,
                         "width": "100%"

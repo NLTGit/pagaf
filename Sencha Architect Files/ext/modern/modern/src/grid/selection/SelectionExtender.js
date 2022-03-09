@@ -8,14 +8,11 @@ Ext.define('Ext.grid.selection.SelectionExtender', {
 
     constructor: function(config) {
         var me = this,
-            view = config.view,
-            handleListeners = {
-                dragstart: 'onDragStart',
-                dragend: 'onDragEnd',
-                scope: me
-            };
+            view;
 
         Ext.apply(me, config);
+
+        view = me.view;
 
         me.el = view.outerCt;
 
@@ -23,11 +20,13 @@ Ext.define('Ext.grid.selection.SelectionExtender', {
             cls: Ext.baseCSSPrefix + 'selmodel-extender-drag-handle'
         }).hide();
 
-        // Start a drag on longpress if touch is supported.
-        if (Ext.supports.Touch) {
-            handleListeners.longpress = 'onHandleLongpress';
-        }
-        me.handle.on(handleListeners);
+        me.handle.on({
+            contextMenu: 'stopEvent',
+            touchstart: 'stopEvent',
+            drag: 'onDrag',
+            dragend: 'onDragEnd',
+            scope: me
+        });
 
         me.mask = view.outerCt.createChild({
             cls: Ext.baseCSSPrefix + 'selmodel-extender-mask'
@@ -39,10 +38,7 @@ Ext.define('Ext.grid.selection.SelectionExtender', {
             destroyable: true
         });
         me.viewListener = view.on({
-            columnresize: 'alignHandle',
-            columnhide: 'alignHandle',
-            columnshow: 'alignHandle',
-            columnmove: 'alignHandle',
+            columnresize: me.alignHandle,
             scope: me,
             destroyable: true
         });
@@ -79,22 +75,12 @@ Ext.define('Ext.grid.selection.SelectionExtender', {
 
     alignHandle: function() {
         var me = this,
-            lastCell = me.endPos;
+            lastCell = me.endPos && me.endPos.getCell(true);
 
         // Cell corresponding to the position might not be rendered.
         // This will be called upon scroll
-        if (me.firstPos && lastCell && me.view.isRecordRendered(lastCell.recordIndex)) {
-            // Clone to refresh location in case it's moved in or out of
-            // the rendered block.
-            lastCell = lastCell.clone({
-                record: lastCell.record,
-                column: lastCell.column
-            }).getCell();
-            if (lastCell && lastCell.isVisible()) {
-                me.enable();
-            } else {
-                me.disable();
-            }
+        if (me.firstPos && lastCell) {
+            me.enable();
             me.handle.alignTo(lastCell, 'c-br');
         } else {
             me.disable();
@@ -110,53 +96,20 @@ Ext.define('Ext.grid.selection.SelectionExtender', {
         this.mask.hide();
     },
 
-    onHandleLongpress: function(e) {
-        e.startDrag();
-    },
-
-    onDragStart: function(e) {
-        // For touch gestures, only initiate drags on longpress
-        if (e.pointerType !== 'touch' || e.longpress) {
-            e.claimGesture();
-            this.handle.on('drag', this.onDrag, this);
-        }
-    },
-
     onDrag: function(e) {
-        // The target of a Touch object remains unchanged from the touchstart target
-        // even if the touch point moves outside of the original target.
-        // We determine view Location from the "over" target, so polyfill using
-        // the touch coordinates and document.elementFromPoint.
-        if (e.changedTouches) {
-            var touch = e.changedTouches[0],
-                realTarget;
-
-            // If the target does not contain the touch point, we have to correct it.
-            if (touch && !Ext.fly(touch.target).getRegion().contains(touch.point)) {
-                realTarget = Ext.event.Event.resolveTextNode(Ext.Element.fromPagePoint(touch.pageX, touch.pageY, true));
-
-                // Points can sometimes go negative and return no target.
-                if (realTarget) {
-                    e.target = realTarget;
-                }
-            }
-        }
-
         var me = this,
-            target = e.target,
+            target = e.parentEvent.target,
             view = me.view,
-            scrollClientRegion = view.getScrollable().getElement().getClientRegion(),
+            viewTop = view.el.getY(),
+            viewLeft = view.el.getX(),
             overCell = new Ext.grid.Location(view, target),
             scrollTask = me.scrollTask || (me.scrollTask = Ext.util.TaskManager.newTask({
                 run: me.doAutoScroll,
                 scope: me,
                 interval: 10
             })),
-            thresh = 25 * (window.devicePixelRatio || 1),
-            scrollDelta = 3 * (window.devicePixelRatio || 1),
             scrollBy = me.scrollBy || (me.scrollBy = []);
 
-        e.claimGesture();
         me.lastXY = [e.pageX, e.pageY];
 
         // Dragged outside the view; stop scrolling.
@@ -166,33 +119,33 @@ Ext.define('Ext.grid.selection.SelectionExtender', {
         }
 
         // Near bottom of view
-        if (me.lastXY[1] > scrollClientRegion.bottom - thresh) {
+        if (me.lastXY[1] > viewTop + view.el.getHeight(true) - 15) {
             if (me.extendY) {
-                scrollBy[1] = scrollDelta;
+                scrollBy[1] = 3;
                 scrollTask.start();
             }
         }
         
         // Near top of view
-        else if (me.lastXY[1] < scrollClientRegion.top + thresh) {
+        else if (me.lastXY[1] < viewTop + 10) {
             if (me.extendY) {
-                scrollBy[1] = -scrollDelta;
+                scrollBy[1] = -3;
                 scrollTask.start();
             }
         }
 
         // Near right edge of view
-        else if (me.lastXY[0] > scrollClientRegion.right - thresh) {
+        else if (me.lastXY[0] > viewLeft + view.el.getWidth(true) - 15) {
             if (me.extendX) {
-                scrollBy[0] = scrollDelta;
+                scrollBy[0] = 3;
                 scrollTask.start();
             }
         }
         
         // Near left edge of view
-        else if (me.lastXY[0] < scrollClientRegion.left + thresh) {
+        else if (me.lastXY[0] < viewLeft + 10) {
             if (me.extendX) {
-                scrollBy[0] = -scrollDelta;
+                scrollBy[0] = -3;
                 scrollTask.start();
             }
         }
@@ -232,9 +185,6 @@ Ext.define('Ext.grid.selection.SelectionExtender', {
     onDragEnd: function(e) {
         var me = this;
 
-        // DRag listener is only added on successful drag start
-        me.handle.un('drag', me.onDrag, me);
-
         if (me.scrollTask) {
             me.scrollTask.stop();
         }
@@ -272,8 +222,7 @@ Ext.define('Ext.grid.selection.SelectionExtender', {
 
         // Constrain cell positions to be within rendered range.
         firstCell = me.firstPos.clone({
-            record: Ext.Number.constrain(Math.min(startRecordIndex, endRecordIndex), renderInfo.indexTop, renderInfo.indexBottom - 1),
-            column: me.firstPos.column
+            record: Ext.Number.constrain(Math.min(startRecordIndex, endRecordIndex), renderInfo.indexTop, renderInfo.indexBottom - 1)
         });
         endCell = me.endPos.clone({
             record: Ext.Number.constrain(Math.max(firstCell.recordIndex, endRecordIndex), renderInfo.indexTop, renderInfo.indexBottom - 1)

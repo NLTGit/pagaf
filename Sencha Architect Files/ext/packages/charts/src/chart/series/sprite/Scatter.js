@@ -19,7 +19,6 @@ Ext.define('Ext.chart.series.sprite.Scatter', {
             labels = attr.labels,
             series = me.getSeries(),
             isDrawLabels = labels && me.getMarker('labels'),
-            surfaceMatrix = me.surfaceMatrix,
             matrix = me.attr.matrix,
             xx = matrix.getXX(),
             yy = matrix.getYY(),
@@ -43,27 +42,25 @@ Ext.define('Ext.chart.series.sprite.Scatter', {
         }
 
         for (i = 0; i < dataX.length; i++) {
-
             x = dataX[i];
             y = dataY[i];
             x = x * xx + dx;
             y = y * yy + dy;
-
             if (left <= x && x <= right && top <= y && y <= bottom) {
                 if (attr.renderer) {
                     markerCfg = {
-                        type: 'markers',
-                        translationX: surfaceMatrix.x(x, y),
-                        translationY: surfaceMatrix.y(x, y)
+                        type: 'items',
+                        translationX: x,
+                        translationY: y
                     };
                     params = [me, markerCfg, {store: me.getStore()}, i];
                     changes = Ext.callback(attr.renderer, null, params, 0, series);
                     markerCfg = Ext.apply(markerCfg, changes);
                 } else {
-                    markerCfg.translationX = surfaceMatrix.x(x, y);
-                    markerCfg.translationY = surfaceMatrix.y(x, y);
+                    markerCfg.translationX = x;
+                    markerCfg.translationY = y;
                 }
-                me.putMarker('markers', markerCfg, i, !attr.renderer);
+                me.putMarker('items', markerCfg, i, !attr.renderer);
                 if (isDrawLabels && labels[i]) {
                     me.drawLabel(labels[i], x, y, i, surfaceClipRect);
                 }

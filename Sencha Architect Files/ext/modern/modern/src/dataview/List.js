@@ -484,14 +484,10 @@ Ext.define('Ext.dataview.List', {
         syncVerticalOverflow: 1
     },
 
-    /**
-     * @property classCls
-     * @inheritdoc
-     */
     classCls: Ext.baseCSSPrefix + 'list',
 
     /**
-     * @cfg itemConfig
+     * @cfg {Object/Ext.Component} itemConfig
      * @inheritdoc
      */
     itemConfig: {
@@ -516,10 +512,6 @@ Ext.define('Ext.dataview.List', {
      */
     rowHeight: 0,
 
-    /**
-     * @cfg scrollable
-     * @inheritdoc
-     */
     scrollable: {
         x: false,
         y: true
@@ -530,10 +522,6 @@ Ext.define('Ext.dataview.List', {
         totalcountchange: 'onStoreTotalCountChange'
     },
 
-    /**
-     * @property template
-     * @inheritdoc
-     */
     template: [{
         reference: 'bodyElement',
         cls: Ext.baseCSSPrefix + 'body-el',
@@ -623,7 +611,7 @@ Ext.define('Ext.dataview.List', {
         // unused headers/footers still need to be disposed of.
 
         if (scrollInfo) {
-            Ext.unraf(scrollInfo.timer);
+            Ext.Function.cancelAnimationFrame(scrollInfo.timer);
         }
 
         Ext.destroy(
@@ -681,28 +669,6 @@ Ext.define('Ext.dataview.List', {
             grouper = store && store.getGrouper();
 
         return !!grouper;
-    },
-
-    /**
-     * For infinite lists, not all records are represented in the DOM.
-     *
-     * This method will return `true` if the passed record index or
-     * {@link Ext.data.Model record} is represented in the DOM.
-     *
-     * @param {Number/Ext.data.Model} recordIndex The {@link Ext.data.Model record} or record index to test.
-     * @return {Boolean} `true` if the record is rendered.
-     */
-    isRecordRendered: function(recordIndex) {
-        if (!this.infinite) {
-            return true;
-        }
-
-        var renderInfo = this.renderInfo;
-
-        if (recordIndex.isEntity) {
-            recordIndex = this.store.indexOf(recordIndex);
-        }
-        return recordIndex >= renderInfo.indexTop && recordIndex < renderInfo.indexBottom;
     },
 
     mapToViewIndex: function (value) {
@@ -818,7 +784,7 @@ Ext.define('Ext.dataview.List', {
         if (me.infinite) {
             if (me.getVisibleHeight()) {
                 me.refreshGrouping();
-                me.resyncOnPaint();
+                me.syncRowsToHeight(true);
             }
         } else {
             me.refreshGroupIndices();
@@ -835,7 +801,7 @@ Ext.define('Ext.dataview.List', {
         if (me.infinite) {
             if (me.getVisibleHeight()) {
                 me.refreshGrouping();
-                me.resyncOnPaint();
+                me.syncRowsToHeight(true);
             }
 
             me.syncEmptyState();
@@ -845,10 +811,10 @@ Ext.define('Ext.dataview.List', {
         }
     },
 
-    onStoreUpdate: function (store, record, type, modifiedFieldNames, info) {
+    onStoreUpdate: function(store, record, type, modifiedFieldNames, info) {
         var me = this;
 
-        if (info && info.groupChanged && me.isGrouping()) {
+        if (me.isGrouping() && (!info || !info.indexChanged)) {
             me.refreshGrouping();
             me.syncRows();
         } else {
@@ -910,31 +876,13 @@ Ext.define('Ext.dataview.List', {
     // indexBar
 
     applyIndexBar: function (config, existing) {
-        return Ext.updateWidget(existing, config, this, 'createIndexBar');
+        return Ext.Factory.widget.update(existing, config, this, 'createIndexBar');
     },
 
     updateIndexBar: function (indexBar) {
         if (indexBar) {
             this.add(indexBar);
         }
-    },
-
-    // itemConfig
-
-    applyItemConfig: function (itemConfig, oldItemConfig) {
-        var ret = this.callParent([ itemConfig, oldItemConfig ]),
-            disclosure, tools;
-
-        if (this.getOnItemDisclosure()) {
-            disclosure = {
-                disclosure: true
-            };
-
-            tools = ret.tools;
-            ret.tools = tools ? Ext.merge(disclosure, tools) : disclosure;
-        }
-
-        return ret;
     },
 
     // infinite
@@ -1040,7 +988,7 @@ Ext.define('Ext.dataview.List', {
 
     applyPinnedFooter: function (config, existing) {
         var me = this,
-            ret = Ext.updateWidget(existing, config, me, 'createPinnedFooter'),
+            ret = Ext.Factory.widget.update(existing, config, me, 'createPinnedFooter'),
             index;
 
         if (!existing) {
@@ -1097,7 +1045,7 @@ Ext.define('Ext.dataview.List', {
 
     applyPinnedHeader: function (config, existing) {
         var me = this,
-            ret = Ext.updateWidget(existing, config, me, 'createPinnedHeader');
+            ret = Ext.Factory.widget.update(existing, config, me, 'createPinnedHeader');
 
         if (!existing && ret) {
             me.insert(0, ret);
@@ -1154,27 +1102,8 @@ Ext.define('Ext.dataview.List', {
         this.variableHeights = variableHeights;
     },
 
-    updateStore: function (store, oldStore) {
-        var me = this;
-    
-        me.callParent([store, oldStore]);
-        
-        if (store) {
-            // If grouped was explicitly set, then it shouldn't be changed.
-            if (me.isConfiguring && this.getGrouped() != null) {
-                return;
-            }
-            
-            this.setGrouped(store.getGrouper());
-        }
-    },
-
     privates: {
-        // This is a selector which excludes Tool elements from triggering List child
-        // events. Clicks on Tools are handled entirely by the Tool and do not cause
-        // List child events. Tools which are configured passive: true are excluded from this;
-        // they do not react to any events, they are display-only.
-        toolSelector: '.' + Ext.baseCSSPrefix + 'tool:not(.' + Ext.baseCSSPrefix + 'passive)',
+        toolSelector: '.' + Ext.baseCSSPrefix + 'tool',
 
         infiniteCls: Ext.baseCSSPrefix + 'infinite',
         groupFirstCls: Ext.baseCSSPrefix + 'group-first',
@@ -1286,8 +1215,9 @@ Ext.define('Ext.dataview.List', {
             }
         },
 
-        onItemDisclosureTap: function (item, e) {
+        onItemDisclosureTap: function (e) {
             var me = this,
+                item = Ext.getCmp(Ext.get(e.currentTarget).up(me.itemSelector).id),
                 record = item.getRecord(),
                 index = me.store.indexOf(record);
 
@@ -1349,12 +1279,11 @@ Ext.define('Ext.dataview.List', {
             this.adjustScrollDockHeight(item.scrollDock, height);
         },
 
-        onStoreGroupChange: function(store, grouper) {
+        onStoreGroupChange: function() {
             if (this.initialized) {
                 this.refreshGrouping();
                 this.syncRows();
             }
-            this.setGrouped(!!grouper);
         },
 
         onStoreTotalCountChange: function () {
@@ -1458,7 +1387,7 @@ Ext.define('Ext.dataview.List', {
 
             if (scrollDock) {
                 scrollDock.height += amount;
-                me.resyncOnPaint();
+                me.resyncOnPaint(true);
             }
         },
 
@@ -1759,19 +1688,21 @@ Ext.define('Ext.dataview.List', {
         changeItemRecord: function (options) {
             var me = this,
                 itemClasses = options.itemClasses,
+                record = options.record,
+                row = options.item,
                 tombstoneCls = me.tombstoneCls;
 
-            if (options.record) {
+            if (record) {
                 delete itemClasses[tombstoneCls];
 
                 // We could callParent but all it does is call syncItemRecord
                 //me.callParent([ options ]);
-                me.syncItemRecord(options);
+                me.syncItemRecord(row, record, null, options);
             }
             else {
                 itemClasses[tombstoneCls] = 1;
 
-                me.syncItemRecord(options, me.tombstoneRec);
+                me.syncItemRecord(row, me.tombstoneRec, /*force=*/false, options);
             }
         },
 
@@ -2042,9 +1973,6 @@ Ext.define('Ext.dataview.List', {
                         me.lastAdjustedPosition = null;
                         me.refreshing = true;
                         me.syncRowsToHeight(false);
-                        // If we receive a refresh, we need the visibleTop to be set and the updater
-                        // to do work, even if the value hasn't changed.
-                        me.resetVisibleTop();
                         me.setVisibleTop(0);
                         preventSync = true;
                         me.refreshing = false;
@@ -2056,12 +1984,12 @@ Ext.define('Ext.dataview.List', {
                 }
 
                 if (!preventSync) {
-                    me.resync(true);
+                    me.resyncOnPaint();
                 }
             }
             else {
                 me.refreshGroupIndices();
-                me.callParent([scrollToTop]);
+                me.callParent(arguments);
             }
         },
 
@@ -2073,12 +2001,7 @@ Ext.define('Ext.dataview.List', {
                 promise, y;
 
             if (item) {
-                return scroller.ensureVisible(item.el, {
-                    align: plan.align,
-                    animation: plan.animation,
-                    highlight: plan.highlight,
-                    x: false
-                });
+                return scroller.scrollIntoView(item.el, false, plan.animation);
             }
 
             // An infinite list can records in the store that aren't rendered or in
@@ -2093,11 +2016,9 @@ Ext.define('Ext.dataview.List', {
             plan.item = me.itemFromRecord(recIndex);
 
             return promise.then(function () {
-                if (!me.destroyed) {
-                    // Now that we've made it to the proper scroll position, we can
-                    // remap the recIndex to item and we should be good.
-                    plan.item = me.itemFromRecord(recIndex);
-                }
+                // Now that we've made it to the proper scroll position, we can
+                // remap the recIndex to item and we should be good.
+                plan.item = me.itemFromRecord(recIndex);
                 return plan;
             });
         },
@@ -2120,10 +2041,8 @@ Ext.define('Ext.dataview.List', {
             if (this.infinite) {
                 y = item.$y0;
             } else {
-                y = this.getScrollable().getEnsureVisibleXY(item.element, {
-                    align: {
-                        y: 'start?'
-                    }
+                y = this.getScrollable().getScrollIntoViewXY(item.element, null, {
+                    y: 'start?'
                 }).y;
             }
 
@@ -2157,20 +2076,17 @@ Ext.define('Ext.dataview.List', {
 
         itemFromRecord: function (rec) {
             var me = this,
-                store = me.store,
                 index, item;
 
-            if (store) {
-                if (me.infinite) {
-                    index = rec.isEntity ? store.indexOf(rec) : rec;
-                    item = me.dataItems[index - me.renderInfo.indexTop];
-                }
-                else {
-                    item = me.callParent([rec]);
-                }
+            if (me.infinite) {
+                index = rec.isEntity ? me.store.indexOf(rec) : rec;
+                item = me.dataItems[index - me.renderInfo.indexTop];
+            }
+            else {
+                item = me.callParent([ rec ]);
             }
 
-            return item || null;
+            return item;
         },
 
         measureItem: function (item, heightCache) {
@@ -2728,8 +2644,49 @@ Ext.define('Ext.dataview.List', {
             }
         },
 
-        resyncOnPaint: function() {
-            this.whenVisible('resync', [true]);
+        resyncOnPaint: function (force) {
+            var me = this,
+                resyncListener = me.resyncListener,
+                resyncListenerWas = resyncListener,
+                retry = function () {
+                    me.resyncOnPaint(force);
+                };
+
+            if (!me.isPainted()) {
+                if (!resyncListener || resyncListener.pending !== 'painted') {
+                    resyncListener = me.on({
+                        painted: retry,
+                        destroyable: true
+                    });
+                    resyncListener.pending = 'painted';
+                }
+            }
+            else if (!me.isVisible(true)) {
+                // During animations, the painted state can be true (and the event
+                // will fire) but our own hidden config has not yet flipped to true.
+                // We need to wait for the global show event and retry this. If we
+                // go w/o waiting for isVisible() to agree, we get tripped up in
+                // places like column visibility checks.
+                if (!resyncListener || resyncListener.pending !== 'show') {
+                    resyncListener = Ext.on({
+                        show: retry,
+                        destroyable: true
+                    });
+                    resyncListener.pending = 'show';
+                }
+            }
+            else {
+                resyncListener = retry = null;
+            }
+
+            if (resyncListener !== resyncListenerWas) {
+                Ext.destroy(resyncListenerWas);
+                me.resyncListener = resyncListener;
+            }
+
+            if (!retry) {
+                me.resync(true); // save for last (after state is stable)
+            }
         },
 
         rollDown: function (count) {
@@ -2963,11 +2920,13 @@ Ext.define('Ext.dataview.List', {
         },
 
         shouldHideDisclosure: function (record) {
-            var name, show;
+            var me = this,
+                disclosureProperty,
+                show;
 
-            if (this.getOnItemDisclosure()) {
-                name = this.getDisclosureProperty();
-                show = !name || record.data[name] !== false;
+            if (me.getOnItemDisclosure()) {
+                disclosureProperty = me.getDisclosureProperty();
+                show = !disclosureProperty || record.data[disclosureProperty] !== false;
             }
 
             return !show;
@@ -3449,7 +3408,7 @@ Ext.define('Ext.dataview.List', {
                 // of rows to render. We set the height of our innerCt (which is
                 // position:relative) to provide a height to the list (see syncRows).
                 visibleHeight = me.getMaxHeight() || me.getVisibleHeight(),
-                indexTop, row, rowCount;
+                indexTop, row, rowCount, oldIndexBottom;
 
             if (firstTime) {
                 // On our first call here, we need to create at least one row so we
@@ -3534,10 +3493,6 @@ Ext.define('Ext.dataview.List', {
             var scroller = this.getScrollable();
 
             this.setVerticalOverflow(scroller.getSize().y > scroller.getClientSize().y);
-        },
-
-        resetVisibleTop: function() {
-            this.lastAdjustedPosition = this._visibleTop = null;
         },
 
         teleport: function (y) {

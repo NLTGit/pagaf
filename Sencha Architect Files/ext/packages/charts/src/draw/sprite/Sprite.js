@@ -106,8 +106,6 @@ Ext.define('Ext.draw.sprite.Sprite', {
 
     isSprite: true,
 
-    $configStrict: false,
-
     statics: {
         defaultHitTestOptions: {
             fill: true,
@@ -793,7 +791,7 @@ Ext.define('Ext.draw.sprite.Sprite', {
 
         if (!(modifier instanceof Ext.draw.modifier.Modifier)) {
             type = typeof modifier === 'string' ? modifier : modifier.type;
-            if (type && !mods[type]) {
+            if (!mods[type]) {
                 mods[type] = modifier = Ext.factory(modifier, null, null, 'modifier');
             }
         }
@@ -885,7 +883,7 @@ Ext.define('Ext.draw.sprite.Sprite', {
      */
     setAnimation: function (config) {
         if (!this.isConfiguring) {
-            this.modifiers.animation.setConfig(config || {duration: 0});
+            this.modifiers.animation.setConfig(config);
         }
     },
 
@@ -1058,7 +1056,7 @@ Ext.define('Ext.draw.sprite.Sprite', {
      * Set attributes of the sprite, assuming the names and values have already been
      * normalized.
      *
-     * @deprecated 6.5.0 Use setAttributes directly with bypassNormalization argument being `true`.
+     * @deprecated Use setAttributes directy with bypassNormalization argument being `true`.
      * @param {Object} changes The content of the change.
      * @param {Boolean} [avoidCopy] `true` to avoid copying the `changes` object.
      * The content of object may be destroyed.

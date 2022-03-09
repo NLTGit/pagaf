@@ -138,19 +138,14 @@ Ext.define('Ext.app.bind.Stub', {
             parentData = me.parent.getDataObject(), // RootStub does not get here
             name = me.name,
             ret = parentData ? parentData[name] : null,
-            storeMappings = me.bindMappings.store,
             associations;
 
-        if (!ret) {
-            if (parentData && parentData.isEntity) {
-                // Check if the item is an association, if it is, grab it but don't load it.
-                associations = parentData.associations;
-                if (associations && name in associations) {
-                    ret = parentData[associations[name].getterName]();
-                }
+        if (!ret && parentData && parentData.isEntity) {
+            // Check if the item is an association, if it is, grab it but don't load it.
+            associations = parentData.associations;
+            if (associations && name in associations) {
+                ret = parentData[associations[name].getterName]();
             }
-        } else if (parentData.isStore && name in storeMappings) {
-            ret = parentData[storeMappings[name]]();
         }
 
         if (!ret || !(ret.$className || Ext.isObject(ret))) {
@@ -316,24 +311,16 @@ Ext.define('Ext.app.bind.Stub', {
             len = modifiedFieldNames && modifiedFieldNames.length,
             associations = record.associations,
             bindMappings = this.bindMappings.model,
-            key, i, child, name, ref;
+            key, i, child;
 
         // No point checking anything if we don't have children
         if (children) {
             if (len) {
                 // We know what changed, check for it and schedule it.
                 for (i = 0; i < len; ++i) {
-                    name = modifiedFieldNames[i];
-                    child = children[name];
-
-                    if (!child) {
-                        ref = record.fieldsMap[name];
-                        ref = ref && ref.reference;
-                        child = ref && children[ref.role];
-                    }
-
+                    child = children[modifiedFieldNames[i]];
                     if (child) {
-                        child.invalidate(true);
+                        child.invalidate();
                     }
                 }
             } else {
@@ -342,7 +329,7 @@ Ext.define('Ext.app.bind.Stub', {
                 // need to trigger them so we can respond to field changes
                 for (key in children) {
                     if (!(associations && key in associations)) {
-                        children[key].invalidate(true);
+                        children[key].invalidate();
                     }
                 }
             }
@@ -621,14 +608,9 @@ Ext.define('Ext.app.bind.Stub', {
                         // store object won't change from then on
                         boundValue.on({
                             scope: me,
-                            // Capture beginload/load so we can bind to the loading state of the store.
+                            // Capture beforeload/load so we can bind to the loading state of the store.
                             // We need load because a load may be unsuccessful which means datachanged won't fire
-                            // beginload is used because it's fired:
-                            // a) After we're sure to load (beforeload could be vetoed)
-                            // b) After the loading flag is set to true. This is important
-                            // because we fire the datachanged handler which needs to check if
-                            // the store is available (loading) to publish values.
-                            beginload: 'onStoreDataChanged',
+                            beforeload: 'onStoreDataChanged',
                             load: 'onStoreDataChanged',
                             datachanged: 'onStoreDataChanged',
                             destroy: 'onDestroyBound'
@@ -650,7 +632,7 @@ Ext.define('Ext.app.bind.Stub', {
                 } else {
                     current.un({
                         scope: me,
-                        beginload: 'onStoreDataChanged',
+                        beforeload: 'onStoreDataChanged',
                         load: 'onStoreDataChanged',
                         datachanged: 'onStoreDataChanged',
                         destroy: 'onDestroyBound'

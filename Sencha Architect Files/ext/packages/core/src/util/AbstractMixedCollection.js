@@ -175,8 +175,8 @@ Ext.define('Ext.util.AbstractMixedCollection', {
      * @since 1.1.0
      * @template
      */
-    getKey : function(item) {
-         return item.id;
+    getKey : function(o) {
+         return o.id;
     },
 
     /**
@@ -414,7 +414,7 @@ Ext.define('Ext.util.AbstractMixedCollection', {
      * @param {Number} index The index to insert the item at.
      * @param {String/Object/String[]/Object[]} key The key to associate with the new item, or the item itself.
      * May also be an array of either to insert multiple items at once.
-     * @param {Object/Object[]} obj (optional) If the second parameter was a key, the new item.
+     * @param {Object/Object[]} o (optional) If the second parameter was a key, the new item.
      * May also be an array to insert multiple items at once.
      * @return {Object} The item inserted or an array of items inserted.
      * @since 1.1.0
@@ -915,7 +915,7 @@ Ext.define('Ext.util.AbstractMixedCollection', {
      * @param {String} property The property to collect on
      * @param {String} root (optional) 'root' property to extract the first argument from. This is used mainly when
      * summing fields in records, where the fields are all stored inside the 'data' object
-     * @param {Boolean} allowNull (optional) Pass true to allow null, undefined or empty string values
+     * @param {Boolean} allowBlank (optional) Pass true to allow null, undefined or empty string values
      * @return {Array} The unique values
      */
     collect: function(property, root, allowNull) {
@@ -969,8 +969,8 @@ Ext.define('Ext.util.AbstractMixedCollection', {
 
     /**
      * Returns a range of items in this collection
-     * @param {Number} start (optional) The starting index. Defaults to 0.
-     * @param {Number} end (optional) The ending index. Defaults to the last item.
+     * @param {Number} startIndex (optional) The starting index. Defaults to 0.
+     * @param {Number} endIndex (optional) The ending index. Defaults to the last item.
      * @return {Array} An array of items
      * @since 1.1.0
      */

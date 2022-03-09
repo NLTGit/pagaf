@@ -19,13 +19,6 @@ Ext.define('Ext.event.publisher.Gesture', {
         MSPointerCancel: 1
     },
 
-    isEndEvent: {
-        mouseup: 1,
-        touchend: 1,
-        pointerup: 1,
-        MSPointerUp: 1
-    },
-
     handledEvents: [],
     handledDomEvents: [],
 
@@ -38,6 +31,8 @@ Ext.define('Ext.event.publisher.Gesture', {
             onTouchMove = me.onTouchMove,
             onTouchEnd = me.onTouchEnd;
 
+        // set up handlers that do not use requestAnimationFrame for when the useAnimationFrame
+        // config is set to false
         me.handlers = {
             touchstart: onTouchStart,
             touchmove: onTouchMove,
@@ -352,10 +347,9 @@ Ext.define('Ext.event.publisher.Gesture', {
         }
     },
 
-    updateTouches: function(e) {
+    updateTouches: function(e, isEnd) {
         var me = this,
             browserEvent = e.browserEvent,
-            type = e.type,
             // the touchSource is the object from which we get data about the changed touch
             // point or points related to an event object, such as identifier, target, and
             // coordinates. For touch event the source is changedTouches, for mouse and
@@ -402,7 +396,7 @@ Ext.define('Ext.event.publisher.Gesture', {
                 activeTouches.push(touch);
             }
 
-            if (me.isEndEvent[type] || me.isCancelEvent[type]) {
+            if (isEnd) {
                 delete activeTouchesMap[identifier];
                 Ext.Array.remove(activeTouches, touch);
             }
@@ -436,12 +430,6 @@ Ext.define('Ext.event.publisher.Gesture', {
             // Track the event on the instance so it can be fired after gesture recognition
             // completes (if any gestures are recognized they will be added to this array)
             me.events = [e];
-
-            // This property on the browser event object indicates that the event has bubbled
-            // up to the window object and has begun being handled by the gesture publisher.
-            // If the user calls stopPropagation on an event that has not yet been "handled"
-            // it triggers gesture cancellation and cleanup.
-            e.browserEvent.$extHandled = true;
 
             me.handlers[e.type].call(me, e);
         } else {
@@ -497,14 +485,9 @@ Ext.define('Ext.event.publisher.Gesture', {
 
     onTouchMove: function(e) {
         var me = this,
-            mousePointerType = me.mousePointerType,
-            isStarted = me.isStarted;
+            mousePointerType = me.mousePointerType;
 
-        if (isStarted || (e.pointerType !== 'mouse')) {
-            me.updateTouches(e);
-        }
-
-        if (isStarted) {
+        if (me.isStarted) {
             // In IE10/11, the corresponding pointerup event is not fired after the pointerdown after
             // the mouse is released from the scrollbar. However, it does fire a pointermove event with buttons: 0, so
             // we capture that here and ensure the touch end process is completed.
@@ -514,6 +497,8 @@ Ext.define('Ext.event.publisher.Gesture', {
                 me.onTouchEnd(e);
                 return;
             }
+
+            me.updateTouches(e);
 
             if (e.changedTouches.length > 0) {
                 me.invokeRecognizers('onTouchMove', e);
@@ -528,17 +513,14 @@ Ext.define('Ext.event.publisher.Gesture', {
     // that is called.
     onTouchEnd: function(e) {
         var me = this,
-            isStarted = me.isStarted,
             touchCount;
 
-        if (isStarted || (e.pointerType !== 'mouse')) {
-            me.updateTouches(e);
-        }
-
-        if (!isStarted) {
+        if (!me.isStarted) {
             me.publishGestures();
             return;
         }
+
+        me.updateTouches(e, true);
 
         touchCount = me.activeTouches.length;
 
@@ -592,19 +574,10 @@ Ext.define('Ext.event.publisher.Gesture', {
     },
 
     doTargetTouchMove: function(e) {
-        var me = this;
-
         // handle touchmove if the target el was removed from dom mid-gesture.
         // see onTouchStart/onTargetTouchEnd for further explanation
         if (!Ext.getBody().contains(e.target)) {
-            me.reEnterCountAdjusted = false;
-            me.reEnterCount++;
-
             this.onTouchMove(new Ext.event.Event(e));
-            
-            if (!me.reEnterCountAdjusted) {
-                me.reEnterCount--;
-            }
         }
     },
 
@@ -639,14 +612,7 @@ Ext.define('Ext.event.publisher.Gesture', {
         // events will fire on whatever element is under the cursor/pointer after the
         // original target has been removed.
         if (!Ext.getBody().contains(target)) {
-            me.reEnterCountAdjusted = false;
-            me.reEnterCount++;
-
             me.onTouchEnd(new Ext.event.Event(e));
-            
-            if (!me.reEnterCountAdjusted) {
-                me.reEnterCount--;
-            }
         }
     },
 
@@ -670,6 +636,7 @@ Ext.define('Ext.event.publisher.Gesture', {
         me.gestureTargets = null;
         me.events = [];
         me.cancelEvents = [];
+        me.reEnterCount = 0;
 
         for (i = 0; i < ln; i++) {
             recognizer = recognizers[i];
@@ -705,29 +672,5 @@ Ext.define('Ext.event.publisher.Gesture', {
         }
     }
 }, function(Gesture) {
-    var EventProto = Event.prototype,
-        stopPropagation = EventProto.stopPropagation;
-
-    if (stopPropagation) {
-        EventProto.stopPropagation = function () {
-            var me = this,
-                publisher = Gesture.instance,
-                type = me.type,
-                e;
-
-            if (!me.$extHandled && publisher.handles[type]) {
-                // User called stop propagation on a native event used by the gesture publisher
-                // to synthesize gesture events.  Cancel gesture recognition and reset the publisher.
-                e = new Ext.event.Event(me);
-                publisher.updateTouches(e);
-                publisher.invokeRecognizers('onTouchCancel', e);
-                publisher.reset();
-                publisher.reEnterCountAdjusted = true;
-            }
-
-            stopPropagation.apply(me, arguments);
-        };
-    }
-
     Gesture.instance = Ext.$gesturePublisher = new Gesture();
 });

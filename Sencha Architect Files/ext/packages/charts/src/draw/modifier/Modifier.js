@@ -66,14 +66,14 @@ Ext.define('Ext.draw.modifier.Modifier', {
     /**
      * @private
      * Invoked when changes need to be popped up to the top.
-     * @param {Object} attr The source attributes.
+     * @param {Object} attributes The source attributes.
      * @param {Object} changes The changes to be popped up.
      */
-    popUp: function (attr, changes) {
+    popUp: function (attributes, changes) {
         if (this._upper) {
-            this._upper.popUp(attr, changes);
+            this._upper.popUp(attributes, changes);
         } else {
-            Ext.apply(attr, changes);
+            Ext.apply(attributes, changes);
         }
     },
 
@@ -93,11 +93,10 @@ Ext.define('Ext.draw.modifier.Modifier', {
      * The method also handles a special case when a sprite attribute that is meant to be
      * animated was set to a certain value (e.g. 5), that is different from the original
      * value (e.g. 3) of the attribute, and immediately set to another value again, that
-     * is the same as the original value (3). In this case, the attribute's current
-     * value is still the original value, because the attribute hasn't started animating
-     * yet, so a comparison against the current value is not appropriate, and the target
-     * value (value at the end of animation, 5) should be used for comparison instead, so
-     * that 3 won't be filtered out.
+     * is the same as the original value (i.e. 3). In this case, the attribute's current
+     * value is still the original value (3), since the attribute hasn't started animating
+     * yet, so a comparison against the current value is not appropriate and the target
+     * value (value at the end of animation) should be used for comparison instead.
      */
     filterChanges: function (attr, changes, receiver) {
         var targets = attr.targets,

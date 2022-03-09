@@ -6,8 +6,8 @@ Ext.define('Ext.util.sizemonitor.OverflowChange', {
     extend: 'Ext.util.sizemonitor.Abstract',
 
     constructor: function(config) {
-        this.onExpand = this.onExpand.bind(this);
-        this.onShrink = this.onShrink.bind(this);
+        this.onExpand = Ext.Function.bind(this.onExpand, this);
+        this.onShrink = Ext.Function.bind(this.onShrink, this);
 
         this.callParent(arguments);
     },

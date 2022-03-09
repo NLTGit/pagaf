@@ -51,40 +51,18 @@ Ext.define('Ext.data.validator.Number', {
         this.rebuildMatcher();
     },
 
-    parse: function (v) {
-        var sep = this.getDecimalSeparator(),
-            N = Ext.Number;
-
-        if (typeof v === 'string') {
-            if (!this.matcher.test(v)) {
-                return null;
-            }
-            v = this.parseValue(v);
-        }
-
-        return sep ? N.parseFloat(v) : N.parseInt(v);
-    },
-
     validate: function(value) {
-        return this.parse(value) === null ? this.getMessage() : true;
+        var matcher = this.matcher,
+            result = matcher.test(value);
+
+        return result ? result : this.getMessage();
     },
 
     privates: {
         getMatcherText: function(preventSign) {
-            var t = this.getThousandSeparator(),
-                d = this.getDecimalSeparator(),
-                s = '(?:';
-
-            if (t) {
-                t = Ext.String.escapeRegex(t);
-                s += '(?:\\d{1,3}(' + t + '\\d{3})*)|';
-            }
-            s += '\\d*)';
-
-            if (d) {
-                d = Ext.String.escapeRegex(d);
-                s += '(?:' + d + '\\d*)?';
-            }
+            var t = Ext.String.escapeRegex(this.getThousandSeparator()),
+                d = Ext.String.escapeRegex(this.getDecimalSeparator()),
+                s = '(\\d{1,3}(' + t + '\\d{3})*(' + d + '\\d+)?|' + d + '\\d+)';
 
             if (!preventSign) {
                 s = this.getSignPart() + s;
@@ -97,30 +75,9 @@ Ext.define('Ext.data.validator.Number', {
             return '(\\+|\\-)?';
         },
 
-        parseValue: function(v) {
-            var thousandMatcher = this.thousandMatcher,
-                decimal;
-
-            if (thousandMatcher) {
-                v = v.replace(thousandMatcher, '');
-            }
-            decimal = this.getDecimalSeparator();
-            if (decimal && decimal !== '.') {
-                v = v.replace(decimal, '.');
-            }
-            return v;
-        },
-
         rebuildMatcher: function() {
-            var me = this,
-                sep;
-
-            if (!me.isConfiguring) {
-                sep = me.getThousandSeparator();
-                me.matcher = new RegExp('^' + me.getMatcherText() + '$');
-                if (sep) {
-                    me.thousandMatcher = sep ? new RegExp(Ext.String.escapeRegex(sep), 'g') : null;
-                }
+            if (!this.isConfiguring) {
+                this.matcher = new RegExp('^' + this.getMatcherText() + '$');
             }
         }
     }

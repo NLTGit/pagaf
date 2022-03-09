@@ -43,8 +43,8 @@
  */
 Ext.define('Ext.ux.statusbar.StatusBar', {
     extend: 'Ext.toolbar.Toolbar',
-    xtype: 'statusbar',
     alternateClassName: 'Ext.ux.StatusBar',
+    alias: 'widget.statusbar',
     requires: ['Ext.toolbar.TextItem'],
     /**
      * @cfg {String} statusAlign
@@ -101,7 +101,7 @@ Ext.define('Ext.ux.statusbar.StatusBar', {
      * If not specified, the value set for {@link #defaultText} will be used.
      */
     /**
-     * @cfg [iconCls='']
+     * @cfg {String} [iconCls='']
      * @inheritdoc Ext.panel.Header#cfg-iconCls
      * @localdoc **Note:** This CSS class will be **initially** set as the status bar 
      * icon.  See also {@link #defaultIconCls} and {@link #busyIconCls}.
@@ -244,23 +244,23 @@ Ext.define('Ext.ux.statusbar.StatusBar', {
      *
      * @return {Ext.ux.statusbar.StatusBar} this
      */
-    setStatus: function(config) {
+    setStatus: function(o) {
         var me = this;
 
-        config = config || {};
+        o = o || {};
         Ext.suspendLayouts();
-        if (Ext.isString(config)) {
-            config = {text:config};
+        if (Ext.isString(o)) {
+            o = {text:o};
         }
-        if (config.text !== undefined) {
-            me.setText(config.text);
+        if (o.text !== undefined) {
+            me.setText(o.text);
         }
-        if (config.iconCls !== undefined) {
-            me.setIcon(config.iconCls);
+        if (o.iconCls !== undefined) {
+            me.setIcon(o.iconCls);
         }
 
-        if (config.clear) {
-            var c = config.clear,
+        if (o.clear) {
+            var c = o.clear,
                 wait = me.autoClear,
                 defaults = {useDefaults: true, anim: true};
 
@@ -295,23 +295,23 @@ Ext.define('Ext.ux.statusbar.StatusBar', {
      *
      * @return {Ext.ux.statusbar.StatusBar} this
      */
-    clearStatus : function(config) {
-        config = config || {};
+    clearStatus : function(o) {
+        o = o || {};
 
         var me = this,
             statusEl = me.statusEl;
 
-        if (me.destroyed || config.threadId && config.threadId !== me.activeThreadId) {
+        if (me.destroyed || o.threadId && o.threadId !== me.activeThreadId) {
             // this means the current call was made internally, but a newer
             // thread has set a message since this call was deferred.  Since
             // we don't want to overwrite a newer message just ignore.
             return me;
         }
 
-        var text = config.useDefaults ? me.defaultText : me.emptyText,
-            iconCls = config.useDefaults ? (me.defaultIconCls ? me.defaultIconCls : '') : '';
+        var text = o.useDefaults ? me.defaultText : me.emptyText,
+            iconCls = o.useDefaults ? (me.defaultIconCls ? me.defaultIconCls : '') : '';
 
-        if (config.anim) {
+        if (o.anim) {
             // animate the statusEl Ext.Element
             statusEl.el.puff({
                 remove: false,
@@ -359,7 +359,7 @@ Ext.define('Ext.ux.statusbar.StatusBar', {
     /**
      * Convenience method for setting the status icon directly.  For more flexible options see {@link #setStatus}.
      * See {@link #iconCls} for complete details about customizing the icon.
-     * @param {String} cls (optional) The icon class to set (defaults to '', and any current icon class is removed)
+     * @param {String} iconCls (optional) The icon class to set (defaults to '', and any current icon class is removed)
      * @return {Ext.ux.statusbar.StatusBar} this
      */
     setIcon : function(cls) {
@@ -394,14 +394,14 @@ Ext.define('Ext.ux.statusbar.StatusBar', {
      * {@link #busyIconCls} will be used in conjunction with all of the default options for {@link #setStatus}.
      * @return {Ext.ux.statusbar.StatusBar} this
      */
-    showBusy : function(config){
-        if (Ext.isString(config)) {
-            config = { text: config };
+    showBusy : function(o){
+        if (Ext.isString(o)) {
+            o = { text: o };
         }
-        config = Ext.applyIf(config || {}, {
+        o = Ext.applyIf(o || {}, {
             text: this.busyText,
             iconCls: this.busyIconCls
         });
-        return this.setStatus(config);
+        return this.setStatus(o);
     }
 });

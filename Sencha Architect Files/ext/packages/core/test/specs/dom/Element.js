@@ -1765,8 +1765,10 @@ topSuite("Ext.dom.Element", function() {
                 });
 
                 function clearMargins() {
-                    var s = element.dom.style;
-                    s.marginTop = s.marginRight = s.marginBottom = s.marginLeft = '';
+                    element.dom.style.marginTop = '';
+                    element.dom.style.marginRight = '';
+                    element.dom.style.marginBottom = '';
+                    element.dom.style.marginLeft = '';
                 }
 
                 describe("with sides", function() {
@@ -1807,18 +1809,6 @@ topSuite("Ext.dom.Element", function() {
                         expect(element.getMargin('tb')).toBe(0);
                         expect(element.getMargin('lr')).toBe(0);
                     });
-
-                    describe("negative margin", function() {
-                        it("should be able to return a single negative margin", function() {
-                            element.dom.style.marginTop = '-1px';
-                            expect(element.getMargin('t')).toBe(-1);
-                        });
-
-                        it("should include a negative margin in a sum", function() {
-                            element.dom.style.marginTop = '-1px';
-                            expect(element.getMargin('tb')).toBe(20);
-                        });
-                    });
                 });
 
                 describe("with no sides", function() {
@@ -1846,20 +1836,6 @@ topSuite("Ext.dom.Element", function() {
                             bottom: 0,
                             l: 0,
                             left: 0
-                        });
-                    });
-
-                    it("should return a negative margin", function() {
-                        element.dom.style.marginTop = '-1px';
-                        expect(element.getMargin()).toEqual({
-                            t: -1,
-                            top: -1,
-                            r: 11,
-                            right: 11,
-                            b: 21,
-                            bottom: 21,
-                            l: 31,
-                            left: 31
                         });
                     });
                 });
@@ -2204,19 +2180,6 @@ topSuite("Ext.dom.Element", function() {
 
             it("should not wrap a text node", function() {
                 expect(Ext.fly(document.createTextNode(('foo')))).toBe(null);
-            });
-
-            it("should wrap an Ext.dom.Element instance", function() {
-                var el = Ext.getBody().createChild();
-                expect(Ext.fly(el).dom).toBe(el.dom);
-                el.destroy();
-            });
-
-            it("should wrap a fly", function() {
-                var div = document.createElement('div'),
-                    other = Ext.fly(div, '_named');
-
-                expect(Ext.fly(other).dom).toBe(div);
             });
         });
 
@@ -3837,14 +3800,11 @@ topSuite("Ext.dom.Element", function() {
                 var element, handler, handler2, scope, args, child, child2, grandchild;
 
                 function addListener(opt) {
-                    var o = Ext.apply({
+                    element.addListener(Ext.apply({
                         click: handler,
                         delegated: delegated,
                         translate: false
-                    }, opt);
-
-                    element.addListener(o);
-                    return o;
+                    }, opt));
                 }
 
                 function removeListener(opt) {
@@ -3952,42 +3912,34 @@ topSuite("Ext.dom.Element", function() {
                     });
 
                     it("should delay the listener", function() {
-                        var eventOptions = addListener({ delay: 150 });
-
-                        expect(eventOptions.$delayedTask).toBeFalsy();
-
+                        addListener({ delay: 150 });
                         fire();
-
-                        expect(eventOptions.$delayedTask).toBeTruthy();
-                        expect(eventOptions.$delayedTask.delayTime).toBe(150);
-                        expect(handler).not.toHaveBeenCalled();
-
-                        eventOptions.$delayedTask.flush();
-                        expect(handler).toHaveBeenCalled();
+                        waits(30);
+                        runs(function() {
+                            expect(handler).not.toHaveBeenCalled();
+                        });
+                        waits(150);
+                        runs(function() {
+                            expect(handler).toHaveBeenCalled();
+                        });
                     });
 
                     it("should buffer the listener", function() {
-                        var eventOptions = addListener({ buffer: 150 });
-
+                        addListener({ buffer: 150 });
                         fire();
-
-                        expect(eventOptions.$delayedTask).toBeTruthy();
-                        expect(eventOptions.$delayedTask.delayTime).toBe(150);
-                        expect(handler).not.toHaveBeenCalled();
-
-                        var timerId = eventOptions.$delayedTask.id;
-                        expect(timerId).toBeTruthy();
-
-                        fire();
-
-                        expect(handler).not.toHaveBeenCalled();
-
-                        // The 2nd firing should have reset the timer
-                        expect(eventOptions.$delayedTask.id).toBeTruthy();
-                        expect(eventOptions.$delayedTask.id).not.toBe(timerId);
-
-                        eventOptions.$delayedTask.flush();
-                        expect(handler).toHaveBeenCalled();
+                        waits(100);
+                        runs(function() {
+                            expect(handler).not.toHaveBeenCalled();
+                            fire();
+                        });
+                        waits(100);
+                        runs(function() {
+                            expect(handler).not.toHaveBeenCalled();
+                        });
+                        waits(100);
+                        runs(function() {
+                            expect(handler).toHaveBeenCalled();
+                        });
                     });
 
                     it("should attach listeners with a delegate selector", function() {
@@ -5031,206 +4983,6 @@ topSuite("Ext.dom.Element", function() {
                 Ext.event.publisher.Gesture.instance.fire(el, 'customtap', e, false, false);
                 expect(spy).not.toHaveBeenCalled();
             });
-        });
-    });
-
-    describe("measure", function() {
-        var el;
-
-        function makeDefault() {
-            el = Ext.getBody().createChild({
-                style: 'width: 100px; height: 80px;'
-            });
-        }
-
-        afterEach(function() {
-            el = Ext.destroy(el);
-        });
-
-        describe("params", function() {
-            beforeEach(function() {
-                makeDefault();
-            });
-
-            it("should return only width when passed with 'w'", function() {
-                expect(el.measure('w')).toBe(100);
-            });
-
-            it("should return only height when passed with 'h'", function() {
-                expect(el.measure('h')).toBe(80);
-            });
-
-            it("should return an object with no params", function() {
-                expect(el.measure()).toEqual({
-                    width: 100,
-                    height: 80
-                });
-            });
-        });
-
-        describe('with padding', function() {
-            function makeDefault() {
-                el = Ext.getBody().createChild({
-                    style: 'position:absolute;padding:5px',
-                    children: {
-                        style: 'width: 100px; height: 80px;'
-                    }
-                });
-            }
-
-            it('should include padding on all platforms', function() {
-                makeDefault();
-                expect(el.measure()).toEqual({
-                    width: 110,
-                    height: 90
-                });
-            });
-        });
-
-        describe('content-box sizing', function() {
-            function makeDefault() {
-                el = Ext.getBody().createChild({
-                    style: 'width: 100px; height: 80px;padding:5px;box-sizing:content-box'
-                });
-            }
-
-            it('should include padding on all platforms', function() {
-                makeDefault();
-                expect(el.measure()).toEqual({
-                    width: 110,
-                    height: 90
-                });
-            });
-        });
-
-        describe("hidden", function() {
-            describe("while hidden directly", function() {
-                it("should return 0", function() {
-                    makeDefault();
-                    el.setDisplayed(false);
-                    expect(el.measure()).toEqual({
-                        width: 0,
-                        height: 0
-                    });
-                });
-            });
-
-            describe("while hidden by a parent", function() {
-                it("should return 0", function() {
-                    makeDefault();
-                    var parent = Ext.getBody().createChild();
-                    parent.append(el);
-                    expect(el.measure()).toEqual({
-                        width: 100,
-                        height: 80
-                    });
-                    parent.setDisplayed(false);
-                    expect(el.measure()).toEqual({
-                        width: 0,
-                        height: 0
-                    });
-                    parent.destroy();
-                });
-            });
-        });
-
-        describe("transform", function() {
-            it("should not be affected by transforms", function() {
-                makeDefault();
-                var s = el.dom.style;
-                s.webkitTransform = s.msTransform = s.transform = 'scale(0.5)';
-                expect(el.measure()).toEqual({
-                    width: 100,
-                    height: 80
-                });
-            });
-        });
-
-        describe("fractional pixels", function() {
-            it("should return fractional sizes", function() {
-                el = Ext.getBody().createChild({
-                    style: 'width: 101.5px; height: 80.5px;'
-                });
-
-                var rect = el.dom.getBoundingClientRect(),
-                    w = rect.right - rect.left,
-                    h = rect.bottom - rect.top;
-
-                // IE8 doesn't support fractional pixels, so the result
-                // should be whatever gbcr returns
-
-                expect(el.measure('w')).toBe(w);
-                expect(el.measure('h')).toBe(h);
-                expect(el.measure()).toEqual({
-                    width: w,
-                    height: h
-                });
-            });
-        });
-
-        describe("units", function() {
-            it("should return value for em", function() {
-                el = Ext.getBody().createChild({
-                    style: 'font-size: 20px; position: absolute;',
-                    children: [{
-                        style: 'width: 2em; height: 3em'
-                    }]
-                });
-
-                expect(el.first().measure()).toEqual({
-                    width: 40,
-                    height: 60
-                });
-                el.first().destroy();
-            });
-
-            it("should return value for %", function() {
-                el = Ext.getBody().createChild({
-                    style: 'width: 200px',
-                    children: [{
-                        style: 'width: 50%'
-                    }]
-                });
-                expect(el.first().measure('w')).toBe(100);
-                el.first().destroy();
-            });
-
-            it("should return value for auto", function() {
-                el = Ext.getBody().createChild({
-                    style: 'width: 200px',
-                    children: [{
-                    }]
-                });
-                expect(el.first().measure('w')).toBe(200);
-                el.first().destroy();
-            });
-        });
-    });
-
-    describe('miscellaneous', function () {
-        // classic
-        (Ext.toolkit === 'classic' ? describe : xdescribe)('classic toolkit', function () {
-            
-            // EXTJS-20524
-            describe('syncContent', function () {
-                it('should not throw an exception when syncing node content', function () {
-                    var el1 = Ext.fly(document.createElement('div')),
-                        el2 = Ext.fly(document.createElement('div'));
-                    
-                    el1.dom.innerHTML = '<!--comment--> foo';
-                    el2.dom.innerHTML = '<!--comment--> bar';
-    
-                    expect(function () {el1.syncContent(el2);}).not.toThrow();
-                    expect(el1.dom.innerHTML).toEqual(
-                        (Ext.isIE8 ? '' : '<!--comment--> ') + 'bar'
-                    );
-                });
-            });
-        });
-        
-        // modern
-        (Ext.toolkit === 'modern' ? describe : xdescribe)('modern toolkit', function () {
-        
         });
     });
 });

@@ -25,7 +25,7 @@ Ext.define('Ext.dd.Registry', {
     /**
      * Registers a drag drop element.
      *
-     * @param {String/HTMLElement} el The id or DOM node to register
+     * @param {String/HTMLElement} element The id or DOM node to register
      * @param {Object} data An custom data object that will be passed between the elements that are involved in drag
      * drop operations. You can populate this object with any arbitrary properties that your own code knows how to
      * interpret, plus there are some specific properties known to the Registry that should be populated in the data
@@ -54,7 +54,7 @@ Ext.define('Ext.dd.Registry', {
 
     /**
      * Unregister a drag drop element
-     * @param {String/HTMLElement} el The id or DOM node to unregister
+     * @param {String/HTMLElement} element The id or DOM node to unregister
      */
     unregister : function(el){
         var id = this.getId(el, false),

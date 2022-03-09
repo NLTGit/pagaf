@@ -112,10 +112,9 @@ Ext.define('Ext.form.FieldSet', {
     collapsed: false,
 
     /**
-     * @cfg {Boolean} toggleOnTitleClick
-     * Set to true will add a listener to the titleCmp property for the click event which
-     * will execute the {@link #toggle} method. This option is only used when the
-     * {@link #collapsible} property is set to true.
+     * @cfg {Boolean} [toggleOnTitleClick=true]
+     * Set to true will add a listener to the titleCmp property for the click event which will execute the
+     * {@link #toggle} method. This option is only used when the {@link #collapsible} property is set to true.
      */
     toggleOnTitleClick : true,
 
@@ -126,7 +125,7 @@ Ext.define('Ext.form.FieldSet', {
      */
 
     /**
-     * @cfg {String} baseCls
+     * @cfg {String} [baseCls='x-fieldset']
      * The base CSS class applied to the fieldset.
      */
     baseCls: Ext.baseCSSPrefix + 'fieldset',
@@ -138,15 +137,13 @@ Ext.define('Ext.form.FieldSet', {
     layout: 'anchor',
     
     /**
-     * @cfg {String} descriptionText
-     * Fieldset description to be announced by screen readers.
+     * @cfg {String} descriptionText Fieldset description to be announced by screen readers.
      * @locale
      */
     descriptionText: '{0} field set',
     
     /**
-     * @cfg {String} expandText
-     * Text to be announced by screen readers when toggle tool
+     * @cfg {String} expandText Text to be announced by screen readers when toggle tool
      * or checkbox is focused.
      * @locale
      */
@@ -154,22 +151,10 @@ Ext.define('Ext.form.FieldSet', {
 
     componentLayout: 'fieldset',
     
-    /**
-     * @property ariaRole
-     * @inheritdoc
-     */
     ariaRole: 'group',
 
-    /**
-     * @property focusable
-     * @inheritdoc
-     */
     focusable: false,
 
-    /**
-     * @cfg autoEl
-     * @inheritdoc
-     */
     autoEl: 'fieldset',
 
     /**
@@ -181,18 +166,10 @@ Ext.define('Ext.form.FieldSet', {
      */
     checkbox: null,
 
-    /**
-     * @cfg childEls
-     * @inheritdoc
-     */
     childEls: [
         'body'
     ],
 
-    /**
-     * @cfg renderTpl
-     * @inheritdoc
-     */
     renderTpl: [
         '{%this.renderLegend(out,values);%}',
         '<div id="{id}-body" data-ref="body" class="{baseCls}-body {baseCls}-body-{ui} {bodyTargetCls}" ',
@@ -212,10 +189,6 @@ Ext.define('Ext.form.FieldSet', {
      */
     stateEvents : [ 'collapse', 'expand' ],
 
-    /**
-     * @property maskOnDisable
-     * @inheritdoc
-     */
     maskOnDisable: false,
 
     /**

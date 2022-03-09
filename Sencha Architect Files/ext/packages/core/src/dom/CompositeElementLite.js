@@ -41,7 +41,6 @@ Ext.define('Ext.dom.CompositeElementLite', {
 
     /**
      * @cfg bubbleEvents
-     * @hide
      */
 
     /**
@@ -78,10 +77,9 @@ Ext.define('Ext.dom.CompositeElementLite', {
         }
     },
 
-    constructor: function(elements, skipValidation) {
+    constructor: function(elements, /* private */ skipValidation) {
         /**
          * @property {HTMLElement[]} elements
-         * @param skipValidation (private)
          * @readonly
          * The Array of DOM elements which this CompositeElement encapsulates.
          *

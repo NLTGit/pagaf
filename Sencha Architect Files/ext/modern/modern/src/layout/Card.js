@@ -120,16 +120,6 @@ Ext.define('Ext.layout.Card', {
         }
     },
 
-    /**
-     * @cfg {Boolean} [deferRender=true]
-     * By default, items not initially shown in the Card layout are rendered when first shown.  This provides
-     * a performance benefit, but if the hidden items contain components that are bound, the bindings do not
-     * immediately take effect.  If you have a form with bnound fields that spans several cards, the initially
-     * hidden items won't have their values bound and validation will not be done properly.  In those cases,
-     * you will want to set deferRender to false.
-     */
-    deferRender: true,
-
     cls: Ext.baseCSSPrefix + 'layout-card',
 
     itemCls: Ext.baseCSSPrefix + 'layout-card-item',
@@ -166,13 +156,14 @@ Ext.define('Ext.layout.Card', {
             }
         }
 
+
         if (oldAnimation) {
             oldAnimation.destroy();
         }
     },
 
     applyIndicator: function (indicator, currentIndicator) {
-        return Ext.updateWidget(currentIndicator, indicator, this, 'createIndicator');
+        return Ext.Factory.widget.update(currentIndicator, indicator, this, 'createIndicator');
     },
 
     createIndicator: function (indicator) {
@@ -378,9 +369,11 @@ Ext.define('Ext.layout.Card', {
         },
 
         renderInnerItem: function(item, asRoot) {
-            if (!this.deferRender || this.getContainer().getActiveItem() === item) {
+            var active = this.getContainer().getActiveItem();
+            if (active === item) {
                 this.callParent([item, asRoot]);
             }
+
         },
 
         showItem: function(item) {

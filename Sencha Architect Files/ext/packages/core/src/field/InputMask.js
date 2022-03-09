@@ -1,48 +1,5 @@
 /**
- * Input masks provide a way for developers to define rules that govern user input. This ensures
- * that data is submitted in an expected format and with the appropriate character set.
  *
- * Frequent uses of input masks include:
- *
- * + Zip or postal codes
- * + Times
- * + Dates
- * + Telephone numbers
- *
- * ## Character Sets
- *
- * Input mask characters can be defined by representations of the desired set.  For instance,
- * if you only want to allow numbers, you can use 0 or 9.  Here is the list of default
- * representations:
- *
- * + '*': '[A-Za-z0-9]' // any case letter A-Z, any integer
- * + 'a': '[a-z]'       // any lower case letter a-z
- * + 'A': '[A-Z]'       // any upper case letter A-Z
- * + '0': '[0-9]'       // any integer
- * + '9': '[0-9]'        // any integer
- *
- * So, to create a telephone input mask, you could use:
- *
- * + (000) 000-0000
- *
- * or
- *
- * + (999) 999-9999
- *
- * ## Telephone input mask
- *
- *     @example toolkit=modern
- *     Ext.create({
- *         fullscreen: true,
- *         xtype: 'formpanel',
- *
- *         items: [{
- *             xtype: 'textfield',
- *             label: 'Phone Number',
- *             placeholder: '(xxx) xxx-xxxx',
- *             inputMask: '(999) 999-9999'
- *         }]
- *     });
  */
 Ext.define('Ext.field.InputMask', function (InputMask) { return {
     requires: [
@@ -374,7 +331,7 @@ Ext.define('Ext.field.InputMask', function (InputMask) { return {
     },
 
     isFixedChar: function (pos) {
-        return Ext.Array.indexOf(this._fixedCharPositions, pos) > -1;
+        return this._fixedCharPositions.indexOf(pos) > -1;
     },
 
     setCaretToEnd: function (field, value) {
@@ -528,7 +485,7 @@ Ext.define('Ext.field.InputMask', function (InputMask) { return {
             s = value,
             caretPos, pos, start, textSelection;
 
-        if (key === event.ENTER || key === event.TAB || event.ctrlKey || event.metaKey) {
+        if (key === event.ENTER || event.ctrlKey || event.metaKey) {
             return;
         }
 
@@ -576,8 +533,8 @@ Ext.define('Ext.field.InputMask', function (InputMask) { return {
         if (clipdData && clipdData.getData) {
             text = clipdData.getData('text/plain');
         }
-        else if (Ext.global.clipboardData && Ext.global.clipboardData.getData) {
-            text = Ext.global.clipboardData.getData('Text'); // IE
+        else if (Ext.global.clipboardData && clipboardData.getData) {
+            text = clipboardData.getData('Text'); // IE
         }
 
         if (text) {
@@ -686,7 +643,7 @@ Ext.define('Ext.field.InputMask', function (InputMask) { return {
 
         me._prefix = prefix;
     }
-};},
+}},
 function (InputMask) {
     InputMask.cache = new Ext.util.LRU();
     InputMask.cache.maxSize = 100;

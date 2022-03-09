@@ -136,16 +136,8 @@ Ext.define('Ext.Dialog', {
     isDialog: true,
     isWindow: true,  // classic compat
 
-    /**
-     * @property ariaRole
-     * @inheritdoc
-     */
     ariaRole: 'dialog',
 
-    /**
-     * @property classCls
-     * @inheritdoc
-     */
     classCls: Ext.baseCSSPrefix + 'dialog',
 
     /**
@@ -348,46 +340,11 @@ Ext.define('Ext.Dialog', {
         // minimized: null,
     },
 
-    /**
-     * @cfg border
-     * @inheritdoc
-     */
     border: true,
-    
-    /**
-     * @cfg bodyBorder
-     * @inheritdoc
-     */
     bodyBorder: false,
-    
-    /**
-     * @cfg centered
-     * @inheritdoc
-     */
     centered: true,
-    
-    /**
-     * @cfg floated
-     * @inheritdoc
-     */
     floated: true,
-    
-    /**
-     * @property focusable
-     * @inheritdoc
-     */
-    focusable: false,
-    
-    /**
-     * @cfg tabIndex
-     * @inheritdoc
-     */
-    tabIndex: -1,
 
-    /**
-     * @cfg draggable
-     * @inheritdoc
-     */
     draggable: {
         handle: '.' + Ext.baseCSSPrefix + 'draggable',
         listeners: {
@@ -396,23 +353,19 @@ Ext.define('Ext.Dialog', {
         }
     },
 
-    /**
-     * @cfg keyMap
-     * @inheritdoc
-     */
     keyMap: {
         ESC: 'onEscape',
         scope: 'this'
     },
 
     /**
-     * @cfg modal
+     * @cfg {Boolean} modal
      * @inheritdoc
      */
     modal: true,
 
     /**
-     * @cfg shadow
+     * @cfg {Boolean} shadow
      * @inheritdoc
      */
     shadow: true,
@@ -423,12 +376,6 @@ Ext.define('Ext.Dialog', {
         Ext.baseCSSPrefix + 'paneltool',
         Ext.baseCSSPrefix + 'dialogtool'
     ],
-    
-    /**
-     * @cfg hideMode
-     * @inheritdoc
-     */
-    hideMode: 'offsets',
 
     /**
      * @cfg hideAnimation
@@ -452,24 +399,12 @@ Ext.define('Ext.Dialog', {
 
     //------------------------------
 
-    initialize: function() {
+    doDestroy: function () {
         var me = this;
 
+        Ext.destroy(me.maximizeTool, me.restoreTool);
+
         me.callParent();
-
-        if (me.tabGuard) {
-            me.addPlugin({
-                type: 'tabguard',
-                tabGuardBeforeIndex: me.tabGuardBeforeIndex,
-                tabGuardAfterIndex: me.tabGuardAfterIndex
-            });
-        }
-    },
-
-    doDestroy: function () {
-        Ext.destroy(this.maximizeTool, this.restoreTool);
-
-        this.callParent();
     },
 
     close: function (event) {
@@ -624,22 +559,10 @@ Ext.define('Ext.Dialog', {
     // header
 
     updateHeader: function (header, oldHeader) {
-        var me = this,
-            beforeGuard;
-        
-        me.callParent([ header, oldHeader ]);
+        this.callParent([ header, oldHeader ]);
 
         if (header) {
-            me.syncHeaderItems();
-            
-            if (me.tabGuard && me.getTabGuard) {
-                beforeGuard = me.getTabGuard('before');
-                
-                // We need to keep top tab guard at the top of the DOM order
-                if (beforeGuard && beforeGuard.dom) {
-                    beforeGuard.insertBefore(header.el);
-                }
-            }
+            this.syncHeaderItems();
         }
     },
 
@@ -648,7 +571,7 @@ Ext.define('Ext.Dialog', {
     applyMaximizable: function (maximizable) {
         var me = this;
 
-        me.maximizeTool = Ext.updateWidget(me.maximizeTool, maximizable,
+        me.maximizeTool = Ext.Factory.widget.update(me.maximizeTool, maximizable,
             me, 'createMaximizeTool', 'maximizeTool');
 
         me.syncHeaderItems();
@@ -781,7 +704,7 @@ Ext.define('Ext.Dialog', {
     applyRestorable: function (restorable) {
         var me = this;
 
-        me.restoreTool = Ext.updateWidget(me.restoreTool, restorable,
+        me.restoreTool = Ext.Factory.widget.update(me.restoreTool, restorable,
             me, 'createRestoreTool', 'restoreTool');
 
         me.syncHeaderItems();
@@ -801,9 +724,14 @@ Ext.define('Ext.Dialog', {
     //-----------------------------------------------------------
 
     afterShow: function () {
-        this.callParent();
-        if (this.getModal()) {
-            this.focus();
+        var me = this,
+            focusEl;
+
+        if (me.getModal()) {
+            focusEl = me.getFocusEl();
+            if (focusEl) {
+                focusEl.focus();
+            }
         }
     },
 
