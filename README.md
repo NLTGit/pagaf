@@ -1,4 +1,4 @@
-# Precision Ag for the American Farmer
+# Precision Ag for All Farmers
 
 By [New Light Technologies](https://newlighttechnologies.com/) for the [Census Opportunity Project](https://newlighttechnologies.com/)
 
